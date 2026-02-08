@@ -1,153 +1,193 @@
 export const schedule = [
+  // -------------------------
+  // Söndag 8 Februari
+  // -------------------------
   {
-    id: 1,
-    date: '2026-02-04',
-    time: '19:05',
-    sport: 'Curling',
-    event: 'Mixed Dubbel: Sverige - Sydkorea',
-    channel: 'SVT',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 2,
-    date: '2026-02-06',
-    time: '10:05',
-    sport: 'Curling',
-    event: 'Mixed Dubbel: Sverige - Storbritannien',
-    channel: 'SVT',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 3,
-    date: '2026-02-06',
-    time: '14:35',
-    sport: 'Curling',
-    event: 'Mixed Dubbel: Sverige - Norge',
-    channel: 'SVT',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 4,
-    date: '2026-02-06',
-    time: '20:00',
-    sport: 'Ceremoni',
-    event: 'Invigningsceremoni',
-    channel: 'SVT/Max',
-    isMedal: false,
-    isSweden: false
-  },
-  {
-    id: 5,
-    date: '2026-02-07',
-    time: '10:05',
-    sport: 'Curling',
-    event: 'Mixed Dubbel: Sverige - Schweiz',
-    channel: 'SVT',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 6,
-    date: '2026-02-07',
-    time: '14:35',
-    sport: 'Curling',
-    event: 'Mixed Dubbel: Sverige - Italien',
-    channel: 'SVT',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 7,
-    date: '2026-02-07',
-    time: '14:40',
-    sport: 'Ishockey',
-    event: 'Damer: Sverige - Italien',
-    channel: 'TV4',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 8,
+    id: 801,
     date: '2026-02-08',
-    time: '14:30',
+    time: '12:30',
+    sport: 'Längdskidor',
+    event: 'Herrar: 10+10 km Skiathlon',
+    channel: 'Max',
+    isMedal: true,
+    isSweden: true, // William Poromaa?
+    url: 'https://www.max.com/se/sv/sports'
+  },
+  {
+    id: 802,
+    date: '2026-02-08',
+    time: '14:05',
+    sport: 'Skidskytte',
+    event: 'Mixedstafett 4x6 km',
+    channel: 'SVT',
+    isMedal: true,
+    isSweden: true, // Sebastian Samuelsson, Elvira Öberg
+    url: 'https://www.svtplay.se/sport'
+  },
+  {
+    id: 803,
+    date: '2026-02-08',
+    time: '14:35',
     sport: 'Curling',
     event: 'Mixed Dubbel: Kanada - Sverige',
     channel: 'SVT',
     isMedal: false,
-    isSweden: true
+    isSweden: true,
+    url: 'https://www.svtplay.se/sport'
   },
   {
-    id: 9,
+    id: 804,
     date: '2026-02-08',
     time: '16:40',
     sport: 'Ishockey',
     event: 'Damer: Frankrike - Sverige',
-    channel: 'SVT',
+    channel: 'TV4', // Ofta TV4/SVT delat
     isMedal: false,
-    isSweden: true
+    isSweden: true,
+    url: 'https://www.tv4play.se/sport'
   },
   {
-    id: 10,
+    id: 805,
     date: '2026-02-08',
-    time: '19:00',
+    time: '19:05',
     sport: 'Curling',
     event: 'Mixed Dubbel: USA - Sverige',
     channel: 'SVT',
     isMedal: false,
-    isSweden: true
+    isSweden: true,
+    url: 'https://www.svtplay.se/sport'
+  },
+
+  // -------------------------
+  // Måndag 9 Februari
+  // -------------------------
+  {
+    id: 901,
+    date: '2026-02-09',
+    time: '10:30',
+    sport: 'Alpint',
+    event: 'Herrar: Störtlopp (Kombination)',
+    channel: 'Max',
+    isMedal: false,
+    isSweden: false,
+    url: 'https://www.max.com/se/sv/sports'
   },
   {
-    id: 11,
+    id: 902,
+    date: '2026-02-09',
+    time: '12:30',
+    sport: 'Freeski',
+    event: 'Damer: Slopestyle Final',
+    channel: 'Max',
+    isMedal: true,
+    isSweden: true,
+    url: 'https://www.max.com/se/sv/sports'
+  },
+  {
+    id: 903,
+    date: '2026-02-09',
+    time: '14:00',
+    sport: 'Alpint',
+    event: 'Herrar: Slalom (Kombination)',
+    channel: 'Max',
+    isMedal: true,
+    isSweden: false,
+    url: 'https://www.max.com/se/sv/sports'
+  },
+  {
+    id: 904,
+    date: '2026-02-09',
+    time: '18:05',
+    sport: 'Curling',
+    event: 'Mixed Dubbel: Semifinal',
+    channel: 'SVT',
+    isMedal: false,
+    isSweden: true, // Hoppas på Sverige!
+    url: 'https://www.svtplay.se/sport'
+  },
+
+  // -------------------------
+  // Tisdag 10 Februari
+  // -------------------------
+  {
+    id: 1001,
+    date: '2026-02-10',
+    time: '09:15',
+    sport: 'Längdskidor',
+    event: 'Damer & Herrar: Sprint Kval (Klassiskt)',
+    channel: 'SVT',
+    isMedal: false,
+    isSweden: true, // Jonna Sundling, Edvin Anger
+    url: 'https://www.svtplay.se/sport'
+  },
+  {
+    id: 1002,
+    date: '2026-02-10',
+    time: '11:45',
+    sport: 'Längdskidor',
+    event: 'Damer & Herrar: Sprint Finaler',
+    channel: 'SVT',
+    isMedal: true,
+    isSweden: true,
+    url: 'https://www.svtplay.se/sport'
+  },
+  {
+    id: 1003,
+    date: '2026-02-10',
+    time: '17:00',
+    sport: 'Rodel',
+    event: 'Damer Singel: Åk 3 & 4',
+    channel: 'Max',
+    isMedal: true,
+    isSweden: true, // Tove Kohala
+    url: 'https://www.max.com/se/sv/sports'
+  },
+
+  // -------------------------
+  // Onsdag 11 Februari
+  // -------------------------
+  {
+    id: 1101,
+    date: '2026-02-11',
+    time: '11:30',
+    sport: 'Alpint',
+    event: 'Herrar: Super-G',
+    channel: 'Max',
+    isMedal: true,
+    isSweden: false, // Oklart svenskt hopp
+    url: 'https://www.max.com/se/sv/sports'
+  },
+  {
+    id: 1102,
+    date: '2026-02-11',
+    time: '14:15',
+    sport: 'Skidskytte',
+    event: 'Damer: Distans 15 km',
+    channel: 'SVT',
+    isMedal: true,
+    isSweden: true, // Elvira Öberg, Hanna Öberg
+    url: 'https://www.svtplay.se/sport'
+  },
+  {
+    id: 1103,
+    date: '2026-02-11',
+    time: '19:05',
+    sport: 'Curling',
+    event: 'Herrar: Sverige - Italien',
+    channel: 'SVT',
+    isMedal: false,
+    isSweden: true, // Lag Edin
+    url: 'https://www.svtplay.se/sport'
+  },
+  {
+    id: 1104,
     date: '2026-02-11',
     time: '21:10',
     sport: 'Ishockey',
     event: 'Herrar: Sverige - Italien',
-    channel: 'Max', // Checking rights, likely Max exclusives or shared
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 12,
-    date: '2026-02-13',
-    time: '12:10',
-    sport: 'Ishockey',
-    event: 'Herrar: Finland - Sverige',
-    channel: 'Max',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 13,
-    date: '2026-02-14',
-    time: '12:10',
-    sport: 'Ishockey',
-    event: 'Herrar: Sverige - Slovakien',
-    channel: 'Max',
-    isMedal: false,
-    isSweden: true
-  },
-  {
-    id: 14,
-    date: '2026-02-22',
-    time: '20:00',
-    sport: 'Ceremoni',
-    event: 'Avslutningsceremoni',
-    channel: 'TV4/Max',
-    isMedal: false,
-    isSweden: false
-  },
-  // Placeholders for other sports
-  {
-    id: 15,
-    date: '2026-02-07',
-    time: '11:00',
-    sport: 'Längdskidor',
-    event: 'Damernas Skiathlon',
     channel: 'SVT',
-    isMedal: true,
-    isSweden: true
+    isMedal: false,
+    isSweden: true,
+    url: 'https://www.svtplay.se/sport'
   }
 ];

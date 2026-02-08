@@ -1,33 +1,27 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { schedule } from './data/schedule';
 import DayGroup from './components/DayGroup';
-import FilterBar from './components/FilterBar';
 import { Snowflake } from 'lucide-react';
 
-const FILTERS = [
-  { id: 'all', label: 'Alla' },
-  { id: 'svt', label: 'SVT' },
-  { id: 'tv4', label: 'TV4' },
-  { id: 'max', label: 'Max' },
-  { id: 'medal', label: 'Medaljchans' },
-  { id: 'sweden', label: 'Sverige' }
-];
-
 function App() {
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   const filteredEvents = useMemo(() => {
+    const cutoff = new Date(now.getTime() - 3 * 60 * 60 * 1000); // Keep events from last 3 hours
+
     return schedule.filter(event => {
-      if (activeFilter === 'all') return true;
-      if (activeFilter === 'medal') return event.isMedal;
-      if (activeFilter === 'sweden') return event.isSweden;
-      // Channel filters
-      if (['svt', 'tv4', 'max'].includes(activeFilter)) {
-        return event.channel.toLowerCase().includes(activeFilter);
-      }
-      return true;
+      // Filter by time (Hide past events)
+      const eventTime = new Date(`${event.date}T${event.time}`);
+      if (isNaN(eventTime.getTime())) return false;
+
+      return eventTime >= cutoff;
     });
-  }, [activeFilter]);
+  }, [now]);
 
   const groupedEvents = useMemo(() => {
     const groups = {};
@@ -65,11 +59,7 @@ function App() {
         </div>
       </header>
 
-      <FilterBar
-        filters={FILTERS}
-        activeFilter={activeFilter}
-        onFilterChange={setActiveFilter}
-      />
+
 
       {Object.keys(groupedEvents).length > 0 ? (
         Object.keys(groupedEvents).sort().map(date => (
