@@ -31,7 +31,7 @@ const EventItem = ({ event, svtEvents }) => {
             }}>
             <div style={{
                 display: 'flex',
-                gap: '16px',
+                gap: '12px',
                 alignItems: 'center',
                 flexWrap: 'wrap'
             }}>
@@ -53,6 +53,38 @@ const EventItem = ({ event, svtEvents }) => {
                     </span>
                 </div>
 
+                {svtMatch ? (
+                    <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
+                ) : (
+                    <div style={{ display: 'flex', gap: '4px' }}>
+                        <a
+                            href="https://www.tv4play.se/kategorier/os-2026"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                backgroundColor: '#FF3334',
+                                color: 'white',
+                                padding: '3px 10px',
+                                borderRadius: '6px',
+                                fontSize: '0.75rem',
+                                fontWeight: '900',
+                                textDecoration: 'none',
+                                transition: 'transform 0.1s'
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                        >
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            TV4
+                        </a>
+                    </div>
+                )}
+
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', flex: 1 }}>
                     <span style={{
                         fontSize: '1.2rem',
@@ -69,37 +101,6 @@ const EventItem = ({ event, svtEvents }) => {
                     }}>
                         {event.event}
                     </span>
-                    {svtMatch ? (
-                        <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
-                    ) : (
-                        <div style={{ display: 'flex', gap: '4px' }}>
-                            <a
-                                href="https://www.tv4play.se/kategorier/os-2026"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '4px',
-                                    backgroundColor: '#FF3334',
-                                    color: 'white',
-                                    padding: '3px 10px',
-                                    borderRadius: '6px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: '900',
-                                    textDecoration: 'none',
-                                    transition: 'transform 0.1s'
-                                }}
-                                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                TV4
-                            </a>
-                        </div>
-                    )}
                 </div>
             </div>
 
