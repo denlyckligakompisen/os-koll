@@ -238,7 +238,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                                             alignItems: 'center',
                                                             gap: '8px',
                                                             padding: '6px 12px',
-                                                            backgroundColor: 'var(--color-secondary)',
+                                                            backgroundColor: '#00c800',
                                                             color: 'white',
                                                             borderRadius: '6px',
                                                             fontSize: '0.85rem',
