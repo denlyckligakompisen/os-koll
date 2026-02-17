@@ -6,15 +6,68 @@ const SokSchedule = ({ events }) => {
         return <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>Inga events hittades från SOK.</div>;
     }
 
-    // Helper to normalize time format "HH.MM" (SOK) to "HH:MM" (standard)
-    const normalizeTime = (timeStr) => {
-        return timeStr.replace('.', ':');
+    const formatDayHeader = (dayStr) => {
+        try {
+            // expected format: "tisdag 17 feb"
+            const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
+            if (!parts) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
+
+            const dayName = parts[1];
+            const dayNum = parseInt(parts[2], 10);
+            const monthStr = parts[3];
+
+            const monthMap = {
+                'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5,
+                'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11
+            };
+
+            // Handle full month names if present
+            if (monthStr.length > 3) {
+                const fullMonthMap = {
+                    'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5,
+                    'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11
+                };
+                if (fullMonthMap[monthStr] !== undefined) monthMap[monthStr] = fullMonthMap[monthStr];
+            }
+
+            const monthIndex = monthMap[monthStr];
+            if (monthIndex === undefined) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
+
+            const now = new Date();
+            const currentYear = now.getFullYear(); // 2026?
+
+            const date = new Date(currentYear, monthIndex, dayNum);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            // Reset hours for comparison
+            date.setHours(0, 0, 0, 0);
+
+            if (date.getTime() === today.getTime()) {
+                return "Idag";
+            } else if (date.getTime() === tomorrow.getTime()) {
+                return "Imorgon";
+            } else {
+                // Just capitalize the day name, e.g. "Onsdag"
+                // Or keep the full string "Onsdag 18 feb"? 
+                // User said "sedan veckodagar", implies simplify to just the day?
+                // "Idag", "Imorgon", "Torsdag", "Fredag"...
+                // But if there's a gap or for clarity, the date is nice. 
+                // I'll capitalize the full string for now to be safe, e.g. "Torsdag 19 feb"
+                // actually, let's just use the dayName capitalized.
+                return dayName.charAt(0).toUpperCase() + dayName.slice(1);
+            }
+        } catch (e) {
+            return dayStr;
+        }
     };
 
     const groupedEvents = useMemo(() => {
         const groups = {};
         events.forEach(event => {
-            // Use the day string directly for grouping, e.g., "tisdag 17 feb"
             if (!groups[event.day]) {
                 groups[event.day] = [];
             }
@@ -23,26 +76,28 @@ const SokSchedule = ({ events }) => {
         return groups;
     }, [events]);
 
-    // Sort days? Since they come in scrape order we might not need to sort by date object if scraped sequentially.
-    // But let's rely on scrape order for now as "tisdag 17 feb" is not easily sortable without parsing.
-    // Assuming the scraper saves them in chronological order.
     const days = Object.keys(groupedEvents);
 
     return (
         <div className="day-group" style={{ backgroundColor: 'var(--color-bg-card)', borderRadius: '12px', marginBottom: '20px', overflow: 'hidden' }}>
-
-
             {days.map(day => (
                 <div key={day}>
                     <div style={{
-                        padding: '0.75rem 1rem',
+                        padding: '1rem',
                         backgroundColor: 'var(--color-bg-alt)',
-                        fontWeight: 'bold',
-                        fontSize: '1rem',
                         borderBottom: '1px solid var(--color-border)',
                         color: 'var(--color-text-highlight)'
                     }}>
-                        {day}
+                        <h2 style={{
+                            margin: 0,
+                            fontSize: '1.5rem', // Större text
+                            fontWeight: '800',
+                            textTransform: 'capitalize'
+                        }}>
+                            {formatDayHeader(day)}
+                        </h2>
+                        {/* Optional: Show full date underneath if it's Idag/Imorgon/WeekDay */}
+                        {/* <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 'normal' }}>{day}</span> */}
                     </div>
 
                     <div className="events-list">
