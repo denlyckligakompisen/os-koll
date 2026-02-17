@@ -27,11 +27,11 @@ const Header = ({ medals }) => (
   }}>
     <div style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-3px)' }}>
       <svg width="60" height="28" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="18" r="16" fill="none" stroke="#0081C8" strokeWidth="4" />
-        <circle cx="55" cy="18" r="16" fill="none" stroke="#000000" strokeWidth="4" />
-        <circle cx="90" cy="18" r="16" fill="none" stroke="#EE334E" strokeWidth="4" />
-        <circle cx="37.5" cy="34" r="16" fill="none" stroke="#FCB131" strokeWidth="4" />
-        <circle cx="72.5" cy="34" r="16" fill="none" stroke="#00A651" strokeWidth="4" />
+        <circle cx="20" cy="18" r="16" fill="none" stroke="white" strokeWidth="4" />
+        <circle cx="55" cy="18" r="16" fill="none" stroke="white" strokeWidth="4" />
+        <circle cx="90" cy="18" r="16" fill="none" stroke="white" strokeWidth="4" />
+        <circle cx="37.5" cy="34" r="16" fill="none" stroke="white" strokeWidth="4" />
+        <circle cx="72.5" cy="34" r="16" fill="none" stroke="white" strokeWidth="4" />
       </svg>
     </div>
     <div>
