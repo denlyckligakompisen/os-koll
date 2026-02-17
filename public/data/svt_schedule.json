@@ -9,15 +9,6 @@
     "duration": "15 tim"
   },
   {
-    "date": "2026-02-17",
-    "time": "LIVE",
-    "title": "Ishockey",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/ed66E6g/os-2026-ishockey/attondelsfinal-sverige-lettland",
-    "live": true,
-    "duration": "2 tim 30 min"
-  },
-  {
     "date": "2026-02-18",
     "time": "09:15",
     "title": "Huvudsändning",
@@ -111,8 +102,8 @@
     "date": "2026-02-18",
     "time": "18:10",
     "title": "Ishockey",
-    "subtitle": "Kvartsfinal",
-    "link": "https://www.svtplay.se/video/85ddadm/os-2026-ishockey/kvartsfinal",
+    "subtitle": "Kvartsfinal: Finland-Schweiz",
+    "link": "https://www.svtplay.se/video/85ddadm/os-2026-ishockey/kvartsfinal-finland-schweiz",
     "live": false,
     "duration": "2 tim 30 min"
   },
@@ -129,8 +120,8 @@
     "date": "2026-02-18",
     "time": "21:10",
     "title": "Ishockey",
-    "subtitle": "Kvartsfinal",
-    "link": "https://www.svtplay.se/video/jQrrRrb/os-2026-ishockey/kvartsfinal",
+    "subtitle": "Kvartsfinal: USA-Sverige",
+    "link": "https://www.svtplay.se/video/jQrrRrb/os-2026-ishockey/kvartsfinal-usa-sverige",
     "live": false,
     "duration": "2 tim 30 min"
   },
