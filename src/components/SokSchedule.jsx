@@ -1,7 +1,7 @@
 
 import React, { useMemo } from 'react';
 
-const SokSchedule = ({ events }) => {
+const SokSchedule = ({ events, svtEvents }) => {
     if (!events || events.length === 0) {
         return <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>Inga events hittades från SOK.</div>;
     }
@@ -159,44 +159,60 @@ const SokSchedule = ({ events }) => {
                                 border: '1px solid var(--color-border)',
                                 boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>{event.time}</span>
-                                    <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{event.sport}</span>
                                     {(() => {
-                                        const status = getEventStatus(event);
-                                        if (status) {
-                                            return (
-                                                <span style={{
-                                                    fontSize: '0.75rem',
-                                                    fontWeight: 'bold',
-                                                    backgroundColor: status.color,
-                                                    color: '#fff',
-                                                    padding: '2px 8px',
-                                                    borderRadius: '4px',
-                                                    animation: status.animate ? 'pulse 2s infinite' : 'none',
-                                                    marginLeft: '8px',
-                                                    display: 'inline-block',
-                                                    verticalAlign: 'middle'
-                                                }}>
-                                                    {status.label}
-                                                </span>
-                                            );
+                                      if (svtEvents) {
+                                        const eventDate = parseEventDate(event.day, event.time);
+                                        if (eventDate) {
+                                            const dateStr = eventDate.toISOString().split('T')[0];
+                                            const match = svtEvents.find(svt => {
+                                                if (svt.date !== dateStr) return false;
+                                                const [h1, m1] = event.time.replace('.',':').split(':').map(Number);
+                                                const [h2, m2] = svt.time.replace('.',':').split(':').map(Number);
+                                                if (Math.abs((h1*60+m1) - (h2*60+m2)) > 20) return false;
+                                                const sportLower = event.sport.toLowerCase();
+                                                const svtTitleLower = svt.title.toLowerCase();
+                                                return svtTitleLower.includes(sportLower) || sportLower.includes(svtTitleLower);
+                                            });
+                                            
+                                            if (match) {
+                                                return (
+                                                    <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ 
+                                                        marginLeft: 'auto', 
+                                                        display: 'inline-flex', 
+                                                        alignItems: 'center', 
+                                                        textDecoration: 'none',
+                                                        backgroundColor: '#000000', // Black background for SVT Play badge
+                                                        color: '#ffffff',
+                                                        padding: '4px 8px',
+                                                        borderRadius: '4px',
+                                                        fontSize: '0.75rem',
+                                                        fontWeight: 'bold',
+                                                        border: '1px solid #333'
+                                                    }}>
+                                                        SVT Play
+                                                    </a>
+                                                );
+                                            }
                                         }
-                                        return null;
+                                      }
+                                      return null;
                                     })()}
                                 </div>
                                 <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem' }}>{event.event}</h3>
-                                {event.details && (
+                                {
+                                event.details && (
                                     <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', whiteSpace: 'pre-line', lineHeight: '1.4' }}>
                                         {event.details}
                                     </p>
-                                )}
+                                )
+                            }
                             </div>
                         ))}
-                    </div>
                 </div>
-            ))}
-        </div>
+                </div>
+    ))
+}
+        </div >
     );
 };
 

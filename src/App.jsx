@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { fetchSchedule, fetchSokSchedule } from './services/olympicsApi';
+import { fetchSchedule, fetchSokSchedule, fetchSvtSchedule, fetchMedals } from './services/olympicsApi';
 import DayGroup from './components/DayGroup';
 import FilterBar from './components/FilterBar';
 import SokSchedule from './components/SokSchedule';
@@ -9,6 +9,8 @@ function App() {
   const [now, setNow] = useState(new Date());
   const [schedule, setSchedule] = useState([]);
   const [sokSchedule, setSokSchedule] = useState([]);
+  const [svtSchedule, setSvtSchedule] = useState([]);
+  const [medals, setMedals] = useState({ gold: 0, silver: 0, bronze: 0 });
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('all');
 
@@ -22,12 +24,16 @@ function App() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [data, sokData] = await Promise.all([
+        const [data, sokData, svtData, medalData] = await Promise.all([
           fetchSchedule(),
-          fetchSokSchedule()
+          fetchSokSchedule(),
+          fetchSvtSchedule(),
+          fetchMedals()
         ]);
         setSchedule(data);
         setSokSchedule(sokData);
+        setSvtSchedule(svtData);
+        if (medalData) setMedals(medalData);
       } catch (error) {
         console.error("Failed to fetch schedule:", error);
       } finally {
@@ -93,6 +99,17 @@ function App() {
         <div>
           <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>Svenska OS-kollen</h1>
           <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>Vinter-OS 2026</p>
+          <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '8px' }}>
+            <span title="Guld" style={{ fontSize: '1rem', fontWeight: 'bold', color: '#e0aa3e', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              🥇 {medals.gold}
+            </span>
+            <span title="Silver" style={{ fontSize: '1rem', fontWeight: 'bold', color: '#b6b6b6', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              🥈 {medals.silver}
+            </span>
+            <span title="Brons" style={{ fontSize: '1rem', fontWeight: 'bold', color: '#bf8970', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              🥉 {medals.bronze}
+            </span>
+          </div>
         </div>
       </header>
 
@@ -101,7 +118,7 @@ function App() {
 
 
       {sokSchedule.length > 0 && (
-        <SokSchedule events={sokSchedule} />
+        <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
       )}
 
       {Object.keys(groupedEvents).length > 0 && (

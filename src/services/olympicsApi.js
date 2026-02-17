@@ -27,6 +27,30 @@ export const fetchSokSchedule = async () => {
     }
 };
 
+export const fetchSvtSchedule = async () => {
+    try {
+        const response = await fetch('/data/svt_schedule.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch SVT schedule from JSON:", error);
+        return [];
+    }
+};
+
+
+export const fetchMedals = async () => {
+    try {
+        const response = await fetch('/data/medals.json');
+        if (!response.ok) return { gold: 0, silver: 0, bronze: 0 };
+        return await response.json();
+    } catch (error) {
+        return { gold: 0, silver: 0, bronze: 0 };
+    }
+};
 
 const fallbackSchedule = [
     // -------------------------
