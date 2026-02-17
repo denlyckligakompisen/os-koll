@@ -82,7 +82,7 @@ const EventItem = ({ event, svtEvents }) => {
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
-                                TV4 PLAY
+                                TV4
                             </a>
                         </div>
                     )}

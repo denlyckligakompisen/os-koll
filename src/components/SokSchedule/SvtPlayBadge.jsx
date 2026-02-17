@@ -28,7 +28,7 @@ const SvtPlayBadge = ({ link, isLive }) => {
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z" />
             </svg>
-            SVT PLAY
+            SVT
             {isLive && (
                 <span style={{
                     width: '6px',
