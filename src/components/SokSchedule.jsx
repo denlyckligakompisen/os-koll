@@ -108,6 +108,11 @@ const SokSchedule = ({ events }) => {
                                     <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{event.sport}</span>
                                 </div>
                                 <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem' }}>{event.event}</h3>
+                                {event.details && (
+                                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', whiteSpace: 'pre-line', lineHeight: '1.4' }}>
+                                        {event.details}
+                                    </p>
+                                )}
                             </div>
                         ))}
                     </div>
