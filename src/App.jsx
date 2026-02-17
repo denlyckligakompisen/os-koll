@@ -1,41 +1,26 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { fetchSchedule, fetchSokSchedule, fetchSvtSchedule, fetchMedals } from './services/olympicsApi';
-import DayGroup from './components/DayGroup';
-import FilterBar from './components/FilterBar';
+import React, { useState, useEffect } from 'react';
+import { fetchSokSchedule, fetchMedals, fetchSvtSchedule } from './services/olympicsApi';
 import SokSchedule from './components/SokSchedule';
-import { Snowflake } from 'lucide-react';
 
 function App() {
-  const [now, setNow] = useState(new Date());
-  const [schedule, setSchedule] = useState([]);
   const [sokSchedule, setSokSchedule] = useState([]);
   const [svtSchedule, setSvtSchedule] = useState([]);
   const [medals, setMedals] = useState({ gold: 0, silver: 0, bronze: 0 });
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState('all');
-
-
-
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 60000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [data, sokData, svtData, medalData] = await Promise.all([
-          fetchSchedule(),
+        const [sokData, testSvtData, medalData] = await Promise.all([
           fetchSokSchedule(),
           fetchSvtSchedule(),
           fetchMedals()
         ]);
-        setSchedule(data);
         setSokSchedule(sokData);
-        setSvtSchedule(svtData);
+        setSvtSchedule(testSvtData);
         if (medalData) setMedals(medalData);
       } catch (error) {
-        console.error("Failed to fetch schedule:", error);
+        console.error("Failed to fetch data:", error);
       } finally {
         setLoading(false);
       }
@@ -43,32 +28,6 @@ function App() {
     loadData();
   }, []);
 
-  const filteredEvents = useMemo(() => {
-    const cutoff = new Date(now.getTime() - 3 * 60 * 60 * 1000); // Keep events from last 3 hours
-
-    return schedule.filter(event => {
-      // Filter by time (Hide past events)
-      const eventTime = new Date(`${event.date}T${event.time}`);
-      if (isNaN(eventTime.getTime())) return false;
-
-      return eventTime >= cutoff;
-    }).filter(event => {
-      if (activeFilter === 'sweden') return event.isSweden;
-      if (activeFilter === 'medal') return event.isMedal;
-      return true; // 'all'
-    });
-  }, [now, schedule, activeFilter]);
-
-  const groupedEvents = useMemo(() => {
-    const groups = {};
-    filteredEvents.forEach(event => {
-      if (!groups[event.date]) {
-        groups[event.date] = [];
-      }
-      groups[event.date].push(event);
-    });
-    return groups;
-  }, [filteredEvents]);
 
   if (loading) {
     return (
@@ -87,7 +46,7 @@ function App() {
         marginBottom: '24px',
         paddingTop: '12px'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', transform: 'translateY(-3px)' }}>
           <svg width="60" height="28" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="18" r="16" fill="none" stroke="#0081C8" strokeWidth="4" />
             <circle cx="55" cy="18" r="16" fill="none" stroke="#000000" strokeWidth="4" />
@@ -97,7 +56,7 @@ function App() {
           </svg>
         </div>
         <div>
-          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>Svenska OS-kollen</h1>
+          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>OS-kollen</h1>
           <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>Vinter-OS 2026</p>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '8px' }}>
             <span title="Guld" style={{ fontSize: '1rem', fontWeight: 'bold', color: '#e0aa3e', display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -113,22 +72,8 @@ function App() {
         </div>
       </header>
 
-
-
-
-
       {sokSchedule.length > 0 && (
         <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
-      )}
-
-      {Object.keys(groupedEvents).length > 0 && (
-        Object.keys(groupedEvents).sort().map(date => (
-          <DayGroup
-            key={date}
-            date={date}
-            events={groupedEvents[date].sort((a, b) => a.time.localeCompare(b.time))}
-          />
-        ))
       )}
     </div>
   );

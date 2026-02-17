@@ -55,11 +55,26 @@ async function scrapeSok() {
             const eventEl = $el.find('.lp-schedule__title-wrap h3');
             const event = eventEl.text().trim();
 
+            const contentDiv = $el.find('.lp-schedule__content-wrap .sv-text-portlet-content');
+
+            // Clone the content to avoid modifying the original $
+            const $content = cheerio.load(contentDiv.html() || '')('body');
+
+            // Replace <br> tags with newlines
+            $content.find('br').replaceWith('\n');
+
             let details = '';
-            $el.find('.lp-schedule__content-wrap .sv-text-portlet-content p').each((j, p) => {
-                const text = $(p).text().trim();
-                if (text) details += text + '\n';
-            });
+            const paragraphs = $content.find('p');
+
+            if (paragraphs.length > 0) {
+                paragraphs.each((j, p) => {
+                    const text = $(p).text().trim();
+                    if (text) details += text + '\n';
+                });
+            } else {
+                // If no paragraphs, take the whole text (which now has \n for <br>)
+                details = $content.text();
+            }
             details = details.trim();
 
             if (time && sport) {

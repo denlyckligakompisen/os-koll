@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const URL = 'https://www.svtplay.se/kategori/os-2026/tabla';
+const URL = 'https://www.svtplay.se/kategori/os-2026/tabla?scheduleCategory=svenskt-deltagande';
 const OUTPUT_FILE = path.join(__dirname, '../public/data/svt_schedule.json');
 
 const monthMap = {

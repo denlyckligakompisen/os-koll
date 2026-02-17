@@ -1,42 +1,37 @@
 
 import React, { useMemo } from 'react';
 
-const SokSchedule = ({ events }) => {
+const SokSchedule = ({ events, svtEvents = [] }) => {
     if (!events || events.length === 0) {
         return <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>Inga events hittades från SOK.</div>;
     }
 
-    const formatDayHeader = (dayStr) => {
+    const getEventDate = (dayStr) => {
         try {
-            // expected format: "tisdag 17 feb"
             const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
-            if (!parts) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
-
-            const dayName = parts[1];
+            if (!parts) return null;
             const dayNum = parseInt(parts[2], 10);
-            const monthStr = parts[3];
-
+            const monthStr = parts[3].toLowerCase().substring(0, 3);
             const monthMap = {
                 'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5,
                 'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11
             };
-
-            // Handle full month names if present
-            if (monthStr.length > 3) {
-                const fullMonthMap = {
-                    'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5,
-                    'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11
-                };
-                if (fullMonthMap[monthStr] !== undefined) monthMap[monthStr] = fullMonthMap[monthStr];
-            }
-
             const monthIndex = monthMap[monthStr];
-            if (monthIndex === undefined) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
+            if (monthIndex === undefined) return null;
+            return new Date(new Date().getFullYear(), monthIndex, dayNum);
+        } catch (e) {
+            return null;
+        }
+    };
 
-            const now = new Date();
-            const currentYear = now.getFullYear(); // 2026?
+    const formatDayHeader = (dayStr) => {
+        try {
+            const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
+            if (!parts) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
 
-            const date = new Date(currentYear, monthIndex, dayNum);
+            const dayName = parts[1];
+            const date = getEventDate(dayStr);
+            if (!date) return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
@@ -69,6 +64,43 @@ const SokSchedule = ({ events }) => {
 
 
 
+    const findSvtMatch = (event) => {
+        if (!svtEvents || svtEvents.length === 0) return null;
+
+        const date = getEventDate(event.day);
+        if (!date) return null;
+        const dateStr = date.toISOString().split('T')[0];
+
+        // Normalize time for comparison (e.g. "09.45" -> "09:45")
+        const normalizedSokTime = event.time.replace('.', ':');
+
+        // Filter events for the same day
+        const dayEvents = svtEvents.filter(e => e.date === dateStr);
+
+        // 1. Precise time match
+        let match = dayEvents.find(e => e.time === normalizedSokTime);
+        if (match) return match;
+
+        // 2. keyword match (if the SVT title contains the sport name and time is close)
+        const sportLower = event.sport.toLowerCase();
+        match = dayEvents.find(e => {
+            const titleLower = e.title.toLowerCase();
+            const subtitleLower = e.subtitle?.toLowerCase() || '';
+            const isSportMatch = titleLower.includes(sportLower) || subtitleLower.includes(sportLower);
+
+            // Check if time is within +/- 1 hour (broadcasting often starts earlier or covers multiple events)
+            const [sokH, sokM] = normalizedSokTime.split(':').map(Number);
+            const [svtH, svtM] = e.time.split(':').map(Number);
+            const sokTotal = sokH * 60 + sokM;
+            const svtTotal = svtH * 60 + svtM;
+
+            const timeDiff = Math.abs(sokTotal - svtTotal);
+            return isSportMatch && timeDiff <= 60;
+        });
+
+        return match;
+    };
+
     const formatDetails = (text) => {
         if (!text) return "";
         let formatted = text;
@@ -86,8 +118,17 @@ const SokSchedule = ({ events }) => {
     };
 
     const groupedEvents = useMemo(() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
         const groups = {};
         events.forEach(event => {
+            const eventDate = getEventDate(event.day);
+            if (eventDate) {
+                eventDate.setHours(0, 0, 0, 0);
+                if (eventDate < today) return; // Skip past events
+            }
+
             if (!groups[event.day]) {
                 groups[event.day] = [];
             }
@@ -181,6 +222,53 @@ const SokSchedule = ({ events }) => {
                                             </p>
                                         </div>
                                     )}
+
+                                    {(() => {
+                                        const svtMatch = findSvtMatch(event);
+                                        if (svtMatch) {
+                                            return (
+                                                <div style={{ marginTop: '12px' }}>
+                                                    <a
+                                                        href={svtMatch.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        style={{
+                                                            display: 'inline-flex',
+                                                            alignItems: 'center',
+                                                            gap: '8px',
+                                                            padding: '6px 12px',
+                                                            backgroundColor: 'var(--color-secondary)',
+                                                            color: 'white',
+                                                            borderRadius: '6px',
+                                                            fontSize: '0.85rem',
+                                                            fontWeight: '600',
+                                                            textDecoration: 'none',
+                                                            transition: 'opacity 0.2s'
+                                                        }}
+                                                        onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                                                        onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                                                    >
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                            <path d="M8 5v14l11-7z" />
+                                                        </svg>
+                                                        Titta på SVT Play
+                                                    </a>
+                                                    {svtMatch.live && (
+                                                        <span style={{
+                                                            marginLeft: '8px',
+                                                            fontSize: '0.75rem',
+                                                            color: '#ff4b2b',
+                                                            fontWeight: 'bold',
+                                                            textTransform: 'uppercase'
+                                                        }}>
+                                                            ● LIVE
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })()}
                                 </div>
                             );
                         })}
