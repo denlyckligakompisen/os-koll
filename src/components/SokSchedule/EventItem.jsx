@@ -80,23 +80,41 @@ const EventItem = ({ event, svtEvents }) => {
                         <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
                     ) : (
                         <div style={{ display: 'flex', gap: '4px' }}>
-                            <div style={{
-                                backgroundColor: '#f44336', // TV4 Red
-                                color: 'white',
-                                padding: '2px 8px',
-                                borderRadius: '4px',
-                                fontSize: '0.7rem',
-                                fontWeight: '800'
-                            }}>TV4 Play</div>
-                            <div style={{
-                                backgroundColor: '#000000', // Max Black
-                                color: 'white',
-                                padding: '2px 8px',
-                                borderRadius: '4px',
-                                fontSize: '0.7rem',
-                                fontWeight: '800',
-                                border: '1px solid rgba(255,255,255,0.2)'
-                            }}>MAX</div>
+                            <a
+                                href="https://www.tv4play.se/kategorier/os-2026"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    backgroundColor: '#f44336', // TV4 Red
+                                    color: 'white',
+                                    padding: '2px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '0.7rem',
+                                    fontWeight: '800',
+                                    textDecoration: 'none',
+                                    transition: 'opacity 0.2s'
+                                }}
+                                onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                            >TV4 Play</a>
+                            <a
+                                href="https://www.hbomax.com/se/sv/olympics"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    backgroundColor: '#000000', // Max Black
+                                    color: 'white',
+                                    padding: '2px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '0.7rem',
+                                    fontWeight: '800',
+                                    border: '1px solid rgba(255,255,255,0.2)',
+                                    textDecoration: 'none',
+                                    transition: 'opacity 0.2s'
+                                }}
+                                onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                            >MAX</a>
                         </div>
                     )}
                 </div>
