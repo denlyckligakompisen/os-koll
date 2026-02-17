@@ -44,6 +44,11 @@ jobs:
           git add public/data/sok_schedule.json
           git add public/data/svt_schedule.json
           git add public/data/medals.json
-          # Pull latest changes to avoid conflicts, then commit and push if there are changes
-          git pull --rebase origin main
-          git diff --staged --quiet || (git commit -m "Update schedule and medals" && git push)
+          
+          # Commit the changes first (if any)
+          if ! git diff --staged --quiet; then
+            git commit -m "Update schedule and medals"
+            # Now pull with rebase to integrate remote changes
+            git pull --rebase origin main
+            git push
+          fi
