@@ -13,7 +13,8 @@ const OUTPUT_FILE = path.join(__dirname, '../public/data/svt_schedule.json');
 
 const monthMap = {
     'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5,
-    'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11
+    'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11,
+    'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'jun': 5, 'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11
 };
 
 function parseDate(heading) {
@@ -80,7 +81,10 @@ async function scrapeSvt() {
                             const date = parseDate(section.heading);
                             if (!date) return;
 
-                            const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
+                            const yr = date.getFullYear();
+                            const mo = String(date.getMonth() + 1).padStart(2, '0');
+                            const dy = String(date.getDate()).padStart(2, '0');
+                            const dateStr = `${yr}-${mo}-${dy}`;
 
                             if (section.modules) {
                                 section.modules.forEach(mod => {

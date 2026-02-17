@@ -69,7 +69,10 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
 
         const date = getEventDate(event.day);
         if (!date) return null;
-        const dateStr = date.toISOString().split('T')[0];
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
 
         // Normalize time for comparison (e.g. "09.45" -> "09:45")
         const normalizedSokTime = event.time.replace('.', ':');
@@ -189,7 +192,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             {event.time}
                                         </span>
 
-                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'baseline' }}>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
                                             <span style={{
                                                 fontSize: '1.1rem',
                                                 fontWeight: '700',
@@ -204,9 +207,31 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             }}>
                                                 {event.event}
                                             </span>
+                                            {(() => {
+                                                const svtMatch = findSvtMatch(event);
+                                                if (svtMatch) {
+                                                    return (
+                                                        <div
+                                                            title="Sänds på SVT Play"
+                                                            style={{
+                                                                display: 'inline-flex',
+                                                                alignItems: 'center',
+                                                                backgroundColor: '#00d2c8', // SVT Play Teal
+                                                                padding: '2px 6px',
+                                                                borderRadius: '4px',
+                                                                marginLeft: '4px'
+                                                            }}
+                                                        >
+                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+                                                                <path d="M8 5v14l11-7z" />
+                                                            </svg>
+                                                            <span style={{ color: 'white', fontSize: '0.65rem', fontWeight: '800', marginLeft: '2px' }}>PLAY</span>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })()}
                                         </div>
-
-
                                     </div>
 
                                     {event.details && (
