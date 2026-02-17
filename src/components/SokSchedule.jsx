@@ -1,7 +1,7 @@
 
 import React, { useMemo } from 'react';
 
-const SokSchedule = ({ events, svtEvents }) => {
+const SokSchedule = ({ events }) => {
     if (!events || events.length === 0) {
         return <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>Inga events hittades från SOK.</div>;
     }
