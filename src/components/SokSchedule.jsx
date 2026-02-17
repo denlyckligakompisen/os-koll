@@ -207,6 +207,49 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             }}>
                                                 {event.event}
                                             </span>
+                                            {(() => {
+                                                const svtMatch = findSvtMatch(event);
+                                                if (svtMatch) {
+                                                    return (
+                                                        <a
+                                                            href={svtMatch.link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            style={{
+                                                                display: 'inline-flex',
+                                                                alignItems: 'center',
+                                                                gap: '4px',
+                                                                padding: '2px 8px',
+                                                                backgroundColor: '#00c800',
+                                                                color: 'white',
+                                                                borderRadius: '4px',
+                                                                fontSize: '0.75rem',
+                                                                fontWeight: '800',
+                                                                textDecoration: 'none',
+                                                                marginLeft: '4px',
+                                                                transition: 'opacity 0.2s'
+                                                            }}
+                                                            onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                                                            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                                                        >
+                                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
+                                                                <path d="M8 5v14l11-7z" />
+                                                            </svg>
+                                                            SVT PLAY
+                                                            {svtMatch.live && (
+                                                                <span style={{
+                                                                    width: '6px',
+                                                                    height: '6px',
+                                                                    backgroundColor: '#ff4b2b',
+                                                                    borderRadius: '50%',
+                                                                    marginLeft: '2px'
+                                                                }} />
+                                                            )}
+                                                        </a>
+                                                    );
+                                                }
+                                                return null;
+                                            })()}
                                         </div>
                                     </div>
 
@@ -224,52 +267,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                         </div>
                                     )}
 
-                                    {(() => {
-                                        const svtMatch = findSvtMatch(event);
-                                        if (svtMatch) {
-                                            return (
-                                                <div style={{ marginTop: '12px' }}>
-                                                    <a
-                                                        href={svtMatch.link}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        style={{
-                                                            display: 'inline-flex',
-                                                            alignItems: 'center',
-                                                            gap: '8px',
-                                                            padding: '6px 12px',
-                                                            backgroundColor: '#00c800',
-                                                            color: 'white',
-                                                            borderRadius: '6px',
-                                                            fontSize: '0.85rem',
-                                                            fontWeight: '600',
-                                                            textDecoration: 'none',
-                                                            transition: 'opacity 0.2s'
-                                                        }}
-                                                        onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
-                                                        onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
-                                                    >
-                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                                            <path d="M8 5v14l11-7z" />
-                                                        </svg>
-                                                        Titta på SVT Play
-                                                    </a>
-                                                    {svtMatch.live && (
-                                                        <span style={{
-                                                            marginLeft: '8px',
-                                                            fontSize: '0.75rem',
-                                                            color: '#ff4b2b',
-                                                            fontWeight: 'bold',
-                                                            textTransform: 'uppercase'
-                                                        }}>
-                                                            ● LIVE
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })()}
                                 </div>
                             );
                         })}
