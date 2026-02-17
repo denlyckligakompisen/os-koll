@@ -106,10 +106,13 @@ const SokSchedule = ({ events }) => {
     const formatDetails = (text) => {
         if (!text) return "";
         let formatted = text;
+
+        // Remove "Ställning..." and everything after it
+        formatted = formatted.replace(/\s*Ställning.*$/s, '');
+
         // Break after score (e.g. "9-4 Christoffer")
         formatted = formatted.replace(/(\d+[-–]\d+)\s+([A-ZÅÄÖ])/g, '$1\n$2');
-        // Break before "Ställning"
-        formatted = formatted.replace(/\s+(Ställning)/g, '\n\n$1');
+
         return formatted;
     };
 
