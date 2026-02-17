@@ -183,7 +183,24 @@ const SokSchedule = ({ events }) => {
                                             );
                                         }
                                         return null;
+                                        return null;
                                     })()}
+
+                                    {/* Default broadcaster Max */}
+                                    <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }} title="Sänds på Max">
+                                        <div style={{
+                                            backgroundColor: '#002f6c',
+                                            width: '36px',
+                                            height: '18px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            borderRadius: '9px',
+                                            boxShadow: '0 1px 2px rgba(0,0,0,0.2)'
+                                        }}>
+                                            <span style={{ color: 'white', fontWeight: '900', fontSize: '11px', lineHeight: 1, paddingBottom: '2px' }}>max</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem' }}>{event.event}</h3>
                                 {event.details && (
