@@ -5,34 +5,84 @@ const ChannelLogo = ({ channel, size = 24 }) => {
 
     if (normalizedChannel.includes('svt')) {
         return (
-            <svg width={size * 2.5} height={size} viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SVT">
-                {/* Simple background pill if needed, or just the logo. Let's do a stylized 'svt' text for now as the flower is complex */}
-                {/* This is a simplified representation */}
-                <path d="M15 28C10 28 8 26 8 22H12C12 24 13 25 15 25C17 25 18 24 18 22C18 19 12 19 12 15C12 11 15 9 19 9C23 9 25 11 25 15H21C21 13 20 12 19 12C17 12 16 13 16 15C16 17 22 17 22 22C22 26 19 28 15 28Z" fill="white" />
-                <path d="M35 28L28 9H32L37 24L42 9H46L39 28H35Z" fill="white" />
-                <path d="M58 12H53V28H49V12H44V9H58V12Z" fill="white" />
-                {/* The 'flower' icon roughly approximated or just kept as text for clarity at small sizes */}
-            </svg>
+            <div style={{
+                backgroundColor: 'white',
+                padding: '4px 12px',
+                borderRadius: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                height: size
+            }}>
+                <svg width={size * 1.5} height={size * 0.6} viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 15C7 15 5 13 5 10H8C8 11 9 12 10 12C11 12 12 11 12 10C12 8 8 8 8 6C8 4 10 3 12 3C14 3 16 4 16 6H13C13 5 12 4 12 4C11 4 11 5 11 6C11 7 15 7 15 10C15 13 13 15 10 15Z" fill="#1f2937" />
+                    <path d="M25 15L20 3H22L25 12.5L28 3H30L25 15Z" fill="#1f2937" />
+                    <path d="M40 5H36V15H33V5H29V3H40V5Z" fill="#1f2937" />
+                </svg>
+                <div style={{
+                    width: '0',
+                    height: '0',
+                    borderTop: '5px solid transparent',
+                    borderBottom: '5px solid transparent',
+                    borderLeft: '8px solid #00d900',
+                    marginLeft: '2px'
+                }} />
+            </div>
         );
     }
 
     if (normalizedChannel.includes('tv4')) {
         return (
-            <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="TV4">
-                <circle cx="20" cy="20" r="20" fill="#dc2626" />
-                <path d="M26 23H22V28H18V23H13V19L19 9H22V19H26V23ZM18 19V13.5L14.5 19H18Z" fill="white" />
-            </svg>
+            <div style={{
+                backgroundColor: 'white',
+                padding: '4px 8px',
+                borderRadius: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                height: size
+            }}>
+                <div style={{
+                    width: size * 0.8,
+                    height: size * 0.8,
+                    backgroundColor: '#e11212',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontWeight: '900',
+                    fontSize: size * 0.6,
+                    fontFamily: 'Arial, sans-serif'
+                }}>
+                    4
+                </div>
+            </div>
         );
     }
 
-    if (normalizedChannel.includes('max')) {
+    if (normalizedChannel.includes('max') || normalizedChannel.includes('hbo')) {
         return (
-            <svg width={size * 2.5} height={size} viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Max">
-                <path d="M10 28V12H16L22 22L28 12H34V28H29V18L22 28L15 18V28H10Z" fill="#2563eb" />
-                <path d="M45 28L43 23H57L55 28H45ZM50 12L39 31H44L46 26H54L56 31H61L50 12Z" fill="#2563eb" />
-                <path d="M68 12L74 20L68 28H74L77 23L80 28H86L80 20L86 12H80L77 17L74 12H68Z" fill="#2563eb" />
-                {/* Simplified abstract 'target' in the 'a' omitted for simplicity, stick to wordmark */}
-            </svg>
+            <div style={{
+                backgroundColor: 'white',
+                padding: '4px 12px',
+                borderRadius: '100px',
+                display: 'flex',
+                alignItems: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                height: size
+            }}>
+                <span style={{
+                    color: '#002be7',
+                    fontWeight: '900',
+                    fontSize: size * 0.7,
+                    fontFamily: 'Arial, sans-serif',
+                    letterSpacing: '-0.5px'
+                }}>
+                    Max
+                </span>
+            </div>
         );
     }
 

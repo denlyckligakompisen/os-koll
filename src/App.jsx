@@ -1,14 +1,40 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { schedule } from './data/schedule';
+import { fetchSchedule, fetchSokSchedule } from './services/olympicsApi';
 import DayGroup from './components/DayGroup';
+import FilterBar from './components/FilterBar';
+import SokSchedule from './components/SokSchedule';
 import { Snowflake } from 'lucide-react';
 
 function App() {
   const [now, setNow] = useState(new Date());
+  const [schedule, setSchedule] = useState([]);
+  const [sokSchedule, setSokSchedule] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('all');
+
+
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [data, sokData] = await Promise.all([
+          fetchSchedule(),
+          fetchSokSchedule()
+        ]);
+        setSchedule(data);
+        setSokSchedule(sokData);
+      } catch (error) {
+        console.error("Failed to fetch schedule:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
   }, []);
 
   const filteredEvents = useMemo(() => {
@@ -20,8 +46,12 @@ function App() {
       if (isNaN(eventTime.getTime())) return false;
 
       return eventTime >= cutoff;
+    }).filter(event => {
+      if (activeFilter === 'sweden') return event.isSweden;
+      if (activeFilter === 'medal') return event.isMedal;
+      return true; // 'all'
     });
-  }, [now]);
+  }, [now, schedule, activeFilter]);
 
   const groupedEvents = useMemo(() => {
     const groups = {};
@@ -33,6 +63,14 @@ function App() {
     });
     return groups;
   }, [filteredEvents]);
+
+  if (loading) {
+    return (
+      <div className="app-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--color-text-muted)' }}>
+        Laddar schema...
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
@@ -60,6 +98,12 @@ function App() {
       </header>
 
 
+
+
+
+      {sokSchedule.length > 0 && (
+        <SokSchedule events={sokSchedule} />
+      )}
 
       {Object.keys(groupedEvents).length > 0 ? (
         Object.keys(groupedEvents).sort().map(date => (
