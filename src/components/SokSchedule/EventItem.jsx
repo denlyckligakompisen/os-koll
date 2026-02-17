@@ -76,8 +76,28 @@ const EventItem = ({ event, svtEvents }) => {
                     }}>
                         {event.event}
                     </span>
-                    {svtMatch && (
+                    {svtMatch ? (
                         <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
+                    ) : (
+                        <div style={{ display: 'flex', gap: '4px' }}>
+                            <div style={{
+                                backgroundColor: '#f44336', // TV4 Red
+                                color: 'white',
+                                padding: '2px 8px',
+                                borderRadius: '4px',
+                                fontSize: '0.7rem',
+                                fontWeight: '800'
+                            }}>TV4 Play</div>
+                            <div style={{
+                                backgroundColor: '#000000', // Max Black
+                                color: 'white',
+                                padding: '2px 8px',
+                                borderRadius: '4px',
+                                fontSize: '0.7rem',
+                                fontWeight: '800',
+                                border: '1px solid rgba(255,255,255,0.2)'
+                            }}>MAX</div>
+                        </div>
                     )}
                 </div>
             </div>
