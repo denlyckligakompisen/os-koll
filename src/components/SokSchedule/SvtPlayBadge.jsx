@@ -3,11 +3,8 @@ import React from 'react';
 
 const SvtPlayBadge = ({ link, isLive }) => {
     return (
-        <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Sänds på SVT Play"
+        <div
+            title="Sänds på SVT"
             style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -19,11 +16,8 @@ const SvtPlayBadge = ({ link, isLive }) => {
                 fontSize: '0.75rem',
                 fontWeight: '800',
                 textDecoration: 'none',
-                marginLeft: '4px',
-                transition: 'opacity 0.2s'
+                marginLeft: '4px'
             }}
-            onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
-            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
         >
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z" />
@@ -38,7 +32,7 @@ const SvtPlayBadge = ({ link, isLive }) => {
                     marginLeft: '2px'
                 }} />
             )}
-        </a>
+        </div>
     );
 };
 

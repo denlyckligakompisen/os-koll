@@ -6,19 +6,29 @@ const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
     const details = cleanEventDetails(event.details);
 
+    const watchLink = svtMatch ? svtMatch.link : "https://www.tv4play.se/kategorier/os-2026";
+
     return (
-        <div className="event-card" style={{
-            padding: '1.25rem',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '16px',
-            marginBottom: '1rem',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-            position: 'relative',
-            overflow: 'hidden',
-            transition: 'all 0.2s ease',
-            cursor: 'default'
-        }}
+        <a
+            href={watchLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="event-card"
+            style={{
+                display: 'block',
+                textDecoration: 'none',
+                color: 'inherit',
+                padding: '1.25rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                borderRadius: '16px',
+                marginBottom: '1rem',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.2s ease',
+                cursor: 'pointer'
+            }}
             onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
                 e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
@@ -28,7 +38,8 @@ const EventItem = ({ event, svtEvents }) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
                 e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
                 e.currentTarget.style.transform = 'translateY(0)';
-            }}>
+            }}
+        >
             <div style={{
                 display: 'flex',
                 gap: '12px',
@@ -57,10 +68,7 @@ const EventItem = ({ event, svtEvents }) => {
                     <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
                 ) : (
                     <div style={{ display: 'flex', gap: '4px' }}>
-                        <a
-                            href="https://www.tv4play.se/kategorier/os-2026"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <div
                             style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
@@ -70,18 +78,14 @@ const EventItem = ({ event, svtEvents }) => {
                                 padding: '3px 10px',
                                 borderRadius: '6px',
                                 fontSize: '0.75rem',
-                                fontWeight: '900',
-                                textDecoration: 'none',
-                                transition: 'transform 0.1s'
+                                fontWeight: '900'
                             }}
-                            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                         >
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
                                 <path d="M8 5v14l11-7z" />
                             </svg>
                             TV4
-                        </a>
+                        </div>
                     </div>
                 )}
 
@@ -121,7 +125,7 @@ const EventItem = ({ event, svtEvents }) => {
                     </p>
                 </div>
             )}
-        </div>
+        </a>
     );
 };
 
