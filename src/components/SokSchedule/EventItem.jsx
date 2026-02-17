@@ -105,32 +105,6 @@ const EventItem = ({ event, svtEvents }) => {
                                 </svg>
                                 TV4 PLAY
                             </a>
-                            <a
-                                href="https://www.hbomax.com/se/sv/olympics"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '4px',
-                                    backgroundColor: '#000000', // Max Black
-                                    color: 'white',
-                                    padding: '2px 8px',
-                                    borderRadius: '4px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: '800',
-                                    border: '1px solid rgba(255,255,255,0.2)',
-                                    textDecoration: 'none',
-                                    transition: 'opacity 0.2s'
-                                }}
-                                onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
-                                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
-                            >
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                HBO MAX
-                            </a>
                         </div>
                     )}
                 </div>
