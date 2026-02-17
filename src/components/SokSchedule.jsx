@@ -207,30 +207,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             }}>
                                                 {event.event}
                                             </span>
-                                            {(() => {
-                                                const svtMatch = findSvtMatch(event);
-                                                if (svtMatch) {
-                                                    return (
-                                                        <div
-                                                            title="Sänds på SVT Play"
-                                                            style={{
-                                                                display: 'inline-flex',
-                                                                alignItems: 'center',
-                                                                backgroundColor: '#00d2c8', // SVT Play Teal
-                                                                padding: '2px 6px',
-                                                                borderRadius: '4px',
-                                                                marginLeft: '4px'
-                                                            }}
-                                                        >
-                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                                                                <path d="M8 5v14l11-7z" />
-                                                            </svg>
-                                                            <span style={{ color: 'white', fontSize: '0.65rem', fontWeight: '800', marginLeft: '2px' }}>PLAY</span>
-                                                        </div>
-                                                    );
-                                                }
-                                                return null;
-                                            })()}
                                         </div>
                                     </div>
 
