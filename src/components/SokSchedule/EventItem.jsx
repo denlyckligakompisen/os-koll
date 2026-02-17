@@ -8,33 +8,46 @@ const EventItem = ({ event, svtEvents }) => {
 
     return (
         <div className="event-card" style={{
-            padding: '1rem',
-            backgroundColor: 'var(--color-bg-alt)',
-            borderRadius: '12px',
-            marginBottom: '0.75rem',
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            padding: '1.25rem',
+            backgroundColor: 'rgba(255, 255, 255, 0.03)',
+            borderRadius: '16px',
+            marginBottom: '1rem',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
             position: 'relative',
             overflow: 'hidden',
-            transition: 'transform 0.2s, background-color 0.2s'
-        }}>
+            transition: 'all 0.2s ease',
+            cursor: 'default'
+        }}
+            onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
+            }}>
             <div style={{
                 display: 'flex',
-                gap: '12px',
+                gap: '16px',
                 alignItems: 'center',
                 flexWrap: 'wrap'
             }}>
                 <div style={{
-                    backgroundColor: 'rgba(251, 192, 45, 0.1)',
-                    padding: '4px 8px',
-                    borderRadius: '6px',
-                    minWidth: '55px',
-                    textAlign: 'center'
+                    backgroundColor: 'rgba(251, 192, 45, 0.15)',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    minWidth: '60px',
+                    textAlign: 'center',
+                    border: '1px solid rgba(251, 192, 45, 0.2)'
                 }}>
                     <span style={{
                         fontSize: '1rem',
-                        fontWeight: '800',
-                        color: '#fbc02d'
+                        fontWeight: '900',
+                        color: '#fbc02d',
+                        letterSpacing: '0.02em'
                     }}>
                         {event.time}
                     </span>
@@ -42,16 +55,17 @@ const EventItem = ({ event, svtEvents }) => {
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', flex: 1 }}>
                     <span style={{
-                        fontSize: '1.1rem',
-                        fontWeight: '700',
-                        color: 'var(--color-text-highlight)'
+                        fontSize: '1.2rem',
+                        fontWeight: '800',
+                        color: '#ffffff',
+                        letterSpacing: '-0.01em'
                     }}>
                         {event.sport}
                     </span>
                     <span style={{
-                        fontSize: '1rem',
-                        color: 'var(--color-text-primary)',
-                        opacity: 0.8
+                        fontSize: '1.05rem',
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        fontWeight: '500'
                     }}>
                         {event.event}
                     </span>
@@ -67,17 +81,17 @@ const EventItem = ({ event, svtEvents }) => {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '4px',
-                                    backgroundColor: '#FF3334', // TV4 Red
+                                    backgroundColor: '#FF3334',
                                     color: 'white',
-                                    padding: '2px 8px',
-                                    borderRadius: '4px',
+                                    padding: '3px 10px',
+                                    borderRadius: '6px',
                                     fontSize: '0.75rem',
-                                    fontWeight: '800',
+                                    fontWeight: '900',
                                     textDecoration: 'none',
-                                    transition: 'opacity 0.2s'
+                                    transition: 'transform 0.1s'
                                 }}
-                                onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
-                                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
                                     <path d="M8 5v14l11-7z" />
@@ -90,12 +104,16 @@ const EventItem = ({ event, svtEvents }) => {
             </div>
 
             {details && (
-                <div style={{ marginTop: '8px' }}>
+                <div style={{
+                    marginTop: '12px',
+                    paddingTop: '12px',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                }}>
                     <p style={{
                         margin: 0,
-                        fontSize: '0.9rem',
-                        color: 'var(--color-text-muted)',
-                        lineHeight: '1.4',
+                        fontSize: '0.95rem',
+                        color: 'rgba(255, 255, 255, 0.55)',
+                        lineHeight: '1.5',
                         whiteSpace: 'pre-line'
                     }}>
                         {details}
