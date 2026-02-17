@@ -1,6 +1,6 @@
 [
   {
-    "id": "sok-68-1771353292915",
+    "id": "sok-68-1771353488629",
     "day": "tisdag 17 feb",
     "time": "09.05",
     "sport": "Curling",
@@ -8,7 +8,7 @@
     "details": "Schweiz - Sverige 9-4 Christoffer Sundgren, Rasmus Wranå, Oskar Eriksson, Niklas Edin\nStällning efter nio omgångar: 1) Schweiz 6 matcher-6 vinster-0 förluster, 2) Kanada 6-5-1, 3) Norge 6-4-2, 3) Norge 7-4-3, 4) Storbritannien 7-4-3, 4) USA 7-4-3, 6) Italien 6-3-3, 7) Tyskland 7-3-4, 8) Kina 7-2-5, 9) Tjeckien 7-1-6, 9) Sverige 7-1-6."
   },
   {
-    "id": "sok-69-1771353292916",
+    "id": "sok-69-1771353488629",
     "day": "tisdag 17 feb",
     "time": "14.05",
     "sport": "Curling",
@@ -16,7 +16,7 @@
     "details": "Sverige - Kanada 6-8 Agnes Knochenhauer, Sofia Scharback, Sara McManus, Anna Hasselborg\nStällning efter nio omgångar: 1) Sverige 7 matcher-6 vinster-1 förlust Q, 2) Schweiz 7-5-2, 2) USA 7-5-2, 4) Kanada 7-4-3, 4) Sydkorea 7-4-3, 6) Danmark 7-3-4, 7) Kina 6-2-4, 7) Storbritannien 6-2-4, 9) Italien 7-2-5, 10) Japan 7-1-6."
   },
   {
-    "id": "sok-70-1771353292916",
+    "id": "sok-70-1771353488629",
     "day": "tisdag 17 feb",
     "time": "14.30",
     "sport": "Skidskytte",
@@ -24,7 +24,7 @@
     "details": "1) Frankrike 1.19.55,2 (1+9), 2) Norge +9,8 (0+6), 3) Sverige Viktor Brandt, Jesper Nelin, Martin Ponsiluoma, Sebastian Samuelsson +57,5 (0+6)"
   },
   {
-    "id": "sok-71-1771353292916",
+    "id": "sok-71-1771353488630",
     "day": "tisdag 17 feb",
     "time": "19.05",
     "sport": "Curling",
@@ -32,7 +32,7 @@
     "details": "Sverige - NorgeChristoffer Sundgren, Rasmus Wranå, Oskar Eriksson, Niklas Edin"
   },
   {
-    "id": "sok-72-1771353292917",
+    "id": "sok-72-1771353488630",
     "day": "tisdag 17 feb",
     "time": "19.30",
     "sport": "Freeskiing",
@@ -40,11 +40,203 @@
     "details": "Startnr 2) Martin Nordqvist"
   },
   {
-    "id": "sok-73-1771353292917",
+    "id": "sok-73-1771353488630",
     "day": "tisdag 17 feb",
     "time": "21.10",
     "sport": "Ishockey",
     "event": "herrar, playoff",
     "details": "Sverige - Lettland"
+  },
+  {
+    "id": "sok-74-1771353488630",
+    "day": "onsdag 18 feb",
+    "time": "09.05",
+    "sport": "Curling",
+    "event": "damer, grundomgång 10",
+    "details": "Sverige - Sydkorea"
+  },
+  {
+    "id": "sok-75-1771353488631",
+    "day": "onsdag 18 feb",
+    "time": "09.45",
+    "sport": "Längdskidor",
+    "event": "damer och herrar, sprintstafett (f)",
+    "details": "Damer kl 09.45 kval  kl 11.45 final\nHerrar kl 10.15 kval kl 12.15 final"
+  },
+  {
+    "id": "sok-76-1771353488631",
+    "day": "onsdag 18 feb",
+    "time": "10.00",
+    "sport": "Alpint",
+    "event": "damer, slalom",
+    "details": "Sara Hector, Cornelia Öhlund, Anna Swenn Larsson kl 10.00 åk 1  kl. 13.30 åk 2"
+  },
+  {
+    "id": "sok-77-1771353488632",
+    "day": "onsdag 18 feb",
+    "time": "12.10",
+    "sport": "Ishockey",
+    "event": "herrar, kvartsfinaler",
+    "details": "kl. 12.10 kvartsfinal 1  kl. 16.40 kvartsfinal 2 kl. 18.10 kvartsfinal 3  kl. 21.10 kvartsfinal 4"
+  },
+  {
+    "id": "sok-78-1771353488632",
+    "day": "onsdag 18 feb",
+    "time": "14.45",
+    "sport": "Skidskytte",
+    "event": "damstafett 4x6 km",
+    "details": ""
+  },
+  {
+    "id": "sok-79-1771353488632",
+    "day": "onsdag 18 feb",
+    "time": "19.05",
+    "sport": "Curling",
+    "event": "damer, grundomgång 11",
+    "details": "Kina - Sverige"
+  },
+  {
+    "id": "sok-80-1771353488633",
+    "day": "torsdag 19 feb",
+    "time": "09.05",
+    "sport": "Curling",
+    "event": "herrar, grundomgång 12",
+    "details": "Sverige - Tjeckien"
+  },
+  {
+    "id": "sok-81-1771353488633",
+    "day": "torsdag 19 feb",
+    "time": "14.40",
+    "sport": "Ishockey",
+    "event": "damer, bronsmatch",
+    "details": ""
+  },
+  {
+    "id": "sok-82-1771353488633",
+    "day": "torsdag 19 feb",
+    "time": "19.05",
+    "sport": "Curling",
+    "event": "herrar, semifinaler",
+    "details": "Semifinal 1: 1:an - 4:an Semifinal 2: 2:a - 3:an"
+  },
+  {
+    "id": "sok-83-1771353488633",
+    "day": "torsdag 19 feb",
+    "time": "19.10",
+    "sport": "Ishockey",
+    "event": "damer, final",
+    "details": ""
+  },
+  {
+    "id": "sok-84-1771353488634",
+    "day": "fredag 20 feb",
+    "time": "10.00",
+    "sport": "Freestyle",
+    "event": "damer, skicross",
+    "details": "Sandra Näslund, Linnea Mobärg kl 10.00 kval  kl 12.00 åttondelsfinaler kl 12.35 kvartsfinaler kl 12.54 semifinaler kl 13.10 final"
+  },
+  {
+    "id": "sok-85-1771353488634",
+    "day": "fredag 20 feb",
+    "time": "14.05",
+    "sport": "Curling",
+    "event": "damer, semifinaler",
+    "details": "Semifinal 1: 1:an - 4:an Semifinal 2: 2:an - 3:an"
+  },
+  {
+    "id": "sok-86-1771353488634",
+    "day": "fredag 20 feb",
+    "time": "14.15",
+    "sport": "Skidskytte",
+    "event": "herrar, masstart 15 km",
+    "details": ""
+  },
+  {
+    "id": "sok-87-1771353488634",
+    "day": "fredag 20 feb",
+    "time": "16.40",
+    "sport": "Ishockey",
+    "event": "herrar, semifinaler",
+    "details": "kl 16.40 semifinal 1 kl. 21.10 semifinal 2"
+  },
+  {
+    "id": "sok-88-1771353488635",
+    "day": "fredag 20 feb",
+    "time": "19.05",
+    "sport": "Curling",
+    "event": "herrar, bronsmatch",
+    "details": ""
+  },
+  {
+    "id": "sok-89-1771353488635",
+    "day": "lördag 21 feb",
+    "time": "10.00",
+    "sport": "Freestyle",
+    "event": "herrar, skicross",
+    "details": "David Mobärg, Erik Mobärg kl. 10.00 kval  kl. 12.00 åttondelsfinaler kl. 12.35 kvartsfinaler kl. 12.54 semifinaler kl. 13.10 final"
+  },
+  {
+    "id": "sok-90-1771353488636",
+    "day": "lördag 21 feb",
+    "time": "11.00",
+    "sport": "Längdskidor",
+    "event": "herrar 50 km (k) masstart",
+    "details": ""
+  },
+  {
+    "id": "sok-91-1771353488636",
+    "day": "lördag 21 feb",
+    "time": "14.05",
+    "sport": "Curling",
+    "event": "damer, bronsmatch",
+    "details": ""
+  },
+  {
+    "id": "sok-92-1771353488636",
+    "day": "lördag 21 feb",
+    "time": "14.15",
+    "sport": "Skidskytte",
+    "event": "damer masstart 12,5  km",
+    "details": ""
+  },
+  {
+    "id": "sok-93-1771353488637",
+    "day": "lördag 21 feb",
+    "time": "19.05",
+    "sport": "Curling",
+    "event": "herrar, final",
+    "details": ""
+  },
+  {
+    "id": "sok-94-1771353488637",
+    "day": "lördag 21 feb",
+    "time": "20.40",
+    "sport": "Ishockey",
+    "event": "herrar, bronsmatch",
+    "details": ""
+  },
+  {
+    "id": "sok-95-1771353488637",
+    "day": "söndag 22 feb",
+    "time": "10.00",
+    "sport": "Längdskidor",
+    "event": "damer, 50 km (k) masstart",
+    "details": ""
+  },
+  {
+    "id": "sok-96-1771353488638",
+    "day": "söndag 22 feb",
+    "time": "11.05",
+    "sport": "Curling",
+    "event": "damer, final",
+    "details": ""
+  },
+  {
+    "id": "sok-97-1771353488638",
+    "day": "söndag 22 feb",
+    "time": "14.10",
+    "sport": "Ishockey",
+    "event": "herrar, final",
+    "details": ""
   }
 ]

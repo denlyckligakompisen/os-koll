@@ -24,43 +24,21 @@ async function scrapeSok() {
         const $ = cheerio.load(data);
         const allEvents = [];
 
-        // Structure assumption:
-        // Day headers (h2, h3, etc) precede the list of items
-
-        let currentDay = '';
-
-        // Iterate through all children of the main content area
-        // Often these are direct children of a content wrapper
-        // The most reliable way is to traverse all elements and track "current day header" state
-
-        // We look for elements that *could* be day headers or event items in document order
-        // A common pattern is that both exist within a wrapper.
-
-        // Let's refine the approach: Find all potential day headers AND items, sort by document position
-        // Actually, just iterating over all elements in the main content div is easier if valid.
-
-        // But the previous "backtrack" approach worked to get date strings like "onsdag 4 feb".
-        // The issue was just the matching logic. Let's stick with the robust backtracking/finding approach that worked.
-
         $('.lp-schedule__program-item').each((i, el) => {
             const $el = $(el);
             let day = '';
 
             // Try to find the day header (closest preceding)
-            // 1. Check if we are inside a day container?
             const parentDay = $el.closest('.lp-schedule__day');
             if (parentDay.length) {
                 day = parentDay.find('.lp-schedule__day-header, h2, h3').first().text().trim();
             }
 
-            // 2. Look for preceding headers
             if (!day) {
-                // Get all preceding siblings that are headers
                 const prevHeader = $el.prevAll('h2, h3, .lp-schedule__day-header').first();
                 if (prevHeader.length) {
                     day = prevHeader.text().trim();
                 } else {
-                    // Start climbing up and checking previous siblings of parents
                     let parent = $el.parent();
                     while (parent.length && !day && !parent.is('body')) {
                         const parentPrevHeader = parent.prevAll('h2, h3, .lp-schedule__day-header').first();
@@ -96,38 +74,49 @@ async function scrapeSok() {
             }
         });
 
-        // Current Date Logic
+        // Current Date Logic: Filter from today onwards
         const today = new Date();
-        const monthsFull = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-        const monthsShort = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+        today.setHours(0, 0, 0, 0);
 
-        const dayNum = today.getDate();
-        const monthIndex = today.getMonth();
+        const monthMap = {
+            'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5,
+            'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11,
+            'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'juni': 5,
+            'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11,
+            'oktober': 9
+        };
 
-        // We want to match "17 feb" or "17 februari"
-        // Let's create a regex
-        const dateRegex = new RegExp(`\\b${dayNum}\\s+(${monthsFull[monthIndex]}|${monthsShort[monthIndex]})\\b`, 'i');
+        const futureEvents = allEvents.filter(e => {
+            if (!e.day) return false;
 
-        console.log(`Filtering for date pattern: ${dateRegex}`);
+            const match = e.day.match(/(\d+)\s+([a-zA-Z]+)/);
+            if (!match) return false;
 
-        const todaysEvents = allEvents.filter(e => {
-            return dateRegex.test(e.day);
+            const day = parseInt(match[1], 10);
+            const monthStr = match[2].toLowerCase();
+            const month = monthMap[monthStr];
+
+            if (month === undefined) return false;
+
+            // Using 2026 for Olympics context
+            const eventDate = new Date(2026, month, day);
+
+            return eventDate >= today;
         });
 
-        console.log(`Found ${todaysEvents.length} events for today.`);
+        console.log(`Found ${futureEvents.length} events from today onwards.`);
 
-        if (todaysEvents.length === 0 && allEvents.length > 0) {
-            console.log('No events found for today. Verify date strings:', [...new Set(allEvents.map(e => e.day))].slice(0, 5));
+        if (futureEvents.length === 0 && allEvents.length > 0) {
+            console.log('No future events found. Verify date parsing:', [...new Set(allEvents.map(e => e.day))].slice(0, 5));
         }
 
-        // Ensure directory exists
         const dir = path.dirname(OUTPUT_FILE);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
 
-        fs.writeFileSync(OUTPUT_FILE, JSON.stringify(todaysEvents, null, 2));
-        console.log(`Saved schedule to ${OUTPUT_FILE}`);
+        fs.writeFileSync(OUTPUT_FILE, JSON.stringify(futureEvents, null, 2));
+        console.log(`Saved future schedule to ${OUTPUT_FILE}`);
 
     } catch (error) {
         console.error('Scraping failed:', error.message);
