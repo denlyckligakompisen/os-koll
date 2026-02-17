@@ -174,7 +174,9 @@ const SokSchedule = ({ events }) => {
                                                     padding: '2px 8px',
                                                     borderRadius: '4px',
                                                     animation: status.animate ? 'pulse 2s infinite' : 'none',
-                                                    marginLeft: 'auto'
+                                                    marginLeft: '8px',
+                                                    display: 'inline-block',
+                                                    verticalAlign: 'middle'
                                                 }}>
                                                     {status.label}
                                                 </span>
