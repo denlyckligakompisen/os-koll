@@ -113,7 +113,10 @@ const SokSchedule = ({ events }) => {
         // Break after score (e.g. "9-4 Christoffer")
         formatted = formatted.replace(/(\d+[-–]\d+)\s+([A-ZÅÄÖ])/g, '$1\n$2');
 
-        return formatted;
+        // Break before numbered items like 1), 2), 3)
+        formatted = formatted.replace(/[,]?\s+(\d+\))/g, '\n$1');
+
+        return formatted.trim();
     };
 
     const groupedEvents = useMemo(() => {
