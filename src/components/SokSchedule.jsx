@@ -65,54 +65,7 @@ const SokSchedule = ({ events, svtEvents }) => {
         }
     };
 
-    const parseEventDate = (dayStr, timeStr) => {
-        try {
-            const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
-            if (!parts) return null;
 
-            const dayNum = parseInt(parts[2], 10);
-            const monthStr = parts[3];
-
-            const monthMap = {
-                'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5,
-                'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11,
-                'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5,
-                'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11
-            };
-
-            const monthIndex = monthMap[monthStr];
-            if (monthIndex === undefined) return null;
-
-            const now = new Date();
-            const year = now.getFullYear();
-            const date = new Date(year, monthIndex, dayNum);
-
-            if (timeStr) {
-                const [hours, minutes] = timeStr.replace('.', ':').split(':').map(Number);
-                date.setHours(hours, minutes, 0, 0);
-            }
-            return date;
-        } catch (e) { return null; }
-    };
-
-    const getEventStatus = (event) => {
-        const start = parseEventDate(event.day, event.time);
-        if (!start) return null;
-
-        const now = new Date();
-        const diffMs = now - start;
-        const diffHours = diffMs / (1000 * 60 * 60); // Hours since start
-
-        // Live: Started 0-3 hours ago (Olympics events can be long)
-        if (diffHours >= 0 && diffHours < 3) {
-            return { label: 'PÅGÅR', color: '#e63946', animate: true };
-        }
-        // Soon: Starts in less than 30 mins
-        if (diffHours < 0 && diffHours > -0.5) {
-            return { label: 'STARTAR SNART', color: '#fca311', animate: false };
-        }
-        return null;
-    };
 
     const groupedEvents = useMemo(() => {
         const groups = {};
@@ -163,43 +116,6 @@ const SokSchedule = ({ events, svtEvents }) => {
                                     <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>{event.time}</span>
                                     <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{event.sport}</span>
 
-                                    {/* SVT Badge */}
-                                    {svtEvents && (() => {
-                                        const eventDate = parseEventDate(event.day, event.time);
-                                        if (eventDate) {
-                                            const dateStr = eventDate.toISOString().split('T')[0];
-                                            const match = svtEvents.find(svt => {
-                                                if (svt.date !== dateStr) return false;
-                                                const [h1, m1] = event.time.replace('.', ':').split(':').map(Number);
-                                                const [h2, m2] = svt.time.replace('.', ':').split(':').map(Number);
-                                                if (Math.abs((h1 * 60 + m1) - (h2 * 60 + m2)) > 20) return false;
-                                                const sportLower = event.sport.toLowerCase();
-                                                const svtTitleLower = svt.title.toLowerCase();
-                                                return svtTitleLower.includes(sportLower) || sportLower.includes(svtTitleLower);
-                                            });
-
-                                            if (match) {
-                                                return (
-                                                    <a href={match.link} target="_blank" rel="noopener noreferrer" style={{
-                                                        marginLeft: 'auto',
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        textDecoration: 'none',
-                                                        backgroundColor: '#000000',
-                                                        color: '#ffffff',
-                                                        padding: '4px 8px',
-                                                        borderRadius: '4px',
-                                                        fontSize: '0.75rem',
-                                                        fontWeight: 'bold',
-                                                        border: '1px solid #333'
-                                                    }}>
-                                                        SVT Play
-                                                    </a>
-                                                );
-                                            }
-                                        }
-                                        return null;
-                                    })()}
                                 </div>
 
                                 <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem' }}>{event.event}</h3>
