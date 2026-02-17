@@ -103,6 +103,16 @@ const SokSchedule = ({ events }) => {
         return diffHours >= 0 && diffHours < 3;
     };
 
+    const formatDetails = (text) => {
+        if (!text) return "";
+        let formatted = text;
+        // Break after score (e.g. "9-4 Christoffer")
+        formatted = formatted.replace(/(\d+[-–]\d+)\s+([A-ZÅÄÖ])/g, '$1\n$2');
+        // Break before "Ställning"
+        formatted = formatted.replace(/\s+(Ställning)/g, '\n\n$1');
+        return formatted;
+    };
+
     const groupedEvents = useMemo(() => {
         const groups = {};
         events.forEach(event => {
@@ -202,8 +212,8 @@ const SokSchedule = ({ events }) => {
                                             {event.event}
                                         </div>
                                         {event.details && (
-                                            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>
-                                                {event.details}
+                                            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.4', whiteSpace: 'pre-line' }}>
+                                                {formatDetails(event.details)}
                                             </p>
                                         )}
                                     </div>
