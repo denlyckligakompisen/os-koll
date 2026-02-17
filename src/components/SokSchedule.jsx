@@ -157,18 +157,15 @@ const SokSchedule = ({ events }) => {
                             const live = isEventLive(event);
                             return (
                                 <div key={event.id} className="event-card" style={{
-                                    padding: '1rem',
+                                    padding: '0.75rem 1rem',
                                     backgroundColor: 'var(--color-bg-alt)',
                                     borderRadius: '8px',
-                                    marginBottom: '0.75rem',
+                                    marginBottom: '0.5rem',
                                     border: '1px solid var(--color-border)',
-                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-                                    display: 'flex',
-                                    gap: '16px',
+                                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}>
-                                    {/* Live Accent Border */}
                                     {live && (
                                         <div style={{
                                             position: 'absolute',
@@ -180,54 +177,63 @@ const SokSchedule = ({ events }) => {
                                         }} />
                                     )}
 
-                                    {/* Time Column */}
                                     <div style={{
                                         display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        minWidth: '45px',
-                                        paddingLeft: live ? '8px' : '0' // Adjust for border
+                                        gap: '12px',
+                                        alignItems: 'baseline',
+                                        flexWrap: 'wrap',
+                                        paddingLeft: live ? '8px' : '0'
                                     }}>
-                                        <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--color-text-highlight)' }}>
+                                        <span style={{
+                                            fontSize: '1.1rem',
+                                            fontWeight: 'bold',
+                                            color: '#fbc02d',
+                                            minWidth: '50px'
+                                        }}>
                                             {event.time}
                                         </span>
+
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'baseline' }}>
+                                            <span style={{
+                                                fontSize: '1.1rem',
+                                                fontWeight: '700',
+                                                color: 'var(--color-text-highlight)'
+                                            }}>
+                                                {event.sport}
+                                            </span>
+                                            <span style={{
+                                                fontSize: '1rem',
+                                                color: 'var(--color-text-primary)',
+                                                opacity: 0.9
+                                            }}>
+                                                {event.event}
+                                            </span>
+                                        </div>
+
                                         {live && (
                                             <div style={{
-                                                marginTop: '4px',
-                                                width: '12px',
-                                                height: '12px',
+                                                width: '10px',
+                                                height: '10px',
                                                 borderRadius: '50%',
                                                 backgroundColor: '#d32f2f',
-                                                border: '2px solid white',
-                                                boxShadow: '0 0 0 1px #d32f2f'
+                                                marginLeft: '4px'
                                             }} title="PÅGÅR" />
                                         )}
                                     </div>
 
-                                    {/* Content Column */}
-                                    <div style={{ flex: 1 }}>
-                                        <h3 style={{
-                                            margin: '0 0 4px',
-                                            fontSize: '1.1rem',
-                                            fontWeight: '700',
-                                            color: 'var(--color-text-highlight)'
-                                        }}>
-                                            {event.sport}
-                                        </h3>
-                                        <div style={{ fontSize: '0.95rem', fontWeight: '500', marginBottom: '4px', color: 'var(--color-text-primary)' }}>
-                                            {event.event}
-                                        </div>
-                                        {event.details && (
-                                            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.4', whiteSpace: 'pre-line' }}>
+                                    {event.details && (
+                                        <div style={{ marginTop: '8px', paddingLeft: live ? '8px' : '0' }}>
+                                            <p style={{
+                                                margin: 0,
+                                                fontSize: '0.9rem',
+                                                color: 'var(--color-text-muted)',
+                                                lineHeight: '1.4',
+                                                whiteSpace: 'pre-line'
+                                            }}>
                                                 {formatDetails(event.details)}
                                             </p>
-                                        )}
-                                    </div>
-
-                                    {/* Right Action/Status Column (Optional placeholder for now) */}
-                                    {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                        <span style={{ color: 'var(--color-text-muted)' }}>...</span>
-                                    </div> */}
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })}
