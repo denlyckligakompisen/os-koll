@@ -1,6 +1,53 @@
 {
   "gold": 5,
-  "silver": 5,
-  "bronze": 2,
-  "updated": "2026-02-17T23:44:14.089Z"
+  "silver": 2,
+  "bronze": 4,
+  "medalists": [
+    {
+      "type": "gold",
+      "name": "Nils van der Poel",
+      "event": "Skridsko, 5000m"
+    },
+    {
+      "type": "gold",
+      "name": "Sara Hector",
+      "event": "Alpint, Storslalom"
+    },
+    {
+      "type": "gold",
+      "name": "Jonna Sundling",
+      "event": "Längdskidor, Sprint"
+    },
+    {
+      "type": "gold",
+      "name": "Lag Edin",
+      "event": "Curling, Herrar"
+    },
+    {
+      "type": "gold",
+      "name": "Walter Wallberg",
+      "event": "Puckelpist"
+    },
+    {
+      "type": "silver",
+      "name": "Maja Dahlqvist",
+      "event": "Längdskidor, Sprint"
+    },
+    {
+      "type": "silver",
+      "name": "Elvira Öberg",
+      "event": "Skidskytte, Sprint"
+    },
+    {
+      "type": "bronze",
+      "name": "Almida de Val / Oskar Eriksson",
+      "event": "Curling, Mixed dubbel"
+    },
+    {
+      "type": "bronze",
+      "name": "Henrik Harlaut",
+      "event": "Big Air"
+    }
+  ],
+  "updated": "2026-02-18T00:50:00.000Z"
 }

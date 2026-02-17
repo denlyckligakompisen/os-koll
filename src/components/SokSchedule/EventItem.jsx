@@ -2,6 +2,25 @@
 import React from 'react';
 import SvtPlayBadge from './SvtPlayBadge';
 import { cleanEventDetails, findSvtBroadcast } from '../../utils/eventUtils';
+import {
+    Wind,
+    Snowflake,
+    Zap,
+    Trophy,
+    History,
+    Mic2,
+    Play
+} from 'lucide-react';
+
+const SportIcon = ({ sport }) => {
+    const s = sport.toLowerCase();
+    if (s.includes('curling')) return <Zap size={18} style={{ color: '#4fc3f7' }} />;
+    if (s.includes('skid') || s.includes('alpint') || s.includes('slalom') || s.includes('störtlopp')) return <Snowflake size={18} style={{ color: '#90caf9' }} />;
+    if (s.includes('hockey')) return <Trophy size={18} style={{ color: '#ef5350' }} />;
+    if (s.includes('skridsko') || s.includes('konståkning')) return <Wind size={18} style={{ color: '#ce93d8' }} />;
+    if (s.includes('freeskiing') || s.includes('freestyle') || s.includes('snowboard')) return <Zap size={18} style={{ color: '#ffb74d' }} />;
+    return <Snowflake size={18} style={{ color: 'var(--color-text-muted)' }} />;
+};
 
 const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
@@ -9,31 +28,40 @@ const EventItem = ({ event, svtEvents }) => {
 
     return (
         <div className="event-card" style={{
-            padding: '0.75rem 1rem',
+            padding: '1rem',
             backgroundColor: 'var(--color-bg-alt)',
-            borderRadius: '8px',
-            marginBottom: '0.5rem',
+            borderRadius: '12px',
+            marginBottom: '0.75rem',
             border: '1px solid var(--color-border)',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            transition: 'transform 0.2s, background-color 0.2s'
         }}>
             <div style={{
                 display: 'flex',
                 gap: '12px',
-                alignItems: 'baseline',
+                alignItems: 'center',
                 flexWrap: 'wrap'
             }}>
-                <span style={{
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold',
-                    color: '#fbc02d',
-                    minWidth: '50px'
+                <div style={{
+                    backgroundColor: 'rgba(251, 192, 45, 0.1)',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
+                    minWidth: '55px',
+                    textAlign: 'center'
                 }}>
-                    {event.time}
-                </span>
+                    <span style={{
+                        fontSize: '1rem',
+                        fontWeight: '800',
+                        color: '#fbc02d'
+                    }}>
+                        {event.time}
+                    </span>
+                </div>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', flex: 1 }}>
+                    <SportIcon sport={event.sport} />
                     <span style={{
                         fontSize: '1.1rem',
                         fontWeight: '700',
@@ -44,7 +72,7 @@ const EventItem = ({ event, svtEvents }) => {
                     <span style={{
                         fontSize: '1rem',
                         color: 'var(--color-text-primary)',
-                        opacity: 0.9
+                        opacity: 0.8
                     }}>
                         {event.event}
                     </span>
