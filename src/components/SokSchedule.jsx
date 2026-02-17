@@ -30,9 +30,7 @@ const SokSchedule = ({ events }) => {
 
     return (
         <div className="day-group" style={{ backgroundColor: 'var(--color-bg-card)', borderRadius: '12px', marginBottom: '20px', overflow: 'hidden' }}>
-            <h2 style={{ padding: '1rem', borderBottom: '1px solid var(--color-border)', margin: 0, fontSize: '1.2rem' }}>
-                Svenska OS-guiden
-            </h2>
+
 
             {days.map(day => (
                 <div key={day}>
