@@ -114,7 +114,7 @@ const EventItem = ({ event, svtEvents }) => {
                                 }}
                                 onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
                                 onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
-                            >MAX</a>
+                            >HBO Max</a>
                         </div>
                     )}
                 </div>
