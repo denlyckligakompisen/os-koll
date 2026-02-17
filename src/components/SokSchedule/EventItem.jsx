@@ -67,7 +67,7 @@ const EventItem = ({ event, svtEvents }) => {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '4px',
-                                    backgroundColor: '#f44336', // TV4 Red
+                                    backgroundColor: '#FF3334', // TV4 Red
                                     color: 'white',
                                     padding: '2px 8px',
                                     borderRadius: '4px',
