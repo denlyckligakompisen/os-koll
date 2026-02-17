@@ -1,26 +1,6 @@
-
 import React from 'react';
 import SvtPlayBadge from './SvtPlayBadge';
 import { cleanEventDetails, findSvtBroadcast } from '../../utils/eventUtils';
-import {
-    Wind,
-    Snowflake,
-    Zap,
-    Trophy,
-    History,
-    Mic2,
-    Play
-} from 'lucide-react';
-
-const SportIcon = ({ sport }) => {
-    const s = sport.toLowerCase();
-    if (s.includes('curling')) return <Zap size={18} style={{ color: '#4fc3f7' }} />;
-    if (s.includes('skid') || s.includes('alpint') || s.includes('slalom') || s.includes('störtlopp')) return <Snowflake size={18} style={{ color: '#90caf9' }} />;
-    if (s.includes('hockey')) return <Trophy size={18} style={{ color: '#ef5350' }} />;
-    if (s.includes('skridsko') || s.includes('konståkning')) return <Wind size={18} style={{ color: '#ce93d8' }} />;
-    if (s.includes('freeskiing') || s.includes('freestyle') || s.includes('snowboard')) return <Zap size={18} style={{ color: '#ffb74d' }} />;
-    return <Snowflake size={18} style={{ color: 'var(--color-text-muted)' }} />;
-};
 
 const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
@@ -61,7 +41,6 @@ const EventItem = ({ event, svtEvents }) => {
                 </div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', flex: 1 }}>
-                    <SportIcon sport={event.sport} />
                     <span style={{
                         fontSize: '1.1rem',
                         fontWeight: '700',
