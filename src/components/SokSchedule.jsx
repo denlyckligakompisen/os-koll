@@ -67,41 +67,7 @@ const SokSchedule = ({ events }) => {
 
 
 
-    const parseEventDate = (dayStr, timeStr) => {
-        try {
-            const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
-            if (!parts) return null;
 
-            // Simple month map
-            const monthMap = { 'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
-            // Full names fallback
-            const fullMonthMap = { 'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5, 'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11 };
-
-            let monthIndex = monthMap[parts[3]];
-            if (monthIndex === undefined) monthIndex = fullMonthMap[parts[3]];
-            if (monthIndex === undefined) return null;
-
-            const now = new Date();
-            const year = now.getFullYear();
-            const date = new Date(year, monthIndex, parseInt(parts[2], 10));
-
-            if (timeStr) {
-                const [hours, minutes] = timeStr.replace('.', ':').split(':').map(Number);
-                date.setHours(hours, minutes, 0, 0);
-            }
-            return date;
-        } catch (e) { return null; }
-    };
-
-    const isEventLive = (event) => {
-        const start = parseEventDate(event.day, event.time);
-        if (!start) return false;
-        const now = new Date();
-        const diffMs = now - start;
-        const diffHours = diffMs / (1000 * 60 * 60);
-        // Live if started 0-3 hours ago
-        return diffHours >= 0 && diffHours < 3;
-    };
 
     const formatDetails = (text) => {
         if (!text) return "";
@@ -154,7 +120,6 @@ const SokSchedule = ({ events }) => {
 
                     <div className="events-list" style={{ padding: '0.5rem' }}>
                         {groupedEvents[day].map((event) => {
-                            const live = isEventLive(event);
                             return (
                                 <div key={event.id} className="event-card" style={{
                                     padding: '0.75rem 1rem',
@@ -166,23 +131,13 @@ const SokSchedule = ({ events }) => {
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}>
-                                    {live && (
-                                        <div style={{
-                                            position: 'absolute',
-                                            left: 0,
-                                            top: 0,
-                                            bottom: 0,
-                                            width: '4px',
-                                            backgroundColor: '#d32f2f'
-                                        }} />
-                                    )}
+
 
                                     <div style={{
                                         display: 'flex',
                                         gap: '12px',
                                         alignItems: 'baseline',
-                                        flexWrap: 'wrap',
-                                        paddingLeft: live ? '8px' : '0'
+                                        flexWrap: 'wrap'
                                     }}>
                                         <span style={{
                                             fontSize: '1.1rem',
@@ -210,19 +165,11 @@ const SokSchedule = ({ events }) => {
                                             </span>
                                         </div>
 
-                                        {live && (
-                                            <div style={{
-                                                width: '10px',
-                                                height: '10px',
-                                                borderRadius: '50%',
-                                                backgroundColor: '#d32f2f',
-                                                marginLeft: '4px'
-                                            }} title="PÅGÅR" />
-                                        )}
+
                                     </div>
 
                                     {event.details && (
-                                        <div style={{ marginTop: '8px', paddingLeft: live ? '8px' : '0' }}>
+                                        <div style={{ marginTop: '8px' }}>
                                             <p style={{
                                                 margin: 0,
                                                 fontSize: '0.9rem',
