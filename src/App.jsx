@@ -36,7 +36,6 @@ const Header = ({ medals }) => (
     </div>
     <div>
       <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>OS-kollen</h1>
-      <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>Vinter-OS 2026</p>
       <MedalCounter medals={medals} />
     </div>
   </header>
