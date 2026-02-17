@@ -3,7 +3,7 @@ name: Scrape SOK Schedule
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Runs every 30 minutes
+    - cron: '*/30 8-22 * * *' # Runs every 30 minutes between 09:00 and 23:30 CET (08:00-22:30 UTC)
   workflow_dispatch: # Allows manual trigger
 
 permissions:
