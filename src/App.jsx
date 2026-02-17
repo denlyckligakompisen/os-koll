@@ -105,7 +105,7 @@ function App() {
         <SokSchedule events={sokSchedule} />
       )}
 
-      {Object.keys(groupedEvents).length > 0 ? (
+      {Object.keys(groupedEvents).length > 0 && (
         Object.keys(groupedEvents).sort().map(date => (
           <DayGroup
             key={date}
@@ -113,10 +113,6 @@ function App() {
             events={groupedEvents[date].sort((a, b) => a.time.localeCompare(b.time))}
           />
         ))
-      ) : (
-        <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-          Inga evenemang hittades för detta val.
-        </div>
       )}
     </div>
   );
