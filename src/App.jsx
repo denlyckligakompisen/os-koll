@@ -81,18 +81,17 @@ function App() {
         marginBottom: '24px',
         paddingTop: '12px'
       }}>
-        <div style={{
-          backgroundColor: 'var(--color-secondary)',
-          padding: '10px',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <Snowflake size={24} color="#fca311" />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <svg width="60" height="28" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="18" r="16" fill="none" stroke="#0081C8" strokeWidth="4" />
+            <circle cx="55" cy="18" r="16" fill="none" stroke="#000000" strokeWidth="4" />
+            <circle cx="90" cy="18" r="16" fill="none" stroke="#EE334E" strokeWidth="4" />
+            <circle cx="37.5" cy="34" r="16" fill="none" stroke="#FCB131" strokeWidth="4" />
+            <circle cx="72.5" cy="34" r="16" fill="none" stroke="#00A651" strokeWidth="4" />
+          </svg>
         </div>
         <div>
-          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>OS-Kollen</h1>
+          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '800' }}>Svenska OS-kollen</h1>
           <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>Vinter-OS 2026</p>
         </div>
       </header>

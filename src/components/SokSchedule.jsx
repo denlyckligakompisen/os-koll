@@ -100,9 +100,16 @@ const SokSchedule = ({ events }) => {
                         {/* <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 'normal' }}>{day}</span> */}
                     </div>
 
-                    <div className="events-list">
+                    <div className="events-list" style={{ padding: '0.5rem' }}>
                         {groupedEvents[day].map((event) => (
-                            <div key={event.id} className="event-card" style={{ padding: '1rem', borderBottom: '1px solid var(--color-border)' }}>
+                            <div key={event.id} className="event-card" style={{
+                                padding: '1rem',
+                                backgroundColor: 'var(--color-bg-alt)', // Lighter background for card
+                                borderRadius: '8px',
+                                marginBottom: '0.75rem',
+                                border: '1px solid var(--color-border)',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                            }}>
                                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '0.5rem' }}>
                                     <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>{event.time}</span>
                                     <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{event.sport}</span>
