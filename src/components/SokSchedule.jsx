@@ -67,6 +67,42 @@ const SokSchedule = ({ events, svtEvents }) => {
 
 
 
+    const parseEventDate = (dayStr, timeStr) => {
+        try {
+            const parts = dayStr.match(/([a-ö]+)\s+(\d+)\s+([a-zA-Z]+)/);
+            if (!parts) return null;
+
+            // Simple month map
+            const monthMap = { 'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'jul': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+            // Full names fallback
+            const fullMonthMap = { 'januari': 0, 'februari': 1, 'mars': 2, 'april': 3, 'maj': 4, 'juni': 5, 'juli': 6, 'augusti': 7, 'september': 8, 'oktober': 9, 'november': 10, 'december': 11 };
+
+            let monthIndex = monthMap[parts[3]];
+            if (monthIndex === undefined) monthIndex = fullMonthMap[parts[3]];
+            if (monthIndex === undefined) return null;
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const date = new Date(year, monthIndex, parseInt(parts[2], 10));
+
+            if (timeStr) {
+                const [hours, minutes] = timeStr.replace('.', ':').split(':').map(Number);
+                date.setHours(hours, minutes, 0, 0);
+            }
+            return date;
+        } catch (e) { return null; }
+    };
+
+    const isEventLive = (event) => {
+        const start = parseEventDate(event.day, event.time);
+        if (!start) return false;
+        const now = new Date();
+        const diffMs = now - start;
+        const diffHours = diffMs / (1000 * 60 * 60);
+        // Live if started 0-3 hours ago
+        return diffHours >= 0 && diffHours < 3;
+    };
+
     const groupedEvents = useMemo(() => {
         const groups = {};
         events.forEach(event => {
@@ -92,45 +128,97 @@ const SokSchedule = ({ events, svtEvents }) => {
                     }}>
                         <h2 style={{
                             margin: 0,
-                            fontSize: '1.5rem', // Större text
+                            fontSize: '1.5rem',
                             fontWeight: '800',
                             textTransform: 'capitalize'
                         }}>
                             {formatDayHeader(day)}
                         </h2>
-                        {/* Optional: Show full date underneath if it's Idag/Imorgon/WeekDay */}
-                        {/* <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 'normal' }}>{day}</span> */}
                     </div>
 
                     <div className="events-list" style={{ padding: '0.5rem' }}>
-                        {groupedEvents[day].map((event) => (
-                            <div key={event.id} className="event-card" style={{
-                                padding: '1rem',
-                                backgroundColor: 'var(--color-bg-alt)', // Lighter background for card
-                                borderRadius: '8px',
-                                marginBottom: '0.75rem',
-                                border: '1px solid var(--color-border)',
-                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-primary)' }}>{event.time}</span>
-                                    <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{event.sport}</span>
+                        {groupedEvents[day].map((event) => {
+                            const live = isEventLive(event);
+                            return (
+                                <div key={event.id} className="event-card" style={{
+                                    padding: '1rem',
+                                    backgroundColor: 'var(--color-bg-alt)',
+                                    borderRadius: '8px',
+                                    marginBottom: '0.75rem',
+                                    border: '1px solid var(--color-border)',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                    display: 'flex',
+                                    gap: '16px',
+                                    position: 'relative',
+                                    overflow: 'hidden'
+                                }}>
+                                    {/* Live Accent Border */}
+                                    {live && (
+                                        <div style={{
+                                            position: 'absolute',
+                                            left: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            width: '4px',
+                                            backgroundColor: '#d32f2f'
+                                        }} />
+                                    )}
 
+                                    {/* Time Column */}
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        minWidth: '45px',
+                                        paddingLeft: live ? '8px' : '0' // Adjust for border
+                                    }}>
+                                        <span style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--color-text-highlight)' }}>
+                                            {event.time}
+                                        </span>
+                                        {live && (
+                                            <div style={{
+                                                marginTop: '4px',
+                                                width: '12px',
+                                                height: '12px',
+                                                borderRadius: '50%',
+                                                backgroundColor: '#d32f2f',
+                                                border: '2px solid white',
+                                                boxShadow: '0 0 0 1px #d32f2f'
+                                            }} title="PÅGÅR" />
+                                        )}
+                                    </div>
+
+                                    {/* Content Column */}
+                                    <div style={{ flex: 1 }}>
+                                        <h3 style={{
+                                            margin: '0 0 4px',
+                                            fontSize: '1.1rem',
+                                            fontWeight: '700',
+                                            color: 'var(--color-text-highlight)'
+                                        }}>
+                                            {event.sport}
+                                        </h3>
+                                        <div style={{ fontSize: '0.95rem', fontWeight: '500', marginBottom: '4px', color: 'var(--color-text-primary)' }}>
+                                            {event.event}
+                                        </div>
+                                        {event.details && (
+                                            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>
+                                                {event.details}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Right Action/Status Column (Optional placeholder for now) */}
+                                    {/* <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                        <span style={{ color: 'var(--color-text-muted)' }}>...</span>
+                                    </div> */}
                                 </div>
-
-                                <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem' }}>{event.event}</h3>
-                                {event.details && (
-                                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', whiteSpace: 'pre-line', lineHeight: '1.4' }}>
-                                        {event.details}
-                                    </p>
-                                )}
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
-            ))
-            }
-        </div >
+            ))}
+        </div>
     );
 };
 
