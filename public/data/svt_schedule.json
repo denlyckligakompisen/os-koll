@@ -1,15 +1,6 @@
 [
   {
     "date": "2026-02-17",
-    "time": "21:10",
-    "title": "Ishockey",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/ed66E6g/os-2026-ishockey/attondelsfinal-sverige-lettland",
-    "live": false,
-    "duration": "2 tim 30 min"
-  },
-  {
-    "date": "2026-02-17",
     "time": "LIVE",
     "title": "Huvudsändning",
     "subtitle": "",
@@ -38,38 +29,11 @@
   {
     "date": "2026-02-17",
     "time": "LIVE",
-    "title": "Curling",
+    "title": "Ishockey",
     "subtitle": "",
-    "link": "https://www.svtplay.se/video/KGVVAB4/os-2026-curling/sverige-norge-herrar",
+    "link": "https://www.svtplay.se/video/ed66E6g/os-2026-ishockey/attondelsfinal-sverige-lettland",
     "live": true,
-    "duration": "3 tim 5 min"
-  },
-  {
-    "date": "2026-02-17",
-    "time": "LIVE",
-    "title": "Curling",
-    "subtitle": "Kanada-Storbritannien, herrar",
-    "link": "https://www.svtplay.se/video/eWmmq5n/os-2026-curling/kanada-storbritannien-herrar",
-    "live": true,
-    "duration": "3 tim 5 min"
-  },
-  {
-    "date": "2026-02-17",
-    "time": "LIVE",
-    "title": "Curling",
-    "subtitle": "USA-Italien, herrar",
-    "link": "https://www.svtplay.se/video/KkAA42Y/os-2026-curling/usa-italien-herrar",
-    "live": true,
-    "duration": "3 tim 5 min"
-  },
-  {
-    "date": "2026-02-17",
-    "time": "LIVE",
-    "title": "Curling",
-    "subtitle": "Tyskland-Schweiz, herrar",
-    "link": "https://www.svtplay.se/video/K1qqA4P/os-2026-curling/tyskland-schweiz-herrar",
-    "live": true,
-    "duration": "3 tim 5 min"
+    "duration": "2 tim 30 min"
   },
   {
     "date": "2026-02-18",
