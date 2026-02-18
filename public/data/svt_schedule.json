@@ -13,26 +13,8 @@
     "time": "LIVE",
     "title": "Längdskidor",
     "subtitle": "",
-    "link": "https://www.svtplay.se/video/KXvvLr1/os-2026-langdskidor/sprintstafett-kval",
-    "live": true,
-    "duration": "1 tim"
-  },
-  {
-    "date": "2026-02-18",
-    "time": "LIVE",
-    "title": "Alpint",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/KR551JD/os-2026-alpint/slalom-damer-ak-1",
-    "live": true,
-    "duration": "2 tim 10 min"
-  },
-  {
-    "date": "2026-02-18",
-    "time": "11:45",
-    "title": "Längdskidor",
-    "subtitle": "",
     "link": "https://www.svtplay.se/video/eYqq4PL/os-2026-langdskidor/sprintstafett",
-    "live": false,
+    "live": true,
     "duration": "1 tim 20 min"
   },
   {
@@ -43,6 +25,15 @@
     "link": "https://www.svtplay.se/video/KqPPRz2/os-2026-alpint/slalom-damer-ak-2",
     "live": false,
     "duration": "1 tim 35 min"
+  },
+  {
+    "date": "2026-02-18",
+    "time": "21:10",
+    "title": "Ishockey",
+    "subtitle": "",
+    "link": "https://www.svtplay.se/video/jQrrRrb/os-2026-ishockey/kvartsfinal-usa-sverige",
+    "live": false,
+    "duration": "2 tim 30 min"
   },
   {
     "date": "2026-02-19",
