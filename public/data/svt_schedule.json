@@ -19,11 +19,11 @@
   },
   {
     "date": "2026-02-18",
-    "time": "09:50",
+    "time": "LIVE",
     "title": "Alpint",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/KR551JD/os-2026-alpint/slalom-damer-ak-1",
-    "live": false,
+    "live": true,
     "duration": "2 tim 10 min"
   },
   {
