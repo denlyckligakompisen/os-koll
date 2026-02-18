@@ -4,7 +4,7 @@ import { cleanEventDetails, findSvtBroadcast } from '../../utils/eventUtils';
 
 const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
-    const details = cleanEventDetails(event.details);
+    const details = cleanEventDetails(event.details, event.sport);
 
     const watchLink = svtMatch ? svtMatch.link : "https://www.tv4play.se/kategorier/os-2026";
 

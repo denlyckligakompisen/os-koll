@@ -117,9 +117,9 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                 position: 'sticky',
                 top: '0',
                 zIndex: 10,
-                backgroundColor: 'rgba(15, 23, 42, 0.95)', // Semi-transparent based on bg-main
-                backdropFilter: 'blur(8px)',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                backgroundColor: 'transparent',
+                // backdropFilter: 'blur(8px)', // Removed as requested
+                borderBottom: 'none',
                 paddingTop: '0.75rem',
                 paddingBottom: '0.75rem',
                 marginRight: '-24px', // Compensate for parent padding

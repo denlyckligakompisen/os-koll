@@ -3,9 +3,9 @@ const BRANCH = 'main';
 const DATA_PATH = 'public/data';
 
 const getFetchUrls = (path) => [
+    `/data${path}`, // Local first for immediate testing
     `https://raw.githubusercontent.com/${USER_REPO}/${BRANCH}/${DATA_PATH}${path}?t=${new Date().getTime()}`,
     `https://cdn.jsdelivr.net/gh/${USER_REPO}@${BRANCH}/${DATA_PATH}${path}`,
-    `/data${path}` // Local fallback
 ];
 
 const fetchWithFallback = async (path) => {
