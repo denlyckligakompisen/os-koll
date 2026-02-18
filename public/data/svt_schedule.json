@@ -1,20 +1,20 @@
 [
   {
     "date": "2026-02-18",
-    "time": "09:15",
+    "time": "LIVE",
     "title": "Huvudsändning",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/eXvvd3y/os-2026-huvudsandning/18-feb",
-    "live": false,
+    "live": true,
     "duration": "14 tim"
   },
   {
     "date": "2026-02-18",
-    "time": "09:45",
+    "time": "LIVE",
     "title": "Längdskidor",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/KXvvLr1/os-2026-langdskidor/sprintstafett-kval",
-    "live": false,
+    "live": true,
     "duration": "1 tim"
   },
   {
