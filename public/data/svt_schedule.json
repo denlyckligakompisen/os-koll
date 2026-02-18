@@ -11,19 +11,10 @@
   {
     "date": "2026-02-18",
     "time": "LIVE",
-    "title": "Längdskidor",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/eYqq4PL/os-2026-langdskidor/sprintstafett",
-    "live": true,
-    "duration": "1 tim 20 min"
-  },
-  {
-    "date": "2026-02-18",
-    "time": "13:25",
     "title": "Alpint",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/KqPPRz2/os-2026-alpint/slalom-damer-ak-2",
-    "live": false,
+    "live": true,
     "duration": "1 tim 35 min"
   },
   {
