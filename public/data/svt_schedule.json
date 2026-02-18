@@ -1,24 +1,6 @@
 [
   {
     "date": "2026-02-18",
-    "time": "LIVE",
-    "title": "Huvudsändning",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/eXvvd3y/os-2026-huvudsandning/18-feb",
-    "live": true,
-    "duration": "14 tim"
-  },
-  {
-    "date": "2026-02-18",
-    "time": "LIVE",
-    "title": "Ishockey",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/jQrrRrb/os-2026-ishockey/kvartsfinal-usa-sverige",
-    "live": true,
-    "duration": "2 tim 30 min"
-  },
-  {
-    "date": "2026-02-19",
     "time": "08:45",
     "title": "Huvudsändning",
     "subtitle": "",
@@ -27,7 +9,7 @@
     "duration": "15 tim"
   },
   {
-    "date": "2026-02-19",
+    "date": "2026-02-18",
     "time": "09:00",
     "title": "Curling",
     "subtitle": "",
