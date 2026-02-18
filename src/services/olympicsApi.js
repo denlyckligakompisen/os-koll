@@ -3,8 +3,8 @@ const BRANCH = 'main';
 const DATA_PATH = 'public/data';
 
 const getFetchUrls = (path) => [
-    `https://cdn.jsdelivr.net/gh/${USER_REPO}@${BRANCH}/${DATA_PATH}${path}`,
     `https://raw.githubusercontent.com/${USER_REPO}/${BRANCH}/${DATA_PATH}${path}?t=${new Date().getTime()}`,
+    `https://cdn.jsdelivr.net/gh/${USER_REPO}@${BRANCH}/${DATA_PATH}${path}`,
     `/data${path}` // Local fallback
 ];
 

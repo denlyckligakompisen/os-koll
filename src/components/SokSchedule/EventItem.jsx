@@ -89,7 +89,7 @@ const EventItem = ({ event, svtEvents }) => {
                     </div>
                 )}
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center', flex: 1 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                     <span style={{
                         fontSize: '1.2rem',
                         fontWeight: '800',
@@ -99,11 +99,12 @@ const EventItem = ({ event, svtEvents }) => {
                         {event.sport}
                     </span>
                     <span style={{
-                        fontSize: '1.05rem',
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        fontWeight: '500'
+                        fontSize: '0.95rem',
+                        color: 'rgba(255, 255, 255, 0.75)',
+                        fontWeight: '500',
+                        marginTop: '2px'
                     }}>
-                        {event.event}
+                        {event.title || event.event}
                     </span>
                 </div>
             </div>
