@@ -10,11 +10,11 @@
   },
   {
     "date": "2026-02-19",
-    "time": "09:00",
+    "time": "LIVE",
     "title": "Curling",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/e9ddNbE/os-2026-curling/sverige-tjeckien-herrar",
-    "live": false,
+    "live": true,
     "duration": "3 tim 5 min"
   },
   {
