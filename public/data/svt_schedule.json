@@ -1,24 +1,6 @@
 [
   {
-    "date": "2026-02-19",
-    "time": "08:45",
-    "title": "Huvudsändning",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/eb33d6m/os-2026-huvudsandning/19-feb",
-    "live": false,
-    "duration": "15 tim"
-  },
-  {
-    "date": "2026-02-19",
-    "time": "09:00",
-    "title": "Curling",
-    "subtitle": "",
-    "link": "https://www.svtplay.se/video/e9ddNbE/os-2026-curling/sverige-tjeckien-herrar",
-    "live": false,
-    "duration": "2 tim 43 min"
-  },
-  {
-    "date": "2026-02-21",
+    "date": "2026-02-20",
     "time": "10:30",
     "title": "Huvudsändning",
     "subtitle": "",
@@ -27,7 +9,7 @@
     "duration": "12 tim"
   },
   {
-    "date": "2026-02-21",
+    "date": "2026-02-20",
     "time": "11:00",
     "title": "Längdskidor",
     "subtitle": "",
