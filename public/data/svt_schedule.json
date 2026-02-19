@@ -1,11 +1,11 @@
 [
   {
     "date": "2026-02-19",
-    "time": "08:45",
+    "time": "LIVE",
     "title": "Huvudsändning",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/eb33d6m/os-2026-huvudsandning/19-feb",
-    "live": false,
+    "live": true,
     "duration": "15 tim"
   },
   {
