@@ -124,35 +124,36 @@ async function scrapeSok() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
+        const stopDate = new Date(2026, 1, 23); // Feb 23, 2026 (inclusive endpoint for data, usually means don't include this day)
+        stopDate.setHours(0, 0, 0, 0);
+
         const futureEvents = allEvents.filter(e => {
-            /* 
             if (!e.day || e.day === 'Unknown Date') {
-                 console.log(`Missing day for event ${e.id}`);
-                 return true; 
+                // console.log(`Missing day for event ${e.id}`);
+                return true;
             }
 
             // "onsdag 18 feb" -> capture 18 and feb
-            const match = e.day.match(/(\d+)\s+([a-zA-Z]+)/);
+            const match = e.day.match(/(\d+)\s+([a-zA-Zåäö]+)/i);
             if (!match) {
-                 console.log(`Failed to match day: '${e.day}'`);
-                 return true;
+                // console.log(`Failed to match day: '${e.day}'`);
+                return true;
             }
 
-            const day = parseInt(match[1], 10);
+            const dayVal = parseInt(match[1], 10);
             const monthStr = match[2].toLowerCase();
             const month = MONTH_MAP[monthStr] ?? MONTH_MAP[monthStr.substring(0, 3)];
 
             if (month === undefined) {
-                 console.log(`Undefined month: '${monthStr}' in '${e.day}'`);
-                 return true;
+                // console.log(`Undefined month: '${monthStr}' in '${e.day}'`);
+                return true;
             }
 
-            const eventDate = new Date(2026, month, day);
-            if (eventDate < today) {
-                // console.log(`Event passed: ${eventDate.toDateString()} < ${today.toDateString()}`);
-            }
-            */
-            return true; // DEBUG: Return everything
+            const eventDate = new Date(2026, month, dayVal);
+
+            // Keep events from today up until but NOT including stopDate (Feb 23)
+            // If the user wants to include Feb 23, they would say "stop after 23"
+            return eventDate >= today && eventDate < stopDate;
         });
 
         console.log(`Found ${futureEvents.length} future events.`);

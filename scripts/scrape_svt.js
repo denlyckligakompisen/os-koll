@@ -78,8 +78,11 @@ async function scrapeSvt() {
             } catch (e) { /* ignore parse errors for individual entries */ }
         });
 
-        console.log(`Found ${allSvtEvents.length} SVT events.`);
-        fs.writeFileSync(OUTPUT_FILE, JSON.stringify(allSvtEvents, null, 2));
+        const stopDay = '2026-02-23';
+        const filteredSvtEvents = allSvtEvents.filter(e => e.date < stopDay);
+
+        console.log(`Found ${filteredSvtEvents.length} SVT events (filtered).`);
+        fs.writeFileSync(OUTPUT_FILE, JSON.stringify(filteredSvtEvents, null, 2));
 
     } catch (error) {
         console.error('SVT Scraping failed:', error.message);

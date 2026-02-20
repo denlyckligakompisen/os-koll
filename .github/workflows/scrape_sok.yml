@@ -33,6 +33,11 @@ jobs:
 
       - name: Run Scrapers
         run: |
+          # Stop scraping after February 22nd, 2026
+          if [[ $(date +%Y%m%d) -ge 20260223 ]]; then
+            echo "Scraping discontinued as of 2026-02-23."
+            exit 0
+          fi
           node scripts/scrape_sok.js
           node scripts/scrape_svt.js
           node scripts/scrape_medals.js

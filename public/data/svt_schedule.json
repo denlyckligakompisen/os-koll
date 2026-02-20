@@ -1,5 +1,59 @@
 [
   {
+    "date": "2026-02-20",
+    "time": "16:00",
+    "title": "OS med Filip och Kaeli",
+    "subtitle": "Michel Tornéus gästar",
+    "link": "https://www.svtplay.se/video/j1qqWro/os-med-filip-och-kaeli/michel-torneus-gastar",
+    "live": false,
+    "duration": "6 tim"
+  },
+  {
+    "date": "2026-02-20",
+    "time": "16:00",
+    "title": "Huvudsändning",
+    "subtitle": "20 feb",
+    "link": "https://www.svtplay.se/video/8orrM99/os-2026-huvudsandning/20-feb",
+    "live": false,
+    "duration": "8 tim"
+  },
+  {
+    "date": "2026-02-20",
+    "time": "16:25",
+    "title": "Skridsko",
+    "subtitle": "1500 meter, damer",
+    "link": "https://www.svtplay.se/video/89dd42p/os-2026-skridsko/1500-meter-damer",
+    "live": false,
+    "duration": "1 tim 40 min"
+  },
+  {
+    "date": "2026-02-20",
+    "time": "19:00",
+    "title": "Curling",
+    "subtitle": "Bronsmatch, herrar: Schweiz-Norge",
+    "link": "https://www.svtplay.se/video/8LJJN9N/os-2026-curling/bronsmatch-herrar-schweiz-norge",
+    "live": false,
+    "duration": "3 tim 5 min"
+  },
+  {
+    "date": "2026-02-20",
+    "time": "20:10",
+    "title": "Short track",
+    "subtitle": "Ikväll 20:10",
+    "link": "https://www.svtplay.se/video/eb334Rr/os-2026-short-track/ikvall-20-10",
+    "live": false,
+    "duration": "2 tim 30 min"
+  },
+  {
+    "date": "2026-02-20",
+    "time": "21:10",
+    "title": "Ishockey",
+    "subtitle": "Semifinal, herrar: USA-Slovakien",
+    "link": "https://www.svtplay.se/video/Kz77N7w/os-2026-ishockey/semifinal-herrar-usa-slovakien",
+    "live": false,
+    "duration": "2 tim 30 min"
+  },
+  {
     "date": "2026-02-21",
     "time": "10:30",
     "title": "Huvudsändning",
@@ -18,6 +72,42 @@
     "duration": "2 tim 30 min"
   },
   {
+    "date": "2026-02-21",
+    "time": "15:00",
+    "title": "Skridsko",
+    "subtitle": "Masstart",
+    "link": "https://www.svtplay.se/video/e4ddkY5/os-2026-skridsko/masstart",
+    "live": false,
+    "duration": "2 tim 50 min"
+  },
+  {
+    "date": "2026-02-21",
+    "time": "16:00",
+    "title": "OS med Filip och Kaeli",
+    "subtitle": "Nikki Amini gästar",
+    "link": "https://www.svtplay.se/video/jkAArRE/os-med-filip-och-kaeli/nikki-amini-gastar",
+    "live": false,
+    "duration": "6 tim 30 min"
+  },
+  {
+    "date": "2026-02-21",
+    "time": "19:00",
+    "title": "Curling",
+    "subtitle": "Final, herrar: Storbritannien-Kanada",
+    "link": "https://www.svtplay.se/video/8z77mGE/os-2026-curling/final-herrar-storbritannien-kanada",
+    "live": false,
+    "duration": "3 tim 20 min"
+  },
+  {
+    "date": "2026-02-21",
+    "time": "19:55",
+    "title": "Konståkning",
+    "subtitle": "Uppvisningsgala",
+    "link": "https://www.svtplay.se/video/e9dd4yw/os-2026-konstakning/uppvisningsgala",
+    "live": false,
+    "duration": "2 tim 35 min"
+  },
+  {
     "date": "2026-02-22",
     "time": "09:30",
     "title": "Huvudsändning",
@@ -34,5 +124,14 @@
     "link": "https://www.svtplay.se/video/e9dd4R2/os-2026-langdskidor/50-kilometer-damer",
     "live": false,
     "duration": "2 tim 45 min"
+  },
+  {
+    "date": "2026-02-22",
+    "time": "14:10",
+    "title": "Ishockey",
+    "subtitle": "Final, herrar",
+    "link": "https://www.svtplay.se/video/ep55J5r/os-2026-ishockey/final-herrar",
+    "live": false,
+    "duration": "2 tim 55 min"
   }
 ]
