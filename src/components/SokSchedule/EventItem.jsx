@@ -5,6 +5,7 @@ import { cleanEventDetails, findSvtBroadcast, getEventStatus } from '../../utils
 const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
     const details = cleanEventDetails(event.details, event.sport);
+    const { isLive } = getEventStatus(event, svtMatch);
 
     const watchLink = svtMatch ? svtMatch.link : "https://www.tv4play.se/kategorier/os-2026";
 
@@ -13,7 +14,7 @@ const EventItem = ({ event, svtEvents }) => {
             href={watchLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="event-card"
+            className={`event-card${isLive ? ' event-card-live' : ''}`}
             style={{
                 display: 'block',
                 textDecoration: 'none',
