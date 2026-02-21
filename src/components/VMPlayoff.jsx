@@ -128,24 +128,28 @@ const MatchCard = ({ match, isFinal }) => {
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '6px',
-                        backgroundColor: isClickable ? 'rgba(255, 0, 90, 0.05)' : 'rgba(0, 122, 255, 0.05)',
-                        padding: '3px 8px',
-                        borderRadius: '6px'
+                        height: '24px'
                     }}>
-                        {isClickable && (
+                        {match.broadcast.toLowerCase().includes('viaplay') ? (
                             <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Viaplay_logo.svg/200px-Viaplay_logo.svg.png"
+                                src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
                                 alt="Viaplay"
-                                style={{ height: '10px', width: 'auto' }}
+                                style={{ height: '16px', width: 'auto' }}
                             />
+                        ) : (
+                            <div style={{
+                                backgroundColor: 'rgba(0, 122, 255, 0.05)',
+                                padding: '3px 8px',
+                                borderRadius: '6px'
+                            }}>
+                                <span style={{
+                                    fontSize: '0.7rem',
+                                    fontWeight: '700',
+                                    color: accentColor,
+                                    textTransform: 'uppercase'
+                                }}>{match.broadcast}</span>
+                            </div>
                         )}
-                        <span style={{
-                            fontSize: '0.7rem',
-                            fontWeight: '700',
-                            color: accentColor,
-                            textTransform: 'uppercase'
-                        }}>{match.broadcast}</span>
                     </div>
                 )}
             </div>
@@ -268,6 +272,16 @@ const VMPlayoff = () => {
                         ))}
                     </div>
                 </div>
+
+                <div style={{
+                    width: '2px',
+                    height: '40px',
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    marginTop: '-40px',
+                    marginBottom: '-48px',
+                    position: 'relative',
+                    zIndex: 0
+                }} />
 
                 <Countdown />
             </div>
