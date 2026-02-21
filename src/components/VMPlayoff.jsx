@@ -83,7 +83,7 @@ const Countdown = () => {
     );
 };
 
-const MatchCard = ({ match, isFinal }) => {
+const MatchCard = ({ match, isFinal, date }) => {
     const isClickable = !!match.link;
     const accentColor = isClickable ? '#ff005a' : 'var(--color-primary)';
 
@@ -122,11 +122,19 @@ const MatchCard = ({ match, isFinal }) => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                 <div style={{
                     backgroundColor: 'rgba(0, 122, 255, 0.1)',
-                    padding: '4px 10px',
+                    padding: '4px 12px',
                     borderRadius: '8px',
-                    minWidth: '55px',
                     textAlign: 'center'
                 }}>
+                    <div style={{
+                        fontSize: '0.7rem',
+                        fontWeight: '700',
+                        color: 'var(--color-primary)',
+                        textTransform: 'uppercase',
+                        marginBottom: '1px'
+                    }}>
+                        {date}
+                    </div>
                     <span style={{
                         fontSize: '0.9rem',
                         fontWeight: '600',
@@ -235,7 +243,7 @@ const VMPlayoff = () => {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                         {data.rounds[0].matches.map(match => (
-                            <MatchCard key={match.id} match={match} />
+                            <MatchCard key={match.id} match={match} date="26 mars" />
                         ))}
                     </div>
                 </div>
@@ -265,7 +273,7 @@ const VMPlayoff = () => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {data.rounds[1].matches.map(match => (
-                            <MatchCard key={match.id} match={match} isFinal={true} />
+                            <MatchCard key={match.id} match={match} isFinal={true} date="31 mars" />
                         ))}
                     </div>
                 </div>
