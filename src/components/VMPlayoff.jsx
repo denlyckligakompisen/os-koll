@@ -73,38 +73,66 @@ const Countdown = () => {
 
 const MatchCard = ({ match, isFinal }) => {
     const isClickable = !!match.link;
+    const accentColor = isClickable ? '#ff005a' : 'var(--color-primary)';
+
     const content = (
         <div style={{
             backgroundColor: 'var(--color-card-bg)',
-            borderRadius: '12px',
-            padding: '12px',
-            border: isClickable ? '1px solid rgba(255, 0, 90, 0.3)' : 'var(--border)',
-            boxShadow: isClickable ? '0 4px 12px rgba(255, 0, 90, 0.1)' : 'var(--shadow-sm)',
+            backdropFilter: 'saturate(180%) blur(20px)',
+            WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+            borderRadius: 'var(--radius-lg)',
+            padding: '16px',
+            border: 'var(--border)',
+            boxShadow: 'var(--shadow-sm)',
             width: '100%',
-            maxWidth: '280px',
+            maxWidth: '320px',
             margin: '10px 0',
             position: 'relative',
             cursor: isClickable ? 'pointer' : 'default',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            textDecoration: 'none',
-            color: 'inherit',
-            display: 'block'
+            overflow: 'hidden'
         }}
-            className={isClickable ? 'clickable-card' : ''}
+            onMouseOver={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                }
+            }}
+            onMouseOut={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'var(--color-card-bg)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                }
+            }}
         >
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    {isClickable && <span style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        backgroundColor: '#ff005a',
-                        display: 'inline-block'
-                    }} />}
-                    {match.time}
-                </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <div style={{
+                    backgroundColor: isClickable ? 'rgba(255, 0, 90, 0.1)' : 'rgba(0, 122, 255, 0.1)',
+                    padding: '4px 10px',
+                    borderRadius: '8px',
+                    minWidth: '55px',
+                    textAlign: 'center'
+                }}>
+                    <span style={{
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        color: accentColor,
+                    }}>
+                        {match.time}
+                    </span>
+                </div>
+
                 {match.broadcast && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        backgroundColor: isClickable ? 'rgba(255, 0, 90, 0.05)' : 'rgba(0, 122, 255, 0.05)',
+                        padding: '3px 8px',
+                        borderRadius: '6px'
+                    }}>
                         {isClickable && (
                             <img
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Viaplay_logo.svg/200px-Viaplay_logo.svg.png"
@@ -112,34 +140,54 @@ const MatchCard = ({ match, isFinal }) => {
                                 style={{ height: '10px', width: 'auto' }}
                             />
                         )}
-                        <span style={{ color: isClickable ? '#ff005a' : '#007aff' }}>{match.broadcast}</span>
+                        <span style={{
+                            fontSize: '0.7rem',
+                            fontWeight: '700',
+                            color: accentColor,
+                            textTransform: 'uppercase'
+                        }}>{match.broadcast}</span>
                     </div>
                 )}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', padding: '4px 0' }}>
-                <span style={{ fontWeight: match.home.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
+                <span style={{
+                    fontWeight: match.home.includes('Sverige') ? '700' : '600',
+                    fontSize: '1.1rem',
+                    color: 'var(--color-text)',
+                    letterSpacing: '-0.02em'
+                }}>
                     {match.home}
                 </span>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
-                <span style={{ fontWeight: match.away.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
+                <span style={{ color: 'var(--color-text-muted)', fontSize: '1rem', fontWeight: '400' }}>–</span>
+                <span style={{
+                    fontWeight: match.away.includes('Sverige') ? '700' : '600',
+                    fontSize: '1.1rem',
+                    color: 'var(--color-text)',
+                    letterSpacing: '-0.02em'
+                }}>
                     {match.away}
                 </span>
             </div>
 
             {isClickable && (
                 <div style={{
-                    marginTop: '8px',
-                    fontSize: '0.7rem',
-                    color: '#ff005a',
-                    fontWeight: '700',
-                    textAlign: 'center',
-                    borderTop: '0.5px solid rgba(255, 0, 90, 0.1)',
-                    paddingTop: '8px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em'
+                    marginTop: '12px',
+                    paddingTop: '10px',
+                    borderTop: 'var(--border)',
+                    textAlign: 'center'
                 }}>
-                    Se matchen på Viaplay →
+                    <span style={{
+                        fontSize: '0.8rem',
+                        color: accentColor,
+                        fontWeight: '600',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '4px'
+                    }}>
+                        Se matchen LIVE på Viaplay →
+                    </span>
                 </div>
             )}
         </div>
