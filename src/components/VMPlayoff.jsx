@@ -62,7 +62,14 @@ const VMPlayoff = () => {
 
     return (
         <div style={{ padding: '0 10px' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: '800', textAlign: 'center', marginBottom: '4px', letterSpacing: '-0.02em' }}>{data.tournament}</h2>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '4px' }}>
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/100px-2026_FIFA_World_Cup_Emblem.svg.png"
+                    alt="FIFA World Cup 2026"
+                    style={{ height: '32px', width: 'auto' }}
+                />
+                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em' }}>{data.tournament}</h2>
+            </div>
             <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem', marginBottom: '24px' }}>Vägen till VM 2026</p>
 
             <div style={{
