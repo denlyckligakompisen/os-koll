@@ -305,21 +305,24 @@ const VMPlayoff = () => {
                         Grupp F
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            flexWrap: 'wrap',
-                            gap: '8px',
-                            padding: '8px 12px',
-                            backgroundColor: 'rgba(0,0,0,0.02)',
-                            borderRadius: '8px'
-                        }}>
-                            {['Japan', 'Nederländerna', 'Tunisien'].map((name, idx) => (
-                                <span key={idx} style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000000' }}>
-                                    {name}{idx < 2 ? ' • ' : ''}
+                        {[
+                            { name: 'Japan' },
+                            { name: 'Nederländerna' },
+                            { name: 'Tunisien' }
+                        ].map((team, idx) => (
+                            <div key={idx} style={{
+                                display: 'flex',
+                                justifyContent: 'flex-start',
+                                alignItems: 'center',
+                                padding: '8px 12px',
+                                backgroundColor: 'rgba(0,0,0,0.02)',
+                                borderRadius: '8px'
+                            }}>
+                                <span style={{ fontSize: '1rem', fontWeight: '500', color: '#000000' }}>
+                                    {team.name}
                                 </span>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
 
                         {/* Playoff winner row */}
                         <div style={{
