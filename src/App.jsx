@@ -124,7 +124,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
   }}>
     {[
       { id: 'os', label: 'OS-kollen', icon: '🏅' },
-      { id: 'vm', label: 'Vägen till VM', icon: '⚽' }
+      { id: 'vm', label: 'VM-kollen', icon: '⚽' }
     ].map(tab => (
       <button
         key={tab.id}
