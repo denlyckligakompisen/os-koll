@@ -11,7 +11,8 @@ const Countdown = () => {
         return {
             days: Math.floor(difference / (1000 * 60 * 60 * 24)),
             hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            minutes: Math.floor((difference / 1000 / 60) % 60)
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60)
         };
     };
 
@@ -20,7 +21,7 @@ const Countdown = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
-        }, 60000);
+        }, 1000);
         return () => clearInterval(timer);
     }, []);
 
@@ -56,6 +57,11 @@ const Countdown = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.minutes}</span>
                     <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>MIN</span>
+                </div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#ff005a' }}>{timeLeft.seconds}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEK</span>
                 </div>
             </div>
             <div style={{ marginTop: '16px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
