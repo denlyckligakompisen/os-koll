@@ -64,10 +64,10 @@ const VMPlayoff = () => {
         <div style={{ padding: '0 10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '8px' }}>
                 <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/100px-2026_FIFA_World_Cup_Emblem.svg.png"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/512px-2026_FIFA_World_Cup_Emblem.svg.png"
                     alt="FIFA World Cup 2026"
                     style={{
-                        height: '36px',
+                        height: '40px',
                         width: 'auto',
                         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                     }}
