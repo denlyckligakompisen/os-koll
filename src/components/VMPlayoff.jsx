@@ -146,7 +146,7 @@ const MatchCard = ({ match, isFinal }) => {
                             <img
                                 src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
                                 alt="Viaplay"
-                                style={{ height: '16px', width: 'auto' }}
+                                style={{ height: '16px', width: 'auto', filter: 'brightness(0)' }}
                             />
                         ) : (
                             <div style={{
@@ -206,7 +206,7 @@ const MatchCard = ({ match, isFinal }) => {
                         <img
                             src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
                             alt="Viaplay"
-                            style={{ height: '14px', width: 'auto', marginTop: '1px' }}
+                            style={{ height: '14px', width: 'auto', marginTop: '1px', filter: 'brightness(0)' }}
                         />
                         →
                     </span>
