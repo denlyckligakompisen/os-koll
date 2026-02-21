@@ -304,19 +304,26 @@ const VMPlayoff = () => {
                     textAlign: 'center',
                     marginTop: '20px'
                 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        {/* Static teams flags row */}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            gap: '16px',
-                            padding: '4px',
-                            opacity: 0.8
-                        }}>
-                            <span style={{ fontSize: '1.4rem' }} title="Nederländerna">🇳🇱</span>
-                            <span style={{ fontSize: '1.4rem' }} title="Japan">🇯🇵</span>
-                            <span style={{ fontSize: '1.4rem' }} title="Tunisien">🇹🇳</span>
-                        </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {[
+                            { name: 'Japan', flag: '🇯🇵' },
+                            { name: 'Nederländerna', flag: '🇳🇱' },
+                            { name: 'Tunisien', flag: '🇹🇳' }
+                        ].map((team, idx) => (
+                            <div key={idx} style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '8px 12px',
+                                backgroundColor: 'rgba(0,0,0,0.02)',
+                                borderRadius: '8px'
+                            }}>
+                                <span style={{ fontSize: '1rem', fontWeight: '500', color: '#000000' }}>
+                                    {team.name}
+                                </span>
+                                <span style={{ fontSize: '1.2rem' }}>{team.flag}</span>
+                            </div>
+                        ))}
 
                         {/* Playoff winner row */}
                         <div style={{
@@ -326,7 +333,8 @@ const VMPlayoff = () => {
                             padding: '10px 14px',
                             backgroundColor: 'rgba(255, 0, 90, 0.05)',
                             borderRadius: '10px',
-                            border: '0.5px solid rgba(255, 0, 90, 0.1)'
+                            border: '0.5px solid rgba(255, 0, 90, 0.1)',
+                            marginTop: '4px'
                         }}>
                             <span style={{ fontSize: '0.95rem', fontWeight: '700', color: '#000000' }}>
                                 Vinnare Playoff B
