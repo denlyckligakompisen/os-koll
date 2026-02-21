@@ -1,6 +1,6 @@
 import React from 'react';
 import SvtPlayBadge from './SvtPlayBadge';
-import { cleanEventDetails, findSvtBroadcast } from '../../utils/eventUtils';
+import { cleanEventDetails, findSvtBroadcast, getEventStatus } from '../../utils/eventUtils';
 
 const EventItem = ({ event, svtEvents }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
@@ -63,7 +63,7 @@ const EventItem = ({ event, svtEvents }) => {
                 </div>
 
                 {svtMatch ? (
-                    <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
+                    <SvtPlayBadge link={svtMatch.link} isLive={getEventStatus(event, svtMatch).isLive} />
                 ) : (
                     <div style={{
                         display: 'inline-flex',

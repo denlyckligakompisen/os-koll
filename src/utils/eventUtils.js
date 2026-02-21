@@ -87,3 +87,41 @@ export const findSvtBroadcast = (event, svtEvents) => {
 
     return match;
 };
+
+/**
+ * Parses a Swedish duration string like "12 tim" or "2 tim 30 min" into minutes.
+ */
+export const parseDuration = (durationStr) => {
+    if (!durationStr) return 120; // Default to 2 hours
+    let totalMinutes = 0;
+
+    const hoursMatch = durationStr.match(/(\d+)\s*tim/);
+    const minsMatch = durationStr.match(/(\d+)\s*min/);
+
+    if (hoursMatch) totalMinutes += parseInt(hoursMatch[1], 10) * 60;
+    if (minsMatch) totalMinutes += parseInt(minsMatch[1], 10);
+
+    return totalMinutes > 0 ? totalMinutes : 120;
+};
+
+/**
+ * Checks if an event is live or finished based on current time.
+ */
+export const getEventStatus = (event, svtMatch, now = new Date()) => {
+    const eventDate = parseSwedishDate(event.day);
+    if (!eventDate) return { isLive: false, isFinished: false };
+
+    const timeStr = normalizeTime(event.time);
+    const [hours, minutes] = timeStr.split(':').map(Number);
+
+    const startTime = new Date(eventDate);
+    startTime.setHours(hours, minutes, 0, 0);
+
+    const durationMinutes = svtMatch ? parseDuration(svtMatch.duration) : 120;
+    const endTime = new Date(startTime.getTime() + durationMinutes * 60 * 1000);
+
+    return {
+        isLive: now >= startTime && now <= endTime,
+        isFinished: now > endTime
+    };
+};

@@ -2,12 +2,20 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import DayGroup from './DayGroup';
 import { parseSwedishDate } from '../../utils/dateUtils';
+import { getEventStatus, findSvtBroadcast } from '../../utils/eventUtils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SokSchedule = ({ events, svtEvents = [] }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hasInitialized, setHasInitialized] = useState(false);
+    const [now, setNow] = useState(new Date());
     const tabsRef = useRef(null);
+
+    // Update current time every minute
+    useEffect(() => {
+        const timer = setInterval(() => setNow(new Date()), 60000);
+        return () => clearInterval(timer);
+    }, []);
 
     // Group and sort events
     const { days, groupedEvents } = useMemo(() => {
@@ -24,6 +32,12 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                 if (eventDate < today) return;
             }
 
+            // Check if event is finished
+            const svtMatch = findSvtBroadcast(event, svtEvents);
+            const status = getEventStatus(event, svtMatch, now);
+
+            if (status.isFinished) return;
+
             if (!groups[event.day]) {
                 groups[event.day] = [];
             }
@@ -37,7 +51,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         });
 
         return { days: sortedDays, groupedEvents: groups };
-    }, [events]);
+    }, [events, now, svtEvents]);
 
     useEffect(() => {
         if (!hasInitialized && days.length > 0) {
