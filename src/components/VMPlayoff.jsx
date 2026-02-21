@@ -5,7 +5,9 @@ const getFlag = (team) => {
         'Sverige': '🇸🇪',
         'Ukraina': '🇺🇦',
         'Polen': '🇵🇱',
-        'Albanien': '🇦🇱'
+        'Albanien': '🇦🇱',
+        'Vinnare Semi 1 (Ukr/Sve)': '🇺🇦/🇸🇪',
+        'Vinnare Semi 2 (Pol/Alb)': '🇵🇱/🇦🇱'
     };
     return flags[team] || '🏳️';
 };
@@ -43,6 +45,7 @@ const MatchCard = ({ match, isFinal }) => (
         {match.location && (
             <div style={{ marginTop: '8px', fontSize: '0.7rem', color: 'var(--color-text-muted)', borderTop: '0.5px solid rgba(0,0,0,0.05)', paddingTop: '6px' }}>
                 📍 {match.location}
+                {match.note && <div style={{ fontSize: '0.65rem', fontStyle: 'italic', marginTop: '2px' }}>{match.note}</div>}
             </div>
         )}
     </div>
@@ -120,6 +123,21 @@ const VMPlayoff = () => {
                 </div>
             </div>
 
+            <div style={{
+                marginTop: '40px',
+                padding: '16px',
+                backgroundColor: 'rgba(0,122,255,0.05)',
+                borderRadius: '12px',
+                textAlign: 'center',
+                border: '1px solid rgba(0,122,255,0.1)'
+            }}>
+                <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: '600', color: 'var(--color-primary)' }}>
+                    ℹ️ Information om spelplats
+                </p>
+                <p style={{ margin: '6px 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>
+                    Vid svensk vinst i semifinalen mot Ukraina spelas finalen hemma på Strawberry Arena den 31 mars.
+                </p>
+            </div>
         </div>
     );
 };
