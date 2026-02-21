@@ -152,24 +152,30 @@ const MatchCard = ({ match, isFinal, date }) => {
 
                 <div style={{
                     display: 'flex',
+                    flexDirection: isFinal ? 'column' : 'row',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: isFinal ? '2px' : '8px',
                     flex: 1,
                     justifyContent: 'center',
                     paddingRight: '10px'
                 }}>
                     <span style={{
                         fontWeight: '500',
-                        fontSize: '1.05rem',
+                        fontSize: isFinal ? '1.05rem' : '1.1rem',
                         color: '#000000',
                         letterSpacing: '-0.01em'
                     }}>
                         <BoldSverige text={match.home} />
                     </span>
-                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', fontWeight: '400' }}>–</span>
+                    <span style={{
+                        color: 'var(--color-text-muted)',
+                        fontSize: '0.9rem',
+                        fontWeight: '400',
+                        margin: isFinal ? '-2px 0' : '0'
+                    }}>–</span>
                     <span style={{
                         fontWeight: '500',
-                        fontSize: '1.05rem',
+                        fontSize: isFinal ? '1.05rem' : '1.1rem',
                         color: '#000000',
                         letterSpacing: '-0.01em'
                     }}>
@@ -240,7 +246,6 @@ const VMPlayoff = () => {
                     {data.tournament}
                 </h2>
             </div>
-            <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem', marginBottom: '24px', marginTop: '-4px' }}>Vägen till VM 2026</p>
 
             <div style={{
                 display: 'flex',
@@ -251,9 +256,6 @@ const VMPlayoff = () => {
             }}>
                 {/* Semifinals */}
                 <div style={{ width: '100%' }}>
-                    <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'rgba(0,0,0,0.5)', marginBottom: '12px', textAlign: 'center' }}>
-                        Torsdag 26 mars
-                    </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                         {data.rounds[0].matches.map(match => (
                             <MatchCard key={match.id} match={match} date="26 mars" />
@@ -273,17 +275,6 @@ const VMPlayoff = () => {
                         backgroundColor: 'rgba(0,0,0,0.1)'
                     }} />
 
-                    <div style={{
-                        fontSize: '0.8rem',
-                        fontWeight: '700',
-                        textTransform: 'uppercase',
-                        color: 'rgba(0,0,0,0.5)',
-                        marginBottom: '12px',
-                        textAlign: 'center',
-                        marginTop: '10px'
-                    }}>
-                        Tisdag 31 mars
-                    </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {data.rounds[1].matches.map(match => (
                             <MatchCard key={match.id} match={match} isFinal={true} date="31 mars" />
