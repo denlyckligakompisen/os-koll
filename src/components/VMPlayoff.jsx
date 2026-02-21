@@ -261,7 +261,7 @@ const VMPlayoff = () => {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '48px',
+                gap: '32px',
                 position: 'relative',
                 alignItems: 'center'
             }}>
@@ -295,10 +295,10 @@ const VMPlayoff = () => {
 
                 <div style={{
                     width: '1px',
-                    height: '24px',
+                    height: '16px',
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '12px',
-                    marginBottom: '12px',
+                    marginTop: '8px',
+                    marginBottom: '8px',
                     position: 'relative',
                     zIndex: 0
                 }} />
@@ -307,10 +307,10 @@ const VMPlayoff = () => {
 
                 <div style={{
                     width: '1px',
-                    height: '24px',
+                    height: '16px',
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '12px',
-                    marginBottom: '12px',
+                    marginTop: '8px',
+                    marginBottom: '8px',
                     position: 'relative',
                     zIndex: 0
                 }} />
