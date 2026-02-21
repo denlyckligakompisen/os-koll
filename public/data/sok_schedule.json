@@ -1,42 +1,50 @@
 [
   {
-    "id": "sok-85-1771671576288",
+    "id": "sok-85-1771700215677",
     "day": "lördag 21 feb",
     "time": "10.00",
     "sport": "Freestyle",
     "title": "herrar, skicross",
-    "details": "kval: 1) Reece Howden, Kanada 1.06,13, 2) Satoshi Furuno, Japan +0,99, 3) Ryan Regez, Schweiz +1,05. Sv.plac: 10) David Mobärg +1,43, 22) Erik Mobärg +2,06.\nkl. 12.00 åttondelsfinaler \n kl. 12.35 kvartsfinaler \n kl. 12.54 semifinaler \n kl. 13.10 final"
+    "details": "Slutställning: 1) Simone Deromedis, Italien, 2) Federico Tomasoni, Italien, 3) Alex Fiva, Schweiz. Sv.plac: 18) David Mobärg, 23) Erik Mobärg.\nkval: 1) Reece Howden, Kanada 1.06,13, 2) Satoshi Furuno, Japan +0,99, 3) Ryan Regez, Schweiz +1,05. Sv.plac: 10) David Mobärg +1,43, 22) Erik Mobärg +2,06. Åttondelsfinal nr 6: 1) Alex Fiva Q, 2) Daniel Paulus, Tjeckien Q. 3) David Mobärg DNF. Åttondelsfinal nr 7: 1) Tim Hronek, Tyskland Q, 2) Kevin Drury, Kanada Q, 3) Erik Mobärg DNF."
   },
   {
-    "id": "sok-86-1771671576289",
+    "id": "sok-86-1771700215678",
     "day": "lördag 21 feb",
     "time": "11.00",
     "sport": "Längdskidor",
     "title": "herrar 50 km (k) masstart",
-    "details": "Sänds på SVT.\nStartnr: 13) Gustaf Berglund, 20) Calle Halfvarsson, 30) Johan Häggström"
+    "details": "1) Johannes Hösflot Kläbo, Norge 2.06.44,8, 2) Martin Löwström Nyenget, Norge +8,9, 3) Emil Iversen +30,7. Sv.plac: 9) Gustaf Berglund +5.13,7, 24) Calle Halfvarsson +12.39,5, 25) Johan Häggström +13.10,7."
   },
   {
-    "id": "sok-87-1771671576289",
+    "id": "sok-87-1771700215679",
     "day": "lördag 21 feb",
     "time": "14.15",
     "sport": "Skidskytte",
     "title": "damer masstart 12,5  km",
-    "details": "Startnr: 8) Anna Magnusson, 9) Hanna Öberg, 10) Elvira Öberg, 18) Linn Gestblom"
+    "details": "1) Oceane Michelon, Frankrike 37.18,1 (2 bom), 2) Julia Simon +6,6 (1), 3) Tereza Vobornikova, Tjeckien +7,4 (1). Sv.plac: 4) Anna Magnusson +26,6 (0), 6) Elvira Öberg +31,9 (1), 10) Hanna Öberg +1.03,1 (3), 25) Linn Gestblom +3.04,9 (5)."
   },
   {
-    "id": "sok-88-1771671576290",
+    "id": "sok-88-1771700215679",
     "day": "söndag 22 feb",
     "time": "10.00",
     "sport": "Längdskidor",
     "title": "damer, 50 km (k) masstart",
-    "details": ""
+    "details": "Startnr: 3) Ebba Andersson, 10) Jonna Sundling, 15) Emma Ribom"
   },
   {
-    "id": "sok-89-1771671576291",
+    "id": "sok-89-1771700215679",
     "day": "söndag 22 feb",
     "time": "11.05",
     "sport": "Curling",
     "title": "damer, final",
     "details": "Sverige - Schweiz"
+  },
+  {
+    "id": "sok-90-1771700215680",
+    "day": "söndag 22 feb",
+    "time": "20.30",
+    "sport": "Ceremoni",
+    "title": "Avslutningsceremoni",
+    "details": "Verona Olympic Stadium"
   }
 ]

@@ -41,8 +41,8 @@ const Countdown = () => {
 
     return (
         <div style={{
-            marginTop: '-25px',
-            marginBottom: '-25px',
+            marginTop: '8px',
+            marginBottom: '8px',
             padding: '24px',
             backgroundColor: 'var(--color-card-bg)',
             backdropFilter: 'blur(16px)',
@@ -264,13 +264,13 @@ const VMPlayoff = () => {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '32px',
+                gap: '16px',
                 position: 'relative',
                 alignItems: 'center'
             }}>
                 {/* Semifinals */}
                 <div style={{ width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                         {data.rounds[0].matches.map(match => (
                             <MatchCard key={match.id} match={match} date="26 mars" />
                         ))}
@@ -279,16 +279,12 @@ const VMPlayoff = () => {
 
                 {/* Final */}
                 <div style={{ width: '100%', position: 'relative' }}>
-                    <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)' }} />
-
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {data.rounds[1].matches.map(match => (
                             <MatchCard key={match.id} match={match} isFinal={true} date="31 mars" />
                         ))}
                     </div>
                 </div>
-
-                <div style={{ width: '1px', height: '16px', backgroundColor: 'rgba(0,0,0,0.1)', margin: '8px auto' }} />
 
                 <Countdown />
 

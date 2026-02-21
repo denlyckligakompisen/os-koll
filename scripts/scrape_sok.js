@@ -104,18 +104,23 @@ async function scrapeSok() {
             }
             details = details.trim();
 
-            if (time && sport) {
+            let finalSport = sport;
+            if (!finalSport && title.toLowerCase().includes('ceremoni')) {
+                finalSport = 'Ceremoni';
+            }
+
+            if (time && (finalSport || title)) {
                 allEvents.push({
                     id: `sok-${i}-${Date.now()}`,
                     day: day || 'Unknown Date',
                     time,
-                    sport,
+                    sport: finalSport || 'Övrigt',
                     title,
                     details
                 });
             } else {
                 // Log first failure ONLY
-                if (i === 0) console.log(`Item 0 missing data: time='${time}', sport='${sport}'`);
+                if (i === 0) console.log(`Item 0 missing data: time='${time}', sport='${sport}', title='${title}'`);
             }
         });
 

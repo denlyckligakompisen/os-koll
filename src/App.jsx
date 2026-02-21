@@ -4,6 +4,9 @@ import { useOlympicsData } from './hooks/useOlympicsData';
 import SokSchedule from './components/SokSchedule/SokSchedule';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import VMPlayoff from './components/VMPlayoff';
+import LACountdown from './components/LACountdown';
+
+const SHOW_COUNTDOWN_FROM = new Date('2026-02-23T00:00:00');
 
 
 const MedalCounter = ({ medals }) => {
@@ -232,6 +235,7 @@ function App() {
           <>
             <Header medals={medals} />
             <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
+            {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </>
         ) : (
           <VMPlayoff />

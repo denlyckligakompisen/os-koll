@@ -1,15 +1,11 @@
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import DayGroup from './DayGroup';
 import { parseSwedishDate } from '../../utils/dateUtils';
 import { getEventStatus, findSvtBroadcast } from '../../utils/eventUtils';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SokSchedule = ({ events, svtEvents = [] }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [hasInitialized, setHasInitialized] = useState(false);
     const [now, setNow] = useState(new Date());
-    const tabsRef = useRef(null);
 
     // Update current time every minute
     useEffect(() => {
@@ -53,26 +49,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         return { days: sortedDays, groupedEvents: groups };
     }, [events, now, svtEvents]);
 
-    useEffect(() => {
-        if (!hasInitialized && days.length > 0) {
-            setActiveIndex(0);
-            setHasInitialized(true);
-        }
-    }, [days, hasInitialized]);
-
-    const scrollToActiveTab = (index) => {
-        if (tabsRef.current) {
-            const tab = tabsRef.current.children[index];
-            if (tab) {
-                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-        }
-    };
-
-    useEffect(() => {
-        scrollToActiveTab(activeIndex);
-    }, [activeIndex]);
-
 
     if (days.length === 0) {
         return (
@@ -82,103 +58,18 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         );
     }
 
-    const activeDay = days[activeIndex];
-
     return (
-        <div className="schedule-container">
-
-            {/* Day Navigation */}
-            <div className="day-tabs-container" style={{
-                marginBottom: '1.25rem',
-                position: 'sticky',
-                top: '0',
-                zIndex: 10,
-                backgroundColor: 'rgba(242, 242, 247, 0.8)',
-                backdropFilter: 'saturate(180%) blur(20px)',
-                WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-                paddingTop: '0.75rem',
-                paddingBottom: '0.75rem',
-                marginRight: '-24px',
-                marginLeft: '-24px',
-                paddingLeft: '24px',
-                paddingRight: '24px'
-            }}>
-                <div
-                    ref={tabsRef}
-                    style={{
-                        display: 'flex',
-                        overflowX: 'auto',
-                        gap: '2px',
-                        padding: '3px',
-                        backgroundColor: 'rgba(118, 118, 128, 0.12)',
-                        borderRadius: '9px',
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                        WebkitOverflowScrolling: 'touch',
-                    }}
-                    className="hide-scrollbar"
-                >
-                    {days.map((day, index) => {
-                        const isActive = index === activeIndex;
-
-                        const eventDate = parseSwedishDate(day);
-                        let displayDay = day.replace('dag', '');
-
-                        if (eventDate) {
-                            const today = new Date();
-                            today.setHours(0, 0, 0, 0);
-
-                            const tomorrow = new Date();
-                            tomorrow.setDate(today.getDate() + 1);
-                            tomorrow.setHours(0, 0, 0, 0);
-
-                            const checkDate = new Date(eventDate);
-                            checkDate.setHours(0, 0, 0, 0);
-
-                            if (checkDate.getTime() === today.getTime()) {
-                                displayDay = 'Idag';
-                            } else if (checkDate.getTime() === tomorrow.getTime()) {
-                                displayDay = 'Imorgon';
-                            }
-                        }
-
-                        return (
-                            <button
-                                key={day}
-                                onClick={() => setActiveIndex(index)}
-                                style={{
-                                    padding: '6px 14px',
-                                    borderRadius: '7px',
-                                    border: 'none',
-                                    backgroundColor: isActive ? '#ffffff' : 'transparent',
-                                    color: 'var(--color-text)',
-                                    boxShadow: isActive ? '0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04)' : 'none',
-                                    whiteSpace: 'nowrap',
-                                    fontSize: '0.85rem',
-                                    fontWeight: isActive ? '600' : '500',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    flexShrink: 0,
-                                    flex: 1,
-                                    textAlign: 'center'
-                                }}
-                            >
-                                {displayDay}
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Content for Active Day */}
-            <div className="active-day-content" style={{ minHeight: '300px' }}>
-                <DayGroup
-                    key={activeDay}
-                    day={activeDay}
-                    events={groupedEvents[activeDay]}
-                    svtEvents={svtEvents}
-                    now={now}
-                />
+        <div className="schedule-container" style={{ padding: '0 4px' }}>
+            <div className="all-days-content">
+                {days.map((day) => (
+                    <DayGroup
+                        key={day}
+                        day={day}
+                        events={groupedEvents[day]}
+                        svtEvents={svtEvents}
+                        now={now}
+                    />
+                ))}
             </div>
         </div>
     );

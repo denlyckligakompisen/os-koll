@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/sf-compact-display');
+
 :root {
   --color-bg: #f2f2f7;
   /* iOS System Background */
@@ -19,7 +22,7 @@
   --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.12);
   --border: 0.5px solid rgba(0, 0, 0, 0.1);
   /* iOS Thin Border */
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --font-family: 'SF Compact Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
