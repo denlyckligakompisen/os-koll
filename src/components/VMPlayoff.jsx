@@ -247,6 +247,9 @@ const VMPlayoff = () => {
             }}>
                 {/* Semifinals */}
                 <div style={{ width: '100%' }}>
+                    <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'rgba(0,0,0,0.5)', marginBottom: '12px', textAlign: 'center' }}>
+                        Torsdag 26 mars
+                    </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                         {data.rounds[0].matches.map(match => (
                             <MatchCard key={match.id} match={match} />
@@ -266,6 +269,9 @@ const VMPlayoff = () => {
                         backgroundColor: 'rgba(0,0,0,0.1)'
                     }} />
 
+                    <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', color: 'rgba(0,0,0,0.5)', marginBottom: '12px', textAlign: 'center' }}>
+                        Tisdag 31 mars
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {data.rounds[1].matches.map(match => (
                             <MatchCard key={match.id} match={match} isFinal={true} />
