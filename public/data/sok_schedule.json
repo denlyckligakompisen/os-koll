@@ -1,14 +1,14 @@
 [
   {
-    "id": "sok-85-1771666429147",
+    "id": "sok-85-1771667866401",
     "day": "lördag 21 feb",
     "time": "10.00",
     "sport": "Freestyle",
     "title": "herrar, skicross",
-    "details": "kl 10.00 kval, startnr: 14) David Mobärg, 18) Erik Mobärg\n kl. 12.00 åttondelsfinaler \n kl. 12.35 kvartsfinaler \n kl. 12.54 semifinaler \n kl. 13.10 final"
+    "details": "kval: 1) Reece Howden, Kanada 1.06,13, 2) Satoshi Furuno, Japan +0,99, 3) Ryan Regez, Schweiz +1,05. Sv.plac: 10) David Mobärg +1,43, 22) Erik Mobärg +2,06.\nkl. 12.00 åttondelsfinaler \n kl. 12.35 kvartsfinaler \n kl. 12.54 semifinaler \n kl. 13.10 final"
   },
   {
-    "id": "sok-86-1771666429148",
+    "id": "sok-86-1771667866402",
     "day": "lördag 21 feb",
     "time": "11.00",
     "sport": "Längdskidor",
@@ -16,7 +16,7 @@
     "details": "Startnr: 13) Gustaf Berglund, 20) Calle Halfvarsson, 30) Johan Häggström"
   },
   {
-    "id": "sok-87-1771666429149",
+    "id": "sok-87-1771667866403",
     "day": "lördag 21 feb",
     "time": "14.15",
     "sport": "Skidskytte",
@@ -24,7 +24,7 @@
     "details": "Startnr: 8) Anna Magnusson, 9) Hanna Öberg, 10) Elvira Öberg, 18) Linn Gestblom"
   },
   {
-    "id": "sok-88-1771666429149",
+    "id": "sok-88-1771667866403",
     "day": "söndag 22 feb",
     "time": "10.00",
     "sport": "Längdskidor",
@@ -32,7 +32,7 @@
     "details": ""
   },
   {
-    "id": "sok-89-1771666429150",
+    "id": "sok-89-1771667866403",
     "day": "söndag 22 feb",
     "time": "11.05",
     "sport": "Curling",

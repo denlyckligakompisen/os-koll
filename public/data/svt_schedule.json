@@ -10,11 +10,11 @@
   },
   {
     "date": "2026-02-21",
-    "time": "11:00",
+    "time": "LIVE",
     "title": "Längdskidor",
     "subtitle": "",
     "link": "https://www.svtplay.se/video/jd66Ey6/os-2026-langdskidor/50-kilometer-herrar",
-    "live": false,
+    "live": true,
     "duration": "2 tim 30 min"
   },
   {
