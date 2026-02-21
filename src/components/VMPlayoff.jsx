@@ -284,6 +284,59 @@ const VMPlayoff = () => {
                 }} />
 
                 <Countdown />
+
+                <div style={{
+                    width: '2px',
+                    height: '40px',
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    marginTop: '0px',
+                    marginBottom: '0px',
+                    position: 'relative',
+                    zIndex: 0
+                }} />
+
+                <div style={{
+                    backgroundColor: 'var(--color-card-bg)',
+                    backdropFilter: 'saturate(180%) blur(20px)',
+                    WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: '16px',
+                    border: 'var(--border)',
+                    boxShadow: 'var(--shadow-sm)',
+                    width: '100%',
+                    maxWidth: '320px',
+                    textAlign: 'center'
+                }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
+                        Grupp F
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {[
+                            { name: 'Nederländerna', flag: '🇳🇱' },
+                            { name: 'Japan', flag: '🇯🇵' },
+                            { name: 'Tunisien', flag: '🇹🇳' },
+                            { name: 'Vinnare Playoff B', flag: '🇸🇪/🇺🇦/🇵🇱/🇦🇱', isPlayoff: true }
+                        ].map((team, idx) => (
+                            <div key={idx} style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '8px 12px',
+                                backgroundColor: team.isPlayoff ? 'rgba(255, 0, 90, 0.05)' : 'rgba(0,0,0,0.02)',
+                                borderRadius: '8px',
+                                border: team.isPlayoff ? '0.5px solid rgba(255, 0, 90, 0.1)' : 'none'
+                            }}>
+                                <span style={{ fontSize: '1rem', fontWeight: team.isPlayoff ? '700' : '500' }}>
+                                    {team.name}
+                                </span>
+                                <span style={{ fontSize: '1.2rem' }}>{team.flag}</span>
+                            </div>
+                        ))}
+                    </div>
+                    <div style={{ marginTop: '12px', fontSize: '0.7rem', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
+                        Trea i varje grupp kan gå vidare till slutspel
+                    </div>
+                </div>
             </div>
         </div>
     );
