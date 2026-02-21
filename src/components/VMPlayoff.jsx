@@ -56,25 +56,25 @@ const Countdown = () => {
             <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: '#000000', letterSpacing: '0.1em', marginBottom: '16px', opacity: 0.6 }}>
                 Fotbolls-VM 2026
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.days}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>DAGAR</span>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.days}</span>
+                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>DAGAR</span>
                 </div>
-                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.hours}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>TIMMAR</span>
+                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.hours}</span>
+                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>TIMMAR</span>
                 </div>
-                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000' }}>{timeLeft.minutes}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>MINUTER</span>
+                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.minutes}</span>
+                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>MINUTER</span>
                 </div>
-                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000' }}>{timeLeft.seconds}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEKUNDER</span>
+                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.seconds}</span>
+                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>SEKUNDER</span>
                 </div>
             </div>
 
@@ -261,7 +261,7 @@ const VMPlayoff = () => {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '40px',
+                gap: '48px',
                 position: 'relative',
                 alignItems: 'center'
             }}>
@@ -278,11 +278,11 @@ const VMPlayoff = () => {
                 <div style={{ width: '100%', position: 'relative' }}>
                     <div style={{
                         position: 'absolute',
-                        top: '-30px',
+                        top: '-36px',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        width: '2px',
-                        height: '30px',
+                        width: '1px',
+                        height: '24px',
                         backgroundColor: 'rgba(0,0,0,0.1)'
                     }} />
 
@@ -294,16 +294,26 @@ const VMPlayoff = () => {
                 </div>
 
                 <div style={{
-                    width: '2px',
-                    height: '40px',
+                    width: '1px',
+                    height: '24px',
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '0px',
-                    marginBottom: '0px',
+                    marginTop: '12px',
+                    marginBottom: '12px',
                     position: 'relative',
                     zIndex: 0
                 }} />
 
                 <Countdown style={{ marginTop: '-25px', marginBottom: '-25px' }} />
+
+                <div style={{
+                    width: '1px',
+                    height: '24px',
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    marginTop: '12px',
+                    marginBottom: '12px',
+                    position: 'relative',
+                    zIndex: 0
+                }} />
 
                 <div style={{
                     backgroundColor: 'var(--color-card-bg)',
