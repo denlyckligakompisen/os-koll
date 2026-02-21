@@ -97,7 +97,7 @@ const MatchCard = ({ match, isFinal, date }) => {
             border: 'var(--border)',
             boxShadow: 'var(--shadow-sm)',
             width: '100%',
-            maxWidth: '320px',
+            maxWidth: '360px',
             margin: '10px 0',
             position: 'relative',
             cursor: isClickable ? 'pointer' : 'default',
@@ -119,15 +119,21 @@ const MatchCard = ({ match, isFinal, date }) => {
                 }
             }}
         >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                justifyContent: 'space-between'
+            }}>
                 <div style={{
                     backgroundColor: 'rgba(0, 122, 255, 0.1)',
-                    padding: '4px 12px',
-                    borderRadius: '8px',
-                    textAlign: 'center'
+                    padding: '6px 14px',
+                    borderRadius: '10px',
+                    textAlign: 'center',
+                    minWidth: '85px'
                 }}>
                     <div style={{
-                        fontSize: '0.7rem',
+                        fontSize: '0.65rem',
                         fontWeight: '700',
                         color: 'var(--color-primary)',
                         textTransform: 'uppercase',
@@ -136,33 +142,40 @@ const MatchCard = ({ match, isFinal, date }) => {
                         {date}
                     </div>
                     <span style={{
-                        fontSize: '0.9rem',
+                        fontSize: '0.85rem',
                         fontWeight: '600',
                         color: 'var(--color-primary)',
                     }}>
                         {match.time}
                     </span>
                 </div>
-            </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', padding: '4px 0' }}>
-                <span style={{
-                    fontWeight: '500',
-                    fontSize: '1.1rem',
-                    color: '#000000',
-                    letterSpacing: '-0.02em'
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    flex: 1,
+                    justifyContent: 'center',
+                    paddingRight: '10px'
                 }}>
-                    <BoldSverige text={match.home} />
-                </span>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: '1rem', fontWeight: '400' }}>–</span>
-                <span style={{
-                    fontWeight: '500',
-                    fontSize: '1.1rem',
-                    color: '#000000',
-                    letterSpacing: '-0.02em'
-                }}>
-                    <BoldSverige text={match.away} />
-                </span>
+                    <span style={{
+                        fontWeight: '500',
+                        fontSize: '1.05rem',
+                        color: '#000000',
+                        letterSpacing: '-0.01em'
+                    }}>
+                        <BoldSverige text={match.home} />
+                    </span>
+                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', fontWeight: '400' }}>–</span>
+                    <span style={{
+                        fontWeight: '500',
+                        fontSize: '1.05rem',
+                        color: '#000000',
+                        letterSpacing: '-0.01em'
+                    }}>
+                        <BoldSverige text={match.away} />
+                    </span>
+                </div>
             </div>
 
             {isClickable && (
