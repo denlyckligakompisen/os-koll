@@ -26,11 +26,9 @@
             "date": "31 mars 2026",
             "matches": [
                 {
-                    "home": "Vinnare Semi 1 (Ukr/Sve)",
-                    "away": "Vinnare Semi 2 (Pol/Alb)",
+                    "home": "Vinnare Semi 1",
+                    "away": "Vinnare Semi 2",
                     "time": "20:45",
-                    "location": "Strawberry Arena*",
-                    "note": "*Vid svensk vinst i semin",
                     "id": 3
                 }
             ]
