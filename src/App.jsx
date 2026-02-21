@@ -125,27 +125,54 @@ const TabBar = ({ activeTab, onTabChange }) => (
     {[
       { id: 'os', label: 'OS-kollen', icon: '🏅' },
       { id: 'vm', label: 'VM-kollen', icon: '⚽' }
-    ].map(tab => (
-      <button
-        key={tab.id}
-        onClick={() => onTabChange(tab.id)}
-        style={{
-          background: 'none',
-          border: 'none',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '4px',
-          color: activeTab === tab.id ? 'var(--color-primary)' : 'var(--color-text-muted)',
-          cursor: 'pointer',
-          flex: 1,
-          transition: 'color 0.2s ease'
-        }}
-      >
-        <span style={{ fontSize: '1.4rem' }}>{tab.icon}</span>
-        <span style={{ fontSize: '0.65rem', fontWeight: '500' }}>{tab.label}</span>
-      </button>
-    ))}
+    ].map(tab => {
+      const isActive = activeTab === tab.id;
+      return (
+        <button
+          key={tab.id}
+          onClick={() => onTabChange(tab.id)}
+          style={{
+            background: 'none',
+            border: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '2px',
+            color: isActive ? '#000000' : 'var(--color-text-muted)',
+            cursor: 'pointer',
+            flex: 1,
+            transition: 'all 0.2s ease',
+            position: 'relative',
+            padding: '4px 0 12px 0'
+          }}
+        >
+          <span style={{
+            fontSize: '1.3rem',
+            transform: isActive ? 'scale(1.1)' : 'scale(1)',
+            transition: 'transform 0.2s ease'
+          }}>
+            {tab.icon}
+          </span>
+          <span style={{
+            fontSize: '0.7rem',
+            fontWeight: isActive ? '700' : '500',
+            letterSpacing: isActive ? '-0.01em' : '0'
+          }}>
+            {tab.label}
+          </span>
+          {isActive && (
+            <div style={{
+              position: 'absolute',
+              bottom: '4px',
+              width: '20px',
+              height: '3px',
+              backgroundColor: '#000000',
+              borderRadius: '2px'
+            }} />
+          )}
+        </button>
+      );
+    })}
   </nav>
 );
 
