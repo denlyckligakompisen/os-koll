@@ -173,13 +173,7 @@ const MatchCard = ({ match, isFinal }) => {
                         justifyContent: 'center',
                         gap: '6px'
                     }}>
-                        Se matchen på
-                        <img
-                            src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
-                            alt="Viaplay"
-                            style={{ height: '14px', width: 'auto', marginTop: '1px' }}
-                        />
-                        →
+                        Se matchen på Viaplay →
                     </span>
                 </div>
             )}
