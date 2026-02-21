@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useOlympicsData } from './hooks/useOlympicsData';
 import SokSchedule from './components/SokSchedule/SokSchedule';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import VMPlayoff from './components/VMPlayoff';
 
 
 const MedalCounter = ({ medals }) => {
@@ -183,22 +184,7 @@ function App() {
           <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
         </>
       ) : (
-        <div style={{ padding: '20px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '16px' }}>Vägen till VM</h2>
-          <div style={{
-            backgroundColor: 'var(--color-card-bg)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '24px',
-            border: 'var(--border)',
-            boxShadow: 'var(--shadow-sm)'
-          }}>
-            <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.5' }}>
-              Här kommer du snart se schemat för Sveriges väg till Fotbolls-VM.
-              Information om kvalmatcher och förberedelser uppdateras löpande efter OS.
-            </p>
-            <div style={{ fontSize: '3rem', marginTop: '20px' }}>⚽🇸🇪</div>
-          </div>
-        </div>
+        <VMPlayoff />
       )}
       <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
     </div>

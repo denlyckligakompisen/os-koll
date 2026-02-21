@@ -1,0 +1,37 @@
+{
+    "tournament": "VM-kval play off",
+    "rounds": [
+        {
+            "name": "Semifinal",
+            "date": "26 mars 2026",
+            "matches": [
+                {
+                    "home": "Ukraina",
+                    "away": "Sverige",
+                    "time": "20:45",
+                    "location": "Estadi Ciutat de València",
+                    "broadcast": "Viaplay Sport",
+                    "id": 1
+                },
+                {
+                    "home": "Polen",
+                    "away": "Albanien",
+                    "time": "20:45",
+                    "id": 2
+                }
+            ]
+        },
+        {
+            "name": "Final",
+            "date": "31 mars 2026",
+            "matches": [
+                {
+                    "home": "Vinnare Semifinal 1",
+                    "away": "Vinnare Semifinal 2",
+                    "time": "20:45",
+                    "id": 3
+                }
+            ]
+        }
+    ]
+}
