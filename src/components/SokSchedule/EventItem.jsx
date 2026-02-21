@@ -118,12 +118,17 @@ const EventItem = ({ event, svtEvents, now = new Date() }) => {
 
                 <div style={{ flexShrink: 0, marginRight: '8px' }}>
                     <span style={{
-                        fontSize: '0.8rem',
-                        fontWeight: '600',
-                        color: 'var(--color-primary)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        padding: '3px 10px',
+                        borderRadius: '20px',
+                        fontSize: '0.75rem',
+                        fontWeight: '700',
+                        backgroundColor: svtMatch ? 'rgba(52, 199, 89, 0.15)' : 'rgba(220, 38, 38, 0.12)',
+                        color: svtMatch ? '#34c759' : '#dc2626',
                         whiteSpace: 'nowrap'
                     }}>
-                        Se live på {svtMatch ? 'SVT' : 'TV4'} →
+                        {svtMatch ? 'SVT' : 'TV4'} →
                     </span>
                 </div>
             </div>

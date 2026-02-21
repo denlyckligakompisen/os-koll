@@ -53,8 +53,11 @@ const Countdown = () => {
             width: '100%',
             maxWidth: '320px'
         }}>
-            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: '#000000', letterSpacing: '0.1em', marginBottom: '16px', opacity: 0.6 }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: '#000000', letterSpacing: '0.1em', marginBottom: '4px', opacity: 0.6 }}>
                 Fotbolls-VM 2026
+            </div>
+            <div style={{ fontSize: '0.65rem', fontWeight: '500', color: 'var(--color-text-muted)', marginBottom: '16px', letterSpacing: '0.03em' }}>
+                11 juni – 19 juli
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
@@ -276,15 +279,7 @@ const VMPlayoff = () => {
 
                 {/* Final */}
                 <div style={{ width: '100%', position: 'relative' }}>
-                    <div style={{
-                        position: 'absolute',
-                        top: '-36px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '1px',
-                        height: '24px',
-                        backgroundColor: 'rgba(0,0,0,0.1)'
-                    }} />
+                    <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)' }} />
 
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {data.rounds[1].matches.map(match => (
@@ -293,27 +288,9 @@ const VMPlayoff = () => {
                     </div>
                 </div>
 
-                <div style={{
-                    width: '1px',
-                    height: '16px',
-                    backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '8px',
-                    marginBottom: '8px',
-                    position: 'relative',
-                    zIndex: 0
-                }} />
+                <div style={{ width: '1px', height: '16px', backgroundColor: 'rgba(0,0,0,0.1)', margin: '8px auto' }} />
 
-                <Countdown style={{ marginTop: '-25px', marginBottom: '-25px' }} />
-
-                <div style={{
-                    width: '1px',
-                    height: '16px',
-                    backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '8px',
-                    marginBottom: '8px',
-                    position: 'relative',
-                    zIndex: 0
-                }} />
+                <Countdown />
 
                 <div style={{
                     backgroundColor: 'var(--color-card-bg)',
