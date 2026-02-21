@@ -41,7 +41,7 @@ const Countdown = () => {
             maxWidth: '320px'
         }}>
             <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-primary)', letterSpacing: '0.1em', marginBottom: '16px' }}>
-                Nedräkning till VM 2026
+                Fotbolls-VM 2026
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
