@@ -194,15 +194,21 @@ const MatchCard = ({ match, isFinal }) => {
                     textAlign: 'center'
                 }}>
                     <span style={{
-                        fontSize: '0.8rem',
+                        fontSize: '0.85rem',
                         color: accentColor,
                         fontWeight: '600',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '4px'
+                        gap: '6px'
                     }}>
-                        Se matchen LIVE på Viaplay →
+                        Se matchen på
+                        <img
+                            src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
+                            alt="Viaplay"
+                            style={{ height: '14px', width: 'auto', marginTop: '1px' }}
+                        />
+                        →
                     </span>
                 </div>
             )}
