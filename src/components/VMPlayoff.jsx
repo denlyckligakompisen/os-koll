@@ -231,20 +231,29 @@ const VMPlayoff = () => {
 
     return (
         <div style={{ padding: '0 10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '8px' }}>
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg"
-                    alt="FIFA World Cup 2026"
-                    style={{
-                        height: '40px',
-                        width: 'auto',
-                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-                    }}
-                />
-                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: '#000000' }}>
-                    {data.tournament}
-                </h2>
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500', marginTop: '2px' }}>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '4px',
+                marginBottom: '24px',
+                textAlign: 'center'
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/FIFA_World_Cup_2026_Logo.svg/1200px-FIFA_World_Cup_2026_Logo.svg.png"
+                        alt="VM 2026"
+                        style={{
+                            height: '32px',
+                            width: 'auto',
+                            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                        }}
+                    />
+                    <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: '#000000' }}>
+                        {data.tournament}
+                    </h2>
+                </div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
                     Sveriges väg till Fotbolls-VM 2026
                 </div>
             </div>
@@ -314,39 +323,26 @@ const VMPlayoff = () => {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         {[
+                            { name: 'Albanien/Polen/Ukraina/Sverige' },
                             { name: 'Japan' },
                             { name: 'Nederländerna' },
                             { name: 'Tunisien' }
                         ].map((team, idx) => (
                             <div key={idx} style={{
                                 display: 'flex',
-                                justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                padding: '8px 12px',
-                                backgroundColor: 'rgba(0,0,0,0.02)',
-                                borderRadius: '8px'
+                                gap: '10px',
+                                padding: '4px 0'
                             }}>
-                                <span style={{ fontSize: '1rem', fontWeight: '500', color: '#000000' }}>
-                                    {team.name}
+                                <span style={{
+                                    fontSize: '0.95rem',
+                                    fontWeight: '500',
+                                    color: '#000000'
+                                }}>
+                                    <BoldSverige text={team.name} />
                                 </span>
                             </div>
                         ))}
-
-                        {/* Playoff winner row */}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            padding: '10px 14px',
-                            backgroundColor: 'rgba(255, 0, 90, 0.05)',
-                            borderRadius: '10px',
-                            border: '0.5px solid rgba(255, 0, 90, 0.1)',
-                            marginTop: '4px'
-                        }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000000' }}>
-                                <BoldSverige text="Albanien/Polen/Ukraina/Sverige" />
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -225,15 +225,17 @@ function App() {
   }
 
   return (
-    <div className="app-container" style={{ paddingBottom: '80px' }}>
-      {activeTab === 'os' ? (
-        <>
-          <Header medals={medals} />
-          <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
-        </>
-      ) : (
-        <VMPlayoff />
-      )}
+    <div className="app-container" style={{ paddingBottom: '120px' }}>
+      <div key={activeTab} className="animate-fade-in">
+        {activeTab === 'os' ? (
+          <>
+            <Header medals={medals} />
+            <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
+          </>
+        ) : (
+          <VMPlayoff />
+        )}
+      </div>
       <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
