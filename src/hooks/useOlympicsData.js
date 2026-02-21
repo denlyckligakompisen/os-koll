@@ -1,6 +1,8 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fetchSokSchedule, fetchMedals, fetchSvtSchedule } from '../services/olympicsApi';
+
+const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
 export const useOlympicsData = () => {
     const [data, setData] = useState({
@@ -11,30 +13,47 @@ export const useOlympicsData = () => {
         error: null
     });
 
-    useEffect(() => {
-        const loadAllData = async () => {
-            try {
-                const [sokData, svtData, medalData] = await Promise.all([
-                    fetchSokSchedule(),
-                    fetchSvtSchedule(),
-                    fetchMedals()
-                ]);
+    const loadAllData = useCallback(async () => {
+        try {
+            const [sokData, svtData, medalData] = await Promise.all([
+                fetchSokSchedule(),
+                fetchSvtSchedule(),
+                fetchMedals()
+            ]);
 
-                setData({
-                    sokSchedule: sokData || [],
-                    svtSchedule: svtData || [],
-                    medals: medalData || { gold: 0, silver: 0, bronze: 0 },
-                    loading: false,
-                    error: null
-                });
-            } catch (err) {
-                console.error("Failed to fetch Olympics data:", err);
-                setData(prev => ({ ...prev, loading: false, error: err }));
+            setData({
+                sokSchedule: sokData || [],
+                svtSchedule: svtData || [],
+                medals: medalData || { gold: 0, silver: 0, bronze: 0 },
+                loading: false,
+                error: null
+            });
+        } catch (err) {
+            console.error("Failed to fetch Olympics data:", err);
+            setData(prev => ({ ...prev, loading: false, error: err }));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Initial load
+        loadAllData();
+
+        // Periodic refresh every 5 minutes
+        const interval = setInterval(loadAllData, REFRESH_INTERVAL_MS);
+
+        // Refresh immediately when user returns to the tab
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                loadAllData();
             }
         };
+        document.addEventListener('visibilitychange', handleVisibilityChange);
 
-        loadAllData();
-    }, []);
+        return () => {
+            clearInterval(interval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [loadAllData]);
 
     return data;
 };

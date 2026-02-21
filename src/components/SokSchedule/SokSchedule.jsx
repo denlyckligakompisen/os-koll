@@ -177,6 +177,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                     day={activeDay}
                     events={groupedEvents[activeDay]}
                     svtEvents={svtEvents}
+                    now={now}
                 />
             </div>
         </div>

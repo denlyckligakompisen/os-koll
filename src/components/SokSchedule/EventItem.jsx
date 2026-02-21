@@ -2,10 +2,10 @@ import React from 'react';
 import SvtPlayBadge from './SvtPlayBadge';
 import { cleanEventDetails, findSvtBroadcast, getEventStatus } from '../../utils/eventUtils';
 
-const EventItem = ({ event, svtEvents }) => {
+const EventItem = ({ event, svtEvents, now = new Date() }) => {
     const svtMatch = findSvtBroadcast(event, svtEvents);
     const details = cleanEventDetails(event.details, event.sport);
-    const { isLive } = getEventStatus(event, svtMatch);
+    const { isLive } = getEventStatus(event, svtMatch, now);
 
     const watchLink = svtMatch ? svtMatch.link : "https://www.tv4play.se/kategorier/os-2026";
 
@@ -116,7 +116,7 @@ const EventItem = ({ event, svtEvents }) => {
                     </div>
                 </div>
 
-                <div style={{ flexShrink: 0 }}>
+                <div style={{ flexShrink: 0, marginRight: '8px' }}>
                     {svtMatch ? (
                         <SvtPlayBadge link={svtMatch.link} isLive={getEventStatus(event, svtMatch).isLive} />
                     ) : (
