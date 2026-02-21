@@ -167,10 +167,11 @@ const TabBar = ({ activeTab, onTabChange }) => (
           <span style={{
             fontSize: '1.3rem',
             transform: isActive ? 'scale(1.1)' : 'scale(1)',
-            transition: 'transform 0.2s ease',
+            transition: 'all 0.2s ease',
             display: 'flex',
             alignItems: 'center',
-            height: '24px'
+            height: '24px',
+            filter: tab.id === 'vm' ? 'grayscale(1)' : (isActive ? 'none' : 'grayscale(1) opacity(0.8)')
           }}>
             {tab.icon}
           </span>

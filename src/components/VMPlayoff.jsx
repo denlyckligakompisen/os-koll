@@ -58,22 +58,22 @@ const Countdown = () => {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', alignItems: 'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.days}</span>
+                    <span key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.days}</span>
                     <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>DAGAR</span>
                 </div>
                 <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.hours}</span>
+                    <span key={timeLeft.hours} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.hours}</span>
                     <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>TIMMAR</span>
                 </div>
                 <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.minutes}</span>
+                    <span key={timeLeft.minutes} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.minutes}</span>
                     <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>MINUTER</span>
                 </div>
                 <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.seconds}</span>
+                    <span key={timeLeft.seconds} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.seconds}</span>
                     <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>SEKUNDER</span>
                 </div>
             </div>
