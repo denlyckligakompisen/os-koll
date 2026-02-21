@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-const getFlag = (team) => {
-    const flags = {
-        'Sverige': '🇸🇪',
-        'Ukraina': '🇺🇦',
-        'Polen': '🇵🇱',
-        'Albanien': '🇦🇱'
-    };
-    return flags[team] || '⚔️';
-};
-
 const MatchCard = ({ match, isFinal }) => (
     <div style={{
         backgroundColor: 'var(--color-card-bg)',
@@ -29,11 +19,11 @@ const MatchCard = ({ match, isFinal }) => (
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
             <span style={{ fontWeight: match.home === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
-                {getFlag(match.home)} {match.home}
+                {match.home}
             </span>
             <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
             <span style={{ fontWeight: match.away === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
-                {getFlag(match.away)} {match.away}
+                {match.away}
             </span>
         </div>
 
