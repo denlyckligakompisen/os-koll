@@ -76,9 +76,7 @@ const Countdown = () => {
                     <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEKUNDER</span>
                 </div>
             </div>
-            <div style={{ marginTop: '16px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
-                Premiär 11 juni 2026 • 🇲🇽 🇺🇸 🇨🇦
-            </div>
+
         </div>
     );
 };
