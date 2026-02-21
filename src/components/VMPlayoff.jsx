@@ -29,7 +29,7 @@ const Countdown = () => {
 
     return (
         <div style={{
-            marginTop: '48px',
+            marginTop: '10px',
             padding: '24px',
             backgroundColor: 'var(--color-card-bg)',
             backdropFilter: 'blur(16px)',
@@ -292,7 +292,7 @@ const VMPlayoff = () => {
                     height: '40px',
                     backgroundColor: 'rgba(0,0,0,0.1)',
                     marginTop: '-40px',
-                    marginBottom: '-48px',
+                    marginBottom: '-10px',
                     position: 'relative',
                     zIndex: 0
                 }} />
