@@ -135,35 +135,6 @@ const MatchCard = ({ match, isFinal }) => {
                         {match.time}
                     </span>
                 </div>
-
-                {match.broadcast && (
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        height: '24px'
-                    }}>
-                        {match.broadcast.toLowerCase().includes('viaplay') ? (
-                            <img
-                                src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
-                                alt="Viaplay"
-                                style={{ height: '16px', width: 'auto', filter: 'brightness(0)' }}
-                            />
-                        ) : (
-                            <div style={{
-                                backgroundColor: 'rgba(0, 122, 255, 0.05)',
-                                padding: '3px 8px',
-                                borderRadius: '6px'
-                            }}>
-                                <span style={{
-                                    fontSize: '0.7rem',
-                                    fontWeight: '700',
-                                    color: accentColor,
-                                    textTransform: 'uppercase'
-                                }}>{match.broadcast}</span>
-                            </div>
-                        )}
-                    </div>
-                )}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', padding: '4px 0' }}>
@@ -206,7 +177,7 @@ const MatchCard = ({ match, isFinal }) => {
                         <img
                             src="https://viaplay-web-frontend-assets.mtg-api.com/frontend-2026021932984/images/header-logo.png"
                             alt="Viaplay"
-                            style={{ height: '14px', width: 'auto', marginTop: '1px', filter: 'brightness(0)' }}
+                            style={{ height: '14px', width: 'auto', marginTop: '1px' }}
                         />
                         →
                     </span>
@@ -334,24 +305,21 @@ const VMPlayoff = () => {
                         Grupp F
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {[
-                            { name: 'Japan' },
-                            { name: 'Nederländerna' },
-                            { name: 'Tunisien' }
-                        ].map((team, idx) => (
-                            <div key={idx} style={{
-                                display: 'flex',
-                                justifyContent: 'flex-start',
-                                alignItems: 'center',
-                                padding: '8px 12px',
-                                backgroundColor: 'rgba(0,0,0,0.02)',
-                                borderRadius: '8px'
-                            }}>
-                                <span style={{ fontSize: '1rem', fontWeight: '500', color: '#000000' }}>
-                                    {team.name}
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            flexWrap: 'wrap',
+                            gap: '8px',
+                            padding: '8px 12px',
+                            backgroundColor: 'rgba(0,0,0,0.02)',
+                            borderRadius: '8px'
+                        }}>
+                            {['Japan', 'Nederländerna', 'Tunisien'].map((name, idx) => (
+                                <span key={idx} style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000000' }}>
+                                    {name}{idx < 2 ? ' • ' : ''}
                                 </span>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
 
                         {/* Playoff winner row */}
                         <div style={{
