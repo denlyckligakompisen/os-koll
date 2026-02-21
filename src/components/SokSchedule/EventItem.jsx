@@ -117,23 +117,14 @@ const EventItem = ({ event, svtEvents, now = new Date() }) => {
                 </div>
 
                 <div style={{ flexShrink: 0, marginRight: '8px' }}>
-                    {svtMatch ? (
-                        <SvtPlayBadge link={svtMatch.link} isLive={getEventStatus(event, svtMatch).isLive} />
-                    ) : (
-                        <div style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            backgroundColor: '#dc2626',
-                            color: 'white',
-                            padding: '3px 8px',
-                            borderRadius: '6px',
-                            fontSize: '0.7rem',
-                            fontWeight: '700'
-                        }}>
-                            TV4
-                        </div>
-                    )}
+                    <span style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        color: 'var(--color-primary)',
+                        whiteSpace: 'nowrap'
+                    }}>
+                        Se live på {svtMatch ? 'SVT' : 'TV4'} →
+                    </span>
                 </div>
             </div>
 
