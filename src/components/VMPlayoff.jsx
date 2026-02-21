@@ -29,17 +29,14 @@ const MatchCard = ({ match, isFinal }) => (
             {match.broadcast && <span style={{ color: '#007aff' }}>{match.broadcast}</span>}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: match.home === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
-                    {getFlag(match.home)} {match.home}
-                </span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: match.away === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
-                    {getFlag(match.away)} {match.away}
-                </span>
-            </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+            <span style={{ fontWeight: match.home === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
+                {getFlag(match.home)} {match.home}
+            </span>
+            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
+            <span style={{ fontWeight: match.away === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
+                {getFlag(match.away)} {match.away}
+            </span>
         </div>
 
         {match.location && (
