@@ -64,7 +64,7 @@ const VMPlayoff = () => {
         <div style={{ padding: '0 10px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginBottom: '8px' }}>
                 <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/512px-2026_FIFA_World_Cup_Emblem.svg.png"
+                    src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg"
                     alt="FIFA World Cup 2026"
                     style={{
                         height: '40px',
