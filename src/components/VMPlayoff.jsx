@@ -65,35 +65,90 @@ const Countdown = () => {
     );
 };
 
-const MatchCard = ({ match, isFinal }) => (
-    <div style={{
-        backgroundColor: 'var(--color-card-bg)',
-        borderRadius: '12px',
-        padding: '12px',
-        border: 'var(--border)',
-        boxShadow: 'var(--shadow-sm)',
-        width: '100%',
-        maxWidth: '280px',
-        margin: '10px 0',
-        position: 'relative'
-    }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>
-            <span>{match.time}</span>
-            {match.broadcast && <span style={{ color: '#007aff' }}>{match.broadcast}</span>}
-        </div>
+const MatchCard = ({ match, isFinal }) => {
+    const isClickable = !!match.link;
+    const content = (
+        <div style={{
+            backgroundColor: 'var(--color-card-bg)',
+            borderRadius: '12px',
+            padding: '12px',
+            border: isClickable ? '1px solid rgba(255, 0, 90, 0.3)' : 'var(--border)',
+            boxShadow: isClickable ? '0 4px 12px rgba(255, 0, 90, 0.1)' : 'var(--shadow-sm)',
+            width: '100%',
+            maxWidth: '280px',
+            margin: '10px 0',
+            position: 'relative',
+            cursor: isClickable ? 'pointer' : 'default',
+            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            textDecoration: 'none',
+            color: 'inherit',
+            display: 'block'
+        }}
+            className={isClickable ? 'clickable-card' : ''}
+        >
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    {isClickable && <span style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '50%',
+                        backgroundColor: '#ff005a',
+                        display: 'inline-block'
+                    }} />}
+                    {match.time}
+                </span>
+                {match.broadcast && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {isClickable && (
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Viaplay_logo.svg/200px-Viaplay_logo.svg.png"
+                                alt="Viaplay"
+                                style={{ height: '10px', width: 'auto' }}
+                            />
+                        )}
+                        <span style={{ color: isClickable ? '#ff005a' : '#007aff' }}>{match.broadcast}</span>
+                    </div>
+                )}
+            </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-            <span style={{ fontWeight: match.home.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
-                {match.home}
-            </span>
-            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
-            <span style={{ fontWeight: match.away.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
-                {match.away}
-            </span>
-        </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', padding: '4px 0' }}>
+                <span style={{ fontWeight: match.home.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
+                    {match.home}
+                </span>
+                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
+                <span style={{ fontWeight: match.away.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
+                    {match.away}
+                </span>
+            </div>
 
-    </div>
-);
+            {isClickable && (
+                <div style={{
+                    marginTop: '8px',
+                    fontSize: '0.7rem',
+                    color: '#ff005a',
+                    fontWeight: '700',
+                    textAlign: 'center',
+                    borderTop: '0.5px solid rgba(255, 0, 90, 0.1)',
+                    paddingTop: '8px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                }}>
+                    Se matchen på Viaplay →
+                </div>
+            )}
+        </div>
+    );
+
+    if (isClickable) {
+        return (
+            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                {content}
+            </a>
+        );
+    }
+
+    return content;
+};
 
 const VMPlayoff = () => {
     const [data, setData] = useState(null);
