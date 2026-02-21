@@ -73,7 +73,10 @@ export const findSvtBroadcast = (event, svtEvents) => {
     match = dayEvents.find(e => {
         const titleLower = e.title.toLowerCase();
         const subtitleLower = e.subtitle?.toLowerCase() || '';
-        if (!titleLower.includes(sportLower) && !subtitleLower.includes(sportLower)) return false;
+        const isSportMatch = titleLower.includes(sportLower) || subtitleLower.includes(sportLower);
+        if (!isSportMatch) return false;
+
+        if (e.time === 'LIVE') return true;
 
         const [sokH, sokM] = sokTime.split(':').map(Number);
         const [svtH, svtM] = e.time.split(':').map(Number);
