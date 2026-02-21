@@ -62,13 +62,19 @@ const VMPlayoff = () => {
 
     return (
         <div style={{ padding: '0 10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '4px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '16px' }}>
                 <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/100px-2026_FIFA_World_Cup_Emblem.svg.png"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2026_FIFA_World_Cup_Emblem.svg/150px-2026_FIFA_World_Cup_Emblem.svg.png"
                     alt="FIFA World Cup 2026"
-                    style={{ height: '32px', width: 'auto' }}
+                    style={{
+                        height: '60px',
+                        width: 'auto',
+                        filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
+                    }}
                 />
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em' }}>{data.tournament}</h2>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em', color: 'var(--color-text)' }}>
+                    {data.tournament}
+                </h2>
             </div>
             <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem', marginBottom: '24px' }}>Vägen till VM 2026</p>
 
