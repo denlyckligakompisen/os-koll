@@ -309,9 +309,12 @@ const VMPlayoff = () => {
                     boxShadow: 'var(--shadow-sm)',
                     width: '100%',
                     maxWidth: '320px',
-                    textAlign: 'center',
-                    marginTop: '20px'
+                    textAlign: 'left',
+                    marginTop: '0px'
                 }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', opacity: 0.6 }}>
+                        Grupp F
+                    </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         {[
                             { name: 'Japan' },
@@ -320,7 +323,7 @@ const VMPlayoff = () => {
                         ].map((team, idx) => (
                             <div key={idx} style={{
                                 display: 'flex',
-                                justifyContent: 'center',
+                                justifyContent: 'flex-start',
                                 alignItems: 'center',
                                 padding: '8px 12px',
                                 backgroundColor: 'rgba(0,0,0,0.02)',
@@ -335,7 +338,7 @@ const VMPlayoff = () => {
                         {/* Playoff winner row */}
                         <div style={{
                             display: 'flex',
-                            justifyContent: 'center',
+                            justifyContent: 'flex-start',
                             alignItems: 'center',
                             padding: '10px 14px',
                             backgroundColor: 'rgba(255, 0, 90, 0.05)',
@@ -343,7 +346,7 @@ const VMPlayoff = () => {
                             border: '0.5px solid rgba(255, 0, 90, 0.1)',
                             marginTop: '4px'
                         }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#000000', textAlign: 'center' }}>
+                            <span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#000000' }}>
                                 Albanien/Polen/Ukraina/Sverige
                             </span>
                         </div>
