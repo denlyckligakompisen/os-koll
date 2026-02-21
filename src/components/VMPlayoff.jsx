@@ -55,13 +55,13 @@ const Countdown = () => {
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.minutes}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>MIN</span>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000' }}>{timeLeft.minutes}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>MINUTER</span>
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#ff005a' }}>{timeLeft.seconds}</span>
-                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEK</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEKUNDER</span>
                 </div>
             </div>
             <div style={{ marginTop: '16px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
@@ -158,7 +158,7 @@ const MatchCard = ({ match, isFinal }) => {
                 <span style={{
                     fontWeight: match.home.includes('Sverige') ? '700' : '600',
                     fontSize: '1.1rem',
-                    color: 'var(--color-text)',
+                    color: '#000000',
                     letterSpacing: '-0.02em'
                 }}>
                     {match.home}
@@ -167,7 +167,7 @@ const MatchCard = ({ match, isFinal }) => {
                 <span style={{
                     fontWeight: match.away.includes('Sverige') ? '700' : '600',
                     fontSize: '1.1rem',
-                    color: 'var(--color-text)',
+                    color: '#000000',
                     letterSpacing: '-0.02em'
                 }}>
                     {match.away}
@@ -232,7 +232,7 @@ const VMPlayoff = () => {
                         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                     }}
                 />
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em', color: 'var(--color-text)' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em', color: '#000000' }}>
                     {data.tournament}
                 </h2>
             </div>
@@ -307,7 +307,7 @@ const VMPlayoff = () => {
                     maxWidth: '320px',
                     textAlign: 'center'
                 }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', opacity: 0.6 }}>
                         Grupp F
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -326,7 +326,7 @@ const VMPlayoff = () => {
                                 borderRadius: '8px',
                                 border: team.isPlayoff ? '0.5px solid rgba(255, 0, 90, 0.1)' : 'none'
                             }}>
-                                <span style={{ fontSize: '1rem', fontWeight: team.isPlayoff ? '700' : '500' }}>
+                                <span style={{ fontSize: '1rem', fontWeight: team.isPlayoff ? '700' : '500', color: '#000000' }}>
                                     {team.name}
                                 </span>
                                 <span style={{ fontSize: '1.2rem' }}>{team.flag}</span>
