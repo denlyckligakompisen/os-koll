@@ -92,6 +92,8 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
             const isSportMatch = titleLower.includes(sportLower) || subtitleLower.includes(sportLower);
 
             // Check if time is within +/- 1 hour (broadcasting often starts earlier or covers multiple events)
+            if (e.time === 'LIVE') return isSportMatch;
+
             const [sokH, sokM] = normalizedSokTime.split(':').map(Number);
             const [svtH, svtM] = e.time.split(':').map(Number);
             const sokTotal = sokH * 60 + sokM;
