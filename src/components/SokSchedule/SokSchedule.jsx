@@ -7,8 +7,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 const SokSchedule = ({ events, svtEvents = [] }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [hasInitialized, setHasInitialized] = useState(false);
-    const touchStart = useRef(null);
-    const touchEnd = useRef(null);
     const tabsRef = useRef(null);
 
     // Group and sort events
@@ -52,34 +50,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         }
     }, [days, hasInitialized]);
 
-    // Handle Swipe
-    const minSwipeDistance = 50;
-
-    const onTouchStart = (e) => {
-        touchEnd.current = null;
-        touchStart.current = e.targetTouches[0].clientX;
-    }
-
-    const onTouchMove = (e) => {
-        touchEnd.current = e.targetTouches[0].clientX;
-    }
-
-    const onTouchEnd = () => {
-        if (!touchStart.current || !touchEnd.current) return;
-
-        const distance = touchStart.current - touchEnd.current;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isLeftSwipe && activeIndex < days.length - 1) {
-            setActiveIndex(prev => prev + 1);
-        }
-
-        if (isRightSwipe && activeIndex > 0) {
-            setActiveIndex(prev => prev - 1);
-        }
-    }
-
     const scrollToActiveTab = (index) => {
         if (tabsRef.current) {
             const tab = tabsRef.current.children[index];
@@ -105,12 +75,8 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
     const activeDay = days[activeIndex];
 
     return (
-        <div
-            className="schedule-container"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-        >
+        <div className="schedule-container">
+
             {/* Day Navigation */}
             <div className="day-tabs-container" style={{
                 marginBottom: '1rem',
@@ -142,9 +108,28 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                 >
                     {days.map((day, index) => {
                         const isActive = index === activeIndex;
-                        // Format day for tab: "ons 18 feb" or similar short
-                        // day strings are roughly "onsdag 18 feb"
-                        const shortDay = day.replace('dag', ''); // onsdag -> ons
+
+                        // Check if it's today or tomorrow
+                        const eventDate = parseSwedishDate(day);
+                        let displayDay = day.replace('dag', ''); // default: ons 18 feb
+
+                        if (eventDate) {
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+
+                            const tomorrow = new Date();
+                            tomorrow.setDate(today.getDate() + 1);
+                            tomorrow.setHours(0, 0, 0, 0);
+
+                            const checkDate = new Date(eventDate);
+                            checkDate.setHours(0, 0, 0, 0);
+
+                            if (checkDate.getTime() === today.getTime()) {
+                                displayDay = 'Idag';
+                            } else if (checkDate.getTime() === tomorrow.getTime()) {
+                                displayDay = 'Imorgon';
+                            }
+                        }
 
                         return (
                             <button
@@ -164,7 +149,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                     flexShrink: 0
                                 }}
                             >
-                                {shortDay}
+                                {displayDay}
                             </button>
                         );
                     })}

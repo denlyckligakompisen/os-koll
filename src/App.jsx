@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useOlympicsData } from './hooks/useOlympicsData';
 import SokSchedule from './components/SokSchedule/SokSchedule';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import LACountdown from './components/LACountdown';
 
 const MedalCounter = ({ medals }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -100,8 +101,12 @@ const Header = ({ medals }) => (
   </header>
 );
 
+
 function App() {
   const { sokSchedule, svtSchedule, medals, loading, error } = useOlympicsData();
+
+  // Visa nedräknaren först från och med måndag 23 feb (efter Milano Cortina 2026)
+  const showNextGamesInfo = new Date() >= new Date('2026-02-23T00:00:00');
 
   if (loading) {
     return (
@@ -129,8 +134,11 @@ function App() {
     <div className="app-container">
       <Header medals={medals} />
       <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
+      {showNextGamesInfo && <LACountdown />}
     </div>
   );
 }
+
+
 
 export default App;
