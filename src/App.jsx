@@ -123,7 +123,19 @@ const TabBar = ({ activeTab, onTabChange }) => (
     zIndex: 1000
   }}>
     {[
-      { id: 'os', label: 'OS-kollen', icon: '🏅' },
+      {
+        id: 'os',
+        label: 'OS-kollen',
+        icon: (
+          <svg width="28" height="14" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+            <circle cx="55" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+            <circle cx="90" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+            <circle cx="37.5" cy="34" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+            <circle cx="72.5" cy="34" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+          </svg>
+        )
+      },
       { id: 'vm', label: 'VM-kollen', icon: '⚽' }
     ].map(tab => {
       const isActive = activeTab === tab.id;
@@ -137,7 +149,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '2px',
+            gap: tab.id === 'os' ? '4px' : '2px',
             color: isActive ? '#000000' : 'var(--color-text-muted)',
             cursor: 'pointer',
             flex: 1,
@@ -149,7 +161,10 @@ const TabBar = ({ activeTab, onTabChange }) => (
           <span style={{
             fontSize: '1.3rem',
             transform: isActive ? 'scale(1.1)' : 'scale(1)',
-            transition: 'transform 0.2s ease'
+            transition: 'transform 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            height: '24px'
           }}>
             {tab.icon}
           </span>
