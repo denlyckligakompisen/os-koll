@@ -21,7 +21,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
             const eventDate = parseSwedishDate(event.day);
             if (eventDate) {
                 eventDate.setHours(0, 0, 0, 0);
-                if (eventDate < today) return; // Skip past events
+                if (eventDate < today) return;
             }
 
             if (!groups[event.day]) {
@@ -30,9 +30,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
             groups[event.day].push(event);
         });
 
-        // specific sorting if keys get messed up, otherwise rely on input order
-        // But input order is safe if scraped correctly.
-        // Let's sort explicitly to be sure
         const sortedDays = Object.keys(groups).sort((a, b) => {
             const da = parseSwedishDate(a);
             const db = parseSwedishDate(b);
@@ -42,10 +39,9 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         return { days: sortedDays, groupedEvents: groups };
     }, [events]);
 
-    // Initialize activeIndex
     useEffect(() => {
         if (!hasInitialized && days.length > 0) {
-            setActiveIndex(0); // Always start at first available day (today or future)
+            setActiveIndex(0);
             setHasInitialized(true);
         }
     }, [days, hasInitialized]);
@@ -79,39 +75,40 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
 
             {/* Day Navigation */}
             <div className="day-tabs-container" style={{
-                marginBottom: '1rem',
+                marginBottom: '1.25rem',
                 position: 'sticky',
                 top: '0',
                 zIndex: 10,
-                backgroundColor: 'transparent',
-                // backdropFilter: 'blur(8px)', // Removed as requested
-                borderBottom: 'none',
+                backgroundColor: 'rgba(242, 242, 247, 0.8)',
+                backdropFilter: 'saturate(180%) blur(20px)',
+                WebkitBackdropFilter: 'saturate(180%) blur(20px)',
                 paddingTop: '0.75rem',
                 paddingBottom: '0.75rem',
-                marginRight: '-24px', // Compensate for parent padding
-                marginLeft: '-24px',  // Compensate for parent padding
-                paddingLeft: '24px',  // Add padding back to content
-                paddingRight: '24px'  // Add padding back to content
+                marginRight: '-24px',
+                marginLeft: '-24px',
+                paddingLeft: '24px',
+                paddingRight: '24px'
             }}>
                 <div
                     ref={tabsRef}
                     style={{
                         display: 'flex',
                         overflowX: 'auto',
-                        gap: '8px',
-                        padding: '0 4px',
-                        scrollbarWidth: 'none', // Firefox
-                        msOverflowStyle: 'none', // IE/Edge
+                        gap: '2px',
+                        padding: '3px',
+                        backgroundColor: 'rgba(118, 118, 128, 0.12)',
+                        borderRadius: '9px',
+                        scrollbarWidth: 'none',
+                        msOverflowStyle: 'none',
                         WebkitOverflowScrolling: 'touch',
                     }}
-                    className="hide-scrollbar" // Helper class usually needed
+                    className="hide-scrollbar"
                 >
                     {days.map((day, index) => {
                         const isActive = index === activeIndex;
 
-                        // Check if it's today or tomorrow
                         const eventDate = parseSwedishDate(day);
-                        let displayDay = day.replace('dag', ''); // default: ons 18 feb
+                        let displayDay = day.replace('dag', '');
 
                         if (eventDate) {
                             const today = new Date();
@@ -136,17 +133,20 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                 key={day}
                                 onClick={() => setActiveIndex(index)}
                                 style={{
-                                    padding: '8px 16px',
-                                    borderRadius: '20px',
+                                    padding: '6px 14px',
+                                    borderRadius: '7px',
                                     border: 'none',
-                                    backgroundColor: isActive ? '#fbc02d' : 'rgba(255, 255, 255, 0.1)',
-                                    color: isActive ? '#000' : 'rgba(255, 255, 255, 0.7)',
+                                    backgroundColor: isActive ? '#ffffff' : 'transparent',
+                                    color: 'var(--color-text)',
+                                    boxShadow: isActive ? '0 3px 8px rgba(0,0,0,0.12), 0 3px 1px rgba(0,0,0,0.04)' : 'none',
                                     whiteSpace: 'nowrap',
-                                    fontSize: '0.9rem',
-                                    fontWeight: isActive ? '700' : '500',
+                                    fontSize: '0.85rem',
+                                    fontWeight: isActive ? '600' : '500',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s',
-                                    flexShrink: 0
+                                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    flexShrink: 0,
+                                    flex: 1,
+                                    textAlign: 'center'
                                 }}
                             >
                                 {displayDay}
@@ -163,7 +163,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                     day={activeDay}
                     events={groupedEvents[activeDay]}
                     svtEvents={svtEvents}
-                    isExpanded={true} // Force expand since we show one day
                 />
             </div>
         </div>

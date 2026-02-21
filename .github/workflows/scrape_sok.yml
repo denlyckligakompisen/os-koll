@@ -3,7 +3,7 @@ name: Scrape SOK Schedule
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Runs every 30 minutes, 24/7
+    - cron: '0 */2 * * *' # Runs every 2 hours
   workflow_dispatch: # Allows manual trigger
 
 permissions:
@@ -33,26 +33,26 @@ jobs:
 
       - name: Run Scrapers
         run: |
-          # Stop scraping after February 22nd, 2026
+          # Stop all scraping on Monday February 23rd, 2026
           if [[ $(date +%Y%m%d) -ge 20260223 ]]; then
             echo "Scraping discontinued as of 2026-02-23."
             exit 0
           fi
-          node scripts/scrape_sok.js
-          node scripts/scrape_svt.js
+          # Only medal scraping for the final weekend
+          # node scripts/scrape_sok.js
+          # node scripts/scrape_svt.js
           node scripts/scrape_medals.js
 
       - name: Commit and Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/sok_schedule.json
-          git add public/data/svt_schedule.json
+          # Only medals.json is being updated now
           git add public/data/medals.json
           
           # Commit the changes first (if any)
           if ! git diff --staged --quiet; then
-            git commit -m "Update schedule and medals"
+            git commit -m "Update medals"
             # Now pull with rebase to integrate remote changes
             git pull --rebase origin main
             git push

@@ -10,27 +10,26 @@ const SvtPlayBadge = ({ link, isLive }) => {
                 alignItems: 'center',
                 gap: '4px',
                 padding: '2px 8px',
-                backgroundColor: '#00c800',
+                backgroundColor: '#34c759', // iOS System Green
                 color: 'white',
-                borderRadius: '4px',
-                fontSize: '0.75rem',
-                fontWeight: '800',
-                textDecoration: 'none',
-                marginLeft: '4px'
+                borderRadius: '6px',
+                fontSize: '0.7rem',
+                fontWeight: '700',
+                textDecoration: 'none'
             }}
         >
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
-                <path d="M8 5v14l11-7z" />
-            </svg>
             SVT
             {isLive && (
-                <span style={{
-                    width: '6px',
-                    height: '6px',
-                    backgroundColor: '#ff4b2b',
-                    borderRadius: '50%',
-                    marginLeft: '2px'
-                }} />
+                <span
+                    className="live-indicator-pulse"
+                    style={{
+                        width: '5px',
+                        height: '5px',
+                        backgroundColor: '#ff3b30', // iOS System Red
+                        borderRadius: '50%',
+                        marginLeft: '2px'
+                    }}
+                />
             )}
         </div>
     );

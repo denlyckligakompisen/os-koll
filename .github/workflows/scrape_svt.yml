@@ -1,0 +1,46 @@
+name: Scrape SVT Daily
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Runs at 04:00 UTC (05:00 CET) every day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run SVT Scraper
+        run: |
+          # Stop scraping after February 22nd, 2026
+          if [[ $(date +%Y%m%d) -ge 20260223 ]]; then
+            echo "Scraping discontinued as of 2026-02-23."
+            exit 0
+          fi
+          node scripts/scrape_svt.js
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/svt_schedule.json
+          
+          if ! git diff --staged --quiet; then
+            git commit -m "Update SVT schedule"
+            git pull --rebase origin main
+            git push
+          fi

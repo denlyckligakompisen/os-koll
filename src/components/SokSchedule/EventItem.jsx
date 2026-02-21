@@ -18,26 +18,26 @@ const EventItem = ({ event, svtEvents }) => {
                 display: 'block',
                 textDecoration: 'none',
                 color: 'inherit',
-                padding: '1.25rem',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                borderRadius: '16px',
-                marginBottom: '1rem',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                padding: '16px',
+                backgroundColor: 'var(--color-card-bg)',
+                backdropFilter: 'saturate(180%) blur(20px)',
+                WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+                borderRadius: 'var(--radius-lg)',
+                marginBottom: '10px',
+                border: 'var(--border)',
+                boxShadow: 'var(--shadow-sm)',
                 position: 'relative',
                 overflow: 'hidden',
                 transition: 'all 0.2s ease',
                 cursor: 'pointer'
             }}
             onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.backgroundColor = 'var(--color-card-bg)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             }}
         >
             <div style={{
@@ -47,18 +47,16 @@ const EventItem = ({ event, svtEvents }) => {
                 flexWrap: 'wrap'
             }}>
                 <div style={{
-                    backgroundColor: 'rgba(251, 192, 45, 0.15)',
-                    padding: '6px 12px',
+                    backgroundColor: 'rgba(0, 122, 255, 0.1)',
+                    padding: '4px 10px',
                     borderRadius: '8px',
-                    minWidth: '60px',
-                    textAlign: 'center',
-                    border: '1px solid rgba(251, 192, 45, 0.2)'
+                    minWidth: '55px',
+                    textAlign: 'center'
                 }}>
                     <span style={{
-                        fontSize: '1rem',
-                        fontWeight: '900',
-                        color: '#fbc02d',
-                        letterSpacing: '0.02em'
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        color: 'var(--color-primary)',
                     }}>
                         {event.time}
                     </span>
@@ -67,42 +65,36 @@ const EventItem = ({ event, svtEvents }) => {
                 {svtMatch ? (
                     <SvtPlayBadge link={svtMatch.link} isLive={svtMatch.live} />
                 ) : (
-                    <div style={{ display: 'flex', gap: '4px' }}>
-                        <div
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '4px',
-                                backgroundColor: '#FF3334',
-                                color: 'white',
-                                padding: '3px 10px',
-                                borderRadius: '6px',
-                                fontSize: '0.75rem',
-                                fontWeight: '900'
-                            }}
-                        >
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                            TV4
-                        </div>
+                    <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        backgroundColor: '#dc2626',
+                        color: 'white',
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                        fontSize: '0.7rem',
+                        fontWeight: '700'
+                    }}>
+                        TV4
                     </div>
                 )}
 
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: '150px' }}>
                     <span style={{
-                        fontSize: '1.2rem',
-                        fontWeight: '800',
-                        color: '#ffffff',
-                        letterSpacing: '-0.01em'
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text)',
+                        letterSpacing: '-0.02em',
+                        lineHeight: '1.2'
                     }}>
                         {event.sport}
                     </span>
                     <span style={{
-                        fontSize: '0.95rem',
-                        color: 'rgba(255, 255, 255, 0.75)',
-                        fontWeight: '500',
-                        marginTop: '2px'
+                        fontSize: '0.9rem',
+                        color: 'var(--color-text-muted)',
+                        fontWeight: '400',
+                        marginTop: '1px'
                     }}>
                         {event.title || event.event}
                     </span>
@@ -111,15 +103,15 @@ const EventItem = ({ event, svtEvents }) => {
 
             {details && (
                 <div style={{
-                    marginTop: '12px',
-                    paddingTop: '12px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                    marginTop: '10px',
+                    paddingTop: '10px',
+                    borderTop: 'var(--border)'
                 }}>
                     <p style={{
                         margin: 0,
-                        fontSize: '0.95rem',
-                        color: 'rgba(255, 255, 255, 0.55)',
-                        lineHeight: '1.5',
+                        fontSize: '0.85rem',
+                        color: 'var(--color-text-muted)',
+                        lineHeight: '1.4',
                         whiteSpace: 'pre-line'
                     }}>
                         {details}
