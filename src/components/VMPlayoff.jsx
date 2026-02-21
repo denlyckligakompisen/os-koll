@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
+const BoldSverige = ({ text }) => {
+    if (!text || !text.includes('Sverige')) return text;
+    const parts = text.split('Sverige');
+    return (
+        <>
+            {parts[0]}
+            <span style={{ fontWeight: '800' }}>Sverige</span>
+            {parts[1]}
+        </>
+    );
+};
+
 const Countdown = () => {
     const calculateTimeLeft = () => {
         const targetDate = new Date('2026-06-11T00:00:00');
@@ -156,21 +168,21 @@ const MatchCard = ({ match, isFinal }) => {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center', padding: '4px 0' }}>
                 <span style={{
-                    fontWeight: match.home.includes('Sverige') ? '700' : '600',
+                    fontWeight: '500',
                     fontSize: '1.1rem',
                     color: '#000000',
                     letterSpacing: '-0.02em'
                 }}>
-                    {match.home}
+                    <BoldSverige text={match.home} />
                 </span>
                 <span style={{ color: 'var(--color-text-muted)', fontSize: '1rem', fontWeight: '400' }}>–</span>
                 <span style={{
-                    fontWeight: match.away.includes('Sverige') ? '700' : '600',
+                    fontWeight: '500',
                     fontSize: '1.1rem',
                     color: '#000000',
                     letterSpacing: '-0.02em'
                 }}>
-                    {match.away}
+                    <BoldSverige text={match.away} />
                 </span>
             </div>
 
@@ -346,8 +358,8 @@ const VMPlayoff = () => {
                             border: '0.5px solid rgba(255, 0, 90, 0.1)',
                             marginTop: '4px'
                         }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: '700', color: '#000000' }}>
-                                Albanien/Polen/Ukraina/Sverige
+                            <span style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000000' }}>
+                                <BoldSverige text="Albanien/Polen/Ukraina/Sverige" />
                             </span>
                         </div>
                     </div>
