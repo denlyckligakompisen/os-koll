@@ -83,11 +83,11 @@ const MatchCard = ({ match, isFinal }) => (
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-            <span style={{ fontWeight: match.home === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
+            <span style={{ fontWeight: match.home.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
                 {match.home}
             </span>
             <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>–</span>
-            <span style={{ fontWeight: match.away === 'Sverige' ? '700' : '500', fontSize: '0.95rem' }}>
+            <span style={{ fontWeight: match.away.includes('Sverige') ? '700' : '500', fontSize: '0.95rem' }}>
                 {match.away}
             </span>
         </div>
