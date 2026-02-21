@@ -292,16 +292,6 @@ const VMPlayoff = () => {
                 <Countdown />
 
                 <div style={{
-                    width: '2px',
-                    height: '40px',
-                    backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '0px',
-                    marginBottom: '0px',
-                    position: 'relative',
-                    zIndex: 0
-                }} />
-
-                <div style={{
                     backgroundColor: 'var(--color-card-bg)',
                     backdropFilter: 'saturate(180%) blur(20px)',
                     WebkitBackdropFilter: 'saturate(180%) blur(20px)',
@@ -311,33 +301,38 @@ const VMPlayoff = () => {
                     boxShadow: 'var(--shadow-sm)',
                     width: '100%',
                     maxWidth: '320px',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    marginTop: '20px'
                 }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', opacity: 0.6 }}>
-                        Grupp F
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {[
-                            { name: 'Nederländerna', flag: '🇳🇱' },
-                            { name: 'Japan', flag: '🇯🇵' },
-                            { name: 'Tunisien', flag: '🇹🇳' },
-                            { name: 'Vinnare Playoff B', flag: '🇸🇪/🇺🇦/🇵🇱/🇦🇱', isPlayoff: true }
-                        ].map((team, idx) => (
-                            <div key={idx} style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                padding: '8px 12px',
-                                backgroundColor: team.isPlayoff ? 'rgba(255, 0, 90, 0.05)' : 'rgba(0,0,0,0.02)',
-                                borderRadius: '8px',
-                                border: team.isPlayoff ? '0.5px solid rgba(255, 0, 90, 0.1)' : 'none'
-                            }}>
-                                <span style={{ fontSize: '1rem', fontWeight: team.isPlayoff ? '700' : '500', color: '#000000' }}>
-                                    {team.name}
-                                </span>
-                                <span style={{ fontSize: '1.2rem' }}>{team.flag}</span>
-                            </div>
-                        ))}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        {/* Static teams flags row */}
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '16px',
+                            padding: '4px',
+                            opacity: 0.8
+                        }}>
+                            <span style={{ fontSize: '1.4rem' }} title="Nederländerna">🇳🇱</span>
+                            <span style={{ fontSize: '1.4rem' }} title="Japan">🇯🇵</span>
+                            <span style={{ fontSize: '1.4rem' }} title="Tunisien">🇹🇳</span>
+                        </div>
+
+                        {/* Playoff winner row */}
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '10px 14px',
+                            backgroundColor: 'rgba(255, 0, 90, 0.05)',
+                            borderRadius: '10px',
+                            border: '0.5px solid rgba(255, 0, 90, 0.1)'
+                        }}>
+                            <span style={{ fontSize: '0.95rem', fontWeight: '700', color: '#000000' }}>
+                                Vinnare Playoff B
+                            </span>
+                            <span style={{ fontSize: '1.2rem' }}>🇸🇪/🇺🇦/🇵🇱/🇦🇱</span>
+                        </div>
                     </div>
                 </div>
             </div>
