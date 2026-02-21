@@ -97,14 +97,6 @@ const VMPlayoff = () => {
                 </div>
             </div>
 
-            <div style={{ marginTop: '40px', padding: '16px', backgroundColor: 'rgba(0,122,255,0.05)', borderRadius: '12px', textAlign: 'center' }}>
-                <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: '600', color: '#007aff' }}>
-                    🇸🇪 Sverige möter Ukraina borta i semifinalen.
-                </p>
-                <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-                    Vinnaren går vidare till final mot vinnaren av Polen-Albanien.
-                </p>
-            </div>
         </div>
     );
 };
