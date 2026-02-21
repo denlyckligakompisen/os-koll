@@ -1,5 +1,70 @@
 import React, { useEffect, useState } from 'react';
 
+const Countdown = () => {
+    const calculateTimeLeft = () => {
+        const targetDate = new Date('2026-06-11T00:00:00');
+        const now = new Date();
+        const difference = targetDate - now;
+
+        if (difference <= 0) return null;
+
+        return {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60)
+        };
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 60000);
+        return () => clearInterval(timer);
+    }, []);
+
+    if (!timeLeft) return null;
+
+    return (
+        <div style={{
+            marginTop: '48px',
+            padding: '24px',
+            backgroundColor: 'var(--color-card-bg)',
+            backdropFilter: 'blur(16px)',
+            borderRadius: '20px',
+            border: 'var(--border)',
+            boxShadow: 'var(--shadow-md)',
+            textAlign: 'center',
+            width: '100%',
+            maxWidth: '320px'
+        }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-primary)', letterSpacing: '0.1em', marginBottom: '16px' }}>
+                Nedräkning till VM 2026
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.days}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>DAGAR</span>
+                </div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.hours}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>TIMMAR</span>
+                </div>
+                <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em' }}>{timeLeft.minutes}</span>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>MIN</span>
+                </div>
+            </div>
+            <div style={{ marginTop: '16px', fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
+                Premiär 11 juni 2026 • 🇲🇽 🇺🇸 🇨🇦
+            </div>
+        </div>
+    );
+};
+
 const MatchCard = ({ match, isFinal }) => (
     <div style={{
         backgroundColor: 'var(--color-card-bg)',
@@ -100,8 +165,9 @@ const VMPlayoff = () => {
                         ))}
                     </div>
                 </div>
-            </div>
 
+                <Countdown />
+            </div>
         </div>
     );
 };
