@@ -40,7 +40,7 @@ const Countdown = () => {
             width: '100%',
             maxWidth: '320px'
         }}>
-            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-primary)', letterSpacing: '0.1em', marginBottom: '16px' }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: '#000000', letterSpacing: '0.1em', marginBottom: '16px', opacity: 0.6 }}>
                 Fotbolls-VM 2026
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
@@ -60,7 +60,7 @@ const Countdown = () => {
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: '300', color: 'rgba(0,0,0,0.1)', marginTop: '-4px' }}>|</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#ff005a' }}>{timeLeft.seconds}</span>
+                    <span style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000' }}>{timeLeft.seconds}</span>
                     <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600' }}>SEKUNDER</span>
                 </div>
             </div>
@@ -109,7 +109,7 @@ const MatchCard = ({ match, isFinal }) => {
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                 <div style={{
-                    backgroundColor: isClickable ? 'rgba(255, 0, 90, 0.1)' : 'rgba(0, 122, 255, 0.1)',
+                    backgroundColor: 'rgba(0, 122, 255, 0.1)',
                     padding: '4px 10px',
                     borderRadius: '8px',
                     minWidth: '55px',
@@ -118,7 +118,7 @@ const MatchCard = ({ match, isFinal }) => {
                     <span style={{
                         fontSize: '0.9rem',
                         fontWeight: '600',
-                        color: accentColor,
+                        color: 'var(--color-primary)',
                     }}>
                         {match.time}
                     </span>
@@ -338,9 +338,6 @@ const VMPlayoff = () => {
                                 <span style={{ fontSize: '1.2rem' }}>{team.flag}</span>
                             </div>
                         ))}
-                    </div>
-                    <div style={{ marginTop: '12px', fontSize: '0.7rem', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
-                        Trea i varje grupp kan gå vidare till slutspel
                     </div>
                 </div>
             </div>
