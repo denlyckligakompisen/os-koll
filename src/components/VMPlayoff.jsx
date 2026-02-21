@@ -41,7 +41,8 @@ const Countdown = () => {
 
     return (
         <div style={{
-            marginTop: '10px',
+            marginTop: '-25px',
+            marginBottom: '-25px',
             padding: '24px',
             backgroundColor: 'var(--color-card-bg)',
             backdropFilter: 'blur(16px)',
@@ -240,9 +241,12 @@ const VMPlayoff = () => {
                         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                     }}
                 />
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', margin: 0, letterSpacing: '-0.02em', color: '#000000' }}>
+                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: '#000000' }}>
                     {data.tournament}
                 </h2>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500', marginTop: '2px' }}>
+                    Sveriges väg till Fotbolls-VM 2026
+                </div>
             </div>
 
             <div style={{
@@ -284,13 +288,13 @@ const VMPlayoff = () => {
                     width: '2px',
                     height: '40px',
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    marginTop: '-40px',
-                    marginBottom: '-10px',
+                    marginTop: '0px',
+                    marginBottom: '0px',
                     position: 'relative',
                     zIndex: 0
                 }} />
 
-                <Countdown />
+                <Countdown style={{ marginTop: '-25px', marginBottom: '-25px' }} />
 
                 <div style={{
                     backgroundColor: 'var(--color-card-bg)',

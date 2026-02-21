@@ -109,18 +109,24 @@ const Header = ({ medals }) => (
 const TabBar = ({ activeTab, onTabChange }) => (
   <nav style={{
     position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
     backdropFilter: 'saturate(180%) blur(20px)',
     WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-    borderTop: '0.5px solid rgba(0, 0, 0, 0.1)',
+    border: 'var(--border)',
+    boxShadow: 'var(--shadow-lg)',
     display: 'flex',
     justifyContent: 'space-around',
     paddingTop: '8px',
-    paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
-    zIndex: 1000
+    paddingBottom: '8px',
+    borderRadius: '32px',
+    width: 'auto',
+    minWidth: '280px',
+    maxWidth: '400px',
+    zIndex: 1000,
+    margin: '0 auto'
   }}>
     {[
       {
