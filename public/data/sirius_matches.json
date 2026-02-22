@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "date": "2026-02-21",
+    "time": "17:00",
+    "home": "IK Sirius",
+    "away": "GIF Sundsvall",
+    "result": "6–0",
+    "competition": "Svenska Cupen - Grupp 8"
+  },
+  {
+    "id": 2,
+    "date": "2026-03-01",
+    "time": "17:00",
+    "home": "IK Sirius",
+    "away": "Helsingborgs IF",
+    "result": null,
+    "competition": "Svenska Cupen - Grupp 8"
+  },
+  {
+    "id": 3,
+    "date": "2026-03-08",
+    "time": "13:00",
+    "home": "IF Elfsborg",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Svenska Cupen - Grupp 8"
+  }
+]

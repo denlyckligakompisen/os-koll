@@ -37,7 +37,18 @@ const TabBar = ({ activeTab, onTabChange }) => (
                     </svg>
                 )
             },
-            { id: 'vm', label: 'VM-kollen', icon: '⚽' }
+            { id: 'vm', label: 'VM-kollen', icon: '⚽' },
+            {
+                id: 'sirius',
+                label: 'Sirius-kollen',
+                icon: (
+                    <img
+                        src="https://data-20ca4.kxcdn.com/teamImages%2FIKS%2Flo70q4e1-iks.png?width=100"
+                        alt="Sirius"
+                        style={{ height: '28px', width: 'auto', borderRadius: '4px' }}
+                    />
+                )
+            }
         ].map(tab => {
             const isActive = activeTab === tab.id;
             return (
@@ -66,7 +77,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
                         display: 'flex',
                         alignItems: 'center',
                         height: '24px',
-                        filter: tab.id === 'vm' ? 'grayscale(1)' : (isActive ? 'none' : 'grayscale(1) opacity(0.8)')
+                        filter: isActive ? 'none' : 'grayscale(1) opacity(0.7)'
                     }}>
                         {tab.icon}
                     </span>

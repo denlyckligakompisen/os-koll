@@ -7,6 +7,7 @@ import LACountdown from './components/LACountdown';
 import MedalTable from './components/MedalTable';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
+import SiriusKollen from './components/SiriusKollen';
 
 const SHOW_COUNTDOWN_FROM = new Date('2026-02-22T00:00:00');
 
@@ -45,8 +46,10 @@ function App() {
             <MedalTable data={medals} />
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </>
-        ) : (
+        ) : activeTab === 'vm' ? (
           <VMPlayoff />
+        ) : (
+          <SiriusKollen />
         )}
       </div>
       <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
