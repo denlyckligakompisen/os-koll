@@ -111,7 +111,7 @@ const MedalTable = ({ data }) => {
                         color: 'var(--color-text-muted)',
                         marginBottom: '8px'
                     }}>
-                        Status: {data.eventProgress}
+                        {data.eventProgress}
                     </div>
                     <div style={{
                         height: '6px',
