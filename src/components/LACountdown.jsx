@@ -86,7 +86,7 @@ const OlympicsCountdown = () => {
                             }}
                         />
                     </div>
-                    <div>
+                    <div style={{ textAlign: 'center' }}>
                         <div style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{daysLA28}</div>
                         <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
                     </div>
