@@ -234,34 +234,29 @@ const SiriusKollen = () => {
                                     ? standings.filter(t => t.rank <= 3 || t.team === 'IK Sirius')
                                     : standings;
 
-                                return displayedTeams.map((team, idx) => {
-                                    const isCupCutoff = activeComp === 'cup' && team.rank === 1;
-                                    return (
-                                        <tr key={team.team} style={{
-                                            borderBottom: isCupCutoff
-                                                ? '2px dashed rgba(0,0,0,0.15)'
-                                                : (idx === displayedTeams.length - 1 ? 'none' : '0.5px solid rgba(0,0,0,0.05)'),
-                                            backgroundColor: team.team === 'IK Sirius' ? 'rgba(0,51,153,0.05)' : 'transparent'
-                                        }}>
-                                            <td style={{ padding: '12px 4px', fontWeight: '500' }}>{team.rank}</td>
-                                            <td style={{ padding: '12px 4px' }}>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                    <img
-                                                        src={getLogo(team.team)}
-                                                        alt={team.team}
-                                                        style={{ width: '20px', height: '20px', objectFit: 'contain' }}
-                                                    />
-                                                    {team.team}
-                                                </div>
-                                            </td>
-                                            <td style={{ padding: '12px 4px', textAlign: 'center' }}>{team.p}</td>
-                                            <td style={{ padding: '12px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>
-                                                {team.gd > 0 ? `+${team.gd}` : team.gd}
-                                            </td>
-                                            <td style={{ padding: '12px 4px', textAlign: 'right', fontWeight: '700' }}>{team.pts}</td>
-                                        </tr>
-                                    );
-                                });
+                                return displayedTeams.map((team, idx) => (
+                                    <tr key={team.team} style={{
+                                        borderBottom: idx === displayedTeams.length - 1 ? 'none' : '0.5px solid rgba(0,0,0,0.05)',
+                                        backgroundColor: team.team === 'IK Sirius' ? 'rgba(0,51,153,0.05)' : 'transparent'
+                                    }}>
+                                        <td style={{ padding: '12px 4px', fontWeight: '500' }}>{team.rank}</td>
+                                        <td style={{ padding: '12px 4px' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <img
+                                                    src={getLogo(team.team)}
+                                                    alt={team.team}
+                                                    style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+                                                />
+                                                {team.team}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '12px 4px', textAlign: 'center' }}>{team.p}</td>
+                                        <td style={{ padding: '12px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>
+                                            {team.gd > 0 ? `+${team.gd}` : team.gd}
+                                        </td>
+                                        <td style={{ padding: '12px 4px', textAlign: 'right', fontWeight: '700' }}>{team.pts}</td>
+                                    </tr>
+                                ));
                             })()}
                         </tbody>
                     </table>
