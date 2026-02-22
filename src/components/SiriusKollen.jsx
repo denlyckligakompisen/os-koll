@@ -3,7 +3,6 @@ import { getTeamLogo } from '../utils/assets';
 import { formatMatchDisplayDate } from '../utils/dateUtils';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
-import LoadingSpinner from './common/LoadingSpinner';
 
 const COMPETITION_TABS = [
     { id: 'allsvenskan', label: 'Allsvenskan' },
@@ -33,10 +32,7 @@ const SiriusKollen = () => {
     const [standings, setStandings] = useState([]);
     const [activeComp, setActiveComp] = useState('allsvenskan');
 
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        setLoading(true);
         const matchesFile = activeComp === 'cup' ? '/data/sirius_matches.json' : '/data/allsvenskan_matches.json';
         const standingsFile = activeComp === 'cup' ? '/data/sirius_standings.json' : '/data/allsvenskan_standings.json';
 
@@ -46,11 +42,7 @@ const SiriusKollen = () => {
         ]).then(([matchesData, standingsData]) => {
             setMatches(matchesData);
             setStandings(standingsData);
-            setLoading(false);
-        }).catch(err => {
-            console.error('Error fetching Sirius data:', err);
-            setLoading(false);
-        });
+        }).catch(err => console.error('Error fetching Sirius data:', err));
     }, [activeComp]);
 
     const nextMatch = matches.find(m => !m.result);
@@ -58,8 +50,6 @@ const SiriusKollen = () => {
     const displayedTeams = activeComp === 'allsvenskan'
         ? standings.filter(t => t.rank <= 3 || t.team === 'IK Sirius')
         : standings;
-
-    if (loading) return <LoadingSpinner />;
 
     return (
         <div className="animate-fade-in" style={{ padding: '0 10px' }}>
