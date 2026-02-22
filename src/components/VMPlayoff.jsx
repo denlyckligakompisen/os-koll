@@ -27,7 +27,7 @@ const Countdown = () => {
     if (!timeLeft) return null;
 
     return (
-        <Card style={{ width: '280px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
             <h2 style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', textAlign: 'center' }}>
                 Fotbolls-VM 2026 i Nordamerika
             </h2>
@@ -49,7 +49,6 @@ const MatchCard = ({ match, isFinal, date }) => {
     const card = (
         <Card
             style={{
-                width: '280px',
                 cursor: isClickable ? 'pointer' : 'default',
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                 overflow: 'hidden'
@@ -89,7 +88,7 @@ const MatchCard = ({ match, isFinal, date }) => {
 
     if (isClickable) {
         return (
-            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
                 {card}
             </a>
         );
@@ -124,25 +123,21 @@ const VMPlayoff = () => {
                 logoSrc={getTeamLogo('FIFA World Cup')}
             />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center', paddingBottom: '100px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '100px' }}>
                 {/* Semifinals */}
-                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-                    {data.rounds[0].matches.map(match => (
-                        <MatchCard key={match.id} match={match} date="26 mars" />
-                    ))}
-                </div>
+                {data.rounds[0].matches.map(match => (
+                    <MatchCard key={match.id} match={match} date="26 mars" />
+                ))}
 
                 {/* Final */}
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    {data.rounds[1].matches.map(match => (
-                        <MatchCard key={match.id} match={match} isFinal date="31 mars" />
-                    ))}
-                </div>
+                {data.rounds[1].matches.map(match => (
+                    <MatchCard key={match.id} match={match} isFinal date="31 mars" />
+                ))}
 
                 <Countdown />
 
                 {/* Group F */}
-                <Card style={{ width: '280px', textAlign: 'left' }} padding="16px" animate={false}>
+                <Card style={{ textAlign: 'left' }} padding="16px" animate={false}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#000000', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', opacity: 0.6 }}>
                         Grupp F
                     </div>
