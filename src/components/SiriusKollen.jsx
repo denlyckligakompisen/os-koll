@@ -5,8 +5,8 @@ import PageHeader from './common/PageHeader';
 import Card from './common/Card';
 
 const COMPETITION_TABS = [
-    { id: 'cup', label: 'Svenska Cupen' },
     { id: 'allsvenskan', label: 'Allsvenskan' },
+    { id: 'cup', label: 'Svenska Cupen' },
 ];
 
 const CUP_SCHEDULE = [
@@ -30,7 +30,7 @@ const EU_QUALIFICATIONS = {
 const SiriusKollen = () => {
     const [matches, setMatches] = useState([]);
     const [standings, setStandings] = useState([]);
-    const [activeComp, setActiveComp] = useState('cup');
+    const [activeComp, setActiveComp] = useState('allsvenskan');
 
     useEffect(() => {
         const matchesFile = activeComp === 'cup' ? '/data/sirius_matches.json' : '/data/allsvenskan_matches.json';
