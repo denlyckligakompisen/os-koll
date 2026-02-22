@@ -304,7 +304,7 @@ const SiriusKollen = () => {
                         maxWidth: '280px',
                         fontWeight: '500'
                     }}>
-                        Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Champions League</span>,<br />lag 2 och 3 kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Conference League</span>
+                        Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Champions League</span>,<br />tvåan och trean kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Conference League</span>
                     </div>
                 </div>
             )}
