@@ -207,17 +207,7 @@ const SiriusKollen = () => {
                     boxShadow: 'var(--shadow-sm)',
                     marginBottom: '24px'
                 }}>
-                    <div style={{
-                        fontSize: '0.75rem',
-                        fontWeight: '700',
-                        color: 'var(--color-text-muted)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        marginBottom: '16px',
-                        paddingLeft: '4px'
-                    }}>
-                        {activeComp === 'allsvenskan' && 'ALLSVENSKAN'}
-                    </div>
+
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                         <thead>
                             <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
