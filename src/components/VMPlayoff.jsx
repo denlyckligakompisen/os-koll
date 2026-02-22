@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
+import LoadingSpinner from './common/LoadingSpinner';
 
 // Bolds "Sverige" within any string
 const BoldSverige = ({ text }) => {
@@ -113,7 +114,7 @@ const VMPlayoff = () => {
             .catch(console.error);
     }, []);
 
-    if (!data) return null;
+    if (!data) return <LoadingSpinner />;
 
     return (
         <div style={{ padding: '0 10px' }}>
