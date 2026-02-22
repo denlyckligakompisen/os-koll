@@ -1,68 +1,36 @@
-
 import React, { useState, useEffect } from 'react';
+import Card from './common/Card';
+
+const TARGET_DATE = '2028-07-14T20:00:00';
 
 const OlympicsCountdown = () => {
-    const calculateDaysLeft = (targetDate) => {
-        const now = new Date();
-        const difference = new Date(targetDate) - now;
-        return Math.max(0, Math.ceil(difference / (1000 * 60 * 60 * 24)));
-    };
+    const getDaysLeft = () => Math.max(0, Math.ceil((new Date(TARGET_DATE) - new Date()) / (1000 * 60 * 60 * 24)));
 
-    const [daysLA28, setDaysLA28] = useState(calculateDaysLeft('2028-07-14T20:00:00'));
+    const [daysLA28, setDaysLA28] = useState(getDaysLeft);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setDaysLA28(calculateDaysLeft('2028-07-14T20:00:00'));
-        }, 60000); // Update every minute
-
+        const timer = setInterval(() => setDaysLA28(getDaysLeft()), 60_000);
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <div style={{
-            marginTop: '0px',
-            padding: '24px 16px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            marginBottom: '100px'
-        }}>
-            {/* LA 2028 */}
-            <div style={{
-                margin: '0 16px 0 16px',
-                padding: '20px',
-                backgroundColor: 'var(--color-card-bg)',
-                backdropFilter: 'blur(16px)',
-                borderRadius: 'var(--radius-lg)',
-                border: 'var(--border)',
-                boxShadow: 'var(--shadow-sm)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '12px',
-                width: '280px',
-                position: 'relative',
-                overflow: 'hidden',
-                alignSelf: 'center'
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
+            <h2 style={{
+                margin: '0 0 16px 0',
+                fontSize: '0.9rem',
+                fontWeight: '800',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: 'var(--color-text-muted)',
+                textAlign: 'center'
             }}>
-                <h2 style={{
-                    margin: '0 0 16px 0',
-                    fontSize: '0.9rem',
-                    fontWeight: '800',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    color: 'var(--color-text-muted)',
-                    textAlign: 'center'
-                }}>
-                    Sommar-OS i Los Angeles 2028
-                </h2>
-
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{daysLA28}</div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
-                </div>
+                Sommar-OS i Los Angeles 2028
+            </h2>
+            <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{daysLA28}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
             </div>
-        </div>
+        </Card>
     );
 };
 
