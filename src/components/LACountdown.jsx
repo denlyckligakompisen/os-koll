@@ -20,7 +20,7 @@ const OlympicsCountdown = () => {
 
     return (
         <div style={{
-            marginTop: '32px',
+            marginTop: '0px',
             padding: '24px 16px',
             display: 'flex',
             flexDirection: 'column',
@@ -55,11 +55,12 @@ const OlympicsCountdown = () => {
             >
                 {/* LA 2028 */}
                 <div style={{
-                    padding: '24px 32px',
+                    margin: '0 16px 0 16px',
+                    padding: '20px',
+                    backgroundColor: 'var(--color-card-bg)',
+                    backdropFilter: 'blur(16px)',
                     borderRadius: 'var(--radius-lg)',
-                    background: '#ffffff',
                     border: 'var(--border)',
-                    textAlign: 'center',
                     boxShadow: 'var(--shadow-sm)',
                     display: 'flex',
                     flexDirection: 'column',

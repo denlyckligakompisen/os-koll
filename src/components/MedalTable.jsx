@@ -6,7 +6,7 @@ const MedalTable = ({ data }) => {
 
     return (
         <div style={{
-            margin: '0 16px 24px 16px',
+            margin: '0 16px 0 16px',
             padding: '20px',
             backgroundColor: 'var(--color-card-bg)',
             backdropFilter: 'blur(16px)',
