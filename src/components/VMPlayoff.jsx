@@ -41,46 +41,36 @@ const Countdown = () => {
 
     return (
         <div style={{
-            marginTop: '8px',
-            marginBottom: '8px',
-            padding: '24px',
+            margin: '0',
+            padding: '20px',
             backgroundColor: 'var(--color-card-bg)',
             backdropFilter: 'blur(16px)',
-            borderRadius: '20px',
+            borderRadius: 'var(--radius-lg)',
             border: 'var(--border)',
-            boxShadow: 'var(--shadow-md)',
-            textAlign: 'center',
-            width: '100%',
-            maxWidth: '320px'
+            boxShadow: 'var(--shadow-sm)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '12px',
+            width: '280px',
+            position: 'relative',
+            overflow: 'hidden'
         }}>
-            <div style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', color: '#000000', letterSpacing: '0.1em', marginBottom: '4px', opacity: 0.6 }}>
-                Fotbolls-VM 2026
+            <h2 style={{
+                margin: '0 0 16px 0',
+                fontSize: '0.9rem',
+                fontWeight: '800',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: 'var(--color-text-muted)',
+                textAlign: 'center'
+            }}>
+                Fotbolls-VM 2026 i Nordamerika
+            </h2>
+            <div style={{ textAlign: 'center' }}>
+                <div key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{timeLeft.days}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
             </div>
-            <div style={{ fontSize: '0.65rem', fontWeight: '500', color: 'var(--color-text-muted)', marginBottom: '16px', letterSpacing: '0.03em' }}>
-                11 juni – 19 juli
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', alignItems: 'center' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.days}</span>
-                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>DAGAR</span>
-                </div>
-                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span key={timeLeft.hours} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.hours}</span>
-                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>TIMMAR</span>
-                </div>
-                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span key={timeLeft.minutes} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.minutes}</span>
-                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>MINUTER</span>
-                </div>
-                <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(0,0,0,0.1)', alignSelf: 'center', opacity: 0.5 }} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '45px' }}>
-                    <span key={timeLeft.seconds} className="animate-fade-in" style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.02em', color: '#000000', fontVariantNumeric: 'tabular-nums' }}>{timeLeft.seconds}</span>
-                    <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontWeight: '700', marginTop: '-2px' }}>SEKUNDER</span>
-                </div>
-            </div>
-
         </div>
     );
 };
@@ -98,9 +88,8 @@ const MatchCard = ({ match, isFinal, date }) => {
             padding: '16px',
             border: 'var(--border)',
             boxShadow: 'var(--shadow-sm)',
-            width: '100%',
-            maxWidth: '360px',
-            margin: '10px 0',
+            width: '280px',
+            margin: '0',
             position: 'relative',
             cursor: isClickable ? 'pointer' : 'default',
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -195,8 +184,8 @@ const MatchCard = ({ match, isFinal, date }) => {
                 }}>
                     <span style={{
                         fontSize: '0.85rem',
-                        color: accentColor,
-                        fontWeight: '600',
+                        color: '#000000',
+                        fontWeight: '500',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -264,13 +253,14 @@ const VMPlayoff = () => {
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '16px',
+                gap: '24px',
                 position: 'relative',
-                alignItems: 'center'
+                alignItems: 'center',
+                paddingBottom: '100px'
             }}>
                 {/* Semifinals */}
                 <div style={{ width: '100%' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
                         {data.rounds[0].matches.map(match => (
                             <MatchCard key={match.id} match={match} date="26 mars" />
                         ))}
@@ -296,8 +286,7 @@ const VMPlayoff = () => {
                     padding: '16px',
                     border: 'var(--border)',
                     boxShadow: 'var(--shadow-sm)',
-                    width: '100%',
-                    maxWidth: '320px',
+                    width: '280px',
                     textAlign: 'left',
                     marginTop: '0px'
                 }}>

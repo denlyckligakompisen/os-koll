@@ -5,19 +5,9 @@ const MedalTable = ({ data }) => {
     if (medalData.length === 0) return null;
 
     return (
-        <a
-            href="https://www.olympics.com/en/milano-cortina-2026/medals"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                display: 'block',
-                transition: 'transform 0.2s ease'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.01)'}
-            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-        >
+        <div style={{
+            display: 'block',
+        }}>
             <div style={{
                 margin: '0 16px 0 16px',
                 padding: '20px',
@@ -36,26 +26,25 @@ const MedalTable = ({ data }) => {
                     color: 'var(--color-text-muted)',
                     textAlign: 'center'
                 }}>
-                    Milano Cortina 2026
+                    Vinter-OS i Milano Cortina 2026
                 </h2>
                 {/* Table Header */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'minmax(40px, auto) 1fr 40px 40px 40px 40px',
+                    gridTemplateColumns: '30px 1fr 35px 35px 35px 40px',
                     gap: '8px',
                     fontSize: '0.7rem',
                     fontWeight: '700',
                     color: 'var(--color-text-muted)',
-                    paddingBottom: '8px',
-                    borderBottom: '1px solid var(--color-border-subtle)',
-                    textAlign: 'center'
+                    padding: '0 12px 8px 12px',
+                    borderBottom: '1px solid var(--color-border-subtle)'
                 }}>
-                    <span />
-                    <span />
-                    <span>🥇</span>
-                    <span>🥈</span>
-                    <span>🥉</span>
-                    <span>TOT</span>
+                    <span style={{ textAlign: 'left' }}>#</span>
+                    <span style={{ textAlign: 'left' }}>LAND</span>
+                    <span style={{ textAlign: 'center' }}>🥇</span>
+                    <span style={{ textAlign: 'center' }}>🥈</span>
+                    <span style={{ textAlign: 'center' }}>🥉</span>
+                    <span style={{ textAlign: 'right' }}>TOT</span>
                 </div>
 
                 {medalData.map((country) => {
@@ -63,88 +52,46 @@ const MedalTable = ({ data }) => {
                     return (
                         <div key={country.code} style={{
                             display: 'grid',
-                            gridTemplateColumns: 'minmax(40px, auto) 1fr 40px 40px 40px 40px',
+                            gridTemplateColumns: '30px 1fr 35px 35px 35px 40px',
                             gap: '8px',
                             alignItems: 'center',
                             fontSize: '0.9rem',
-                            padding: '8px 0',
+                            padding: '8px 12px',
                             borderRadius: '8px',
                             position: 'relative',
-                            backgroundColor: isSweden ? 'rgba(251, 192, 45, 0.15)' : 'transparent',
-                            margin: isSweden ? '0 -8px' : '0',
-                            paddingLeft: isSweden ? '8px' : '0',
-                            paddingRight: isSweden ? '8px' : '0',
-                            transition: 'background-color 0.2s ease'
+                            background: isSweden ? 'rgba(0, 106, 167, 0.15)' : 'transparent',
+                            margin: '0',
+                            transition: 'all 0.2s ease',
+                            border: isSweden ? '1px solid rgba(0, 106, 167, 0.2)' : '1px solid transparent'
                         }}>
-                            {isSweden && (
-                                <div style={{
-                                    position: 'absolute',
-                                    left: 0,
-                                    top: '20%',
-                                    bottom: '20%',
-                                    width: '3px',
-                                    backgroundColor: '#fbc02d',
-                                    borderRadius: '0 4px 4px 0'
-                                }} />
-                            )}
                             <span style={{
-                                fontWeight: '700',
-                                color: isSweden ? 'var(--color-text-highlight)' : 'var(--color-text-muted)',
-                                textAlign: 'center'
+                                fontWeight: '500',
+                                color: isSweden ? '#004b77' : 'var(--color-text-muted)',
+                                textAlign: 'left'
                             }}>
                                 {country.rank}
                             </span>
                             <span style={{
-                                fontWeight: isSweden ? '800' : '600',
-                                color: isSweden ? 'var(--color-text-highlight)' : 'inherit'
+                                fontWeight: '500',
+                                color: isSweden ? '#004b77' : 'inherit',
+                                textAlign: 'left',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
                             }}>
                                 {country.country}
                             </span>
-                            <span style={{ textAlign: 'center', fontWeight: '600' }}>{country.gold}</span>
-                            <span style={{ textAlign: 'center' }}>{country.silver}</span>
-                            <span style={{ textAlign: 'center' }}>{country.bronze}</span>
-                            <span style={{ textAlign: 'center', fontWeight: '800' }}>{country.gold + country.silver + country.bronze}</span>
+                            <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.gold}</span>
+                            <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.silver}</span>
+                            <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.bronze}</span>
+                            <span style={{ textAlign: 'right', fontWeight: '500' }}>{country.gold + country.silver + country.bronze}</span>
                         </div>
                     );
                 })}
 
-                {data?.eventProgress && (
-                    <div style={{
-                        marginTop: '24px',
-                        paddingTop: '16px',
-                        borderTop: '1px solid var(--color-border-subtle)',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{
-                            fontSize: '0.75rem',
-                            fontWeight: '700',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em',
-                            color: 'var(--color-text-muted)',
-                            marginBottom: '8px'
-                        }}>
-                            {data.eventProgress}
-                        </div>
-                        <div style={{
-                            height: '6px',
-                            backgroundColor: 'rgba(0,0,0,0.05)',
-                            borderRadius: '3px',
-                            overflow: 'hidden',
-                            width: '100%',
-                            maxWidth: '200px',
-                            margin: '0 auto'
-                        }}>
-                            <div style={{
-                                height: '100%',
-                                width: '99%', // 115/116 is ~99%
-                                backgroundColor: '#4caf50',
-                                borderRadius: '3px'
-                            }} />
-                        </div>
-                    </div>
-                )}
+
             </div>
-        </a>
+        </div>
     );
 };
 

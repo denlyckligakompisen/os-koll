@@ -29,11 +29,11 @@ const TabBar = ({ activeTab, onTabChange }) => (
                 label: 'OS-kollen',
                 icon: (
                     <svg width="28" height="14" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
-                        <circle cx="55" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
-                        <circle cx="90" cy="18" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
-                        <circle cx="37.5" cy="34" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
-                        <circle cx="72.5" cy="34" r="16" fill="none" stroke="currentColor" strokeWidth="5" />
+                        <circle cx="20" cy="18" r="16" fill="none" stroke={activeTab === 'os' ? "#0085C7" : "currentColor"} strokeWidth="5" />
+                        <circle cx="55" cy="18" r="16" fill="none" stroke={activeTab === 'os' ? "#000000" : "currentColor"} strokeWidth="5" />
+                        <circle cx="90" cy="18" r="16" fill="none" stroke={activeTab === 'os' ? "#DF0024" : "currentColor"} strokeWidth="5" />
+                        <circle cx="37.5" cy="34" r="16" fill="none" stroke={activeTab === 'os' ? "#F4C300" : "currentColor"} strokeWidth="5" />
+                        <circle cx="72.5" cy="34" r="16" fill="none" stroke={activeTab === 'os' ? "#009F3D" : "currentColor"} strokeWidth="5" />
                     </svg>
                 )
             },
@@ -77,7 +77,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
                         display: 'flex',
                         alignItems: 'center',
                         height: '24px',
-                        filter: isActive ? 'none' : 'grayscale(1) opacity(0.7)'
+                        filter: isActive ? 'none' : 'grayscale(1) opacity(0.5)'
                     }}>
                         {tab.icon}
                     </span>

@@ -27,71 +27,41 @@ const OlympicsCountdown = () => {
             gap: '16px',
             marginBottom: '100px'
         }}>
-            <h2 style={{
-                fontSize: '0.8rem',
-                fontWeight: '800',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                color: 'var(--color-text-muted)',
-                textAlign: 'center',
-                marginBottom: '8px'
+            {/* LA 2028 */}
+            <div style={{
+                margin: '0 16px 0 16px',
+                padding: '20px',
+                backgroundColor: 'var(--color-card-bg)',
+                backdropFilter: 'blur(16px)',
+                borderRadius: 'var(--radius-lg)',
+                border: 'var(--border)',
+                boxShadow: 'var(--shadow-sm)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '12px',
+                width: '280px',
+                position: 'relative',
+                overflow: 'hidden',
+                alignSelf: 'center'
             }}>
-                Nästa OS
-            </h2>
-
-            <a
-                href="https://la28.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textDecoration: 'none',
-                    width: '100%',
-                    transition: 'transform 0.2s ease',
-                }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-                {/* LA 2028 */}
-                <div style={{
-                    margin: '0 16px 0 16px',
-                    padding: '20px',
-                    backgroundColor: 'var(--color-card-bg)',
-                    backdropFilter: 'blur(16px)',
-                    borderRadius: 'var(--radius-lg)',
-                    border: 'var(--border)',
-                    boxShadow: 'var(--shadow-sm)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '12px',
-                    width: '280px',
-                    position: 'relative',
-                    overflow: 'hidden'
+                <h2 style={{
+                    margin: '0 0 16px 0',
+                    fontSize: '0.9rem',
+                    fontWeight: '800',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    color: 'var(--color-text-muted)',
+                    textAlign: 'center'
                 }}>
-                    <div style={{
-                        height: '60px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/2028_Summer_Olympics_logo.svg/300px-2028_Summer_Olympics_logo.svg.png"
-                            alt="LA28 Logo"
-                            style={{ height: '100%', width: 'auto', objectFit: 'contain' }}
-                            onError={(e) => {
-                                e.target.style.display = 'none';
-                                e.target.parentElement.innerHTML = '<div style="font-size: 1.2rem; font-weight: 900; color: #1e293b; letter-spacing: -0.5px;">Los Angeles 2028</div>';
-                            }}
-                        />
-                    </div>
-                    <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{daysLA28}</div>
-                        <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
-                    </div>
+                    Sommar-OS i Los Angeles 2028
+                </h2>
+
+                <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>{daysLA28}</div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>dagar kvar</div>
                 </div>
-            </a>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "as1",
+    "date": "2026-04-04",
+    "time": "15:00",
+    "home": "Degerfors IF",
+    "away": "IK Sirius",
+    "venue": "Stora Valla",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 1"
+  },
+  {
+    "id": "as2",
+    "date": "2026-04-12",
+    "time": "17:30",
+    "home": "IK Sirius",
+    "away": "Hammarby",
+    "venue": "Studenternas IP",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 2"
+  },
+  {
+    "id": "as3",
+    "date": "2026-04-19",
+    "time": "15:00",
+    "home": "IK Sirius",
+    "away": "Västerås SK",
+    "venue": "Studenternas IP",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 3"
+  }
+]
