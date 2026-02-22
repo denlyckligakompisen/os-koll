@@ -95,7 +95,7 @@ const Header = () => (
       gap: '8px',
       marginBottom: '2px'
     }}>
-      <svg width="42" height="20" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.9 }}>
+      <svg width="48" height="22" viewBox="0 0 110 50" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.9, overflow: 'visible' }}>
         <circle cx="20" cy="18" r="16" fill="none" stroke="black" strokeWidth="5" />
         <circle cx="55" cy="18" r="16" fill="none" stroke="black" strokeWidth="5" />
         <circle cx="90" cy="18" r="16" fill="none" stroke="black" strokeWidth="5" />
