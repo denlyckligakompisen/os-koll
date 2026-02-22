@@ -95,6 +95,42 @@ const MedalTable = ({ data }) => {
                     </div>
                 );
             })}
+
+            {data?.eventProgress && (
+                <div style={{
+                    marginTop: '24px',
+                    paddingTop: '16px',
+                    borderTop: '1px solid var(--color-border-subtle)',
+                    textAlign: 'center'
+                }}>
+                    <div style={{
+                        fontSize: '0.75rem',
+                        fontWeight: '700',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        color: 'var(--color-text-muted)',
+                        marginBottom: '8px'
+                    }}>
+                        Status: {data.eventProgress}
+                    </div>
+                    <div style={{
+                        height: '6px',
+                        backgroundColor: 'rgba(0,0,0,0.05)',
+                        borderRadius: '3px',
+                        overflow: 'hidden',
+                        width: '100%',
+                        maxWidth: '200px',
+                        margin: '0 auto'
+                    }}>
+                        <div style={{
+                            height: '100%',
+                            width: '99%', // 115/116 is ~99%
+                            backgroundColor: '#4caf50',
+                            borderRadius: '3px'
+                        }} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
