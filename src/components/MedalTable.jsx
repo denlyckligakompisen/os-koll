@@ -1,6 +1,11 @@
 import React from 'react';
 import Card from './common/Card';
 
+const getFlagEmoji = (code) => {
+    if (!code || code.length !== 2) return '';
+    return code.toUpperCase().replace(/./g, c => String.fromCodePoint(c.charCodeAt(0) + 127397));
+};
+
 const MedalTable = ({ data }) => {
     const medalData = data?.top10 || [];
     if (medalData.length === 0) return null;
@@ -55,8 +60,9 @@ const MedalTable = ({ data }) => {
                         <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'var(--color-text-muted)', textAlign: 'left' }}>
                             {country.rank}
                         </span>
-                        <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'inherit', textAlign: 'left', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {country.country}
+                        <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'inherit', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
+                            <span style={{ fontSize: '1rem', lineHeight: 1, flexShrink: 0 }}>{getFlagEmoji(country.code)}</span>
+                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{country.country}</span>
                         </span>
                         <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.gold}</span>
                         <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.silver}</span>
