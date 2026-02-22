@@ -2,7 +2,7 @@
 /**
  * Shared date formatting for match schedules
  */
-export const formatMatchDisplayDate = (dateStr, referenceDate = new Date('2026-02-22')) => {
+export const formatMatchDisplayDate = (dateStr, referenceDate = new Date()) => {
     if (!dateStr) return '';
     const matchDate = new Date(dateStr);
 
