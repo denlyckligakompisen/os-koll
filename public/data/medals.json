@@ -12,10 +12,10 @@
     {
       "rank": 2,
       "country": "USA",
-      "gold": 11,
+      "gold": 12,
       "silver": 12,
       "bronze": 9,
-      "total": 32,
+      "total": 33,
       "code": "US"
     },
     {
@@ -92,5 +92,5 @@
     }
   ],
   "eventProgress": "115 av 116 medaljgrenar avklarade",
-  "updated": "2026-02-22T15:31:15.773Z"
+  "updated": "2026-02-22T16:38:57.939Z"
 }
