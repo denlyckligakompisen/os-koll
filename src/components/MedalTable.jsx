@@ -38,8 +38,8 @@ const MedalTable = ({ data }) => {
                 borderBottom: '1px solid var(--color-border-subtle)',
                 textAlign: 'center'
             }}>
-                <span>RANK</span>
-                <span style={{ textAlign: 'left' }}>NATION</span>
+                <span />
+                <span />
                 <span>🥇</span>
                 <span>🥈</span>
                 <span>🥉</span>
