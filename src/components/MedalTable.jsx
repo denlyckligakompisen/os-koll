@@ -14,17 +14,6 @@ const MedalTable = ({ data }) => {
             border: 'var(--border)',
             boxShadow: 'var(--shadow-sm)'
         }}>
-            <h2 style={{
-                margin: '0 0 16px 0',
-                fontSize: '0.9rem',
-                fontWeight: '800',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                color: 'var(--color-text-muted)',
-                textAlign: 'center'
-            }}>
-                Medaljfördelning Milano Cortina 2026
-            </h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {/* Table Header */}
