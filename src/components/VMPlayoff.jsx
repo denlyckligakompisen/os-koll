@@ -246,7 +246,7 @@ const VMPlayoff = () => {
                     </h2>
                 </div>
                 <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
-                    Sveriges väg till Fotbolls-VM 2026
+                    Vägen till Fotbolls-VM 2026 💙💛
                 </div>
             </div>
 
