@@ -69,28 +69,25 @@ const SiriusKollen = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '8px',
-                marginBottom: '20px',
+                gap: '4px',
+                marginBottom: '24px',
                 textAlign: 'center'
             }}>
-                <div style={{
-                    width: '100px',
-                    height: '100px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '8px'
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
                     <img
                         src={getLogo('IK Sirius')}
-                        alt="IK Sirius Logo"
-                        style={{ width: '90px', height: 'auto', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+                        alt="IK Sirius"
+                        style={{
+                            height: '32px',
+                            width: 'auto',
+                            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                        }}
                     />
+                    <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: '#000000' }}>
+                        Sirius-kollen
+                    </h2>
                 </div>
-                <h2 style={{ margin: 0, fontSize: '2.2rem', fontWeight: '600', letterSpacing: '-0.05em', color: '#000' }}>
-                    Sirius-kollen
-                </h2>
-                <div style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)', fontWeight: '500', letterSpacing: '-0.01em' }}>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
                     Vägen till Europaspel 💙🖤
                 </div>
             </div>
