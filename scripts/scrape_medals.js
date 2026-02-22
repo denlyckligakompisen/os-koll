@@ -4,13 +4,13 @@ import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 
-const MEDALS_URL = 'https://www.olympics.com/en/milano-cortina-2026/medals';
+const WIKI_URL = 'https://en.wikipedia.org/wiki/2026_Winter_Olympics_medal_table';
 const OUTPUT_PATH = path.join(process.cwd(), 'public/data/medals.json');
 
 async function scrapeMedals() {
-    console.log('Fetching medals from olympics.com...');
+    console.log('Fetching medals from Wikipedia...');
     try {
-        const { data } = await axios.get(MEDALS_URL, {
+        const { data } = await axios.get(WIKI_URL, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
@@ -19,50 +19,61 @@ async function scrapeMedals() {
         const $ = cheerio.load(data);
         const countries = [];
 
-        // This selector is a guess based on general olympics.com structure
-        // Since I cannot browse the live DOM with execution, I will try to find the table/list
-        $('tr[data-test-id="medal-standings-row"], .medal-standings-table tr').each((i, el) => {
-            if (i >= 15) return; // Get a few extra to ensure we find Sweden if they are outside top 10
+        // Wikipedia medal tables usually have class 'wikitable' and 'sortable'
+        // The header row is skipped, and we look for the main standings
+        $('table.wikitable.sortable tbody tr').each((i, el) => {
+            const cells = $(el).find('td');
+            if (cells.length >= 4) {
+                // First cell is rank (sometimes in a <th>), second is country
+                let rankText = $(el).find('th').first().text().trim();
+                if (!rankText || isNaN(parseInt(rankText))) {
+                    rankText = $(cells[0]).text().trim();
+                }
 
-            const countryName = $(el).find('[data-test-id="country-name"], .country-name').text().trim();
-            const gold = parseInt($(el).find('[data-test-id="gold"], .gold').text().trim()) || 0;
-            const silver = parseInt($(el).find('[data-test-id="silver"], .silver').text().trim()) || 0;
-            const bronze = parseInt($(el).find('[data-test-id="bronze"], .bronze').text().trim()) || 0;
-            const rank = parseInt($(el).find('[data-test-id="rank"], .rank').text().trim()) || (i + 1);
+                const countryLink = $(cells[0]).find('a').last().text().trim() || $(cells[1]).find('a').last().text().trim();
+                const countryName = countryLink || $(cells[0]).text().trim();
 
-            if (countryName) {
-                countries.push({
-                    rank,
-                    country: countryName,
-                    gold,
-                    silver,
-                    bronze,
-                    total: gold + silver + bronze
-                });
+                // Usually: Rank, Nation, Gold, Silver, Bronze, Total
+                // But sometimes Rank is <th>. Let's adjust.
+                const offset = $(el).find('th').length > 0 ? -1 : 0;
+
+                const gold = parseInt($(cells[1 + offset])?.text().trim()) || 0;
+                const silver = parseInt($(cells[2 + offset])?.text().trim()) || 0;
+                const bronze = parseInt($(cells[3 + offset])?.text().trim()) || 0;
+                const rank = parseInt(rankText);
+
+                if (countryName && !isNaN(gold)) {
+                    countries.push({
+                        rank: rank || (countries.length + 1),
+                        country: countryName,
+                        gold,
+                        silver,
+                        bronze,
+                        total: gold + silver + bronze
+                    });
+                }
             }
         });
 
         if (countries.length === 0) {
-            console.error('No countries found. Selector might be wrong.');
-            // Fallback: try to find any table rows if the specific ones fail
-            $('table tr').each((i, el) => {
+            // Second attempt with broader selector
+            $('.wikitable tr').each((i, el) => {
                 const cells = $(el).find('td');
                 if (cells.length >= 4) {
-                    const country = $(cells[1]).text().trim();
-                    if (country && i < 20) {
+                    const country = $(cells[0]).find('a').last().text().trim();
+                    if (country) {
                         countries.push({
-                            rank: parseInt($(cells[0]).text().trim()) || i,
+                            rank: i,
                             country: country,
-                            gold: parseInt($(cells[2]).text().trim()) || 0,
-                            silver: parseInt($(cells[3]).text().trim()) || 0,
-                            bronze: parseInt($(cells[4]).text().trim()) || 0
+                            gold: parseInt($(cells[1]).text().trim()) || 0,
+                            silver: parseInt($(cells[2]).text().trim()) || 0,
+                            bronze: parseInt($(cells[3]).text().trim()) || 0
                         });
                     }
                 }
             });
         }
 
-        // Map to Swedish names if possible (manual map for top ones)
         const nameMap = {
             'Norway': 'Norge',
             'United States': 'USA',
@@ -86,25 +97,24 @@ async function scrapeMedals() {
                     country: nameMap[c.country] || c.country,
                     code: getCountryCode(c.country)
                 }))
+                .filter(c => c.rank <= 15) // Get a few extra
+                .sort((a, b) => a.rank - b.rank)
                 .slice(0, 10),
             updated: new Date().toISOString()
         };
 
-        // Ensure Sweden is in there if the user requested top 10 but Sweden is e.g. 11th
-        // (Though Sweden is 6-8th currently)
-
         fs.writeFileSync(OUTPUT_PATH, JSON.stringify(result, null, 2));
-        console.log('Medals updated successfully:', result.top10.length, 'countries');
+        console.log('Medals updated from Wikipedia:', result.top10.length, 'countries');
 
     } catch (error) {
-        console.error('Scraping failed:', error.message);
+        console.error('Wikipedia scraping failed:', error.message);
     }
 }
 
 function getCountryCode(name) {
     const codes = {
         'Norway': 'NO', 'Norge': 'NO',
-        'USA': 'US', 'United States': 'US',
+        'USA': 'US', 'United States': 'US', 'United States of America': 'US',
         'Netherlands': 'NL', 'Nederländerna': 'NL',
         'Italy': 'IT', 'Italien': 'IT',
         'Germany': 'DE', 'Tyskland': 'DE',
