@@ -43,27 +43,79 @@ const Countdown = () => {
     );
 };
 
+// Hero-style match card — mirrors SiriusKollen next match card
+const HeroMatchCard = ({ match, date }) => {
+    const teams = [match.home, match.away];
+    const getFlag = (team) => team?.includes('Sverige') ? '🇸🇪' : team?.includes('Ukraina') ? '🇺🇦' : '⚽';
+
+    const content = (
+        <div style={{
+            background: 'linear-gradient(135deg, #006AA7 0%, #000000 100%)',
+            borderRadius: '24px',
+            padding: '24px',
+            color: 'white',
+            boxShadow: '0 10px 25px rgba(0, 106, 167, 0.3)',
+            position: 'relative',
+            overflow: 'hidden',
+            cursor: match.link ? 'pointer' : 'default'
+        }}>
+            {/* Subtle stripe */}
+            <div style={{
+                position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.08,
+                background: 'repeating-linear-gradient(90deg, transparent, transparent 20px, #fff 20px, #fff 40px)'
+            }} />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                    {teams.map(team => (
+                        <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>{getFlag(team)}</div>
+                            <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px', lineHeight: 1.2 }}>
+                                <BoldSverige text={team} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
+                        {date}{match.time ? ` · ${match.time}` : ''}
+                    </div>
+                    {match.venue && (
+                        <div style={{ fontSize: '0.75rem', opacity: 0.7, marginTop: '4px' }}>{match.venue}</div>
+                    )}
+                </div>
+                {match.link && (
+                    <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.15)', textAlign: 'center' }}>
+                        <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', fontWeight: '600' }}>
+                            Se matchen på Viaplay →
+                        </span>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+
+    return match.link ? (
+        <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>{content}</a>
+    ) : content;
+};
+
 const MatchCard = ({ match, isFinal, date }) => {
     const isClickable = !!match.link;
+    const involvesSweden = match.home?.includes('Sverige') || match.away?.includes('Sverige');
+
+    if (involvesSweden) return <HeroMatchCard match={match} date={date} />;
 
     const card = (
         <Card
-            style={{
-                cursor: isClickable ? 'pointer' : 'default',
-                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                overflow: 'hidden'
-            }}
+            style={{ cursor: isClickable ? 'pointer' : 'default', transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', overflow: 'hidden' }}
             padding="16px"
             animate={false}
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'space-between' }}>
-                {/* Date/time badge */}
                 <div style={{ backgroundColor: 'rgba(0, 122, 255, 0.1)', padding: '6px 14px', borderRadius: '10px', textAlign: 'center', minWidth: '85px' }}>
                     <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', marginBottom: '1px' }}>{date}</div>
                     <span style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--color-primary)' }}>{match.time}</span>
                 </div>
-
-                {/* Teams */}
                 <div style={{ display: 'flex', flexDirection: isFinal ? 'column' : 'row', alignItems: 'center', gap: isFinal ? '2px' : '8px', flex: 1, justifyContent: 'center', paddingRight: '10px' }}>
                     {[match.home, match.away].map((team, i) => (
                         <React.Fragment key={team}>
@@ -75,7 +127,6 @@ const MatchCard = ({ match, isFinal, date }) => {
                     ))}
                 </div>
             </div>
-
             {isClickable && (
                 <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: 'var(--border)', textAlign: 'center' }}>
                     <span style={{ fontSize: '0.85rem', color: '#000000', fontWeight: '500', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
@@ -86,14 +137,9 @@ const MatchCard = ({ match, isFinal, date }) => {
         </Card>
     );
 
-    if (isClickable) {
-        return (
-            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                {card}
-            </a>
-        );
-    }
-    return card;
+    return isClickable ? (
+        <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>{card}</a>
+    ) : card;
 };
 
 const GROUP_TEAMS = [
