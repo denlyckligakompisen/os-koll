@@ -216,7 +216,7 @@ const SiriusKollen = () => {
                         marginBottom: '16px',
                         paddingLeft: '4px'
                     }}>
-                        {activeComp === 'cup' ? 'GRUPP 8' : 'ALLSVENSKAN'}
+                        {activeComp === 'allsvenskan' && 'ALLSVENSKAN'}
                     </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                         <thead>
@@ -323,17 +323,7 @@ const SiriusKollen = () => {
                         boxShadow: 'var(--shadow-sm)',
                         marginTop: '8px'
                     }}>
-                        <div style={{
-                            fontSize: '0.75rem',
-                            fontWeight: '700',
-                            color: 'var(--color-text-muted)',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em',
-                            marginBottom: '16px',
-                            paddingLeft: '4px'
-                        }}>
-                            SLUTSPEL
-                        </div>
+
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px' }}>
                                 <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>Kvartsfinal</span>
