@@ -123,7 +123,7 @@ const VMPlayoff = () => {
                 logoSrc={getTeamLogo('FIFA World Cup')}
             />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '100px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {/* Semifinals */}
                 {data.rounds[0].matches.map(match => (
                     <MatchCard key={match.id} match={match} date="26 mars" />
