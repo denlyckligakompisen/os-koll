@@ -1,9 +1,17 @@
 import React from 'react';
 import Card from './common/Card';
 
-const getFlagEmoji = (code) => {
-    if (!code || code.length !== 2) return '';
-    return code.toUpperCase().replace(/./g, c => String.fromCodePoint(c.charCodeAt(0) + 127397));
+const FlagImg = ({ code }) => {
+    if (!code) return null;
+    return (
+        <img
+            src={`https://flagcdn.com/20x15/${code.toLowerCase()}.png`}
+            alt={code}
+            width="20"
+            height="15"
+            style={{ borderRadius: '2px', flexShrink: 0, objectFit: 'cover' }}
+        />
+    );
 };
 
 const MedalTable = ({ data }) => {
@@ -61,7 +69,7 @@ const MedalTable = ({ data }) => {
                             {country.rank}
                         </span>
                         <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'inherit', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
-                            <span style={{ fontSize: '1rem', lineHeight: 1, flexShrink: 0 }}>{getFlagEmoji(country.code)}</span>
+                            <FlagImg code={country.code} />
                             <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{country.country}</span>
                         </span>
                         <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.gold}</span>
