@@ -48,10 +48,9 @@ const MedalTable = ({ data }) => {
                         alignItems: 'center',
                         fontSize: '0.9rem',
                         padding: '8px 12px',
-                        borderRadius: '8px',
-                        background: isSweden ? 'rgba(0, 106, 167, 0.15)' : 'transparent',
-                        border: isSweden ? '1px solid rgba(0, 106, 167, 0.2)' : '1px solid transparent',
-                        transition: 'all 0.2s ease'
+                        borderRadius: isSweden ? '10px' : '0',
+                        background: isSweden ? 'rgba(0, 106, 167, 0.06)' : 'transparent',
+                        transition: 'background 0.2s ease'
                     }}>
                         <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'var(--color-text-muted)', textAlign: 'left' }}>
                             {country.rank}
