@@ -51,11 +51,7 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
 
 
     if (days.length === 0) {
-        return (
-            <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>
-                Inga kommande events hittades.
-            </div>
-        );
+        return null;
     }
 
     return (

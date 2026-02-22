@@ -1,30 +1,27 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { fetchSokSchedule, fetchMedals, fetchSvtSchedule } from '../services/olympicsApi';
+import { fetchSokSchedule, fetchMedals } from '../services/olympicsApi';
 
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
 export const useOlympicsData = () => {
     const [data, setData] = useState({
         sokSchedule: [],
-        svtSchedule: [],
-        medals: { gold: 0, silver: 0, bronze: 0 },
+        medals: { top10: [] },
         loading: true,
         error: null
     });
 
     const loadAllData = useCallback(async () => {
         try {
-            const [sokData, svtData, medalData] = await Promise.all([
+            const [sokData, medalData] = await Promise.all([
                 fetchSokSchedule(),
-                fetchSvtSchedule(),
                 fetchMedals()
             ]);
 
             setData({
                 sokSchedule: sokData || [],
-                svtSchedule: svtData || [],
-                medals: medalData || { gold: 0, silver: 0, bronze: 0 },
+                medals: medalData || { top10: [] },
                 loading: false,
                 error: null
             });

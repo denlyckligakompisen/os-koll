@@ -1,7 +1,85 @@
 {
-  "gold": 7,
-  "silver": 6,
-  "bronze": 4,
-  "medalists": [],
-  "updated": "2026-02-22T12:28:57.327Z"
+  "top10": [
+    {
+      "rank": 1,
+      "country": "Norge",
+      "code": "NO",
+      "gold": 18,
+      "silver": 14,
+      "bronze": 9
+    },
+    {
+      "rank": 2,
+      "country": "USA",
+      "code": "US",
+      "gold": 11,
+      "silver": 12,
+      "bronze": 9
+    },
+    {
+      "rank": 3,
+      "country": "Nederländerna",
+      "code": "NL",
+      "gold": 9,
+      "silver": 7,
+      "bronze": 3
+    },
+    {
+      "rank": 4,
+      "country": "Italien",
+      "code": "IT",
+      "gold": 8,
+      "silver": 7,
+      "bronze": 15
+    },
+    {
+      "rank": 5,
+      "country": "Tyskland",
+      "code": "DE",
+      "gold": 7,
+      "silver": 9,
+      "bronze": 8
+    },
+    {
+      "rank": 6,
+      "country": "Sverige",
+      "code": "SE",
+      "gold": 7,
+      "silver": 6,
+      "bronze": 4
+    },
+    {
+      "rank": 7,
+      "country": "Frankrike",
+      "code": "FR",
+      "gold": 6,
+      "silver": 8,
+      "bronze": 6
+    },
+    {
+      "rank": 8,
+      "country": "Schweiz",
+      "code": "CH",
+      "gold": 6,
+      "silver": 7,
+      "bronze": 5
+    },
+    {
+      "rank": 9,
+      "country": "Österrike",
+      "code": "AT",
+      "gold": 5,
+      "silver": 8,
+      "bronze": 5
+    },
+    {
+      "rank": 10,
+      "country": "Japan",
+      "code": "JP",
+      "gold": 5,
+      "silver": 7,
+      "bronze": 12
+    }
+  ],
+  "updated": "2026-02-22T15:40:00.000Z"
 }

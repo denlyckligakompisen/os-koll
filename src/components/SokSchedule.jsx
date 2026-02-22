@@ -1,7 +1,7 @@
 
 import React, { useMemo } from 'react';
 
-const SokSchedule = ({ events, svtEvents = [] }) => {
+const SokSchedule = ({ events }) => {
     if (!events || events.length === 0) {
         return <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)' }}>Inga events hittades från SOK.</div>;
     }
@@ -38,7 +38,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
 
-            // Reset hours for comparison
             date.setHours(0, 0, 0, 0);
 
             if (date.getTime() === today.getTime()) {
@@ -46,13 +45,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
             } else if (date.getTime() === tomorrow.getTime()) {
                 return "Imorgon";
             } else {
-                // Just capitalize the day name, e.g. "Onsdag"
-                // Or keep the full string "Onsdag 18 feb"? 
-                // User said "sedan veckodagar", implies simplify to just the day?
-                // "Idag", "Imorgon", "Torsdag", "Fredag"...
-                // But if there's a gap or for clarity, the date is nice. 
-                // I'll capitalize the full string for now to be safe, e.g. "Torsdag 19 feb"
-                // actually, let's just use the dayName capitalized.
                 return dayName.charAt(0).toUpperCase() + dayName.slice(1);
             }
         } catch (e) {
@@ -60,63 +52,12 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
         }
     };
 
-
-
-
-
-    const findSvtMatch = (event) => {
-        if (!svtEvents || svtEvents.length === 0) return null;
-
-        const date = getEventDate(event.day);
-        if (!date) return null;
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const dateStr = `${year}-${month}-${day}`;
-
-        // Normalize time for comparison (e.g. "09.45" -> "09:45")
-        const normalizedSokTime = event.time.replace('.', ':');
-
-        // Filter events for the same day
-        const dayEvents = svtEvents.filter(e => e.date === dateStr);
-
-        // 1. Precise time match
-        let match = dayEvents.find(e => e.time === normalizedSokTime);
-        if (match) return match;
-
-        // 2. keyword match (if the SVT title contains the sport name and time is close)
-        const sportLower = event.sport.toLowerCase();
-        match = dayEvents.find(e => {
-            const titleLower = e.title.toLowerCase();
-            const subtitleLower = e.subtitle?.toLowerCase() || '';
-            const isSportMatch = titleLower.includes(sportLower) || subtitleLower.includes(sportLower);
-
-            // Check if time is within +/- 1 hour (broadcasting often starts earlier or covers multiple events)
-            if (e.time === 'LIVE') return isSportMatch;
-
-            const [sokH, sokM] = normalizedSokTime.split(':').map(Number);
-            const [svtH, svtM] = e.time.split(':').map(Number);
-            const sokTotal = sokH * 60 + sokM;
-            const svtTotal = svtH * 60 + svtM;
-
-            const timeDiff = Math.abs(sokTotal - svtTotal);
-            return isSportMatch && timeDiff <= 60;
-        });
-
-        return match;
-    };
-
     const formatDetails = (text) => {
         if (!text) return "";
         let formatted = text;
 
-        // Remove "Ställning..." and everything after it
         formatted = formatted.replace(/\s*Ställning.*$/s, '');
-
-        // Break after score (e.g. "9-4 Christoffer")
         formatted = formatted.replace(/(\d+[-–]\d+)\s+([A-ZÅÄÖ])/g, '$1\n$2');
-
-        // Break before numbered items like 1), 2), 3)
         formatted = formatted.replace(/[,]?\s+(\d+\))/g, '\n$1');
 
         return formatted.trim();
@@ -128,10 +69,11 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
 
         const groups = {};
         events.forEach(event => {
+            if (event.sport === 'Ceremoni') return;
             const eventDate = getEventDate(event.day);
             if (eventDate) {
                 eventDate.setHours(0, 0, 0, 0);
-                if (eventDate < today) return; // Skip past events
+                if (eventDate < today) return;
             }
 
             if (!groups[event.day]) {
@@ -177,8 +119,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}>
-
-
                                     <div style={{
                                         display: 'flex',
                                         gap: '12px',
@@ -209,49 +149,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             }}>
                                                 {event.event}
                                             </span>
-                                            {(() => {
-                                                const svtMatch = findSvtMatch(event);
-                                                if (svtMatch) {
-                                                    return (
-                                                        <a
-                                                            href={svtMatch.link}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            style={{
-                                                                display: 'inline-flex',
-                                                                alignItems: 'center',
-                                                                gap: '4px',
-                                                                padding: '2px 8px',
-                                                                backgroundColor: '#00c800',
-                                                                color: 'white',
-                                                                borderRadius: '4px',
-                                                                fontSize: '0.75rem',
-                                                                fontWeight: '800',
-                                                                textDecoration: 'none',
-                                                                marginLeft: '4px',
-                                                                transition: 'opacity 0.2s'
-                                                            }}
-                                                            onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
-                                                            onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
-                                                        >
-                                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white">
-                                                                <path d="M8 5v14l11-7z" />
-                                                            </svg>
-                                                            SVT PLAY
-                                                            {svtMatch.live && (
-                                                                <span style={{
-                                                                    width: '6px',
-                                                                    height: '6px',
-                                                                    backgroundColor: '#ff4b2b',
-                                                                    borderRadius: '50%',
-                                                                    marginLeft: '2px'
-                                                                }} />
-                                                            )}
-                                                        </a>
-                                                    );
-                                                }
-                                                return null;
-                                            })()}
                                         </div>
                                     </div>
 
@@ -268,7 +165,6 @@ const SokSchedule = ({ events, svtEvents = [] }) => {
                                             </p>
                                         </div>
                                     )}
-
                                 </div>
                             );
                         })}

@@ -35,10 +35,5 @@ export const fetchSokSchedule = async () => {
 
 export const fetchMedals = async () => {
     const data = await fetchWithFallback('/medals.json');
-    return data || { gold: 0, silver: 0, bronze: 0 };
-};
-
-export const fetchSvtSchedule = async () => {
-    const data = await fetchWithFallback('/svt_schedule.json');
-    return data || [];
+    return data || { top10: [] };
 };

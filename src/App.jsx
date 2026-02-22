@@ -5,8 +5,9 @@ import SokSchedule from './components/SokSchedule/SokSchedule';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import VMPlayoff from './components/VMPlayoff';
 import LACountdown from './components/LACountdown';
+import MedalTable from './components/MedalTable';
 
-const SHOW_COUNTDOWN_FROM = new Date('2026-02-23T00:00:00');
+const SHOW_COUNTDOWN_FROM = new Date('2026-02-22T00:00:00');
 
 
 const MedalCounter = ({ medals }) => {
@@ -79,7 +80,7 @@ const MedalCounter = ({ medals }) => {
   );
 };
 
-const Header = ({ medals }) => (
+const Header = () => (
   <header style={{
     marginBottom: '20px',
     paddingTop: '8px',
@@ -102,9 +103,6 @@ const Header = ({ medals }) => (
         <circle cx="72.5" cy="34" r="16" fill="none" stroke="black" strokeWidth="5" />
       </svg>
       <h1 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '700', letterSpacing: '-0.04em' }}>OS-kollen</h1>
-    </div>
-    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-      <MedalCounter medals={medals} />
     </div>
   </header>
 );
@@ -203,7 +201,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
 
 
 function App() {
-  const { sokSchedule, svtSchedule, medals, loading, error } = useOlympicsData();
+  const { sokSchedule, medals, loading, error } = useOlympicsData();
   const [activeTab, setActiveTab] = useState('os');
 
   if (loading) {
@@ -233,8 +231,9 @@ function App() {
       <div key={activeTab} className="animate-fade-in">
         {activeTab === 'os' ? (
           <>
-            <Header medals={medals} />
-            <SokSchedule events={sokSchedule} svtEvents={svtSchedule} />
+            <Header />
+            <MedalTable data={medals} />
+            <SokSchedule events={sokSchedule} />
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </>
         ) : (
