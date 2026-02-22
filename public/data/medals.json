@@ -3,83 +3,93 @@
     {
       "rank": 1,
       "country": "Norge",
-      "code": "NO",
       "gold": 18,
-      "silver": 14,
-      "bronze": 9
+      "silver": 12,
+      "bronze": 11,
+      "total": 41,
+      "code": "NO"
     },
     {
       "rank": 2,
       "country": "USA",
-      "code": "US",
       "gold": 11,
       "silver": 12,
-      "bronze": 9
+      "bronze": 9,
+      "total": 32,
+      "code": "US"
     },
     {
       "rank": 3,
       "country": "Nederländerna",
-      "code": "NL",
-      "gold": 9,
+      "gold": 10,
       "silver": 7,
-      "bronze": 3
+      "bronze": 3,
+      "total": 20,
+      "code": "NL"
     },
     {
       "rank": 4,
       "country": "Italien",
-      "code": "IT",
-      "gold": 8,
-      "silver": 7,
-      "bronze": 15
+      "gold": 10,
+      "silver": 6,
+      "bronze": 14,
+      "total": 30,
+      "code": "IT"
     },
     {
       "rank": 5,
       "country": "Tyskland",
-      "code": "DE",
-      "gold": 7,
-      "silver": 9,
-      "bronze": 8
+      "gold": 8,
+      "silver": 10,
+      "bronze": 8,
+      "total": 26,
+      "code": "DE"
     },
     {
       "rank": 6,
-      "country": "Sverige",
-      "code": "SE",
-      "gold": 7,
-      "silver": 6,
-      "bronze": 4
+      "country": "Frankrike",
+      "gold": 8,
+      "silver": 9,
+      "bronze": 6,
+      "total": 23,
+      "code": "FR"
     },
     {
       "rank": 7,
-      "country": "Frankrike",
-      "code": "FR",
-      "gold": 6,
-      "silver": 8,
-      "bronze": 6
+      "country": "Sverige",
+      "gold": 8,
+      "silver": 6,
+      "bronze": 4,
+      "total": 18,
+      "code": "SE"
     },
     {
       "rank": 8,
       "country": "Schweiz",
-      "code": "CH",
       "gold": 6,
-      "silver": 7,
-      "bronze": 5
+      "silver": 9,
+      "bronze": 8,
+      "total": 23,
+      "code": "CH"
     },
     {
       "rank": 9,
       "country": "Österrike",
-      "code": "AT",
       "gold": 5,
       "silver": 8,
-      "bronze": 5
+      "bronze": 5,
+      "total": 18,
+      "code": "AT"
     },
     {
       "rank": 10,
       "country": "Japan",
-      "code": "JP",
       "gold": 5,
       "silver": 7,
-      "bronze": 12
+      "bronze": 12,
+      "total": 24,
+      "code": "JP"
     }
   ],
-  "updated": "2026-02-22T15:40:00.000Z"
+  "updated": "2026-02-22T15:05:43.105Z"
 }

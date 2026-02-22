@@ -43,7 +43,6 @@ function App() {
           <>
             <Header />
             <MedalTable data={medals} />
-            <SokSchedule events={sokSchedule} />
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </>
         ) : (
