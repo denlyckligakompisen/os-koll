@@ -87,16 +87,16 @@ const TabBar = ({ activeTab, onTabChange }) => (
                     }}>
                         {tab.label}
                     </span>
-                    {isActive && (
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '4px',
-                            width: '20px',
-                            height: '3px',
-                            backgroundColor: '#000000',
-                            borderRadius: '2px'
-                        }} />
-                    )}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '4px',
+                        width: '20px',
+                        height: '3px',
+                        backgroundColor: '#000000',
+                        borderRadius: '2px',
+                        transform: `scaleX(${isActive ? 1 : 0})`,
+                        transition: 'transform 0.25s ease'
+                    }} />
                 </button>
             );
         })}

@@ -71,7 +71,7 @@ const SiriusKollen = () => {
             }}>
                 {COMPETITION_TABS.map((tab, i) => (
                     <React.Fragment key={tab.id}>
-                        {i > 0 && <div style={{ color: 'var(--color-border)', fontWeight: '300' }}>|</div>}
+                        {i > 0 && <div style={{ width: '1px', height: '14px', backgroundColor: 'rgba(0,0,0,0.2)', alignSelf: 'center', flexShrink: 0 }} />}
                         <button
                             onClick={() => setActiveComp(tab.id)}
                             style={{
@@ -87,13 +87,13 @@ const SiriusKollen = () => {
                             }}
                         >
                             {tab.label}
-                            {activeComp === tab.id && (
-                                <div style={{
-                                    position: 'absolute', bottom: 0, left: '50%',
-                                    transform: 'translateX(-50%)', width: '20px',
-                                    height: '2px', backgroundColor: '#003399', borderRadius: '2px'
-                                }} />
-                            )}
+                            <div style={{
+                                position: 'absolute', bottom: 0, left: '50%',
+                                transform: `translateX(-50%) scaleX(${activeComp === tab.id ? 1 : 0})`,
+                                transition: 'transform 0.25s ease',
+                                width: '20px', height: '2px',
+                                backgroundColor: '#003399', borderRadius: '2px'
+                            }} />
                         </button>
                     </React.Fragment>
                 ))}
@@ -209,7 +209,7 @@ const SiriusKollen = () => {
                                     {i > 0 && <div style={{ height: '0.5px', backgroundColor: 'rgba(0,0,0,0.05)' }} />}
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px' }}>
                                         <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{item.label}</span>
-                                        <span style={{ fontSize: '0.95rem', fontWeight: item.label === 'Final' ? '800' : '700', color: '#000' }}>{item.date}</span>
+                                        <span style={{ fontSize: '0.95rem', fontWeight: '400', color: '#000' }}>{item.date}</span>
                                     </div>
                                 </React.Fragment>
                             ))}

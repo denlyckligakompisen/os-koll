@@ -49,7 +49,7 @@ const MedalTable = ({ data }) => {
                                 <td style={{ padding: '11px 4px', fontWeight: '500', ...sweStyle, borderRadius: isSwe ? '10px 0 0 10px' : undefined }}>
                                     {country.rank}
                                 </td>
-                                <td style={{ padding: '11px 4px', fontWeight: isSwe ? '700' : '400', ...sweStyle }}>
+                                <td style={{ padding: '11px 4px', fontWeight: '400', ...sweStyle }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         <img
                                             src={flagUrl(country.code)}
