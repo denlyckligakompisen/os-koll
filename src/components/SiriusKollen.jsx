@@ -55,7 +55,7 @@ const SiriusKollen = () => {
         <div className="animate-fade-in" style={{ padding: '0 10px' }}>
             <PageHeader
                 title="Sirius-kollen"
-                subtitle="Vägen till Europaspel 💙🖤"
+                subtitle="Vägen till Europa 💙🖤"
                 logoSrc={getTeamLogo('IK Sirius')}
             />
 

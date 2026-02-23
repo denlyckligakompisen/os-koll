@@ -62,6 +62,19 @@ body {
   animation: fadeIn 0.4s ease-out forwards;
 }
 
+.premium-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 15px 35px rgba(0, 51, 153, 0.4);
+}
+
+.premium-card-hover:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
 
 
 
