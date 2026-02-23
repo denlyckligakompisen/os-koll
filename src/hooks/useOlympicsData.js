@@ -1,56 +1,68 @@
+// OS Milano-Cortina 2026 is over. All data is hardcoded — no fetching.
 
-import { useState, useEffect, useCallback } from 'react';
-import { fetchSokSchedule, fetchMedals } from '../services/olympicsApi';
-
-const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
-
-export const useOlympicsData = () => {
-    const [data, setData] = useState({
-        sokSchedule: [],
-        medals: { top10: [] },
-        loading: true,
-        error: null
-    });
-
-    const loadAllData = useCallback(async () => {
-        try {
-            const [sokData, medalData] = await Promise.all([
-                fetchSokSchedule(),
-                fetchMedals()
-            ]);
-
-            setData({
-                sokSchedule: sokData || [],
-                medals: medalData || { top10: [] },
-                loading: false,
-                error: null
-            });
-        } catch (err) {
-            console.error("Failed to fetch Olympics data:", err);
-            setData(prev => ({ ...prev, loading: false, error: err }));
-        }
-    }, []);
-
-    useEffect(() => {
-        // Initial load
-        loadAllData();
-
-        // Periodic refresh every 5 minutes
-        const interval = setInterval(loadAllData, REFRESH_INTERVAL_MS);
-
-        // Refresh immediately when user returns to the tab
-        const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                loadAllData();
-            }
-        };
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-
-        return () => {
-            clearInterval(interval);
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-        };
-    }, [loadAllData]);
-
-    return data;
+const MEDALS = {
+    "top10": [
+        { "rank": 1, "country": "Norge", "gold": 18, "silver": 12, "bronze": 11, "total": 41, "code": "NO" },
+        { "rank": 2, "country": "USA", "gold": 12, "silver": 12, "bronze": 9, "total": 33, "code": "US" },
+        { "rank": 3, "country": "Nederländerna", "gold": 10, "silver": 7, "bronze": 3, "total": 20, "code": "NL" },
+        { "rank": 4, "country": "Italien", "gold": 10, "silver": 6, "bronze": 14, "total": 30, "code": "IT" },
+        { "rank": 5, "country": "Tyskland", "gold": 8, "silver": 10, "bronze": 8, "total": 26, "code": "DE" },
+        { "rank": 6, "country": "Frankrike", "gold": 8, "silver": 9, "bronze": 6, "total": 23, "code": "FR" },
+        { "rank": 7, "country": "Sverige", "gold": 8, "silver": 6, "bronze": 4, "total": 18, "code": "SE" },
+        { "rank": 8, "country": "Schweiz", "gold": 6, "silver": 9, "bronze": 8, "total": 23, "code": "CH" },
+        { "rank": 9, "country": "Österrike", "gold": 5, "silver": 8, "bronze": 5, "total": 18, "code": "AT" },
+        { "rank": 10, "country": "Japan", "gold": 5, "silver": 7, "bronze": 12, "total": 24, "code": "JP" }
+    ],
+    "eventProgress": "115 av 116 medaljgrenar avklarade",
+    "updated": "2026-02-23T07:18:19.155Z"
 };
+
+const SOK_SCHEDULE = [
+    {
+        "id": "sok-85-1771700215677",
+        "day": "lördag 21 feb",
+        "time": "10.00",
+        "sport": "Freestyle",
+        "title": "herrar, skicross",
+        "details": "Slutställning: 1) Simone Deromedis, Italien, 2) Federico Tomasoni, Italien, 3) Alex Fiva, Schweiz. Sv.plac: 18) David Mobärg, 23) Erik Mobärg.\nkval: 1) Reece Howden, Kanada 1.06,13, 2) Satoshi Furuno, Japan +0,99, 3) Ryan Regez, Schweiz +1,05. Sv.plac: 10) David Mobärg +1,43, 22) Erik Mobärg +2,06. Åttondelsfinal nr 6: 1) Alex Fiva Q, 2) Daniel Paulus, Tjeckien Q. 3) David Mobärg DNF. Åttondelsfinal nr 7: 1) Tim Hronek, Tyskland Q, 2) Kevin Drury, Kanada Q, 3) Erik Mobärg DNF."
+    },
+    {
+        "id": "sok-86-1771700215678",
+        "day": "lördag 21 feb",
+        "time": "11.00",
+        "sport": "Längdskidor",
+        "title": "herrar 50 km (k) masstart",
+        "details": "1) Johannes Hösflot Kläbo, Norge 2.06.44,8, 2) Martin Löwström Nyenget, Norge +8,9, 3) Emil Iversen +30,7. Sv.plac: 9) Gustaf Berglund +5.13,7, 24) Calle Halfvarsson +12.39,5, 25) Johan Häggström +13.10,7."
+    },
+    {
+        "id": "sok-87-1771700215679",
+        "day": "lördag 21 feb",
+        "time": "14.15",
+        "sport": "Skidskytte",
+        "title": "damer masstart 12,5  km",
+        "details": "1) Oceane Michelon, Frankrike 37.18,1 (2 bom), 2) Julia Simon +6,6 (1), 3) Tereza Vobornikova, Tjeckien +7,4 (1). Sv.plac: 4) Anna Magnusson +26,6 (0), 6) Elvira Öberg +31,9 (1), 10) Hanna Öberg +1.03,1 (3), 25) Linn Gestblom +3.04,9 (5)."
+    },
+    {
+        "id": "sok-88-1771700215679",
+        "day": "söndag 22 feb",
+        "time": "10.00",
+        "sport": "Längdskidor",
+        "title": "damer, 50 km (k) masstart",
+        "details": "Startnr: 3) Ebba Andersson, 10) Jonna Sundling, 15) Emma Ribom"
+    },
+    {
+        "id": "sok-89-1771700215679",
+        "day": "söndag 22 feb",
+        "time": "11.05",
+        "sport": "Curling",
+        "title": "damer, final",
+        "details": "Sverige - Schweiz"
+    }
+];
+
+export const useOlympicsData = () => ({
+    sokSchedule: SOK_SCHEDULE,
+    medals: MEDALS,
+    loading: false,
+    error: null
+});

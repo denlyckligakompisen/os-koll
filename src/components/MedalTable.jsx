@@ -1,6 +1,13 @@
 import React from 'react';
 import Card from './common/Card';
 
+// circle-flags CDN — free open-source circular SVG flags (github.com/HatScripts/circle-flags)
+// Country codes must be lowercase ISO 3166-1 alpha-2
+const FLAG_OVERRIDES = {
+    'US': 'us',
+};
+const flagUrl = (code) =>
+    `https://hatscripts.github.io/circle-flags/flags/${(FLAG_OVERRIDES[code] || code).toLowerCase()}.svg`;
 
 const MedalTable = ({ data }) => {
     const medalData = data?.top10 || [];
@@ -20,52 +27,57 @@ const MedalTable = ({ data }) => {
                 Vinter-OS i Milano Cortina 2026
             </h2>
 
-            {/* Table Header */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: '30px 1fr 35px 35px 35px 40px',
-                gap: '8px',
-                fontSize: '0.7rem',
-                fontWeight: '700',
-                color: 'var(--color-text-muted)',
-                padding: '0 12px 8px 12px',
-                borderBottom: '1px solid var(--color-border-subtle)'
-            }}>
-                <span style={{ textAlign: 'left' }}>#</span>
-                <span style={{ textAlign: 'left' }}>LAND</span>
-                <span style={{ textAlign: 'center' }}>🥇</span>
-                <span style={{ textAlign: 'center' }}>🥈</span>
-                <span style={{ textAlign: 'center' }}>🥉</span>
-                <span style={{ textAlign: 'right' }}>TOT</span>
-            </div>
-
-            {medalData.map((country) => {
-                const isSweden = country.code === 'SE' || country.country === 'Sverige';
-                return (
-                    <div key={country.code} style={{
-                        display: 'grid',
-                        gridTemplateColumns: '30px 1fr 35px 35px 35px 40px',
-                        gap: '8px',
-                        alignItems: 'center',
-                        fontSize: '0.9rem',
-                        padding: '8px 12px',
-                        borderRadius: isSweden ? '10px' : '0',
-                        background: isSweden ? 'rgba(0, 106, 167, 0.06)' : 'transparent',
-                        transition: 'background 0.2s ease'
-                    }}>
-                        <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'var(--color-text-muted)', textAlign: 'left' }}>
-                            {country.rank}
-                        </span>
-                        <span style={{ fontWeight: '500', color: isSweden ? '#004b77' : 'inherit', textAlign: 'left', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
-                            {country.country}
-                        </span>
-                        <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.gold}</span>
-                        <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.silver}</span>
-                        <span style={{ textAlign: 'center', fontWeight: '400' }}>{country.bronze}</span>
-                        <span style={{ textAlign: 'right', fontWeight: '500' }}>{country.gold + country.silver + country.bronze}</span>
-                    </div>
-                );
-            })}
+            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                <thead>
+                    <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
+                        {['#', 'LAND', '🥇', '🥈', '🥉', 'TOT'].map((col, i) => (
+                            <th key={col} style={{
+                                textAlign: i === 0 || i === 1 ? 'left' : i === 5 ? 'right' : 'center',
+                                padding: '8px 4px',
+                                color: 'var(--color-text-muted)',
+                                fontWeight: '600'
+                            }}>{col}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {medalData.map((country) => {
+                        const isSwe = country.code === 'SE' || country.country === 'Sverige';
+                        const sweStyle = isSwe ? { backgroundColor: 'rgba(0, 106, 167, 0.06)' } : {};
+                        return (
+                            <tr key={country.code}>
+                                <td style={{ padding: '11px 4px', fontWeight: '500', ...sweStyle, borderRadius: isSwe ? '10px 0 0 10px' : undefined }}>
+                                    {country.rank}
+                                </td>
+                                <td style={{ padding: '11px 4px', fontWeight: isSwe ? '700' : '400', ...sweStyle }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <img
+                                            src={flagUrl(country.code)}
+                                            alt={country.country}
+                                            width={22}
+                                            height={22}
+                                            style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                                        />
+                                        {country.country}
+                                    </div>
+                                </td>
+                                <td style={{ padding: '11px 4px', textAlign: 'center', fontWeight: '700', ...sweStyle }}>
+                                    {country.gold}
+                                </td>
+                                <td style={{ padding: '11px 4px', textAlign: 'center', fontWeight: '400', ...sweStyle }}>
+                                    {country.silver}
+                                </td>
+                                <td style={{ padding: '11px 4px', textAlign: 'center', fontWeight: '400', ...sweStyle }}>
+                                    {country.bronze}
+                                </td>
+                                <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '400', ...sweStyle, borderRadius: isSwe ? '0 10px 10px 0' : undefined }}>
+                                    {country.gold + country.silver + country.bronze}
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
         </Card>
     );
 };
