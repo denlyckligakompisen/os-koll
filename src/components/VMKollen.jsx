@@ -216,6 +216,21 @@ const VMKollen = () => {
     if (!data) return null;
 
     const renderMatchCard = (match, mIdx) => {
+        const homeFlags = getFlagCodes(match.home);
+        const awayFlags = getFlagCodes(match.away);
+
+        const renderFlags = (codes, name) => (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+                {codes.map((code, fIdx) => (
+                    code !== 'UN' ? (
+                        <img key={fIdx} src={flagUrl(code)} alt={name} width={18} height={18} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                    ) : codes.length === 1 ? (
+                        <div key={fIdx} style={{ width: '18px', height: '18px', borderRadius: '50%', border: '1px solid var(--border)', backgroundColor: 'transparent', flexShrink: 0 }} />
+                    ) : null
+                ))}
+            </div>
+        );
+
         return (
             <Card key={mIdx} padding="12px 16px" animate={false} style={{
                 border: 'var(--border)',
@@ -224,29 +239,41 @@ const VMKollen = () => {
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                        <div style={{ fontSize: '0.65rem', fontWeight: '800', color: '#000', textTransform: 'uppercase' }}>
-                            {match.date} {match.time}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000' }}>
-                                <BoldSverige text={match.home} /> – <BoldSverige text={match.away} />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                                {match.time}
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                                {match.broadcast === 'SVT' ? (
+                                    <img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
+                                        alt="SVT Play"
+                                        style={{ height: '11px', width: 'auto' }}
+                                    />
+                                ) : match.broadcast === 'TV4' ? (
+                                    <img
+                                        src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
+                                        alt="TV4 Play"
+                                        style={{ height: '14px', width: 'auto' }}
+                                    />
+                                ) : null}
                             </div>
                         </div>
-                    </div>
-                    <div style={{ textAlign: 'right', marginLeft: '12px' }}>
-                        {match.broadcast === 'SVT' ? (
-                            <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
-                                alt="SVT Play"
-                                style={{ height: '11px', width: 'auto' }}
-                            />
-                        ) : match.broadcast === 'TV4' ? (
-                            <img
-                                src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
-                                alt="TV4 Play"
-                                style={{ height: '14px', width: 'auto' }}
-                            />
-                        ) : null}
+                        <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#000', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: '0' }}>
+                                {renderFlags(homeFlags, match.home)}
+                                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    <BoldSverige text={match.home} />
+                                </span>
+                            </div>
+                            <span style={{ color: 'var(--color-text-muted)', fontWeight: '400' }}>–</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: '0' }}>
+                                {renderFlags(awayFlags, match.away)}
+                                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    <BoldSverige text={match.away} />
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Card>
@@ -327,18 +354,28 @@ const VMKollen = () => {
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
-        const grouped = matchesData.matches.reduce((acc, m) => {
-            if (!acc[m.group]) acc[m.group] = [];
-            acc[m.group].push(m);
+        const parseDate = (dateStr, timeStr) => {
+            const months = { 'juni': 5, 'juli': 6 }; // 0-indexed months
+            const [day, monthName] = dateStr.split(' ');
+            return new Date(2026, months[monthName], parseInt(day), ...timeStr.split(':').map(Number));
+        };
+
+        const sortedMatches = [...matchesData.matches].sort((a, b) =>
+            parseDate(a.date, a.time) - parseDate(b.date, b.time)
+        );
+
+        const grouped = sortedMatches.reduce((acc, m) => {
+            if (!acc[m.date]) acc[m.date] = [];
+            acc[m.date].push(m);
             return acc;
         }, {});
 
         return (
             <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {Object.entries(grouped).map(([groupName, matches]) => (
-                    <div key={groupName} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
-                            {groupName}
+                {Object.entries(grouped).map(([date, matches]) => (
+                    <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
+                            {date}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {matches.map((m, i) => renderMatchCard(m, i))}
