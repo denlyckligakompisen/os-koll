@@ -29,6 +29,11 @@ const getFlagCode = (name) => {
     return 'UN'; // Unknown
 };
 
+const getFlagCodes = (name) => {
+    if (!name.includes('/')) return [getFlagCode(name)];
+    return name.split('/').map(part => getFlagCode(part.trim()));
+};
+
 // Bolds "Sverige" within any string
 const BoldSverige = ({ text }) => {
     if (!text?.includes('Sverige')) return text;
@@ -55,7 +60,7 @@ const Countdown = () => {
     return (
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
             <h2 style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', textAlign: 'center' }}>
-                Fotbolls-VM 2026 i Nordamerika
+                Fotbolls-VM 2026
             </h2>
             <div style={{ textAlign: 'center' }}>
                 <div key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>
@@ -149,18 +154,22 @@ const NextMatchCard = ({ match, date }) => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                     {[match.home, match.away].map(team => (
                         <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
-                                <img
-                                    src={flagUrl(getFlagCode(team))}
-                                    alt={team}
-                                    style={{
-                                        height: '100%',
-                                        width: 'auto',
-                                        objectFit: 'contain',
-                                        borderRadius: '50%',
-                                        filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.2))'
-                                    }}
-                                />
+                            <div style={{ height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
+                                {getFlagCodes(team).map((code, idx) => (
+                                    <img
+                                        key={`${team}-${idx}`}
+                                        src={flagUrl(code)}
+                                        alt={team}
+                                        style={{
+                                            height: '100%',
+                                            width: 'auto',
+                                            maxHeight: '48px',
+                                            objectFit: 'contain',
+                                            borderRadius: '50%',
+                                            filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))'
+                                        }}
+                                    />
+                                ))}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
                         </div>
@@ -169,9 +178,6 @@ const NextMatchCard = ({ match, date }) => {
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
                     <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
                         {date} {match.time}
-                    </div>
-                    <div style={{ fontSize: '0.75rem', opacity: 0.7, marginTop: '4px' }}>
-                        {match.location || 'Okänd arena'}
                     </div>
                 </div>
 
@@ -222,10 +228,36 @@ const VMPlayoff = () => {
                     <NextMatchCard key={match.id} match={match} date="26 mars" />
                 ))}
 
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '-8px 0 16px 0',
+                    color: 'var(--color-text-muted)',
+                    opacity: 0.4
+                }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                    </svg>
+                </div>
+
                 {/* Final */}
                 {data.rounds[1].matches.map(match => (
-                    <MatchCard key={match.id} match={match} isFinal date="31 mars" />
+                    <NextMatchCard key={match.id} match={match} date="31 mars" />
                 ))}
+
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    margin: '-8px 0 16px 0',
+                    color: 'var(--color-text-muted)',
+                    opacity: 0.4
+                }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                    </svg>
+                </div>
 
                 <Countdown />
 

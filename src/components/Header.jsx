@@ -2,11 +2,11 @@ import React from 'react';
 import OlympicRings from './common/OlympicRings';
 import PageHeader from './common/PageHeader';
 
-const Header = () => (
+const Header = ({ style }) => (
     <PageHeader
         title="OS-kollen"
         icon={<OlympicRings active />}
-        style={{ marginBottom: '20px', paddingTop: '8px' }}
+        style={{ paddingTop: '8px', ...style }}
     />
 );
 

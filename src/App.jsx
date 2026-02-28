@@ -13,7 +13,7 @@ const SHOW_COUNTDOWN_FROM = new Date('2026-02-22T00:00:00');
 
 function App() {
   const { sokSchedule, medals, loading, error } = useOlympicsData();
-  const [activeTab, setActiveTab] = useState('os');
+  const [activeTab, setActiveTab] = useState('vm');
 
   if (loading) {
     return (
@@ -42,7 +42,7 @@ function App() {
       <div key={activeTab} className="animate-fade-in">
         {activeTab === 'os' ? (
           <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <Header />
+            <Header style={{ marginBottom: '0' }} />
             <MedalTable data={medals} />
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </div>

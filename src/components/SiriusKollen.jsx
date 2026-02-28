@@ -132,9 +132,6 @@ const SiriusKollen = () => {
                             <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
                                 {formatMatchDisplayDate(nextMatch.date)} {nextMatch.time}
                             </div>
-                            <div style={{ fontSize: '0.75rem', opacity: 0.7, marginTop: '4px' }}>
-                                {nextMatch.venue || (nextMatch.home === 'IK Sirius' ? 'Studenternas IP' : 'Borta')}
-                            </div>
                         </div>
                     </div>
                 </div>
