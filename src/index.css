@@ -139,6 +139,23 @@ body {
   }
 }
 
+@keyframes arrowBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.animate-arrow-bounce {
+  display: block;
+  animation: arrowBounce 1.2s ease-in-out infinite;
+}
+
 .live-indicator-pulse {
   animation: pulse 2s infinite;
 }

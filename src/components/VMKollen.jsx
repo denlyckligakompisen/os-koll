@@ -369,16 +369,14 @@ const VMKollen = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            margin: '-8px 0 16px 0',
-                            color: 'var(--color-text-muted)',
-                            opacity: 0.4
+                            margin: '-8px 0 16px 0'
                         }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <svg className="animate-arrow-bounce" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8, color: 'var(--color-text-muted)' }}>
                                 <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
                             </svg>
                         </div>
                         <Countdown />
-                    </div>
+                    </div >
                 );
             case 'gruppspel':
                 return (
