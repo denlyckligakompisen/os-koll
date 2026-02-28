@@ -241,13 +241,11 @@ const VMKollen = () => {
                         </thead>
                         <tbody>
                             {sortedTeams.map((name, idx) => {
-                                const isSverige = name.includes('Sverige');
-                                const rowStyle = isSverige ? { backgroundColor: 'rgba(0,122,255,0.06)' } : {};
                                 const flagCodes = getFlagCodes(name);
                                 return (
                                     <tr key={name}>
-                                        <td style={{ padding: '11px 4px', fontWeight: '500', ...rowStyle, borderRadius: isSverige ? '10px 0 0 10px' : undefined }}>{idx + 1}</td>
-                                        <td style={{ padding: '11px 4px', ...rowStyle }}>
+                                        <td style={{ padding: '11px 4px', fontWeight: '500' }}>{idx + 1}</td>
+                                        <td style={{ padding: '11px 4px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                                                     {flagCodes.map((code, fIdx) => (
@@ -272,14 +270,14 @@ const VMKollen = () => {
                                                         ) : null
                                                     ))}
                                                 </div>
-                                                <span style={{ fontWeight: isSverige ? '600' : '400' }}>
+                                                <span style={{ fontWeight: '400' }}>
                                                     <BoldSverige text={name} />
                                                 </span>
                                             </div>
                                         </td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', ...rowStyle }}>0</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', ...rowStyle }}>0</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700', ...rowStyle, borderRadius: isSverige ? '0 10px 10px 0' : undefined }}>0</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>0</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>0</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700' }}>0</td>
                                     </tr>
                                 );
                             })}
@@ -290,7 +288,6 @@ const VMKollen = () => {
                 {/* Group Matches */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {groupMatches.map((match, mIdx) => {
-                        const isSverige = match.home.includes('Sverige') || match.away.includes('Sverige');
                         const homeFlags = getFlagCodes(match.home);
                         const awayFlags = getFlagCodes(match.away);
 
@@ -298,7 +295,7 @@ const VMKollen = () => {
                             <Card key={mIdx} padding="12px 16px" animate={false} style={{
                                 border: 'var(--border)',
                                 boxShadow: 'none',
-                                backgroundColor: isSverige ? 'rgba(0,122,255,0.06)' : 'rgba(255,255,255,0.5)'
+                                backgroundColor: 'rgba(255,255,255,0.5)'
                             }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
@@ -306,7 +303,7 @@ const VMKollen = () => {
                                             {match.date} {match.time}
                                         </div>
                                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <div style={{ fontSize: '0.9rem', fontWeight: match.home.includes('Sverige') ? '700' : '500', color: '#000' }}>
+                                            <div style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000' }}>
                                                 <BoldSverige text={match.home} /> – <BoldSverige text={match.away} />
                                             </div>
                                         </div>
