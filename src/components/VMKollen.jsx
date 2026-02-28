@@ -185,8 +185,8 @@ const GROUP_TEAMS = [
 
 const SUBTABS = [
     { id: 'sverige', label: 'Sverige' },
-    { id: 'gruppspel', label: 'Gruppspel' },
-    { id: 'slutspel', label: 'Slutspel' },
+    { id: 'matcher', label: 'Matcher' },
+    { id: 'gruppspel', label: 'Grupper' },
     { id: 'statistik', label: 'Statistik' }
 ];
 
@@ -215,10 +215,46 @@ const VMKollen = () => {
 
     if (!data) return null;
 
+    const renderMatchCard = (match, mIdx) => {
+        return (
+            <Card key={mIdx} padding="12px 16px" animate={false} style={{
+                border: 'var(--border)',
+                boxShadow: 'none',
+                backgroundColor: 'rgba(255,255,255,0.5)'
+            }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+                        <div style={{ fontSize: '0.65rem', fontWeight: '800', color: '#000', textTransform: 'uppercase' }}>
+                            {match.date} {match.time}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000' }}>
+                                <BoldSverige text={match.home} /> – <BoldSverige text={match.away} />
+                            </div>
+                        </div>
+                    </div>
+                    <div style={{ textAlign: 'right', marginLeft: '12px' }}>
+                        {match.broadcast === 'SVT' ? (
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
+                                alt="SVT Play"
+                                style={{ height: '11px', width: 'auto' }}
+                            />
+                        ) : match.broadcast === 'TV4' ? (
+                            <img
+                                src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
+                                alt="TV4 Play"
+                                style={{ height: '14px', width: 'auto' }}
+                            />
+                        ) : null}
+                    </div>
+                </div>
+            </Card>
+        );
+    };
+
     const renderTable = (groupName, teams, displayName) => {
-        // Sort alphabetically if we assume 0 matches played (as requested)
         const sortedTeams = [...teams].sort((a, b) => a.localeCompare(b, 'sv'));
-        const groupMatches = matchesData?.matches.filter(m => m.group === groupName) || [];
 
         return (
             <div style={{ marginBottom: '40px' }}>
@@ -284,57 +320,37 @@ const VMKollen = () => {
                         </tbody>
                     </table>
                 </Card>
+            </div>
+        );
+    };
 
-                {/* Group Matches */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {groupMatches.map((match, mIdx) => {
-                        const homeFlags = getFlagCodes(match.home);
-                        const awayFlags = getFlagCodes(match.away);
+    const renderAllMatches = () => {
+        if (!matchesData) return null;
 
-                        return (
-                            <Card key={mIdx} padding="12px 16px" animate={false} style={{
-                                border: 'var(--border)',
-                                boxShadow: 'none',
-                                backgroundColor: 'rgba(255,255,255,0.5)'
-                            }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                                        <div style={{ fontSize: '0.65rem', fontWeight: '800', color: '#000', textTransform: 'uppercase' }}>
-                                            {match.date} {match.time}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <div style={{ fontSize: '0.9rem', fontWeight: '500', color: '#000' }}>
-                                                <BoldSverige text={match.home} /> – <BoldSverige text={match.away} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style={{ textAlign: 'right', marginLeft: '12px' }}>
-                                        {match.broadcast === 'SVT' ? (
-                                            <img
-                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
-                                                alt="SVT Play"
-                                                style={{ height: '11px', width: 'auto' }}
-                                            />
-                                        ) : match.broadcast === 'TV4' ? (
-                                            <img
-                                                src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
-                                                alt="TV4 Play"
-                                                style={{ height: '14px', width: 'auto' }}
-                                            />
-                                        ) : null}
-                                    </div>
-                                </div>
-                            </Card>
-                        );
-                    })}
-                </div>
+        const grouped = matchesData.matches.reduce((acc, m) => {
+            if (!acc[m.group]) acc[m.group] = [];
+            acc[m.group].push(m);
+            return acc;
+        }, {});
+
+        return (
+            <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {Object.entries(grouped).map(([groupName, matches]) => (
+                    <div key={groupName} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
+                            {groupName}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {matches.map((m, i) => renderMatchCard(m, i))}
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     };
 
     const renderPlayoff = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {/* Semifinals */}
             {data.rounds[0].matches.map(match => (
                 <NextMatchCard key={match.id} match={match} date="26 mars" />
             ))}
@@ -352,7 +368,6 @@ const VMKollen = () => {
                 </svg>
             </div>
 
-            {/* Final */}
             {data.rounds[1].matches.map(match => (
                 <NextMatchCard key={match.id} match={match} date="31 mars" />
             ))}
@@ -380,6 +395,8 @@ const VMKollen = () => {
                         <Countdown />
                     </div >
                 );
+            case 'matcher':
+                return renderAllMatches();
             case 'gruppspel':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -388,14 +405,6 @@ const VMKollen = () => {
                                 {renderTable(group.name, group.teams)}
                             </React.Fragment>
                         ))}
-                    </div>
-                );
-            case 'slutspel':
-                return (
-                    <div className="animate-fade-in">
-                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>
-                            Kommer snart
-                        </Card>
                     </div>
                 );
             case 'statistik':
