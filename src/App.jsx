@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useOlympicsData } from './hooks/useOlympicsData';
 import SokSchedule from './components/SokSchedule';
-import VMPlayoff from './components/VMPlayoff';
+import VMKollen from './components/VMKollen';
 import LACountdown from './components/LACountdown';
 import MedalTable from './components/MedalTable';
 import Header from './components/Header';
@@ -47,7 +47,7 @@ function App() {
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}
           </div>
         ) : activeTab === 'vm' ? (
-          <VMPlayoff />
+          <VMKollen />
         ) : (
           <SiriusKollen />
         )}

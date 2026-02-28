@@ -71,7 +71,6 @@ const SiriusKollen = () => {
             }}>
                 {COMPETITION_TABS.map((tab, i) => (
                     <React.Fragment key={tab.id}>
-                        {i > 0 && <div style={{ width: '1px', height: '14px', backgroundColor: 'rgba(0,0,0,0.2)', alignSelf: 'center', flexShrink: 0 }} />}
                         <button
                             onClick={() => setActiveComp(tab.id)}
                             style={{
