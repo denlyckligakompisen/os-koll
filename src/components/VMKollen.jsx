@@ -299,7 +299,7 @@ const VMKollen = () => {
                             }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                                        <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase' }}>
+                                        <div style={{ fontSize: '0.65rem', fontWeight: '800', color: '#000', textTransform: 'uppercase' }}>
                                             {match.date} {match.time}
                                         </div>
                                         <div style={{ display: 'flex', alignItems: 'center' }}>
