@@ -15,6 +15,10 @@ function App() {
   const { sokSchedule, medals, loading, error } = useOlympicsData();
   const [activeTab, setActiveTab] = useState('vm');
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeTab]);
+
   if (loading) {
     return (
       <div className="app-container" style={{
