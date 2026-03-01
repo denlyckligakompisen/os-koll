@@ -162,23 +162,19 @@ const VMKollen = () => {
 
         const renderBadge = (codes, name) => (
             <div style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                backgroundColor: '#fff',
+                width: '22px',
+                height: '22px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                border: '1px solid rgba(0,0,0,0.05)',
                 flexShrink: 0
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
                     {codes.map((code, fIdx) => (
                         code !== 'UN' ? (
-                            <img key={fIdx} src={flagUrl(code)} alt={name} width={codes.length > 1 ? 14 : 22} height={codes.length > 1 ? 14 : 22} style={{ borderRadius: '50%', objectFit: 'cover' }} />
+                            <img key={fIdx} src={flagUrl(code)} alt={name} width={codes.length > 1 ? 14 : 22} height={codes.length > 1 ? 14 : 22} style={{ borderRadius: '50%', objectFit: 'cover', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
                         ) : codes.length === 1 ? (
-                            <div key={fIdx} style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid var(--border)', backgroundColor: 'transparent' }} />
+                            <div key={fIdx} style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid rgba(0,0,0,0.1)', backgroundColor: 'transparent' }} />
                         ) : null
                     ))}
                 </div>
@@ -341,7 +337,7 @@ const VMKollen = () => {
                                                                 width: '22px',
                                                                 height: '22px',
                                                                 borderRadius: '50%',
-                                                                border: '1px solid var(--border)',
+                                                                border: '1px solid rgba(0,0,0,0.1)',
                                                                 backgroundColor: 'transparent',
                                                                 flexShrink: 0
                                                             }} />
@@ -352,7 +348,7 @@ const VMKollen = () => {
                                                                 alt={team.name}
                                                                 width={22}
                                                                 height={22}
-                                                                style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                                                                style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
                                                             />
                                                         ) : null
                                                     ))}

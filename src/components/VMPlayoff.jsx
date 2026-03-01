@@ -157,19 +157,29 @@ const NextMatchCard = ({ match, date }) => {
                         <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <div style={{ height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                                 {getFlagCodes(team).map((code, idx) => (
-                                    <img
-                                        key={`${team}-${idx}`}
-                                        src={flagUrl(code)}
-                                        alt={team}
-                                        style={{
-                                            height: '100%',
-                                            width: 'auto',
-                                            maxHeight: '48px',
-                                            objectFit: 'contain',
+                                    code === 'UN' && getFlagCodes(team).length === 1 ? (
+                                        <div key={`${team}-${idx}`} style={{
+                                            width: '60px',
+                                            height: '60px',
                                             borderRadius: '50%',
-                                            filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))'
-                                        }}
-                                    />
+                                            border: '1px solid rgba(0,0,0,0.1)',
+                                            backgroundColor: 'transparent',
+                                            flexShrink: 0
+                                        }} />
+                                    ) : code !== 'UN' ? (
+                                        <img
+                                            key={`${team}-${idx}`}
+                                            src={flagUrl(code)}
+                                            alt={team}
+                                            style={{
+                                                height: '60px',
+                                                width: '60px',
+                                                objectFit: 'cover',
+                                                borderRadius: '50%',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                            }}
+                                        />
+                                    ) : null
                                 ))}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
@@ -293,7 +303,7 @@ const VMPlayoff = () => {
                                                         width: '22px',
                                                         height: '22px',
                                                         borderRadius: '50%',
-                                                        border: '1px solid var(--border)',
+                                                        border: '1px solid rgba(0,0,0,0.1)',
                                                         backgroundColor: 'transparent',
                                                         flexShrink: 0
                                                     }} />
@@ -303,7 +313,7 @@ const VMPlayoff = () => {
                                                         alt={name}
                                                         width={22}
                                                         height={22}
-                                                        style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                                                        style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
                                                     />
                                                 )}
                                                 <span style={{ fontWeight: '400' }}>
