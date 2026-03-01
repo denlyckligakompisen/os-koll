@@ -67,7 +67,7 @@ const getFlagCodes = (name) => {
 const BoldSverige = ({ text }) => {
     if (!text?.includes('Sverige')) return text;
     const [before, after] = text.split('Sverige');
-    return <>{before}<span style={{ fontWeight: '800', color: '#000' }}>Sverige</span>{after}</>;
+    return <>{before}<span style={{ color: '#000' }}>Sverige</span>{after}</>;
 };
 
 const Countdown = () => {
@@ -87,7 +87,7 @@ const Countdown = () => {
     if (!timeLeft) return null;
 
     return (
-        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
 
             <img
                 src={getTeamLogo('FIFA World Cup')}
@@ -176,7 +176,7 @@ const VMKollen = () => {
         );
 
         const card = (
-            <Card key={mIdx} padding="12px 14px" animate={false} style={{
+            <Card key={mIdx} padding="12px 14px" style={{
                 border: 'var(--border)',
                 boxShadow: 'none',
                 backgroundColor: 'rgba(255,255,255,0.5)',
@@ -212,7 +212,6 @@ const VMKollen = () => {
                     </div>
                     <div style={{
                         fontSize: '0.9rem',
-                        fontWeight: '600',
                         color: '#000',
                         display: 'flex',
                         alignItems: 'center',
@@ -259,7 +258,7 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '40px' }}>
-                <Card style={{ marginBottom: '16px' }} animate={false}>
+                <Card style={{ marginBottom: '16px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
                         <BoldSverige text={displayName || groupName} />
                     </div>
@@ -361,7 +360,7 @@ const VMKollen = () => {
     };
 
     const renderPlayoff = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
                     26 mars
@@ -399,7 +398,7 @@ const VMKollen = () => {
         switch (activeTab) {
             case 'matcher':
                 return (
-                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {renderPlayoff()}
                         <div style={{
                             display: 'flex',
@@ -487,7 +486,7 @@ const VMKollen = () => {
                 ))}
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div key={activeTab} className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {renderSubTab()}
             </div>
         </div>

@@ -55,7 +55,6 @@ const SiriusKollen = () => {
         <div className="animate-fade-in" style={{ padding: '0 10px' }}>
             <PageHeader
                 title="Sirius-kollen"
-                subtitle="Vägen till Europa 💙🖤"
                 logoSrc={getTeamLogo('IK Sirius')}
             />
 
@@ -98,128 +97,129 @@ const SiriusKollen = () => {
                 ))}
             </div>
 
-            {/* Next Match Card */}
-            {nextMatch && (
-                <div style={{
-                    background: 'linear-gradient(135deg, #003399 0%, #000000 100%)',
-                    borderRadius: '24px',
-                    padding: '24px',
-                    color: 'white',
-                    marginBottom: '24px',
-                    boxShadow: '0 10px 25px rgba(0, 51, 153, 0.25)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                }}>
-                    {/* Subtle stripe pattern */}
-                    <div style={{
-                        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-                        opacity: 0.1,
-                        background: 'repeating-linear-gradient(90deg, transparent, transparent 20px, #fff 20px, #fff 40px)'
-                    }} />
-                    <div style={{ position: 'relative', zIndex: 1 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                            {[nextMatch.home, nextMatch.away].map(team => (
-                                <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                                    <div style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
-                                        <img src={getTeamLogo(team)} alt={team} style={{ height: '100%', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.2))' }} />
+            <div key={activeComp} className="animate-fade-in">
+                {/* Next Match Card */}
+                {nextMatch && (
+                    <Card style={{
+                        background: 'linear-gradient(135deg, #003399 0%, #000000 100%)',
+                        color: 'white',
+                        marginBottom: '24px',
+                        boxShadow: '0 10px 25px rgba(0, 51, 153, 0.25)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        border: 'none'
+                    }} padding="24px">
+                        {/* Subtle stripe pattern */}
+                        <div style={{
+                            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                            opacity: 0.1,
+                            background: 'repeating-linear-gradient(90deg, transparent, transparent 20px, #fff 20px, #fff 40px)'
+                        }} />
+                        <div style={{ position: 'relative', zIndex: 1 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                                {[nextMatch.home, nextMatch.away].map(team => (
+                                    <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                                        <div style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
+                                            <img src={getTeamLogo(team)} alt={team} style={{ height: '100%', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.2))' }} />
+                                        </div>
+                                        <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
                                     </div>
-                                    <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
+                                ))}
+                            </div>
+                            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
+                                    {formatMatchDisplayDate(nextMatch.date)} {nextMatch.time}
                                 </div>
-                            ))}
-                        </div>
-                        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
-                                {formatMatchDisplayDate(nextMatch.date)} {nextMatch.time}
                             </div>
                         </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Standings Table */}
-            {standings.length > 0 && (
-                <Card style={{ marginBottom: '24px' }} animate={false}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                        <thead>
-                            <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
-                                {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
-                                    <th key={col} style={{
-                                        textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center',
-                                        padding: '8px 4px',
-                                        color: 'var(--color-text-muted)',
-                                        fontWeight: '600'
-                                    }}>{col}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {displayedTeams.map((team, idx) => {
-                                const isSirius = team.team === 'IK Sirius';
-                                const siriusStyle = isSirius ? { backgroundColor: 'rgba(0,51,153,0.06)' } : {};
-                                return (
-                                    <tr key={team.team}>
-                                        <td style={{ padding: '11px 4px', fontWeight: '500', ...siriusStyle, borderRadius: isSirius ? '10px 0 0 10px' : undefined }}>{team.rank}</td>
-                                        <td style={{ padding: '11px 4px', ...siriusStyle }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                <img src={getTeamLogo(team.team)} alt={team.team} style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
-                                                {team.team}
-                                            </div>
-                                        </td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', ...siriusStyle }}>{team.p}</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', ...siriusStyle, color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>
-                                            {team.gd > 0 ? `+${team.gd}` : team.gd}
-                                        </td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700', ...siriusStyle, borderRadius: isSirius ? '0 10px 10px 0' : undefined }}>{team.pts}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </Card>
-            )}
-
-            {/* European Competition Card */}
-            {activeComp === 'allsvenskan' && (
-                <Card style={{
-                    background: 'linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(245,250,255,0.9))',
-                    display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center'
-                }} padding="30px" animate={false}>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '48px' }}>
-                        <img src={getTeamLogo('Champions League')} alt="UEFA Champions League" style={{ width: '90px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
-                        <img src={getTeamLogo('Conference League')} alt="UEFA Conference League" style={{ width: '100px', height: 'auto', mixBlendMode: 'multiply' }} />
-                    </div>
-                    <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4', maxWidth: '280px', fontWeight: '500' }}>
-                        Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Champions League</span>,<br />
-                        tvåan och trean kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Conference League</span>
-                    </div>
-                </Card>
-            )}
-
-            {/* Cup Playoff & Europa Card */}
-            {activeComp === 'cup' && (
-                <>
-                    <Card style={{ marginTop: '8px' }} animate={false}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            {CUP_SCHEDULE.map((item, i) => (
-                                <React.Fragment key={item.label}>
-                                    {i > 0 && <div style={{ height: '0.5px', backgroundColor: 'rgba(0,0,0,0.05)' }} />}
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px' }}>
-                                        <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{item.label}</span>
-                                        <span style={{ fontSize: '0.95rem', fontWeight: '400', color: '#000' }}>{item.date}</span>
-                                    </div>
-                                </React.Fragment>
-                            ))}
-                        </div>
                     </Card>
+                )}
 
-                    <Card style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', justifyContent: 'center', alignItems: 'center' }} padding="30px" animate={false}>
-                        <img src={getTeamLogo('Europa League')} alt="UEFA Europa League" style={{ width: '100px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
+                {/* Standings Table */}
+                {standings.length > 0 && (
+                    <Card style={{ marginBottom: '24px' }}>
+                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                            <thead>
+                                <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
+                                    {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
+                                        <th key={col} style={{
+                                            textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center',
+                                            padding: '8px 4px',
+                                            color: 'var(--color-text-muted)',
+                                            fontWeight: '600'
+                                        }}>{col}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {displayedTeams.map((team, idx) => {
+                                    const isSirius = team.team === 'IK Sirius';
+                                    const siriusStyle = isSirius ? { backgroundColor: 'rgba(0,51,153,0.06)' } : {};
+                                    return (
+                                        <tr key={team.team}>
+                                            <td style={{ padding: '11px 4px', fontWeight: '500', ...siriusStyle, borderRadius: isSirius ? '10px 0 0 10px' : undefined }}>{team.rank}</td>
+                                            <td style={{ padding: '11px 4px', ...siriusStyle }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <img src={getTeamLogo(team.team)} alt={team.team} style={{ width: '20px', height: '20px', objectFit: 'contain' }} />
+                                                    {team.team}
+                                                </div>
+                                            </td>
+                                            <td style={{ padding: '11px 4px', textAlign: 'center', ...siriusStyle }}>{team.p}</td>
+                                            <td style={{ padding: '11px 4px', textAlign: 'center', ...siriusStyle, color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>
+                                                {team.gd > 0 ? `+${team.gd}` : team.gd}
+                                            </td>
+                                            <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700', ...siriusStyle, borderRadius: isSirius ? '0 10px 10px 0' : undefined }}>{team.pts}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </Card>
+                )}
+
+                {/* European Competition Card */}
+                {activeComp === 'allsvenskan' && (
+                    <Card style={{
+                        background: 'linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(245,250,255,0.9))',
+                        display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center'
+                    }} padding="30px">
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '48px' }}>
+                            <img src={getTeamLogo('Champions League')} alt="UEFA Champions League" style={{ width: '90px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
+                            <img src={getTeamLogo('Conference League')} alt="UEFA Conference League" style={{ width: '100px', height: 'auto', mixBlendMode: 'multiply' }} />
+                        </div>
                         <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4', maxWidth: '280px', fontWeight: '500' }}>
-                            Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Europa League</span>
+                            Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Champions League</span>,<br />
+                            tvåan och trean kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Conference League</span>
                         </div>
                     </Card>
-                </>
-            )}
+                )}
+
+                {/* Cup Playoff & Europa Card */}
+                {activeComp === 'cup' && (
+                    <>
+                        <Card style={{ marginTop: '8px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                {CUP_SCHEDULE.map((item, i) => (
+                                    <React.Fragment key={item.label}>
+                                        {i > 0 && <div style={{ height: '0.5px', backgroundColor: 'rgba(0,0,0,0.05)' }} />}
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px' }}>
+                                            <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{item.label}</span>
+                                            <span style={{ fontSize: '0.95rem', fontWeight: '400', color: '#000' }}>{item.date}</span>
+                                        </div>
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        </Card>
+
+                        <Card style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', justifyContent: 'center', alignItems: 'center' }} padding="30px">
+                            <img src={getTeamLogo('Europa League')} alt="UEFA Europa League" style={{ width: '100px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
+                            <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4', maxWidth: '280px', fontWeight: '500' }}>
+                                Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Europa League</span>
+                            </div>
+                        </Card>
+                    </>
+                )}
+            </div>
         </div>
     );
 };

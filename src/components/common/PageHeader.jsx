@@ -1,15 +1,16 @@
 
 import React from 'react';
 
-const PageHeader = ({ title, subtitle, icon, logoSrc }) => {
+const PageHeader = ({ title, subtitle, icon, logoSrc, style = {} }) => {
     return (
         <div style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             gap: '4px',
-            marginBottom: '24px',
-            textAlign: 'center'
+            marginBottom: '16px',
+            textAlign: 'center',
+            ...style
         }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
                 {logoSrc ? (

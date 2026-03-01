@@ -45,7 +45,7 @@ function App() {
     <div className="app-container" style={{ paddingBottom: '120px' }}>
       <div key={activeTab} className="animate-fade-in">
         {activeTab === 'os' ? (
-          <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <Header style={{ marginBottom: '0' }} />
             <MedalTable data={medals} />
             {new Date() >= SHOW_COUNTDOWN_FROM && <LACountdown />}

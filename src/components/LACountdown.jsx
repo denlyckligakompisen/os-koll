@@ -14,7 +14,7 @@ const OlympicsCountdown = () => {
     }, []);
 
     return (
-        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
             <h2 style={{
                 margin: '0 0 16px 0',
                 fontSize: '0.9rem',

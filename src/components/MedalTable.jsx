@@ -14,7 +14,7 @@ const MedalTable = ({ data }) => {
     if (medalData.length === 0) return null;
 
     return (
-        <Card animate={false}>
+        <Card>
             <h2 style={{
                 margin: '0 0 16px 0',
                 fontSize: '0.9rem',

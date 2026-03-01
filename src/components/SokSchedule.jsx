@@ -1,5 +1,4 @@
-
-import React, { useMemo } from 'react';
+import Card from './common/Card';
 
 /**
  * Parses a Swedish date string like "Söndag 22 Februari" into a Date object.
@@ -86,32 +85,26 @@ const SokSchedule = ({ events }) => {
     return (
         <div style={{ padding: '0 16px', maxWidth: '600px', margin: '0 auto' }}>
             {days.map(day => (
-                <div key={day} style={{ marginBottom: '24px' }}>
+                <Card key={day} style={{ marginBottom: '24px' }} padding="0">
                     <div style={{
                         padding: '12px 16px',
-                        backgroundColor: 'var(--color-card-bg)',
-                        borderBottom: '1px solid var(--color-border-subtle)',
-                        borderTopLeftRadius: '12px',
-                        borderTopRightRadius: '12px',
-                        color: 'var(--color-text-highlight)'
+                        backgroundColor: 'rgba(0,0,0,0.03)',
+                        borderBottom: 'var(--border)',
+                        color: 'var(--color-text)'
                     }}>
                         <h2 style={{
                             margin: 0,
-                            fontSize: '1.2rem',
+                            fontSize: '1rem',
                             fontWeight: '800',
-                            letterSpacing: '-0.02em'
+                            letterSpacing: '-0.02em',
+                            textTransform: 'uppercase',
+                            color: 'var(--color-text-muted)'
                         }}>
                             {formatDayHeader(day)}
                         </h2>
                     </div>
 
-                    <div style={{
-                        backgroundColor: 'var(--color-card-bg)',
-                        borderBottomLeftRadius: '12px',
-                        borderBottomRightRadius: '12px',
-                        overflow: 'hidden',
-                        padding: '8px'
-                    }}>
+                    <div style={{ padding: '8px' }}>
                         {groupedEvents[day].map((event) => (
                             <div key={event.id} style={{
                                 padding: '12px',
@@ -129,7 +122,7 @@ const SokSchedule = ({ events }) => {
                                     <span style={{
                                         fontSize: '1rem',
                                         fontWeight: '800',
-                                        color: '#fbc02d',
+                                        color: 'var(--color-primary)',
                                         minWidth: '50px',
                                         fontVariantNumeric: 'tabular-nums'
                                     }}>
@@ -140,13 +133,13 @@ const SokSchedule = ({ events }) => {
                                         <span style={{
                                             fontSize: '1rem',
                                             fontWeight: '700',
-                                            color: 'var(--color-text-highlight)'
+                                            color: '#000'
                                         }}>
                                             {event.sport}
                                         </span>
                                         <span style={{
                                             fontSize: '0.95rem',
-                                            color: 'var(--color-text-primary)'
+                                            color: 'var(--color-text-muted)'
                                         }}>
                                             {event.event}
                                         </span>
@@ -168,7 +161,7 @@ const SokSchedule = ({ events }) => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </Card>
             ))}
         </div>
     );

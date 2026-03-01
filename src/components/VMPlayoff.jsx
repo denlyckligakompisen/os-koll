@@ -58,7 +58,7 @@ const Countdown = () => {
     if (!timeLeft) return null;
 
     return (
-        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
             <h2 style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', textAlign: 'center' }}>
                 Fotbolls-VM 2026
             </h2>
@@ -85,7 +85,7 @@ const MatchCard = ({ match, isFinal, date }) => {
                 overflow: 'hidden'
             }}
             padding="16px"
-            animate={false}
+
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', justifyContent: 'space-between' }}>
                 {/* Date/time badge */}
@@ -138,17 +138,18 @@ const NextMatchCard = ({ match, date }) => {
     const isClickable = !!match.link;
 
     const content = (
-        <div className={isClickable ? "premium-card-hover" : ""} style={{
-            background: '#ffffff',
-            borderRadius: '24px',
-            padding: '24px',
-            color: 'black',
-            marginBottom: '24px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-            position: 'relative',
-            overflow: 'hidden',
-            border: 'var(--border)'
-        }}>
+        <Card
+            style={{
+                cursor: isClickable ? 'pointer' : 'default',
+                background: '#ffffff',
+                marginBottom: '24px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                position: 'relative',
+                overflow: 'hidden',
+                border: 'var(--border)'
+            }}
+            padding="24px"
+        >
 
             <div style={{ position: 'relative', zIndex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
@@ -189,7 +190,7 @@ const NextMatchCard = ({ match, date }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </Card>
     );
 
     if (isClickable) {
@@ -261,7 +262,7 @@ const VMPlayoff = () => {
 
                 <Countdown />
 
-                <Card style={{ marginBottom: '24px' }} animate={false}>
+                <Card style={{ marginBottom: '24px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
                         Grupp F
                     </div>
