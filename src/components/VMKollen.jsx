@@ -118,6 +118,7 @@ const GROUP_TEAMS = [
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher' },
     { id: 'gruppspel', label: 'Grupper' },
+    { id: 'slutspel', label: 'Slutspel' },
     { id: 'statistik', label: 'Statistik' }
 ];
 
@@ -254,10 +255,14 @@ const VMKollen = () => {
     };
 
     const renderTable = (groupName, teams, displayName) => {
-        const sortedTeams = [...teams].sort((a, b) => a.localeCompare(b, 'sv'));
+        const sortedTeams = [...teams].sort((a, b) => {
+            const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
+            const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0 } : b;
+            return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamA.name.localeCompare(teamB.name, 'sv');
+        });
 
         return (
-            <div style={{ marginBottom: '40px' }}>
+            <div style={{ marginBottom: '16px' }}>
                 <Card style={{ marginBottom: '16px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
                         <BoldSverige text={displayName || groupName} />
@@ -276,10 +281,11 @@ const VMKollen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {sortedTeams.map((name, idx) => {
-                                const flagCodes = getFlagCodes(name);
+                            {sortedTeams.map((teamData, idx) => {
+                                const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
+                                const flagCodes = getFlagCodes(team.name);
                                 return (
-                                    <tr key={name}>
+                                    <tr key={team.name}>
                                         <td style={{ padding: '11px 4px', fontWeight: '500' }}>{idx + 1}</td>
                                         <td style={{ padding: '11px 4px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -298,7 +304,7 @@ const VMKollen = () => {
                                                             <img
                                                                 key={fIdx}
                                                                 src={flagUrl(code)}
-                                                                alt={name}
+                                                                alt={team.name}
                                                                 width={22}
                                                                 height={22}
                                                                 style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
@@ -307,13 +313,15 @@ const VMKollen = () => {
                                                     ))}
                                                 </div>
                                                 <span style={{ fontWeight: '400' }}>
-                                                    <BoldSverige text={name} />
+                                                    <BoldSverige text={team.name} />
                                                 </span>
                                             </div>
                                         </td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>0</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>0</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700' }}>0</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>
+                                            {team.gd > 0 ? `+${team.gd}` : team.gd}
+                                        </td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700' }}>{team.pts}</td>
                                     </tr>
                                 );
                             })}
@@ -399,19 +407,6 @@ const VMKollen = () => {
             case 'matcher':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        {renderPlayoff()}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin: '0',
-                            color: 'var(--color-text-muted)',
-                            opacity: 0.4
-                        }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                            </svg>
-                        </div>
                         <Countdown />
                         {renderAllMatches()}
                     </div>
@@ -424,6 +419,19 @@ const VMKollen = () => {
                                 {renderTable(group.name, group.teams)}
                             </React.Fragment>
                         ))}
+                    </div>
+                );
+            case 'slutspel':
+                return (
+                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <div style={{ padding: '0 4px', fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500', textAlign: 'center', marginBottom: '8px' }}>
+                            Vägen till VM: Slutspel i kvalet
+                        </div>
+                        {renderPlayoff()}
+                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)', opacity: 0.8 }}>
+                            <div style={{ fontSize: '1.2rem', fontWeight: '800', color: '#000', marginBottom: '8px' }}>VM-Slutspelet</div>
+                            Formatet utökas till 48 lag med ett helt nytt 32-delssteg. Brackets publiceras när gruppspelet är avgjort.
+                        </Card>
                     </div>
                 );
             case 'statistik':

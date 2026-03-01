@@ -137,7 +137,7 @@ const SiriusKollen = () => {
 
                 {/* Standings Table */}
                 {standings.length > 0 && (
-                    <Card style={{ marginBottom: '24px' }}>
+                    <Card style={{ marginBottom: '16px' }}>
                         <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                             <thead>
                                 <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>

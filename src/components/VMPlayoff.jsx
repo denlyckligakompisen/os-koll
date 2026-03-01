@@ -262,7 +262,7 @@ const VMPlayoff = () => {
 
                 <Countdown />
 
-                <Card style={{ marginBottom: '24px' }}>
+                <Card style={{ marginBottom: '16px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
                         Grupp F
                     </div>

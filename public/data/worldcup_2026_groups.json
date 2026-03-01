@@ -1,113 +1,355 @@
 {
-    "name": "FIFA World Cup 2026",
-    "groups": [
+  "name": "FIFA World Cup 2026",
+  "groups": [
+    {
+      "name": "Grupp A",
+      "teams": [
         {
-            "name": "Grupp A",
-            "teams": [
-                "Mexiko",
-                "Sydafrika",
-                "Sydkorea",
-                "UEFA Play-off D"
-            ]
+          "name": "Mexiko",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
         },
         {
-            "name": "Grupp B",
-            "teams": [
-                "Kanada",
-                "UEFA Play-off A",
-                "Qatar",
-                "Schweiz"
-            ]
+          "name": "Sydafrika",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
         },
         {
-            "name": "Grupp C",
-            "teams": [
-                "Brasilien",
-                "Marocko",
-                "Haiti",
-                "Skottland"
-            ]
+          "name": "Sydkorea",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
         },
         {
-            "name": "Grupp D",
-            "teams": [
-                "USA",
-                "Paraguay",
-                "Australien",
-                "UEFA Play-off C"
-            ]
-        },
-        {
-            "name": "Grupp E",
-            "teams": [
-                "Tyskland",
-                "Curaçao",
-                "Elfenbenskusten",
-                "Ecuador"
-            ]
-        },
-        {
-            "name": "Grupp F",
-            "teams": [
-                "Nederländerna",
-                "Japan",
-                "UEFA Play-off B",
-                "Tunisien"
-            ]
-        },
-        {
-            "name": "Grupp G",
-            "teams": [
-                "Belgien",
-                "Egypten",
-                "Iran",
-                "Nya Zeeland"
-            ]
-        },
-        {
-            "name": "Grupp H",
-            "teams": [
-                "Spanien",
-                "Kap Verde",
-                "Saudiarabien",
-                "Uruguay"
-            ]
-        },
-        {
-            "name": "Grupp I",
-            "teams": [
-                "Frankrike",
-                "Senegal",
-                "Intercontinental Play-off 2",
-                "Norge"
-            ]
-        },
-        {
-            "name": "Grupp J",
-            "teams": [
-                "Argentina",
-                "Algeriet",
-                "Österrike",
-                "Jordanien"
-            ]
-        },
-        {
-            "name": "Grupp K",
-            "teams": [
-                "Portugal",
-                "Intercontinental Play-off 1",
-                "Uzbekistan",
-                "Colombia"
-            ]
-        },
-        {
-            "name": "Grupp L",
-            "teams": [
-                "England",
-                "Kroatien",
-                "Ghana",
-                "Panama"
-            ]
+          "name": "UEFA Play-off D",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
         }
-    ]
+      ]
+    },
+    {
+      "name": "Grupp B",
+      "teams": [
+        {
+          "name": "Kanada",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "UEFA Play-off A",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Qatar",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Schweiz",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp C",
+      "teams": [
+        {
+          "name": "Brasilien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Marocko",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Haiti",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Skottland",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp D",
+      "teams": [
+        {
+          "name": "USA",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Paraguay",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Australien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "UEFA Play-off C",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp E",
+      "teams": [
+        {
+          "name": "Tyskland",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Curaçao",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Elfenbenskusten",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Ecuador",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp F",
+      "teams": [
+        {
+          "name": "Nederländerna",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Japan",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "UEFA Play-off B",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Tunisien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp G",
+      "teams": [
+        {
+          "name": "Belgien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Egypten",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Iran",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Nya Zeeland",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp H",
+      "teams": [
+        {
+          "name": "Spanien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Kap Verde",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Saudiarabien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Uruguay",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp I",
+      "teams": [
+        {
+          "name": "Frankrike",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Senegal",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Intercontinental Play-off 2",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Norge",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp J",
+      "teams": [
+        {
+          "name": "Argentina",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Algeriet",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Österrike",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Jordanien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp K",
+      "teams": [
+        {
+          "name": "Portugal",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Intercontinental Play-off 1",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Uzbekistan",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Colombia",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    },
+    {
+      "name": "Grupp L",
+      "teams": [
+        {
+          "name": "England",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Kroatien",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Ghana",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        },
+        {
+          "name": "Panama",
+          "played": 0,
+          "gd": 0,
+          "pts": 0
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "2026-03-01T08:00:10.853Z",
+  "source": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings"
 }
