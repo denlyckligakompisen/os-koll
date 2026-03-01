@@ -1,28 +1,35 @@
 [
   {
     "rank": 1,
-    "team": "AIK",
+    "team": "IK Sirius",
     "p": 0,
     "gd": 0,
     "pts": 0
   },
   {
     "rank": 2,
-    "team": "BK Häcken",
+    "team": "AIK",
     "p": 0,
     "gd": 0,
     "pts": 0
   },
   {
     "rank": 3,
-    "team": "Degerfors IF",
+    "team": "BK Häcken",
     "p": 0,
     "gd": 0,
     "pts": 0
   },
   {
-    "rank": 11,
-    "team": "IK Sirius",
+    "rank": 4,
+    "team": "Djurgården",
+    "p": 0,
+    "gd": 0,
+    "pts": 0
+  },
+  {
+    "rank": 16,
+    "team": "Västerås SK",
     "p": 0,
     "gd": 0,
     "pts": 0
