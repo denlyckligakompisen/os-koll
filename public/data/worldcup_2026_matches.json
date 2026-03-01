@@ -1,652 +1,654 @@
 {
-    "matches": [
-        {
-            "date": "11 juni",
-            "time": "21:00",
-            "home": "Mexiko",
-            "away": "Sydafrika",
-            "venue": "Mexico City",
-            "broadcast": "TV4",
-            "group": "Grupp A"
-        },
-        {
-            "date": "12 juni",
-            "time": "04:00",
-            "home": "Sydkorea",
-            "away": "UEFA Play-off D",
-            "venue": "Guadalajara",
-            "broadcast": "TV4",
-            "group": "Grupp A"
-        },
-        {
-            "date": "12 juni",
-            "time": "21:00",
-            "home": "Kanada",
-            "away": "UEFA Play-off A",
-            "venue": "Toronto",
-            "broadcast": "SVT",
-            "group": "Grupp B"
-        },
-        {
-            "date": "13 juni",
-            "time": "03:00",
-            "home": "USA",
-            "away": "Paraguay",
-            "venue": "Los Angeles",
-            "broadcast": "TV4",
-            "group": "Grupp D"
-        },
-        {
-            "date": "13 juni",
-            "time": "21:00",
-            "home": "Qatar",
-            "away": "Schweiz",
-            "venue": "San Fransisco",
-            "broadcast": "TV4",
-            "group": "Grupp B"
-        },
-        {
-            "date": "14 juni",
-            "time": "00:00",
-            "home": "Brasilien",
-            "away": "Marocko",
-            "venue": "New Jersey",
-            "broadcast": "SVT",
-            "group": "Grupp C"
-        },
-        {
-            "date": "14 juni",
-            "time": "03:00",
-            "home": "Haiti",
-            "away": "Skottland",
-            "venue": "Boston",
-            "broadcast": "SVT",
-            "group": "Grupp C"
-        },
-        {
-            "date": "14 juni",
-            "time": "06:00",
-            "home": "Australien",
-            "away": "UEFA Play-off C",
-            "venue": "Vancouver",
-            "broadcast": "TV4",
-            "group": "Grupp D"
-        },
-        {
-            "date": "14 juni",
-            "time": "19:00",
-            "home": "Tyskland",
-            "away": "Curaçao",
-            "venue": "Houston",
-            "broadcast": "TV4",
-            "group": "Grupp E"
-        },
-        {
-            "date": "14 juni",
-            "time": "22:00",
-            "home": "Nederländerna",
-            "away": "Japan",
-            "venue": "Dallas",
-            "broadcast": "TV4",
-            "group": "Grupp F"
-        },
-        {
-            "date": "15 juni",
-            "time": "01:00",
-            "home": "Elfenbenskusten",
-            "away": "Ecuador",
-            "venue": "Philadelphia",
-            "broadcast": "TV4",
-            "group": "Grupp E"
-        },
-        {
-            "date": "15 juni",
-            "time": "04:00",
-            "home": "UEFA Play-off B",
-            "away": "Tunisien",
-            "venue": "Monterrey",
-            "broadcast": "SVT",
-            "group": "Grupp F"
-        },
-        {
-            "date": "15 juni",
-            "time": "18:00",
-            "home": "Spanien",
-            "away": "Kap Verde",
-            "venue": "Atlanta",
-            "broadcast": "SVT",
-            "group": "Grupp H"
-        },
-        {
-            "date": "15 juni",
-            "time": "21:00",
-            "home": "Belgien",
-            "away": "Egypten",
-            "venue": "Seattle",
-            "broadcast": "SVT",
-            "group": "Grupp G"
-        },
-        {
-            "date": "16 juni",
-            "time": "00:00",
-            "home": "Saudiarabien",
-            "away": "Uruguay",
-            "venue": "Miami",
-            "broadcast": "TV4",
-            "group": "Grupp H"
-        },
-        {
-            "date": "16 juni",
-            "time": "03:00",
-            "home": "Iran",
-            "away": "Nya Zeeland",
-            "venue": "Los Angeles",
-            "broadcast": "TV4",
-            "group": "Grupp G"
-        },
-        {
-            "date": "16 juni",
-            "time": "21:00",
-            "home": "Frankrike",
-            "away": "Senegal",
-            "venue": "New Jersey",
-            "broadcast": "SVT",
-            "group": "Grupp I"
-        },
-        {
-            "date": "17 juni",
-            "time": "00:00",
-            "home": "Intercontinental Play-off 2",
-            "away": "Norge",
-            "venue": "Boston",
-            "broadcast": "TV4",
-            "group": "Grupp I"
-        },
-        {
-            "date": "17 juni",
-            "time": "03:00",
-            "home": "Argentina",
-            "away": "Algeriet",
-            "venue": "Kansas City",
-            "broadcast": "TV4",
-            "group": "Grupp J"
-        },
-        {
-            "date": "17 juni",
-            "time": "06:00",
-            "home": "Österrike",
-            "away": "Jordanien",
-            "venue": "San Fransisco",
-            "broadcast": "TV4",
-            "group": "Grupp J"
-        },
-        {
-            "date": "17 juni",
-            "time": "19:00",
-            "home": "Portugal",
-            "away": "Intercontinental Play-off 1",
-            "venue": "Houston",
-            "broadcast": "TV4",
-            "group": "Grupp K"
-        },
-        {
-            "date": "17 juni",
-            "time": "22:00",
-            "home": "England",
-            "away": "Kroatien",
-            "venue": "Dallas",
-            "broadcast": "TV4",
-            "group": "Grupp L"
-        },
-        {
-            "date": "18 juni",
-            "time": "01:00",
-            "home": "Ghana",
-            "away": "Panama",
-            "venue": "Toronto",
-            "broadcast": "TV4",
-            "group": "Grupp L"
-        },
-        {
-            "date": "18 juni",
-            "time": "04:00",
-            "home": "Uzbekistan",
-            "away": "Colombia",
-            "venue": "Mexico City",
-            "broadcast": "TV4",
-            "group": "Grupp K"
-        },
-        {
-            "date": "18 juni",
-            "time": "18:00",
-            "home": "UEFA Play-off D",
-            "away": "Sydafrika",
-            "venue": "Atlanta",
-            "broadcast": "TV4",
-            "group": "Grupp A"
-        },
-        {
-            "date": "18 juni",
-            "time": "21:00",
-            "home": "Schweiz",
-            "away": "UEFA Play-off A",
-            "venue": "Los Angeles",
-            "broadcast": "TV4",
-            "group": "Grupp B"
-        },
-        {
-            "date": "19 juni",
-            "time": "00:00",
-            "home": "Kanada",
-            "away": "Qatar",
-            "venue": "Vancouver",
-            "broadcast": "TV4",
-            "group": "Grupp B"
-        },
-        {
-            "date": "19 juni",
-            "time": "03:00",
-            "home": "Mexiko",
-            "away": "Sydkorea",
-            "venue": "Guadalajara",
-            "broadcast": "TV4",
-            "group": "Grupp A"
-        },
-        {
-            "date": "19 juni",
-            "time": "21:00",
-            "home": "USA",
-            "away": "Australien",
-            "venue": "Seattle",
-            "broadcast": "SVT",
-            "group": "Grupp D"
-        },
-        {
-            "date": "20 juni",
-            "time": "00:00",
-            "home": "Skottland",
-            "away": "Marocko",
-            "venue": "Boston",
-            "broadcast": "SVT",
-            "group": "Grupp C"
-        },
-        {
-            "date": "20 juni",
-            "time": "03:00",
-            "home": "Brasilien",
-            "away": "Haiti",
-            "venue": "Philadelphia",
-            "broadcast": "TV4",
-            "group": "Grupp C"
-        },
-        {
-            "date": "20 juni",
-            "time": "06:00",
-            "home": "UEFA Play-off C",
-            "away": "Paraguay",
-            "venue": "San Fransisco",
-            "broadcast": "TV4",
-            "group": "Grupp D"
-        },
-        {
-            "date": "20 juni",
-            "time": "19:00",
-            "home": "Nederländerna",
-            "away": "UEFA Play-off B",
-            "venue": "Houston",
-            "broadcast": "TV4",
-            "group": "Grupp F"
-        },
-        {
-            "date": "20 juni",
-            "time": "22:00",
-            "home": "Tyskland",
-            "away": "Elfenbenskusten",
-            "venue": "Toronto",
-            "broadcast": "TV4",
-            "group": "Grupp E"
-        },
-        {
-            "date": "21 juni",
-            "time": "02:00",
-            "home": "Ecuador",
-            "away": "Curaçao",
-            "venue": "Kansas City",
-            "broadcast": "TV4",
-            "group": "Grupp E"
-        },
-        {
-            "date": "21 juni",
-            "time": "06:00",
-            "home": "Tunisien",
-            "away": "Japan",
-            "venue": "Monterrey",
-            "broadcast": "SVT",
-            "group": "Grupp F"
-        },
-        {
-            "date": "21 juni",
-            "time": "18:00",
-            "home": "Spanien",
-            "away": "Saudiarabien",
-            "venue": "Atlanta",
-            "broadcast": "TV4",
-            "group": "Grupp H"
-        },
-        {
-            "date": "21 juni",
-            "time": "21:00",
-            "home": "Belgien",
-            "away": "Iran",
-            "venue": "Los Angeles",
-            "broadcast": "TV4",
-            "group": "Grupp G"
-        },
-        {
-            "date": "22 juni",
-            "time": "00:00",
-            "home": "Uruguay",
-            "away": "Kap Verde",
-            "venue": "Miami",
-            "broadcast": "TV4",
-            "group": "Grupp H"
-        },
-        {
-            "date": "22 juni",
-            "time": "03:00",
-            "home": "Nya Zeeland",
-            "away": "Egypten",
-            "venue": "Vancouver",
-            "broadcast": "TV4",
-            "group": "Grupp G"
-        },
-        {
-            "date": "22 juni",
-            "time": "19:00",
-            "home": "Argentina",
-            "away": "Österrike",
-            "venue": "Dallas",
-            "broadcast": "SVT",
-            "group": "Grupp J"
-        },
-        {
-            "date": "22 juni",
-            "time": "23:00",
-            "home": "Frankrike",
-            "away": "Intercontinental Play-off 2",
-            "venue": "Philadelphia",
-            "broadcast": "SVT",
-            "group": "Grupp I"
-        },
-        {
-            "date": "23 juni",
-            "time": "02:00",
-            "home": "Norge",
-            "away": "Senegal",
-            "venue": "New Jersey",
-            "broadcast": "SVT",
-            "group": "Grupp I"
-        },
-        {
-            "date": "23 juni",
-            "time": "05:00",
-            "home": "Jordanien",
-            "away": "Algeriet",
-            "venue": "San Fransisco",
-            "broadcast": "TV4",
-            "group": "Grupp J"
-        },
-        {
-            "date": "23 juni",
-            "time": "19:00",
-            "home": "Portugal",
-            "away": "Uzbekistan",
-            "venue": "Houston",
-            "broadcast": "SVT",
-            "group": "Grupp K"
-        },
-        {
-            "date": "23 juni",
-            "time": "22:00",
-            "home": "England",
-            "away": "Ghana",
-            "venue": "Boston",
-            "broadcast": "SVT",
-            "group": "Grupp L"
-        },
-        {
-            "date": "24 juni",
-            "time": "01:00",
-            "home": "Panama",
-            "away": "Kroatien",
-            "venue": "Toronto",
-            "broadcast": "TV4",
-            "group": "Grupp L"
-        },
-        {
-            "date": "24 juni",
-            "time": "04:00",
-            "home": "Colombia",
-            "away": "Intercontinental Play-off 1",
-            "venue": "Guadalajara",
-            "broadcast": "TV4",
-            "group": "Grupp K"
-        },
-        {
-            "date": "24 juni",
-            "time": "21:00",
-            "home": "Schweiz",
-            "away": "Kanada",
-            "venue": "Vancouver",
-            "broadcast": "TV4",
-            "group": "Grupp B"
-        },
-        {
-            "date": "24 juni",
-            "time": "21:00",
-            "home": "UEFA Play-off A",
-            "away": "Qatar",
-            "venue": "Seattle",
-            "broadcast": "TV4",
-            "group": "Grupp B"
-        },
-        {
-            "date": "25 juni",
-            "time": "00:00",
-            "home": "Marocko",
-            "away": "Haiti",
-            "venue": "Atlanta",
-            "broadcast": "TV4",
-            "group": "Grupp C"
-        },
-        {
-            "date": "25 juni",
-            "time": "00:00",
-            "home": "Skottland",
-            "away": "Brasilien",
-            "venue": "Miami",
-            "broadcast": "TV4",
-            "group": "Grupp C"
-        },
-        {
-            "date": "25 juni",
-            "time": "03:00",
-            "home": "Sydafrika",
-            "away": "Sydkorea",
-            "venue": "Monterrey",
-            "broadcast": "SVT",
-            "group": "Grupp A"
-        },
-        {
-            "date": "25 juni",
-            "time": "03:00",
-            "home": "UEFA Play-off D",
-            "away": "Mexiko",
-            "venue": "Mexico City",
-            "broadcast": "SVT",
-            "group": "Grupp A"
-        },
-        {
-            "date": "25 juni",
-            "time": "22:00",
-            "home": "Curaçao",
-            "away": "Elfenbenskusten",
-            "venue": "Philadelphia",
-            "broadcast": "SVT",
-            "group": "Grupp E"
-        },
-        {
-            "date": "25 juni",
-            "time": "22:00",
-            "home": "Ecuador",
-            "away": "Tyskland",
-            "venue": "New Jersey",
-            "broadcast": "SVT",
-            "group": "Grupp E"
-        },
-        {
-            "date": "26 juni",
-            "time": "01:00",
-            "home": "Tunisien",
-            "away": "Nederländerna",
-            "venue": "Kansas City",
-            "broadcast": "SVT",
-            "group": "Grupp F"
-        },
-        {
-            "date": "26 juni",
-            "time": "01:00",
-            "home": "Japan",
-            "away": "UEFA Play-off B",
-            "venue": "Dallas",
-            "broadcast": "SVT",
-            "group": "Grupp F"
-        },
-        {
-            "date": "26 juni",
-            "time": "04:00",
-            "home": "UEFA Play-off C",
-            "away": "USA",
-            "venue": "Los Angeles",
-            "broadcast": "TV4",
-            "group": "Grupp D"
-        },
-        {
-            "date": "26 juni",
-            "time": "04:00",
-            "home": "Paraguay",
-            "away": "Australien",
-            "venue": "San Fransisco",
-            "broadcast": "TV4",
-            "group": "Grupp D"
-        },
-        {
-            "date": "26 juni",
-            "time": "21:00",
-            "home": "Norge",
-            "away": "Frankrike",
-            "venue": "Boston",
-            "broadcast": "TV4",
-            "group": "Grupp I"
-        },
-        {
-            "date": "26 juni",
-            "time": "21:00",
-            "home": "Senegal",
-            "away": "Intercontinental Play-off 2",
-            "venue": "Unknown",
-            "broadcast": "TV4",
-            "group": "Grupp I"
-        },
-        {
-            "date": "27 juni",
-            "time": "02:00",
-            "home": "Kap Verde",
-            "away": "Saudiarabien",
-            "venue": "Houston",
-            "broadcast": "TV4",
-            "group": "Grupp H"
-        },
-        {
-            "date": "27 juni",
-            "time": "02:00",
-            "home": "Uruguay",
-            "away": "Spanien",
-            "venue": "Guadalajara",
-            "broadcast": "TV4",
-            "group": "Grupp H"
-        },
-        {
-            "date": "27 juni",
-            "time": "05:00",
-            "home": "Nya Zeeland",
-            "away": "Belgien",
-            "venue": "Vancouver",
-            "broadcast": "TV4",
-            "group": "Grupp G"
-        },
-        {
-            "date": "27 juni",
-            "time": "05:00",
-            "home": "Egypten",
-            "away": "Iran",
-            "venue": "Seattle",
-            "broadcast": "TV4",
-            "group": "Grupp G"
-        },
-        {
-            "date": "27 juni",
-            "time": "23:00",
-            "home": "Panama",
-            "away": "England",
-            "venue": "New Jersey",
-            "broadcast": "SVT",
-            "group": "Grupp L"
-        },
-        {
-            "date": "27 juni",
-            "time": "23:00",
-            "home": "Kroatien",
-            "away": "Ghana",
-            "venue": "Philadelphia",
-            "broadcast": "SVT",
-            "group": "Grupp L"
-        },
-        {
-            "date": "28 juni",
-            "time": "01:30",
-            "home": "Intercontinental Play-off 1",
-            "away": "Uzbekistan",
-            "venue": "Atlanta",
-            "broadcast": "TV4",
-            "group": "Grupp K"
-        },
-        {
-            "date": "28 juni",
-            "time": "01:30",
-            "home": "Colombia",
-            "away": "Portugal",
-            "venue": "Miami",
-            "broadcast": "TV4",
-            "group": "Grupp K"
-        },
-        {
-            "date": "28 juni",
-            "time": "04:00",
-            "home": "Algeriet",
-            "away": "Österrike",
-            "venue": "Kansas City",
-            "broadcast": "TV4",
-            "group": "Grupp J"
-        },
-        {
-            "date": "28 juni",
-            "time": "04:00",
-            "home": "Jordanien",
-            "away": "Argentina",
-            "venue": "Dallas",
-            "broadcast": "TV4",
-            "group": "Grupp J"
-        }
-    ]
+  "matches": [
+    {
+      "date": "11 juni",
+      "time": "21:00",
+      "home": "Mexiko",
+      "away": "Sydafrika",
+      "venue": "Mexico City",
+      "broadcast": "TV4",
+      "group": "Grupp A"
+    },
+    {
+      "date": "12 juni",
+      "time": "04:00",
+      "home": "Sydkorea",
+      "away": "UEFA Play-off D",
+      "venue": "Guadalajara",
+      "broadcast": "TV4",
+      "group": "Grupp A"
+    },
+    {
+      "date": "12 juni",
+      "time": "21:00",
+      "home": "Kanada",
+      "away": "UEFA Play-off A",
+      "venue": "Toronto",
+      "broadcast": "SVT",
+      "group": "Grupp B"
+    },
+    {
+      "date": "13 juni",
+      "time": "03:00",
+      "home": "USA",
+      "away": "Paraguay",
+      "venue": "Los Angeles",
+      "broadcast": "TV4",
+      "group": "Grupp D"
+    },
+    {
+      "date": "13 juni",
+      "time": "21:00",
+      "home": "Qatar",
+      "away": "Schweiz",
+      "venue": "San Fransisco",
+      "broadcast": "TV4",
+      "group": "Grupp B"
+    },
+    {
+      "date": "14 juni",
+      "time": "00:00",
+      "home": "Brasilien",
+      "away": "Marocko",
+      "venue": "New Jersey",
+      "broadcast": "SVT",
+      "group": "Grupp C"
+    },
+    {
+      "date": "14 juni",
+      "time": "03:00",
+      "home": "Haiti",
+      "away": "Skottland",
+      "venue": "Boston",
+      "broadcast": "SVT",
+      "group": "Grupp C"
+    },
+    {
+      "date": "14 juni",
+      "time": "06:00",
+      "home": "Australien",
+      "away": "UEFA Play-off C",
+      "venue": "Vancouver",
+      "broadcast": "TV4",
+      "group": "Grupp D"
+    },
+    {
+      "date": "14 juni",
+      "time": "19:00",
+      "home": "Tyskland",
+      "away": "Curaçao",
+      "venue": "Houston",
+      "broadcast": "TV4",
+      "group": "Grupp E"
+    },
+    {
+      "date": "14 juni",
+      "time": "22:00",
+      "home": "Nederländerna",
+      "away": "Japan",
+      "venue": "Dallas",
+      "broadcast": "TV4",
+      "group": "Grupp F"
+    },
+    {
+      "date": "15 juni",
+      "time": "01:00",
+      "home": "Elfenbenskusten",
+      "away": "Ecuador",
+      "venue": "Philadelphia",
+      "broadcast": "TV4",
+      "group": "Grupp E"
+    },
+    {
+      "date": "15 juni",
+      "time": "04:00",
+      "home": "UEFA Play-off B",
+      "away": "Tunisien",
+      "venue": "Monterrey",
+      "broadcast": "SVT",
+      "group": "Grupp F"
+    },
+    {
+      "date": "15 juni",
+      "time": "18:00",
+      "home": "Spanien",
+      "away": "Kap Verde",
+      "venue": "Atlanta",
+      "broadcast": "SVT",
+      "group": "Grupp H"
+    },
+    {
+      "date": "15 juni",
+      "time": "21:00",
+      "home": "Belgien",
+      "away": "Egypten",
+      "venue": "Seattle",
+      "broadcast": "SVT",
+      "group": "Grupp G"
+    },
+    {
+      "date": "16 juni",
+      "time": "00:00",
+      "home": "Saudiarabien",
+      "away": "Uruguay",
+      "venue": "Miami",
+      "broadcast": "TV4",
+      "group": "Grupp H"
+    },
+    {
+      "date": "16 juni",
+      "time": "03:00",
+      "home": "Iran",
+      "away": "Nya Zeeland",
+      "venue": "Los Angeles",
+      "broadcast": "TV4",
+      "group": "Grupp G"
+    },
+    {
+      "date": "16 juni",
+      "time": "21:00",
+      "home": "Frankrike",
+      "away": "Senegal",
+      "venue": "New Jersey",
+      "broadcast": "SVT",
+      "group": "Grupp I"
+    },
+    {
+      "date": "17 juni",
+      "time": "00:00",
+      "home": "Intercontinental Play-off 2",
+      "away": "Norge",
+      "venue": "Boston",
+      "broadcast": "TV4",
+      "group": "Grupp I"
+    },
+    {
+      "date": "17 juni",
+      "time": "03:00",
+      "home": "Argentina",
+      "away": "Algeriet",
+      "venue": "Kansas City",
+      "broadcast": "TV4",
+      "group": "Grupp J"
+    },
+    {
+      "date": "17 juni",
+      "time": "06:00",
+      "home": "Österrike",
+      "away": "Jordanien",
+      "venue": "San Fransisco",
+      "broadcast": "TV4",
+      "group": "Grupp J"
+    },
+    {
+      "date": "17 juni",
+      "time": "19:00",
+      "home": "Portugal",
+      "away": "Intercontinental Play-off 1",
+      "venue": "Houston",
+      "broadcast": "TV4",
+      "group": "Grupp K"
+    },
+    {
+      "date": "17 juni",
+      "time": "22:00",
+      "home": "England",
+      "away": "Kroatien",
+      "venue": "Dallas",
+      "broadcast": "TV4",
+      "group": "Grupp L"
+    },
+    {
+      "date": "18 juni",
+      "time": "01:00",
+      "home": "Ghana",
+      "away": "Panama",
+      "venue": "Toronto",
+      "broadcast": "TV4",
+      "group": "Grupp L"
+    },
+    {
+      "date": "18 juni",
+      "time": "04:00",
+      "home": "Uzbekistan",
+      "away": "Colombia",
+      "venue": "Mexico City",
+      "broadcast": "TV4",
+      "group": "Grupp K"
+    },
+    {
+      "date": "18 juni",
+      "time": "18:00",
+      "home": "UEFA Play-off D",
+      "away": "Sydafrika",
+      "venue": "Atlanta",
+      "broadcast": "TV4",
+      "group": "Grupp A"
+    },
+    {
+      "date": "18 juni",
+      "time": "21:00",
+      "home": "Schweiz",
+      "away": "UEFA Play-off A",
+      "venue": "Los Angeles",
+      "broadcast": "TV4",
+      "group": "Grupp B"
+    },
+    {
+      "date": "19 juni",
+      "time": "00:00",
+      "home": "Kanada",
+      "away": "Qatar",
+      "venue": "Vancouver",
+      "broadcast": "TV4",
+      "group": "Grupp B"
+    },
+    {
+      "date": "19 juni",
+      "time": "03:00",
+      "home": "Mexiko",
+      "away": "Sydkorea",
+      "venue": "Guadalajara",
+      "broadcast": "TV4",
+      "group": "Grupp A"
+    },
+    {
+      "date": "19 juni",
+      "time": "21:00",
+      "home": "USA",
+      "away": "Australien",
+      "venue": "Seattle",
+      "broadcast": "SVT",
+      "group": "Grupp D"
+    },
+    {
+      "date": "20 juni",
+      "time": "00:00",
+      "home": "Skottland",
+      "away": "Marocko",
+      "venue": "Boston",
+      "broadcast": "SVT",
+      "group": "Grupp C"
+    },
+    {
+      "date": "20 juni",
+      "time": "03:00",
+      "home": "Brasilien",
+      "away": "Haiti",
+      "venue": "Philadelphia",
+      "broadcast": "TV4",
+      "group": "Grupp C"
+    },
+    {
+      "date": "20 juni",
+      "time": "06:00",
+      "home": "UEFA Play-off C",
+      "away": "Paraguay",
+      "venue": "San Fransisco",
+      "broadcast": "TV4",
+      "group": "Grupp D"
+    },
+    {
+      "date": "20 juni",
+      "time": "19:00",
+      "home": "Nederländerna",
+      "away": "UEFA Play-off B",
+      "venue": "Houston",
+      "broadcast": "TV4",
+      "group": "Grupp F"
+    },
+    {
+      "date": "20 juni",
+      "time": "22:00",
+      "home": "Tyskland",
+      "away": "Elfenbenskusten",
+      "venue": "Toronto",
+      "broadcast": "TV4",
+      "group": "Grupp E"
+    },
+    {
+      "date": "21 juni",
+      "time": "02:00",
+      "home": "Ecuador",
+      "away": "Curaçao",
+      "venue": "Kansas City",
+      "broadcast": "TV4",
+      "group": "Grupp E"
+    },
+    {
+      "date": "21 juni",
+      "time": "06:00",
+      "home": "Tunisien",
+      "away": "Japan",
+      "venue": "Monterrey",
+      "broadcast": "SVT",
+      "group": "Grupp F"
+    },
+    {
+      "date": "21 juni",
+      "time": "18:00",
+      "home": "Spanien",
+      "away": "Saudiarabien",
+      "venue": "Atlanta",
+      "broadcast": "TV4",
+      "group": "Grupp H"
+    },
+    {
+      "date": "21 juni",
+      "time": "21:00",
+      "home": "Belgien",
+      "away": "Iran",
+      "venue": "Los Angeles",
+      "broadcast": "TV4",
+      "group": "Grupp G"
+    },
+    {
+      "date": "22 juni",
+      "time": "00:00",
+      "home": "Uruguay",
+      "away": "Kap Verde",
+      "venue": "Miami",
+      "broadcast": "TV4",
+      "group": "Grupp H"
+    },
+    {
+      "date": "22 juni",
+      "time": "03:00",
+      "home": "Nya Zeeland",
+      "away": "Egypten",
+      "venue": "Vancouver",
+      "broadcast": "TV4",
+      "group": "Grupp G"
+    },
+    {
+      "date": "22 juni",
+      "time": "19:00",
+      "home": "Argentina",
+      "away": "Österrike",
+      "venue": "Dallas",
+      "broadcast": "SVT",
+      "group": "Grupp J"
+    },
+    {
+      "date": "22 juni",
+      "time": "23:00",
+      "home": "Frankrike",
+      "away": "Intercontinental Play-off 2",
+      "venue": "Philadelphia",
+      "broadcast": "SVT",
+      "group": "Grupp I"
+    },
+    {
+      "date": "23 juni",
+      "time": "02:00",
+      "home": "Norge",
+      "away": "Senegal",
+      "venue": "New Jersey",
+      "broadcast": "SVT",
+      "group": "Grupp I"
+    },
+    {
+      "date": "23 juni",
+      "time": "05:00",
+      "home": "Jordanien",
+      "away": "Algeriet",
+      "venue": "San Fransisco",
+      "broadcast": "TV4",
+      "group": "Grupp J"
+    },
+    {
+      "date": "23 juni",
+      "time": "19:00",
+      "home": "Portugal",
+      "away": "Uzbekistan",
+      "venue": "Houston",
+      "broadcast": "SVT",
+      "group": "Grupp K"
+    },
+    {
+      "date": "23 juni",
+      "time": "22:00",
+      "home": "England",
+      "away": "Ghana",
+      "venue": "Boston",
+      "broadcast": "SVT",
+      "group": "Grupp L"
+    },
+    {
+      "date": "24 juni",
+      "time": "01:00",
+      "home": "Panama",
+      "away": "Kroatien",
+      "venue": "Toronto",
+      "broadcast": "TV4",
+      "group": "Grupp L"
+    },
+    {
+      "date": "24 juni",
+      "time": "04:00",
+      "home": "Colombia",
+      "away": "Intercontinental Play-off 1",
+      "venue": "Guadalajara",
+      "broadcast": "TV4",
+      "group": "Grupp K"
+    },
+    {
+      "date": "24 juni",
+      "time": "21:00",
+      "home": "Schweiz",
+      "away": "Kanada",
+      "venue": "Vancouver",
+      "broadcast": "TV4",
+      "group": "Grupp B"
+    },
+    {
+      "date": "24 juni",
+      "time": "21:00",
+      "home": "UEFA Play-off A",
+      "away": "Qatar",
+      "venue": "Seattle",
+      "broadcast": "TV4",
+      "group": "Grupp B"
+    },
+    {
+      "date": "25 juni",
+      "time": "00:00",
+      "home": "Marocko",
+      "away": "Haiti",
+      "venue": "Atlanta",
+      "broadcast": "TV4",
+      "group": "Grupp C"
+    },
+    {
+      "date": "25 juni",
+      "time": "00:00",
+      "home": "Skottland",
+      "away": "Brasilien",
+      "venue": "Miami",
+      "broadcast": "TV4",
+      "group": "Grupp C"
+    },
+    {
+      "date": "25 juni",
+      "time": "03:00",
+      "home": "Sydafrika",
+      "away": "Sydkorea",
+      "venue": "Monterrey",
+      "broadcast": "SVT",
+      "group": "Grupp A"
+    },
+    {
+      "date": "25 juni",
+      "time": "03:00",
+      "home": "UEFA Play-off D",
+      "away": "Mexiko",
+      "venue": "Mexico City",
+      "broadcast": "SVT",
+      "group": "Grupp A"
+    },
+    {
+      "date": "25 juni",
+      "time": "22:00",
+      "home": "Curaçao",
+      "away": "Elfenbenskusten",
+      "venue": "Philadelphia",
+      "broadcast": "SVT",
+      "group": "Grupp E"
+    },
+    {
+      "date": "25 juni",
+      "time": "22:00",
+      "home": "Ecuador",
+      "away": "Tyskland",
+      "venue": "New Jersey",
+      "broadcast": "SVT",
+      "group": "Grupp E"
+    },
+    {
+      "date": "26 juni",
+      "time": "01:00",
+      "home": "Tunisien",
+      "away": "Nederländerna",
+      "venue": "Kansas City",
+      "broadcast": "SVT",
+      "group": "Grupp F"
+    },
+    {
+      "date": "26 juni",
+      "time": "01:00",
+      "home": "Japan",
+      "away": "UEFA Play-off B",
+      "venue": "Dallas",
+      "broadcast": "SVT",
+      "group": "Grupp F"
+    },
+    {
+      "date": "26 juni",
+      "time": "04:00",
+      "home": "UEFA Play-off C",
+      "away": "USA",
+      "venue": "Los Angeles",
+      "broadcast": "TV4",
+      "group": "Grupp D"
+    },
+    {
+      "date": "26 juni",
+      "time": "04:00",
+      "home": "Paraguay",
+      "away": "Australien",
+      "venue": "San Fransisco",
+      "broadcast": "TV4",
+      "group": "Grupp D"
+    },
+    {
+      "date": "26 juni",
+      "time": "21:00",
+      "home": "Norge",
+      "away": "Frankrike",
+      "venue": "Boston",
+      "broadcast": "TV4",
+      "group": "Grupp I"
+    },
+    {
+      "date": "26 juni",
+      "time": "21:00",
+      "home": "Senegal",
+      "away": "Intercontinental Play-off 2",
+      "venue": "Unknown",
+      "broadcast": "TV4",
+      "group": "Grupp I"
+    },
+    {
+      "date": "27 juni",
+      "time": "02:00",
+      "home": "Kap Verde",
+      "away": "Saudiarabien",
+      "venue": "Houston",
+      "broadcast": "TV4",
+      "group": "Grupp H"
+    },
+    {
+      "date": "27 juni",
+      "time": "02:00",
+      "home": "Uruguay",
+      "away": "Spanien",
+      "venue": "Guadalajara",
+      "broadcast": "TV4",
+      "group": "Grupp H"
+    },
+    {
+      "date": "27 juni",
+      "time": "05:00",
+      "home": "Nya Zeeland",
+      "away": "Belgien",
+      "venue": "Vancouver",
+      "broadcast": "TV4",
+      "group": "Grupp G"
+    },
+    {
+      "date": "27 juni",
+      "time": "05:00",
+      "home": "Egypten",
+      "away": "Iran",
+      "venue": "Seattle",
+      "broadcast": "TV4",
+      "group": "Grupp G"
+    },
+    {
+      "date": "27 juni",
+      "time": "23:00",
+      "home": "Panama",
+      "away": "England",
+      "venue": "New Jersey",
+      "broadcast": "SVT",
+      "group": "Grupp L"
+    },
+    {
+      "date": "27 juni",
+      "time": "23:00",
+      "home": "Kroatien",
+      "away": "Ghana",
+      "venue": "Philadelphia",
+      "broadcast": "SVT",
+      "group": "Grupp L"
+    },
+    {
+      "date": "28 juni",
+      "time": "01:30",
+      "home": "Intercontinental Play-off 1",
+      "away": "Uzbekistan",
+      "venue": "Atlanta",
+      "broadcast": "TV4",
+      "group": "Grupp K"
+    },
+    {
+      "date": "28 juni",
+      "time": "01:30",
+      "home": "Colombia",
+      "away": "Portugal",
+      "venue": "Miami",
+      "broadcast": "TV4",
+      "group": "Grupp K"
+    },
+    {
+      "date": "28 juni",
+      "time": "04:00",
+      "home": "Algeriet",
+      "away": "Österrike",
+      "venue": "Kansas City",
+      "broadcast": "TV4",
+      "group": "Grupp J"
+    },
+    {
+      "date": "28 juni",
+      "time": "04:00",
+      "home": "Jordanien",
+      "away": "Argentina",
+      "venue": "Dallas",
+      "broadcast": "TV4",
+      "group": "Grupp J"
+    }
+  ],
+  "lastUpdated": "2026-03-01T02:32:09.050Z",
+  "source": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures?country=SE&wtw-filter=ALL"
 }
