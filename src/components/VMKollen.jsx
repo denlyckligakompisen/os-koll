@@ -55,6 +55,12 @@ const getFlagCode = (name) => {
     if (name.includes('Kroatien')) return 'HR';
     if (name.includes('Ghana')) return 'GH';
     if (name.includes('Panama')) return 'PA';
+    if (name.includes('Peru')) return 'PE';
+    if (name.includes('Kamerun')) return 'CM';
+    if (name.includes('Georgien')) return 'GE';
+    if (name.includes('Grekland')) return 'GR';
+    if (name.includes('Wales')) return 'GB-WLS';
+    if (name.includes('Island')) return 'IS';
     return 'UN'; // Unknown
 };
 
@@ -65,9 +71,12 @@ const getFlagCodes = (name) => {
 
 // Bolds "Sverige" within any string
 const BoldSverige = ({ text }) => {
-    if (!text?.includes('Sverige')) return text;
-    const [before, after] = text.split('Sverige');
-    return <>{before}<span style={{ color: '#000' }}>Sverige</span>{after}</>;
+    if (!text) return null;
+    let label = text;
+
+    if (!label.includes('Sverige')) return label;
+    const [before, after] = label.split('Sverige');
+    return <>{before}<span style={{ color: '#000', fontWeight: '700' }}>Sverige</span>{after}</>;
 };
 
 const Countdown = () => {
@@ -254,6 +263,23 @@ const VMKollen = () => {
         return card;
     };
 
+    const getQualifiedThirds = () => {
+        if (!groupsData?.groups) return [];
+
+        const thirdPlacedTeams = groupsData.groups.map(group => {
+            const sorted = [...group.teams].map(t => typeof t === 'string' ? { name: t, played: 0, gd: 0, pts: 0 } : t)
+                .sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+            return sorted[2]; // Index 2 is rank 3
+        });
+
+        return thirdPlacedTeams
+            .sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'))
+            .slice(0, 8)
+            .map(t => t.name);
+    };
+
+    const qualifiedThirds = getQualifiedThirds();
+
     const renderTable = (groupName, teams, displayName) => {
         const sortedTeams = [...teams].sort((a, b) => {
             const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
@@ -270,8 +296,8 @@ const VMKollen = () => {
                     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                         <thead>
                             <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
-                                {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
-                                    <th key={col} style={{
+                                {['', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
+                                    <th key={i} style={{
                                         textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center',
                                         padding: '8px 4px',
                                         color: 'var(--color-text-muted)',
@@ -284,9 +310,28 @@ const VMKollen = () => {
                             {sortedTeams.map((teamData, idx) => {
                                 const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
                                 const flagCodes = getFlagCodes(team.name);
+                                const rank = idx + 1;
+                                const isSverige = team.name.includes('Sverige');
+                                const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
+
                                 return (
                                     <tr key={team.name}>
-                                        <td style={{ padding: '11px 4px', fontWeight: '500' }}>{idx + 1}</td>
+                                        <td style={{ padding: '8px 4px' }}>
+                                            <div style={{
+                                                width: '28px',
+                                                height: '28px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius: '8px',
+                                                fontWeight: '700',
+                                                fontSize: '0.85rem',
+                                                backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent',
+                                                color: (rank <= 2 || isQualifiedThird) ? '#248a3d' : 'inherit'
+                                            }}>
+                                                {rank}
+                                            </div>
+                                        </td>
                                         <td style={{ padding: '11px 4px' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
@@ -312,7 +357,7 @@ const VMKollen = () => {
                                                         ) : null
                                                     ))}
                                                 </div>
-                                                <span style={{ fontWeight: '400' }}>
+                                                <span style={{ fontWeight: isSverige ? '600' : '400' }}>
                                                     <BoldSverige text={team.name} />
                                                 </span>
                                             </div>
@@ -367,46 +412,56 @@ const VMKollen = () => {
         );
     };
 
-    const renderPlayoff = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
-                    26 mars
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {data.rounds[0].matches.map((match, i) => renderMatchCard(match, `p0-${i}`))}
-                </div>
+    const renderPlayoff = () => {
+        if (!data?.rounds) return null;
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {data.rounds.map((round, rIdx) => (
+                    <div key={rIdx} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
+                            {(round.date || round.name).replace(/\s*202\d/, '')}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {round.matches.map((match, i) => renderMatchCard(match, `p${rIdx}-${i}`))}
+                        </div>
+                        {rIdx < data.rounds.length - 1 && (
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                margin: '8px 0',
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.4
+                            }}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                                </svg>
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
-
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '0',
-                color: 'var(--color-text-muted)',
-                opacity: 0.4
-            }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                </svg>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
-                    31 mars
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {data.rounds[1].matches.map((match, i) => renderMatchCard(match, `p1-${i}`))}
-                </div>
-            </div>
-        </div>
-    );
+        );
+    };
 
     const renderSubTab = () => {
         switch (activeTab) {
             case 'matcher':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {renderPlayoff()}
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            margin: '0',
+                            color: 'var(--color-text-muted)',
+                            opacity: 0.4
+                        }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                            </svg>
+                        </div>
                         <Countdown />
                         {renderAllMatches()}
                     </div>
@@ -423,14 +478,9 @@ const VMKollen = () => {
                 );
             case 'slutspel':
                 return (
-                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                        <div style={{ padding: '0 4px', fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500', textAlign: 'center', marginBottom: '8px' }}>
-                            Vägen till VM: Slutspel i kvalet
-                        </div>
-                        {renderPlayoff()}
-                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)', opacity: 0.8 }}>
-                            <div style={{ fontSize: '1.2rem', fontWeight: '800', color: '#000', marginBottom: '8px' }}>VM-Slutspelet</div>
-                            Formatet utökas till 48 lag med ett helt nytt 32-delssteg. Brackets publiceras när gruppspelet är avgjort.
+                    <div className="animate-fade-in">
+                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                            Kommer snart
                         </Card>
                     </div>
                 );
