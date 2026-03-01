@@ -67,12 +67,12 @@ const getFlagCodes = (name) => {
 const BoldSverige = ({ text }) => {
     if (!text?.includes('Sverige')) return text;
     const [before, after] = text.split('Sverige');
-    return <>{before}<span style={{ fontWeight: '800', color: 'var(--color-primary)' }}>Sverige</span>{after}</>;
+    return <>{before}<span style={{ fontWeight: '800', color: '#000' }}>Sverige</span>{after}</>;
 };
 
 const Countdown = () => {
     const getTimeLeft = () => {
-        const diff = new Date('2026-06-11T00:00:00') - new Date();
+        const diff = new Date('2026-06-11T21:00:00') - new Date();
         if (diff <= 0) return null;
         return { days: Math.floor(diff / (1000 * 60 * 60 * 24)) };
     };
@@ -88,9 +88,7 @@ const Countdown = () => {
 
     return (
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }} animate={false}>
-            <h2 style={{ margin: '0', fontSize: '0.9rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', textAlign: 'center' }}>
-                Fotbolls-VM 2026
-            </h2>
+
             <img
                 src={getTeamLogo('FIFA World Cup')}
                 alt="FIFA World Cup 2026"
@@ -108,73 +106,7 @@ const Countdown = () => {
     );
 };
 
-const NextMatchCard = ({ match, date }) => {
-    const isClickable = !!match.link;
 
-    const content = (
-        <div className={isClickable ? "premium-card-hover" : ""} style={{
-            background: '#ffffff',
-            borderRadius: '24px',
-            padding: '24px',
-            color: 'black',
-            marginBottom: '24px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-            position: 'relative',
-            overflow: 'hidden',
-            border: 'var(--border)'
-        }}>
-
-            <div style={{ position: 'relative', zIndex: 1 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                    {[match.home, match.away].map(team => (
-                        <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-                                {getFlagCodes(team).map((code, idx) => (
-                                    <img
-                                        key={`${team}-${idx}`}
-                                        src={flagUrl(code)}
-                                        alt={team}
-                                        style={{
-                                            height: '100%',
-                                            width: 'auto',
-                                            maxHeight: '48px',
-                                            objectFit: 'contain',
-                                            borderRadius: '50%',
-                                            filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))'
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                            <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
-                        </div>
-                    ))}
-                </div>
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
-                        {date} {match.time}
-                    </div>
-                </div>
-
-                {isClickable && (
-                    <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid rgba(0,0,0,0.1)', textAlign: 'center' }}>
-                        <span style={{ fontSize: '0.85rem', color: 'black', fontWeight: '500', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                            Se matchen på <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Viaplay_logo.png" alt="Viaplay" style={{ height: '16px', width: 'auto', display: 'inline-block', verticalAlign: 'middle' }} /> →
-                        </span>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-
-    if (isClickable) {
-        return (
-            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                {content}
-            </a>
-        );
-    }
-    return content;
-};
 
 const GROUP_TEAMS = [
     'Albanien/Polen/Ukraina/Sverige',
@@ -184,7 +116,6 @@ const GROUP_TEAMS = [
 ];
 
 const SUBTABS = [
-    { id: 'sverige', label: 'Sverige' },
     { id: 'matcher', label: 'Matcher' },
     { id: 'gruppspel', label: 'Grupper' },
     { id: 'statistik', label: 'Statistik' }
@@ -194,7 +125,7 @@ const VMKollen = () => {
     const [data, setData] = useState(null);
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
-    const [activeTab, setActiveTab] = useState('sverige');
+    const [activeTab, setActiveTab] = useState('matcher');
 
     useEffect(() => {
         fetch('/data/vm_playoff.json')
@@ -219,65 +150,108 @@ const VMKollen = () => {
         const homeFlags = getFlagCodes(match.home);
         const awayFlags = getFlagCodes(match.away);
 
-        const renderFlags = (codes, name) => (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                {codes.map((code, fIdx) => (
-                    code !== 'UN' ? (
-                        <img key={fIdx} src={flagUrl(code)} alt={name} width={18} height={18} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
-                    ) : codes.length === 1 ? (
-                        <div key={fIdx} style={{ width: '18px', height: '18px', borderRadius: '50%', border: '1px solid var(--border)', backgroundColor: 'transparent', flexShrink: 0 }} />
-                    ) : null
-                ))}
+        const renderBadge = (codes, name) => (
+            <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(0,0,0,0.05)',
+                flexShrink: 0
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
+                    {codes.map((code, fIdx) => (
+                        code !== 'UN' ? (
+                            <img key={fIdx} src={flagUrl(code)} alt={name} width={codes.length > 1 ? 14 : 22} height={codes.length > 1 ? 14 : 22} style={{ borderRadius: '50%', objectFit: 'cover' }} />
+                        ) : codes.length === 1 ? (
+                            <div key={fIdx} style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid var(--border)', backgroundColor: 'transparent' }} />
+                        ) : null
+                    ))}
+                </div>
             </div>
         );
 
-        return (
-            <Card key={mIdx} padding="12px 16px" animate={false} style={{
+        const card = (
+            <Card key={mIdx} padding="12px 14px" animate={false} style={{
                 border: 'var(--border)',
                 boxShadow: 'none',
-                backgroundColor: 'rgba(255,255,255,0.5)'
+                backgroundColor: 'rgba(255,255,255,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
             }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
-                                {match.time}
-                            </div>
-                            <div style={{ textAlign: 'right' }}>
-                                {match.broadcast === 'SVT' ? (
-                                    <img
-                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
-                                        alt="SVT Play"
-                                        style={{ height: '11px', width: 'auto' }}
-                                    />
-                                ) : match.broadcast === 'TV4' ? (
-                                    <img
-                                        src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
-                                        alt="TV4 Play"
-                                        style={{ height: '14px', width: 'auto' }}
-                                    />
-                                ) : null}
-                            </div>
-                        </div>
-                        <div style={{ fontSize: '0.9rem', fontWeight: '600', color: '#000', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: '0' }}>
-                                {renderFlags(homeFlags, match.home)}
-                                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                    <BoldSverige text={match.home} />
-                                </span>
-                            </div>
-                            <span style={{ color: 'var(--color-text-muted)', fontWeight: '400' }}>–</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: '0' }}>
-                                {renderFlags(awayFlags, match.away)}
-                                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                    <BoldSverige text={match.away} />
-                                </span>
-                            </div>
+                {renderBadge(homeFlags, match.home)}
+
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', height: '14px' }}>
+                        <div>
+                            {match.broadcast === 'SVT' ? (
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
+                                    alt="SVT Play"
+                                    style={{ height: '10px', width: 'auto' }}
+                                />
+                            ) : match.broadcast === 'TV4' ? (
+                                <img
+                                    src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
+                                    alt="TV4 Play"
+                                    style={{ height: '14px', width: 'auto' }}
+                                />
+                            ) : match.broadcast?.includes('Viaplay') ? (
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Viaplay_logo.png"
+                                    alt="Viaplay"
+                                    style={{ height: '13px', width: 'auto' }}
+                                />
+                            ) : null}
                         </div>
                     </div>
+                    <div style={{
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        color: '#000',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        textAlign: 'center'
+                    }}>
+                        <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            <BoldSverige text={match.home} />
+                        </span>
+                        <span style={{
+                            fontSize: '0.7rem',
+                            color: 'var(--color-text-muted)',
+                            fontWeight: '800',
+                            flexShrink: 0,
+                            backgroundColor: 'rgba(0,0,0,0.05)',
+                            padding: '2px 6px',
+                            borderRadius: '4px'
+                        }}>
+                            {match.time}
+                        </span>
+                        <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            <BoldSverige text={match.away} />
+                        </span>
+                    </div>
                 </div>
+
+                {renderBadge(awayFlags, match.away)}
             </Card>
         );
+
+        if (match.link) {
+            return (
+                <a key={mIdx} href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
+                    {card}
+                </a>
+            );
+        }
+        return card;
     };
 
     const renderTable = (groupName, teams, displayName) => {
@@ -387,16 +361,21 @@ const VMKollen = () => {
     };
 
     const renderPlayoff = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {data.rounds[0].matches.map(match => (
-                <NextMatchCard key={match.id} match={match} date="26 mars" />
-            ))}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
+                    26 mars
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {data.rounds[0].matches.map((match, i) => renderMatchCard(match, `p0-${i}`))}
+                </div>
+            </div>
 
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                margin: '-8px 0 16px 0',
+                margin: '0',
                 color: 'var(--color-text-muted)',
                 opacity: 0.4
             }}>
@@ -405,23 +384,28 @@ const VMKollen = () => {
                 </svg>
             </div>
 
-            {data.rounds[1].matches.map(match => (
-                <NextMatchCard key={match.id} match={match} date="31 mars" />
-            ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#000', textTransform: 'uppercase', letterSpacing: '0.05em', paddingLeft: '4px' }}>
+                    31 mars
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {data.rounds[1].matches.map((match, i) => renderMatchCard(match, `p1-${i}`))}
+                </div>
+            </div>
         </div>
     );
 
     const renderSubTab = () => {
         switch (activeTab) {
-            case 'sverige':
+            case 'matcher':
                 return (
-                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                         {renderPlayoff()}
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            margin: '-8px 0 16px 0',
+                            margin: '0',
                             color: 'var(--color-text-muted)',
                             opacity: 0.4
                         }}>
@@ -430,10 +414,9 @@ const VMKollen = () => {
                             </svg>
                         </div>
                         <Countdown />
-                    </div >
+                        {renderAllMatches()}
+                    </div>
                 );
-            case 'matcher':
-                return renderAllMatches();
             case 'gruppspel':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
