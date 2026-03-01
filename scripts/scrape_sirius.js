@@ -48,12 +48,30 @@ function updateStaticData() {
             "competition": "Svenska Cupen - Grupp 8"
         },
         {
+            "id": 4,
+            "date": "2026-02-22",
+            "time": "15:00",
+            "home": "IF Elfsborg",
+            "away": "Helsingborgs IF",
+            "result": "4–0",
+            "competition": "Svenska Cupen - Grupp 8"
+        },
+        {
+            "id": 5,
+            "date": "2026-02-28",
+            "time": "15:00",
+            "home": "GIF Sundsvall",
+            "away": "IF Elfsborg",
+            "result": "0–1",
+            "competition": "Svenska Cupen - Grupp 8"
+        },
+        {
             "id": 2,
             "date": "2026-03-01",
             "time": "17:00",
             "home": "IK Sirius",
             "away": "Helsingborgs IF",
-            "result": null,
+            "result": "4–1",
             "competition": "Svenska Cupen - Grupp 8"
         },
         {
@@ -68,10 +86,10 @@ function updateStaticData() {
     ];
 
     const currentStandings = [
-        { "rank": 1, "team": "IK Sirius", "p": 1, "w": 1, "d": 0, "l": 0, "gf": 6, "ga": 0, "gd": 6, "pts": 3 },
-        { "rank": 2, "team": "IF Elfsborg", "p": 1, "w": 1, "d": 0, "l": 0, "gf": 4, "ga": 0, "gd": 4, "pts": 3 },
-        { "rank": 3, "team": "Helsingborgs IF", "p": 1, "w": 0, "d": 0, "l": 1, "gf": 0, "ga": 4, "gd": -4, "pts": 0 },
-        { "rank": 4, "team": "GIF Sundsvall", "p": 1, "w": 0, "d": 0, "l": 1, "gf": 0, "ga": 6, "gd": -6, "pts": 0 }
+        { "rank": 1, "team": "IK Sirius", "p": 2, "w": 2, "d": 0, "l": 0, "gf": 10, "ga": 1, "gd": 9, "pts": 6 },
+        { "rank": 2, "team": "IF Elfsborg", "p": 2, "w": 2, "d": 0, "l": 0, "gf": 5, "ga": 0, "gd": 5, "pts": 6 },
+        { "rank": 3, "team": "Helsingborgs IF", "p": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 8, "gd": -7, "pts": 0 },
+        { "rank": 4, "team": "GIF Sundsvall", "p": 2, "w": 0, "d": 0, "l": 2, "gf": 0, "ga": 7, "gd": -7, "pts": 0 }
     ];
 
     fs.writeFileSync(MATCHES_PATH, JSON.stringify(currentMatches, null, 2));

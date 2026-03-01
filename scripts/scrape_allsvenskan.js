@@ -56,11 +56,22 @@ async function scrapeAllsvenskan() {
         });
         // ... tabell-parsing logik (behåll placeholder om tom)
         const placeholderStandings = [
-            { rank: 1, team: "IK Sirius", p: 0, gd: 0, pts: 0 },
-            { rank: 2, team: "AIK", p: 0, gd: 0, pts: 0 },
-            { rank: 3, team: "BK Häcken", p: 0, gd: 0, pts: 0 },
+            { rank: 1, team: "AIK", p: 0, gd: 0, pts: 0 },
+            { rank: 2, team: "BK Häcken", p: 0, gd: 0, pts: 0 },
+            { rank: 3, team: "Degerfors IF", p: 0, gd: 0, pts: 0 },
             { rank: 4, team: "Djurgården", p: 0, gd: 0, pts: 0 },
-            { rank: 16, team: "Västerås SK", p: 0, gd: 0, pts: 0 }
+            { rank: 5, team: "GAIS", p: 0, gd: 0, pts: 0 },
+            { rank: 6, team: "Hammarby", p: 0, gd: 0, pts: 0 },
+            { rank: 7, team: "IF Elfsborg", p: 0, gd: 0, pts: 0 },
+            { rank: 8, team: "IFK Göteborg", p: 0, gd: 0, pts: 0 },
+            { rank: 9, team: "IFK Norrköping", p: 0, gd: 0, pts: 0 },
+            { rank: 10, team: "IFK Värnamo", p: 0, gd: 0, pts: 0 },
+            { rank: 11, team: "IK Sirius", p: 0, gd: 0, pts: 0 },
+            { rank: 12, team: "Landskrona BoIS", p: 0, gd: 0, pts: 0 },
+            { rank: 13, text: "Malmö FF", team: "Malmö FF", p: 0, gd: 0, pts: 0 },
+            { rank: 14, team: "Mjällby AIF", p: 0, gd: 0, pts: 0 },
+            { rank: 15, team: "Västerås SK", p: 0, gd: 0, pts: 0 },
+            { rank: 16, team: "Halmstads BK", p: 0, gd: 0, pts: 0 }
         ];
         fs.writeFileSync(TABLE_PATH, JSON.stringify(placeholderStandings, null, 2));
 

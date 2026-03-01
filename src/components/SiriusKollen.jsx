@@ -47,10 +47,18 @@ const SiriusKollen = () => {
 
     const nextMatch = matches.find(m => !m.result);
 
-    const displayedTeams = activeComp === 'allsvenskan'
-        ? standings.filter(t => t.rank <= 3 || t.team === 'IK Sirius')
-        : standings;
+    let displayedTeams = standings;
+    if (activeComp === 'allsvenskan') {
+        let processedStandings = [...standings];
+        const hasStarted = processedStandings.some(t => t.p > 0);
 
+        if (!hasStarted) {
+            processedStandings.sort((a, b) => a.team.localeCompare(b.team, 'sv'));
+            processedStandings = processedStandings.map((t, idx) => ({ ...t, rank: idx + 1 }));
+        }
+
+        displayedTeams = processedStandings.filter(t => t.rank <= 3 || t.team === 'IK Sirius');
+    }
     return (
         <div className="animate-fade-in" style={{ padding: '0 10px' }}>
             <PageHeader
@@ -157,7 +165,22 @@ const SiriusKollen = () => {
                                     const siriusStyle = isSirius ? { backgroundColor: 'rgba(0,51,153,0.06)' } : {};
                                     return (
                                         <tr key={team.team}>
-                                            <td style={{ padding: '11px 4px', fontWeight: '500', ...siriusStyle, borderRadius: isSirius ? '10px 0 0 10px' : undefined }}>{team.rank}</td>
+                                            <td style={{ padding: '8px 4px', fontWeight: '500', ...siriusStyle, borderRadius: isSirius ? '10px 0 0 10px' : undefined }}>
+                                                <div style={{
+                                                    width: '28px',
+                                                    height: '28px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    borderRadius: '8px',
+                                                    fontWeight: '700',
+                                                    fontSize: '0.85rem',
+                                                    backgroundColor: (activeComp === 'cup' && idx === 0) ? 'rgba(52, 199, 89, 0.15)' : 'transparent',
+                                                    color: (activeComp === 'cup' && idx === 0) ? '#108030' : 'inherit'
+                                                }}>
+                                                    {team.rank}
+                                                </div>
+                                            </td>
                                             <td style={{ padding: '11px 4px', ...siriusStyle }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                     <img src={getTeamLogo(team.team)} alt={team.team} style={{ width: '20px', height: '20px', objectFit: 'contain' }} />

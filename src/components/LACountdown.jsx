@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './common/Card';
 
-const TARGET_DATE = '2028-07-14T20:00:00';
+const TARGET_DATE = '2028-07-14T00:00:00';
 
 const OlympicsCountdown = () => {
     const getDaysLeft = () => Math.max(0, Math.ceil((new Date(TARGET_DATE) - new Date()) / (1000 * 60 * 60 * 24)));
