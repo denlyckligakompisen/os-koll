@@ -493,8 +493,42 @@ const VMKollen = () => {
         }
     };
 
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    // Minimum distance for a swipe to be recognized
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe || isRightSwipe) {
+            const currentIndex = SUBTABS.findIndex(tab => tab.id === activeTab);
+            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
+                setActiveTab(SUBTABS[currentIndex + 1].id);
+            } else if (isRightSwipe && currentIndex > 0) {
+                setActiveTab(SUBTABS[currentIndex - 1].id);
+            }
+        }
+    };
+
     return (
-        <div style={{ padding: '0 10px' }}>
+        <div
+            style={{ padding: '0 10px' }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+        >
             <PageHeader
                 title={data.tournament}
                 logoSrc={getTeamLogo('FIFA World Cup')}

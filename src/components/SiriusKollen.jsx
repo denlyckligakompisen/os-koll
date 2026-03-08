@@ -88,8 +88,40 @@ const SiriusKollen = () => {
 
         displayedTeams = processedStandings.filter(t => t.rank <= 3 || t.team === 'IK Sirius');
     }
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    // Minimum distance for a swipe to be recognized
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe && activeComp === 'allsvenskan') {
+            setActiveComp('cup');
+        } else if (isRightSwipe && activeComp === 'cup') {
+            setActiveComp('allsvenskan');
+        }
+    };
+
     return (
-        <div className="animate-fade-in" style={{ padding: '0 10px' }}>
+        <div
+            className="animate-fade-in"
+            style={{ padding: '0 10px' }}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+        >
             <PageHeader
                 title="Sirius-kollen"
                 logoSrc={getTeamLogo('IK Sirius')}
