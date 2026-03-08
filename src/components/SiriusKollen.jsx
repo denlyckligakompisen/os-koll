@@ -54,7 +54,28 @@ const SiriusKollen = () => {
         }).catch(err => console.error('Error fetching Sirius data:', err));
     }, [activeComp]);
 
-    const nextMatch = matches.find(m => !m.result);
+    const isCup = activeComp === 'cup';
+    let nextMatch = matches.find(m => !m.result);
+
+    // If Cup mode, and we are at the end of group stage, show Quarter-final placeholder
+    if (isCup) {
+        const today = new Date();
+        const kvartsfinalDate = new Date('2026-03-15');
+
+        // If no upcoming matches found or the next match found is a past group stage match, 
+        // fallback to the quarter-final placeholder
+        if (!nextMatch || nextMatch.competition.includes('Grp')) {
+            if (today < kvartsfinalDate) {
+                nextMatch = {
+                    home: 'IK Sirius',
+                    away: 'Ej lottat',
+                    date: '2026-03-15',
+                    time: '17:00 (Tid ej fastställd)',
+                    competition: 'Svenska Cupen - Kvartsfinal'
+                };
+            }
+        }
+    }
 
     let displayedTeams = standings;
     if (activeComp === 'allsvenskan') {
@@ -229,27 +250,26 @@ const SiriusKollen = () => {
                 {/* Cup Playoff & Europa Card */}
                 {activeComp === 'cup' && (
                     <>
-                        {/* Playoff Tree / Seeding */}
-                        {playoffs && (
+                        {/* --- Temporarily hidden --- */}
+                        {/* {playoffs && ( 
                             <Card style={{ marginTop: '16px' }} padding="20px">
                                 <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                     Kvartsfinaler
                                 </h3>
-
+                                
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                    {/* Seedade (Topp 4 Gruppvinnare) */}
                                     <div>
                                         <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
                                             Hemmaplan
                                         </div>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                             {playoffs.groupWinners
-                                                ?.sort((a, b) => b.pts - a.pts || b.gd - a.gd)
+                                                ?.sort((a,b) => b.pts - a.pts || b.gd - a.gd)
                                                 .slice(0, 4)
                                                 .map(winner => (
-                                                    <div key={winner.team} style={{
-                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
-                                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem'
+                                                    <div key={winner.team} style={{ 
+                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px', 
+                                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem' 
                                                     }}>
                                                         <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
                                                         <span style={{ fontWeight: '600' }}>{winner.team}</span>
@@ -258,19 +278,18 @@ const SiriusKollen = () => {
                                         </div>
                                     </div>
 
-                                    {/* Oseedade (Övriga 4 Gruppvinnare) */}
                                     <div>
                                         <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
                                             Bortaplan
                                         </div>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                             {playoffs.groupWinners
-                                                ?.sort((a, b) => b.pts - a.pts || b.gd - a.gd)
+                                                ?.sort((a,b) => b.pts - a.pts || b.gd - a.gd)
                                                 .slice(4, 8)
                                                 .map(winner => (
-                                                    <div key={winner.team} style={{
-                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
-                                                        backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.85rem'
+                                                    <div key={winner.team} style={{ 
+                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px', 
+                                                        backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.85rem' 
                                                     }}>
                                                         <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
                                                         <span style={{ fontWeight: '600' }}>{winner.team}</span>
@@ -279,7 +298,6 @@ const SiriusKollen = () => {
                                         </div>
                                     </div>
 
-                                    {/* Matches if lottat */}
                                     {playoffs.matches && playoffs.matches.length > 0 && (
                                         <div style={{ marginTop: '10px' }}>
                                             <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
@@ -304,7 +322,7 @@ const SiriusKollen = () => {
                                     )}
                                 </div>
                             </Card>
-                        )}
+                        )} */}
 
                         <Card style={{ marginTop: '8px' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>

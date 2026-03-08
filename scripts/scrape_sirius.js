@@ -75,7 +75,8 @@ async function scrapeSirius() {
 
                     let result = null;
                     if (m.status.finished) {
-                        result = m.scoreStr ? m.scoreStr.replace(/ - /g, '–') : null;
+                        const score = m.scoreStr || m.status.scoreStr;
+                        result = score ? score.replace(/ - /g, '–') : null;
                     }
 
                     return {
@@ -122,7 +123,7 @@ async function scrapeSirius() {
                 round: m.roundName,
                 home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
                 away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
-                result: m.scoreStr ? m.scoreStr.replace(/ - /g, '–') : null,
+                result: (m.scoreStr || m.status.scoreStr) ? (m.scoreStr || m.status.scoreStr).replace(/ - /g, '–') : null,
                 date: m.status.utcTime
             })),
             lastUpdated: new Date().toISOString()
