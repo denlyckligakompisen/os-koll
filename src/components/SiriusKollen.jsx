@@ -188,8 +188,8 @@ const SiriusKollen = () => {
                     </Card>
                 )}
 
-                {/* Standings Table */}
-                {standings.length > 0 && (
+                {/* Standings Table (Only for Allsvenskan) */}
+                {activeComp === 'allsvenskan' && standings.length > 0 && (
                     <Card style={{ marginBottom: '16px' }}>
                         <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                             <thead>
@@ -278,7 +278,7 @@ const SiriusKollen = () => {
                                         backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem'
                                     }}>
                                         <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
-                                        <span style={{ fontWeight: winner.team === 'IK Sirius' ? '800' : '600' }}>{winner.team}</span>
+                                        <span style={{ fontWeight: '500' }}>{winner.team}</span>
                                     </div>
                                 ))}
                         </div>
