@@ -156,6 +156,36 @@ const VMKollen = () => {
             .catch(console.error);
     }, []);
 
+    // Minimum distance for a swipe to be recognized
+    const minSwipeDistance = 30;
+
+    const onTouchStart = (e) => {
+        if (!e.touches[0]) return;
+        setTouchEnd(null);
+        setTouchStart(e.touches[0].clientX);
+    };
+
+    const onTouchMove = (e) => {
+        if (!e.touches[0]) return;
+        setTouchEnd(e.touches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe || isRightSwipe) {
+            const currentIndex = SUBTABS.findIndex(tab => tab.id === activeTab);
+            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
+                setActiveTab(SUBTABS[currentIndex + 1].id);
+            } else if (isRightSwipe && currentIndex > 0) {
+                setActiveTab(SUBTABS[currentIndex - 1].id);
+            }
+        }
+    };
+
     if (!data) return null;
 
     const renderMatchCard = (match, mIdx) => {
@@ -495,34 +525,14 @@ const VMKollen = () => {
         }
     };
 
-    const minSwipeDistance = 50;
-
-    const onTouchStart = (e) => {
-        setTouchEnd(null);
-        setTouchStart(e.targetTouches[0].clientX);
-    };
-
-    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
-
-    const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isLeftSwipe || isRightSwipe) {
-            const currentIndex = SUBTABS.findIndex(tab => tab.id === activeTab);
-            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
-                setActiveTab(SUBTABS[currentIndex + 1].id);
-            } else if (isRightSwipe && currentIndex > 0) {
-                setActiveTab(SUBTABS[currentIndex - 1].id);
-            }
-        }
-    };
-
     return (
         <div
-            style={{ padding: '0 10px' }}
+            style={{
+                padding: '0 10px',
+                minHeight: 'calc(100vh - 120px)',
+                width: '100%',
+                touchAction: 'pan-y'
+            }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}

@@ -7,6 +7,7 @@ import Card from './common/Card';
 const COMPETITION_TABS = [
     { id: 'allsvenskan', label: 'Allsvenskan' },
     { id: 'cup', label: 'Svenska Cupen' },
+    { id: 'statistik', label: 'Statistik' },
 ];
 
 const CUP_SCHEDULE = [
@@ -94,11 +95,15 @@ const SiriusKollen = () => {
     const minSwipeDistance = 50;
 
     const onTouchStart = (e) => {
+        if (!e.touches[0]) return;
         setTouchEnd(null);
-        setTouchStart(e.targetTouches[0].clientX);
+        setTouchStart(e.touches[0].clientX);
     };
 
-    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+    const onTouchMove = (e) => {
+        if (!e.touches[0]) return;
+        setTouchEnd(e.touches[0].clientX);
+    };
 
     const onTouchEnd = () => {
         if (!touchStart || !touchEnd) return;
@@ -106,17 +111,20 @@ const SiriusKollen = () => {
         const isLeftSwipe = distance > minSwipeDistance;
         const isRightSwipe = distance < -minSwipeDistance;
 
-        if (isLeftSwipe && activeComp === 'allsvenskan') {
-            setActiveComp('cup');
-        } else if (isRightSwipe && activeComp === 'cup') {
-            setActiveComp('allsvenskan');
+        if (isLeftSwipe || isRightSwipe) {
+            const currentIndex = COMPETITION_TABS.findIndex(tab => tab.id === activeComp);
+            if (isLeftSwipe && currentIndex < COMPETITION_TABS.length - 1) {
+                setActiveComp(COMPETITION_TABS[currentIndex + 1].id);
+            } else if (isRightSwipe && currentIndex > 0) {
+                setActiveComp(COMPETITION_TABS[currentIndex - 1].id);
+            }
         }
     };
 
     return (
         <div
             className="animate-fade-in"
-            style={{ padding: '0 10px' }}
+            style={{ padding: '0 10px', minHeight: 'calc(100vh - 120px)', touchAction: 'pan-y' }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -337,6 +345,13 @@ const SiriusKollen = () => {
                             </div>
                         </Card>
                     </>
+                )}
+                {activeComp === 'statistik' && (
+                    <div className="animate-fade-in">
+                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                            Kommer snart
+                        </Card>
+                    </div>
                 )}
             </div>
         </div>
