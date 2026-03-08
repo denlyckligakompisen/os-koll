@@ -218,7 +218,10 @@ const SiriusKollen = () => {
 
                 {/* Standings Table (Only for Allsvenskan) */}
                 {activeComp === 'allsvenskan' && standings.length > 0 && (
-                    <Card style={{ marginBottom: '16px' }}>
+                    <Card style={{ marginBottom: '16px' }} padding="24px">
+                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>
+                            Allsvenskan
+                        </div>
                         <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                             <thead>
                                 <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
