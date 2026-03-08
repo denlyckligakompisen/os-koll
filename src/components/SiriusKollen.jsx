@@ -57,22 +57,37 @@ const SiriusKollen = () => {
     const isCup = activeComp === 'cup';
     let nextMatch = matches.find(m => !m.result);
 
-    // If Cup mode, and we are at the end of group stage, show Quarter-final placeholder
+    // If Cup mode, check for drawn playoff matches or show placeholder
     if (isCup) {
-        const today = new Date();
-        const kvartsfinalDate = new Date('2026-03-15');
+        // First priority: A drawn playoff match from cup_playoffs.json
+        const drawnPlayoffMatch = playoffs?.matches?.find(m =>
+            (m.home === 'IK Sirius' || m.away === 'IK Sirius') && !m.result
+        );
 
-        // If no upcoming matches found or the next match found is a past group stage match, 
-        // fallback to the quarter-final placeholder
-        if (!nextMatch || nextMatch.competition.includes('Grp')) {
-            if (today < kvartsfinalDate) {
-                nextMatch = {
-                    home: 'IK Sirius',
-                    away: 'Ej lottat',
-                    date: '2026-03-15',
-                    time: '17:00 (Tid ej fastställd)',
-                    competition: 'Svenska Cupen - Kvartsfinal'
-                };
+        if (drawnPlayoffMatch) {
+            const dateObj = new Date(drawnPlayoffMatch.date);
+            nextMatch = {
+                home: drawnPlayoffMatch.home,
+                away: drawnPlayoffMatch.away,
+                date: dateObj.toISOString().split('T')[0],
+                time: dateObj.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }),
+                competition: `Svenska Cupen - ${drawnPlayoffMatch.round || 'Slutspel'}`
+            };
+        } else {
+            const today = new Date();
+            const kvartsfinalDate = new Date('2026-03-15');
+
+            // If no upcoming drawn matches and group stage matches are finished, show placeholder
+            if (!nextMatch || nextMatch.competition.includes('Grp')) {
+                if (today < kvartsfinalDate) {
+                    nextMatch = {
+                        home: 'IK Sirius',
+                        away: 'Ej lottat',
+                        date: '2026-03-15',
+                        time: '17:00 (Tid ej fastställd)',
+                        competition: 'Svenska Cupen - Kvartsfinal'
+                    };
+                }
             }
         }
     }
