@@ -82,7 +82,7 @@ const SiriusKollen = () => {
                 if (today < kvartsfinalDate) {
                     nextMatch = {
                         home: 'IK Sirius',
-                        away: 'Ej lottat',
+                        away: '',
                         date: '2026-03-15',
                         time: '',
                         competition: 'Svenska Cupen - Kvartsfinal'
@@ -170,12 +170,16 @@ const SiriusKollen = () => {
                         }} />
                         <div style={{ position: 'relative', zIndex: 1 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                                {[nextMatch.home, nextMatch.away].map(team => (
-                                    <div key={team} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                                        <div style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
-                                            <img src={getTeamLogo(team)} alt={team} style={{ height: '100%', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.2))' }} />
-                                        </div>
-                                        <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
+                                {[nextMatch.home, nextMatch.away].map((team, i) => (
+                                    <div key={i} style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                                        {team && (
+                                            <>
+                                                <div style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
+                                                    <img src={getTeamLogo(team)} alt={team} style={{ height: '100%', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 4px 12px rgba(255,255,255,0.2))' }} />
+                                                </div>
+                                                <div style={{ fontSize: '1rem', fontWeight: '800', marginTop: '4px' }}>{team}</div>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>
