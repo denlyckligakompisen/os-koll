@@ -6,7 +6,8 @@
       "pts": 9,
       "p": 3,
       "gd": 6,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 2",
@@ -14,7 +15,8 @@
       "pts": 9,
       "p": 3,
       "gd": 11,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 3",
@@ -22,7 +24,8 @@
       "pts": 9,
       "p": 3,
       "gd": 8,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 4",
@@ -30,7 +33,8 @@
       "pts": 7,
       "p": 3,
       "gd": 6,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 5",
@@ -38,7 +42,8 @@
       "pts": 6,
       "p": 3,
       "gd": 8,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 6",
@@ -46,7 +51,8 @@
       "pts": 9,
       "p": 3,
       "gd": 6,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 7",
@@ -54,7 +60,11 @@
       "pts": 6,
       "p": 2,
       "gd": 4,
-      "isDefinite": false
+      "isDefinite": false,
+      "contenders": [
+        "AIK",
+        "Västerås SK"
+      ]
     },
     {
       "groupName": "Cup Grp. 8",
@@ -62,9 +72,10 @@
       "pts": 9,
       "p": 3,
       "gd": 10,
-      "isDefinite": true
+      "isDefinite": true,
+      "contenders": []
     }
   ],
   "matches": [],
-  "lastUpdated": "2026-03-08T21:10:04.282Z"
+  "lastUpdated": "2026-03-08T21:16:45.254Z"
 }

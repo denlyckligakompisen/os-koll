@@ -99,13 +99,27 @@ async function scrapeSirius() {
         if (data.table && data.table[0] && data.table[0].data && data.table[0].data.tables) {
             data.table[0].data.tables.forEach((group) => {
                 const winner = group.table.all[0];
+                const isDefinite = winner.played === 3; // Simplified: 3 matches is end of group stage
+
+                // If not definite, find other teams that can still win
+                const contenders = [];
+                if (!isDefinite) {
+                    group.table.all.slice(1).forEach(team => {
+                        const maxPts = team.pts + (3 - team.played) * 3;
+                        if (maxPts >= winner.pts) {
+                            contenders.push(team.shortName === 'Sirius' ? 'IK Sirius' : team.shortName);
+                        }
+                    });
+                }
+
                 groupWinners.push({
                     groupName: group.leagueName,
                     team: winner.shortName === 'Sirius' ? 'IK Sirius' : winner.shortName,
                     pts: winner.pts,
                     p: winner.played,
                     gd: winner.goalConDiff || 0,
-                    isDefinite: winner.played === 3
+                    isDefinite: isDefinite,
+                    contenders: contenders
                 });
             });
         }

@@ -279,14 +279,19 @@ const SiriusKollen = () => {
                             {playoffs.groupWinners
                                 ?.slice()
                                 .sort((a, b) => (b.pts - a.pts) || (b.gd - a.gd))
-                                .filter(w => w.isDefinite)
                                 .map(winner => (
                                     <div key={winner.team} style={{
-                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
-                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem'
+                                        display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px',
+                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem',
+                                        opacity: winner.isDefinite ? 1 : 0.8
                                     }}>
-                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
-                                        <span style={{ fontWeight: '500' }}>{winner.team}</span>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
+                                            <span style={{ fontWeight: '500' }}>{winner.team}</span>
+                                        </div>
+                                        {!winner.isDefinite && (
+                                            <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600', textTransform: 'uppercase' }}>Ej klar</span>
+                                        )}
                                     </div>
                                 ))}
                         </div>
