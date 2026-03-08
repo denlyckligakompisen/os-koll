@@ -233,7 +233,7 @@ const SiriusKollen = () => {
                         {playoffs && (
                             <Card style={{ marginTop: '16px' }} padding="20px">
                                 <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    Slutspelsträd
+                                    Kvartsfinaler
                                 </h3>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
