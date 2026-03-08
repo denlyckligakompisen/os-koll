@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
@@ -136,8 +136,8 @@ const VMKollen = () => {
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
+    const touchStart = useRef(null);
+    const touchEnd = useRef(null);
 
     useEffect(() => {
         fetch('/data/vm_playoff.json')
@@ -161,18 +161,18 @@ const VMKollen = () => {
 
     const onTouchStart = (e) => {
         if (!e.touches[0]) return;
-        setTouchEnd(null);
-        setTouchStart(e.touches[0].clientX);
+        touchEnd.current = null;
+        touchStart.current = e.touches[0].clientX;
     };
 
     const onTouchMove = (e) => {
         if (!e.touches[0]) return;
-        setTouchEnd(e.touches[0].clientX);
+        touchEnd.current = e.touches[0].clientX;
     };
 
     const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
+        if (touchStart.current === null || touchEnd.current === null) return;
+        const distance = touchStart.current - touchEnd.current;
         const isLeftSwipe = distance > minSwipeDistance;
         const isRightSwipe = distance < -minSwipeDistance;
 
@@ -452,20 +452,6 @@ const VMKollen = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {round.matches.map((match, i) => renderMatchCard(match, `p${rIdx}-${i}`))}
                         </div>
-                        {rIdx < data.rounds.length - 1 && (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                margin: '8px 0',
-                                color: 'var(--color-text-muted)',
-                                opacity: 0.4
-                            }}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                                </svg>
-                            </div>
-                        )}
                     </div>
                 ))}
             </div>
@@ -478,18 +464,6 @@ const VMKollen = () => {
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {renderPlayoff()}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            margin: '0',
-                            color: 'var(--color-text-muted)',
-                            opacity: 0.4
-                        }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                            </svg>
-                        </div>
                         <Countdown />
                         {renderAllMatches()}
                     </div>

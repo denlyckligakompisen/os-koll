@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getTeamLogo } from '../utils/assets';
 import { formatMatchDisplayDate } from '../utils/dateUtils';
 import PageHeader from './common/PageHeader';
@@ -33,8 +33,8 @@ const SiriusKollen = () => {
     const [standings, setStandings] = useState([]);
     const [playoffs, setPlayoffs] = useState(null);
     const [activeComp, setActiveComp] = useState('allsvenskan');
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
+    const touchStart = useRef(null);
+    const touchEnd = useRef(null);
 
     useEffect(() => {
         const matchesFile = activeComp === 'cup' ? '/data/sirius_matches.json' : '/data/allsvenskan_matches.json';
@@ -96,18 +96,18 @@ const SiriusKollen = () => {
 
     const onTouchStart = (e) => {
         if (!e.touches[0]) return;
-        setTouchEnd(null);
-        setTouchStart(e.touches[0].clientX);
+        touchEnd.current = null;
+        touchStart.current = e.touches[0].clientX;
     };
 
     const onTouchMove = (e) => {
         if (!e.touches[0]) return;
-        setTouchEnd(e.touches[0].clientX);
+        touchEnd.current = e.touches[0].clientX;
     };
 
     const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
+        if (touchStart.current === null || touchEnd.current === null) return;
+        const distance = touchStart.current - touchEnd.current;
         const isLeftSwipe = distance > minSwipeDistance;
         const isRightSwipe = distance < -minSwipeDistance;
 
