@@ -32,6 +32,8 @@ const SiriusKollen = () => {
     const [standings, setStandings] = useState([]);
     const [playoffs, setPlayoffs] = useState(null);
     const [activeComp, setActiveComp] = useState('allsvenskan');
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
     useEffect(() => {
         const matchesFile = activeComp === 'cup' ? '/data/sirius_matches.json' : '/data/allsvenskan_matches.json';
@@ -88,9 +90,6 @@ const SiriusKollen = () => {
 
         displayedTeams = processedStandings.filter(t => t.rank <= 3 || t.team === 'IK Sirius');
     }
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
-
     // Minimum distance for a swipe to be recognized
     const minSwipeDistance = 50;
 

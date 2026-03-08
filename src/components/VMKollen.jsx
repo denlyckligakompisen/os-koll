@@ -136,6 +136,8 @@ const VMKollen = () => {
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
     useEffect(() => {
         fetch('/data/vm_playoff.json')
@@ -493,10 +495,6 @@ const VMKollen = () => {
         }
     };
 
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
-
-    // Minimum distance for a swipe to be recognized
     const minSwipeDistance = 50;
 
     const onTouchStart = (e) => {
