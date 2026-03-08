@@ -203,9 +203,9 @@ const VMKollen = () => {
                                 />
                             ) : match.broadcast === 'TV4' ? (
                                 <img
-                                    src="https://www.koping.net/images/Galleri/TV4-Play_Logotype_RGB_Red.png"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TV4_Play_logo_2023.svg/1200px-TV4_Play_logo_2023.svg.png"
                                     alt="TV4 Play"
-                                    style={{ height: '14px', width: 'auto' }}
+                                    style={{ height: '11px', width: 'auto' }}
                                 />
                             ) : match.broadcast?.includes('Viaplay') ? (
                                 <img
