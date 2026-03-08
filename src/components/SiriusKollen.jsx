@@ -175,7 +175,7 @@ const SiriusKollen = () => {
 
             <div key={activeComp} className="animate-fade-in">
                 {/* Next Match Card */}
-                {nextMatch && (
+                {nextMatch && activeComp !== 'statistik' && (
                     <Card style={{
                         background: 'linear-gradient(135deg, #003399 0%, #000000 100%)',
                         color: 'white',
@@ -348,8 +348,26 @@ const SiriusKollen = () => {
                 )}
                 {activeComp === 'statistik' && (
                     <div className="animate-fade-in">
-                        <Card padding="40px" style={{ textAlign: 'center', color: 'var(--color-text-muted)' }}>
-                            Kommer snart
+                        <Card style={{ marginBottom: '16px' }} padding="24px">
+                            <div style={{
+                                fontSize: '0.75rem',
+                                fontWeight: '700',
+                                color: 'var(--color-text-muted)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                                marginBottom: '16px',
+                                textAlign: 'center'
+                            }}>
+                                Spelarstatistik
+                            </div>
+                            <div style={{
+                                textAlign: 'center',
+                                color: 'var(--color-text-muted)',
+                                fontSize: '0.9rem',
+                                padding: '20px 0'
+                            }}>
+                                Kommer snart
+                            </div>
                         </Card>
                     </div>
                 )}
