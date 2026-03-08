@@ -266,7 +266,7 @@ const SiriusKollen = () => {
                 {activeComp === 'cup' && playoffs && (
                     <Card style={{ marginTop: '16px' }} padding="20px">
                         <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                            Kvartsfinaler
+                            Klara för kvartsfinal
                         </h3>
 
                         <div style={{
@@ -285,12 +285,25 @@ const SiriusKollen = () => {
                                         backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem',
                                         opacity: winner.isDefinite ? 1 : 0.8
                                     }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
-                                            <span style={{ fontWeight: '500' }}>{winner.team}</span>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
+                                                <span style={{ fontWeight: '500' }}>{winner.team}</span>
+                                            </div>
+                                            {!winner.isDefinite && winner.contenders?.length > 0 && (
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', paddingLeft: '26px' }}>
+                                                    {winner.contenders.map(c => (
+                                                        <span key={c} style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '400' }}>
+                                                            / {c}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
                                         {!winner.isDefinite && (
-                                            <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600', textTransform: 'uppercase' }}>Ej klar</span>
+                                            <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '600', textTransform: 'uppercase' }}>
+                                                Ej klar
+                                            </span>
                                         )}
                                     </div>
                                 ))}
