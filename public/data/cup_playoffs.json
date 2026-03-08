@@ -1,0 +1,70 @@
+{
+  "groupWinners": [
+    {
+      "groupName": "Cup Grp. 1",
+      "team": "Mjällby",
+      "pts": 9,
+      "p": 3,
+      "gd": 6,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 2",
+      "team": "Hammarby",
+      "pts": 9,
+      "p": 3,
+      "gd": 11,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 3",
+      "team": "GAIS",
+      "pts": 9,
+      "p": 3,
+      "gd": 8,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 4",
+      "team": "IFK Göteborg",
+      "pts": 7,
+      "p": 3,
+      "gd": 6,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 5",
+      "team": "Djurgården",
+      "pts": 6,
+      "p": 3,
+      "gd": 8,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 6",
+      "team": "Malmö FF",
+      "pts": 9,
+      "p": 3,
+      "gd": 6,
+      "isDefinite": true
+    },
+    {
+      "groupName": "Cup Grp. 7",
+      "team": "Häcken",
+      "pts": 6,
+      "p": 2,
+      "gd": 4,
+      "isDefinite": false
+    },
+    {
+      "groupName": "Cup Grp. 8",
+      "team": "IK Sirius",
+      "pts": 9,
+      "p": 3,
+      "gd": 10,
+      "isDefinite": true
+    }
+  ],
+  "matches": [],
+  "lastUpdated": "2026-03-08T20:49:30.850Z"
+}

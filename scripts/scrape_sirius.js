@@ -6,6 +6,7 @@ import path from 'path';
 const LEAGUE_ID = 171; // Svenska Cupen
 const MATCHES_PATH = path.join(process.cwd(), 'public/data/sirius_matches.json');
 const STANDINGS_PATH = path.join(process.cwd(), 'public/data/sirius_standings.json');
+const PLAYOFF_PATH = path.join(process.cwd(), 'public/data/cup_playoffs.json');
 
 const CACHE_DURATION = 60 * 60 * 1000; // 1 timme i millisekunder
 
@@ -46,6 +47,7 @@ async function scrapeSirius() {
 
         if (siriusGroup) {
             const standings = siriusGroup.table.all.map(team => ({
+                id: team.id,
                 rank: team.idx,
                 team: team.name === 'Sirius' ? 'IK Sirius' : team.name,
                 p: team.played,
@@ -73,7 +75,7 @@ async function scrapeSirius() {
 
                     let result = null;
                     if (m.status.finished) {
-                        result = m.scoreStr.replace(/ - /g, '–');
+                        result = m.scoreStr ? m.scoreStr.replace(/ - /g, '–') : null;
                     }
 
                     return {
@@ -90,6 +92,44 @@ async function scrapeSirius() {
             fs.writeFileSync(MATCHES_PATH, JSON.stringify(siriusMatches, null, 2));
             console.log('Sirius-matcher i cupen sparade.');
         }
+
+        // --- PLAYOFF EXTRACTION ---
+        const groupWinners = [];
+        if (data.table && data.table[0] && data.table[0].data && data.table[0].data.tables) {
+            data.table[0].data.tables.forEach((group) => {
+                const winner = group.table.all[0];
+                groupWinners.push({
+                    groupName: group.leagueName,
+                    team: winner.shortName === 'Sirius' ? 'IK Sirius' : winner.shortName,
+                    pts: winner.pts,
+                    p: winner.played,
+                    gd: winner.goalConDiff || 0,
+                    isDefinite: winner.played === 3
+                });
+            });
+        }
+
+        // Look for knockout matches
+        const knockoutMatches = data.fixtures?.allMatches?.filter(m =>
+            m.roundName && (typeof m.roundName === 'string') &&
+            (m.roundName.toLowerCase().includes('final') || m.roundName.toLowerCase().includes('play-off'))
+        ) || [];
+
+        const playoffData = {
+            groupWinners,
+            matches: knockoutMatches.map(m => ({
+                id: m.id,
+                round: m.roundName,
+                home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
+                away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
+                result: m.scoreStr ? m.scoreStr.replace(/ - /g, '–') : null,
+                date: m.status.utcTime
+            })),
+            lastUpdated: new Date().toISOString()
+        };
+
+        fs.writeFileSync(PLAYOFF_PATH, JSON.stringify(playoffData, null, 2));
+        console.log('Slutspels-data sparad.');
 
     } catch (error) {
         console.error('Kunde inte hämta data från FotMob:', error.message);

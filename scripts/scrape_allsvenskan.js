@@ -40,6 +40,7 @@ async function scrapeAllsvenskan() {
         if (data.table && data.table[0] && data.table[0].data && data.table[0].data.table) {
             const tableData = data.table[0].data.table.all;
             const standings = tableData.map(team => ({
+                id: team.id,
                 rank: team.idx,
                 team: team.name === 'Sirius' ? 'IK Sirius' : team.name,
                 p: team.played,

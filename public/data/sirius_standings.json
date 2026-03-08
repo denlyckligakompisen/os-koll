@@ -1,5 +1,6 @@
 [
   {
+    "id": 6694,
     "rank": 1,
     "team": "IK Sirius",
     "p": 3,
@@ -12,6 +13,7 @@
     "pts": 9
   },
   {
+    "id": 8014,
     "rank": 2,
     "team": "Elfsborg",
     "p": 3,
@@ -24,6 +26,7 @@
     "pts": 6
   },
   {
+    "id": 9859,
     "rank": 3,
     "team": "Helsingborg",
     "p": 3,
@@ -36,6 +39,7 @@
     "pts": 1
   },
   {
+    "id": 8359,
     "rank": 4,
     "team": "GIF Sundsvall",
     "p": 3,

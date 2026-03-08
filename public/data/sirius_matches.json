@@ -5,7 +5,7 @@
     "time": "18:00",
     "home": "Piteå",
     "away": "IK Sirius",
-    "result": "undefined–undefined",
+    "result": null,
     "competition": "Svenska Cupen - Cup Grp. 8"
   },
   {
@@ -14,7 +14,7 @@
     "time": "17:00",
     "home": "IK Sirius",
     "away": "GIF Sundsvall",
-    "result": "undefined–undefined",
+    "result": null,
     "competition": "Svenska Cupen - Cup Grp. 8"
   },
   {
@@ -23,7 +23,7 @@
     "time": "17:00",
     "home": "IK Sirius",
     "away": "Helsingborg",
-    "result": "undefined–undefined",
+    "result": null,
     "competition": "Svenska Cupen - Cup Grp. 8"
   },
   {
@@ -32,7 +32,7 @@
     "time": "13:00",
     "home": "Elfsborg",
     "away": "IK Sirius",
-    "result": "undefined–undefined",
+    "result": null,
     "competition": "Svenska Cupen - Cup Grp. 8"
   }
 ]

@@ -1,5 +1,6 @@
 [
   {
+    "id": 8349,
     "rank": 1,
     "team": "AIK",
     "p": 0,
@@ -12,6 +13,7 @@
     "pts": 0
   },
   {
+    "id": 8501,
     "rank": 2,
     "team": "Brommapojkarna",
     "p": 0,
@@ -24,6 +26,7 @@
     "pts": 0
   },
   {
+    "id": 6544,
     "rank": 3,
     "team": "Degerfors",
     "p": 0,
@@ -36,6 +39,7 @@
     "pts": 0
   },
   {
+    "id": 9802,
     "rank": 4,
     "team": "Djurgården",
     "p": 0,
@@ -48,6 +52,7 @@
     "pts": 0
   },
   {
+    "id": 8014,
     "rank": 5,
     "team": "Elfsborg",
     "p": 0,
@@ -60,6 +65,7 @@
     "pts": 0
   },
   {
+    "id": 8297,
     "rank": 6,
     "team": "GAIS",
     "p": 0,
@@ -72,6 +78,7 @@
     "pts": 0
   },
   {
+    "id": 8428,
     "rank": 7,
     "team": "Häcken",
     "p": 0,
@@ -84,6 +91,7 @@
     "pts": 0
   },
   {
+    "id": 8310,
     "rank": 8,
     "team": "Halmstads BK",
     "p": 0,
@@ -96,6 +104,7 @@
     "pts": 0
   },
   {
+    "id": 8248,
     "rank": 9,
     "team": "Hammarby",
     "p": 0,
@@ -108,6 +117,7 @@
     "pts": 0
   },
   {
+    "id": 9893,
     "rank": 10,
     "team": "IFK Göteborg",
     "p": 0,
@@ -120,6 +130,7 @@
     "pts": 0
   },
   {
+    "id": 9892,
     "rank": 11,
     "team": "Kalmar FF",
     "p": 0,
@@ -132,6 +143,7 @@
     "pts": 0
   },
   {
+    "id": 10237,
     "rank": 12,
     "team": "Malmö FF",
     "p": 0,
@@ -144,6 +156,7 @@
     "pts": 0
   },
   {
+    "id": 8127,
     "rank": 13,
     "team": "Mjällby",
     "p": 0,
@@ -156,6 +169,7 @@
     "pts": 0
   },
   {
+    "id": 10002,
     "rank": 14,
     "team": "Örgryte",
     "p": 0,
@@ -168,6 +182,7 @@
     "pts": 0
   },
   {
+    "id": 6694,
     "rank": 15,
     "team": "IK Sirius",
     "p": 0,
@@ -180,6 +195,7 @@
     "pts": 0
   },
   {
+    "id": 6194,
     "rank": 16,
     "team": "Västerås SK",
     "p": 0,

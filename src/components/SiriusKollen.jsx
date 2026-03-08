@@ -30,18 +30,27 @@ const EU_QUALIFICATIONS = {
 const SiriusKollen = () => {
     const [matches, setMatches] = useState([]);
     const [standings, setStandings] = useState([]);
+    const [playoffs, setPlayoffs] = useState(null);
     const [activeComp, setActiveComp] = useState('allsvenskan');
 
     useEffect(() => {
         const matchesFile = activeComp === 'cup' ? '/data/sirius_matches.json' : '/data/allsvenskan_matches.json';
         const standingsFile = activeComp === 'cup' ? '/data/sirius_standings.json' : '/data/allsvenskan_standings.json';
+        const playoffFile = '/data/cup_playoffs.json';
 
-        Promise.all([
+        const fetches = [
             fetch(matchesFile).then(res => res.json()),
             fetch(standingsFile).then(res => res.json())
-        ]).then(([matchesData, standingsData]) => {
+        ];
+
+        if (activeComp === 'cup') {
+            fetches.push(fetch(playoffFile).then(res => res.json()));
+        }
+
+        Promise.all(fetches).then(([matchesData, standingsData, playoffData]) => {
             setMatches(matchesData);
             setStandings(standingsData);
+            if (playoffData) setPlayoffs(playoffData);
         }).catch(err => console.error('Error fetching Sirius data:', err));
     }, [activeComp]);
 
@@ -220,6 +229,83 @@ const SiriusKollen = () => {
                 {/* Cup Playoff & Europa Card */}
                 {activeComp === 'cup' && (
                     <>
+                        {/* Playoff Tree / Seeding */}
+                        {playoffs && (
+                            <Card style={{ marginTop: '16px' }} padding="20px">
+                                <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    Slutspelsträd
+                                </h3>
+
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                    {/* Seedade (Topp 4 Gruppvinnare) */}
+                                    <div>
+                                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
+                                            Seedade (Hemmaplan i kvartsfinal)
+                                        </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                                            {playoffs.groupWinners
+                                                ?.sort((a, b) => b.pts - a.pts || b.gd - a.gd)
+                                                .slice(0, 4)
+                                                .map(winner => (
+                                                    <div key={winner.team} style={{
+                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
+                                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem'
+                                                    }}>
+                                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
+                                                        <span style={{ fontWeight: '600' }}>{winner.team}</span>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Oseedade (Övriga 4 Gruppvinnare) */}
+                                    <div>
+                                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
+                                            Oseedade
+                                        </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                                            {playoffs.groupWinners
+                                                ?.sort((a, b) => b.pts - a.pts || b.gd - a.gd)
+                                                .slice(4, 8)
+                                                .map(winner => (
+                                                    <div key={winner.team} style={{
+                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
+                                                        backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.85rem'
+                                                    }}>
+                                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
+                                                        <span style={{ fontWeight: '600' }}>{winner.team}</span>
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Matches if lottat */}
+                                    {playoffs.matches && playoffs.matches.length > 0 && (
+                                        <div style={{ marginTop: '10px' }}>
+                                            <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
+                                                Kvartsfinaler
+                                            </div>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                {playoffs.matches.map(m => (
+                                                    <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: '#f0f4ff', borderRadius: '8px', fontSize: '0.85rem' }}>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
+                                                            <img src={getTeamLogo(m.home)} alt={m.home} style={{ width: '16px' }} />
+                                                            <span>{m.home}</span>
+                                                        </div>
+                                                        <div style={{ fontWeight: '800', margin: '0 10px' }}>{m.result || '-'}</div>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-end' }}>
+                                                            <span>{m.away}</span>
+                                                            <img src={getTeamLogo(m.away)} alt={m.away} style={{ width: '16px' }} />
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </Card>
+                        )}
+
                         <Card style={{ marginTop: '8px' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                 {CUP_SCHEDULE.map((item, i) => (
