@@ -240,7 +240,7 @@ const SiriusKollen = () => {
                                     {/* Seedade (Topp 4 Gruppvinnare) */}
                                     <div>
                                         <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                                            Seedade (Hemmaplan i kvartsfinal)
+                                            Hemmaplan
                                         </div>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                             {playoffs.groupWinners
@@ -261,7 +261,7 @@ const SiriusKollen = () => {
                                     {/* Oseedade (Övriga 4 Gruppvinnare) */}
                                     <div>
                                         <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                                            Oseedade
+                                            Bortaplan
                                         </div>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                             {playoffs.groupWinners
