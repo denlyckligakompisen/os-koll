@@ -271,7 +271,9 @@ const SiriusKollen = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                             {playoffs.groupWinners
-                                ?.filter(w => w.isDefinite)
+                                ?.slice()
+                                .sort((a, b) => (b.pts - a.pts) || (b.gd - a.gd))
+                                .filter(w => w.isDefinite)
                                 .map(winner => (
                                     <div key={winner.team} style={{
                                         display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
