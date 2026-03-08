@@ -269,7 +269,13 @@ const SiriusKollen = () => {
                             Kvartsfinaler
                         </h3>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                        <div style={{
+                            display: 'grid',
+                            gridAutoFlow: 'column',
+                            gridTemplateRows: 'repeat(4, auto)',
+                            gridTemplateColumns: '1fr 1fr',
+                            gap: '8px'
+                        }}>
                             {playoffs.groupWinners
                                 ?.slice()
                                 .sort((a, b) => (b.pts - a.pts) || (b.gd - a.gd))
