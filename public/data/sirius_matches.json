@@ -1,47 +1,38 @@
 [
   {
-    "id": 1,
+    "id": "4854531",
+    "date": "2025-08-20",
+    "time": "18:00",
+    "home": "Piteå",
+    "away": "IK Sirius",
+    "result": "undefined–undefined",
+    "competition": "Svenska Cupen - Cup Grp. 8"
+  },
+  {
+    "id": "5071581",
     "date": "2026-02-21",
     "time": "17:00",
     "home": "IK Sirius",
     "away": "GIF Sundsvall",
-    "result": "6–0",
-    "competition": "Svenska Cupen - Grupp 8"
+    "result": "undefined–undefined",
+    "competition": "Svenska Cupen - Cup Grp. 8"
   },
   {
-    "id": 4,
-    "date": "2026-02-22",
-    "time": "15:00",
-    "home": "IF Elfsborg",
-    "away": "Helsingborgs IF",
-    "result": "4–0",
-    "competition": "Svenska Cupen - Grupp 8"
-  },
-  {
-    "id": 5,
-    "date": "2026-02-28",
-    "time": "15:00",
-    "home": "GIF Sundsvall",
-    "away": "IF Elfsborg",
-    "result": "0–1",
-    "competition": "Svenska Cupen - Grupp 8"
-  },
-  {
-    "id": 2,
+    "id": "5071583",
     "date": "2026-03-01",
     "time": "17:00",
     "home": "IK Sirius",
-    "away": "Helsingborgs IF",
-    "result": "4–1",
-    "competition": "Svenska Cupen - Grupp 8"
+    "away": "Helsingborg",
+    "result": "undefined–undefined",
+    "competition": "Svenska Cupen - Cup Grp. 8"
   },
   {
-    "id": 3,
+    "id": "5071585",
     "date": "2026-03-08",
     "time": "13:00",
-    "home": "IF Elfsborg",
+    "home": "Elfsborg",
     "away": "IK Sirius",
-    "result": null,
-    "competition": "Svenska Cupen - Grupp 8"
+    "result": "undefined–undefined",
+    "competition": "Svenska Cupen - Cup Grp. 8"
   }
 ]

@@ -1,13 +1,7 @@
 import React from 'react';
-import OlympicRings from './common/OlympicRings';
 import { getTeamLogo } from '../utils/assets';
 
 const TABS = [
-    {
-        id: 'os',
-        label: 'OS-kollen',
-        icon: (active) => <OlympicRings active={active} width={28} height={14} />
-    },
     {
         id: 'vm',
         label: 'VM-kollen',
@@ -60,7 +54,7 @@ const TabBar = ({ activeTab, onTabChange }) => (
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        gap: tab.id === 'os' ? '4px' : '2px',
+                        gap: '2px',
                         color: isActive ? '#000000' : 'var(--color-text-muted)',
                         cursor: 'pointer',
                         flex: 1,

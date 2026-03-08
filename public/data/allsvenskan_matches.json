@@ -1,32 +1,272 @@
 [
   {
-    "id": "as1",
+    "id": "5107443",
     "date": "2026-04-04",
     "time": "15:00",
-    "home": "Degerfors IF",
+    "home": "Degerfors",
     "away": "IK Sirius",
-    "venue": "Stora Valla",
     "result": null,
     "competition": "Allsvenskan - Omgång 1"
   },
   {
-    "id": "as2",
-    "date": "2026-04-12",
-    "time": "17:30",
+    "id": "5107450",
+    "date": "2026-04-13",
+    "time": "19:00",
     "home": "IK Sirius",
     "away": "Hammarby",
-    "venue": "Studenternas IP",
     "result": null,
     "competition": "Allsvenskan - Omgång 2"
   },
   {
-    "id": "as3",
-    "date": "2026-04-19",
+    "id": "5107459",
+    "date": "2026-04-18",
     "time": "15:00",
     "home": "IK Sirius",
     "away": "Västerås SK",
-    "venue": "Studenternas IP",
     "result": null,
     "competition": "Allsvenskan - Omgång 3"
+  },
+  {
+    "id": "5107464",
+    "date": "2026-04-23",
+    "time": "19:00",
+    "home": "Malmö FF",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 4"
+  },
+  {
+    "id": "5107473",
+    "date": "2026-04-27",
+    "time": "19:00",
+    "home": "Häcken",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 5"
+  },
+  {
+    "id": "5107483",
+    "date": "2026-05-02",
+    "time": "15:00",
+    "home": "IK Sirius",
+    "away": "Kalmar FF",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 6"
+  },
+  {
+    "id": "5107490",
+    "date": "2026-05-11",
+    "time": "19:00",
+    "home": "IK Sirius",
+    "away": "Örgryte",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 7"
+  },
+  {
+    "id": "5107493",
+    "date": "2026-05-18",
+    "time": "19:00",
+    "home": "Djurgården",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 8"
+  },
+  {
+    "id": "5107506",
+    "date": "2026-05-24",
+    "time": "14:00",
+    "home": "IK Sirius",
+    "away": "GAIS",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 9"
+  },
+  {
+    "id": "5107509",
+    "date": "2026-05-30",
+    "time": "15:00",
+    "home": "AIK",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 10"
+  },
+  {
+    "id": "5107522",
+    "date": "2026-07-05",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Mjällby",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 11"
+  },
+  {
+    "id": "5107531",
+    "date": "2026-07-12",
+    "time": "18:00",
+    "home": "Brommapojkarna",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 12"
+  },
+  {
+    "id": "5107538",
+    "date": "2026-07-19",
+    "time": "18:00",
+    "home": "Elfsborg",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 13"
+  },
+  {
+    "id": "5107546",
+    "date": "2026-07-26",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "IFK Göteborg",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 14"
+  },
+  {
+    "id": "5107556",
+    "date": "2026-08-02",
+    "time": "18:00",
+    "home": "Halmstads BK",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 15"
+  },
+  {
+    "id": "5107562",
+    "date": "2026-08-09",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Brommapojkarna",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 16"
+  },
+  {
+    "id": "5107568",
+    "date": "2026-08-16",
+    "time": "18:00",
+    "home": "Mjällby",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 17"
+  },
+  {
+    "id": "5107579",
+    "date": "2026-08-23",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Häcken",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 18"
+  },
+  {
+    "id": "5107587",
+    "date": "2026-08-30",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Malmö FF",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 19"
+  },
+  {
+    "id": "5107595",
+    "date": "2026-09-06",
+    "time": "18:00",
+    "home": "Västerås SK",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 20"
+  },
+  {
+    "id": "5107604",
+    "date": "2026-09-13",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Degerfors",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 21"
+  },
+  {
+    "id": "5107606",
+    "date": "2026-09-20",
+    "time": "18:00",
+    "home": "Örgryte",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 22"
+  },
+  {
+    "id": "5107616",
+    "date": "2026-10-11",
+    "time": "18:00",
+    "home": "GAIS",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 23"
+  },
+  {
+    "id": "5107626",
+    "date": "2026-10-18",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Elfsborg",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 24"
+  },
+  {
+    "id": "5107634",
+    "date": "2026-10-25",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "AIK",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 25"
+  },
+  {
+    "id": "5107638",
+    "date": "2026-10-28",
+    "time": "18:00",
+    "home": "Hammarby",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 26"
+  },
+  {
+    "id": "5107651",
+    "date": "2026-11-01",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Halmstads BK",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 27"
+  },
+  {
+    "id": "5107659",
+    "date": "2026-11-08",
+    "time": "18:00",
+    "home": "Kalmar FF",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 28"
+  },
+  {
+    "id": "5107668",
+    "date": "2026-11-22",
+    "time": "18:00",
+    "home": "IK Sirius",
+    "away": "Djurgården",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 29"
+  },
+  {
+    "id": "5107670",
+    "date": "2026-11-29",
+    "time": "18:00",
+    "home": "IFK Göteborg",
+    "away": "IK Sirius",
+    "result": null,
+    "competition": "Allsvenskan - Omgång 30"
   }
 ]

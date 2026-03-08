@@ -1,100 +1,99 @@
 
 import axios from 'axios';
-import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 
-const CUP_URL = 'https://forzafootball.com/sv/tournament/svenska-cupen-494/results';
-const TABLE_URL = 'https://forzafootball.com/sv/match/ik-sirius-gif-sundsvall-1219369316/table';
+const LEAGUE_ID = 171; // Svenska Cupen
 const MATCHES_PATH = path.join(process.cwd(), 'public/data/sirius_matches.json');
 const STANDINGS_PATH = path.join(process.cwd(), 'public/data/sirius_standings.json');
 
+const CACHE_DURATION = 60 * 60 * 1000; // 1 timme i millisekunder
+
 async function scrapeSirius() {
-    console.log('Hämtar data från Forza Football...');
+    const force = process.argv.includes('--force');
+
+    // Kolla om vi behöver uppdatera
+    if (!force && fs.existsSync(STANDINGS_PATH)) {
+        const stats = fs.statSync(STANDINGS_PATH);
+        const now = new Date().getTime();
+        const lastUpdate = new Date(stats.mtime).getTime();
+
+        if (now - lastUpdate < CACHE_DURATION) {
+            console.log('Datan är mindre än en timme gammal. Hoppar över API-anrop.');
+            console.log('Använd --force för att tvinga fram en uppdatering.');
+            return;
+        }
+    }
+
+    console.log('Hämtar data från FotMob (Svenska Cupen)...');
 
     try {
-        // Hämta matcher
-        const matchesRes = await axios.get(CUP_URL, {
+        const response = await axios.get(`https://www.fotmob.com/api/leagues?id=${LEAGUE_ID}`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
         });
 
-        // Hämta tabell
-        const tableRes = await axios.get(TABLE_URL, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            }
-        });
+        const data = response.data;
 
-        console.log('Data hämtad. Skriptet är redo för schemaläggning.');
+        // Find Sirius group
+        let siriusGroup = null;
+        if (data.table && data.table[0] && data.table[0].data && data.table[0].data.tables) {
+            siriusGroup = data.table[0].data.tables.find(t =>
+                t.table.all.some(team => team.name === 'Sirius' || team.shortName === 'Sirius')
+            );
+        }
+
+        if (siriusGroup) {
+            const standings = siriusGroup.table.all.map(team => ({
+                rank: team.idx,
+                team: team.name === 'Sirius' ? 'IK Sirius' : team.name,
+                p: team.played,
+                w: team.wins,
+                d: team.draws,
+                l: team.losses,
+                gf: parseInt(team.scoresStr.split('-')[0]),
+                ga: parseInt(team.scoresStr.split('-')[1]),
+                gd: team.goalConDiff,
+                pts: team.pts
+            }));
+
+            fs.writeFileSync(STANDINGS_PATH, JSON.stringify(standings, null, 2));
+            console.log(`Tabell för ${siriusGroup.leagueName} sparad.`);
+        }
+
+        // Extract Sirius matches
+        if (data.fixtures && data.fixtures.allMatches) {
+            const siriusMatches = data.fixtures.allMatches
+                .filter(m => (m.home.name === 'Sirius' || m.away.name === 'Sirius' || m.home.shortName === 'Sirius' || m.away.shortName === 'Sirius'))
+                .map(m => {
+                    const dateObj = new Date(m.status.utcTime);
+                    const date = dateObj.toISOString().split('T')[0];
+                    const time = dateObj.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+
+                    let result = null;
+                    if (m.status.finished) {
+                        result = m.scoreStr.replace(/ - /g, '–');
+                    }
+
+                    return {
+                        id: m.id,
+                        date,
+                        time,
+                        home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
+                        away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
+                        result,
+                        competition: `Svenska Cupen - ${siriusGroup ? siriusGroup.leagueName : 'Gruppspel'}`
+                    };
+                });
+
+            fs.writeFileSync(MATCHES_PATH, JSON.stringify(siriusMatches, null, 2));
+            console.log('Sirius-matcher i cupen sparade.');
+        }
 
     } catch (error) {
-        console.error('Kunde inte nå Forza Football:', error.message);
+        console.error('Kunde inte hämta data från FotMob:', error.message);
     }
 }
 
-// För att hålla det enkelt i denna miljö uppdaterar vi statisk data
-// baserat på användarens information.
-function updateStaticData() {
-    const currentMatches = [
-        {
-            "id": 1,
-            "date": "2026-02-21",
-            "time": "17:00",
-            "home": "IK Sirius",
-            "away": "GIF Sundsvall",
-            "result": "6–0",
-            "competition": "Svenska Cupen - Grupp 8"
-        },
-        {
-            "id": 4,
-            "date": "2026-02-22",
-            "time": "15:00",
-            "home": "IF Elfsborg",
-            "away": "Helsingborgs IF",
-            "result": "4–0",
-            "competition": "Svenska Cupen - Grupp 8"
-        },
-        {
-            "id": 5,
-            "date": "2026-02-28",
-            "time": "15:00",
-            "home": "GIF Sundsvall",
-            "away": "IF Elfsborg",
-            "result": "0–1",
-            "competition": "Svenska Cupen - Grupp 8"
-        },
-        {
-            "id": 2,
-            "date": "2026-03-01",
-            "time": "17:00",
-            "home": "IK Sirius",
-            "away": "Helsingborgs IF",
-            "result": "4–1",
-            "competition": "Svenska Cupen - Grupp 8"
-        },
-        {
-            "id": 3,
-            "date": "2026-03-08",
-            "time": "13:00",
-            "home": "IF Elfsborg",
-            "away": "IK Sirius",
-            "result": null,
-            "competition": "Svenska Cupen - Grupp 8"
-        }
-    ];
-
-    const currentStandings = [
-        { "rank": 1, "team": "IK Sirius", "p": 2, "w": 2, "d": 0, "l": 0, "gf": 10, "ga": 1, "gd": 9, "pts": 6 },
-        { "rank": 2, "team": "IF Elfsborg", "p": 2, "w": 2, "d": 0, "l": 0, "gf": 5, "ga": 0, "gd": 5, "pts": 6 },
-        { "rank": 3, "team": "Helsingborgs IF", "p": 2, "w": 0, "d": 0, "l": 2, "gf": 1, "ga": 8, "gd": -7, "pts": 0 },
-        { "rank": 4, "team": "GIF Sundsvall", "p": 2, "w": 0, "d": 0, "l": 2, "gf": 0, "ga": 7, "gd": -7, "pts": 0 }
-    ];
-
-    fs.writeFileSync(MATCHES_PATH, JSON.stringify(currentMatches, null, 2));
-    fs.writeFileSync(STANDINGS_PATH, JSON.stringify(currentStandings, null, 2));
-    console.log('Sirius-data och tabell uppdaterad.');
-}
-
-updateStaticData();
+scrapeSirius();
