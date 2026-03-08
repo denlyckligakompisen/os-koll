@@ -235,7 +235,7 @@ const VMKollen = () => {
                                 />
                             ) : match.broadcast === 'TV4' ? (
                                 <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TV4_Play_logo_2023.svg/1200px-TV4_Play_logo_2023.svg.png"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TV4_Play_logo_2023.svg/440px-TV4_Play_logo_2023.svg.png"
                                     alt="TV4 Play"
                                     style={{ height: '11px', width: 'auto' }}
                                 />
