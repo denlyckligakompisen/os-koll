@@ -3,7 +3,8 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-const LEAGUE_ID = 171; // Svenska Cupen
+import { LEAGUE_IDS, TARGET_TEAM, normalizeTeamName } from './constants.js';
+
 const MATCHES_PATH = path.join(process.cwd(), 'public/data/sirius_matches.json');
 const STANDINGS_PATH = path.join(process.cwd(), 'public/data/sirius_standings.json');
 const PLAYOFF_PATH = path.join(process.cwd(), 'public/data/cup_playoffs.json');
@@ -49,7 +50,7 @@ async function scrapeSirius() {
     console.log('Hämtar data från FotMob (Svenska Cupen)...');
 
     try {
-        const response = await axios.get(`https://www.fotmob.com/api/leagues?id=${LEAGUE_ID}`, {
+        const response = await axios.get(`https://www.fotmob.com/api/leagues?id=${LEAGUE_IDS.CUPEN}`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
@@ -61,7 +62,7 @@ async function scrapeSirius() {
         let siriusGroup = null;
         if (data.table && data.table[0] && data.table[0].data && data.table[0].data.tables) {
             siriusGroup = data.table[0].data.tables.find(t =>
-                t.table.all.some(team => team.name === 'Sirius' || team.shortName === 'Sirius')
+                t.table.all.some(team => team.name === TARGET_TEAM.ID || team.shortName === TARGET_TEAM.ID)
             );
         }
 
@@ -69,7 +70,7 @@ async function scrapeSirius() {
             const standings = siriusGroup.table.all.map(team => ({
                 id: team.id,
                 rank: team.idx,
-                team: team.name === 'Sirius' ? 'IK Sirius' : team.name,
+                team: normalizeTeamName(team.name),
                 p: team.played,
                 w: team.wins,
                 d: team.draws,
@@ -87,7 +88,7 @@ async function scrapeSirius() {
         // Extract Sirius matches
         if (data.fixtures && data.fixtures.allMatches) {
             const siriusMatches = data.fixtures.allMatches
-                .filter(m => (m.home.name === 'Sirius' || m.away.name === 'Sirius' || m.home.shortName === 'Sirius' || m.away.shortName === 'Sirius'))
+                .filter(m => (m.home.name === TARGET_TEAM.ID || m.away.name === TARGET_TEAM.ID || m.home.shortName === TARGET_TEAM.ID || m.away.shortName === TARGET_TEAM.ID))
                 .map(m => {
                     const dateObj = new Date(m.status.utcTime);
                     const date = dateObj.toISOString().split('T')[0];
@@ -103,8 +104,8 @@ async function scrapeSirius() {
                         id: m.id,
                         date,
                         time,
-                        home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
-                        away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
+                        home: normalizeTeamName(m.home.name),
+                        away: normalizeTeamName(m.away.name),
                         result,
                         competition: `Svenska Cupen - ${siriusGroup ? siriusGroup.leagueName : 'Gruppspel'}`
                     };
@@ -127,14 +128,14 @@ async function scrapeSirius() {
                     group.table.all.slice(1).forEach(team => {
                         const maxPts = team.pts + (3 - team.played) * 3;
                         if (maxPts >= winner.pts) {
-                            contenders.push(team.shortName === 'Sirius' ? 'IK Sirius' : team.shortName);
+                            contenders.push(normalizeTeamName(team.shortName));
                         }
                     });
                 }
 
                 groupWinners.push({
                     groupName: group.leagueName,
-                    team: winner.shortName === 'Sirius' ? 'IK Sirius' : winner.shortName,
+                    team: normalizeTeamName(winner.shortName),
                     pts: winner.pts,
                     p: winner.played,
                     gd: winner.goalConDiff || 0,
@@ -155,8 +156,8 @@ async function scrapeSirius() {
             matches: knockoutMatches.map(m => ({
                 id: m.id,
                 round: m.roundName,
-                home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
-                away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
+                home: normalizeTeamName(m.home.name),
+                away: normalizeTeamName(m.away.name),
                 result: (m.scoreStr || m.status.scoreStr) ? (m.scoreStr || m.status.scoreStr).replace(/ - /g, '–') : null,
                 date: m.status.utcTime
             })),

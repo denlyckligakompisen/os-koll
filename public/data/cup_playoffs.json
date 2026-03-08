@@ -2,7 +2,7 @@
   "groupWinners": [
     {
       "groupName": "Cup Grp. 1",
-      "team": "Mjällby",
+      "team": "Mjällby AIF",
       "pts": 9,
       "p": 3,
       "gd": 6,
@@ -11,7 +11,7 @@
     },
     {
       "groupName": "Cup Grp. 2",
-      "team": "Hammarby",
+      "team": "Hammarby IF",
       "pts": 9,
       "p": 3,
       "gd": 11,
@@ -38,7 +38,7 @@
     },
     {
       "groupName": "Cup Grp. 5",
-      "team": "Djurgården",
+      "team": "Djurgårdens IF",
       "pts": 6,
       "p": 3,
       "gd": 8,
@@ -56,14 +56,14 @@
     },
     {
       "groupName": "Cup Grp. 7",
-      "team": "Häcken",
+      "team": "BK Häcken",
       "pts": 6,
       "p": 2,
       "gd": 4,
       "isDefinite": false,
       "contenders": [
         "AIK",
-        "Västerås SK"
+        "Västerås SK FK"
       ]
     },
     {
@@ -77,5 +77,5 @@
     }
   ],
   "matches": [],
-  "lastUpdated": "2026-03-08T21:16:45.254Z"
+  "lastUpdated": "2026-03-08T21:25:54.160Z"
 }

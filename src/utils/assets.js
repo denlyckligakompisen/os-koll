@@ -15,34 +15,53 @@ export const getTeamLogo = (teamName) => {
 
     if (specialLogos[teamName]) return specialLogos[teamName];
 
-    // Local logos are named as slugified team names (lowercase, underscore)
+    // Generic slugification for local logos (matches getTeamFileSlug)
     const slug = teamName.toLowerCase()
-        .replace(/ifk göteborg/g, 'ifk_göteborg') // map aliases
-        .replace(/helsingborgs if/g, 'helsingborgs_if')
-        .replace(/if elfsborg/g, 'elfsborg')
-        .replace(/gif sundsvall/g, 'gif_sundsvall')
-        .replace(/brommapojkarna/g, 'brommapojkarna')
+        .trim()
+        .replace(/å/g, 'a')
+        .replace(/ä/g, 'a')
+        .replace(/ö/g, 'o')
         .replace(/\s+/g, '_')
-        .replace(/ik_sirius/g, 'ik_sirius');
+        .replace(/[^a-z0-9_]/g, '');
 
-    // Special handling for common names
-    if (slug === 'sirius' || slug === 'ik_sirius') return '/logos/ik_sirius.png';
-    if (slug === 'elfsborg' || slug === 'if_elfsborg') return '/logos/elfsborg.png';
-    if (slug === 'mjällby' || slug === 'mjällby_aif') return '/logos/mjällby.png';
-    if (slug === 'häcken' || slug === 'bk_häcken') return '/logos/häcken.png';
-    if (slug === 'malmö' || slug === 'malmö_ff') return '/logos/malmö_ff.png';
-    if (slug === 'halmstad' || slug === 'halmstads_bk') return '/logos/halmstads_bk.png';
-    if (slug === 'göteborg' || slug === 'ifk_göteborg') return '/logos/ifk_göteborg.png';
-    if (slug === 'degerfors' || slug === 'degerfors_if') return '/logos/degerfors.png';
-    if (slug === 'gais') return '/logos/gais.png';
-    if (slug === 'aik') return '/logos/aik.png';
-    if (slug === 'djurgården') return '/logos/djurgården.png';
-    if (slug === 'hammarby') return '/logos/hammarby.png';
-    if (slug === 'västerås_sk' || slug === 'vasteras' || slug === 'vsk') return '/logos/västerås_sk.png';
-    if (slug === 'örgryte' || slug === 'ois') return '/logos/örgryte.png';
-    if (slug === 'kalmar' || slug === 'kalmar_ff') return '/logos/kalmar_ff.png';
-    if (slug === 'helsingborg' || slug === 'helsingborgs_if') return '/logos/helsingborg.png';
-    if (slug === 'gif_sundsvall' || slug === 'sundsvall') return '/logos/gif_sundsvall.png';
+    // Special mappings for specific filenames if they differ from the slug
+    const overrides = {
+        'sirius': '/logos/ik_sirius.png',
+        'ik_sirius': '/logos/ik_sirius.png',
+        'elfsborg': '/logos/if_elfsborg.png',
+        'if_elfsborg': '/logos/if_elfsborg.png',
+        'djurgarden': '/logos/djurgardens_if.png',
+        'djurgardens_if': '/logos/djurgardens_if.png',
+        'hammarby': '/logos/hammarby_if.png',
+        'hammarby_if': '/logos/hammarby_if.png',
+        'mjallby': '/logos/mjallby_aif.png',
+        'mjallby_aif': '/logos/mjallby_aif.png',
+        'degerfors': '/logos/degerfors_if.png',
+        'degerfors_if': '/logos/degerfors_if.png',
+        'hacken': '/logos/bk_hacken.png',
+        'bk_hacken': '/logos/bk_hacken.png',
+        'vasteras': '/logos/vasteras_sk_fk.png',
+        'vsk': '/logos/vasteras_sk_fk.png',
+        'vasteras_sk_fk': '/logos/vasteras_sk_fk.png',
+        'goteborg': '/logos/ifk_goteborg.png',
+        'ifk_goteborg': '/logos/ifk_goteborg.png',
+        'aik': '/logos/aik.png',
+        'gais': '/logos/gais.png',
+        'halmstad': '/logos/halmstads_bk.png',
+        'halmstads_bk': '/logos/halmstads_bk.png',
+        'malmo': '/logos/malmo_ff.png',
+        'malmo_ff': '/logos/malmo_ff.png',
+        'kalmar': '/logos/kalmar_ff.png',
+        'kalmar_ff': '/logos/kalmar_ff.png',
+        'orgryte': '/logos/orgryte_is.png',
+        'orgryte_is': '/logos/orgryte_is.png',
+        'helsingborg': '/logos/helsingborgs_if.png',
+        'helsingborgs_if': '/logos/helsingborgs_if.png',
+        'brommapojkarna': '/logos/if_brommapojkarna.png',
+        'if_brommapojkarna': '/logos/if_brommapojkarna.png'
+    };
+
+    if (overrides[slug]) return overrides[slug];
 
     // Fallback try simple slug
     return `/logos/${slug}.png`;

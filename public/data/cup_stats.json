@@ -1,0 +1,842 @@
+{
+  "players": [
+    {
+      "header": "Top scorer",
+      "participant": {
+        "id": 120019,
+        "name": "Nahir Besara",
+        "rank": 1,
+        "teamId": 8248,
+        "teamName": "Hammarby",
+        "value": 5,
+        "stat": {
+          "name": "goals",
+          "value": 5,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/goals.json",
+      "topThree": [
+        {
+          "id": 120019,
+          "name": "Nahir Besara",
+          "rank": 1,
+          "teamId": 8248,
+          "teamName": "Hammarby",
+          "value": 5,
+          "stat": {
+            "name": "goals",
+            "value": 5,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#00AD5E",
+            "lightMode": "#00AD5E",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 1339300,
+          "name": "Filip Trpcevski",
+          "rank": 2,
+          "teamId": 6690,
+          "teamName": "IK Brage",
+          "value": 4,
+          "stat": {
+            "name": "goals",
+            "value": 4,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#00763C",
+            "lightMode": "#00763C",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 1399218,
+          "name": "Robbie Ure",
+          "rank": 2,
+          "teamId": 6694,
+          "teamName": "Sirius",
+          "value": 4,
+          "stat": {
+            "name": "goals",
+            "value": 4,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#2a497f",
+            "lightMode": "#2a497f",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 1,
+      "name": "goals",
+      "localizedTitleId": "goals_title",
+      "category": "Top Stat"
+    },
+    {
+      "header": "Yellow cards",
+      "participant": {
+        "id": 1197341,
+        "name": "Fabian Holst-Larsen",
+        "rank": 1,
+        "teamId": 8449,
+        "teamName": "IFK Norrkoeping",
+        "value": 3,
+        "stat": {
+          "name": "yellow_card",
+          "value": 3,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/yellow_card.json",
+      "topThree": [
+        {
+          "id": 1197341,
+          "name": "Fabian Holst-Larsen",
+          "rank": 1,
+          "teamId": 8449,
+          "teamName": "IFK Norrkoeping",
+          "value": 3,
+          "stat": {
+            "name": "yellow_card",
+            "value": 3,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#ffffff",
+            "lightMode": "#305890",
+            "fontDarkMode": "rgba(29, 29, 29, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 1419304,
+          "name": "Ammar Asani",
+          "rank": 2,
+          "teamId": 8333,
+          "teamName": "Trelleborgs FF",
+          "value": 2,
+          "stat": {
+            "name": "yellow_card",
+            "value": 2,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#1870B8",
+            "lightMode": "#1870B8",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 840708,
+          "name": "Juhani Pikkarainen",
+          "rank": 2,
+          "teamId": 6544,
+          "teamName": "Degerfors",
+          "value": 2,
+          "stat": {
+            "name": "yellow_card",
+            "value": 2,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#F72F3A",
+            "lightMode": "#F72F3A",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 39,
+      "name": "yellow_card",
+      "localizedTitleId": "yellow_cards",
+      "category": "Discipline"
+    },
+    {
+      "header": "Red cards",
+      "participant": {
+        "id": 1419304,
+        "name": "Ammar Asani",
+        "rank": 1,
+        "teamId": 8333,
+        "teamName": "Trelleborgs FF",
+        "value": 1,
+        "stat": {
+          "name": "red_card",
+          "value": 1,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/red_card.json",
+      "topThree": [
+        {
+          "id": 1419304,
+          "name": "Ammar Asani",
+          "rank": 1,
+          "teamId": 8333,
+          "teamName": "Trelleborgs FF",
+          "value": 1,
+          "stat": {
+            "name": "red_card",
+            "value": 1,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#1870B8",
+            "lightMode": "#1870B8",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 840708,
+          "name": "Juhani Pikkarainen",
+          "rank": 1,
+          "teamId": 6544,
+          "teamName": "Degerfors",
+          "value": 1,
+          "stat": {
+            "name": "red_card",
+            "value": 1,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#F72F3A",
+            "lightMode": "#F72F3A",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 1693295,
+          "name": "Alvin Nordin",
+          "rank": 3,
+          "teamId": 9859,
+          "teamName": "Helsingborg",
+          "value": 1,
+          "stat": {
+            "name": "red_card",
+            "value": 1,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#E00019",
+            "lightMode": "#E00019",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 40,
+      "name": "red_card",
+      "localizedTitleId": "red_cards",
+      "category": "Discipline"
+    }
+  ],
+  "teams": [
+    {
+      "header": "Goals per match",
+      "participant": {
+        "id": 0,
+        "name": "Häcken",
+        "rank": 1,
+        "teamId": 8428,
+        "teamName": "Häcken",
+        "value": 4.7,
+        "stat": {
+          "name": "goals_team_match",
+          "value": 4.7,
+          "format": "fraction",
+          "fractions": 1
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/goals_team_match.json",
+      "topThree": [
+        {
+          "id": 0,
+          "name": "Häcken",
+          "rank": 1,
+          "teamId": 8428,
+          "teamName": "Häcken",
+          "value": 4.7,
+          "stat": {
+            "name": "goals_team_match",
+            "value": 4.7,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#F2D024",
+            "lightMode": "#000000",
+            "fontDarkMode": "rgba(29, 29, 29, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Hammarby",
+          "rank": 2,
+          "teamId": 8248,
+          "teamName": "Hammarby",
+          "value": 4.3,
+          "stat": {
+            "name": "goals_team_match",
+            "value": 4.3,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#00AD5E",
+            "lightMode": "#00AD5E",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Sirius",
+          "rank": 2,
+          "teamId": 6694,
+          "teamName": "Sirius",
+          "value": 4.3,
+          "stat": {
+            "name": "goals_team_match",
+            "value": 4.3,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#2a497f",
+            "lightMode": "#2a497f",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 42,
+      "name": "goals_team_match",
+      "localizedTitleId": "goals_team_match_title",
+      "category": "Top Stat"
+    },
+    {
+      "header": "Goals conceded per match",
+      "participant": {
+        "id": 0,
+        "name": "Malmö FF",
+        "rank": 1,
+        "teamId": 10237,
+        "teamName": "Malmö FF",
+        "value": 0.3,
+        "stat": {
+          "name": "goals_conceded_team_match",
+          "value": 0.3,
+          "format": "fraction",
+          "fractions": 1
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/goals_conceded_team_match.json",
+      "topThree": [
+        {
+          "id": 0,
+          "name": "Malmö FF",
+          "rank": 1,
+          "teamId": 10237,
+          "teamName": "Malmö FF",
+          "value": 0.3,
+          "stat": {
+            "name": "goals_conceded_team_match",
+            "value": 0.3,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#3991CC",
+            "lightMode": "#3991CC",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "IFK Göteborg",
+          "rank": 1,
+          "teamId": 9893,
+          "teamName": "IFK Göteborg",
+          "value": 0.3,
+          "stat": {
+            "name": "goals_conceded_team_match",
+            "value": 0.3,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#0068B0",
+            "lightMode": "#0068B0",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "BK Olympic",
+          "rank": 3,
+          "teamId": 241064,
+          "teamName": "BK Olympic",
+          "value": 0.5,
+          "stat": {
+            "name": "goals_conceded_team_match",
+            "value": 0.5,
+            "format": "fraction",
+            "fractions": 1
+          },
+          "teamColors": {
+            "darkMode": "#DDDDDD",
+            "lightMode": "#333333",
+            "fontDarkMode": "rgba(29, 29, 29, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 43,
+      "name": "goals_conceded_team_match",
+      "localizedTitleId": "goals_conceded_team_match_title",
+      "category": "Top Stat"
+    },
+    {
+      "header": "Clean sheets",
+      "participant": {
+        "id": 0,
+        "name": "Elfsborg",
+        "rank": 1,
+        "teamId": 8014,
+        "teamName": "Elfsborg",
+        "value": 3,
+        "stat": {
+          "name": "clean_sheet_team",
+          "value": 3,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/clean_sheet_team.json",
+      "topThree": [
+        {
+          "id": 0,
+          "name": "Elfsborg",
+          "rank": 1,
+          "teamId": 8014,
+          "teamName": "Elfsborg",
+          "value": 3,
+          "stat": {
+            "name": "clean_sheet_team",
+            "value": 3,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#F6E708",
+            "lightMode": "#000000",
+            "fontDarkMode": "rgba(29, 29, 29, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Hammarby",
+          "rank": 1,
+          "teamId": 8248,
+          "teamName": "Hammarby",
+          "value": 3,
+          "stat": {
+            "name": "clean_sheet_team",
+            "value": 3,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#00AD5E",
+            "lightMode": "#00AD5E",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "IFK Göteborg",
+          "rank": 1,
+          "teamId": 9893,
+          "teamName": "IFK Göteborg",
+          "value": 3,
+          "stat": {
+            "name": "clean_sheet_team",
+            "value": 3,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#0068B0",
+            "lightMode": "#0068B0",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 46,
+      "name": "clean_sheet_team",
+      "localizedTitleId": "clean_sheet_team_title",
+      "category": "Top Stat"
+    },
+    {
+      "header": "Yellow cards",
+      "participant": {
+        "id": 0,
+        "name": "Trelleborgs FF",
+        "rank": 1,
+        "teamId": 8333,
+        "teamName": "Trelleborgs FF",
+        "value": 8,
+        "stat": {
+          "name": "total_yel_card_team",
+          "value": 8,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/total_yel_card_team.json",
+      "topThree": [
+        {
+          "id": 0,
+          "name": "Trelleborgs FF",
+          "rank": 1,
+          "teamId": 8333,
+          "teamName": "Trelleborgs FF",
+          "value": 8,
+          "stat": {
+            "name": "total_yel_card_team",
+            "value": 8,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#1870B8",
+            "lightMode": "#1870B8",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "IFK Skoevde FK",
+          "rank": 2,
+          "teamId": 610365,
+          "teamName": "IFK Skoevde FK",
+          "value": 8,
+          "stat": {
+            "name": "total_yel_card_team",
+            "value": 8,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#DDDDDD",
+            "lightMode": "#333333",
+            "fontDarkMode": "rgba(29, 29, 29, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Oestersunds FK",
+          "rank": 2,
+          "teamId": 2004,
+          "teamName": "Oestersunds FK",
+          "value": 8,
+          "stat": {
+            "name": "total_yel_card_team",
+            "value": 8,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#C2002A",
+            "lightMode": "#C2002A",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 67,
+      "name": "total_yel_card_team",
+      "localizedTitleId": "yellow_cards",
+      "category": "Discipline"
+    },
+    {
+      "header": "Red cards",
+      "participant": {
+        "id": 0,
+        "name": "Helsingborg",
+        "rank": 1,
+        "teamId": 9859,
+        "teamName": "Helsingborg",
+        "value": 2,
+        "stat": {
+          "name": "total_red_card_team",
+          "value": 2,
+          "format": "number",
+          "fractions": 0
+        }
+      },
+      "fetchAllUrl": "https://data.fotmob.com/stats/171/season/26149/total_red_card_team.json",
+      "topThree": [
+        {
+          "id": 0,
+          "name": "Helsingborg",
+          "rank": 1,
+          "teamId": 9859,
+          "teamName": "Helsingborg",
+          "value": 2,
+          "stat": {
+            "name": "total_red_card_team",
+            "value": 2,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#E00019",
+            "lightMode": "#E00019",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Trelleborgs FF",
+          "rank": 2,
+          "teamId": 8333,
+          "teamName": "Trelleborgs FF",
+          "value": 1,
+          "stat": {
+            "name": "total_red_card_team",
+            "value": 1,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#1870B8",
+            "lightMode": "#1870B8",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        },
+        {
+          "id": 0,
+          "name": "Degerfors",
+          "rank": 3,
+          "teamId": 6544,
+          "teamName": "Degerfors",
+          "value": 1,
+          "stat": {
+            "name": "total_red_card_team",
+            "value": 1,
+            "format": "number",
+            "fractions": 0
+          },
+          "teamColors": {
+            "darkMode": "#F72F3A",
+            "lightMode": "#F72F3A",
+            "fontDarkMode": "rgba(255, 255, 255, 1.0)",
+            "fontLightMode": "rgba(255, 255, 255, 1.0)"
+          }
+        }
+      ],
+      "order": 68,
+      "name": "total_red_card_team",
+      "localizedTitleId": "red_cards",
+      "category": "Discipline"
+    }
+  ],
+  "seasonStatLinks": [
+    {
+      "Name": "2025/2026",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/26149/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 26149
+    },
+    {
+      "Name": "2024/2025",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/23146/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 23146
+    },
+    {
+      "Name": "2023/2024",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/20643/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 20643
+    },
+    {
+      "Name": "2022/2023",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/17728/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 17728
+    },
+    {
+      "Name": "2021/2022",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/16411/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 16411
+    },
+    {
+      "Name": "2020/2021",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/15371/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 15371
+    },
+    {
+      "Name": "2019/2020",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/13869/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 13869
+    },
+    {
+      "Name": "2018/2019",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/12648/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 12648
+    },
+    {
+      "Name": "2017/2018",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/11388/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 11388
+    },
+    {
+      "Name": "2016/2017",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/10340/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 10340
+    },
+    {
+      "Name": "2015/2016",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/9450/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 9450
+    },
+    {
+      "Name": "2014/2015",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/8556/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 8556
+    },
+    {
+      "Name": "2013/2014",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/7991/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 7991
+    },
+    {
+      "Name": "2012/2013",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/7142/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 7142
+    },
+    {
+      "Name": "2011",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/6005/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 6005
+    },
+    {
+      "Name": "2010",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/171/season/5146/topstats.json",
+      "League": "Svenska Cupen",
+      "StageId": 0,
+      "TemplateId": 171,
+      "TournamentId": 5146
+    }
+  ],
+  "seasonsWithLinks": [
+    "2025/2026",
+    "2024/2025",
+    "2023/2024",
+    "2022/2023",
+    "2021/2022",
+    "2020/2021",
+    "2019/2020",
+    "2018/2019",
+    "2017/2018",
+    "2016/2017",
+    "2015/2016",
+    "2014/2015",
+    "2013/2014",
+    "2012/2013",
+    "2011",
+    "2010"
+  ]
+}

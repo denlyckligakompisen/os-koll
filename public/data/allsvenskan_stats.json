@@ -1,0 +1,115 @@
+{
+  "players": null,
+  "teams": null,
+  "seasonStatLinks": [
+    {
+      "Name": "2026",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/30261/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 30261
+    },
+    {
+      "Name": "2025",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/24511/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 24511
+    },
+    {
+      "Name": "2024",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/22583/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 22583
+    },
+    {
+      "Name": "2023",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/18522/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 18522
+    },
+    {
+      "Name": "2022",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/17335/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 17335
+    },
+    {
+      "Name": "2021",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/16005/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 16005
+    },
+    {
+      "Name": "2020",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/14835/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 14835
+    },
+    {
+      "Name": "2019",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/13443/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 13443
+    },
+    {
+      "Name": "2018",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/12325/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 12325
+    },
+    {
+      "Name": "2017",
+      "CountryCode": "SWE",
+      "RelativePath": "stats/67/season/11075/topstats.json",
+      "League": "Allsvenskan",
+      "StageId": 0,
+      "TemplateId": 67,
+      "TournamentId": 11075
+    }
+  ],
+  "seasonsWithLinks": [
+    "2026",
+    "2025",
+    "2024",
+    "2023",
+    "2022",
+    "2021",
+    "2020",
+    "2019",
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014",
+    "2013",
+    "2012",
+    "2011",
+    "2010"
+  ]
+}

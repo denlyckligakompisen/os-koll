@@ -3,7 +3,7 @@
     "id": "5107443",
     "date": "2026-04-04",
     "time": "15:00",
-    "home": "Degerfors",
+    "home": "Degerfors IF",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 1"
@@ -13,7 +13,7 @@
     "date": "2026-04-13",
     "time": "19:00",
     "home": "IK Sirius",
-    "away": "Hammarby",
+    "away": "Hammarby IF",
     "result": null,
     "competition": "Allsvenskan - Omgång 2"
   },
@@ -22,7 +22,7 @@
     "date": "2026-04-18",
     "time": "15:00",
     "home": "IK Sirius",
-    "away": "Västerås SK",
+    "away": "Västerås SK FK",
     "result": null,
     "competition": "Allsvenskan - Omgång 3"
   },
@@ -39,7 +39,7 @@
     "id": "5107473",
     "date": "2026-04-27",
     "time": "19:00",
-    "home": "Häcken",
+    "home": "BK Häcken",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 5"
@@ -58,7 +58,7 @@
     "date": "2026-05-11",
     "time": "19:00",
     "home": "IK Sirius",
-    "away": "Örgryte",
+    "away": "Örgryte IS",
     "result": null,
     "competition": "Allsvenskan - Omgång 7"
   },
@@ -66,7 +66,7 @@
     "id": "5107493",
     "date": "2026-05-18",
     "time": "19:00",
-    "home": "Djurgården",
+    "home": "Djurgårdens IF",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 8"
@@ -94,7 +94,7 @@
     "date": "2026-07-05",
     "time": "18:00",
     "home": "IK Sirius",
-    "away": "Mjällby",
+    "away": "Mjällby AIF",
     "result": null,
     "competition": "Allsvenskan - Omgång 11"
   },
@@ -102,7 +102,7 @@
     "id": "5107531",
     "date": "2026-07-12",
     "time": "18:00",
-    "home": "Brommapojkarna",
+    "home": "IF Brommapojkarna",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 12"
@@ -139,7 +139,7 @@
     "date": "2026-08-09",
     "time": "18:00",
     "home": "IK Sirius",
-    "away": "Brommapojkarna",
+    "away": "IF Brommapojkarna",
     "result": null,
     "competition": "Allsvenskan - Omgång 16"
   },
@@ -147,7 +147,7 @@
     "id": "5107568",
     "date": "2026-08-16",
     "time": "18:00",
-    "home": "Mjällby",
+    "home": "Mjällby AIF",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 17"
@@ -157,7 +157,7 @@
     "date": "2026-08-23",
     "time": "18:00",
     "home": "IK Sirius",
-    "away": "Häcken",
+    "away": "BK Häcken",
     "result": null,
     "competition": "Allsvenskan - Omgång 18"
   },
@@ -174,7 +174,7 @@
     "id": "5107595",
     "date": "2026-09-06",
     "time": "18:00",
-    "home": "Västerås SK",
+    "home": "Västerås SK FK",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 20"
@@ -184,7 +184,7 @@
     "date": "2026-09-13",
     "time": "18:00",
     "home": "IK Sirius",
-    "away": "Degerfors",
+    "away": "Degerfors IF",
     "result": null,
     "competition": "Allsvenskan - Omgång 21"
   },
@@ -192,7 +192,7 @@
     "id": "5107606",
     "date": "2026-09-20",
     "time": "18:00",
-    "home": "Örgryte",
+    "home": "Örgryte IS",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 22"
@@ -228,7 +228,7 @@
     "id": "5107638",
     "date": "2026-10-28",
     "time": "18:00",
-    "home": "Hammarby",
+    "home": "Hammarby IF",
     "away": "IK Sirius",
     "result": null,
     "competition": "Allsvenskan - Omgång 26"
@@ -256,7 +256,7 @@
     "date": "2026-11-22",
     "time": "18:00",
     "home": "IK Sirius",
-    "away": "Djurgården",
+    "away": "Djurgårdens IF",
     "result": null,
     "competition": "Allsvenskan - Omgång 29"
   },

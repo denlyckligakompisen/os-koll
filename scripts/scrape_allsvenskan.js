@@ -3,7 +3,8 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-const LEAGUE_ID = 67; // Allsvenskan
+import { LEAGUE_IDS, TARGET_TEAM, normalizeTeamName } from './constants.js';
+
 const TABLE_PATH = path.join(process.cwd(), 'public/data/allsvenskan_standings.json');
 const MATCHES_PATH = path.join(process.cwd(), 'public/data/allsvenskan_matches.json');
 
@@ -48,7 +49,7 @@ async function scrapeAllsvenskan() {
     console.log('Hämtar data från FotMob (Allsvenskan)...');
 
     try {
-        const response = await axios.get(`https://www.fotmob.com/api/leagues?id=${LEAGUE_ID}`, {
+        const response = await axios.get(`https://www.fotmob.com/api/leagues?id=${LEAGUE_IDS.ALLSVENSKAN}`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
@@ -62,7 +63,7 @@ async function scrapeAllsvenskan() {
             const standings = tableData.map(team => ({
                 id: team.id,
                 rank: team.idx,
-                team: team.name === 'Sirius' ? 'IK Sirius' : team.name,
+                team: normalizeTeamName(team.name),
                 p: team.played,
                 w: team.wins,
                 d: team.draws,
@@ -81,7 +82,7 @@ async function scrapeAllsvenskan() {
         if (data.fixtures && data.fixtures.allMatches) {
             // Find Sirius matches
             const siriusMatches = data.fixtures.allMatches
-                .filter(m => (m.home.name === 'Sirius' || m.away.name === 'Sirius' || m.home.shortName === 'Sirius' || m.away.shortName === 'Sirius'))
+                .filter(m => (m.home.name === TARGET_TEAM.ID || m.away.name === TARGET_TEAM.ID || m.home.shortName === TARGET_TEAM.ID || m.away.shortName === TARGET_TEAM.ID))
                 .map(m => {
                     const dateObj = new Date(m.status.utcTime);
                     const date = dateObj.toISOString().split('T')[0];
@@ -97,8 +98,8 @@ async function scrapeAllsvenskan() {
                         id: m.id,
                         date,
                         time,
-                        home: m.home.name === 'Sirius' ? 'IK Sirius' : m.home.name,
-                        away: m.away.name === 'Sirius' ? 'IK Sirius' : m.away.name,
+                        home: normalizeTeamName(m.home.name),
+                        away: normalizeTeamName(m.away.name),
                         result,
                         competition: `Allsvenskan - Omgång ${m.round}`
                     };

@@ -3,6 +3,8 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
+import { normalizeTeamName, getTeamFileSlug } from './constants.js';
+
 const LOGO_DIR = path.join(process.cwd(), 'public/logos');
 if (!fs.existsSync(LOGO_DIR)) fs.mkdirSync(LOGO_DIR, { recursive: true });
 
@@ -21,14 +23,17 @@ async function scrapeOfficialLogos() {
         'public/data/sirius_standings.json'
     ];
 
-    const teams = new Map();
+    const teams = new Map(); // Name -> ID
 
     for (const file of standingsFiles) {
         const fullPath = path.join(process.cwd(), file);
         if (fs.existsSync(fullPath)) {
             const data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
             data.forEach(t => {
-                if (t.id) teams.set(t.team, t.id);
+                if (t.id) {
+                    const normalized = normalizeTeamName(t.team);
+                    teams.set(normalized, t.id);
+                }
             });
         }
     }
@@ -37,7 +42,8 @@ async function scrapeOfficialLogos() {
 
     for (const [name, id] of teams.entries()) {
         const url = `https://images.fotmob.com/image_resources/logo/teamlogo/${id}.png`;
-        const filename = `${name.toLowerCase().replace(/\s+/g, '_')}.png`;
+        const slug = getTeamFileSlug(name);
+        const filename = `${slug}.png`;
         const filepath = path.join(LOGO_DIR, filename);
 
         try {
