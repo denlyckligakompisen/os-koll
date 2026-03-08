@@ -73,22 +73,6 @@ const SiriusKollen = () => {
                 time: dateObj.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }),
                 competition: `Svenska Cupen - ${drawnPlayoffMatch.round || 'Slutspel'}`
             };
-        } else {
-            const today = new Date();
-            const kvartsfinalDate = new Date('2026-03-15');
-
-            // If no upcoming drawn matches and group stage matches are finished, show placeholder
-            if (!nextMatch || nextMatch.competition.includes('Grp')) {
-                if (today < kvartsfinalDate) {
-                    nextMatch = {
-                        home: 'IK Sirius',
-                        away: '',
-                        date: '2026-03-15',
-                        time: '',
-                        competition: 'Svenska Cupen - Kvartsfinal'
-                    };
-                }
-            }
         }
     }
 
