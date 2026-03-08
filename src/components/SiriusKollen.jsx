@@ -262,99 +262,48 @@ const SiriusKollen = () => {
                     </Card>
                 )}
 
-                {/* Cup Playoff & Europa Card */}
+                {/* Cup Playoff Card */}
+                {activeComp === 'cup' && playoffs && (
+                    <Card style={{ marginTop: '16px' }} padding="20px">
+                        <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            Kvartsfinaler
+                        </h3>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                            {playoffs.groupWinners
+                                ?.filter(w => w.isDefinite)
+                                .map(winner => (
+                                    <div key={winner.team} style={{
+                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px',
+                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem'
+                                    }}>
+                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
+                                        <span style={{ fontWeight: winner.team === 'IK Sirius' ? '800' : '600' }}>{winner.team}</span>
+                                    </div>
+                                ))}
+                        </div>
+                    </Card>
+                )}
+
+                {/* Cup Schedule & Europa Card */}
                 {activeComp === 'cup' && (
                     <>
-                        {/* --- Temporarily hidden --- */}
-                        {/* {playoffs && ( 
-                            <Card style={{ marginTop: '16px' }} padding="20px">
-                                <h3 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    Kvartsfinaler
-                                </h3>
-                                
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                    <div>
-                                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                                            Hemmaplan
-                                        </div>
-                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                                            {playoffs.groupWinners
-                                                ?.sort((a,b) => b.pts - a.pts || b.gd - a.gd)
-                                                .slice(0, 4)
-                                                .map(winner => (
-                                                    <div key={winner.team} style={{ 
-                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px', 
-                                                        backgroundColor: '#f8f9fa', borderRadius: '8px', fontSize: '0.85rem' 
-                                                    }}>
-                                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
-                                                        <span style={{ fontWeight: '600' }}>{winner.team}</span>
-                                                    </div>
-                                                ))}
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                                            Bortaplan
-                                        </div>
-                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                                            {playoffs.groupWinners
-                                                ?.sort((a,b) => b.pts - a.pts || b.gd - a.gd)
-                                                .slice(4, 8)
-                                                .map(winner => (
-                                                    <div key={winner.team} style={{ 
-                                                        display: 'flex', alignItems: 'center', gap: '8px', padding: '10px', 
-                                                        backgroundColor: '#fff', border: '1px solid #eee', borderRadius: '8px', fontSize: '0.85rem' 
-                                                    }}>
-                                                        <img src={getTeamLogo(winner.team)} alt={winner.team} style={{ width: '18px', height: '18px' }} />
-                                                        <span style={{ fontWeight: '600' }}>{winner.team}</span>
-                                                    </div>
-                                                ))}
-                                        </div>
-                                    </div>
-
-                                    {playoffs.matches && playoffs.matches.length > 0 && (
-                                        <div style={{ marginTop: '10px' }}>
-                                            <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', marginBottom: '8px', textTransform: 'uppercase' }}>
-                                                Kvartsfinaler
-                                            </div>
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                {playoffs.matches.map(m => (
-                                                    <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: '#f0f4ff', borderRadius: '8px', fontSize: '0.85rem' }}>
-                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
-                                                            <img src={getTeamLogo(m.home)} alt={m.home} style={{ width: '16px' }} />
-                                                            <span>{m.home}</span>
-                                                        </div>
-                                                        <div style={{ fontWeight: '800', margin: '0 10px' }}>{m.result || '-'}</div>
-                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-end' }}>
-                                                            <span>{m.away}</span>
-                                                            <img src={getTeamLogo(m.away)} alt={m.away} style={{ width: '16px' }} />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </Card>
-                        )} */}
-
-                        <Card style={{ marginTop: '8px' }}>
+                        <Card style={{ marginTop: '16px' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                 {CUP_SCHEDULE.map((item, i) => (
                                     <React.Fragment key={item.label}>
-                                        {i > 0 && <div style={{ height: '0.5px', backgroundColor: 'rgba(0,0,0,0.05)' }} />}
+                                        {i > 0 && <div style={{ height: '1px', backgroundColor: 'rgba(0,0,0,0.05)' }} />}
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px' }}>
-                                            <span style={{ fontSize: '0.95rem', fontWeight: '500' }}>{item.label}</span>
-                                            <span style={{ fontSize: '0.95rem', fontWeight: '400', color: '#000' }}>{item.date}</span>
+                                            <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>{item.label}</span>
+                                            <span style={{ fontSize: '0.9rem', fontWeight: '400', color: '#666' }}>{item.date}</span>
                                         </div>
                                     </React.Fragment>
                                 ))}
                             </div>
                         </Card>
 
-                        <Card style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', justifyContent: 'center', alignItems: 'center' }} padding="30px">
-                            <img src={getTeamLogo('Europa League')} alt="UEFA Europa League" style={{ width: '100px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
+                        <Card style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '20px', justifyContent: 'center', alignItems: 'center' }} padding="30px">
+                            <img src={getTeamLogo('Europa League')} alt="UEFA Europa League" style={{ width: '80px', height: 'auto', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.1))' }} />
                             <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4', maxWidth: '280px', fontWeight: '500' }}>
                                 Vinnaren kvalar till <span style={{ color: '#000', fontWeight: '700' }}>Europa League</span>
                             </div>
