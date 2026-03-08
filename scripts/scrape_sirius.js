@@ -8,20 +8,40 @@ const MATCHES_PATH = path.join(process.cwd(), 'public/data/sirius_matches.json')
 const STANDINGS_PATH = path.join(process.cwd(), 'public/data/sirius_standings.json');
 const PLAYOFF_PATH = path.join(process.cwd(), 'public/data/cup_playoffs.json');
 
-const CACHE_DURATION = 60 * 60 * 1000; // 1 timme i millisekunder
+const CACHE_DURATION = 30 * 60 * 1000; // 30 minuter
 
 async function scrapeSirius() {
     const force = process.argv.includes('--force');
+    const now = new Date().getTime();
+
+    // Kolla om vi är i ett match-fönster (från start till 1h efter slut, ca 3h totalt)
+    let isMatchWindow = false;
+    if (fs.existsSync(MATCHES_PATH)) {
+        const matches = JSON.parse(fs.readFileSync(MATCHES_PATH, 'utf8'));
+        isMatchWindow = matches.some(m => {
+            const matchTime = new Date(`${m.date}T${m.time}`).getTime();
+            // Fönster: Från matchstart till 3 timmar efter start (90min match + paus + 60min buffer)
+            return now >= matchTime && now <= (matchTime + 3 * 60 * 60 * 1000);
+        });
+    }
 
     // Kolla om vi behöver uppdatera
     if (!force && fs.existsSync(STANDINGS_PATH)) {
         const stats = fs.statSync(STANDINGS_PATH);
-        const now = new Date().getTime();
         const lastUpdate = new Date(stats.mtime).getTime();
 
+        // Om vi INTE är i ett matchfönster, uppdatera inte (om det inte gått mer än 24h för att få nya scheman)
+        if (!isMatchWindow) {
+            const highCacheDuration = 24 * 60 * 60 * 1000;
+            if (now - lastUpdate < highCacheDuration) {
+                console.log('Inte i matchfönster och datan är färsk nog (24h). Hoppar över.');
+                return;
+            }
+        }
+
+        // I matchfönster använder vi 30 min cache
         if (now - lastUpdate < CACHE_DURATION) {
-            console.log('Datan är mindre än en timme gammal. Hoppar över API-anrop.');
-            console.log('Använd --force för att tvinga fram en uppdatering.');
+            console.log('Datan är mindre än 30 minuter gammal. Hoppar över.');
             return;
         }
     }

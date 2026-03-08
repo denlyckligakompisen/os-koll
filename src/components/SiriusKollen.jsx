@@ -84,7 +84,7 @@ const SiriusKollen = () => {
                         home: 'IK Sirius',
                         away: 'Ej lottat',
                         date: '2026-03-15',
-                        time: '17:00 (Tid ej fastställd)',
+                        time: '',
                         competition: 'Svenska Cupen - Kvartsfinal'
                     };
                 }
@@ -181,7 +181,8 @@ const SiriusKollen = () => {
                             </div>
                             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                                 <div style={{ fontSize: '1.4rem', fontWeight: '700', letterSpacing: '-0.02em' }}>
-                                    {formatMatchDisplayDate(nextMatch.date)} {nextMatch.time}
+                                    {formatMatchDisplayDate(nextMatch.date)}
+                                    {nextMatch.time && nextMatch.time !== '00:00' && !nextMatch.time.includes('ej fastställd') && ` ${nextMatch.time}`}
                                 </div>
                             </div>
                         </div>
