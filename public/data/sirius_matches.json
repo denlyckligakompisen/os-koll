@@ -6,7 +6,7 @@
     "home": "Piteå",
     "away": "IK Sirius",
     "result": "0–5",
-    "competition": "Svenska Cupen - Cup Grp. 8"
+    "competition": "Svenska Cupen - 2"
   },
   {
     "id": "5071581",
@@ -15,7 +15,7 @@
     "home": "IK Sirius",
     "away": "GIF Sundsvall",
     "result": "6–0",
-    "competition": "Svenska Cupen - Cup Grp. 8"
+    "competition": "Svenska Cupen - 1"
   },
   {
     "id": "5071583",
@@ -24,7 +24,7 @@
     "home": "IK Sirius",
     "away": "Helsingborgs IF",
     "result": "4–1",
-    "competition": "Svenska Cupen - Cup Grp. 8"
+    "competition": "Svenska Cupen - 2"
   },
   {
     "id": "5071585",
@@ -33,6 +33,15 @@
     "home": "Elfsborg",
     "away": "IK Sirius",
     "result": "1–2",
-    "competition": "Svenska Cupen - Cup Grp. 8"
+    "competition": "Svenska Cupen - 3"
+  },
+  {
+    "id": "5231353",
+    "date": "2026-03-15",
+    "time": "17:15",
+    "home": "IK Sirius",
+    "away": "IFK Göteborg",
+    "result": null,
+    "competition": "Svenska Cupen - Quarter-Finals"
   }
 ]

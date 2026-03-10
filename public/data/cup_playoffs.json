@@ -56,15 +56,12 @@
     },
     {
       "groupName": "Cup Grp. 7",
-      "team": "BK Häcken",
+      "team": "AIK",
       "pts": 6,
-      "p": 2,
-      "gd": 4,
-      "isDefinite": false,
-      "contenders": [
-        "AIK",
-        "Västerås SK FK"
-      ]
+      "p": 3,
+      "gd": 5,
+      "isDefinite": true,
+      "contenders": []
     },
     {
       "groupName": "Cup Grp. 8",
@@ -76,6 +73,39 @@
       "contenders": []
     }
   ],
-  "matches": [],
-  "lastUpdated": "2026-03-08T21:25:54.160Z"
+  "matches": [
+    {
+      "id": "5231356",
+      "round": "Quarter-Finals",
+      "home": "GAIS",
+      "away": "AIK",
+      "result": null,
+      "date": "2026-03-14T12:00:00Z"
+    },
+    {
+      "id": "5231354",
+      "round": "Quarter-Finals",
+      "home": "Mjällby AIF",
+      "away": "Malmö FF",
+      "result": null,
+      "date": "2026-03-14T14:00:00Z"
+    },
+    {
+      "id": "5231355",
+      "round": "Quarter-Finals",
+      "home": "Hammarby IF",
+      "away": "Djurgårdens IF",
+      "result": null,
+      "date": "2026-03-15T14:00:00Z"
+    },
+    {
+      "id": "5231353",
+      "round": "Quarter-Finals",
+      "home": "IK Sirius",
+      "away": "IFK Göteborg",
+      "result": null,
+      "date": "2026-03-15T16:15:00Z"
+    }
+  ],
+  "lastUpdated": "2026-03-10T22:37:18.389Z"
 }

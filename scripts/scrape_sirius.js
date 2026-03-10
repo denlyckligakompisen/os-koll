@@ -107,7 +107,7 @@ async function scrapeSirius() {
                         home: normalizeTeamName(m.home.name),
                         away: normalizeTeamName(m.away.name),
                         result,
-                        competition: `Svenska Cupen - ${siriusGroup ? siriusGroup.leagueName : 'Gruppspel'}`
+                        competition: `Svenska Cupen - ${m.roundName || (siriusGroup ? siriusGroup.leagueName : 'Gruppspel')}`
                     };
                 });
 

@@ -1,0 +1,30 @@
+name: Sirius & Allsvenskan Update
+on:
+  schedule:
+    - cron: '30 * * * *' # Varje timme (vid :30)
+  workflow_dispatch:
+
+jobs:
+  update-soccer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --include=dev
+      - run: npm run scrape:sirius
+      - run: npm run scrape:allsvenskan
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/data/sirius_matches.json \
+                  public/data/sirius_standings.json \
+                  public/data/cup_playoffs.json \
+                  public/data/allsvenskan_matches.json \
+                  public/data/allsvenskan_standings.json
+          git commit -m "Update Sirius & Allsvenskan data [skip ci]" || exit 0
+          git push

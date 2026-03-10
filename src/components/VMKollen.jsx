@@ -483,17 +483,6 @@ const VMKollen = () => {
                     <div className="animate-fade-in">
                         <Card style={{ marginBottom: '16px' }} padding="24px">
                             <div style={{
-                                fontSize: '0.75rem',
-                                fontWeight: '700',
-                                color: 'var(--color-text-muted)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                marginBottom: '16px',
-                                textAlign: 'center'
-                            }}>
-                                Slutspel
-                            </div>
-                            <div style={{
                                 textAlign: 'center',
                                 color: 'var(--color-text-muted)',
                                 fontSize: '0.9rem',
@@ -508,17 +497,6 @@ const VMKollen = () => {
                 return (
                     <div className="animate-fade-in">
                         <Card style={{ marginBottom: '16px' }} padding="24px">
-                            <div style={{
-                                fontSize: '0.75rem',
-                                fontWeight: '700',
-                                color: 'var(--color-text-muted)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                marginBottom: '16px',
-                                textAlign: 'center'
-                            }}>
-                                Statistik
-                            </div>
                             <div style={{
                                 textAlign: 'center',
                                 color: 'var(--color-text-muted)',
