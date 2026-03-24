@@ -468,13 +468,16 @@ const VMKollen = () => {
     const renderQualifierMatch = () => {
         // Find the next Sweden qualifier match from playoff data
         const swedenMatch = data?.rounds
-            ?.flatMap(r => r.matches.map(m => ({ ...m, round: r.name })))
+            ?.flatMap(r => r.matches.map(m => ({ ...m, round: r.name, roundDate: r.date })))
             ?.find(m =>
                 (m.home?.includes('Sverige') || m.away?.includes('Sverige')) &&
                 !m.home?.includes('/') && !m.away?.includes('/')
             );
 
         if (!swedenMatch) return null;
+
+        // Format date: remove year from "26 mars 2026" -> "26 MARS"
+        const displayDate = swedenMatch.roundDate?.replace(/\s*\d{4}$/, '').toUpperCase();
 
         const homeFlags = getFlagCodes(swedenMatch.home);
         const awayFlags = getFlagCodes(swedenMatch.away);
@@ -527,14 +530,31 @@ const VMKollen = () => {
             </Card>
         );
 
+        const dateLabel = displayDate ? (
+            <div style={{
+                fontSize: '0.8rem',
+                fontWeight: '700',
+                color: 'var(--color-text-muted)',
+                marginBottom: '10px',
+                paddingLeft: '4px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.02em'
+            }}>
+                {displayDate}
+            </div>
+        ) : null;
+
         if (swedenMatch.link) {
             return (
-                <a href={swedenMatch.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                    {card}
-                </a>
+                <>
+                    {dateLabel}
+                    <a href={swedenMatch.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
+                        {card}
+                    </a>
+                </>
             );
         }
-        return card;
+        return <>{dateLabel}{card}</>;
     };
 
     const renderSubTab = () => {
