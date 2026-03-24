@@ -140,9 +140,31 @@ const VMKollen = () => {
     const touchEnd = useRef(null);
 
     useEffect(() => {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+
         fetch('/data/vm_playoff.json')
             .then(res => res.json())
-            .then(setData)
+            .then(data => {
+                const filteredRounds = data.rounds.map(round => ({
+                    ...round,
+                    matches: round.matches.filter(m => {
+                        // For playoff matches without specific dates in the match object,
+                        // we use the round date if available.
+                        const matchDateStr = m.date || round.date;
+                        if (!matchDateStr) return true;
+                        // Example date format in JSON: "26 mars 2026"
+                        const parts = matchDateStr.split(' ');
+                        const day = parseInt(parts[0]);
+                        const monthName = parts[1]?.toLowerCase();
+                        const year = parseInt(parts[2]);
+                        const months = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+                        const mDate = new Date(year, months[monthName] ?? 0, day);
+                        return mDate >= now;
+                    })
+                })).filter(round => round.matches.length > 0);
+                setData({ ...data, rounds: filteredRounds });
+            })
             .catch(console.error);
 
         fetch('/data/worldcup_2026_groups.json')
@@ -152,7 +174,15 @@ const VMKollen = () => {
 
         fetch('/data/worldcup_2026_matches.json')
             .then(res => res.json())
-            .then(setMatchesData)
+            .then(data => {
+                const parseDate = (dateStr) => {
+                    const months = { 'juni': 5, 'juli': 6 };
+                    const [day, monthName] = dateStr.split(' ');
+                    return new Date(2026, months[monthName], parseInt(day));
+                };
+                const filteredMatches = data.matches.filter(m => parseDate(m.date) >= now);
+                setMatchesData({ ...data, matches: filteredMatches });
+            })
             .catch(console.error);
     }, []);
 
@@ -224,30 +254,7 @@ const VMKollen = () => {
             }}>
                 {renderBadge(homeFlags, match.home)}
 
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2px', height: '14px' }}>
-                        <div>
-                            {match.broadcast === 'SVT' ? (
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/SVT_Play_logotyp.svg/1280px-SVT_Play_logotyp.svg.png"
-                                    alt="SVT Play"
-                                    style={{ height: '10px', width: 'auto' }}
-                                />
-                            ) : match.broadcast === 'TV4' ? (
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TV4_Play_logo_2023.svg/440px-TV4_Play_logo_2023.svg.png"
-                                    alt="TV4 Play"
-                                    style={{ height: '11px', width: 'auto' }}
-                                />
-                            ) : match.broadcast?.includes('Viaplay') ? (
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Viaplay_logo.png"
-                                    alt="Viaplay"
-                                    style={{ height: '13px', width: 'auto' }}
-                                />
-                            ) : null}
-                        </div>
-                    </div>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                     <div style={{
                         fontSize: '0.9rem',
                         color: '#000',
@@ -458,12 +465,84 @@ const VMKollen = () => {
         );
     };
 
+    const renderQualifierMatch = () => {
+        // Find the next Sweden qualifier match from playoff data
+        const swedenMatch = data?.rounds
+            ?.flatMap(r => r.matches.map(m => ({ ...m, round: r.name })))
+            ?.find(m =>
+                (m.home?.includes('Sverige') || m.away?.includes('Sverige')) &&
+                !m.home?.includes('/') && !m.away?.includes('/')
+            );
+
+        if (!swedenMatch) return null;
+
+        const homeFlags = getFlagCodes(swedenMatch.home);
+        const awayFlags = getFlagCodes(swedenMatch.away);
+
+        const card = (
+            <Card style={{
+                position: 'relative',
+                overflow: 'hidden',
+            }} padding="24px">
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                        <span style={{
+                            fontSize: '0.7rem',
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.08em',
+                            color: 'var(--color-text-muted)',
+                        }}>
+                            VM-kval · {swedenMatch.round}
+                        </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                        {/* Home Team */}
+                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            <img src={flagUrl(homeFlags[0])} alt={swedenMatch.home} style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }} />
+                            <div style={{ fontSize: '0.9rem', fontWeight: swedenMatch.home.includes('Sverige') ? '800' : '600', color: 'var(--color-text)' }}>{swedenMatch.home}</div>
+                        </div>
+
+                        {/* Match Time */}
+                        <div style={{
+                            padding: '0 10px',
+                            textAlign: 'center',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', letterSpacing: '-0.02em' }}>
+                                {swedenMatch.time}
+                            </div>
+                        </div>
+
+                        {/* Away Team */}
+                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            <img src={flagUrl(awayFlags[0])} alt={swedenMatch.away} style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }} />
+                            <div style={{ fontSize: '0.9rem', fontWeight: swedenMatch.away.includes('Sverige') ? '800' : '600', color: 'var(--color-text)' }}>{swedenMatch.away}</div>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+        );
+
+        if (swedenMatch.link) {
+            return (
+                <a href={swedenMatch.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
+                    {card}
+                </a>
+            );
+        }
+        return card;
+    };
+
     const renderSubTab = () => {
         switch (activeTab) {
             case 'matcher':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        {renderPlayoff()}
+                        {renderQualifierMatch()}
                         <Countdown />
                         {renderAllMatches()}
                     </div>
