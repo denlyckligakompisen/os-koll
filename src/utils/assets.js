@@ -26,39 +26,7 @@ export const getTeamLogo = (teamName) => {
 
     // Special mappings for specific filenames if they differ from the slug
     const overrides = {
-        'sirius': '/logos/ik_sirius.png',
-        'ik_sirius': '/logos/ik_sirius.png',
-        'elfsborg': '/logos/if_elfsborg.png',
-        'if_elfsborg': '/logos/if_elfsborg.png',
-        'djurgarden': '/logos/djurgardens_if.png',
-        'djurgardens_if': '/logos/djurgardens_if.png',
-        'hammarby': '/logos/hammarby_if.png',
-        'hammarby_if': '/logos/hammarby_if.png',
-        'mjallby': '/logos/mjallby_aif.png',
-        'mjallby_aif': '/logos/mjallby_aif.png',
-        'degerfors': '/logos/degerfors_if.png',
-        'degerfors_if': '/logos/degerfors_if.png',
-        'hacken': '/logos/bk_hacken.png',
-        'bk_hacken': '/logos/bk_hacken.png',
-        'vasteras': '/logos/vasteras_sk_fk.png',
-        'vsk': '/logos/vasteras_sk_fk.png',
-        'vasteras_sk_fk': '/logos/vasteras_sk_fk.png',
-        'goteborg': '/logos/ifk_goteborg.png',
-        'ifk_goteborg': '/logos/ifk_goteborg.png',
-        'aik': '/logos/aik.png',
-        'gais': '/logos/gais.png',
-        'halmstad': '/logos/halmstads_bk.png',
-        'halmstads_bk': '/logos/halmstads_bk.png',
-        'malmo': '/logos/malmo_ff.png',
-        'malmo_ff': '/logos/malmo_ff.png',
-        'kalmar': '/logos/kalmar_ff.png',
-        'kalmar_ff': '/logos/kalmar_ff.png',
-        'orgryte': '/logos/orgryte_is.png',
-        'orgryte_is': '/logos/orgryte_is.png',
-        'helsingborg': '/logos/helsingborgs_if.png',
-        'helsingborgs_if': '/logos/helsingborgs_if.png',
-        'brommapojkarna': '/logos/if_brommapojkarna.png',
-        'if_brommapojkarna': '/logos/if_brommapojkarna.png'
+        // No specific team overrides needed for OS-koll/VM-kollen
     };
 
     if (overrides[slug]) return overrides[slug];

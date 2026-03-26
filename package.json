@@ -8,8 +8,6 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "scrape:sirius": "node scripts/scrape_sirius.js",
-    "scrape:allsvenskan": "node scripts/scrape_allsvenskan.js",
     "scrape:medals": "node scripts/scrape_medals.js",
     "scrape:fifa": "node scripts/scrape_fifa.js",
     "scrape:fifa-standings": "node scripts/scrape_fifa_standings.js"

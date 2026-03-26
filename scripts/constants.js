@@ -2,50 +2,29 @@
 import path from 'path';
 
 export const LEAGUE_IDS = {
-    ALLSVENSKAN: 67,
-    CUPEN: 171
+    WORLD_CUP_2026: 48 // Example ID for FIFA World Cup
 };
 
 export const TARGET_TEAM = {
-    ID: 'Sirius',
-    DISPLAY_NAME: 'IK Sirius'
+    ID: 'Sweden',
+    DISPLAY_NAME: 'Sverige'
 };
 
 /**
  * Common team name overrides for consistency
  */
 export const TEAM_NAME_OVERRIDES = {
-    'Sirius': TARGET_TEAM.DISPLAY_NAME,
-    'Degerfors': 'Degerfors IF',
-    'Djurgården': 'Djurgårdens IF',
-    'Häcken': 'BK Häcken',
-    'Halmstad': 'Halmstads BK',
-    'Hammarby': 'Hammarby IF',
-    'Kalmar': 'Kalmar FF',
-    'Malmö': 'Malmö FF',
-    'Mjällby': 'Mjällby AIF',
-    'Örgryte': 'Örgryte IS',
-    'Västerås SK': 'Västerås SK FK',
-    'IFK Göteborg': 'IFK Göteborg',
-    'Brommapojkarna': 'IF Brommapojkarna',
-    'GAIS': 'GAIS',
-    'AIK': 'AIK',
-    'IF Elfsborg': 'IF Elfsborg',
-    'Varbergs BoIS': 'Varbergs BoIS',
-    'Helsingborg': 'Helsingborgs IF',
-    'Östers IF': 'Östers IF',
-    'Utsiktens BK': 'Utsiktens BK'
+    'Sweden': TARGET_TEAM.DISPLAY_NAME,
 };
 
 export const normalizeTeamName = (name) => {
     if (!name) return name;
-    // Special handling for abbreviations or common versions
     const normalized = name.trim();
     return TEAM_NAME_OVERRIDES[normalized] || normalized;
 };
 
 /**
- * Convert a normalized team name to a slug used in URLs (e.g., on allsvenskan.se)
+ * Convert a normalized team name to a slug used in URLs
  */
 export const getTeamSlug = (name) => {
     if (!name) return '';
