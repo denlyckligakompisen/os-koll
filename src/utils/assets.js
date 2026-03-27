@@ -11,9 +11,9 @@ export const getTeamLogo = (teamName) => {
         'Conference League': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNrFv0oLweCA6oSLIWMaA5_aQIufqZgVprsA&s',
         'Europa League': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UEFA_Europa_League_logo_%282024_version%29.svg/1920px-UEFA_Europa_League_logo_%282024_version%29.svg.png',
         'FIFA World Cup': 'https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg',
-        'SVT': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sveriges_Television_logo.svg/2560px-Sveriges_Television_logo.svg.png',
-        'TV4': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/TV4_Logo_2023.svg/2560px-TV4_Logo_2023.svg.png',
-        'Viaplay': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Viaplay_logo.svg/2362px-Viaplay_logo.svg.png'
+        'SVT': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sveriges_Television_logo.svg/512px-Sveriges_Television_logo.svg.png',
+        'TV4': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/TV4_Logo_2023.svg/512px-TV4_Logo_2023.svg.png',
+        'Viaplay': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Viaplay_logo.svg/512px-Viaplay_logo.svg.png'
     };
 
     if (specialLogos[teamName]) return specialLogos[teamName];
