@@ -14,13 +14,13 @@
   /* iOS Indigo */
   --color-accent: #ff9500;
   /* iOS Orange */
-  --radius-lg: 14px;
-  /* iOS standard radius */
-  --radius-md: 10px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.12);
-  --border: 0.5px solid rgba(0, 0, 0, 0.1);
+  --radius-lg: 18px;
+  /* Modern soft radius */
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --border: 0.5px solid rgba(0, 0, 0, 0.08);
   /* iOS Thin Border */
   --font-family: 'SF Compact Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -46,29 +46,31 @@ body {
 }
 
 /* Animations */
-@keyframes fadeIn {
-  from {
+@keyframes fadeInBlur {
+  0% {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    filter: blur(8px);
+    transform: translateY(12px) scale(0.99);
   }
 
-  to {
+  100% {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0) scale(1);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeInBlur 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .premium-card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .premium-card-hover:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 15px 35px rgba(0, 51, 153, 0.4);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 82, 147, 0.15);
 }
 
 .premium-card-hover:active {

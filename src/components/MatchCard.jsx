@@ -4,15 +4,15 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, ...props }) => {
+const MatchCard = ({ match, idx, delay = 0, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
     const content = (
-        <Card key={idx} padding="12px 14px" style={{
+        <Card key={idx} padding="12px 14px" delay={delay} style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'rgba(255,255,255,0.5)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
         }}>
-            <FlagBadge codes={homeFlags} name={match.home} size={22} />
+            <FlagBadge codes={homeFlags} name={match.home} size={28} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
                     <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -20,11 +20,11 @@ const MatchCard = ({ match, idx, ...props }) => {
                     </span>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px' }}>
                         {match.broadcast && (
-                            <div style={{ fontSize: '0.6rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.broadcast}
                             </div>
                         )}
-                        <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: '800', flexShrink: 0, backgroundColor: 'rgba(0,0,0,0.05)', padding: '2px 6px', borderRadius: '4px' }}>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '800', flexShrink: 0, backgroundColor: 'rgba(0,0,0,0.05)', padding: '2px 6px', borderRadius: '4px' }}>
                             {match.time}
                         </span>
                     </div>
@@ -33,7 +33,7 @@ const MatchCard = ({ match, idx, ...props }) => {
                     </span>
                 </div>
             </div>
-            <FlagBadge codes={awayFlags} name={match.away} size={22} />
+            <FlagBadge codes={awayFlags} name={match.away} size={28} />
         </Card>
     );
 

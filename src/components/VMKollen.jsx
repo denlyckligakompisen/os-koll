@@ -33,45 +33,52 @@ const VMKollen = () => {
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const now = new Date();
         now.setHours(0, 0, 0, 0);
 
-        // 1. Fetch Playoff Data
-        fetch('/data/vm_playoff.json')
-            .then(res => res.json())
-            .then(pData => {
-                const filteredRounds = pData.rounds.map(round => ({
-                    ...round,
-                    matches: round.matches.filter(m => {
-                        const mDateStr = m.date || round.date;
-                        return parseTournamentDate(mDateStr, MONTH_MAP) >= now;
-                    })
-                })).filter(round => round.matches.length > 0);
-                setData({ ...pData, rounds: filteredRounds });
-            })
-            .catch(console.error);
+        Promise.all([
+            fetch('/data/vm_playoff.json').then(res => res.json()),
+            fetch('/data/worldcup_2026_groups.json').then(res => res.json()),
+            fetch('/data/worldcup_2026_matches.json').then(res => res.json())
+        ])
+        .then(([pData, gData, mData]) => {
+            const filteredRounds = pData.rounds.map(round => ({
+                ...round,
+                matches: round.matches.filter(m => {
+                    const mDateStr = m.date || round.date;
+                    return parseTournamentDate(mDateStr, MONTH_MAP) >= now;
+                })
+            })).filter(round => round.matches.length > 0);
+            
+            const filteredMatches = mData.matches.filter(m => 
+                parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
+            );
 
-        // 2. Fetch Groups Data
-        fetch('/data/worldcup_2026_groups.json')
-            .then(res => res.json())
-            .then(setGroupsData)
-            .catch(console.error);
-
-        // 3. Fetch Matches Data
-        fetch('/data/worldcup_2026_matches.json')
-            .then(res => res.json())
-            .then(mData => {
-                const filteredMatches = mData.matches.filter(m => 
-                    parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
-                );
-                setMatchesData({ ...mData, matches: filteredMatches });
-            })
-            .catch(console.error);
+            setData({ ...pData, rounds: filteredRounds });
+            setGroupsData(gData);
+            setMatchesData({ ...mData, matches: filteredMatches });
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error(err);
+            setLoading(false);
+        });
     }, []);
 
-    if (!data) return <div style={{ padding: '40px', textAlign: 'center' }}>Laddar...</div>;
+    const groupedMatches = React.useMemo(() => {
+        if (!matchesData?.matches) return {};
+        return matchesData.matches.reduce((acc, m) => {
+            if (!acc[m.date]) acc[m.date] = [];
+            acc[m.date].push(m);
+            return acc;
+        }, {});
+    }, [matchesData]);
+
+    if (loading) return <div className="animate-fade-in" style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
+    if (!data) return null;
 
     // Helper: Identify top 8 third-placed teams
     const getQualifiedThirds = () => {
@@ -89,7 +96,7 @@ const VMKollen = () => {
 
     const qualifiedThirds = getQualifiedThirds();
 
-    const renderTable = (groupName, teams, displayName) => {
+    const renderTable = (groupName, teams, displayName, idx = 0) => {
         const sortedTeams = [...teams].sort((a, b) => {
             const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
             const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0 } : b;
@@ -97,7 +104,7 @@ const VMKollen = () => {
         });
 
         return (
-            <Card key={groupName} style={{ marginBottom: '16px' }}>
+            <Card key={groupName} delay={idx * 100} style={{ marginBottom: '16px' }}>
                 <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
                     <BoldSverige text={displayName || groupName} />
                 </div>
@@ -125,13 +132,13 @@ const VMKollen = () => {
                                     </td>
                                     <td style={{ padding: '11px 4px' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <FlagBadge codes={flagCodes} name={team.name} size={22} />
+                                            <FlagBadge codes={flagCodes} name={team.name} size={26} />
                                             <span style={{ fontWeight: team.name.includes('Sverige') ? '600' : '400' }}><BoldSverige text={team.name} /></span>
                                         </div>
                                     </td>
                                     <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                    <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
-                                    <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '700' }}>{team.pts}</td>
+                                    <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit', fontWeight: '600' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                    <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>{team.pts}</td>
                                 </tr>
                             );
                         })}
@@ -141,20 +148,28 @@ const VMKollen = () => {
         );
     };
 
+
+
     const renderAllMatches = () => {
         if (!matchesData) return null;
-        const grouped = matchesData.matches.reduce((acc, m) => {
-            if (!acc[m.date]) acc[m.date] = [];
-            acc[m.date].push(m);
-            return acc;
-        }, {});
 
+        let matchCount = 0;
         return (
-            <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {Object.entries(grouped).map(([date, matches]) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {Object.entries(groupedMatches).map(([date, matches], groupIdx) => (
                     <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px' }}>{date}</div>
-                        {matches.map((m, i) => <MatchCard key={i} match={m} idx={i} />)}
+                        <div style={{ 
+                            fontSize: '0.8rem', 
+                            fontWeight: '800', 
+                            textTransform: 'uppercase', 
+                            paddingLeft: '4px',
+                            color: 'var(--color-text-muted)',
+                            letterSpacing: '0.02em'
+                        }}>{date}</div>
+                        {matches.map((m, i) => {
+                            const delay = (matchCount++) * 60 + (groupIdx * 100);
+                            return <MatchCard key={i} match={m} idx={i} delay={delay} />;
+                        })}
                     </div>
                 ))}
             </div>
@@ -207,20 +222,20 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '32px' }}>
-                <Card style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
+                <Card delay={0} style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
                     <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                        <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: '#005293', backgroundColor: 'rgba(0, 82, 147, 0.05)', padding: '4px 10px', borderRadius: '20px' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', color: '#005293', backgroundColor: 'rgba(0, 82, 147, 0.05)', padding: '6px 12px', borderRadius: '20px' }}>
                             {next.type}
                         </span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <FlagBadge codes={homeFlags} name={next.home} size={64} shadow={true} />
+                            <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.home} /></div>
                         </div>
                         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             {next.broadcast && (
-                                <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                     {next.broadcast}
                                 </div>
                             )}
@@ -237,7 +252,7 @@ const VMKollen = () => {
                             </div>
                         </div>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <FlagBadge codes={awayFlags} name={next.away} size={64} shadow={true} />
+                            <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.away} /></div>
                         </div>
                     </div>
@@ -251,28 +266,32 @@ const VMKollen = () => {
             <PageHeader title={data.tournament} logoSrc={getTeamLogo('FIFA World Cup')} />
 
             {/* Submenu */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '28px', fontSize: '0.8rem', fontWeight: '700' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '32px', fontSize: '0.85rem', fontWeight: '700' }}>
                 {SUBTABS.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
                         background: 'none', border: 'none', color: activeTab === tab.id ? '#000' : 'var(--color-text-muted)',
-                        textTransform: 'uppercase', padding: '8px', cursor: 'pointer', transition: 'color 0.2s', position: 'relative'
+                        textTransform: 'uppercase', padding: '10px 4px', cursor: 'pointer', transition: 'color 0.2s', position: 'relative',
+                        letterSpacing: '0.02em'
                     }}>
                         {tab.label}
-                        <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: `translateX(-50%) scaleX(${activeTab === tab.id ? 1 : 0})`, transition: 'transform 0.25s', width: '16px', height: '2px', backgroundColor: '#000' }} />
+                        <div style={{ position: 'absolute', bottom: 0, left: '0', right: '0', transform: `scaleX(${activeTab === tab.id ? 1 : 0})`, transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)', height: '2px', backgroundColor: '#000', borderRadius: '2px' }} />
                     </button>
                 ))}
             </div>
 
-            <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {activeTab === 'matcher' && (
                     <>
                         {renderSwedenNextMatch()}
                         {renderAllMatches()}
                     </>
                 )}
-                {activeTab === 'gruppspel' && groupsData?.groups.map(g => renderTable(g.name, g.teams))}
+                {activeTab === 'gruppspel' && groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
                 {(activeTab === 'slutspel' || activeTab === 'statistik') && (
-                    <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '40px' }}>Kommer snart</Card>
+                    <Card animate={true} delay={50} style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
+                        <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: '#000' }}>Kommer snart</div>
+                        <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
+                    </Card>
                 )}
             </div>
         </div>
