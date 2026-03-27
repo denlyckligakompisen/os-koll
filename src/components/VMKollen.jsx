@@ -136,8 +136,6 @@ const VMKollen = () => {
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
-    const touchStart = useRef(null);
-    const touchEnd = useRef(null);
 
     useEffect(() => {
         const now = new Date();
@@ -186,35 +184,7 @@ const VMKollen = () => {
             .catch(console.error);
     }, []);
 
-    // Minimum distance for a swipe to be recognized
-    const minSwipeDistance = 30;
 
-    const onTouchStart = (e) => {
-        if (!e.touches[0]) return;
-        touchEnd.current = null;
-        touchStart.current = e.touches[0].clientX;
-    };
-
-    const onTouchMove = (e) => {
-        if (!e.touches[0]) return;
-        touchEnd.current = e.touches[0].clientX;
-    };
-
-    const onTouchEnd = () => {
-        if (touchStart.current === null || touchEnd.current === null) return;
-        const distance = touchStart.current - touchEnd.current;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isLeftSwipe || isRightSwipe) {
-            const currentIndex = SUBTABS.findIndex(tab => tab.id === activeTab);
-            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
-                setActiveTab(SUBTABS[currentIndex + 1].id);
-            } else if (isRightSwipe && currentIndex > 0) {
-                setActiveTab(SUBTABS[currentIndex - 1].id);
-            }
-        }
-    };
 
     if (!data) return null;
 
@@ -532,17 +502,6 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '32px' }}>
-                <div style={{
-                    fontSize: '0.8rem',
-                    fontWeight: '800',
-                    color: 'var(--color-text-muted)',
-                    marginBottom: '10px',
-                    paddingLeft: '4px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em'
-                }}>
-                    Sveriges nästa match
-                </div>
                 <Card style={{
                     position: 'relative',
                     overflow: 'hidden',
@@ -622,6 +581,7 @@ const VMKollen = () => {
             case 'matcher':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                        {renderSwedenNextMatch()}
                         <Countdown />
                         {renderAllMatches()}
                     </div>
@@ -679,16 +639,11 @@ const VMKollen = () => {
                 width: '100%',
                 touchAction: 'pan-y'
             }}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
         >
             <PageHeader
                 title={data.tournament}
                 logoSrc={getTeamLogo('FIFA World Cup')}
             />
-
-            {renderSwedenNextMatch()}
 
             {/* Submenu */}
             <div style={{
@@ -700,33 +655,32 @@ const VMKollen = () => {
                 fontSize: '0.8rem',
                 fontWeight: '700'
             }}>
-                {SUBTABS.map((tab, i) => (
-                    <React.Fragment key={tab.id}>
-                        <button
-                            onClick={() => setActiveTab(tab.id)}
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                color: activeTab === tab.id ? '#000' : 'var(--color-text-muted)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                padding: '8px 8px',
-                                cursor: 'pointer',
-                                transition: 'color 0.2s',
-                                position: 'relative',
-                                minWidth: '70px'
-                            }}
-                        >
-                            {tab.label}
-                            <div style={{
-                                position: 'absolute', bottom: 0, left: '50%',
-                                transform: `translateX(-50%) scaleX(${activeTab === tab.id ? 1 : 0})`,
-                                transition: 'transform 0.25s ease',
-                                width: '16px', height: '2px',
-                                backgroundColor: '#000000', borderRadius: '2px'
-                            }} />
-                        </button>
-                    </React.Fragment>
+                {SUBTABS.map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: activeTab === tab.id ? '#000' : 'var(--color-text-muted)',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em',
+                            padding: '8px 8px',
+                            cursor: 'pointer',
+                            transition: 'color 0.2s',
+                            position: 'relative',
+                            minWidth: '70px'
+                        }}
+                    >
+                        {tab.label}
+                        <div style={{
+                            position: 'absolute', bottom: 0, left: '50%',
+                            transform: `translateX(-50%) scaleX(${activeTab === tab.id ? 1 : 0})`,
+                            transition: 'transform 0.25s ease',
+                            width: '16px', height: '2px',
+                            backgroundColor: '#000000', borderRadius: '2px'
+                        }} />
+                    </button>
                 ))}
             </div>
 
