@@ -15,10 +15,10 @@ const MatchCard = ({ match, idx, delay = 0, ...props }) => {
             <FlagBadge codes={homeFlags} name={match.home} size={28} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
-                    <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.1', wordBreak: 'break-word' }}>
                         <BoldSverige text={match.home} />
                     </span>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0 }}>
                         {match.broadcast && (
                             <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.broadcast}
@@ -40,7 +40,7 @@ const MatchCard = ({ match, idx, delay = 0, ...props }) => {
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
                     </div>
-                    <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.1', wordBreak: 'break-word' }}>
                         <BoldSverige text={match.away} />
                     </span>
                 </div>

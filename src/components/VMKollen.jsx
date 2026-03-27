@@ -285,16 +285,19 @@ const VMKollen = () => {
         <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto' }}>
             <PageHeader title={data.tournament} logoSrc={getTeamLogo('FIFA World Cup')} />
 
-            {/* Submenu */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '32px', fontSize: '0.85rem', fontWeight: '700' }}>
+            {/* Submenu Segmented Control */}
+            <div className="segmented-control">
+                <div className="segmented-pill" style={{ 
+                    transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
+                    width: `calc(100% / ${SUBTABS.length} - 4px)`
+                }} />
                 {SUBTABS.map(tab => (
-                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-                        background: 'none', border: 'none', color: activeTab === tab.id ? 'var(--color-text)' : 'var(--color-text-muted)',
-                        textTransform: 'uppercase', padding: '10px 4px', cursor: 'pointer', transition: 'color 0.2s', position: 'relative',
-                        letterSpacing: '0.02em'
-                    }}>
+                    <button 
+                        key={tab.id} 
+                        className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
+                        onClick={() => setActiveTab(tab.id)}
+                    >
                         {tab.label}
-                        <div style={{ position: 'absolute', bottom: 0, left: '0', right: '0', transform: `scaleX(${activeTab === tab.id ? 1 : 0})`, transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)', height: '2px', backgroundColor: 'var(--color-text)', borderRadius: '2px' }} />
                     </button>
                 ))}
             </div>

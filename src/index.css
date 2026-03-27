@@ -19,7 +19,8 @@
   --color-surface-subtle: rgba(0, 0, 0, 0.05);
   --color-highlight-sverige: rgba(254, 204, 0, 0.05);
   --font-family: 'SF Compact Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --drop-shadow-flag: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  --drop-shadow-flag: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  --border-flag: 0.5px solid rgba(0, 0, 0, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,7 +37,8 @@
     --color-surface-subtle: rgba(255, 255, 255, 0.08);
     --color-highlight-sverige: rgba(254, 204, 0, 0.1);
     --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --drop-shadow-flag: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    --drop-shadow-flag: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+    --border-flag: 0.5px solid rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -65,7 +67,7 @@ body {
   0% {
     opacity: 0;
     filter: blur(12px);
-    transform: translateY(20px) scale(0.96);
+    transform: translateY(30px) scale(0.92);
   }
 
   100% {
@@ -76,7 +78,7 @@ body {
 }
 
 .animate-fade-in {
-  animation: fadeInBlur 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: fadeInBlur 0.9s cubic-bezier(0.34, 1.75, 0.6, 1) forwards;
 }
 
 .premium-card-hover {
@@ -158,4 +160,66 @@ body {
 
 .live-indicator-pulse {
   animation: pulse 2s infinite;
+}
+
+/* Segmented Control (iOS style) */
+.segmented-control {
+  background: var(--color-surface-subtle);
+  border-radius: 9px;
+  padding: 2px;
+  display: flex;
+  position: relative;
+  margin: 0 10px 32px 10px;
+  user-select: none;
+  border: 0.5px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.05);
+}
+
+.segmented-button {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.segmented-button.active {
+  color: var(--color-text);
+}
+
+.segmented-pill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 7px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .segmented-control {
+    background: rgba(118, 118, 128, 0.24);
+    border: none;
+    box-shadow: none;
+  }
+  
+  .segmented-pill {
+    background: #636366;
+    border: 0.5px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .segmented-button.active {
+    color: #ffffff;
+  }
 }
