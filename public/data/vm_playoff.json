@@ -12,7 +12,8 @@
                     "location": "",
                     "broadcast": "Viaplay Sport",
                     "link": "https://viaplay.se/sport/fotboll/vm-kval/ukraina-sverige/s26012936844092826",
-                    "id": 1
+                    "id": 1,
+                    "score": "1 - 3"
                 }
             ]
         },
@@ -21,8 +22,8 @@
             "date": "31 mars 2026",
             "matches": [
                 {
-                    "home": "Ukraina/Sverige",
-                    "away": "Polen/Albanien",
+                    "home": "Sverige",
+                    "away": "Polen",
                     "time": "20:45",
                     "id": 3
                 }

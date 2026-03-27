@@ -465,96 +465,156 @@ const VMKollen = () => {
         );
     };
 
-    const renderQualifierMatch = () => {
-        // Find the next Sweden qualifier match from playoff data
-        const swedenMatch = data?.rounds
-            ?.flatMap(r => r.matches.map(m => ({ ...m, round: r.name, roundDate: r.date })))
-            ?.find(m =>
-                (m.home?.includes('Sverige') || m.away?.includes('Sverige')) &&
-                !m.home?.includes('/') && !m.away?.includes('/')
-            );
+    const renderSwedenNextMatch = () => {
+        const now = new Date();
+        
+        // Collect all potential Sweden matches
+        const allMatches = [];
+        
+        // 1. Check Qualifiers/Playoffs
+        if (data?.rounds) {
+            data.rounds.forEach(r => {
+                r.matches.forEach(m => {
+                    const matchDateStr = m.date || r.date;
+                    const parts = matchDateStr.split(' ');
+                    const day = parseInt(parts[0]);
+                    const monthName = parts[1]?.toLowerCase();
+                    const year = parseInt(parts[2]);
+                    const months = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+                    const mDate = new Date(year, months[monthName] ?? 0, day);
+                    
+                    if (m.home?.includes('Sverige') || m.away?.includes('Sverige')) {
+                        allMatches.push({
+                            ...m,
+                            fullDate: mDate,
+                            displayDate: matchDateStr.replace(/\s*202\d/, '').toUpperCase(),
+                            type: 'VM-kval' + (m.round ? ` · ${m.round}` : ` · ${r.name}`)
+                        });
+                    }
+                });
+            });
+        }
+        
+        // 2. Check VM Group Stage
+        if (matchesData?.matches) {
+            const months = { 'juni': 5, 'juli': 6 };
+            matchesData.matches.forEach(m => {
+                const [day, monthName] = m.date.split(' ');
+                const mDate = new Date(2026, months[monthName.toLowerCase()], parseInt(day));
+                
+                if (m.home?.includes('Sverige') || m.away?.includes('Sverige')) {
+                    allMatches.push({
+                        ...m,
+                        fullDate: mDate,
+                        displayDate: m.date.toUpperCase(),
+                        type: 'VM · ' + m.group
+                    });
+                }
+            });
+        }
 
-        if (!swedenMatch) return null;
+        // Sort by date and find the first upcoming
+        const nextMatch = allMatches
+            .filter(m => {
+                const matchTime = new Date(m.fullDate);
+                if (m.time) {
+                    const [h, min] = m.time.split(':').map(Number);
+                    matchTime.setHours(h, min);
+                }
+                return matchTime >= new Date();
+            })
+            .sort((a, b) => a.fullDate - b.fullDate)[0];
 
-        // Format date: remove year from "26 mars 2026" -> "26 MARS"
-        const displayDate = swedenMatch.roundDate?.replace(/\s*\d{4}$/, '').toUpperCase();
+        if (!nextMatch) return null;
 
-        const homeFlags = getFlagCodes(swedenMatch.home);
-        const awayFlags = getFlagCodes(swedenMatch.away);
+        const homeFlags = getFlagCodes(nextMatch.home);
+        const awayFlags = getFlagCodes(nextMatch.away);
 
-        const card = (
-            <Card style={{
-                position: 'relative',
-                overflow: 'hidden',
-            }} padding="24px">
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-                        <span style={{
-                            fontSize: '0.7rem',
-                            fontWeight: '700',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.08em',
-                            color: 'var(--color-text-muted)',
-                        }}>
-                            VM-kval · {swedenMatch.round}
-                        </span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
-                        {/* Home Team */}
-                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <img src={flagUrl(homeFlags[0])} alt={swedenMatch.home} style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }} />
-                            <div style={{ fontSize: '0.9rem', fontWeight: swedenMatch.home.includes('Sverige') ? '800' : '600', color: 'var(--color-text)' }}>{swedenMatch.home}</div>
+        return (
+            <div style={{ marginBottom: '32px' }}>
+                <div style={{
+                    fontSize: '0.8rem',
+                    fontWeight: '800',
+                    color: 'var(--color-text-muted)',
+                    marginBottom: '10px',
+                    paddingLeft: '4px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em'
+                }}>
+                    Sveriges nästa match
+                </div>
+                <Card style={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                    border: '2px solid #fecc00', // Swedish yellow
+                }} padding="28px">
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                            <span style={{
+                                fontSize: '0.75rem',
+                                fontWeight: '700',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.08em',
+                                color: '#005293', // Swedish blue
+                                backgroundColor: 'rgba(0, 82, 147, 0.05)',
+                                padding: '4px 10px',
+                                borderRadius: '20px'
+                            }}>
+                                {nextMatch.type} — {nextMatch.displayDate}
+                            </span>
                         </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                            {/* Home Team */}
+                            <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ display: 'flex', gap: '4px' }}>
+                                    {homeFlags.map((code, idx) => (
+                                        <img key={idx} src={flagUrl(code)} alt="" style={{ width: homeFlags.length > 1 ? '40px' : '64px', height: homeFlags.length > 1 ? '40px' : '64px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)', border: '2px solid white' }} />
+                                    ))}
+                                </div>
+                                <div style={{ fontSize: '1rem', fontWeight: nextMatch.home.includes('Sverige') ? '900' : '700', color: 'var(--color-text)' }}>
+                                    <BoldSverige text={nextMatch.home} />
+                                </div>
+                            </div>
 
-                        {/* Match Time */}
-                        <div style={{
-                            padding: '0 10px',
-                            textAlign: 'center',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}>
-                            <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', letterSpacing: '-0.02em' }}>
-                                {swedenMatch.time}
+                            {/* Match Time */}
+                            <div style={{
+                                padding: '0 15px',
+                                textAlign: 'center',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '900', color: '#000', letterSpacing: '-0.02em', backgroundColor: '#fecc00', padding: '4px 12px', borderRadius: '8px' }}>
+                                    {nextMatch.time}
+                                </div>
+                                {nextMatch.broadcast && (
+                                    <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-text-muted)', marginTop: '8px', textTransform: 'uppercase' }}>
+                                        {nextMatch.broadcast}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Away Team */}
+                            <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ display: 'flex', gap: '4px' }}>
+                                    {awayFlags.map((code, idx) => (
+                                        <img key={idx} src={flagUrl(code)} alt="" style={{ width: awayFlags.length > 1 ? '40px' : '64px', height: awayFlags.length > 1 ? '40px' : '64px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)', border: '2px solid white' }} />
+                                    ))}
+                                </div>
+                                <div style={{ fontSize: '1rem', fontWeight: nextMatch.away.includes('Sverige') ? '900' : '700', color: 'var(--color-text)' }}>
+                                    <BoldSverige text={nextMatch.away} />
+                                </div>
                             </div>
                         </div>
-
-                        {/* Away Team */}
-                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <img src={flagUrl(awayFlags[0])} alt={swedenMatch.away} style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }} />
-                            <div style={{ fontSize: '0.9rem', fontWeight: swedenMatch.away.includes('Sverige') ? '800' : '600', color: 'var(--color-text)' }}>{swedenMatch.away}</div>
-                        </div>
                     </div>
-                </div>
-            </Card>
-        );
-
-        const dateLabel = displayDate ? (
-            <div style={{
-                fontSize: '0.8rem',
-                fontWeight: '700',
-                color: 'var(--color-text-muted)',
-                marginBottom: '10px',
-                paddingLeft: '4px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.02em'
-            }}>
-                {displayDate}
+                    {nextMatch.link && (
+                        <a href={nextMatch.link} target="_blank" rel="noopener noreferrer" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2 }} />
+                    )}
+                </Card>
             </div>
-        ) : null;
-
-        if (swedenMatch.link) {
-            return (
-                <>
-                    {dateLabel}
-                    <a href={swedenMatch.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                        {card}
-                    </a>
-                </>
-            );
-        }
-        return <>{dateLabel}{card}</>;
+        );
     };
 
     const renderSubTab = () => {
@@ -562,7 +622,6 @@ const VMKollen = () => {
             case 'matcher':
                 return (
                     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        {renderQualifierMatch()}
                         <Countdown />
                         {renderAllMatches()}
                     </div>
@@ -628,6 +687,8 @@ const VMKollen = () => {
                 title={data.tournament}
                 logoSrc={getTeamLogo('FIFA World Cup')}
             />
+
+            {renderSwedenNextMatch()}
 
             {/* Submenu */}
             <div style={{
