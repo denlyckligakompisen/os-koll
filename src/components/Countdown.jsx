@@ -21,11 +21,6 @@ const Countdown = () => {
     return (
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
 
-            <img
-                src={getTeamLogo('FIFA World Cup')}
-                alt="FIFA World Cup 2026"
-                style={{ height: '100px', width: 'auto', marginBottom: '8px' }}
-            />
             <div style={{ textAlign: 'center' }}>
                 <div key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>
                     {timeLeft.days}

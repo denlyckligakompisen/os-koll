@@ -3,7 +3,6 @@ import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
-import Countdown from './Countdown';
 import MatchCard from './MatchCard';
 import { getFlagCodes, flagUrl } from '../utils/flags';
 
@@ -207,15 +206,32 @@ const VMKollen = () => {
                             {next.type} — {next.displayDate.replace(/\s*202\d/, '')}
                         </span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <div style={{ display: 'flex', gap: '4px' }}>
                                 {homeFlags.map((c, i) => <img key={i} src={flagUrl(c)} alt="" style={{ width: homeFlags.length > 1 ? '40px' : '64px', height: homeFlags.length > 1 ? '40px' : '64px', borderRadius: '50%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />)}
                             </div>
                             <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.home} /></div>
                         </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '1.5rem', fontWeight: '900', background: '#fecc00', padding: '4px 12px', borderRadius: '8px' }}>{next.time}</div>
+                        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            {next.broadcast && (
+                                <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    {['SVT', 'TV4', 'Viaplay'].includes(next.broadcast.split(' ')[0]) ? (
+                                        <img src={getTeamLogo(next.broadcast.split(' ')[0])} alt={next.broadcast} style={{ height: '12px', width: 'auto', display: 'block' }} />
+                                    ) : next.broadcast}
+                                </div>
+                            )}
+                            <div style={{ 
+                                fontSize: '1.25rem', 
+                                fontWeight: '900', 
+                                color: '#000', 
+                                backgroundColor: 'rgba(0,0,0,0.05)', 
+                                padding: '6px 14px', 
+                                borderRadius: '8px',
+                                letterSpacing: '-0.02em'
+                            }}>
+                                {next.time}
+                            </div>
                         </div>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <div style={{ display: 'flex', gap: '4px' }}>
@@ -250,7 +266,6 @@ const VMKollen = () => {
                 {activeTab === 'matcher' && (
                     <>
                         {renderSwedenNextMatch()}
-                        <Countdown />
                         {renderAllMatches()}
                     </>
                 )}

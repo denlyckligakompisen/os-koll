@@ -8,9 +8,10 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "scrape:medals": "node scripts/scrape_medals.js",
     "scrape:fifa": "node scripts/scrape_fifa.js",
-    "scrape:fifa-standings": "node scripts/scrape_fifa_standings.js"
+    "scrape:wc": "node scripts/scrape_fifa.js",
+    "scrape:fifa-standings": "node scripts/scrape_fifa_standings.js",
+    "scrape:playoffs": "node scripts/scrape_playoffs_fotmob.js"
   },
   "dependencies": {
     "axios": "^1.13.5",

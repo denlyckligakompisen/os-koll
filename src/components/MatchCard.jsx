@@ -2,10 +2,13 @@ import React from 'react';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import { getFlagCodes, flagUrl } from '../utils/flags';
+import { getTeamLogo } from '../utils/assets';
 
 const MatchCard = ({ match, idx, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
+    const bName = match.broadcast?.split(' ')[0];
+    const bLogo = ['SVT', 'TV4', 'Viaplay'].includes(bName) ? getTeamLogo(bName) : null;
 
     const renderBadge = (codes, name) => (
         <div style={{
@@ -33,9 +36,16 @@ const MatchCard = ({ match, idx, ...props }) => {
                     <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         <BoldSverige text={match.home} />
                     </span>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: '800', flexShrink: 0, backgroundColor: 'rgba(0,0,0,0.05)', padding: '2px 6px', borderRadius: '4px' }}>
-                        {match.time}
-                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px' }}>
+                        {match.broadcast && (
+                            <div style={{ fontSize: '0.6rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                {bLogo ? <img src={bLogo} alt={match.broadcast} style={{ height: '10px', width: 'auto', display: 'block' }} /> : match.broadcast}
+                            </div>
+                        )}
+                        <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: '800', flexShrink: 0, backgroundColor: 'rgba(0,0,0,0.05)', padding: '2px 6px', borderRadius: '4px' }}>
+                            {match.time}
+                        </span>
+                    </div>
                     <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         <BoldSverige text={match.away} />
                     </span>
