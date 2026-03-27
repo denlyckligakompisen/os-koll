@@ -6,6 +6,7 @@ import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
+import VMBracket from './VMBracket';
 
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher' },
@@ -269,7 +270,10 @@ const VMKollen = () => {
                     </>
                 )}
                 {activeTab === 'gruppspel' && groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
-                {(activeTab === 'slutspel' || activeTab === 'statistik') && (
+                {activeTab === 'slutspel' && (
+                    <VMBracket />
+                )}
+                {activeTab === 'statistik' && (
                     <Card animate={true} delay={50} style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
                         <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
                         <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>

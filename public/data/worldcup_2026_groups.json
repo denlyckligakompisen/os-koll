@@ -40,13 +40,13 @@
           "pts": 0
         },
         {
-          "name": "UEFA Play-off A",
+          "name": "Qatar",
           "played": 0,
           "gd": 0,
           "pts": 0
         },
         {
-          "name": "Qatar",
+          "name": "UEFA Play-off A",
           "played": 0,
           "gd": 0,
           "pts": 0
@@ -69,13 +69,13 @@
           "pts": 0
         },
         {
-          "name": "Marocko",
+          "name": "Haiti",
           "played": 0,
           "gd": 0,
           "pts": 0
         },
         {
-          "name": "Haiti",
+          "name": "Marocko",
           "played": 0,
           "gd": 0,
           "pts": 0
@@ -121,7 +121,7 @@
       "name": "Grupp E",
       "teams": [
         {
-          "name": "Tyskland",
+          "name": "Ecuador",
           "played": 0,
           "gd": 0,
           "pts": 0
@@ -139,7 +139,7 @@
           "pts": 0
         },
         {
-          "name": "Ecuador",
+          "name": "Tyskland",
           "played": 0,
           "gd": 0,
           "pts": 0
