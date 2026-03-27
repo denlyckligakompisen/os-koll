@@ -216,9 +216,7 @@ const VMKollen = () => {
                         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             {next.broadcast && (
                                 <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    {['SVT', 'TV4', 'Viaplay'].includes(next.broadcast.split(' ')[0]) ? (
-                                        <img src={getTeamLogo(next.broadcast.split(' ')[0])} alt={next.broadcast} style={{ height: '12px', width: 'auto', display: 'block' }} />
-                                    ) : next.broadcast}
+                                    {next.broadcast}
                                 </div>
                             )}
                             <div style={{ 
