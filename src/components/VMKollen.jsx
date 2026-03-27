@@ -104,10 +104,21 @@ const VMKollen = () => {
         });
 
         return (
-            <Card key={groupName} delay={idx * 100} style={{ marginBottom: '16px' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>
+            <div key={groupName} style={{ marginBottom: '32px' }}>
+                <div className="animate-fade-in" style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: '800', 
+                    textTransform: 'uppercase', 
+                    paddingLeft: '4px', 
+                    marginBottom: '12px', 
+                    color: 'var(--color-text-muted)', 
+                    letterSpacing: '0.05em',
+                    animationDelay: `${idx * 100}ms`,
+                    animationFillMode: 'forwards'
+                }}>
                     <BoldSverige text={displayName || groupName} />
                 </div>
+                <Card delay={idx * 100} style={{ marginBottom: '0' }}>
                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                     <thead>
                         <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
@@ -145,6 +156,7 @@ const VMKollen = () => {
                     </tbody>
                 </table>
             </Card>
+            </div>
         );
     };
 
@@ -221,13 +233,19 @@ const VMKollen = () => {
         const awayFlags = getFlagCodes(next.away);
 
         return (
-            <div style={{ marginBottom: '32px' }}>
-                <Card delay={0} style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
-                    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', color: '#005293', backgroundColor: 'rgba(0, 82, 147, 0.05)', padding: '6px 12px', borderRadius: '20px' }}>
-                            {next.type}
-                        </span>
-                    </div>
+            <div style={{ marginBottom: '40px' }}>
+                <div className="animate-fade-in" style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: '800', 
+                    textTransform: 'uppercase', 
+                    paddingLeft: '4px', 
+                    marginBottom: '12px', 
+                    color: 'var(--color-text-muted)', 
+                    letterSpacing: '0.05em' 
+                }}>
+                    {next.displayDate}
+                </div>
+                <Card delay={80} style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
