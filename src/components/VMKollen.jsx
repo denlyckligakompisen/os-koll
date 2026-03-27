@@ -18,7 +18,6 @@ const CURRENT_YEAR = 2026;
 const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
 
-// Utility to parse dates from various JSON formats consistently
 const parseTournamentDate = (dateStr, monthMap = MONTH_MAP) => {
     if (!dateStr) return new Date();
     const parts = dateStr.split(' ');
@@ -53,9 +52,7 @@ const VMKollen = () => {
                 })
             })).filter(round => round.matches.length > 0);
             
-            const updatedMatches = mData.matches.map((m, idx) => ({ ...m, status: idx === 0 ? 'live' : 'upcoming' }));
-            
-            const filteredMatches = updatedMatches.filter(m => 
+            const filteredMatches = mData.matches.filter(m => 
                 parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
             );
 
@@ -82,7 +79,6 @@ const VMKollen = () => {
     if (loading) return <div className="animate-fade-in" style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
     if (!data) return null;
 
-    // Helper: Identify top 8 third-placed teams
     const getQualifiedThirds = () => {
         if (!groupsData?.groups) return [];
         const thirdPlacedTeams = groupsData.groups.map(group => {
@@ -124,16 +120,16 @@ const VMKollen = () => {
                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                     <thead>
                         <tr style={{ borderBottom: 'var(--border)' }}>
-                            {['', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
+                            {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
                                 <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>{col}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {sortedTeams.map((teamData, idx) => {
+                        {sortedTeams.map((teamData, tidx) => {
                             const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
                             const flagCodes = getFlagCodes(team.name);
-                            const rank = idx + 1;
+                            const rank = tidx + 1;
                             const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
 
                             return (
@@ -162,11 +158,8 @@ const VMKollen = () => {
         );
     };
 
-
-
     const renderAllMatches = () => {
         if (!matchesData) return null;
-
         let matchCount = 0;
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -180,10 +173,9 @@ const VMKollen = () => {
                             color: 'var(--color-text-muted)',
                             letterSpacing: '0.02em'
                         }}>{date}</div>
-                        {matches.map((m, i) => {
-                            const delay = (matchCount++) * 60 + (groupIdx * 100);
-                            return <MatchCard key={i} match={m} idx={i} delay={delay} />;
-                        })}
+                        {matches.map((m, i) => (
+                            <MatchCard key={i} match={m} idx={i} delay={(matchCount++) * 60 + (groupIdx * 100)} />
+                        ))}
                     </div>
                 ))}
             </div>
@@ -201,12 +193,7 @@ const VMKollen = () => {
                     if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
                         const mDateStr = m.date || r.date;
                         const cleanDate = mDateStr.replace(/\s*202\d/, '');
-                        allMatches.push({ 
-                            ...m, 
-                            fullDate: parseTournamentDate(mDateStr, MONTH_MAP), 
-                            displayDate: cleanDate.toUpperCase(), 
-                            type: `${r.name} · ${cleanDate}` 
-                        });
+                        allMatches.push({ ...m, fullDate: parseTournamentDate(mDateStr, MONTH_MAP), displayDate: cleanDate.toUpperCase(), type: `${r.name} · ${cleanDate}` });
                     }
                 });
             });
@@ -215,20 +202,12 @@ const VMKollen = () => {
         if (matchesData?.matches) {
             matchesData.matches.forEach(m => {
                 if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
-                    allMatches.push({ 
-                        ...m, 
-                        fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP), 
-                        displayDate: m.date.toUpperCase(), 
-                        type: `VM · ${m.group}` 
-                    });
+                    allMatches.push({ ...m, fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP), displayDate: m.date.toUpperCase(), type: `VM · ${m.group}` });
                 }
             });
         }
 
-        const next = allMatches
-            .filter(m => m.fullDate >= today)
-            .sort((a,b) => a.fullDate - b.fullDate)[0];
-
+        const next = allMatches.filter(m => m.fullDate >= today).sort((a,b) => a.fullDate - b.fullDate)[0];
         if (!next) return null;
 
         const homeFlags = getFlagCodes(next.home);
@@ -236,15 +215,7 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '40px' }}>
-                <div className="animate-fade-in" style={{ 
-                    fontSize: '0.8rem', 
-                    fontWeight: '800', 
-                    textTransform: 'uppercase', 
-                    paddingLeft: '4px', 
-                    marginBottom: '12px', 
-                    color: 'var(--color-text-muted)', 
-                    letterSpacing: '0.05em' 
-                }}>
+                <div className="animate-fade-in" style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                     {next.displayDate}
                 </div>
                 <Card delay={80} style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
@@ -259,15 +230,7 @@ const VMKollen = () => {
                                     {next.broadcast}
                                 </div>
                             )}
-                            <div style={{ 
-                                fontSize: '1.25rem', 
-                                fontWeight: '900', 
-                                color: 'var(--color-text)', 
-                                backgroundColor: 'var(--color-surface-subtle)', 
-                                padding: '6px 14px', 
-                                borderRadius: '8px',
-                                letterSpacing: '-0.02em'
-                            }}>
+                            <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
                                 {next.time}
                             </div>
                         </div>
@@ -292,11 +255,7 @@ const VMKollen = () => {
                     width: `calc(100% / ${SUBTABS.length} - 4px)`
                 }} />
                 {SUBTABS.map(tab => (
-                    <button 
-                        key={tab.id} 
-                        className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
-                        onClick={() => setActiveTab(tab.id)}
-                    >
+                    <button key={tab.id} className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>
                         {tab.label}
                     </button>
                 ))}
