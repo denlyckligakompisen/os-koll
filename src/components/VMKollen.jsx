@@ -53,7 +53,9 @@ const VMKollen = () => {
                 })
             })).filter(round => round.matches.length > 0);
             
-            const filteredMatches = mData.matches.filter(m => 
+            const updatedMatches = mData.matches.map((m, idx) => ({ ...m, status: idx === 0 ? 'live' : 'upcoming' }));
+            
+            const filteredMatches = updatedMatches.filter(m => 
                 parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
             );
 
@@ -121,7 +123,7 @@ const VMKollen = () => {
                 <Card delay={idx * 100} style={{ marginBottom: '0' }}>
                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                     <thead>
-                        <tr style={{ borderBottom: '0.5px solid rgba(0,0,0,0.05)' }}>
+                        <tr style={{ borderBottom: 'var(--border)' }}>
                             {['', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
                                 <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>{col}</th>
                             ))}
@@ -135,9 +137,9 @@ const VMKollen = () => {
                             const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
 
                             return (
-                                <tr key={team.name} style={{ backgroundColor: team.name.includes('Sverige') ? 'rgba(254, 204, 0, 0.05)' : 'transparent' }}>
+                                <tr key={team.name} style={{ backgroundColor: team.name.includes('Sverige') ? 'var(--color-highlight-sverige)' : 'transparent' }}>
                                     <td style={{ padding: '8px 4px' }}>
-                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#248a3d' : 'inherit' }}>
+                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
                                         </div>
                                     </td>
@@ -245,7 +247,7 @@ const VMKollen = () => {
                 }}>
                     {next.displayDate}
                 </div>
-                <Card delay={80} style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
+                <Card delay={80} style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
@@ -260,8 +262,8 @@ const VMKollen = () => {
                             <div style={{ 
                                 fontSize: '1.25rem', 
                                 fontWeight: '900', 
-                                color: '#000', 
-                                backgroundColor: 'rgba(0,0,0,0.05)', 
+                                color: 'var(--color-text)', 
+                                backgroundColor: 'var(--color-surface-subtle)', 
                                 padding: '6px 14px', 
                                 borderRadius: '8px',
                                 letterSpacing: '-0.02em'
@@ -287,12 +289,12 @@ const VMKollen = () => {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '32px', fontSize: '0.85rem', fontWeight: '700' }}>
                 {SUBTABS.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-                        background: 'none', border: 'none', color: activeTab === tab.id ? '#000' : 'var(--color-text-muted)',
+                        background: 'none', border: 'none', color: activeTab === tab.id ? 'var(--color-text)' : 'var(--color-text-muted)',
                         textTransform: 'uppercase', padding: '10px 4px', cursor: 'pointer', transition: 'color 0.2s', position: 'relative',
                         letterSpacing: '0.02em'
                     }}>
                         {tab.label}
-                        <div style={{ position: 'absolute', bottom: 0, left: '0', right: '0', transform: `scaleX(${activeTab === tab.id ? 1 : 0})`, transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)', height: '2px', backgroundColor: '#000', borderRadius: '2px' }} />
+                        <div style={{ position: 'absolute', bottom: 0, left: '0', right: '0', transform: `scaleX(${activeTab === tab.id ? 1 : 0})`, transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)', height: '2px', backgroundColor: 'var(--color-text)', borderRadius: '2px' }} />
                     </button>
                 ))}
             </div>
@@ -307,7 +309,7 @@ const VMKollen = () => {
                 {activeTab === 'gruppspel' && groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
                 {(activeTab === 'slutspel' || activeTab === 'statistik') && (
                     <Card animate={true} delay={50} style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
-                        <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: '#000' }}>Kommer snart</div>
+                        <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
                         <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
                     </Card>
                 )}

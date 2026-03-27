@@ -10,11 +10,11 @@ const MatchCard = ({ match, idx, delay = 0, ...props }) => {
 
     const content = (
         <Card key={idx} padding="12px 14px" delay={delay} style={{
-            border: 'var(--border)', boxShadow: 'none', backgroundColor: 'rgba(255,255,255,0.5)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
+            border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
         }}>
             <FlagBadge codes={homeFlags} name={match.home} size={28} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
-                <div style={{ fontSize: '0.9rem', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
                     <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         <BoldSverige text={match.home} />
                     </span>
@@ -24,8 +24,20 @@ const MatchCard = ({ match, idx, delay = 0, ...props }) => {
                                 {match.broadcast}
                             </div>
                         )}
-                        <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '800', flexShrink: 0, backgroundColor: 'rgba(0,0,0,0.05)', padding: '2px 6px', borderRadius: '4px' }}>
-                            {match.time}
+                        <span style={{ 
+                            fontSize: '0.8rem', 
+                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text-muted)', 
+                            fontWeight: '800', 
+                            flexShrink: 0, 
+                            backgroundColor: match.status === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)', 
+                            padding: '2px 8px', 
+                            borderRadius: '4px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                        }}>
+                            {match.status === 'live' && <span className="live-indicator-pulse" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
                     </div>
                     <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>

@@ -29,7 +29,8 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true }) => {
                             height: `${imgSize}px`, 
                             borderRadius: '50%', 
                             objectFit: 'cover', 
-                            boxShadow: shadow ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                            filter: shadow ? 'var(--drop-shadow-flag)' : 'none',
+                            transition: 'transform 0.3s ease',
                             flexShrink: 0
                         }} 
                     />

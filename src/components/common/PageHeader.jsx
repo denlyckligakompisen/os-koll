@@ -24,7 +24,7 @@ const PageHeader = ({ title, subtitle, icon, logoSrc, style = {} }) => {
                         }}
                     />
                 ) : icon}
-                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: '#000000' }}>
+                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--color-text)' }}>
                     {title}
                 </h2>
             </div>
