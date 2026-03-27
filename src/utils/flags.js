@@ -56,11 +56,16 @@ export const getFlagCode = (name) => {
     if (name.includes('Grekland')) return 'GR';
     if (name.includes('Wales')) return 'GB-WLS';
     if (name.includes('Island')) return 'IS';
-    return 'UN'; // Unknown
+    return null; // No flag for anything else (Play-offs etc)
 };
 
 export const getFlagCodes = (name) => {
-    if (!name) return ['UN'];
-    if (!name.includes('/')) return [getFlagCode(name)];
-    return name.split('/').map(part => getFlagCode(part.trim()));
+    if (!name) return [];
+    if (!name.includes('/')) {
+        const code = getFlagCode(name);
+        return code ? [code] : [];
+    }
+    return name.split('/')
+        .map(part => getFlagCode(part.trim()))
+        .filter(code => code !== null);
 };

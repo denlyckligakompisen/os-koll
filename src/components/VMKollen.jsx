@@ -4,7 +4,8 @@ import PageHeader from './common/PageHeader';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
-import { getFlagCodes, flagUrl } from '../utils/flags';
+import { getFlagCodes } from '../utils/flags';
+import FlagBadge from './common/FlagBadge';
 
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher' },
@@ -12,6 +13,20 @@ const SUBTABS = [
     { id: 'slutspel', label: 'Slutspel' },
     { id: 'statistik', label: 'Statistik' }
 ];
+
+const CURRENT_YEAR = 2026;
+const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
+
+// Utility to parse dates from various JSON formats consistently
+const parseTournamentDate = (dateStr, monthMap = MONTH_MAP) => {
+    if (!dateStr) return new Date();
+    const parts = dateStr.split(' ');
+    const day = parseInt(parts[0]);
+    const monthName = parts[1]?.toLowerCase();
+    const year = parseInt(parts[2]) || CURRENT_YEAR;
+    return new Date(year, monthMap[monthName] ?? 0, day);
+};
 
 const VMKollen = () => {
     const [data, setData] = useState(null);
@@ -23,18 +38,6 @@ const VMKollen = () => {
         const now = new Date();
         now.setHours(0, 0, 0, 0);
 
-        // Utility to parse dates from the various JSON formats
-        const parseTournamentDate = (dateStr, monthMap) => {
-            const parts = dateStr.split(' ');
-            const day = parseInt(parts[0]);
-            const monthName = parts[1]?.toLowerCase();
-            const year = parseInt(parts[2]) || 2026;
-            return new Date(year, monthMap[monthName] ?? 0, day);
-        };
-
-        const playoffMonthMap = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
-        const groupMonthMap = { 'juni': 5, 'juli': 6 };
-
         // 1. Fetch Playoff Data
         fetch('/data/vm_playoff.json')
             .then(res => res.json())
@@ -43,8 +46,7 @@ const VMKollen = () => {
                     ...round,
                     matches: round.matches.filter(m => {
                         const mDateStr = m.date || round.date;
-                        if (!mDateStr) return true;
-                        return parseTournamentDate(mDateStr, playoffMonthMap) >= now;
+                        return parseTournamentDate(mDateStr, MONTH_MAP) >= now;
                     })
                 })).filter(round => round.matches.length > 0);
                 setData({ ...pData, rounds: filteredRounds });
@@ -62,7 +64,7 @@ const VMKollen = () => {
             .then(res => res.json())
             .then(mData => {
                 const filteredMatches = mData.matches.filter(m => 
-                    parseTournamentDate(m.date, groupMonthMap) >= now
+                    parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
                 );
                 setMatchesData({ ...mData, matches: filteredMatches });
             })
@@ -123,11 +125,7 @@ const VMKollen = () => {
                                     </td>
                                     <td style={{ padding: '11px 4px' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                                {flagCodes.map((code, fIdx) => (
-                                                    <img key={fIdx} src={flagUrl(code)} alt="" width={22} height={22} style={{ borderRadius: '50%', objectFit: 'cover', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
-                                                ))}
-                                            </div>
+                                            <FlagBadge codes={flagCodes} name={team.name} size={22} />
                                             <span style={{ fontWeight: team.name.includes('Sverige') ? '600' : '400' }}><BoldSverige text={team.name} /></span>
                                         </div>
                                     </td>
@@ -165,16 +163,21 @@ const VMKollen = () => {
 
     const renderSwedenNextMatch = () => {
         const allMatches = [];
-        const playoffMonthMap = { 'mars': 2, 'juni': 5 };
-        const groupMonthMap = { 'juni': 5, 'juli': 6 };
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         if (data?.rounds) {
             data.rounds.forEach(r => {
                 r.matches.forEach(m => {
                     if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
                         const mDateStr = m.date || r.date;
-                        const [day, mName] = mDateStr.split(' ');
-                        allMatches.push({ ...m, fullDate: new Date(2026, playoffMonthMap[mName.toLowerCase()] || 2, parseInt(day)), displayDate: mDateStr.toUpperCase(), type: `VM-kval · ${r.name}` });
+                        const cleanDate = mDateStr.replace(/\s*202\d/, '');
+                        allMatches.push({ 
+                            ...m, 
+                            fullDate: parseTournamentDate(mDateStr, MONTH_MAP), 
+                            displayDate: cleanDate.toUpperCase(), 
+                            type: `${r.name} · ${cleanDate}` 
+                        });
                     }
                 });
             });
@@ -183,14 +186,18 @@ const VMKollen = () => {
         if (matchesData?.matches) {
             matchesData.matches.forEach(m => {
                 if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
-                    const [day, mName] = m.date.split(' ');
-                    allMatches.push({ ...m, fullDate: new Date(2026, groupMonthMap[mName.toLowerCase()] || 5, parseInt(day)), displayDate: m.date.toUpperCase(), type: `VM · ${m.group}` });
+                    allMatches.push({ 
+                        ...m, 
+                        fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP), 
+                        displayDate: m.date.toUpperCase(), 
+                        type: `VM · ${m.group}` 
+                    });
                 }
             });
         }
 
         const next = allMatches
-            .filter(m => m.fullDate >= new Date().setHours(0,0,0,0))
+            .filter(m => m.fullDate >= today)
             .sort((a,b) => a.fullDate - b.fullDate)[0];
 
         if (!next) return null;
@@ -200,17 +207,15 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '32px' }}>
-                <Card style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: '2px solid #fecc00' }} padding="28px">
+                <Card style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', border: 'var(--border)' }} padding="28px">
                     <div style={{ textAlign: 'center', marginBottom: '20px' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: '#005293', backgroundColor: 'rgba(0, 82, 147, 0.05)', padding: '4px 10px', borderRadius: '20px' }}>
-                            {next.type} — {next.displayDate.replace(/\s*202\d/, '')}
+                            {next.type}
                         </span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ display: 'flex', gap: '4px' }}>
-                                {homeFlags.map((c, i) => <img key={i} src={flagUrl(c)} alt="" style={{ width: homeFlags.length > 1 ? '40px' : '64px', height: homeFlags.length > 1 ? '40px' : '64px', borderRadius: '50%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />)}
-                            </div>
+                            <FlagBadge codes={homeFlags} name={next.home} size={64} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.home} /></div>
                         </div>
                         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
@@ -232,9 +237,7 @@ const VMKollen = () => {
                             </div>
                         </div>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ display: 'flex', gap: '4px' }}>
-                                {awayFlags.map((c, i) => <img key={i} src={flagUrl(c)} alt="" style={{ width: awayFlags.length > 1 ? '40px' : '64px', height: awayFlags.length > 1 ? '40px' : '64px', borderRadius: '50%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />)}
-                            </div>
+                            <FlagBadge codes={awayFlags} name={next.away} size={64} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.away} /></div>
                         </div>
                     </div>

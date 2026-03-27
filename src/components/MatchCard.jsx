@@ -1,33 +1,18 @@
 import React from 'react';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
-import { getFlagCodes, flagUrl } from '../utils/flags';
+import { getFlagCodes } from '../utils/flags';
+import FlagBadge from './common/FlagBadge';
 
 const MatchCard = ({ match, idx, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
-    const renderBadge = (codes, name) => (
-        <div style={{
-            width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
-        }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
-                {codes.map((code, fIdx) => (
-                    code !== 'UN' ? (
-                        <img key={fIdx} src={flagUrl(code)} alt={name} width={codes.length > 1 ? 14 : 22} height={codes.length > 1 ? 14 : 22} style={{ borderRadius: '50%', objectFit: 'cover', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
-                    ) : codes.length === 1 ? (
-                        <div key={fIdx} style={{ width: '22px', height: '22px', borderRadius: '50%', border: '1px solid rgba(0,0,0,0.1)', backgroundColor: 'transparent' }} />
-                    ) : null
-                ))}
-            </div>
-        </div>
-    );
-
     const content = (
         <Card key={idx} padding="12px 14px" style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'rgba(255,255,255,0.5)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
         }}>
-            {renderBadge(homeFlags, match.home)}
+            <FlagBadge codes={homeFlags} name={match.home} size={22} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
                     <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -48,7 +33,7 @@ const MatchCard = ({ match, idx, ...props }) => {
                     </span>
                 </div>
             </div>
-            {renderBadge(awayFlags, match.away)}
+            <FlagBadge codes={awayFlags} name={match.away} size={22} />
         </Card>
     );
 

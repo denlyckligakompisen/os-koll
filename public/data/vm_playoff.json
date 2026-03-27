@@ -2,30 +2,20 @@
     "tournament": "VM-kollen",
     "rounds": [
         {
-            "name": "Semifinal",
-            "date": "26 mars 2026",
-            "matches": [
-                {
-                    "home": "Ukraina",
-                    "away": "Sverige",
-                    "time": "20:45",
-                    "location": "",
-                    "broadcast": "Viaplay Sport",
-                    "link": "https://viaplay.se/sport/fotboll/vm-kval/ukraina-sverige/s26012936844092826",
-                    "id": 1,
-                    "score": "1 - 3"
-                }
-            ]
-        },
-        {
-            "name": "Final",
+            "name": "Play-off Final",
             "date": "31 mars 2026",
             "matches": [
                 {
+                    "id": 4410118,
                     "home": "Sverige",
                     "away": "Polen",
                     "time": "20:45",
-                    "id": 3
+                    "status": "upcoming",
+                    "venue": {
+                        "name": "Friends Arena",
+                        "city": "Stockholm"
+                    },
+                    "broadcast": "TV6 / Viaplay"
                 }
             ]
         }
