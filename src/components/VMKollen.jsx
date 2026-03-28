@@ -267,7 +267,29 @@ const VMKollen = () => {
                         {renderAllMatches()}
                     </>
                 )}
-                {activeTab === 'gruppspel' && groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
+                {activeTab === 'gruppspel' && (
+                    <>
+                        {groupsData?.lastUpdated && (
+                            <div style={{ 
+                                textAlign: 'center', 
+                                fontSize: '0.75rem', 
+                                color: 'var(--color-text-muted)', 
+                                fontWeight: '600', 
+                                marginBottom: '16px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '6px'
+                            }}>
+                                <div style={{ width: '4px', height: '4px', backgroundColor: '#34c759', borderRadius: '50%' }} />
+                                Uppdaterad: {new Date(groupsData.lastUpdated).toLocaleString('sv-SE', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(' kl.', '')}
+                            </div>
+                        )}
+                        {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
+                    </>
+                )}
                 {activeTab === 'slutspel' && (
                     <VMBracket />
                 )}
