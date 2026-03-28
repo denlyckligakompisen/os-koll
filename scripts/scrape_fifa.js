@@ -21,16 +21,24 @@ async function scrapeMatches() {
             
             const extracted = await page.evaluate(() => {
                 const results = [];
-                const items = document.querySelectorAll('[class*="match-card"], [class*="MatchItem"]');
-                items.forEach(item => {
-                    const home = item.querySelector('[class*="home-team"] [class*="TeamName"]')?.innerText || 
-                                 item.querySelector('[class*="HomeTeam"]')?.innerText;
-                    const away = item.querySelector('[class*="away-team"] [class*="TeamName"]')?.innerText || 
-                                 item.querySelector('[class*="AwayTeam"]')?.innerText;
-                    const time = item.querySelector('[class*="MatchTime"]')?.innerText || "TBA";
-                    const date = item.closest('[class*="DateHeader"]')?.innerText || 
-                                 item.querySelector('[class*="MatchDate"]')?.innerText;
-                    if (home && away) results.push({ home, away, time, date });
+                // More aggressive selection for FIFA site layouts
+                const matchElements = document.querySelectorAll('[data-testid*="match"], [class*="MatchCard"], [class*="match-card"], .fp-match-card-content');
+                
+                matchElements.forEach(item => {
+                    const home = item.querySelector('[class*="home-team"] [class*="TeamName"], [class*="HomeTeam"], [data-testid*="home-team"]')?.innerText;
+                    const away = item.querySelector('[class*="away-team"] [class*="TeamName"], [class*="AwayTeam"], [data-testid*="away-team"]')?.innerText;
+                    const time = item.querySelector('[class*="MatchTime"], [class*="time"], [data-testid*="time"]')?.innerText || "TBA";
+                    const date = item.closest('[class*="DateHeader"], .fp-match-date')?.innerText || 
+                                 item.querySelector('[class*="MatchDate"], [class*="date"]')?.innerText;
+                    
+                    if (home && away) {
+                        results.push({ 
+                            home: home.trim(), 
+                            away: away.trim(), 
+                            time: time.trim(), 
+                            date: date?.trim() 
+                        });
+                    }
                 });
                 return results;
             });
@@ -38,11 +46,18 @@ async function scrapeMatches() {
             if (extracted.length > 0) {
                 matches = extracted.map(m => ({
                     ...m,
-                    date: m.date?.toLowerCase().replace('june', 'juni').replace('july', 'juli'),
-                    home: m.home.trim(),
-                    away: m.away.trim()
+                    date: m.date?.toLowerCase()
+                        .replace('june', 'juni')
+                        .replace('july', 'juli')
+                        .replace('january', 'januari')
+                        .replace('february', 'februari')
+                        .replace('march', 'mars')
+                        .replace('april', 'april')
+                        .replace('may', 'maj'),
+                    home: m.home,
+                    away: m.away
                 }));
-                console.log(`Successfully scraped ${matches.length} matches from FIFA.com!`);
+                console.log(`Successfully scraped ${matches.length} matches from official FIFA source!`);
             }
         } catch (e) {
             console.log('Playwright crawl failed or timed out:', e.message);

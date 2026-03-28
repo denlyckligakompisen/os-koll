@@ -13,7 +13,7 @@
       "date": "12 juni",
       "time": "04:00",
       "home": "Sydkorea",
-      "away": "UEFA Play-off D",
+      "away": "DAN/NMK/TJE/IRL",
       "venue": "Guadalajara",
       "broadcast": "TV4",
       "group": "Grupp A"
@@ -22,7 +22,7 @@
       "date": "12 juni",
       "time": "21:00",
       "home": "Kanada",
-      "away": "UEFA Play-off A",
+      "away": "POL/WAL/FIN/EST",
       "venue": "Toronto",
       "broadcast": "SVT",
       "group": "Grupp B"
@@ -67,7 +67,7 @@
       "date": "14 juni",
       "time": "06:00",
       "home": "Australien",
-      "away": "UEFA Play-off C",
+      "away": "GRE/GEO/KAZ/LUX",
       "venue": "Vancouver",
       "broadcast": "TV4",
       "group": "Grupp D"
@@ -102,7 +102,7 @@
     {
       "date": "15 juni",
       "time": "04:00",
-      "home": "UEFA Play-off B",
+      "home": "BIH/UKR/ISR/ISL",
       "away": "Tunisien",
       "venue": "Monterrey",
       "broadcast": "SVT",
@@ -156,7 +156,7 @@
     {
       "date": "17 juni",
       "time": "00:00",
-      "home": "Intercontinental Play-off 2",
+      "home": "BOL/SUR/IRQ",
       "away": "Norge",
       "venue": "Boston",
       "broadcast": "TV4",
@@ -184,7 +184,7 @@
       "date": "17 juni",
       "time": "19:00",
       "home": "Portugal",
-      "away": "Intercontinental Play-off 1",
+      "away": "NCL/JAM/COD",
       "venue": "Houston",
       "broadcast": "TV4",
       "group": "Grupp K"
@@ -219,7 +219,7 @@
     {
       "date": "18 juni",
       "time": "18:00",
-      "home": "UEFA Play-off D",
+      "home": "DAN/NMK/TJE/IRL",
       "away": "Sydafrika",
       "venue": "Atlanta",
       "broadcast": "TV4",
@@ -229,7 +229,7 @@
       "date": "18 juni",
       "time": "21:00",
       "home": "Schweiz",
-      "away": "UEFA Play-off A",
+      "away": "POL/WAL/FIN/EST",
       "venue": "Los Angeles",
       "broadcast": "TV4",
       "group": "Grupp B"
@@ -282,7 +282,7 @@
     {
       "date": "20 juni",
       "time": "06:00",
-      "home": "UEFA Play-off C",
+      "home": "GRE/GEO/KAZ/LUX",
       "away": "Paraguay",
       "venue": "San Fransisco",
       "broadcast": "TV4",
@@ -292,7 +292,7 @@
       "date": "20 juni",
       "time": "19:00",
       "home": "Nederländerna",
-      "away": "UEFA Play-off B",
+      "away": "BIH/UKR/ISR/ISL",
       "venue": "Houston",
       "broadcast": "TV4",
       "group": "Grupp F"
@@ -373,7 +373,7 @@
       "date": "22 juni",
       "time": "23:00",
       "home": "Frankrike",
-      "away": "Intercontinental Play-off 2",
+      "away": "BOL/SUR/IRQ",
       "venue": "Philadelphia",
       "broadcast": "SVT",
       "group": "Grupp I"
@@ -427,7 +427,7 @@
       "date": "24 juni",
       "time": "04:00",
       "home": "Colombia",
-      "away": "Intercontinental Play-off 1",
+      "away": "NCL/JAM/COD",
       "venue": "Guadalajara",
       "broadcast": "TV4",
       "group": "Grupp K"
@@ -444,7 +444,7 @@
     {
       "date": "24 juni",
       "time": "21:00",
-      "home": "UEFA Play-off A",
+      "home": "POL/WAL/FIN/EST",
       "away": "Qatar",
       "venue": "Seattle",
       "broadcast": "TV4",
@@ -480,7 +480,7 @@
     {
       "date": "25 juni",
       "time": "03:00",
-      "home": "UEFA Play-off D",
+      "home": "DAN/NMK/TJE/IRL",
       "away": "Mexiko",
       "venue": "Mexico City",
       "broadcast": "SVT",
@@ -517,7 +517,7 @@
       "date": "26 juni",
       "time": "01:00",
       "home": "Japan",
-      "away": "UEFA Play-off B",
+      "away": "BIH/UKR/ISR/ISL",
       "venue": "Dallas",
       "broadcast": "SVT",
       "group": "Grupp F"
@@ -525,7 +525,7 @@
     {
       "date": "26 juni",
       "time": "04:00",
-      "home": "UEFA Play-off C",
+      "home": "GRE/GEO/KAZ/LUX",
       "away": "USA",
       "venue": "Los Angeles",
       "broadcast": "TV4",
@@ -553,7 +553,7 @@
       "date": "26 juni",
       "time": "21:00",
       "home": "Senegal",
-      "away": "Intercontinental Play-off 2",
+      "away": "BOL/SUR/IRQ",
       "venue": "Unknown",
       "broadcast": "TV4",
       "group": "Grupp I"
@@ -615,7 +615,7 @@
     {
       "date": "28 juni",
       "time": "01:30",
-      "home": "Intercontinental Play-off 1",
+      "home": "NCL/JAM/COD",
       "away": "Uzbekistan",
       "venue": "Atlanta",
       "broadcast": "TV4",

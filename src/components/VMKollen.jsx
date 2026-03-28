@@ -41,8 +41,8 @@ const VMKollen = () => {
 
         Promise.all([
             fetch('/data/vm_playoff.json').then(res => res.json()),
-            fetch('/data/worldcup_2026_groups.json').then(res => res.json()),
-            fetch('/data/worldcup_2026_matches.json').then(res => res.json())
+            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_groups.json').then(res => res.json()),
+            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_matches.json').then(res => res.json())
         ])
         .then(([pData, gData, mData]) => {
             const filteredRounds = pData.rounds.map(round => ({

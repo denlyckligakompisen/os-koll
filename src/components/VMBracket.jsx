@@ -10,8 +10,8 @@ const VMBracket = () => {
 
     useEffect(() => {
         Promise.all([
-            fetch('/data/worldcup_2026_knockout.json').then(res => res.json()),
-            fetch('/data/worldcup_2026_groups.json').then(res => res.json())
+            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_knockout.json').then(res => res.json()),
+            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_groups.json').then(res => res.json())
         ])
         .then(([bData, gData]) => {
             setBracketData(bData);
