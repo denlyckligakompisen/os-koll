@@ -1,61 +1,51 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
+import { chromium } from 'playwright';
 
 const STANDINGS_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings';
 const OUTPUT_PATH = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
 
 async function scrapeStandings() {
-    console.log('Attempting to fetch FIFA World Cup 2026 standings...');
+    console.log(`Starting crawl of FIFA World Cup 2026 standings from ${STANDINGS_URL}...`);
+    
+    const browser = await chromium.launch({ headless: true });
+    const page = await browser.newPage();
 
     try {
-        const { data: html } = await axios.get(STANDINGS_URL, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept-Language': 'sv-SE,sv;q=0.9,en-US;q=0.8,en;q=0.7'
-            }
-        });
+        await page.goto(STANDINGS_URL, { waitUntil: 'networkidle', timeout: 60000 });
+        await page.waitForTimeout(5000); 
 
-        const $ = cheerio.load(html);
-
-        // Since FIFA is very dynamic, we might not get the tables directly.
-        // We look for any data in script tags or fallback.
-
-        let groups = [];
-
-        // Example parsing logic (this will need monitoring as FIFA site changes)
-        $('.table-container').each((i, el) => {
-            const groupName = $(el).find('.group-title').text().trim() || `Grupp ${String.fromCharCode(65 + i)}`;
-            const teams = [];
-
-            $(el).find('tr').each((j, row) => {
-                const name = $(row).find('.team-name').text().trim();
-                if (!name) return;
-
-                teams.push({
-                    name,
-                    played: parseInt($(row).find('.played').text()) || 0,
-                    gd: parseInt($(row).find('.goal-diff').text()) || 0,
-                    pts: parseInt($(row).find('.points').text()) || 0
+        // Extract directly from the page
+        const groups = await page.evaluate(() => {
+            const results = [];
+            document.querySelectorAll('[class*="TableContainer"], .table-container').forEach((el, i) => {
+                const groupName = el.querySelector('[class*="GroupTitle"], .group-title')?.innerText || `Grupp ${String.fromCharCode(65 + i)}`;
+                const teams = [];
+                el.querySelectorAll('tr').forEach(row => {
+                    const name = row.querySelector('[class*="TeamName"], .team-name')?.innerText;
+                    if (!name) return;
+                    
+                    teams.push({
+                        name: name.trim(),
+                        played: parseInt(row.querySelector('[class*="Played"], .played')?.innerText) || 0,
+                        gd: parseInt(row.querySelector('[class*="GoalDiff"], .goal-diff')?.innerText) || 0,
+                        pts: parseInt(row.querySelector('[class*="Points"], .points')?.innerText) || 0
+                    });
                 });
+                if (teams.length > 0) results.push({ name: groupName, teams });
             });
-
-            if (teams.length > 0) {
-                groups.push({ name: groupName, teams });
-            }
+            return results;
         });
 
-        // Fallback: If we couldn't parse anything (e.g. site changed or blocking), 
-        // we keep the existing structure but update the timestamp.
+        await browser.close();
+
         const currentData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf8'));
 
         if (groups.length > 0) {
             currentData.groups = groups;
             console.log(`Successfully parsed ${groups.length} groups.`);
         } else {
-            console.log('No groups found in HTML. Site might be dynamic. Using existing teams data.');
-            // Just ensure teams are in the right format (objects instead of strings if needed)
+            console.log('No groups found in page. Site might be using different selectors. Using existing teams data.');
             currentData.groups = currentData.groups.map(g => ({
                 ...g,
                 teams: g.teams.map(t => typeof t === 'string' ? { name: t, played: 0, gd: 0, pts: 0 } : t)
@@ -70,7 +60,7 @@ async function scrapeStandings() {
 
     } catch (error) {
         console.error('Scraping failed:', error.message);
-        // Don't exit with error here to keep the workflow running, but log it
+        try { await browser.close(); } catch(e) {}
     }
 }
 

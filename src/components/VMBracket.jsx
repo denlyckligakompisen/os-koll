@@ -23,31 +23,14 @@ const VMBracket = () => {
     const resolveTeamInfo = (label) => {
         if (!label) return { name: 'TBA', isPreliminary: true };
         
-        // Match Round of 32/16 winners labels
-        if (label.startsWith('Vinnare')) return { name: label, isPreliminary: true };
-
-        // Match Group placement labels like "1A", "2B"
-        const groupMatch = label.match(/^([1-3])([A-L])$/);
-        if (groupMatch) {
-            const rank = parseInt(groupMatch[1]);
-            const groupLetter = groupMatch[2];
-            const groupName = `Grupp ${groupLetter}`;
-            const group = groupsData?.groups.find(g => g.name === groupName);
-            if (group && group.teams[rank - 1]) {
-                const team = group.teams[rank - 1];
-                return { name: typeof team === 'string' ? team : team.name, isPreliminary: true };
-            }
-        }
-
-        // Handle composite/range labels like "3A/B/C"
-        if (label.includes('/')) {
-            const rank = label.match(/^\d/)?.[0] || '';
-            const groups = label.match(/[A-L]/g) || [];
-            return { name: `${rank}:a ${groups.join('/')}`, isPreliminary: true };
-        }
-
-        // It's a real team name directly from the JSON
-        return { name: label, isPreliminary: false };
+        // Show the raw labels from the JSON as requested.
+        // We still mark them as preliminary if they are placeholders.
+        const isPlaceholder = label.match(/^([1-3][A-L])|(\d[A-L]\/.+)|(Vinnare \d+)|(TBA)/i);
+        
+        return { 
+            name: label, 
+            isPreliminary: !!isPlaceholder 
+        };
     };
 
     const groupedMatches = useMemo(() => {
@@ -72,7 +55,7 @@ const VMBracket = () => {
     }, [bracketData, groupsData, activeRoundIdx]);
 
     if (!bracketData || !groupsData) return (
-        <div className="animate-fade-in" style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>
+        <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>
             Laddar slutspel...
         </div>
     );
@@ -81,7 +64,7 @@ const VMBracket = () => {
     const isAnyPreliminary = Object.values(groupedMatches).flat().some(m => m.isPreliminary);
 
     return (
-        <div className="animate-fade-in">
+        <div>
             {/* Preliminary Notice Banner */}
             {isAnyPreliminary && (
                 <div style={{ 
@@ -149,7 +132,6 @@ const VMBracket = () => {
                                 key={m.id || i} 
                                 match={m} 
                                 idx={i} 
-                                delay={i * 60 + groupIdx * 100}
                                 style={m.isPreliminary ? { opacity: 0.85 } : {}}
                             />
                         ))}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getTeamLogo } from '../utils/assets';
 import Card from './common/Card';
 
 const Countdown = () => {

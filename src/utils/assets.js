@@ -1,11 +1,11 @@
 
 /**
- * Shared logo mapping for Swedish teams and competitions
+ * Shared logo mapping for competitions and special logos
  */
-export const getTeamLogo = (teamName) => {
-    if (!teamName) return null;
+export const getTeamLogo = (name) => {
+    if (!name) return null;
 
-    // Exact mapping for competitions and special logos
+    // Mapping for competition logos
     const specialLogos = {
         'Champions League': 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo_UEFA_Champions_League.png',
         'Conference League': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNrFv0oLweCA6oSLIWMaA5_aQIufqZgVprsA&s',
@@ -13,24 +13,5 @@ export const getTeamLogo = (teamName) => {
         'FIFA World Cup': 'https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg'
     };
 
-    if (specialLogos[teamName]) return specialLogos[teamName];
-
-    // Generic slugification for local logos (matches getTeamFileSlug)
-    const slug = teamName.toLowerCase()
-        .trim()
-        .replace(/å/g, 'a')
-        .replace(/ä/g, 'a')
-        .replace(/ö/g, 'o')
-        .replace(/\s+/g, '_')
-        .replace(/[^a-z0-9_]/g, '');
-
-    // Special mappings for specific filenames if they differ from the slug
-    const overrides = {
-        // No specific team overrides needed for OS-koll/VM-kollen
-    };
-
-    if (overrides[slug]) return overrides[slug];
-
-    // Fallback try simple slug
-    return `/logos/${slug}.png`;
+    return specialLogos[name] || null;
 };

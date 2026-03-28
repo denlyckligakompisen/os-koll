@@ -77,7 +77,7 @@ const VMKollen = () => {
         }, {});
     }, [matchesData]);
 
-    if (loading) return <div className="animate-fade-in" style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
+    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
     if (!data) return null;
 
     const getQualifiedThirds = () => {
@@ -104,20 +104,18 @@ const VMKollen = () => {
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
-                <div className="animate-fade-in" style={{ 
+                <div style={{ 
                     fontSize: '0.8rem', 
                     fontWeight: '800', 
                     textTransform: 'uppercase', 
                     paddingLeft: '4px', 
                     marginBottom: '12px', 
                     color: 'var(--color-text-muted)', 
-                    letterSpacing: '0.05em',
-                    animationDelay: `${idx * 100}ms`,
-                    animationFillMode: 'forwards'
+                    letterSpacing: '0.05em'
                 }}>
                     <BoldSverige text={displayName || groupName} />
                 </div>
-                <Card delay={idx * 100} style={{ marginBottom: '0' }}>
+                <Card style={{ marginBottom: '0' }}>
                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                     <thead>
                         <tr style={{ borderBottom: 'var(--border)' }}>
@@ -175,7 +173,7 @@ const VMKollen = () => {
                             letterSpacing: '0.02em'
                         }}>{date}</div>
                         {matches.map((m, i) => (
-                            <MatchCard key={i} match={m} idx={i} delay={(matchCount++) * 60 + (groupIdx * 100)} />
+                            <MatchCard key={i} match={m} idx={i} />
                         ))}
                     </div>
                 ))}
@@ -216,10 +214,10 @@ const VMKollen = () => {
 
         return (
             <div style={{ marginBottom: '40px' }}>
-                <div className="animate-fade-in" style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                     {next.displayDate}
                 </div>
-                <Card delay={80} style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
+                <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
@@ -274,7 +272,7 @@ const VMKollen = () => {
                     <VMBracket />
                 )}
                 {activeTab === 'statistik' && (
-                    <Card animate={true} delay={50} style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
+                    <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
                         <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
                         <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
                     </Card>

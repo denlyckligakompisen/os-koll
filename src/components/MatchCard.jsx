@@ -4,12 +4,12 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, delay = 0, ...props }) => {
+const MatchCard = ({ match, idx, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
     const content = (
-        <Card key={idx} padding="12px 14px" delay={delay} style={{
+        <Card key={idx} padding="12px 14px" style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
         }}>
             <FlagBadge codes={homeFlags} name={match.home} size={28} />
