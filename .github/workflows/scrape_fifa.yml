@@ -15,6 +15,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+      - run: npx playwright install --with-deps chromium
       - run: npm run scrape:fifa
       - run: npm run scrape:fifa-standings
       - name: Commit and push changes
