@@ -7,6 +7,71 @@ const MATCHES_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_match
 const GROUPS_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
 const KNOCKOUT_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_knockout.json');
 
+const TEAM_TRANSLATIONS = {
+    'Germany': 'Tyskland',
+    'Ivory Coast': 'Elfenbenskusten',
+    'Netherlands': 'Nederländerna',
+    'Iceland': 'Island',
+    'Tunisia': 'Tunisien',
+    'Spain': 'Spanien',
+    'Egypt': 'Egypten',
+    'Saudi Arabia': 'Saudiarabien',
+    'United Arab Emirates': 'Förenade Arabemiraten',
+    'New Zealand': 'Nya Zeeland',
+    'France': 'Frankrike',
+    'Algeria': 'Algeriet',
+    'Austria': 'Österrike',
+    'Croatia': 'Kroatien',
+    'Mexico': 'Mexiko',
+    'South Korea': 'Sydkorea',
+    'Switzerland': 'Schweiz',
+    'Canada': 'Kanada',
+    'Brazil': 'Brasilien',
+    'Morocco': 'Marocko',
+    'Cape Verde': 'Kap Verde',
+    'United States': 'USA',
+    'Italy': 'Italien',
+    'Sweden': 'Sverige',
+    'Norway': 'Norge',
+    'Belgium': 'Belgien',
+    'Turkey': 'Turkiet',
+    'Türkiye': 'Turkiet',
+    'Czech Republic': 'Tjeckien',
+    'Slovakia': 'Slovakien',
+    'Russia': 'Ryssland',
+    'Georgia': 'Georgien',
+    'Greece': 'Grekland',
+    'Denmark': 'Danmark',
+    'North Macedonia': 'Nordmakedonien',
+    'Northern Ireland': 'Nordirland',
+    'Republic of Ireland': 'Irland',
+    'Ireland': 'Irland',
+    'Wales': 'Wales',
+    'Poland': 'Polen',
+    'Scotland': 'Skottland',
+    'Hungary': 'Ungern',
+    'Romania': 'Rumänien',
+    'Ukraine': 'Ukraina',
+    'Serbia': 'Serbien',
+    'Portugal': 'Portugal',
+    'Slovenia': 'Slovenien',
+    'South Africa': 'Sydafrika',
+    'Japan': 'Japan',
+    'Ecuador': 'Ecuador',
+    'Senegal': 'Senegal',
+    'Saudi Arabia': 'Saudiarabien',
+    'Uzbekistan': 'Uzbekistan',
+    'Colombia': 'Colombia',
+    'Argentina': 'Argentina',
+    'Uruguay': 'Uruguay',
+    'Iran': 'Iran'
+};
+
+const translateTeam = (name) => {
+    if (!name) return name;
+    return TEAM_TRANSLATIONS[name.trim()] || name.trim();
+};
+
 async function scrapeMatches() {
     console.log(`Starting crawl of FIFA World Cup 2026 schedule from ${FIFA_URL}...`);
 
@@ -54,8 +119,8 @@ async function scrapeMatches() {
                         .replace('march', 'mars')
                         .replace('april', 'april')
                         .replace('may', 'maj'),
-                    home: m.home,
-                    away: m.away
+                    home: translateTeam(m.home),
+                    away: translateTeam(m.away)
                 }));
                 console.log(`Successfully scraped ${matches.length} matches from official FIFA source!`);
             }
