@@ -21,17 +21,72 @@ const VMBracket = () => {
         .catch(console.error);
     }, []);
 
+    const TEAM_ABBR = {
+        'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
+        'Ukraina': 'UKR', 'Grekland': 'GRE', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+        'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
+        'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
+        'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
+        'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
+        'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
+        'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
+        'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
+        'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
+        'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
+    };
+
+    const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
+
     const resolveTeamInfo = (label) => {
-        if (!label) return { name: 'TBA', isPreliminary: true };
-        
-        // Show the raw labels from the JSON as requested.
-        // We still mark them as preliminary if they are placeholders.
-        const isPlaceholder = label.match(/^([1-3][A-L])|(\d[A-L]\/.+)|(Vinnare \d+)|(TBA)/i);
-        
-        return { 
-            name: label, 
-            isPreliminary: !!isPlaceholder 
-        };
+        if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
+
+        // Handle 1A, 2B, etc.
+        const rankMatch = label.match(/^([12])([A-L])$/i);
+        if (rankMatch) {
+            const rank = parseInt(rankMatch[1]);
+            const groupChar = rankMatch[2].toUpperCase();
+            const groupIdx = groupChar.charCodeAt(0) - 65; // A=0, B=1...
+            
+            const group = groupsData.groups[groupIdx];
+            if (group) {
+                const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                const team = sorted[rank - 1];
+                if (team) {
+                    return { 
+                        name: `${label}\n${team.name}`, 
+                        realName: team.name,
+                        isPlaceholder: false 
+                    };
+                }
+            }
+        }
+
+        // Handle 3A/B/C/D etc.
+        if (label.includes('/')) {
+            const parts = label.split('/'); // ["3A", "B", "C", "D"]
+            const groupChars = [];
+            const rank = parseInt(parts[0][0]); // usually 3
+            groupChars.push(parts[0][1]);
+            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
+
+            const abbrs = groupChars.map(char => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    return team ? getAbbr(team.name) : char;
+                }
+                return char;
+            });
+
+            return {
+                name: `${label}\n(${abbrs.join('/')})`,
+                isPlaceholder: true // Still a placeholder until the specific 3rd place is locked
+            };
+        }
+
+        return { name: label, isPlaceholder: true };
     };
 
     const groupedMatches = useMemo(() => {
@@ -47,7 +102,7 @@ const VMBracket = () => {
                 ...m,
                 home: homeInfo.name,
                 away: awayInfo.name,
-                isPreliminary: homeInfo.isPreliminary || awayInfo.isPreliminary
+                isPreliminary: homeInfo.isPlaceholder || awayInfo.isPlaceholder
             };
             if (!acc[resolved.date]) acc[resolved.date] = [];
             acc[resolved.date].push(resolved);

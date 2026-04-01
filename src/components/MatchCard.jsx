@@ -8,6 +8,20 @@ const MatchCard = ({ match, idx, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
+    const renderTeamName = (name) => {
+        if (!name) return null;
+        if (name.includes('\n')) {
+            const [rank, teamName] = name.split('\n');
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
+                    <BoldSverige text={teamName} />
+                </div>
+            );
+        }
+        return <BoldSverige text={name} />;
+    };
+
     const content = (
         <Card key={idx} padding="12px 14px" style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
@@ -15,8 +29,8 @@ const MatchCard = ({ match, idx, ...props }) => {
             <FlagBadge codes={homeFlags} name={match.home} size={28} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
-                    <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.1', wordBreak: 'break-word' }}>
-                        <BoldSverige text={match.home} />
+                    <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word' }}>
+                        {renderTeamName(match.home)}
                     </span>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0 }}>
                         {match.broadcast && (
@@ -40,8 +54,8 @@ const MatchCard = ({ match, idx, ...props }) => {
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
                     </div>
-                    <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.1', wordBreak: 'break-word' }}>
-                        <BoldSverige text={match.away} />
+                    <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word' }}>
+                        {renderTeamName(match.away)}
                     </span>
                 </div>
             </div>
