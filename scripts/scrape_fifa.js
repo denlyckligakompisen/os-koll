@@ -64,12 +64,24 @@ const TEAM_TRANSLATIONS = {
     'Colombia': 'Colombia',
     'Argentina': 'Argentina',
     'Uruguay': 'Uruguay',
-    'Iran': 'Iran'
+    'Iran': 'Iran',
+    'New Caledonia': 'Nya Kaledonien',
+    'Jamaica': 'Jamaica',
+    'DR Congo': 'Demokratiska republiken Kongo',
+    'Bolivia': 'Bolivia',
+    'Suriname': 'Suriname',
+    'Iraq': 'Irak'
 };
 
 const translateTeam = (name) => {
     if (!name) return name;
-    return TEAM_TRANSLATIONS[name.trim()] || name.trim();
+    // Handle names like "New Caledonia / Jamaica / DR Congo"
+    const parts = name.split('/');
+    if (parts.length > 1) {
+        return parts.map(p => translateTeam(p.trim())).join('/');
+    }
+    const trimmed = name.trim();
+    return TEAM_TRANSLATIONS[trimmed] || trimmed;
 };
 
 async function scrapeMatches() {
@@ -86,23 +98,25 @@ async function scrapeMatches() {
             
             const extracted = await page.evaluate(() => {
                 const results = [];
-                // More aggressive selection for FIFA site layouts
-                const matchElements = document.querySelectorAll('[data-testid*="match"], [class*="MatchCard"], [class*="match-card"], .fp-match-card-content');
+                // Find all containers that might hold a match
+                const matchDivs = Array.from(document.querySelectorAll('div')).filter(div => {
+                    const classes = div.className?.toString() || "";
+                    return classes.includes('MatchItem') || classes.includes('match-card') || classes.includes('FpMatchCard');
+                });
                 
-                matchElements.forEach(item => {
-                    const home = item.querySelector('[class*="home-team"] [class*="TeamName"], [class*="HomeTeam"], [data-testid*="home-team"]')?.innerText;
-                    const away = item.querySelector('[class*="away-team"] [class*="TeamName"], [class*="AwayTeam"], [data-testid*="away-team"]')?.innerText;
-                    const time = item.querySelector('[class*="MatchTime"], [class*="time"], [data-testid*="time"]')?.innerText || "TBA";
-                    const date = item.closest('[class*="DateHeader"], .fp-match-date')?.innerText || 
-                                 item.querySelector('[class*="MatchDate"], [class*="date"]')?.innerText;
-                    
-                    if (home && away) {
-                        results.push({ 
-                            home: home.trim(), 
-                            away: away.trim(), 
-                            time: time.trim(), 
-                            date: date?.trim() 
-                        });
+                console.log(`Found ${matchDivs.length} potential match containers.`);
+
+                matchDivs.forEach(item => {
+                    const teamElements = item.querySelectorAll('[class*="TeamName"]');
+                    if (teamElements.length >= 2) {
+                        const home = teamElements[0].innerText;
+                        const away = teamElements[1].innerText;
+                        const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
+                        const date = ""; // Date is usually in a parent container header
+                        
+                        if (home && away) {
+                            results.push({ home: home.trim(), away: away.trim(), time, date });
+                        }
                     }
                 });
                 return results;

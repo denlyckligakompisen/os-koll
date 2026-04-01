@@ -62,7 +62,13 @@ const TEAM_TRANSLATIONS = {
     'Colombia': 'Colombia',
     'Argentina': 'Argentina',
     'Uruguay': 'Uruguay',
-    'Iran': 'Iran'
+    'Iran': 'Iran',
+    'New Caledonia': 'Nya Kaledonien',
+    'Jamaica': 'Jamaica',
+    'DR Congo': 'Demokratiska republiken Kongo',
+    'Bolivia': 'Bolivia',
+    'Suriname': 'Suriname',
+    'Iraq': 'Irak'
 };
 
 const translateTeam = (name) => {
