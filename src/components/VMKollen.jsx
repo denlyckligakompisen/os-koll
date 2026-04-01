@@ -7,17 +7,19 @@ import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import VMBracket from './VMBracket';
+import { Calendar, LayoutGrid, Trophy, BarChart3 } from 'lucide-react';
 
 const SUBTABS = [
-    { id: 'matcher', label: 'Matcher' },
-    { id: 'gruppspel', label: 'Grupper' },
-    { id: 'slutspel', label: 'Slutspel' },
-    { id: 'statistik', label: 'Statistik' }
+    { id: 'matcher', label: 'Matcher', icon: Calendar },
+    { id: 'gruppspel', label: 'Grupper', icon: LayoutGrid },
+    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
+    { id: 'statistik', label: 'Statistik', icon: BarChart3 }
 ];
 
 const CURRENT_YEAR = 2026;
 const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
+const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
 const parseTournamentDate = (dateStr, monthMap = MONTH_MAP) => {
     if (!dateStr) return new Date();
@@ -44,8 +46,8 @@ const VMKollen = () => {
 
     useEffect(() => {
         Promise.all([
-            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_groups.json').then(res => res.json()),
-            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_matches.json').then(res => res.json())
+            fetch(`${DATA_BASE_URL}/worldcup_2026_groups.json`).then(res => res.json()),
+            fetch(`${DATA_BASE_URL}/worldcup_2026_matches.json`).then(res => res.json())
         ])
         .then(([gData, mData]) => {
             setGroupsData(gData);
@@ -215,21 +217,25 @@ const VMKollen = () => {
     };
 
     return (
-        <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto' }}>
-            <PageHeader title={groupsData.name || "FIFA World Cup 2026"} logoSrc={getTeamLogo('FIFA World Cup')} />
+        <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto', paddingBottom: '100px' }}>
+            <PageHeader title="VM-kollen" logoSrc={getTeamLogo('FIFA World Cup')} />
 
-            {/* Submenu Segmented Control */}
-            <div className="segmented-control">
-                <div className="segmented-pill" style={{ 
-                    transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
-                    width: `calc(100% / ${SUBTABS.length} - 4px)`
-                }} />
-                {SUBTABS.map(tab => (
-                    <button key={tab.id} className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>
-                        {tab.label}
-                    </button>
-                ))}
-            </div>
+            {/* Responsive Navigation Menu */}
+            <nav className="app-navigation">
+                {SUBTABS.map(tab => {
+                    const Icon = tab.icon;
+                    return (
+                        <button 
+                            key={tab.id} 
+                            className={`nav-item ${activeTab === tab.id ? 'active' : ''}`} 
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            <Icon size={20} className="nav-icon" strokeWidth={activeTab === tab.id ? 2.5 : 2} />
+                            <span className="nav-label">{tab.label}</span>
+                        </button>
+                    );
+                })}
+            </nav>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {activeTab === 'matcher' && (

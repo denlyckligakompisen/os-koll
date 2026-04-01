@@ -7,11 +7,12 @@ const VMBracket = () => {
     const [bracketData, setBracketData] = useState(null);
     const [groupsData, setGroupsData] = useState(null);
     const [activeRoundIdx, setActiveRoundIdx] = useState(0);
+    const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
     useEffect(() => {
         Promise.all([
-            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_knockout.json').then(res => res.json()),
-            fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_groups.json').then(res => res.json())
+            fetch(`${DATA_BASE_URL}/worldcup_2026_knockout.json`).then(res => res.json()),
+            fetch(`${DATA_BASE_URL}/worldcup_2026_groups.json`).then(res => res.json())
         ])
         .then(([bData, gData]) => {
             setBracketData(bData);
@@ -61,29 +62,9 @@ const VMBracket = () => {
     );
 
     const rounds = bracketData.rounds || [];
-    const isAnyPreliminary = Object.values(groupedMatches).flat().some(m => m.isPreliminary);
 
     return (
         <div>
-            {/* Preliminary Notice Banner */}
-            {isAnyPreliminary && (
-                <div style={{ 
-                    marginBottom: '20px', 
-                    padding: '10px 14px', 
-                    backgroundColor: 'rgba(0, 122, 255, 0.05)', 
-                    borderRadius: '10px', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '10px',
-                    border: '0.5px solid rgba(0, 122, 255, 0.1)'
-                }}>
-                    <div style={{ width: '6px', height: '6px', backgroundColor: 'var(--color-primary)', borderRadius: '50%' }} />
-                    <span style={{ fontSize: '0.78rem', fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '0.01em' }}>
-                        PRELIMINÄRT TRÄD BASERAT PÅ TABELLÄGET
-                    </span>
-                </div>
-            )}
-
             {/* Rounds Selector (Premium Segmented Style) */}
             <div style={{ 
                 display: 'flex', 

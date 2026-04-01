@@ -217,7 +217,7 @@ const VMPlayoff = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch('/data/vm_playoff.json')
+        fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/vm_playoff.json')
             .then(res => res.json())
             .then(setData)
             .catch(console.error);

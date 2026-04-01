@@ -162,28 +162,87 @@ body {
   border: none;
   background: none;
   padding: 8px 0;
-  font-size: 0.78rem;
-  font-weight: 700;
+}
+/* Standard Responsive Menu */
+.app-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding: 8px 0 28px 0; /* iOS safe area spacing */
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
   cursor: pointer;
-  position: relative;
-  z-index: 1;
-  transition: color 0.2s ease;
-  color: var(--color-text-muted);
+  padding: 8px 0;
+  color: #8e8e93;
+  transition: all 0.2s ease;
+}
+
+.nav-item.active {
+  color: var(--color-primary);
+}
+
+.nav-icon {
+  margin-bottom: 2px;
+  transition: transform 0.2s ease;
+}
+
+.nav-item.active .nav-icon {
+  transform: scale(1.1);
+}
+
+.nav-label {
+  font-size: 0.65rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
-.segmented-button.active {
-  color: var(--color-text);
-}
+/* Desktop override */
+@media (min-width: 768px) {
+  .app-navigation {
+    position: sticky;
+    top: 24px;
+    bottom: auto;
+    width: fit-content;
+    margin: 0 auto 40px auto;
+    border-radius: 20px;
+    padding: 6px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 0.5px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.85);
+  }
 
-.segmented-pill {
-  position: absolute;
-  top: 2px;
-  bottom: 2px;
-  background: #ffffff;
-  border: 0.5px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
-  border-radius: 7px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  .nav-item {
+    flex-direction: row;
+    padding: 10px 24px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+
+  .nav-item.active {
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--color-primary);
+  }
+
+  .nav-label {
+    font-size: 0.85rem;
+    text-transform: capitalize;
+  }
 }

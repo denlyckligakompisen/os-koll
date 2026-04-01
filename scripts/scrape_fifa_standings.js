@@ -8,6 +8,7 @@ const OUTPUT_PATH = path.join(process.cwd(), 'public/data/worldcup_2026_groups.j
 const TEAM_TRANSLATIONS = {
     'Germany': 'Tyskland',
     'Ivory Coast': 'Elfenbenskusten',
+    'Ivory Coast (CIV)': 'Elfenbenskusten',
     'Netherlands': 'Nederländerna',
     'Iceland': 'Island',
     'Tunisia': 'Tunisien',
@@ -28,6 +29,7 @@ const TEAM_TRANSLATIONS = {
     'Morocco': 'Marocko',
     'Cape Verde': 'Kap Verde',
     'United States': 'USA',
+    'United States (USA)': 'USA',
     'Italy': 'Italien',
     'Sweden': 'Sverige',
     'Norway': 'Norge',
@@ -35,6 +37,7 @@ const TEAM_TRANSLATIONS = {
     'Turkey': 'Turkiet',
     'Türkiye': 'Turkiet',
     'Czech Republic': 'Tjeckien',
+    'Czechia': 'Tjeckien',
     'Slovakia': 'Slovakien',
     'Russia': 'Ryssland',
     'Georgia': 'Georgien',
@@ -57,23 +60,34 @@ const TEAM_TRANSLATIONS = {
     'Japan': 'Japan',
     'Ecuador': 'Ecuador',
     'Senegal': 'Senegal',
-    'Saudi Arabia': 'Saudiarabien',
     'Uzbekistan': 'Uzbekistan',
     'Colombia': 'Colombia',
     'Argentina': 'Argentina',
     'Uruguay': 'Uruguay',
     'Iran': 'Iran',
     'New Caledonia': 'Nya Kaledonien',
-    'Jamaica': 'Jamaica',
+    'Jamaica': 'Jamaika',
+    'Jamaika': 'Jamaika',
     'DR Congo': 'Demokratiska republiken Kongo',
     'Bolivia': 'Bolivia',
     'Suriname': 'Suriname',
-    'Iraq': 'Irak'
+    'Iraq': 'Irak',
+    'Paraguay': 'Paraguay',
+    'Haiti': 'Haiti',
+    'Australia': 'Australien',
+    'Jordan': 'Jordanien',
+    'Curaçao': 'Curaçao',
+    'Curacao': 'Curaçao',
+    'Ghana': 'Ghana',
+    'Panama': 'Panama'
 };
 
 const translateTeam = (name) => {
     if (!name) return name;
-    return TEAM_TRANSLATIONS[name.trim()] || name.trim();
+    const trimmed = name.trim();
+    // Handle names with (TBA) or country codes like (USA)
+    const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
+    return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
 };
 
 async function scrapeStandings() {
@@ -86,57 +100,49 @@ async function scrapeStandings() {
         await page.goto(STANDINGS_URL, { waitUntil: 'networkidle', timeout: 60000 });
         await page.waitForTimeout(5000); 
 
-        // Extract directly from the page
         const groups = await page.evaluate(() => {
             const results = [];
-            document.querySelectorAll('[class*="TableContainer"], .table-container').forEach((el, i) => {
-                const groupName = el.querySelector('[class*="GroupTitle"], .group-title')?.innerText || `Grupp ${String.fromCharCode(65 + i)}`;
+            // Target the standings tables/containers
+            document.querySelectorAll('[class*="TableContainer"], .table-container, [class*="StandingsGroup"]').forEach((el, i) => {
+                const groupName = el.querySelector('[class*="GroupTitle"], .group-title, [class*="TableTitle"]')?.innerText || `Grupp ${String.fromCharCode(65 + i)}`;
                 const teams = [];
                 el.querySelectorAll('tr').forEach(row => {
-                    const name = row.querySelector('[class*="TeamName"], .team-name')?.innerText;
-                    if (!name) return;
+                    const nameEl = row.querySelector('[class*="TeamName"], .team-name');
+                    if (!nameEl) return;
                     
+                    const name = nameEl.innerText;
                     teams.push({
                         name: name.trim(),
-                        played: parseInt(row.querySelector('[class*="Played"], .played')?.innerText) || 0,
-                        gd: parseInt(row.querySelector('[class*="GoalDiff"], .goal-diff')?.innerText) || 0,
-                        pts: parseInt(row.querySelector('[class*="Points"], .points')?.innerText) || 0
+                        played: parseInt(row.querySelector('[class*="Played"], .played, td:nth-child(2)')?.innerText) || 0,
+                        gd: parseInt(row.querySelector('[class*="GoalDiff"], .goal-diff, td:nth-child(8)')?.innerText) || 0,
+                        pts: parseInt(row.querySelector('[class*="Points"], .points, td:last-child')?.innerText) || 0
                     });
                 });
                 if (teams.length > 0) results.push({ name: groupName, teams });
             });
             return results;
-        }, TEAM_TRANSLATIONS); // Pass translations to evaluation context
+        });
 
         await browser.close();
 
-        // Second pass: apply translations (since passing whole map to evaluate might be tricky/slow)
         const translatedGroups = groups.map(g => ({
-            ...g,
+            name: g.name.replace('Group', 'Grupp'),
             teams: g.teams.map(t => ({
                 ...t,
                 name: translateTeam(t.name)
             }))
         }));
 
-        const currentData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf8'));
-
         if (translatedGroups.length > 0) {
+            const currentData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf8'));
             currentData.groups = translatedGroups;
-            console.log(`Successfully parsed ${translatedGroups.length} groups.`);
+            currentData.lastUpdated = new Date().toISOString();
+            currentData.source = STANDINGS_URL;
+            fs.writeFileSync(OUTPUT_PATH, JSON.stringify(currentData, null, 2));
+            console.log(`Successfully updated FIFA standings for ${translatedGroups.length} groups.`);
         } else {
-            console.log('No groups found in page. Site might be using different selectors. Using existing teams data.');
-            currentData.groups = currentData.groups.map(g => ({
-                ...g,
-                teams: g.teams.map(t => typeof t === 'string' ? { name: t, played: 0, gd: 0, pts: 0 } : t)
-            }));
+            console.log('No groups found in page. Site might be using different selectors.');
         }
-
-        currentData.lastUpdated = new Date().toISOString();
-        currentData.source = STANDINGS_URL;
-
-        fs.writeFileSync(OUTPUT_PATH, JSON.stringify(currentData, null, 2));
-        console.log(`Successfully updated FIFA standings at ${OUTPUT_PATH}`);
 
     } catch (error) {
         console.error('Scraping failed:', error.message);

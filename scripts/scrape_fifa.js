@@ -10,6 +10,7 @@ const KNOCKOUT_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_knoc
 const TEAM_TRANSLATIONS = {
     'Germany': 'Tyskland',
     'Ivory Coast': 'Elfenbenskusten',
+    'Ivory Coast (CIV)': 'Elfenbenskusten',
     'Netherlands': 'Nederländerna',
     'Iceland': 'Island',
     'Tunisia': 'Tunisien',
@@ -30,6 +31,7 @@ const TEAM_TRANSLATIONS = {
     'Morocco': 'Marocko',
     'Cape Verde': 'Kap Verde',
     'United States': 'USA',
+    'United States (USA)': 'USA',
     'Italy': 'Italien',
     'Sweden': 'Sverige',
     'Norway': 'Norge',
@@ -37,6 +39,7 @@ const TEAM_TRANSLATIONS = {
     'Turkey': 'Turkiet',
     'Türkiye': 'Turkiet',
     'Czech Republic': 'Tjeckien',
+    'Czechia': 'Tjeckien',
     'Slovakia': 'Slovakien',
     'Russia': 'Ryssland',
     'Georgia': 'Georgien',
@@ -59,18 +62,26 @@ const TEAM_TRANSLATIONS = {
     'Japan': 'Japan',
     'Ecuador': 'Ecuador',
     'Senegal': 'Senegal',
-    'Saudi Arabia': 'Saudiarabien',
     'Uzbekistan': 'Uzbekistan',
     'Colombia': 'Colombia',
     'Argentina': 'Argentina',
     'Uruguay': 'Uruguay',
     'Iran': 'Iran',
     'New Caledonia': 'Nya Kaledonien',
-    'Jamaica': 'Jamaica',
+    'Jamaica': 'Jamaika',
+    'Jamaika': 'Jamaika',
     'DR Congo': 'Demokratiska republiken Kongo',
     'Bolivia': 'Bolivia',
     'Suriname': 'Suriname',
-    'Iraq': 'Irak'
+    'Iraq': 'Irak',
+    'Paraguay': 'Paraguay',
+    'Haiti': 'Haiti',
+    'Australia': 'Australien',
+    'Jordan': 'Jordanien',
+    'Curaçao': 'Curaçao',
+    'Curacao': 'Curaçao',
+    'Ghana': 'Ghana',
+    'Panama': 'Panama'
 };
 
 const translateTeam = (name) => {
@@ -81,7 +92,9 @@ const translateTeam = (name) => {
         return parts.map(p => translateTeam(p.trim())).join('/');
     }
     const trimmed = name.trim();
-    return TEAM_TRANSLATIONS[trimmed] || trimmed;
+    // Also handle names with (TBA) or similar
+    const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
+    return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
 };
 
 async function scrapeMatches() {
@@ -98,27 +111,47 @@ async function scrapeMatches() {
             
             const extracted = await page.evaluate(() => {
                 const results = [];
-                // Find all containers that might hold a match
-                const matchDivs = Array.from(document.querySelectorAll('div')).filter(div => {
-                    const classes = div.className?.toString() || "";
-                    return classes.includes('MatchItem') || classes.includes('match-card') || classes.includes('FpMatchCard');
-                });
+                // Look for date-grouped sections or individual match cards
+                const daySections = document.querySelectorAll('[class*="MatchDateSection"], [class*="MatchGroup"], .match-list-date');
                 
-                console.log(`Found ${matchDivs.length} potential match containers.`);
-
-                matchDivs.forEach(item => {
-                    const teamElements = item.querySelectorAll('[class*="TeamName"]');
-                    if (teamElements.length >= 2) {
-                        const home = teamElements[0].innerText;
-                        const away = teamElements[1].innerText;
-                        const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
-                        const date = ""; // Date is usually in a parent container header
+                if (daySections.length > 0) {
+                    daySections.forEach(section => {
+                        const dateText = section.querySelector('[class*="DateHeader"], .date-header')?.innerText || "";
+                        const matchItems = section.querySelectorAll('[class*="MatchItem"], .match-card');
                         
-                        if (home && away) {
-                            results.push({ home: home.trim(), away: away.trim(), time, date });
+                        matchItems.forEach(item => {
+                            const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
+                            const time = item.querySelector('[class*="MatchTime"], .match-time')?.innerText || "TBA";
+                            const groupText = item.querySelector('[class*="GroupName"], .group-name')?.innerText || "";
+                            
+                            if (teamNames.length >= 2) {
+                                results.push({
+                                    home: teamNames[0],
+                                    away: teamNames[1],
+                                    time: time.match(/\d{2}:\d{2}/)?.[0] || time,
+                                    date: dateText.trim(),
+                                    group: groupText.trim()
+                                });
+                            }
+                        });
+                    });
+                } else {
+                    // Fallback to searching all match cards directly
+                    document.querySelectorAll('[class*="MatchItem"], .match-card, [class*="FpMatchCard"]').forEach(item => {
+                        const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
+                        const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
+                        
+                        if (teamNames.length >= 2) {
+                            results.push({
+                                home: teamNames[0],
+                                away: teamNames[1],
+                                time,
+                                date: "",
+                                group: ""
+                            });
                         }
-                    }
-                });
+                    });
+                }
                 return results;
             });
 
@@ -128,15 +161,21 @@ async function scrapeMatches() {
                     date: m.date?.toLowerCase()
                         .replace('june', 'juni')
                         .replace('july', 'juli')
+                        .replace('august', 'augusti')
                         .replace('january', 'januari')
                         .replace('february', 'februari')
                         .replace('march', 'mars')
                         .replace('april', 'april')
-                        .replace('may', 'maj'),
+                        .replace('may', 'maj')
+                        .replace('september', 'september')
+                        .replace('october', 'oktober')
+                        .replace('november', 'november')
+                        .replace('december', 'december'),
                     home: translateTeam(m.home),
-                    away: translateTeam(m.away)
+                    away: translateTeam(m.away),
+                    group: m.group ? (m.group.includes('Group') ? m.group.replace('Group', 'Grupp') : m.group) : ""
                 }));
-                console.log(`Successfully scraped ${matches.length} matches from official FIFA source!`);
+                console.log(`Successfully scraped ${matches.length} matches!`);
             }
         } catch (e) {
             console.log('Playwright crawl failed or timed out:', e.message);
