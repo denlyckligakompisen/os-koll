@@ -13,7 +13,7 @@
       "date": "12 juni",
       "time": "04:00",
       "home": "Sydkorea",
-      "away": "DAN/NMK/TJE/IRL",
+      "away": "Tjeckien",
       "venue": "Guadalajara",
       "broadcast": "TV4",
       "group": "Grupp A"
@@ -22,7 +22,7 @@
       "date": "12 juni",
       "time": "21:00",
       "home": "Kanada",
-      "away": "POL/WAL/FIN/EST",
+      "away": "Sverige",
       "venue": "Toronto",
       "broadcast": "SVT",
       "group": "Grupp B"
@@ -67,7 +67,7 @@
       "date": "14 juni",
       "time": "06:00",
       "home": "Australien",
-      "away": "GRE/GEO/KAZ/LUX",
+      "away": "Grekland",
       "venue": "Vancouver",
       "broadcast": "TV4",
       "group": "Grupp D"
@@ -102,7 +102,7 @@
     {
       "date": "15 juni",
       "time": "04:00",
-      "home": "BIH/UKR/ISR/ISL",
+      "home": "Ukraina",
       "away": "Tunisien",
       "venue": "Monterrey",
       "broadcast": "SVT",
@@ -156,7 +156,7 @@
     {
       "date": "17 juni",
       "time": "00:00",
-      "home": "BOL/SUR/IRQ",
+      "home": "Bolivia",
       "away": "Norge",
       "venue": "Boston",
       "broadcast": "TV4",
@@ -184,7 +184,7 @@
       "date": "17 juni",
       "time": "19:00",
       "home": "Portugal",
-      "away": "NCL/JAM/COD",
+      "away": "Jamaika",
       "venue": "Houston",
       "broadcast": "TV4",
       "group": "Grupp K"
@@ -219,7 +219,7 @@
     {
       "date": "18 juni",
       "time": "18:00",
-      "home": "DAN/NMK/TJE/IRL",
+      "home": "Tjeckien",
       "away": "Sydafrika",
       "venue": "Atlanta",
       "broadcast": "TV4",
@@ -229,7 +229,7 @@
       "date": "18 juni",
       "time": "21:00",
       "home": "Schweiz",
-      "away": "POL/WAL/FIN/EST",
+      "away": "Sverige",
       "venue": "Los Angeles",
       "broadcast": "TV4",
       "group": "Grupp B"
@@ -282,7 +282,7 @@
     {
       "date": "20 juni",
       "time": "06:00",
-      "home": "GRE/GEO/KAZ/LUX",
+      "home": "Grekland",
       "away": "Paraguay",
       "venue": "San Fransisco",
       "broadcast": "TV4",
@@ -292,7 +292,7 @@
       "date": "20 juni",
       "time": "19:00",
       "home": "Nederländerna",
-      "away": "BIH/UKR/ISR/ISL",
+      "away": "Ukraina",
       "venue": "Houston",
       "broadcast": "TV4",
       "group": "Grupp F"
@@ -373,7 +373,7 @@
       "date": "22 juni",
       "time": "23:00",
       "home": "Frankrike",
-      "away": "BOL/SUR/IRQ",
+      "away": "Bolivia",
       "venue": "Philadelphia",
       "broadcast": "SVT",
       "group": "Grupp I"
@@ -427,7 +427,7 @@
       "date": "24 juni",
       "time": "04:00",
       "home": "Colombia",
-      "away": "NCL/JAM/COD",
+      "away": "Jamaika",
       "venue": "Guadalajara",
       "broadcast": "TV4",
       "group": "Grupp K"
@@ -444,7 +444,7 @@
     {
       "date": "24 juni",
       "time": "21:00",
-      "home": "POL/WAL/FIN/EST",
+      "home": "Sverige",
       "away": "Qatar",
       "venue": "Seattle",
       "broadcast": "TV4",
@@ -480,7 +480,7 @@
     {
       "date": "25 juni",
       "time": "03:00",
-      "home": "DAN/NMK/TJE/IRL",
+      "home": "Tjeckien",
       "away": "Mexiko",
       "venue": "Mexico City",
       "broadcast": "SVT",
@@ -517,7 +517,7 @@
       "date": "26 juni",
       "time": "01:00",
       "home": "Japan",
-      "away": "BIH/UKR/ISR/ISL",
+      "away": "Ukraina",
       "venue": "Dallas",
       "broadcast": "SVT",
       "group": "Grupp F"
@@ -525,7 +525,7 @@
     {
       "date": "26 juni",
       "time": "04:00",
-      "home": "GRE/GEO/KAZ/LUX",
+      "home": "Grekland",
       "away": "USA",
       "venue": "Los Angeles",
       "broadcast": "TV4",
@@ -553,7 +553,7 @@
       "date": "26 juni",
       "time": "21:00",
       "home": "Senegal",
-      "away": "BOL/SUR/IRQ",
+      "away": "Bolivia",
       "venue": "Unknown",
       "broadcast": "TV4",
       "group": "Grupp I"
@@ -615,7 +615,7 @@
     {
       "date": "28 juni",
       "time": "01:30",
-      "home": "NCL/JAM/COD",
+      "home": "Jamaika",
       "away": "Uzbekistan",
       "venue": "Atlanta",
       "broadcast": "TV4",

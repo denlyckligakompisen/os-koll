@@ -28,38 +28,28 @@ const parseTournamentDate = (dateStr, monthMap = MONTH_MAP) => {
     return new Date(year, monthMap[monthName] ?? 0, day);
 };
 
+const sortTeams = (teams) => {
+    return [...teams].sort((a, b) => {
+        const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
+        const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0 } : b;
+        return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamA.name.localeCompare(teamB.name, 'sv');
+    });
+};
+
 const VMKollen = () => {
-    const [data, setData] = useState(null);
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-
         Promise.all([
-            fetch('/data/vm_playoff.json').then(res => res.json()),
             fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_groups.json').then(res => res.json()),
             fetch('https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data/worldcup_2026_matches.json').then(res => res.json())
         ])
-        .then(([pData, gData, mData]) => {
-            const filteredRounds = pData.rounds.map(round => ({
-                ...round,
-                matches: round.matches.filter(m => {
-                    const mDateStr = m.date || round.date;
-                    return parseTournamentDate(mDateStr, MONTH_MAP) >= now;
-                })
-            })).filter(round => round.matches.length > 0);
-            
-            const filteredMatches = mData.matches.filter(m => 
-                parseTournamentDate(m.date, GROUP_MONTH_MAP) >= now
-            );
-
-            setData({ ...pData, rounds: filteredRounds });
+        .then(([gData, mData]) => {
             setGroupsData(gData);
-            setMatchesData({ ...mData, matches: filteredMatches });
+            setMatchesData(mData);
             setLoading(false);
         })
         .catch(err => {
@@ -77,30 +67,26 @@ const VMKollen = () => {
         }, {});
     }, [matchesData]);
 
-    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
-    if (!data) return null;
 
-    const getQualifiedThirds = () => {
+
+    const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
         const thirdPlacedTeams = groupsData.groups.map(group => {
-            const sorted = [...group.teams].map(t => typeof t === 'string' ? { name: t, played: 0, gd: 0, pts: 0 } : t)
-                .sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+            const sorted = sortTeams(group.teams);
             return sorted[2];
         });
         return thirdPlacedTeams
+            .filter(Boolean)
             .sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'))
             .slice(0, 8)
             .map(t => t.name);
-    };
+    }, [groupsData]);
 
-    const qualifiedThirds = getQualifiedThirds();
+    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
+    if (!groupsData) return null;
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
-        const sortedTeams = [...teams].sort((a, b) => {
-            const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
-            const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0 } : b;
-            return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamA.name.localeCompare(teamB.name, 'sv');
-        });
+        const sortedTeams = sortTeams(teams);
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
@@ -159,7 +145,6 @@ const VMKollen = () => {
 
     const renderAllMatches = () => {
         if (!matchesData) return null;
-        let matchCount = 0;
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {Object.entries(groupedMatches).map(([date, matches], groupIdx) => (
@@ -183,20 +168,6 @@ const VMKollen = () => {
 
     const renderSwedenNextMatch = () => {
         const allMatches = [];
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        if (data?.rounds) {
-            data.rounds.forEach(r => {
-                r.matches.forEach(m => {
-                    if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
-                        const mDateStr = m.date || r.date;
-                        const cleanDate = mDateStr.replace(/\s*202\d/, '');
-                        allMatches.push({ ...m, fullDate: parseTournamentDate(mDateStr, MONTH_MAP), displayDate: cleanDate.toUpperCase(), type: `${r.name} · ${cleanDate}` });
-                    }
-                });
-            });
-        }
 
         if (matchesData?.matches) {
             matchesData.matches.forEach(m => {
@@ -206,7 +177,7 @@ const VMKollen = () => {
             });
         }
 
-        const next = allMatches.filter(m => m.fullDate >= today).sort((a,b) => a.fullDate - b.fullDate)[0];
+        const next = allMatches.sort((a,b) => a.fullDate - b.fullDate)[0];
         if (!next) return null;
 
         const homeFlags = getFlagCodes(next.home);
@@ -245,7 +216,7 @@ const VMKollen = () => {
 
     return (
         <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto' }}>
-            <PageHeader title={data.tournament} logoSrc={getTeamLogo('FIFA World Cup')} />
+            <PageHeader title={groupsData.name || "FIFA World Cup 2026"} logoSrc={getTeamLogo('FIFA World Cup')} />
 
             {/* Submenu Segmented Control */}
             <div className="segmented-control">
