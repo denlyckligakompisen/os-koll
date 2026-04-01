@@ -7,7 +7,7 @@ const BoldSverige = ({ text }) => {
     return (
         <>
             {before}
-            <span style={{ color: 'var(--color-text)', fontWeight: '700' }}>Sverige</span>
+            <span style={{ fontWeight: '500' }}>Sverige</span>
             {after}
         </>
     );

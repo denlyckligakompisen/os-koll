@@ -7,13 +7,12 @@ import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import VMBracket from './VMBracket';
-import { Calendar, LayoutGrid, Trophy, BarChart3 } from 'lucide-react';
 
 const SUBTABS = [
-    { id: 'matcher', label: 'Matcher', icon: Calendar },
-    { id: 'gruppspel', label: 'Grupper', icon: LayoutGrid },
-    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
-    { id: 'statistik', label: 'Statistik', icon: BarChart3 }
+    { id: 'matcher', label: 'Matcher' },
+    { id: 'gruppspel', label: 'Grupper' },
+    { id: 'slutspel', label: 'Slutspel' },
+    { id: 'statistik', label: 'Statistik' }
 ];
 
 const CURRENT_YEAR = 2026;
@@ -129,7 +128,7 @@ const VMKollen = () => {
                                     <td style={{ padding: '11px 4px' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                             <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                            <span style={{ fontWeight: team.name.includes('Sverige') ? '600' : '400' }}><BoldSverige text={team.name} /></span>
+                                            <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
                                         </div>
                                     </td>
                                     <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
@@ -194,7 +193,7 @@ const VMKollen = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
-                            <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.home} /></div>
+                            <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
                         </div>
                         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             {next.broadcast && (
@@ -208,7 +207,7 @@ const VMKollen = () => {
                         </div>
                         <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                             <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
-                            <div style={{ fontSize: '1rem', fontWeight: '900' }}><BoldSverige text={next.away} /></div>
+                            <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
                         </div>
                     </div>
                 </Card>
@@ -220,22 +219,22 @@ const VMKollen = () => {
         <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto', paddingBottom: '100px' }}>
             <PageHeader title="VM-kollen" logoSrc={getTeamLogo('FIFA World Cup')} />
 
-            {/* Responsive Navigation Menu */}
-            <nav className="app-navigation">
-                {SUBTABS.map(tab => {
-                    const Icon = tab.icon;
-                    return (
-                        <button 
-                            key={tab.id} 
-                            className={`nav-item ${activeTab === tab.id ? 'active' : ''}`} 
-                            onClick={() => setActiveTab(tab.id)}
-                        >
-                            <Icon size={20} className="nav-icon" strokeWidth={activeTab === tab.id ? 2.5 : 2} />
-                            <span className="nav-label">{tab.label}</span>
-                        </button>
-                    );
-                })}
-            </nav>
+            {/* Fynda-style Segmented Control */}
+            <div className="segmented-control">
+                <div className="segmented-pill" style={{ 
+                    transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
+                    width: `calc(100% / ${SUBTABS.length})`
+                }} />
+                {SUBTABS.map(tab => (
+                    <button 
+                        key={tab.id} 
+                        className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} 
+                        onClick={() => setActiveTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {activeTab === 'matcher' && (
@@ -246,24 +245,7 @@ const VMKollen = () => {
                 )}
                 {activeTab === 'gruppspel' && (
                     <>
-                        {groupsData?.lastUpdated && (
-                            <div style={{ 
-                                textAlign: 'center', 
-                                fontSize: '0.75rem', 
-                                color: 'var(--color-text-muted)', 
-                                fontWeight: '600', 
-                                marginBottom: '16px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '6px'
-                            }}>
-                                <div style={{ width: '4px', height: '4px', backgroundColor: '#34c759', borderRadius: '50%' }} />
-                                Uppdaterad: {new Date(groupsData.lastUpdated).toLocaleString('sv-SE', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).replace(' kl.', '')}
-                            </div>
-                        )}
+
                         {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
                     </>
                 )}

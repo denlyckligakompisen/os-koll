@@ -14,6 +14,7 @@ export const getFlagCode = (name) => {
     if (name.includes('Mexiko')) return 'MX';
     if (name.includes('Sydafrika')) return 'ZA';
     if (name.includes('Sydkorea')) return 'KR';
+    if (name.includes('Tjeckien')) return 'CZ';
     if (name.includes('Kanada')) return 'CA';
     if (name.includes('Qatar')) return 'QA';
     if (name.includes('Schweiz')) return 'CH';
@@ -23,6 +24,8 @@ export const getFlagCode = (name) => {
     if (name.includes('Skottland')) return 'GB-SCT';
     if (name.includes('USA')) return 'US';
     if (name.includes('Paraguay')) return 'PY';
+    if (name.includes('Turkiet')) return 'TR';
+    if (name.includes('Jamaika')) return 'JM';
     if (name.includes('Australien')) return 'AU';
     if (name.includes('Tyskland')) return 'DE';
     if (name.includes('Curaçao')) return 'CW';
@@ -43,6 +46,11 @@ export const getFlagCode = (name) => {
     if (name.includes('Algeriet')) return 'DZ';
     if (name.includes('Österrike')) return 'AT';
     if (name.includes('Jordanien')) return 'JO';
+    if (name.includes('Bolivia')) return 'BO';
+    if (name.includes('Nordmakedonien')) return 'MK';
+    if (name.includes('Israel')) return 'IL';
+    if (name.includes('Bosnien')) return 'BA';
+    if (name.includes('Förenade Arabemiraten')) return 'AE';
     if (name.includes('Portugal')) return 'PT';
     if (name.includes('Uzbekistan')) return 'UZ';
     if (name.includes('Colombia')) return 'CO';
