@@ -3,7 +3,7 @@ import { getFlagCodes } from '../utils/flags';
 import MatchCard from './MatchCard';
 import Card from './common/Card';
 
-const VMBracket = () => {
+const VMBracket = ({ sverigeOnly }) => {
     const [bracketData, setBracketData] = useState(null);
     const [groupsData, setGroupsData] = useState(null);
     const [activeRoundIdx, setActiveRoundIdx] = useState(0);
@@ -20,6 +20,20 @@ const VMBracket = () => {
         })
         .catch(console.error);
     }, []);
+
+    const swedenStatus = useMemo(() => {
+        if (!groupsData?.groups) return { groupChar: null, rank: null };
+        const group = groupsData.groups.find(g => 
+            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes('Sverige'))
+        );
+        if (!group) return { groupChar: null, rank: null };
+        
+        const groupChar = group.name.split(' ')[1];
+        const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+        const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes('Sverige')) + 1;
+        
+        return { groupChar, rank };
+    }, [groupsData]);
 
     const TEAM_ABBR = {
         'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
@@ -98,6 +112,31 @@ const VMBracket = () => {
             const homeInfo = resolveTeamInfo(m.home);
             const awayInfo = resolveTeamInfo(m.away);
             
+            const isSverigePlaceholder = (label) => {
+                if (!label || !swedenStatus.groupChar || !swedenStatus.rank) return false;
+                const target = `${swedenStatus.rank}${swedenStatus.groupChar}`;
+                
+                // Direct match like "1F" or "2F"
+                if (label.includes(target)) return true;
+                
+                // Handle 3rd place complex labels like "3A/B/C/F"
+                if (swedenStatus.rank === 3 && label.startsWith('3') && label.includes(swedenStatus.groupChar)) {
+                    return true;
+                }
+                
+                return false;
+            };
+
+            const isSverigeMatch = 
+                (homeInfo.realName?.includes('Sverige')) || 
+                (awayInfo.realName?.includes('Sverige')) ||
+                (m.home?.includes('Sverige')) ||
+                (m.away?.includes('Sverige')) ||
+                isSverigePlaceholder(m.home) ||
+                isSverigePlaceholder(m.away);
+
+            if (sverigeOnly && !isSverigeMatch) return acc;
+
             const resolved = {
                 ...m,
                 home: homeInfo.name,
@@ -108,7 +147,7 @@ const VMBracket = () => {
             acc[resolved.date].push(resolved);
             return acc;
         }, {});
-    }, [bracketData, groupsData, activeRoundIdx]);
+    }, [bracketData, groupsData, activeRoundIdx, sverigeOnly]);
 
     if (!bracketData || !groupsData) return (
         <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>

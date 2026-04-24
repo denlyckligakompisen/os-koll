@@ -144,34 +144,23 @@ body {
   animation: pulse 2s infinite;
 }
 
-/* Segmented Control (iOS style) */
-.segmented-control {
-  background: var(--color-surface-subtle);
-  border-radius: 9px;
-  padding: 2px;
+/* Main Navigation Wrapper */
+.nav-container {
   display: flex;
-  position: relative;
-  margin: 0 10px 32px 10px;
-  user-select: none;
-  border: 0.5px solid rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0 32px 0;
+  width: 100%;
 }
 
-.segmented-button {
-  flex: 1;
-  border: none;
-  background: none;
-  padding: 8px 0;
-}
 /* Main Navigation: Fynda/iOS 26 Segmented Control */
 .segmented-control {
   --pill-padding: 4px;
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+  flex: 1; /* Allow it to shrink on mobile */
+  min-width: 0;
   display: flex;
+  align-items: center;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -179,8 +168,9 @@ body {
   padding: var(--pill-padding);
   border: 0.5px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-  width: calc(100% - 32px);
-  max-width: 440px;
+  position: relative;
+  max-width: 400px;
+  height: 44px; /* Fixed height for consistency */
 }
 
 .segmented-pill {
@@ -197,9 +187,12 @@ body {
 
 .segmented-button {
   flex: 1;
-  padding: 12px 0;
-  font-size: 0.75rem;
-  font-weight: 700;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
   color: #8e8e93;
   background: none;
   border: none;
@@ -208,30 +201,77 @@ body {
   z-index: 2;
   transition: color 0.15s ease;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
-  text-align: center;
 }
 
 .segmented-button.active {
   color: #000000;
 }
 
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-label {
+  display: none;
+}
+
 /* Desktop: Restore to top and non-floating */
 @media (min-width: 768px) {
-  .segmented-control {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    margin: 40px auto 40px auto;
-    background: var(--color-surface-subtle);
-    box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.05);
+  .nav-container {
+    margin: 40px auto;
     width: fit-content;
+  }
+
+  .segmented-control {
     min-width: 440px;
+    flex: none;
   }
-  
-  .segmented-button {
-    padding: 12px 24px;
+
+  .tab-icon {
+    display: none;
   }
+
+  .tab-label {
+    display: inline;
+  }
+}
+
+.sverige-toggle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.sverige-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.sverige-toggle:active {
+  transform: scale(0.95);
+}
+
+.sverige-toggle.active {
+  background: #007aff;
+  border-color: rgba(0, 122, 255, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 122, 255, 0.3);
+}
+
+.sverige-toggle.active img {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }

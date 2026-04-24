@@ -7,12 +7,13 @@ import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import VMBracket from './VMBracket';
+import { Calendar, List, Trophy, BarChart3 } from 'lucide-react';
 
 const SUBTABS = [
-    { id: 'matcher', label: 'Matcher' },
-    { id: 'gruppspel', label: 'Grupper' },
-    { id: 'slutspel', label: 'Slutspel' },
-    { id: 'statistik', label: 'Statistik' }
+    { id: 'matcher', label: 'Matcher', icon: Calendar },
+    { id: 'gruppspel', label: 'Grupper', icon: List },
+    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
+    { id: 'statistik', label: 'Statistik', icon: BarChart3 }
 ];
 
 const CURRENT_YEAR = 2026;
@@ -42,6 +43,7 @@ const VMKollen = () => {
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
+    const [sverigeOnly, setSverigeOnly] = useState(false);
 
     useEffect(() => {
         Promise.all([
@@ -62,11 +64,12 @@ const VMKollen = () => {
     const groupedMatches = React.useMemo(() => {
         if (!matchesData?.matches) return {};
         return matchesData.matches.reduce((acc, m) => {
+            if (sverigeOnly && !m.home.includes('Sverige') && !m.away.includes('Sverige')) return acc;
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [matchesData]);
+    }, [matchesData, sverigeOnly]);
 
 
 
@@ -88,6 +91,9 @@ const VMKollen = () => {
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
         const sortedTeams = sortTeams(teams);
+        const hasSverige = sortedTeams.some(t => (typeof t === 'string' ? t : t.name).includes('Sverige'));
+        
+        if (sverigeOnly && !hasSverige) return null;
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
@@ -220,20 +226,30 @@ const VMKollen = () => {
             <PageHeader title="VM-kollen" logoSrc={getTeamLogo('FIFA World Cup')} />
 
             {/* Fynda-style Segmented Control */}
-            <div className="segmented-control">
-                <div className="segmented-pill" style={{ 
-                    transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
-                    width: `calc(100% / ${SUBTABS.length})`
-                }} />
-                {SUBTABS.map(tab => (
-                    <button 
-                        key={tab.id} 
-                        className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} 
-                        onClick={() => setActiveTab(tab.id)}
-                    >
-                        {tab.label}
-                    </button>
-                ))}
+            <div className="nav-container">
+                <div className="segmented-control">
+                    <div className="segmented-pill" style={{ 
+                        transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
+                        width: `calc(100% / ${SUBTABS.length})`
+                    }} />
+                    {SUBTABS.map(tab => (
+                        <button 
+                            key={tab.id} 
+                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} 
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            <tab.icon size={18} className="tab-icon" />
+                            <span className="tab-label">{tab.label}</span>
+                        </button>
+                    ))}
+                </div>
+                <button 
+                    onClick={() => setSverigeOnly(!sverigeOnly)}
+                    className={`sverige-toggle ${sverigeOnly ? 'active' : ''}`}
+                    aria-label="Visa endast Sverige"
+                >
+                    <FlagBadge codes={['SE']} size={28} shadow={false} />
+                </button>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -250,7 +266,7 @@ const VMKollen = () => {
                     </>
                 )}
                 {activeTab === 'slutspel' && (
-                    <VMBracket />
+                    <VMBracket sverigeOnly={sverigeOnly} />
                 )}
                 {activeTab === 'statistik' && (
                     <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
