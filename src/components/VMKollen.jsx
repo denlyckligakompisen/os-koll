@@ -9,7 +9,9 @@ import FlagBadge from './common/FlagBadge';
 import { Calendar, List, BarChart3, Trophy } from 'lucide-react';
 
 const STAT_SUBTABS = [
-    { id: 'ranking', label: 'Ranking', icon: Trophy },
+    { id: 'ranking', label: 'FIFA:s världsranking' },
+    { id: 'slutspel', label: 'Slutspel' },
+    { id: 'spelare', label: 'Spelare' },
 ];
 
 const SUBTABS = [
@@ -29,14 +31,14 @@ const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
     const day = parseInt(parts[0]);
     const monthName = parts[1]?.toLowerCase();
     const year = parseInt(parts[2]) || CURRENT_YEAR;
-    
+
     let hour = 0, minute = 0;
     if (timeStr && timeStr.includes(':')) {
         const [h, m] = timeStr.split(':').map(Number);
         hour = h;
         minute = m;
     }
-    
+
     return new Date(year, monthMap[monthName] ?? 0, day, hour, minute);
 };
 
@@ -138,17 +140,17 @@ const VMKollen = () => {
             fetchData('worldcup_2026_knockout.json').catch(() => null),
             fetchData('fifa_ranking.json').catch(() => null)
         ])
-        .then(([gData, mData, kData, rData]) => {
-            setGroupsData(gData);
-            setMatchesData(mData);
-            setKnockoutData(kData);
-            setRankingData(rData);
-            setLoading(false);
-        })
-        .catch(err => {
-            console.error(err);
-            setLoading(false);
-        });
+            .then(([gData, mData, kData, rData]) => {
+                setGroupsData(gData);
+                setMatchesData(mData);
+                setKnockoutData(kData);
+                setRankingData(rData);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
     }, []);
 
     useEffect(() => {
@@ -167,15 +169,15 @@ const VMKollen = () => {
 
     const filteredCountryStatus = React.useMemo(() => {
         if (!groupsData?.groups || !filterCountry) return { groupChar: null, rank: null };
-        const group = groupsData.groups.find(g => 
+        const group = groupsData.groups.find(g =>
             g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
         );
         if (!group) return { groupChar: null, rank: null };
-        
+
         const groupChar = group.name.split(' ')[1];
         const sorted = sortTeams(group.teams);
         const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) + 1;
-        
+
         return { groupChar, rank };
     }, [groupsData, filterCountry]);
 
@@ -188,16 +190,16 @@ const VMKollen = () => {
             const rank = parseInt(rankMatch[1]);
             const groupChar = rankMatch[2].toUpperCase();
             const groupIdx = groupChar.charCodeAt(0) - 65;
-            
+
             const group = groupsData.groups[groupIdx];
             if (group) {
                 const sorted = sortTeams(group.teams);
                 const team = sorted[rank - 1];
                 if (team) {
-                    return { 
-                        name: `${label}\n${team.name}`, 
+                    return {
+                        name: `${label}\n${team.name}`,
                         realName: team.name,
-                        isPlaceholder: false 
+                        isPlaceholder: false
                     };
                 }
             }
@@ -258,22 +260,22 @@ const VMKollen = () => {
 
     const nextMatches = React.useMemo(() => {
         if (combinedMatches.length === 0) return [];
-        
+
         let pool = combinedMatches;
         if (filterCountry) {
             pool = pool.filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry));
         }
-        
+
         if (pool.length === 0) return [];
 
-        const withDates = pool.map(m => ({ 
-            ...m, 
-            fullDate: parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime() 
+        const withDates = pool.map(m => ({
+            ...m,
+            fullDate: parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime()
         }));
-        
+
         const sorted = [...withDates].sort((a, b) => a.fullDate - b.fullDate);
         const earliestTime = sorted[0].fullDate;
-        
+
         return withDates.filter(m => m.fullDate === earliestTime);
     }, [matchesData, filterCountry]);
 
@@ -289,7 +291,7 @@ const VMKollen = () => {
             };
 
             const isFilterCountryMatch = filterCountry ? (
-                (m.home?.includes(filterCountry)) || 
+                (m.home?.includes(filterCountry)) ||
                 (m.away?.includes(filterCountry)) ||
                 (m.realHome?.includes(filterCountry)) ||
                 (m.realAway?.includes(filterCountry)) ||
@@ -298,9 +300,9 @@ const VMKollen = () => {
             ) : true;
 
             if (filterCountry && !isFilterCountryMatch) return acc;
-            
+
             // Skip the matches shown in the "Next Match" cards
-            const isHighlighted = nextMatches.some(nm => 
+            const isHighlighted = nextMatches.some(nm =>
                 nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time
             );
             if (isHighlighted) return acc;
@@ -332,83 +334,83 @@ const VMKollen = () => {
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
-                <div style={{ 
-                    fontSize: '0.8rem', 
-                    fontWeight: '800', 
-                    textTransform: 'uppercase', 
-                    paddingLeft: '4px', 
-                    marginBottom: '12px', 
-                    color: 'var(--color-text-muted)', 
+                <div style={{
+                    fontSize: '0.8rem',
+                    fontWeight: '800',
+                    textTransform: 'uppercase',
+                    paddingLeft: '4px',
+                    marginBottom: '12px',
+                    color: 'var(--color-text-muted)',
                     letterSpacing: '0.05em'
                 }}>
                     <BoldSverige text={displayName || groupName} />
                 </div>
                 <Card style={{ marginBottom: '0' }}>
-                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                    <thead>
-                        <tr style={{ borderBottom: 'var(--border)' }}>
-                            {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
-                                <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>{col}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedTeams.map((teamData, tidx) => {
-                            const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
-                            const flagCodes = getFlagCodes(team.name);
-                            const rank = tidx + 1;
-                            const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
-                            const isFiltered = filterCountry && team.name.includes(filterCountry);
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                        <thead>
+                            <tr style={{ borderBottom: 'var(--border)' }}>
+                                {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
+                                    <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>{col}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortedTeams.map((teamData, tidx) => {
+                                const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
+                                const flagCodes = getFlagCodes(team.name);
+                                const rank = tidx + 1;
+                                const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
+                                const isFiltered = filterCountry && team.name.includes(filterCountry);
 
-                            return (
-                                <tr 
-                                    key={team.name} 
-                                    ref={el => tableRefs.current[team.name] = el}
-                                    style={{ 
-                                        backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                        transition: 'background-color 0.2s ease'
-                                    }}
-                                >
-                                    <td style={{ 
-                                        padding: '8px 4px', 
-                                        borderTopLeftRadius: isFiltered ? '8px' : '0', 
-                                        borderBottomLeftRadius: isFiltered ? '8px' : '0' 
-                                    }}>
-                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
-                                            {rank}
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '11px 4px' }}>
-                                        <div 
-                                            onClick={() => handleCountryClick(team.name)}
-                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                        >
-                                            <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                            <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                    <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit', fontWeight: '600' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
-                                    <td style={{ 
-                                        padding: '11px 4px', 
-                                        textAlign: 'right', 
-                                        fontWeight: '800',
-                                        borderTopRightRadius: isFiltered ? '8px' : '0', 
-                                        borderBottomRightRadius: isFiltered ? '8px' : '0'
-                                    }}>{team.pts}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </Card>
+                                return (
+                                    <tr
+                                        key={team.name}
+                                        ref={el => tableRefs.current[team.name] = el}
+                                        style={{
+                                            backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                            transition: 'background-color 0.2s ease'
+                                        }}
+                                    >
+                                        <td style={{
+                                            padding: '8px 4px',
+                                            borderTopLeftRadius: isFiltered ? '8px' : '0',
+                                            borderBottomLeftRadius: isFiltered ? '8px' : '0'
+                                        }}>
+                                            <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
+                                                {rank}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '11px 4px' }}>
+                                            <div
+                                                onClick={() => handleCountryClick(team.name)}
+                                                style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                            >
+                                                <FlagBadge codes={flagCodes} name={team.name} size={26} />
+                                                <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit', fontWeight: '600' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                        <td style={{
+                                            padding: '11px 4px',
+                                            textAlign: 'right',
+                                            fontWeight: '800',
+                                            borderTopRightRadius: isFiltered ? '8px' : '0',
+                                            borderBottomRightRadius: isFiltered ? '8px' : '0'
+                                        }}>{team.pts}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </Card>
             </div>
         );
     };
 
     const renderAllMatches = () => {
         if (!matchesData) return null;
-        
+
         const sortedDates = Object.keys(groupedMatches).sort((a, b) => {
             return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
         });
@@ -420,10 +422,10 @@ const VMKollen = () => {
                     return (
                         <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {(!nextMatches.length || date !== nextMatches[0].date) && (
-                                <div style={{ 
-                                    fontSize: '0.8rem', 
-                                    fontWeight: '800', 
-                                    textTransform: 'uppercase', 
+                                <div style={{
+                                    fontSize: '0.8rem',
+                                    fontWeight: '800',
+                                    textTransform: 'uppercase',
                                     paddingLeft: '4px',
                                     color: 'var(--color-text-muted)',
                                     letterSpacing: '0.02em'
@@ -441,14 +443,14 @@ const VMKollen = () => {
 
     const renderNextMatches = () => {
         if (nextMatches.length === 0) return null;
-        
+
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
                 {nextMatches.map((m, idx) => {
-                    const next = { 
-                        ...m, 
-                        displayDate: m.date.toUpperCase(), 
-                        type: `VM · ${m.group}` 
+                    const next = {
+                        ...m,
+                        displayDate: m.date.toUpperCase(),
+                        type: `VM · ${m.group}`
                     };
                     const homeFlags = getFlagCodes(next.home);
                     const awayFlags = getFlagCodes(next.away);
@@ -477,14 +479,14 @@ const VMKollen = () => {
                             </div>
                             <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                                    <div 
+                                    <div
                                         onClick={() => handleCountryClick(next.home)}
                                         style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                                     >
                                         <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
                                         <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
                                     </div>
-                                    <div 
+                                    <div
                                         onClick={handleBroadcastClick}
                                         style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
                                     >
@@ -503,7 +505,7 @@ const VMKollen = () => {
                                             </div>
                                         )}
                                     </div>
-                                    <div 
+                                    <div
                                         onClick={() => handleCountryClick(next.away)}
                                         style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                                     >
@@ -520,7 +522,7 @@ const VMKollen = () => {
     };
 
     return (
-        <div 
+        <div
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -528,9 +530,9 @@ const VMKollen = () => {
         >
             {/* Full-width Sticky Header */}
             <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
-                <a 
-                    href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" 
-                    target="_blank" 
+                <a
+                    href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="header-logo"
                 >
@@ -538,16 +540,19 @@ const VMKollen = () => {
                 </a>
 
                 <div className="segmented-control">
-                    <div className="segmented-pill" style={{ 
+                    <div className="segmented-pill" style={{
                         left: 'var(--pill-padding)',
                         width: `calc((100% - (var(--pill-padding) * 2)) / ${SUBTABS.length})`,
                         transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`
                     }} />
                     {SUBTABS.map(tab => (
-                        <button 
-                            key={tab.id} 
-                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`} 
-                            onClick={() => setActiveTab(tab.id)}
+                        <button
+                            key={tab.id}
+                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
+                            onClick={() => {
+                                setActiveTab(tab.id);
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
                         >
                             <tab.icon size={18} className="tab-icon" />
                             <span className="tab-label">{tab.label}</span>
@@ -555,7 +560,7 @@ const VMKollen = () => {
                     ))}
                 </div>
 
-                <button 
+                <button
                     onClick={() => {
                         if (filterCountry) setFilterCountry(null);
                         else handleCountryClick('Sverige');
@@ -592,9 +597,9 @@ const VMKollen = () => {
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {/* Stat Sub-tabs */}
-                            <div style={{ 
-                                display: 'flex', 
-                                gap: '8px', 
+                            <div style={{
+                                display: 'flex',
+                                gap: '8px',
                                 padding: '4px',
                                 overflowX: 'auto',
                                 scrollbarWidth: 'none',
@@ -616,11 +621,9 @@ const VMKollen = () => {
                                             cursor: 'pointer',
                                             transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                                             display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '6px'
+                                            alignItems: 'center'
                                         }}
                                     >
-                                        <tab.icon size={14} />
                                         {tab.label}
                                     </button>
                                 ))}
@@ -628,7 +631,13 @@ const VMKollen = () => {
 
                             {/* Ranking Sub-page */}
                             {activeStatTab === 'ranking' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                            {rankingData.lastUpdate && <div>Senast uppdaterad: {formatSwedishDate(rankingData.lastUpdate)}</div>}
+                                            {rankingData.nextUpdate && <div>Nästa uppdatering: {formatSwedishDate(rankingData.nextUpdate)}</div>}
+                                        </div>
+                                    )}
                                     <Card style={{ padding: '0', overflow: 'hidden' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                             <thead style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderBottom: 'var(--border)' }}>
@@ -642,18 +651,18 @@ const VMKollen = () => {
                                                 {rankingData?.rankings?.map((r, i) => {
                                                     const isSelected = filterCountry && r.team.includes(filterCountry);
                                                     return (
-                                                        <tr 
-                                                            key={i} 
+                                                        <tr
+                                                            key={i}
                                                             ref={el => rankingRefs.current[r.team] = el}
-                                                            style={{ 
-                                                                borderBottom: 'var(--border)', 
+                                                            style={{
+                                                                borderBottom: 'var(--border)',
                                                                 backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                                                                 transition: 'background-color 0.2s ease'
                                                             }}
                                                         >
                                                             <td style={{ padding: '12px 16px', fontWeight: '500' }}>{r.rank}</td>
                                                             <td style={{ padding: '12px 16px' }}>
-                                                                <div 
+                                                                <div
                                                                     style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                                                                     onClick={() => handleCountryClick(r.team)}
                                                                 >
@@ -670,14 +679,85 @@ const VMKollen = () => {
                                             </tbody>
                                         </table>
                                     </Card>
-                                    {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                            {rankingData.lastUpdate && <div>Officiell uppdatering: {rankingData.lastUpdate}</div>}
-                                            {rankingData.nextUpdate && <div>Nästa officiella uppdatering: {rankingData.nextUpdate}</div>}
-                                            <div style={{ opacity: 0.6, marginTop: '4px' }}>Källa: FIFA · Synkad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}</div>
-                                        </div>
-                                    )}
                                 </div>
+                            )}
+                            )}
+                            {/* Slutspel Sub-page */}
+                            {activeStatTab === 'slutspel' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                    <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '-12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                                        Preliminär Sextondelsfinal (Round of 32)
+                                    </div>
+                                    {(() => {
+                                        const map = {};
+                                        const thirds = [];
+                                        groupsData.groups.forEach(group => {
+                                            const groupChar = group.name.replace('Grupp ', '');
+                                            const sorted = sortTeams(group.teams);
+                                            if (sorted[0]) map[`1${groupChar}`] = sorted[0].name;
+                                            if (sorted[1]) map[`2${groupChar}`] = sorted[1].name;
+                                            if (sorted[2]) thirds.push({ name: sorted[2].name, group: groupChar, pts: sorted[2].pts, gd: sorted[2].gd, gs: sorted[2].gs });
+                                        });
+
+                                        const bestThirds = thirds
+                                            .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gs - a.gs || a.name.localeCompare(b.name, 'sv'))
+                                            .slice(0, 8);
+
+                                        const bestThirdsMap = {};
+                                        bestThirds.forEach(t => { bestThirdsMap[t.group] = t.name; });
+
+                                        const resolve = (placeholder) => {
+                                            if (map[placeholder]) return map[placeholder];
+                                            if (placeholder.startsWith('3')) {
+                                                const options = placeholder.substring(1).split('/');
+                                                for (const opt of options) {
+                                                    if (bestThirdsMap[opt]) {
+                                                        const name = bestThirdsMap[opt];
+                                                        delete bestThirdsMap[opt]; // Avoid double assignment in this simple simulation
+                                                        return name;
+                                                    }
+                                                }
+                                                return `3 ${options.join('/')}`;
+                                            }
+                                            return placeholder;
+                                        };
+
+                                        return knockoutData?.rounds.find(r => r.id === 'r32')?.matches
+                                            .filter(m => m.home.startsWith('3') || m.away.startsWith('3'))
+                                            .map((m, idx) => {
+                                                const home = resolve(m.home);
+                                                const away = resolve(m.away);
+                                                const isThirdMatch = m.home.startsWith('3') || m.away.startsWith('3');
+
+                                                return (
+                                                    <div key={idx}>
+                                                        <div style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '8px', paddingLeft: '4px' }}>
+                                                            {m.date} · {m.time} · {m.venue}
+                                                        </div>
+                                                        <Card padding="16px" style={{ background: 'rgba(52, 199, 89, 0.05)', border: '1px solid rgba(52, 199, 89, 0.2)' }}>
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                                    <FlagBadge codes={getFlagCodes(home)} name={home} size={24} />
+                                                                    <div style={{ fontWeight: '600', fontSize: '0.95rem' }}><BoldSverige text={home} /></div>
+                                                                </div>
+                                                                <div style={{ padding: '0 12px', fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)' }}>VS</div>
+                                                                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px' }}>
+                                                                    <div style={{ fontWeight: '600', fontSize: '0.95rem', textAlign: 'right' }}><BoldSverige text={away} /></div>
+                                                                    <FlagBadge codes={getFlagCodes(away)} name={away} size={24} />
+                                                                </div>
+                                                            </div>
+                                                        </Card>
+                                                    </div>
+                                                );
+                                            });
+                                    })()}
+                                </div>
+                            )}
+                            {activeStatTab === 'spelare' && (
+                                <Card style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                                    <div style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--color-text)' }}>Spelarstatistik</div>
+                                    <div style={{ fontSize: '0.9rem' }}>Här kommer du kunna följa toppskyttar, assistliga och annan individuell statistik under turneringens gång.</div>
+                                </Card>
                             )}
                         </div>
                     )}
