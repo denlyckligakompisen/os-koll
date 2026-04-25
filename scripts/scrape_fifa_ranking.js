@@ -90,15 +90,29 @@ async function scrapeRanking() {
         const rankings = await page.evaluate(() => {
             const rows = Array.from(document.querySelectorAll('table tbody tr'));
             return rows.map(row => {
-                const tds = row.querySelectorAll('td');
+                const tds = Array.from(row.querySelectorAll('td'));
                 if (tds.length < 6) return null;
                 
-                const rankText = tds[0]?.innerText.trim();
-                const rank = rankText.split('\n')[0];
+                // Rank and Change
+                const rankTd = tds[0];
+                const rank = rankTd.querySelector('h3')?.innerText.trim() || rankTd.innerText.split('\n')[0];
+                
+                const trendEl = rankTd.querySelector('.trend-position-cell');
+                let change = 0;
+                if (trendEl) {
+                    const changeText = trendEl.innerText.trim();
+                    const changeVal = parseInt(changeText) || 0;
+                    if (trendEl.classList.contains('negative')) {
+                        change = -changeVal;
+                    } else if (trendEl.classList.contains('positive')) {
+                        change = changeVal;
+                    }
+                }
+                
                 const team = tds[1]?.innerText.trim();
                 const points = tds[5]?.innerText.trim();
                 
-                return { rank, team, points };
+                return { rank, team, points, change };
             }).filter(r => r && r.team);
         });
         

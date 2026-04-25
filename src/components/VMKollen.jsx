@@ -6,11 +6,10 @@ import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3, Trophy } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown } from 'lucide-react';
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
-    { id: 'slutspel', label: 'Slutspel' },
     { id: 'spelare', label: 'Spelare' },
 ];
 
@@ -521,6 +520,29 @@ const VMKollen = () => {
         );
     };
 
+    const formatSwedishDate = (dateStr) => {
+        if (!dateStr) return '';
+        // Handle "10 June 2026 (46 days)" -> "10 juni (46 dagar)"
+        const match = dateStr.match(/^(\d{1,2})\s+([A-Za-z]+).*?(\(\d+\s+days\))?$/);
+        if (!match) return dateStr;
+        
+        const day = parseInt(match[1]);
+        const monthEng = match[2].toLowerCase();
+        const daysLeft = match[3] ? match[3].replace('days', 'dagar') : '';
+        
+        const engToSwe = {
+            'january': 'januari', 'february': 'februari', 'march': 'mars', 'april': 'april',
+            'may': 'maj', 'june': 'juni', 'july': 'juli', 'august': 'augusti',
+            'september': 'september', 'october': 'oktober', 'november': 'november', 'december': 'december',
+            'jan': 'januari', 'feb': 'februari', 'mar': 'mars', 'apr': 'april',
+            'jun': 'juni', 'jul': 'juli', 'aug': 'augusti', 'sep': 'september',
+            'oct': 'oktober', 'nov': 'november', 'dec': 'december'
+        };
+        
+        const monthSwe = engToSwe[monthEng] || monthEng;
+        return `${day} ${monthSwe}`;
+    };
+
     return (
         <div
             onTouchStart={onTouchStart}
@@ -577,14 +599,6 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
-                            {filterCountry && groupsData?.groups
-                                .filter(g => g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)))
-                                .map((g, i) => (
-                                    <div key={i} style={{ marginBottom: '16px' }}>
-                                        {renderTable(g.name, g.teams, null, i)}
-                                    </div>
-                                ))
-                            }
                             {renderNextMatches()}
                             {renderAllMatches()}
                         </>
@@ -660,7 +674,27 @@ const VMKollen = () => {
                                                                 transition: 'background-color 0.2s ease'
                                                             }}
                                                         >
-                                                            <td style={{ padding: '12px 16px', fontWeight: '500' }}>{r.rank}</td>
+                                                            <td style={{ padding: '12px 16px', fontWeight: '500' }}>
+                                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                    <span>{r.rank}</span>
+                                                                    {r.change !== 0 && (
+                                                                        <span style={{ 
+                                                                            fontSize: '0.7rem', 
+                                                                            fontWeight: '800',
+                                                                            color: r.change > 0 ? '#34c759' : '#ff3b30',
+                                                                            backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
+                                                                            padding: '2px 5px',
+                                                                            borderRadius: '4px',
+                                                                            display: 'inline-flex',
+                                                                            alignItems: 'center',
+                                                                            gap: '1px'
+                                                                        }}>
+                                                                            {r.change > 0 ? <ChevronUp size={12} strokeWidth={3} /> : <ChevronDown size={12} strokeWidth={3} />}
+                                                                            {Math.abs(r.change)}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            </td>
                                                             <td style={{ padding: '12px 16px' }}>
                                                                 <div
                                                                     style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
@@ -679,78 +713,6 @@ const VMKollen = () => {
                                             </tbody>
                                         </table>
                                     </Card>
-                                </div>
-                            )}
-                            )}
-                            {/* Slutspel Sub-page */}
-                            {activeStatTab === 'slutspel' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                                    <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '-12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                                        Preliminär Sextondelsfinal (Round of 32)
-                                    </div>
-                                    {(() => {
-                                        const map = {};
-                                        const thirds = [];
-                                        groupsData.groups.forEach(group => {
-                                            const groupChar = group.name.replace('Grupp ', '');
-                                            const sorted = sortTeams(group.teams);
-                                            if (sorted[0]) map[`1${groupChar}`] = sorted[0].name;
-                                            if (sorted[1]) map[`2${groupChar}`] = sorted[1].name;
-                                            if (sorted[2]) thirds.push({ name: sorted[2].name, group: groupChar, pts: sorted[2].pts, gd: sorted[2].gd, gs: sorted[2].gs });
-                                        });
-
-                                        const bestThirds = thirds
-                                            .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gs - a.gs || a.name.localeCompare(b.name, 'sv'))
-                                            .slice(0, 8);
-
-                                        const bestThirdsMap = {};
-                                        bestThirds.forEach(t => { bestThirdsMap[t.group] = t.name; });
-
-                                        const resolve = (placeholder) => {
-                                            if (map[placeholder]) return map[placeholder];
-                                            if (placeholder.startsWith('3')) {
-                                                const options = placeholder.substring(1).split('/');
-                                                for (const opt of options) {
-                                                    if (bestThirdsMap[opt]) {
-                                                        const name = bestThirdsMap[opt];
-                                                        delete bestThirdsMap[opt]; // Avoid double assignment in this simple simulation
-                                                        return name;
-                                                    }
-                                                }
-                                                return `3 ${options.join('/')}`;
-                                            }
-                                            return placeholder;
-                                        };
-
-                                        return knockoutData?.rounds.find(r => r.id === 'r32')?.matches
-                                            .filter(m => m.home.startsWith('3') || m.away.startsWith('3'))
-                                            .map((m, idx) => {
-                                                const home = resolve(m.home);
-                                                const away = resolve(m.away);
-                                                const isThirdMatch = m.home.startsWith('3') || m.away.startsWith('3');
-
-                                                return (
-                                                    <div key={idx}>
-                                                        <div style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '8px', paddingLeft: '4px' }}>
-                                                            {m.date} · {m.time} · {m.venue}
-                                                        </div>
-                                                        <Card padding="16px" style={{ background: 'rgba(52, 199, 89, 0.05)', border: '1px solid rgba(52, 199, 89, 0.2)' }}>
-                                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                                <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                                                    <FlagBadge codes={getFlagCodes(home)} name={home} size={24} />
-                                                                    <div style={{ fontWeight: '600', fontSize: '0.95rem' }}><BoldSverige text={home} /></div>
-                                                                </div>
-                                                                <div style={{ padding: '0 12px', fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)' }}>VS</div>
-                                                                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px' }}>
-                                                                    <div style={{ fontWeight: '600', fontSize: '0.95rem', textAlign: 'right' }}><BoldSverige text={away} /></div>
-                                                                    <FlagBadge codes={getFlagCodes(away)} name={away} size={24} />
-                                                                </div>
-                                                            </div>
-                                                        </Card>
-                                                    </div>
-                                                );
-                                            });
-                                    })()}
                                 </div>
                             )}
                             {activeStatTab === 'spelare' && (
