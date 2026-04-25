@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { translateTeam } from './constants.js';
 
 const FIFA_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures?country=&wtw-filter=ALL';
 const TV4_LIST_URL = 'https://www.tv4play.se/lista/1EGE533EMNsEsyaAulLPNT';
@@ -9,95 +10,6 @@ const TV4_DEFAULT_LINK = 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-202
 const MATCHES_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_matches.json');
 const GROUPS_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
 const KNOCKOUT_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_knockout.json');
-
-const TEAM_TRANSLATIONS = {
-    'Germany': 'Tyskland',
-    'Ivory Coast': 'Elfenbenskusten',
-    'Ivory Coast (CIV)': 'Elfenbenskusten',
-    'Netherlands': 'Nederländerna',
-    'Iceland': 'Island',
-    'Tunisia': 'Tunisien',
-    'Spain': 'Spanien',
-    'Egypt': 'Egypten',
-    'Saudi Arabia': 'Saudiarabien',
-    'United Arab Emirates': 'Förenade Arabemiraten',
-    'New Zealand': 'Nya Zeeland',
-    'France': 'Frankrike',
-    'Algeria': 'Algeriet',
-    'Austria': 'Österrike',
-    'Croatia': 'Kroatien',
-    'Mexico': 'Mexiko',
-    'South Korea': 'Sydkorea',
-    'Switzerland': 'Schweiz',
-    'Canada': 'Kanada',
-    'Brazil': 'Brasilien',
-    'Morocco': 'Marocko',
-    'Cape Verde': 'Kap Verde',
-    'United States': 'USA',
-    'United States (USA)': 'USA',
-    'Italy': 'Italien',
-    'Sweden': 'Sverige',
-    'Norway': 'Norge',
-    'Belgium': 'Belgien',
-    'Turkey': 'Turkiet',
-    'Türkiye': 'Turkiet',
-    'Czech Republic': 'Tjeckien',
-    'Czechia': 'Tjeckien',
-    'Slovakia': 'Slovakien',
-    'Russia': 'Ryssland',
-    'Georgia': 'Georgien',
-    'Greece': 'Grekland',
-    'Denmark': 'Danmark',
-    'North Macedonia': 'Nordmakedonien',
-    'Northern Ireland': 'Nordirland',
-    'Republic of Ireland': 'Irland',
-    'Ireland': 'Irland',
-    'Wales': 'Wales',
-    'Poland': 'Polen',
-    'Scotland': 'Skottland',
-    'Hungary': 'Ungern',
-    'Romania': 'Rumänien',
-    'Bosnia and Herzegovina': 'Bosnien och Hercegovina',
-    'Bosnia': 'Bosnien och Hercegovina',
-    'Serbia': 'Serbien',
-    'Portugal': 'Portugal',
-    'Slovenia': 'Slovenien',
-    'South Africa': 'Sydafrika',
-    'Japan': 'Japan',
-    'Ecuador': 'Ecuador',
-    'Senegal': 'Senegal',
-    'Uzbekistan': 'Uzbekistan',
-    'Colombia': 'Colombia',
-    'Argentina': 'Argentina',
-    'Uruguay': 'Uruguay',
-    'Iran': 'Iran',
-    'New Caledonia': 'Nya Kaledonien',
-    'Jamaica': 'Jamaika',
-    'Jamaika': 'Jamaika',
-    'DR Congo': 'Demokratiska republiken Kongo',
-    'Bolivia': 'Bolivia',
-    'Suriname': 'Suriname',
-    'Iraq': 'Irak',
-    'Paraguay': 'Paraguay',
-    'Haiti': 'Haiti',
-    'Australia': 'Australien',
-    'Jordan': 'Jordanien',
-    'Curaçao': 'Curaçao',
-    'Curacao': 'Curaçao',
-    'Ghana': 'Ghana',
-    'Panama': 'Panama'
-};
-
-const translateTeam = (name) => {
-    if (!name) return name;
-    const parts = name.split('/');
-    if (parts.length > 1) {
-        return parts.map(p => translateTeam(p.trim())).join('/');
-    }
-    const trimmed = name.trim();
-    const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
-    return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
-};
 
 async function scrapeTv4Links(page) {
     console.log(`Scraping TV4 Play links from ${TV4_LIST_URL}...`);

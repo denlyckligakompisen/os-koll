@@ -1,94 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { translateTeam } from './constants.js';
 
 const STANDINGS_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings';
 const OUTPUT_PATH = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
-
-const TEAM_TRANSLATIONS = {
-    'Germany': 'Tyskland',
-    'Ivory Coast': 'Elfenbenskusten',
-    'Ivory Coast (CIV)': 'Elfenbenskusten',
-    'Netherlands': 'Nederländerna',
-    'Iceland': 'Island',
-    'Tunisia': 'Tunisien',
-    'Spain': 'Spanien',
-    'Egypt': 'Egypten',
-    'Saudi Arabia': 'Saudiarabien',
-    'United Arab Emirates': 'Förenade Arabemiraten',
-    'New Zealand': 'Nya Zeeland',
-    'France': 'Frankrike',
-    'Algeria': 'Algeriet',
-    'Austria': 'Österrike',
-    'Croatia': 'Kroatien',
-    'Mexico': 'Mexiko',
-    'South Korea': 'Sydkorea',
-    'Switzerland': 'Schweiz',
-    'Canada': 'Kanada',
-    'Brazil': 'Brasilien',
-    'Morocco': 'Marocko',
-    'Cape Verde': 'Kap Verde',
-    'United States': 'USA',
-    'United States (USA)': 'USA',
-    'Italy': 'Italien',
-    'Sweden': 'Sverige',
-    'Norway': 'Norge',
-    'Belgium': 'Belgien',
-    'Turkey': 'Turkiet',
-    'Türkiye': 'Turkiet',
-    'Czech Republic': 'Tjeckien',
-    'Czechia': 'Tjeckien',
-    'Slovakia': 'Slovakien',
-    'Russia': 'Ryssland',
-    'Georgia': 'Georgien',
-    'Greece': 'Grekland',
-    'Denmark': 'Danmark',
-    'North Macedonia': 'Nordmakedonien',
-    'Northern Ireland': 'Nordirland',
-    'Republic of Ireland': 'Irland',
-    'Ireland': 'Irland',
-    'Wales': 'Wales',
-    'Poland': 'Polen',
-    'Scotland': 'Skottland',
-    'Hungary': 'Ungern',
-    'Romania': 'Rumänien',
-    'Ukraine': 'Ukraina',
-    'Serbia': 'Serbien',
-    'Portugal': 'Portugal',
-    'Slovenia': 'Slovenien',
-    'South Africa': 'Sydafrika',
-    'Japan': 'Japan',
-    'Ecuador': 'Ecuador',
-    'Senegal': 'Senegal',
-    'Uzbekistan': 'Uzbekistan',
-    'Colombia': 'Colombia',
-    'Argentina': 'Argentina',
-    'Uruguay': 'Uruguay',
-    'Iran': 'Iran',
-    'New Caledonia': 'Nya Kaledonien',
-    'Jamaica': 'Jamaika',
-    'Jamaika': 'Jamaika',
-    'DR Congo': 'Demokratiska republiken Kongo',
-    'Bolivia': 'Bolivia',
-    'Suriname': 'Suriname',
-    'Iraq': 'Irak',
-    'Paraguay': 'Paraguay',
-    'Haiti': 'Haiti',
-    'Australia': 'Australien',
-    'Jordan': 'Jordanien',
-    'Curaçao': 'Curaçao',
-    'Curacao': 'Curaçao',
-    'Ghana': 'Ghana',
-    'Panama': 'Panama'
-};
-
-const translateTeam = (name) => {
-    if (!name) return name;
-    const trimmed = name.trim();
-    // Handle names with (TBA) or country codes like (USA)
-    const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
-    return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
-};
 
 async function scrapeStandings() {
     console.log(`Starting crawl of FIFA World Cup 2026 standings from ${STANDINGS_URL}...`);

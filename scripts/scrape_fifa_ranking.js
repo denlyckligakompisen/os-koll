@@ -1,74 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { translateTeam } from './constants.js';
 
 const RANKING_URL = 'https://inside.fifa.com/fifa-world-ranking/men';
 const OUTPUT_FILE = path.join(process.cwd(), 'public/data/fifa_ranking.json');
-
-const TEAM_TRANSLATIONS = {
-    'Germany': 'Tyskland',
-    'Argentina': 'Argentina',
-    'France': 'Frankrike',
-    'Belgium': 'Belgien',
-    'Brazil': 'Brasilien',
-    'Netherlands': 'Nederländerna',
-    'Portugal': 'Portugal',
-    'Spain': 'Spanien',
-    'Italy': 'Italien',
-    'Croatia': 'Kroatien',
-    'USA': 'USA',
-    'United States': 'USA',
-    'Mexico': 'Mexiko',
-    'Sweden': 'Sverige',
-    'Norway': 'Norge',
-    'Denmark': 'Danmark',
-    'England': 'England',
-    'Switzerland': 'Schweiz',
-    'Morocco': 'Marocko',
-    'Colombia': 'Colombia',
-    'Uruguay': 'Uruguay',
-    'Japan': 'Japan',
-    'Senegal': 'Senegal',
-    'South Korea': 'Sydkorea',
-    'Australia': 'Australien',
-    'Ukraine': 'Ukraina',
-    'Bosnia and Herzegovina': 'Bosnien och Hercegovina',
-    'Bosnia': 'Bosnien och Hercegovina',
-    'Saudi Arabia': 'Saudiarabien',
-    'Egypt': 'Egypten',
-    'Tunisia': 'Tunisien',
-    'Algeria': 'Algeriet',
-    'Austria': 'Österrike',
-    'Turkey': 'Turkiet',
-    'Türkiye': 'Turkiet',
-    'Czech Republic': 'Tjeckien',
-    'Czechia': 'Tjeckien',
-    'Poland': 'Polen',
-    'Scotland': 'Skottland',
-    'Wales': 'Wales',
-    'Ecuador': 'Ecuador',
-    'Cape Verde': 'Kap Verde',
-    'Ivory Coast': 'Elfenbenskusten',
-    'Iran': 'Iran',
-    'Qatar': 'Qatar',
-    'Uzbekistan': 'Uzbekistan',
-    'Iraq': 'Irak',
-    'UAE': 'Förenade Arabemiraten',
-    'United Arab Emirates': 'Förenade Arabemiraten',
-    'Jordan': 'Jordanien',
-    'Panama': 'Panama',
-    'South Africa': 'Sydafrika',
-    'Jamaica': 'Jamaika',
-    'Haiti': 'Haiti',
-    'Curaçao': 'Curaçao',
-    'Curacao': 'Curaçao'
-};
-
-const translateTeam = (name) => {
-    if (!name) return name;
-    const trimmed = name.trim();
-    return TEAM_TRANSLATIONS[trimmed] || trimmed;
-};
 
 async function scrapeRanking() {
     console.log(`Scraping FIFA World Ranking from ${RANKING_URL}...`);
