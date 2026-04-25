@@ -77,28 +77,76 @@ async function scrapeRanking() {
     const page = await browser.newPage();
     
     try {
-        // Use domcontentloaded as FIFA's page can be heavy on network and trigger timeouts
-        await page.goto(RANKING_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
-        
-        // Wait for the table to appear and then a bit more for data to populate
+        await page.goto(RANKING_URL, { waitUntil: 'load', timeout: 60000 });
         await page.waitForSelector('table', { timeout: 30000 });
-        await page.waitForTimeout(3000);
 
-        // Click "Show more" button a few times to get more teams (top 100-200)
-        console.log('Loading more teams...');
-        for (let i = 0; i < 5; i++) {
+        // 1. Extract Update Dates
+        const updateDates = await page.evaluate(() => {
+            const content = document.body.innerText;
+            const lastMatch = content.match(/Last official update[:\s]+([^|\n]+)/i);
+            const nextMatch = content.match(/Next official update[:\s]+([^|\n]+)/i);
+            return {
+                lastUpdate: lastMatch ? lastMatch[1].trim() : null,
+                nextUpdate: nextMatch ? nextMatch[1].trim() : null
+            };
+        });
+        console.log(`📅 Dates found - Last: ${updateDates.lastUpdate}, Next: ${updateDates.nextUpdate}`);
+
+        // 2. Click "Show full rankings" if present (this often unlocks the full list)
+        const showFullClicked = await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('button, a')).find(el => 
+                el.innerText.includes('Show full rankings') || el.innerText.includes('Visa hela rankingen')
+            );
+            if (btn) {
+                btn.click();
+                return true;
+            }
+            return false;
+        });
+        if (showFullClicked) {
+            console.log('🔓 Clicked "Show full rankings", waiting for load...');
+            await page.waitForTimeout(3000);
+        }
+
+        // 3. Click "Show more" button until all teams are loaded
+        console.log('Loading all 211 teams...');
+        let clickCount = 0;
+        const maxClicks = 25; 
+        
+        while (clickCount < maxClicks) {
             try {
-                // Find button that contains "Show more" or "Visa fler"
-                const button = await page.locator('button:has-text("Show more"), button:has-text("Visa fler")').first();
-                if (await button.isVisible()) {
-                    await button.scrollIntoViewIfNeeded();
-                    await button.click();
-                    console.log(`Clicked "Show more" (${i+1})...`);
+                const clicked = await page.evaluate(() => {
+                    const buttons = Array.from(document.querySelectorAll('button'));
+                    const showMoreBtn = buttons.find(b => 
+                        (b.innerText.includes('Show more') || b.innerText.includes('Visa fler')) &&
+                        b.className.includes('multiselect-filter-module_showMoreButton')
+                    );
+                    
+                    if (showMoreBtn) {
+                        showMoreBtn.scrollIntoView({ block: 'center' });
+                        showMoreBtn.click();
+                        return true;
+                    }
+                    return false;
+                });
+                
+                if (clicked) {
+                    clickCount++;
+                    // Wait for new rows to load
                     await page.waitForTimeout(2000);
+                    const currentRowCount = await page.evaluate(() => document.querySelectorAll('table tbody tr').length);
+                    console.log(`Clicked "Show more" (${clickCount}). Current rows: ${currentRowCount}`);
+                    
+                    if (currentRowCount >= 211) {
+                        console.log('Reached 211+ teams!');
+                        break;
+                    }
                 } else {
+                    console.log('No more "Show more" button visible.');
                     break;
                 }
             } catch (e) {
+                console.log('Stopped clicking:', e.message);
                 break;
             }
         }
@@ -109,14 +157,9 @@ async function scrapeRanking() {
                 const tds = row.querySelectorAll('td');
                 if (tds.length < 6) return null;
                 
-                // Rank is often in the first cell, might have \n for change
                 const rankText = tds[0]?.innerText.trim();
                 const rank = rankText.split('\n')[0];
-                
-                // Team name is in the second cell
                 const team = tds[1]?.innerText.trim();
-                
-                // Points is in the 6th cell (index 5)
                 const points = tds[5]?.innerText.trim();
                 
                 return { rank, team, points };
@@ -130,12 +173,13 @@ async function scrapeRanking() {
         
         const outputData = {
             rankings: translatedRankings,
+            lastUpdate: updateDates.lastUpdate,
+            nextUpdate: updateDates.nextUpdate,
             lastUpdated: new Date().toISOString(),
             source: RANKING_URL
         };
         
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(outputData, null, 2));
-        
         console.log(`Successfully scraped ${translatedRankings.length} teams and saved to ${OUTPUT_FILE}`);
         
     } catch (error) {

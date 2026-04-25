@@ -630,9 +630,11 @@ const VMKollen = () => {
                                     </tbody>
                                 </table>
                             </Card>
-                            {rankingData?.lastUpdated && (
-                                <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '8px' }}>
-                                    Senast uppdaterad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}
+                            {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
+                                <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                    {rankingData.lastUpdate && <div>Officiell uppdatering: {rankingData.lastUpdate}</div>}
+                                    {rankingData.nextUpdate && <div>Nästa officiella uppdatering: {rankingData.nextUpdate}</div>}
+                                    <div style={{ opacity: 0.6, marginTop: '4px' }}>Källa: FIFA · Synkad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}</div>
                                 </div>
                             )}
                         </div>
