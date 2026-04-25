@@ -703,7 +703,6 @@ const VMKollen = () => {
                                 </div>
                                 <X size={18} strokeWidth={2.5} />
                             </MenuItem>
-                            <div style={{ height: '1px', background: 'rgba(0,0,0,0.05)', margin: '4px 16px' }} />
                         </>
                     )}
                     {allCountries
