@@ -34,6 +34,23 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
         return <BoldSverige text={name} />;
     };
 
+    const getBroadcasterUrl = (broadcast) => {
+        if (!broadcast) return null;
+        const b = broadcast.toUpperCase();
+        if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
+        if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
+        return null;
+    };
+
+    const handleBroadcastClick = (e) => {
+        const url = getBroadcasterUrl(match.broadcast);
+        if (url) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+    };
+
     const content = (
         <Card key={idx} padding="12px 14px" style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
@@ -47,7 +64,10 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                     >
                         {renderTeamName(match.home)}
                     </span>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0 }}>
+                    <div 
+                        onClick={handleBroadcastClick}
+                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0, cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
+                    >
                         {match.broadcast && (
                             <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.broadcast}

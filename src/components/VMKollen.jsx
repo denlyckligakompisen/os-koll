@@ -232,6 +232,23 @@ const VMKollen = () => {
         const homeFlags = getFlagCodes(next.home);
         const awayFlags = getFlagCodes(next.away);
 
+        const getBroadcasterUrl = (broadcast) => {
+            if (!broadcast) return null;
+            const b = broadcast.toUpperCase();
+            if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
+            if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
+            return null;
+        };
+
+        const handleBroadcastClick = (e) => {
+            const url = getBroadcasterUrl(next.broadcast);
+            if (url) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        };
+
         return (
             <div style={{ marginBottom: '40px' }}>
                 <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
@@ -246,7 +263,10 @@ const VMKollen = () => {
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
                         </div>
-                        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                        <div 
+                            onClick={handleBroadcastClick}
+                            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
+                        >
                             {next.broadcast && (
                                 <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                     {next.broadcast}

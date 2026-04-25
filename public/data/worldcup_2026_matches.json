@@ -7,7 +7,8 @@
       "away": "Sydafrika",
       "venue": "Mexico City",
       "broadcast": "TV4",
-      "group": "Grupp A"
+      "group": "Grupp A",
+      "link": "https://www.tv4play.se/program/e99c23f01724d859eba7/mexiko-sydafrika"
     },
     {
       "date": "12 juni",
@@ -16,7 +17,8 @@
       "away": "Tjeckien",
       "venue": "Guadalajara",
       "broadcast": "TV4",
-      "group": "Grupp A"
+      "group": "Grupp A",
+      "link": "https://www.tv4play.se/program/753771d380b9abff8192/sydkorea-tjeckien"
     },
     {
       "date": "12 juni",
@@ -34,7 +36,8 @@
       "away": "Paraguay",
       "venue": "Los Angeles",
       "broadcast": "TV4",
-      "group": "Grupp D"
+      "group": "Grupp D",
+      "link": "https://www.tv4play.se/program/34f4a8ead25dbd9c5bd0/usa-paraguay"
     },
     {
       "date": "13 juni",
@@ -43,7 +46,8 @@
       "away": "Schweiz",
       "venue": "San Fransisco",
       "broadcast": "TV4",
-      "group": "Grupp B"
+      "group": "Grupp B",
+      "link": "https://www.tv4play.se/program/b2c5c5a4403862c85e74/qatar-schweiz"
     },
     {
       "date": "14 juni",
@@ -79,7 +83,8 @@
       "away": "Curaçao",
       "venue": "Houston",
       "broadcast": "TV4",
-      "group": "Grupp E"
+      "group": "Grupp E",
+      "link": "https://www.tv4play.se/program/12b55de12a9f9f772071/tyskland-curacao"
     },
     {
       "date": "14 juni",
@@ -88,7 +93,8 @@
       "away": "Japan",
       "venue": "Dallas",
       "broadcast": "TV4",
-      "group": "Grupp F"
+      "group": "Grupp F",
+      "link": "https://www.tv4play.se/program/6d03c152724e28822785/nederlanderna-japan"
     },
     {
       "date": "15 juni",
@@ -97,7 +103,8 @@
       "away": "Ecuador",
       "venue": "Philadelphia",
       "broadcast": "TV4",
-      "group": "Grupp E"
+      "group": "Grupp E",
+      "link": "https://www.tv4play.se/program/8f4c9f930a3d8d2068b6/elfenbenskusten-ecuador"
     },
     {
       "date": "15 juni",
@@ -133,7 +140,8 @@
       "away": "Uruguay",
       "venue": "Miami",
       "broadcast": "TV4",
-      "group": "Grupp H"
+      "group": "Grupp H",
+      "link": "https://www.tv4play.se/program/ed41228e324c54bcd127/saudiarabien-uruguay"
     },
     {
       "date": "16 juni",
@@ -142,7 +150,8 @@
       "away": "Nya Zeeland",
       "venue": "Los Angeles",
       "broadcast": "TV4",
-      "group": "Grupp G"
+      "group": "Grupp G",
+      "link": "https://www.tv4play.se/program/5772b537b5e0100a06e7/iran-nya-zeeland"
     },
     {
       "date": "16 juni",
@@ -169,7 +178,8 @@
       "away": "Algeriet",
       "venue": "Kansas City",
       "broadcast": "TV4",
-      "group": "Grupp J"
+      "group": "Grupp J",
+      "link": "https://www.tv4play.se/program/7cf65f3220a1554bc148/argentina-algeriet"
     },
     {
       "date": "17 juni",
@@ -178,7 +188,8 @@
       "away": "Jordanien",
       "venue": "San Fransisco",
       "broadcast": "TV4",
-      "group": "Grupp J"
+      "group": "Grupp J",
+      "link": "https://www.tv4play.se/program/139ab09c57e1273734d1/osterrike-jordanien"
     },
     {
       "date": "17 juni",
@@ -196,7 +207,8 @@
       "away": "Kroatien",
       "venue": "Dallas",
       "broadcast": "TV4",
-      "group": "Grupp L"
+      "group": "Grupp L",
+      "link": "https://www.tv4play.se/program/5c52c8515c6d6e02f5a5/england-kroatien"
     },
     {
       "date": "18 juni",
@@ -205,7 +217,8 @@
       "away": "Panama",
       "venue": "Toronto",
       "broadcast": "TV4",
-      "group": "Grupp L"
+      "group": "Grupp L",
+      "link": "https://www.tv4play.se/program/370dce5520885c40f713/ghana-panama"
     },
     {
       "date": "18 juni",
@@ -214,7 +227,8 @@
       "away": "Colombia",
       "venue": "Mexico City",
       "broadcast": "TV4",
-      "group": "Grupp K"
+      "group": "Grupp K",
+      "link": "https://www.tv4play.se/program/3a718e116ccaad7f32dc/uzbekistan-colombia"
     },
     {
       "date": "18 juni",
@@ -223,7 +237,8 @@
       "away": "Sydafrika",
       "venue": "Atlanta",
       "broadcast": "TV4",
-      "group": "Grupp A"
+      "group": "Grupp A",
+      "link": "https://www.tv4play.se/program/4bfab531a300ff5d993d/tjeckien-sydafrika"
     },
     {
       "date": "18 juni",
@@ -241,7 +256,8 @@
       "away": "Qatar",
       "venue": "Vancouver",
       "broadcast": "TV4",
-      "group": "Grupp B"
+      "group": "Grupp B",
+      "link": "https://www.tv4play.se/program/1efc6fd31a091777606e/kanada-qatar"
     },
     {
       "date": "19 juni",
@@ -250,7 +266,8 @@
       "away": "Sydkorea",
       "venue": "Guadalajara",
       "broadcast": "TV4",
-      "group": "Grupp A"
+      "group": "Grupp A",
+      "link": "https://www.tv4play.se/program/4775d30e867c83012768/mexiko-sydkorea"
     },
     {
       "date": "19 juni",
@@ -277,7 +294,8 @@
       "away": "Haiti",
       "venue": "Philadelphia",
       "broadcast": "TV4",
-      "group": "Grupp C"
+      "group": "Grupp C",
+      "link": "https://www.tv4play.se/program/b9c565d0b3c82ab4bfbb/brasilien-haiti"
     },
     {
       "date": "20 juni",
@@ -295,7 +313,8 @@
       "away": "Sverige",
       "venue": "Houston",
       "broadcast": "TV4",
-      "group": "Grupp F"
+      "group": "Grupp F",
+      "link": "https://www.tv4play.se/program/80addba379a086dd8950/nederlanderna-sverige"
     },
     {
       "date": "20 juni",
@@ -304,7 +323,8 @@
       "away": "Elfenbenskusten",
       "venue": "Toronto",
       "broadcast": "TV4",
-      "group": "Grupp E"
+      "group": "Grupp E",
+      "link": "https://www.tv4play.se/program/7d47ac5c7db84b41e29c/tyskland-elfenbenskusten"
     },
     {
       "date": "21 juni",
@@ -313,7 +333,8 @@
       "away": "Curaçao",
       "venue": "Kansas City",
       "broadcast": "TV4",
-      "group": "Grupp E"
+      "group": "Grupp E",
+      "link": "https://www.tv4play.se/program/dad4031e8a1570091aee/ecuador-curacao"
     },
     {
       "date": "21 juni",
@@ -331,7 +352,8 @@
       "away": "Saudiarabien",
       "venue": "Atlanta",
       "broadcast": "TV4",
-      "group": "Grupp H"
+      "group": "Grupp H",
+      "link": "https://www.tv4play.se/program/799c16d3f9238be0a5dd/spanien-saudiarabien"
     },
     {
       "date": "21 juni",
@@ -340,7 +362,8 @@
       "away": "Iran",
       "venue": "Los Angeles",
       "broadcast": "TV4",
-      "group": "Grupp G"
+      "group": "Grupp G",
+      "link": "https://www.tv4play.se/program/128c12643284e9433ff2/belgien-iran"
     },
     {
       "date": "22 juni",
@@ -349,7 +372,8 @@
       "away": "Kap Verde",
       "venue": "Miami",
       "broadcast": "TV4",
-      "group": "Grupp H"
+      "group": "Grupp H",
+      "link": "https://www.tv4play.se/program/61488ea64fbfb8597b6d/uruguay-kap-verde"
     },
     {
       "date": "22 juni",
@@ -358,7 +382,8 @@
       "away": "Egypten",
       "venue": "Vancouver",
       "broadcast": "TV4",
-      "group": "Grupp G"
+      "group": "Grupp G",
+      "link": "https://www.tv4play.se/program/9ec23b077a88fb570f39/nya-zeeland-egypten"
     },
     {
       "date": "22 juni",
@@ -394,7 +419,8 @@
       "away": "Algeriet",
       "venue": "San Fransisco",
       "broadcast": "TV4",
-      "group": "Grupp J"
+      "group": "Grupp J",
+      "link": "https://www.tv4play.se/program/14d20de4d1d64e74caf8/jordanien-algeriet"
     },
     {
       "date": "23 juni",
@@ -421,7 +447,8 @@
       "away": "Kroatien",
       "venue": "Toronto",
       "broadcast": "TV4",
-      "group": "Grupp L"
+      "group": "Grupp L",
+      "link": "https://www.tv4play.se/program/2feb64c9f32f741c471b/panama-kroatien"
     },
     {
       "date": "24 juni",
@@ -439,7 +466,8 @@
       "away": "Kanada",
       "venue": "Vancouver",
       "broadcast": "TV4",
-      "group": "Grupp B"
+      "group": "Grupp B",
+      "link": "https://www.tv4play.se/program/fdf08229a287b4b8c7aa/schweiz-kanada"
     },
     {
       "date": "24 juni",
