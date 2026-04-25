@@ -39,22 +39,6 @@ const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
 };
 
 const getCountryColor = (name) => {
-    if (!name) return '#000000';
-    if (name.includes('Sverige')) return '#006aa7'; // Blå
-    if (name.includes('Nederländerna')) return '#f36d21'; // Orange
-    if (name.includes('Brasilien')) return '#009739'; // Grön
-    if (name.includes('Argentina')) return '#74acdf'; // Ljusblå
-    if (name.includes('Tyskland')) return '#000000'; // Svart
-    if (name.includes('Spanien')) return '#c60b1e'; // Röd
-    if (name.includes('Frankrike')) return '#002395'; // Blå
-    if (name.includes('Portugal')) return '#ff0000'; // Röd
-    if (name.includes('Kanada')) return '#ff0000'; // Röd
-    if (name.includes('USA')) return '#002868'; // Blå
-    if (name.includes('Mexiko')) return '#006847'; // Grön
-    if (name.includes('Marocko')) return '#c1272d'; // Röd
-    if (name.includes('England')) return '#ce1124'; // Röd
-    if (name.includes('Kroatien')) return '#ff0000'; // Röd
-    if (name.includes('Bosnien')) return '#002395'; // Blå
     return '#000000';
 };
 
@@ -253,14 +237,16 @@ const VMKollen = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {Object.entries(groupedMatches).map(([date, matches], groupIdx) => (
                     <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ 
-                            fontSize: '0.8rem', 
-                            fontWeight: '800', 
-                            textTransform: 'uppercase', 
-                            paddingLeft: '4px',
-                            color: 'var(--color-text-muted)',
-                            letterSpacing: '0.02em'
-                        }}>{date}</div>
+                        {(!nextMatches.length || date !== nextMatches[0].date) && (
+                            <div style={{ 
+                                fontSize: '0.8rem', 
+                                fontWeight: '800', 
+                                textTransform: 'uppercase', 
+                                paddingLeft: '4px',
+                                color: 'var(--color-text-muted)',
+                                letterSpacing: '0.02em'
+                            }}>{date}</div>
+                        )}
                         {matches.map((m, i) => (
                             <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
                         ))}
