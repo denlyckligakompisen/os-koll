@@ -46,7 +46,7 @@ const getCountryColor = (name) => {
 
 const TEAM_ABBR = {
     'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
-    'Bosnien och Hercegovina': 'BIH', 'Grekland': 'GRE', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+    'Bosnien och Hercegovina': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
     'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
     'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
     'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
@@ -79,39 +79,6 @@ const VMKollen = () => {
     const [activeStatTab, setActiveStatTab] = useState('ranking');
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
-
-    // Swipe navigation logic
-    const [touchStart, setTouchStart] = useState(null);
-    const [touchEnd, setTouchEnd] = useState(null);
-
-    const minSwipeDistance = 50;
-
-    const onTouchStart = (e) => {
-        setTouchEnd(null);
-        setTouchStart(e.targetTouches[0].clientX);
-    };
-
-    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
-
-    const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return;
-        const distance = touchStart - touchEnd;
-        const isLeftSwipe = distance > minSwipeDistance;
-        const isRightSwipe = distance < -minSwipeDistance;
-
-        if (isLeftSwipe || isRightSwipe) {
-            const currentIndex = SUBTABS.findIndex(t => t.id === activeTab);
-            let nextIndex = currentIndex;
-            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
-                nextIndex = currentIndex + 1;
-            } else if (isRightSwipe && currentIndex > 0) {
-                nextIndex = currentIndex - 1;
-            }
-            if (nextIndex !== currentIndex) {
-                setActiveTab(SUBTABS[nextIndex].id);
-            }
-        }
-    };
 
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
@@ -549,9 +516,6 @@ const VMKollen = () => {
 
     return (
         <div
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
             {/* Full-width Sticky Header */}

@@ -37,7 +37,7 @@ const VMBracket = ({ filterCountry, onCountryClick }) => {
 
     const TEAM_ABBR = {
         'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
-        'Bosnien': 'BIH', 'Grekland': 'GRE', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+        'Bosnien': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
         'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
         'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
         'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
