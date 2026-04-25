@@ -68,9 +68,10 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                         onClick={handleBroadcastClick}
                         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0, cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
                     >
-                        {match.broadcast && (
-                            <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {match.broadcast}
+                        {match.group && (
+                            <div style={{ fontSize: '0.6rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px' }}>
+                                {match.group}
+                                {match.isPreliminary && ' (prel.)'}
                             </div>
                         )}
                         <span style={{ 
@@ -88,10 +89,9 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                             {match.status === 'live' && <span className="live-indicator-pulse" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
-                        {match.group && (
-                            <div style={{ fontSize: '0.6rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: '2px' }}>
-                                {match.group}
-                                {match.isPreliminary && ' (prel.)'}
+                        {match.broadcast && (
+                            <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
+                                {match.broadcast}
                             </div>
                         )}
                     </div>

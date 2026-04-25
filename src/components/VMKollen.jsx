@@ -73,6 +73,7 @@ const VMKollen = () => {
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
     const rankingRefs = React.useRef({});
+    const tableRefs = React.useRef({});
 
     // Swipe navigation logic
     const [touchStart, setTouchStart] = useState(null);
@@ -150,6 +151,12 @@ const VMKollen = () => {
             setTimeout(() => {
                 rankingRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
+        } else if (activeTab === 'gruppspel' && filterCountry && tableRefs.current[filterCountry]) {
+            setTimeout(() => {
+                tableRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        } else if (activeTab === 'matcher') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [activeTab, filterCountry]);
 
@@ -234,7 +241,7 @@ const VMKollen = () => {
                         realHome: homeInfo.realName || m.home,
                         realAway: awayInfo.realName || m.away,
                         isKnockout: true,
-                        isPreliminary: homeInfo.isPlaceholder || awayInfo.isPlaceholder,
+                        isPreliminary: true, // Always preliminary for knockout matches for now
                         roundName: round.name,
                         group: round.name
                     });
@@ -317,9 +324,6 @@ const VMKollen = () => {
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
         const sortedTeams = sortTeams(teams);
-        const hasFilterCountry = filterCountry ? sortedTeams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) : true;
-        
-        if (filterCountry && !hasFilterCountry) return null;
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
@@ -349,11 +353,22 @@ const VMKollen = () => {
                             const flagCodes = getFlagCodes(team.name);
                             const rank = tidx + 1;
                             const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
-                            const isSverige = team.name.includes('Sverige');
+                            const isFiltered = filterCountry && team.name.includes(filterCountry);
 
                             return (
-                                <tr key={team.name} style={{ backgroundColor: isSverige ? 'var(--color-highlight-sverige)' : 'transparent' }}>
-                                    <td style={{ padding: '8px 4px' }}>
+                                <tr 
+                                    key={team.name} 
+                                    ref={el => tableRefs.current[team.name] = el}
+                                    style={{ 
+                                        backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                        transition: 'background-color 0.2s ease'
+                                    }}
+                                >
+                                    <td style={{ 
+                                        padding: '8px 4px', 
+                                        borderTopLeftRadius: isFiltered ? '8px' : '0', 
+                                        borderBottomLeftRadius: isFiltered ? '8px' : '0' 
+                                    }}>
                                         <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
                                         </div>
@@ -369,7 +384,13 @@ const VMKollen = () => {
                                     </td>
                                     <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
                                     <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit', fontWeight: '600' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
-                                    <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>{team.pts}</td>
+                                    <td style={{ 
+                                        padding: '11px 4px', 
+                                        textAlign: 'right', 
+                                        fontWeight: '800',
+                                        borderTopRightRadius: isFiltered ? '8px' : '0', 
+                                        borderBottomRightRadius: isFiltered ? '8px' : '0'
+                                    }}>{team.pts}</td>
                                 </tr>
                             );
                         })}
@@ -462,18 +483,18 @@ const VMKollen = () => {
                                         onClick={handleBroadcastClick}
                                         style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
                                     >
-                                        {next.broadcast && (
-                                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {next.broadcast}
+                                        {next.group && (
+                                            <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '4px' }}>
+                                                {next.group}
+                                                {next.isPreliminary && ' (prel.)'}
                                             </div>
                                         )}
                                         <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
                                             {next.time}
                                         </div>
-                                        {next.group && (
-                                            <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: '4px' }}>
-                                                {next.group}
-                                                {next.isPreliminary && ' (prel.)'}
+                                        {next.broadcast && (
+                                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
+                                                {next.broadcast}
                                             </div>
                                         )}
                                     </div>
@@ -546,6 +567,14 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
+                            {filterCountry && groupsData?.groups
+                                .filter(g => g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)))
+                                .map((g, i) => (
+                                    <div key={i} style={{ marginBottom: '16px' }}>
+                                        {renderTable(g.name, g.teams, null, i)}
+                                    </div>
+                                ))
+                            }
                             {renderNextMatches()}
                             {renderAllMatches()}
                         </>
