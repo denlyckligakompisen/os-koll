@@ -4,9 +4,21 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
+
+    const handleTeamClick = (e, name) => {
+        if (!onCountryClick) return;
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // If it's a multi-team string like "3A/B/C/D", we might want to handle it differently,
+        // but for now let's just pass the whole string.
+        // If it's something like "1A\nSverige", we want "Sverige".
+        const country = name.includes('\n') ? name.split('\n')[1] : name;
+        onCountryClick(country);
+    };
 
     const renderTeamName = (name) => {
         if (!name) return null;
@@ -26,10 +38,13 @@ const MatchCard = ({ match, idx, ...props }) => {
         <Card key={idx} padding="12px 14px" style={{
             border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
         }}>
-            <FlagBadge codes={homeFlags} name={match.home} size={28} />
+            <FlagBadge codes={homeFlags} name={match.home} size={28} onClick={(e) => handleTeamClick(e, match.home)} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
-                    <span style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word' }}>
+                    <span 
+                        onClick={(e) => handleTeamClick(e, match.home)}
+                        style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word', cursor: onCountryClick ? 'pointer' : 'default' }}
+                    >
                         {renderTeamName(match.home)}
                     </span>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0 }}>
@@ -54,12 +69,15 @@ const MatchCard = ({ match, idx, ...props }) => {
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
                     </div>
-                    <span style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word' }}>
+                    <span 
+                        onClick={(e) => handleTeamClick(e, match.away)}
+                        style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word', cursor: onCountryClick ? 'pointer' : 'default' }}
+                    >
                         {renderTeamName(match.away)}
                     </span>
                 </div>
             </div>
-            <FlagBadge codes={awayFlags} name={match.away} size={28} />
+            <FlagBadge codes={awayFlags} name={match.away} size={28} onClick={(e) => handleTeamClick(e, match.away)} />
         </Card>
     );
 

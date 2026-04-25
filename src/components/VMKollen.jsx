@@ -43,7 +43,46 @@ const VMKollen = () => {
     const [matchesData, setMatchesData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
-    const [sverigeOnly, setSverigeOnly] = useState(false);
+    const [filterCountry, setFilterCountry] = useState(null);
+
+    // Swipe navigation logic
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe || isRightSwipe) {
+            const currentIndex = SUBTABS.findIndex(t => t.id === activeTab);
+            let nextIndex = currentIndex;
+            if (isLeftSwipe && currentIndex < SUBTABS.length - 1) {
+                nextIndex = currentIndex + 1;
+            } else if (isRightSwipe && currentIndex > 0) {
+                nextIndex = currentIndex - 1;
+            }
+            if (nextIndex !== currentIndex) {
+                setActiveTab(SUBTABS[nextIndex].id);
+            }
+        }
+    };
+
+    const handleCountryClick = (country) => {
+        // Handle "Sverige" specifically if it's part of a string but we want the clear name
+        const cleanName = country.includes('Sverige') ? 'Sverige' : country;
+        setFilterCountry(prev => prev === cleanName ? null : cleanName);
+    };
 
     useEffect(() => {
         Promise.all([
@@ -64,14 +103,12 @@ const VMKollen = () => {
     const groupedMatches = React.useMemo(() => {
         if (!matchesData?.matches) return {};
         return matchesData.matches.reduce((acc, m) => {
-            if (sverigeOnly && !m.home.includes('Sverige') && !m.away.includes('Sverige')) return acc;
+            if (filterCountry && !m.home.includes(filterCountry) && !m.away.includes(filterCountry)) return acc;
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [matchesData, sverigeOnly]);
-
-
+    }, [matchesData, filterCountry]);
 
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -91,9 +128,9 @@ const VMKollen = () => {
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
         const sortedTeams = sortTeams(teams);
-        const hasSverige = sortedTeams.some(t => (typeof t === 'string' ? t : t.name).includes('Sverige'));
+        const hasFilterCountry = filterCountry ? sortedTeams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) : true;
         
-        if (sverigeOnly && !hasSverige) return null;
+        if (filterCountry && !hasFilterCountry) return null;
 
         return (
             <div key={groupName} style={{ marginBottom: '32px' }}>
@@ -123,16 +160,20 @@ const VMKollen = () => {
                             const flagCodes = getFlagCodes(team.name);
                             const rank = tidx + 1;
                             const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
+                            const isSverige = team.name.includes('Sverige');
 
                             return (
-                                <tr key={team.name} style={{ backgroundColor: team.name.includes('Sverige') ? 'var(--color-highlight-sverige)' : 'transparent' }}>
+                                <tr key={team.name} style={{ backgroundColor: isSverige ? 'var(--color-highlight-sverige)' : 'transparent' }}>
                                     <td style={{ padding: '8px 4px' }}>
                                         <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
                                         </div>
                                     </td>
                                     <td style={{ padding: '11px 4px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <div 
+                                            onClick={() => handleCountryClick(team.name)}
+                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                        >
                                             <FlagBadge codes={flagCodes} name={team.name} size={26} />
                                             <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
                                         </div>
@@ -165,7 +206,7 @@ const VMKollen = () => {
                             letterSpacing: '0.02em'
                         }}>{date}</div>
                         {matches.map((m, i) => (
-                            <MatchCard key={i} match={m} idx={i} />
+                            <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
                         ))}
                     </div>
                 ))}
@@ -173,12 +214,13 @@ const VMKollen = () => {
         );
     };
 
-    const renderSwedenNextMatch = () => {
+    const renderNextMatch = () => {
         const allMatches = [];
+        const country = filterCountry || 'Sverige';
 
         if (matchesData?.matches) {
             matchesData.matches.forEach(m => {
-                if (m.home.includes('Sverige') || m.away.includes('Sverige')) {
+                if (m.home.includes(country) || m.away.includes(country)) {
                     allMatches.push({ ...m, fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP), displayDate: m.date.toUpperCase(), type: `VM · ${m.group}` });
                 }
             });
@@ -197,7 +239,10 @@ const VMKollen = () => {
                 </div>
                 <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                        <div 
+                            onClick={() => handleCountryClick(next.home)}
+                            style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                        >
                             <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
                         </div>
@@ -211,7 +256,10 @@ const VMKollen = () => {
                                 {next.time}
                             </div>
                         </div>
-                        <div style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                        <div 
+                            onClick={() => handleCountryClick(next.away)}
+                            style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                        >
                             <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
                             <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
                         </div>
@@ -222,7 +270,12 @@ const VMKollen = () => {
     };
 
     return (
-        <div style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto', paddingBottom: '100px' }}>
+        <div 
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto', paddingBottom: '100px' }}
+        >
             <PageHeader title="VM-kollen" logoSrc={getTeamLogo('FIFA World Cup')} />
 
             {/* Fynda-style Segmented Control */}
@@ -244,18 +297,21 @@ const VMKollen = () => {
                     ))}
                 </div>
                 <button 
-                    onClick={() => setSverigeOnly(!sverigeOnly)}
-                    className={`sverige-toggle ${sverigeOnly ? 'active' : ''}`}
-                    aria-label="Visa endast Sverige"
+                    onClick={() => {
+                        if (filterCountry) setFilterCountry(null);
+                        else handleCountryClick('Sverige');
+                    }}
+                    className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
+                    aria-label={filterCountry ? `Rensa filter för ${filterCountry}` : "Visa endast Sverige"}
                 >
-                    <FlagBadge codes={['SE']} size={28} shadow={false} />
+                    <FlagBadge codes={filterCountry ? getFlagCodes(filterCountry) : ['SE']} size={28} shadow={false} />
                 </button>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {activeTab === 'matcher' && (
                     <>
-                        {renderSwedenNextMatch()}
+                        {renderNextMatch()}
                         {renderAllMatches()}
                     </>
                 )}
@@ -266,7 +322,7 @@ const VMKollen = () => {
                     </>
                 )}
                 {activeTab === 'slutspel' && (
-                    <VMBracket sverigeOnly={sverigeOnly} />
+                    <VMBracket filterCountry={filterCountry} onCountryClick={handleCountryClick} />
                 )}
                 {activeTab === 'statistik' && (
                     <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
