@@ -7,8 +7,11 @@ import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X } from 'lucide-react';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import MuiMenu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
@@ -82,8 +85,27 @@ const VMKollen = () => {
     const [filterCountry, setFilterCountry] = useState(null);
     const [activeStatTab, setActiveStatTab] = useState('ranking');
     const [scorersData, setScorersData] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
+
+    const allCountries = useMemo(() => {
+        if (!groupsData?.groups) return [];
+        const teamsSet = new Set();
+        groupsData.groups.forEach(group => {
+            group.teams.forEach(t => teamsSet.add(typeof t === 'string' ? t : t.name));
+        });
+        const sorted = [...teamsSet].sort((a, b) => a.localeCompare(b, 'sv'));
+        const swedeIdx = sorted.indexOf('Sverige');
+        if (swedeIdx > -1) {
+            sorted.splice(swedeIdx, 1);
+            sorted.unshift('Sverige');
+        }
+        return sorted;
+    }, [groupsData]);
+
+    const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
+    const handleMenuClose = () => setAnchorEl(null);
 
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
@@ -601,15 +623,91 @@ const VMKollen = () => {
                 </div>
 
                 <button
-                    onClick={() => {
-                        if (filterCountry) setFilterCountry(null);
-                        else handleCountryClick('Sverige');
-                    }}
+                    onClick={handleMenuClick}
                     className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
-                    aria-label={filterCountry ? `Rensa filter för ${filterCountry}` : "Visa endast Sverige"}
+                    aria-label="Välj land att filtrera"
                 >
-                    <FlagBadge codes={filterCountry ? getFlagCodes(filterCountry) : ['SE']} size={24} shadow={false} />
+                    {filterCountry ? (
+                        <FlagBadge codes={getFlagCodes(filterCountry)} size={18} shadow={false} />
+                    ) : (
+                        <PublicOutlinedIcon sx={{ fontSize: 18 }} />
+                    )}
                 </button>
+                <MuiMenu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    slotProps={{
+                        paper: {
+                            style: {
+                                maxHeight: 400,
+                                width: '240px',
+                                borderRadius: '16px',
+                                marginTop: '8px',
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                                border: '0.5px solid rgba(0,0,0,0.08)',
+                                padding: '8px 0'
+                            }
+                        }
+                    }}
+                >
+                    {filterCountry && (
+                        <>
+                            <MenuItem 
+                                onClick={() => {
+                                    setFilterCountry(null);
+                                    handleMenuClose();
+                                }}
+                                style={{ 
+                                    fontSize: '0.9rem', 
+                                    fontWeight: 700, 
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    padding: '12px 16px',
+                                    borderRadius: '8px',
+                                    margin: '2px 8px',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                    color: 'var(--color-text)'
+                                }}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
+                                    {filterCountry}
+                                </div>
+                                <X size={18} strokeWidth={2.5} />
+                            </MenuItem>
+                            <div style={{ height: '1px', background: 'rgba(0,0,0,0.05)', margin: '4px 16px' }} />
+                        </>
+                    )}
+                    {allCountries
+                        .filter(c => c !== filterCountry)
+                        .map((country) => (
+                        <MenuItem 
+                            key={country}
+                            onClick={() => {
+                                handleCountryClick(country);
+                                handleMenuClose();
+                            }}
+                            selected={filterCountry === country}
+                            style={{ 
+                                fontSize: '0.9rem', 
+                                fontWeight: 500,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                padding: '12px 16px',
+                                borderRadius: '8px',
+                                margin: '2px 8px'
+                            }}
+                        >
+                            <FlagBadge codes={getFlagCodes(country)} size={22} shadow={false} />
+                            {country}
+                        </MenuItem>
+                    ))}
+                </MuiMenu>
             </div>
 
             {/* Centered Content Container */}
