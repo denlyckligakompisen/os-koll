@@ -15,3 +15,19 @@ export const getTeamLogo = (name) => {
 
     return specialLogos[name] || null;
 };
+
+/**
+ * Get broadcaster logos (TV4, SVT)
+ */
+export const getBroadcasterLogo = (name) => {
+    if (!name) return null;
+    const n = name.toUpperCase();
+    
+    if (n.includes('TV4')) {
+        return '/assets/tv4_logo.png';
+    }
+    if (n.includes('SVT')) {
+        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/SVT_Play_logo_2021.svg/512px-SVT_Play_logo_2021.svg.png';
+    }
+    return null;
+};

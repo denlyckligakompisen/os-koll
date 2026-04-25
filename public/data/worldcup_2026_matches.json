@@ -24,7 +24,7 @@
       "date": "12 juni",
       "time": "21:00",
       "home": "Kanada",
-      "away": "Bosnien",
+      "away": "Bosnien och Hercegovina",
       "venue": "Toronto",
       "broadcast": "SVT",
       "group": "Grupp B"
@@ -244,7 +244,7 @@
       "date": "18 juni",
       "time": "21:00",
       "home": "Schweiz",
-      "away": "Bosnien",
+      "away": "Bosnien och Hercegovina",
       "venue": "Los Angeles",
       "broadcast": "TV4",
       "group": "Grupp B"
@@ -472,7 +472,7 @@
     {
       "date": "24 juni",
       "time": "21:00",
-      "home": "Bosnien",
+      "home": "Bosnien och Hercegovina",
       "away": "Qatar",
       "venue": "Seattle",
       "broadcast": "TV4",

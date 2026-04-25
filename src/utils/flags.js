@@ -48,7 +48,7 @@ export const getFlagCode = (name) => {
     if (name.includes('Bolivia')) return 'BO';
     if (name.includes('Nordmakedonien')) return 'MK';
     if (name.includes('Israel')) return 'IL';
-    if (name.includes('Bosnien')) return 'BA';
+    if (name.includes('Bosnien och Hercegovina')) return 'BA';
     if (name.includes('Förenade Arabemiraten')) return 'AE';
     if (name.includes('Portugal')) return 'PT';
     if (name.includes('Uzbekistan')) return 'UZ';

@@ -221,16 +221,10 @@ body {
 }
 
 /* Desktop: Restore to top and non-floating */
-@media (min-width: 768px) {
-  .nav-container {
-    margin: 40px auto;
-    width: fit-content;
-  }
-
-  .segmented-control {
-    min-width: 240px;
-    flex: none;
-  }
+/* Ensure header is always at the very top */
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 .sverige-toggle {
