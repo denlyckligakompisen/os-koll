@@ -12,7 +12,7 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
         if (!onCountryClick) return;
         e.preventDefault();
         e.stopPropagation();
-        
+
         // If it's a multi-team string like "3A/B/C/D", we might want to handle it differently,
         // but for now let's just pass the whole string.
         // If it's something like "1A\nSverige", we want "Sverige".
@@ -58,15 +58,15 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
             <FlagBadge codes={homeFlags} name={match.home} size={28} onClick={(e) => handleTeamClick(e, match.home)} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
-                    <button 
+                    <button
                         onClick={(e) => handleTeamClick(e, match.home)}
                         aria-label={`Visa information om ${match.home}`}
-                        style={{ 
-                            flex: 1, 
-                            textAlign: 'right', 
-                            whiteSpace: 'normal', 
-                            lineHeight: '1.2', 
-                            wordBreak: 'break-word', 
+                        style={{
+                            flex: 1,
+                            textAlign: 'right',
+                            whiteSpace: 'normal',
+                            lineHeight: '1.2',
+                            wordBreak: 'break-word',
                             cursor: onCountryClick ? 'pointer' : 'default',
                             background: 'none',
                             border: 'none',
@@ -77,17 +77,17 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                     >
                         {renderTeamName(match.home)}
                     </button>
-                    <button 
+                    <button
                         onClick={handleBroadcastClick}
                         aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
                         disabled={!getBroadcasterUrl(match.broadcast)}
-                        style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            alignItems: 'center', 
-                            gap: '4px', 
-                            minWidth: '70px', 
-                            flexShrink: 0, 
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: '4px',
+                            minWidth: '70px',
+                            flexShrink: 0,
                             cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
                             background: 'none',
                             border: 'none',
@@ -102,13 +102,13 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                                 {match.isPreliminary && ' (prel.)'}
                             </div>
                         )}
-                        <span style={{ 
-                            fontSize: '0.8rem', 
-                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text)', 
-                            fontWeight: '800', 
-                            flexShrink: 0, 
-                            backgroundColor: match.status === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)', 
-                            padding: '2px 8px', 
+                        <span style={{
+                            fontSize: '0.8rem',
+                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text)',
+                            fontWeight: '800',
+                            flexShrink: 0,
+                            backgroundColor: match.status === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
+                            padding: '2px 8px',
                             borderRadius: '4px',
                             display: 'flex',
                             alignItems: 'center',
@@ -123,15 +123,15 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                             </div>
                         )}
                     </button>
-                    <button 
+                    <button
                         onClick={(e) => handleTeamClick(e, match.away)}
                         aria-label={`Visa information om ${match.away}`}
-                        style={{ 
-                            flex: 1, 
-                            textAlign: 'left', 
-                            whiteSpace: 'normal', 
-                            lineHeight: '1.2', 
-                            wordBreak: 'break-word', 
+                        style={{
+                            flex: 1,
+                            textAlign: 'left',
+                            whiteSpace: 'normal',
+                            lineHeight: '1.2',
+                            wordBreak: 'break-word',
                             cursor: onCountryClick ? 'pointer' : 'default',
                             background: 'none',
                             border: 'none',
