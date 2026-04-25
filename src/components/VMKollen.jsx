@@ -366,7 +366,11 @@ const VMKollen = () => {
                                             transition: 'background-color 0.2s ease'
                                         }}
                                     >
-                                    <td style={{ padding: '8px 4px' }}>
+                                    <td style={{ 
+                                        padding: '8px 4px',
+                                        borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                        borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                    }}>
                                         <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
                                         </div>
@@ -399,8 +403,8 @@ const VMKollen = () => {
                                             padding: '11px 4px',
                                             textAlign: 'right',
                                             fontWeight: '800',
-                                            borderTopRightRadius: isFiltered ? '8px' : '0',
-                                            borderBottomRightRadius: isFiltered ? '8px' : '0'
+                                            borderTopRightRadius: isFiltered ? '10px' : '0',
+                                            borderBottomRightRadius: isFiltered ? '10px' : '0'
                                         }}>{team.pts}</td>
                                     </tr>
                                 );
@@ -685,7 +689,11 @@ const VMKollen = () => {
                                                                     transition: 'all 0.2s ease'
                                                                 }}
                                                             >
-                                                                <td style={{ padding: '8px 4px' }}>
+                                                                <td style={{ 
+                                                                    padding: '8px 4px',
+                                                                    borderTopLeftRadius: isSelected ? '12px' : '0',
+                                                                    borderBottomLeftRadius: isSelected ? '12px' : '0'
+                                                                }}>
                                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                                         <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
                                                                             {r.rank}
@@ -731,7 +739,13 @@ const VMKollen = () => {
                                                                         <span style={{ fontWeight: '500' }}><BoldSverige text={r.team} /></span>
                                                                     </button>
                                                                 </td>
-                                                            <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'right', 
+                                                                fontWeight: '800',
+                                                                borderTopRightRadius: isSelected ? '12px' : '0',
+                                                                borderBottomRightRadius: isSelected ? '12px' : '0'
+                                                            }}>
                                                                 {r.points}
                                                             </td>
                                                         </tr>
