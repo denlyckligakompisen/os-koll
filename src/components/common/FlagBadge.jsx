@@ -19,23 +19,22 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
         );
     }
 
-    return (
+    const badgeContent = (
         <div 
-            onClick={onClick}
             style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                gap: codes.length > 1 ? '1px' : '0',
-                cursor: onClick ? 'pointer' : 'default'
+                gap: (codes && codes.length > 1) ? '1px' : '0',
             }}
         >
-            {codes.map((code, idx) => {
+            {codes && codes.map((code, idx) => {
                 const imgSize = codes.length > 1 ? Math.floor(size * 0.65) : size;
                 return (
                     <img 
                         key={idx} 
                         src={flagUrl(code)} 
-                        alt={name} 
+                        alt="" 
+                        aria-hidden="true"
                         style={{ 
                             width: `${imgSize}px`, 
                             height: `${imgSize}px`, 
@@ -51,6 +50,29 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
             })}
         </div>
     );
+
+    if (onClick) {
+        return (
+            <button
+                onClick={onClick}
+                aria-label={`Visa information om ${name}`}
+                style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    margin: 0,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderRadius: '50%'
+                }}
+            >
+                {badgeContent}
+            </button>
+        );
+    }
+
+    return badgeContent;
 };
 
 export default FlagBadge;

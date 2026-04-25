@@ -321,11 +321,16 @@ const VMKollen = () => {
                 </div>
                 <Card style={{ marginBottom: '0' }}>
                     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                        <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
+                            Tabell för {displayName || groupName}
+                        </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                {['', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
-                                    <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: i === 0 ? '36px' : 'auto' }}>{col}</th>
-                                ))}
+                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }} aria-label="Position">#</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>P</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -351,13 +356,26 @@ const VMKollen = () => {
                                         </div>
                                     </td>
                                     <td style={{ padding: '11px 4px' }}>
-                                        <div 
+                                        <button 
                                             onClick={() => handleCountryClick(team.name)}
-                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                            aria-label={`Visa information om ${team.name}`}
+                                            style={{ 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                gap: '8px', 
+                                                cursor: 'pointer',
+                                                background: 'none',
+                                                border: 'none',
+                                                padding: 0,
+                                                font: 'inherit',
+                                                color: 'inherit',
+                                                width: '100%',
+                                                textAlign: 'left'
+                                            }}
                                         >
                                             <FlagBadge codes={flagCodes} name={team.name} size={26} />
                                             <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
-                                        </div>
+                                        </button>
                                     </td>
                                         <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
                                         <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
@@ -622,17 +640,14 @@ const VMKollen = () => {
                                     )}
                                     <Card style={{ marginBottom: '0' }}>
                                         <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
+                                                FIFA:s världsranking
+                                            </caption>
                                             <thead>
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
-                                                    {['', 'LAG', 'POÄNG'].map((col, i) => (
-                                                        <th key={i} style={{ 
-                                                            textAlign: i === 0 || i === 1 ? 'left' : 'right', 
-                                                            padding: '8px 4px', 
-                                                            color: 'var(--color-text-muted)', 
-                                                            fontWeight: '600',
-                                                            width: i === 0 ? '40px' : 'auto'
-                                                        }}>{col}</th>
-                                                    ))}
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }} aria-label="Rank">#</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -673,18 +688,27 @@ const VMKollen = () => {
                                                                     </div>
                                                                 </td>
                                                                 <td style={{ padding: '11px 4px' }}>
-                                                                    <div
+                                                                    <button
+                                                                        aria-label={isTournamentTeam ? `Visa information om ${r.team}` : r.team}
+                                                                        disabled={!isTournamentTeam}
                                                                         style={{ 
                                                                             display: 'flex', 
                                                                             alignItems: 'center', 
                                                                             gap: '8px', 
-                                                                            cursor: isTournamentTeam ? 'pointer' : 'default' 
+                                                                            cursor: isTournamentTeam ? 'pointer' : 'default',
+                                                                            background: 'none',
+                                                                            border: 'none',
+                                                                            padding: 0,
+                                                                            font: 'inherit',
+                                                                            color: 'inherit',
+                                                                            width: '100%',
+                                                                            textAlign: 'left'
                                                                         }}
                                                                         onClick={() => isTournamentTeam && handleCountryClick(r.team)}
                                                                     >
                                                                         <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
                                                                         <span style={{ fontWeight: '500' }}><BoldSverige text={r.team} /></span>
-                                                                    </div>
+                                                                    </button>
                                                                 </td>
                                                             <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>
                                                                 {r.points}

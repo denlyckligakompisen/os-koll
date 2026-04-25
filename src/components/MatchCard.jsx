@@ -58,15 +58,43 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
             <FlagBadge codes={homeFlags} name={match.home} size={28} onClick={(e) => handleTeamClick(e, match.home)} />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
-                    <span 
+                    <button 
                         onClick={(e) => handleTeamClick(e, match.home)}
-                        style={{ flex: 1, textAlign: 'right', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word', cursor: onCountryClick ? 'pointer' : 'default' }}
+                        aria-label={`Visa information om ${match.home}`}
+                        style={{ 
+                            flex: 1, 
+                            textAlign: 'right', 
+                            whiteSpace: 'normal', 
+                            lineHeight: '1.2', 
+                            wordBreak: 'break-word', 
+                            cursor: onCountryClick ? 'pointer' : 'default',
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            font: 'inherit',
+                            color: 'inherit'
+                        }}
                     >
                         {renderTeamName(match.home)}
-                    </span>
-                    <div 
+                    </button>
+                    <button 
                         onClick={handleBroadcastClick}
-                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '70px', flexShrink: 0, cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
+                        aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
+                        disabled={!getBroadcasterUrl(match.broadcast)}
+                        style={{ 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            gap: '4px', 
+                            minWidth: '70px', 
+                            flexShrink: 0, 
+                            cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            font: 'inherit',
+                            color: 'inherit'
+                        }}
                     >
                         {match.group && (
                             <div style={{ fontSize: '0.6rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px' }}>
@@ -86,7 +114,7 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                             alignItems: 'center',
                             gap: '4px'
                         }}>
-                            {match.status === 'live' && <span className="live-indicator-pulse" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {match.status === 'live' && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
                         {match.broadcast && (
@@ -94,13 +122,26 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                                 {match.broadcast}
                             </div>
                         )}
-                    </div>
-                    <span 
+                    </button>
+                    <button 
                         onClick={(e) => handleTeamClick(e, match.away)}
-                        style={{ flex: 1, textAlign: 'left', whiteSpace: 'normal', lineHeight: '1.2', wordBreak: 'break-word', cursor: onCountryClick ? 'pointer' : 'default' }}
+                        aria-label={`Visa information om ${match.away}`}
+                        style={{ 
+                            flex: 1, 
+                            textAlign: 'left', 
+                            whiteSpace: 'normal', 
+                            lineHeight: '1.2', 
+                            wordBreak: 'break-word', 
+                            cursor: onCountryClick ? 'pointer' : 'default',
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            font: 'inherit',
+                            color: 'inherit'
+                        }}
                     >
                         {renderTeamName(match.away)}
-                    </span>
+                    </button>
                 </div>
             </div>
             <FlagBadge codes={awayFlags} name={match.away} size={28} onClick={(e) => handleTeamClick(e, match.away)} />
