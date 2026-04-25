@@ -10,7 +10,6 @@ import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown } from 'lucid
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
-    { id: 'spelare', label: 'Spelare' },
 ];
 
 const SUBTABS = [
@@ -114,9 +113,18 @@ const VMKollen = () => {
         }
     };
 
+    const tournamentTeams = React.useMemo(() => {
+        if (!groupsData?.groups) return new Set();
+        const teams = new Set();
+        groupsData.groups.forEach(group => {
+            group.teams.forEach(t => teams.add(typeof t === 'string' ? t : t.name));
+        });
+        return teams;
+    }, [groupsData]);
+
     const handleCountryClick = (country) => {
-        // Handle "Sverige" specifically if it's part of a string but we want the clear name
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
+        if (!tournamentTeams.has(cleanName)) return;
         setFilterCountry(prev => prev === cleanName ? null : cleanName);
     };
 
@@ -348,8 +356,8 @@ const VMKollen = () => {
                     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                {['#', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
-                                    <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>{col}</th>
+                                {['', 'LAG', 'M', '+/-', 'P'].map((col, i) => (
+                                    <th key={i} style={{ textAlign: i === 0 || i === 1 ? 'left' : i === 4 ? 'right' : 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: i === 0 ? '36px' : 'auto' }}>{col}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -370,26 +378,22 @@ const VMKollen = () => {
                                             transition: 'background-color 0.2s ease'
                                         }}
                                     >
-                                        <td style={{
-                                            padding: '8px 4px',
-                                            borderTopLeftRadius: isFiltered ? '8px' : '0',
-                                            borderBottomLeftRadius: isFiltered ? '8px' : '0'
-                                        }}>
-                                            <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
-                                                {rank}
-                                            </div>
-                                        </td>
-                                        <td style={{ padding: '11px 4px' }}>
-                                            <div
-                                                onClick={() => handleCountryClick(team.name)}
-                                                style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                            >
-                                                <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                                <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
-                                            </div>
-                                        </td>
+                                    <td style={{ padding: '8px 4px' }}>
+                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
+                                            {rank}
+                                        </div>
+                                    </td>
+                                    <td style={{ padding: '11px 4px' }}>
+                                        <div 
+                                            onClick={() => handleCountryClick(team.name)}
+                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                        >
+                                            <FlagBadge codes={flagCodes} name={team.name} size={26} />
+                                            <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
+                                        </div>
+                                    </td>
                                         <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit', fontWeight: '600' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                        <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
                                         <td style={{
                                             padding: '11px 4px',
                                             textAlign: 'right',
@@ -647,66 +651,80 @@ const VMKollen = () => {
                             {activeStatTab === 'ranking' && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '8px' }}>
                                             {rankingData.lastUpdate && <div>Senast uppdaterad: {formatSwedishDate(rankingData.lastUpdate)}</div>}
                                             {rankingData.nextUpdate && <div>Nästa uppdatering: {formatSwedishDate(rankingData.nextUpdate)}</div>}
                                         </div>
                                     )}
-                                    <Card style={{ padding: '0', overflow: 'hidden' }}>
-                                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
-                                            <thead style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderBottom: 'var(--border)' }}>
-                                                <tr>
-                                                    <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600', width: '60px' }}>RANK</th>
-                                                    <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                                    <th style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
+                                    <Card style={{ marginBottom: '0' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <thead>
+                                                <tr style={{ borderBottom: 'var(--border)' }}>
+                                                    {['', 'LAG', 'POÄNG'].map((col, i) => (
+                                                        <th key={i} style={{ 
+                                                            textAlign: i === 0 || i === 1 ? 'left' : 'right', 
+                                                            padding: '8px 4px', 
+                                                            color: 'var(--color-text-muted)', 
+                                                            fontWeight: '600',
+                                                            width: i === 0 ? '40px' : 'auto'
+                                                        }}>{col}</th>
+                                                    ))}
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {rankingData?.rankings?.map((r, i) => {
-                                                    const isSelected = filterCountry && r.team.includes(filterCountry);
-                                                    return (
-                                                        <tr
-                                                            key={i}
-                                                            ref={el => rankingRefs.current[r.team] = el}
-                                                            style={{
-                                                                borderBottom: 'var(--border)',
-                                                                backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                transition: 'background-color 0.2s ease'
-                                                            }}
-                                                        >
-                                                            <td style={{ padding: '12px 16px', fontWeight: '500' }}>
-                                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                                                    <span>{r.rank}</span>
-                                                                    {r.change !== 0 && (
-                                                                        <span style={{ 
-                                                                            fontSize: '0.7rem', 
-                                                                            fontWeight: '800',
-                                                                            color: r.change > 0 ? '#34c759' : '#ff3b30',
-                                                                            backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
-                                                                            padding: '2px 5px',
-                                                                            borderRadius: '4px',
-                                                                            display: 'inline-flex',
-                                                                            alignItems: 'center',
-                                                                            gap: '1px'
-                                                                        }}>
-                                                                            {r.change > 0 ? <ChevronUp size={12} strokeWidth={3} /> : <ChevronDown size={12} strokeWidth={3} />}
-                                                                            {Math.abs(r.change)}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
+                                                    {rankingData?.rankings?.map((r, i) => {
+                                                        const isTournamentTeam = tournamentTeams.has(r.team);
+                                                        const isSelected = filterCountry && r.team.includes(filterCountry);
+                                                        return (
+                                                            <tr
+                                                                key={i}
+                                                                ref={el => rankingRefs.current[r.team] = el}
+                                                                style={{
+                                                                    backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                    opacity: isTournamentTeam ? 1 : 0.6,
+                                                                    transition: 'all 0.2s ease'
+                                                                }}
+                                                            >
+                                                                <td style={{ padding: '8px 4px' }}>
+                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                            {r.rank}
+                                                                        </div>
+                                                                        {r.change !== 0 && (
+                                                                            <span style={{ 
+                                                                                fontSize: '0.7rem', 
+                                                                                fontWeight: '800',
+                                                                                color: r.change > 0 ? '#34c759' : '#ff3b30',
+                                                                                backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
+                                                                                padding: '2px 5px',
+                                                                                borderRadius: '4px',
+                                                                                display: 'inline-flex',
+                                                                                alignItems: 'center',
+                                                                                gap: '1px'
+                                                                            }}>
+                                                                                {r.change > 0 ? <ChevronUp size={12} strokeWidth={3} /> : <ChevronDown size={12} strokeWidth={3} />}
+                                                                                {Math.abs(r.change)}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                </td>
+                                                                <td style={{ padding: '11px 4px' }}>
+                                                                    <div
+                                                                        style={{ 
+                                                                            display: 'flex', 
+                                                                            alignItems: 'center', 
+                                                                            gap: '8px', 
+                                                                            cursor: isTournamentTeam ? 'pointer' : 'default' 
+                                                                        }}
+                                                                        onClick={() => isTournamentTeam && handleCountryClick(r.team)}
+                                                                    >
+                                                                        <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
+                                                                        <span style={{ fontWeight: '500' }}><BoldSverige text={r.team} /></span>
+                                                                    </div>
+                                                                </td>
+                                                            <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>
+                                                                {r.points}
                                                             </td>
-                                                            <td style={{ padding: '12px 16px' }}>
-                                                                <div
-                                                                    style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                                                    onClick={() => handleCountryClick(r.team)}
-                                                                >
-                                                                    <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={20} />
-                                                                    <span style={{ fontWeight: '500' }}>
-                                                                        <BoldSverige text={r.team} />
-                                                                    </span>
-                                                                </div>
-                                                            </td>
-                                                            <td style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontVariantNumeric: 'tabular-nums' }}>{r.points}</td>
                                                         </tr>
                                                     );
                                                 })}
@@ -714,12 +732,6 @@ const VMKollen = () => {
                                         </table>
                                     </Card>
                                 </div>
-                            )}
-                            {activeStatTab === 'spelare' && (
-                                <Card style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--color-text-muted)' }}>
-                                    <div style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--color-text)' }}>Spelarstatistik</div>
-                                    <div style={{ fontSize: '0.9rem' }}>Här kommer du kunna följa toppskyttar, assistliga och annan individuell statistik under turneringens gång.</div>
-                                </Card>
                             )}
                         </div>
                     )}
