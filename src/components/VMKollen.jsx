@@ -6,13 +6,11 @@ import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import VMBracket from './VMBracket';
-import { Calendar, List, Trophy, BarChart3 } from 'lucide-react';
+import { Calendar, List, BarChart3 } from 'lucide-react';
 
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher', icon: Calendar },
     { id: 'gruppspel', label: 'Grupper', icon: List },
-    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
     { id: 'statistik', label: 'Statistik', icon: BarChart3 }
 ];
 
@@ -42,6 +40,22 @@ const getCountryColor = (name) => {
     return '#000000';
 };
 
+const TEAM_ABBR = {
+    'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
+    'Bosnien och Hercegovina': 'BIH', 'Grekland': 'GRE', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+    'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
+    'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
+    'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
+    'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
+    'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
+    'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
+    'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
+    'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
+    'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
+};
+
+const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
+
 const sortTeams = (teams) => {
     return [...teams].sort((a, b) => {
         const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
@@ -53,9 +67,12 @@ const sortTeams = (teams) => {
 const VMKollen = () => {
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
+    const [knockoutData, setKnockoutData] = useState(null);
+    const [rankingData, setRankingData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
+    const rankingRefs = React.useRef({});
 
     // Swipe navigation logic
     const [touchStart, setTouchStart] = useState(null);
@@ -97,13 +114,29 @@ const VMKollen = () => {
     };
 
     useEffect(() => {
+        const fetchData = async (file) => {
+            try {
+                // Try relative path first (for local dev)
+                const res = await fetch(`/data/${file}`);
+                if (!res.ok) throw new Error();
+                return await res.json();
+            } catch (e) {
+                // Fallback to GitHub URL
+                return fetch(`${DATA_BASE_URL}/${file}`).then(res => res.json());
+            }
+        };
+
         Promise.all([
-            fetch(`${DATA_BASE_URL}/worldcup_2026_groups.json`).then(res => res.json()),
-            fetch(`${DATA_BASE_URL}/worldcup_2026_matches.json`).then(res => res.json())
+            fetchData('worldcup_2026_groups.json'),
+            fetchData('worldcup_2026_matches.json'),
+            fetchData('worldcup_2026_knockout.json').catch(() => null),
+            fetchData('fifa_ranking.json').catch(() => null)
         ])
-        .then(([gData, mData]) => {
+        .then(([gData, mData, kData, rData]) => {
             setGroupsData(gData);
             setMatchesData(mData);
+            setKnockoutData(kData);
+            setRankingData(rData);
             setLoading(false);
         })
         .catch(err => {
@@ -112,10 +145,109 @@ const VMKollen = () => {
         });
     }, []);
 
-    const nextMatches = React.useMemo(() => {
-        if (!matchesData?.matches) return [];
+    useEffect(() => {
+        if (activeTab === 'statistik' && filterCountry && rankingRefs.current[filterCountry]) {
+            setTimeout(() => {
+                rankingRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }, [activeTab, filterCountry]);
+
+    const filteredCountryStatus = React.useMemo(() => {
+        if (!groupsData?.groups || !filterCountry) return { groupChar: null, rank: null };
+        const group = groupsData.groups.find(g => 
+            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
+        );
+        if (!group) return { groupChar: null, rank: null };
         
-        let pool = matchesData.matches;
+        const groupChar = group.name.split(' ')[1];
+        const sorted = sortTeams(group.teams);
+        const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) + 1;
+        
+        return { groupChar, rank };
+    }, [groupsData, filterCountry]);
+
+    const resolveTeamInfo = (label) => {
+        if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
+
+        // Handle 1A, 2B, etc.
+        const rankMatch = label.match(/^([12])([A-L])$/i);
+        if (rankMatch) {
+            const rank = parseInt(rankMatch[1]);
+            const groupChar = rankMatch[2].toUpperCase();
+            const groupIdx = groupChar.charCodeAt(0) - 65;
+            
+            const group = groupsData.groups[groupIdx];
+            if (group) {
+                const sorted = sortTeams(group.teams);
+                const team = sorted[rank - 1];
+                if (team) {
+                    return { 
+                        name: `${label}\n${team.name}`, 
+                        realName: team.name,
+                        isPlaceholder: false 
+                    };
+                }
+            }
+        }
+
+        // Handle 3rd place complex labels
+        if (label.includes('/')) {
+            const parts = label.split('/');
+            const groupChars = [];
+            const rank = parseInt(parts[0][0]);
+            groupChars.push(parts[0][1]);
+            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
+
+            const abbrs = groupChars.map(char => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = sortTeams(group.teams);
+                    const team = sorted[rank - 1];
+                    return team ? getAbbr(team.name) : char;
+                }
+                return char;
+            });
+
+            return {
+                name: `${label}\n(${abbrs.join('/')})`,
+                isPlaceholder: true
+            };
+        }
+
+        return { name: label, isPlaceholder: true };
+    };
+
+    const combinedMatches = React.useMemo(() => {
+        const groupMatches = matchesData?.matches || [];
+        const knockoutMatches = [];
+        if (knockoutData?.rounds && groupsData) {
+            knockoutData.rounds.forEach(round => {
+                round.matches.forEach(m => {
+                    const homeInfo = resolveTeamInfo(m.home);
+                    const awayInfo = resolveTeamInfo(m.away);
+                    knockoutMatches.push({
+                        ...m,
+                        home: homeInfo.name,
+                        away: awayInfo.name,
+                        realHome: homeInfo.realName || m.home,
+                        realAway: awayInfo.realName || m.away,
+                        isKnockout: true,
+                        isPreliminary: homeInfo.isPlaceholder || awayInfo.isPlaceholder,
+                        roundName: round.name,
+                        group: round.name
+                    });
+                });
+            });
+        }
+        return [...groupMatches, ...knockoutMatches];
+    }, [matchesData, knockoutData, groupsData]);
+
+    const nextMatches = React.useMemo(() => {
+        if (combinedMatches.length === 0) return [];
+        
+        let pool = combinedMatches;
         if (filterCountry) {
             pool = pool.filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry));
         }
@@ -134,9 +266,26 @@ const VMKollen = () => {
     }, [matchesData, filterCountry]);
 
     const groupedMatches = React.useMemo(() => {
-        if (!matchesData?.matches) return {};
-        return matchesData.matches.reduce((acc, m) => {
-            if (filterCountry && !m.home.includes(filterCountry) && !m.away.includes(filterCountry)) return acc;
+        if (combinedMatches.length === 0) return {};
+        return combinedMatches.reduce((acc, m) => {
+            const isCountryPlaceholder = (label) => {
+                if (!label || !filteredCountryStatus.groupChar || !filteredCountryStatus.rank) return false;
+                const target = `${filteredCountryStatus.rank}${filteredCountryStatus.groupChar}`;
+                if (label.includes(target)) return true;
+                if (filteredCountryStatus.rank === 3 && label.startsWith('3') && label.includes(filteredCountryStatus.groupChar)) return true;
+                return false;
+            };
+
+            const isFilterCountryMatch = filterCountry ? (
+                (m.home?.includes(filterCountry)) || 
+                (m.away?.includes(filterCountry)) ||
+                (m.realHome?.includes(filterCountry)) ||
+                (m.realAway?.includes(filterCountry)) ||
+                isCountryPlaceholder(m.home) ||
+                isCountryPlaceholder(m.away)
+            ) : true;
+
+            if (filterCountry && !isFilterCountryMatch) return acc;
             
             // Skip the matches shown in the "Next Match" cards
             const isHighlighted = nextMatches.some(nm => 
@@ -148,7 +297,7 @@ const VMKollen = () => {
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [matchesData, filterCountry, nextMatches]);
+    }, [combinedMatches, filterCountry, nextMatches, filteredCountryStatus]);
 
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -233,25 +382,33 @@ const VMKollen = () => {
 
     const renderAllMatches = () => {
         if (!matchesData) return null;
+        
+        const sortedDates = Object.keys(groupedMatches).sort((a, b) => {
+            return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
+        });
+
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {Object.entries(groupedMatches).map(([date, matches], groupIdx) => (
-                    <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {(!nextMatches.length || date !== nextMatches[0].date) && (
-                            <div style={{ 
-                                fontSize: '0.8rem', 
-                                fontWeight: '800', 
-                                textTransform: 'uppercase', 
-                                paddingLeft: '4px',
-                                color: 'var(--color-text-muted)',
-                                letterSpacing: '0.02em'
-                            }}>{date}</div>
-                        )}
-                        {matches.map((m, i) => (
-                            <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
-                        ))}
-                    </div>
-                ))}
+                {sortedDates.map((date) => {
+                    const matches = groupedMatches[date];
+                    return (
+                        <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {(!nextMatches.length || date !== nextMatches[0].date) && (
+                                <div style={{ 
+                                    fontSize: '0.8rem', 
+                                    fontWeight: '800', 
+                                    textTransform: 'uppercase', 
+                                    paddingLeft: '4px',
+                                    color: 'var(--color-text-muted)',
+                                    letterSpacing: '0.02em'
+                                }}>{date}</div>
+                            )}
+                            {matches.map((m, i) => (
+                                <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
+                            ))}
+                        </div>
+                    );
+                })}
             </div>
         );
     };
@@ -392,14 +549,58 @@ const VMKollen = () => {
                             {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
                         </>
                     )}
-                    {activeTab === 'slutspel' && (
-                        <VMBracket filterCountry={filterCountry} onCountryClick={handleCountryClick} />
-                    )}
                     {activeTab === 'statistik' && (
-                        <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
-                            <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
-                            <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
-                        </Card>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                                FIFA Världsranking
+                            </div>
+                            <Card style={{ padding: '0', overflow: 'hidden' }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                                    <thead style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderBottom: 'var(--border)' }}>
+                                        <tr>
+                                            <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600', width: '60px' }}>RANK</th>
+                                            <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                            <th style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {rankingData?.rankings?.map((r, i) => {
+                                            const isSelected = filterCountry && r.team.includes(filterCountry);
+                                            return (
+                                                <tr 
+                                                    key={i} 
+                                                    ref={el => rankingRefs.current[r.team] = el}
+                                                    style={{ 
+                                                        borderBottom: 'var(--border)', 
+                                                        backgroundColor: isSelected ? 'rgba(0, 122, 255, 0.1)' : 'transparent',
+                                                        transition: 'background-color 0.3s ease'
+                                                    }}
+                                                >
+                                                    <td style={{ padding: '12px 16px', fontWeight: '700', color: isSelected ? 'var(--color-primary)' : 'inherit' }}>{r.rank}</td>
+                                                    <td style={{ padding: '12px 16px' }}>
+                                                        <div 
+                                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                                            onClick={() => handleCountryClick(r.team)}
+                                                        >
+                                                            <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={20} />
+                                                            <span style={{ fontWeight: isSelected ? '700' : '500' }}>
+                                                                <BoldSverige text={r.team} />
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontVariantNumeric: 'tabular-nums' }}>{r.points}</td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </Card>
+                            {rankingData?.lastUpdated && (
+                                <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '8px' }}>
+                                    Senast uppdaterad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
             </div>

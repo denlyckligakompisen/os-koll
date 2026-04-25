@@ -18,10 +18,11 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run scrape:fifa
       - run: npm run scrape:fifa-standings
+      - run: npm run scrape:fifa-ranking
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add public/data/worldcup_2026_matches.json public/data/worldcup_2026_groups.json public/data/worldcup_2026_knockout.json
-          git commit -m "Update schedule data [skip ci]" || exit 0
+          git add public/data/worldcup_2026_matches.json public/data/worldcup_2026_groups.json public/data/worldcup_2026_knockout.json public/data/fifa_ranking.json
+          git commit -m "Update schedule and ranking data [skip ci]" || exit 0
           git push

@@ -11,6 +11,7 @@
     "scrape:fifa": "node scripts/scrape_fifa.js",
     "scrape:wc": "node scripts/scrape_fifa.js",
     "scrape:fifa-standings": "node scripts/scrape_fifa_standings.js",
+    "scrape:fifa-ranking": "node scripts/scrape_fifa_ranking.js",
     "scrape:playoffs": "node scripts/scrape_playoffs_fotmob.js"
   },
   "dependencies": {
