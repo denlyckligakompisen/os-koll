@@ -460,7 +460,7 @@ const VMKollen = () => {
                                     </div>
                                     <div 
                                         onClick={handleBroadcastClick}
-                                        style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
+                                        style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
                                     >
                                         {next.broadcast && (
                                             <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -470,6 +470,12 @@ const VMKollen = () => {
                                         <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
                                             {next.time}
                                         </div>
+                                        {next.group && (
+                                            <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: '4px' }}>
+                                                {next.group}
+                                                {next.isPreliminary && ' (prel.)'}
+                                            </div>
+                                        )}
                                     </div>
                                     <div 
                                         onClick={() => handleCountryClick(next.away)}

@@ -88,6 +88,12 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                             {match.status === 'live' && <span className="live-indicator-pulse" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {match.status === 'live' ? 'LIVE' : match.time}
                         </span>
+                        {match.group && (
+                            <div style={{ fontSize: '0.6rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginTop: '2px' }}>
+                                {match.group}
+                                {match.isPreliminary && ' (prel.)'}
+                            </div>
+                        )}
                     </div>
                     <span 
                         onClick={(e) => handleTeamClick(e, match.away)}
