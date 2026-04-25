@@ -38,6 +38,26 @@ const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
     return new Date(year, monthMap[monthName] ?? 0, day, hour, minute);
 };
 
+const getCountryColor = (name) => {
+    if (!name) return '#000000';
+    if (name.includes('Sverige')) return '#006aa7'; // Blå
+    if (name.includes('Nederländerna')) return '#f36d21'; // Orange
+    if (name.includes('Brasilien')) return '#009739'; // Grön
+    if (name.includes('Argentina')) return '#74acdf'; // Ljusblå
+    if (name.includes('Tyskland')) return '#000000'; // Svart
+    if (name.includes('Spanien')) return '#c60b1e'; // Röd
+    if (name.includes('Frankrike')) return '#002395'; // Blå
+    if (name.includes('Portugal')) return '#ff0000'; // Röd
+    if (name.includes('Kanada')) return '#ff0000'; // Röd
+    if (name.includes('USA')) return '#002868'; // Blå
+    if (name.includes('Mexiko')) return '#006847'; // Grön
+    if (name.includes('Marocko')) return '#c1272d'; // Röd
+    if (name.includes('England')) return '#ce1124'; // Röd
+    if (name.includes('Kroatien')) return '#ff0000'; // Röd
+    if (name.includes('Bosnien')) return '#002395'; // Blå
+    return '#000000';
+};
+
 const sortTeams = (teams) => {
     return [...teams].sort((a, b) => {
         const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
@@ -329,12 +349,19 @@ const VMKollen = () => {
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
-            style={{ padding: '0 10px', minHeight: '100vh', maxWidth: '600px', margin: '0 auto', paddingBottom: '100px' }}
+            style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
-            <PageHeader title="VM-kollen" logoSrc={getTeamLogo('FIFA World Cup')} />
+            {/* Full-width Sticky Header */}
+            <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
+                <a 
+                    href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="header-logo"
+                >
+                    <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
+                </a>
 
-            {/* Fynda-style Segmented Control */}
-            <div className="nav-container">
                 <div className="segmented-control">
                     <div className="segmented-pill" style={{ 
                         left: 'var(--pill-padding)',
@@ -352,6 +379,7 @@ const VMKollen = () => {
                         </button>
                     ))}
                 </div>
+
                 <button 
                     onClick={() => {
                         if (filterCountry) setFilterCountry(null);
@@ -360,32 +388,34 @@ const VMKollen = () => {
                     className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
                     aria-label={filterCountry ? `Rensa filter för ${filterCountry}` : "Visa endast Sverige"}
                 >
-                    <FlagBadge codes={filterCountry ? getFlagCodes(filterCountry) : ['SE']} size={28} shadow={false} />
+                    <FlagBadge codes={filterCountry ? getFlagCodes(filterCountry) : ['SE']} size={24} shadow={false} />
                 </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {activeTab === 'matcher' && (
-                    <>
-                        {renderNextMatches()}
-                        {renderAllMatches()}
-                    </>
-                )}
-                {activeTab === 'gruppspel' && (
-                    <>
-
-                        {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
-                    </>
-                )}
-                {activeTab === 'slutspel' && (
-                    <VMBracket filterCountry={filterCountry} onCountryClick={handleCountryClick} />
-                )}
-                {activeTab === 'statistik' && (
-                    <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
-                        <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
-                        <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
-                    </Card>
-                )}
+            {/* Centered Content Container */}
+            <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    {activeTab === 'matcher' && (
+                        <>
+                            {renderNextMatches()}
+                            {renderAllMatches()}
+                        </>
+                    )}
+                    {activeTab === 'gruppspel' && (
+                        <>
+                            {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
+                        </>
+                    )}
+                    {activeTab === 'slutspel' && (
+                        <VMBracket filterCountry={filterCountry} onCountryClick={handleCountryClick} />
+                    )}
+                    {activeTab === 'statistik' && (
+                        <Card style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '60px 40px' }}>
+                            <div style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: 'var(--color-text)' }}>Kommer snart</div>
+                            <div style={{ fontSize: '0.9rem' }}>Vi uppdaterar med data inför mästerskapet.</div>
+                        </Card>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -3,6 +3,9 @@ import path from 'path';
 import { chromium } from 'playwright';
 
 const FIFA_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures?country=&wtw-filter=ALL';
+const TV4_LIST_URL = 'https://www.tv4play.se/lista/1EGE533EMNsEsyaAulLPNT';
+const TV4_DEFAULT_LINK = 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
+
 const MATCHES_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_matches.json');
 const GROUPS_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
 const KNOCKOUT_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_knockout.json');
@@ -54,7 +57,8 @@ const TEAM_TRANSLATIONS = {
     'Scotland': 'Skottland',
     'Hungary': 'Ungern',
     'Romania': 'Rumänien',
-    'Ukraine': 'Ukraina',
+    'Bosnia and Herzegovina': 'Bosnien',
+    'Bosnia': 'Bosnien',
     'Serbia': 'Serbien',
     'Portugal': 'Portugal',
     'Slovenia': 'Slovenien',
@@ -86,32 +90,59 @@ const TEAM_TRANSLATIONS = {
 
 const translateTeam = (name) => {
     if (!name) return name;
-    // Handle names like "New Caledonia / Jamaica / DR Congo"
     const parts = name.split('/');
     if (parts.length > 1) {
         return parts.map(p => translateTeam(p.trim())).join('/');
     }
     const trimmed = name.trim();
-    // Also handle names with (TBA) or similar
     const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
     return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
 };
+
+async function scrapeTv4Links(page) {
+    console.log(`Scraping TV4 Play links from ${TV4_LIST_URL}...`);
+    try {
+        await page.goto(TV4_LIST_URL, { waitUntil: 'networkidle', timeout: 60000 });
+        await page.waitForTimeout(3000);
+        
+        return await page.evaluate(() => {
+            return Array.from(document.querySelectorAll('a[href*="/program/"]'))
+                .map(a => ({
+                    text: a.innerText.trim(),
+                    href: a.href.startsWith('http') ? a.href : 'https://www.tv4play.se' + a.getAttribute('href')
+                }))
+                .filter(l => l.text.length > 5);
+        });
+    } catch (e) {
+        console.error('Failed to scrape TV4 links:', e.message);
+        return [];
+    }
+}
 
 async function scrapeMatches() {
     console.log(`Starting crawl of FIFA World Cup 2026 schedule from ${FIFA_URL}...`);
 
     let matches = [];
+    const existingData = fs.existsSync(MATCHES_OUTPUT) ? JSON.parse(fs.readFileSync(MATCHES_OUTPUT, 'utf8')) : { matches: [] };
 
     try {
         const browser = await chromium.launch({ headless: true });
-        const page = await browser.newPage();
+        const context = await browser.newContext({
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+        });
+        const page = await context.newPage();
+        
         try {
+            // 1. Scrape TV4 Links
+            const tv4Links = await scrapeTv4Links(page);
+            console.log(`Found ${tv4Links.length} potential TV4 links.`);
+
+            // 2. Scrape FIFA Matches
             await page.goto(FIFA_URL, { waitUntil: 'networkidle', timeout: 60000 });
             await page.waitForTimeout(5000);
             
             const extracted = await page.evaluate(() => {
                 const results = [];
-                // Look for date-grouped sections or individual match cards
                 const daySections = document.querySelectorAll('[class*="MatchDateSection"], [class*="MatchGroup"], .match-list-date');
                 
                 if (daySections.length > 0) {
@@ -136,7 +167,6 @@ async function scrapeMatches() {
                         });
                     });
                 } else {
-                    // Fallback to searching all match cards directly
                     document.querySelectorAll('[class*="MatchItem"], .match-card, [class*="FpMatchCard"]').forEach(item => {
                         const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
                         const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
@@ -156,9 +186,10 @@ async function scrapeMatches() {
             });
 
             if (extracted.length > 0) {
-                matches = extracted.map(m => ({
-                    ...m,
-                    date: m.date?.toLowerCase()
+                matches = extracted.map(m => {
+                    const home = translateTeam(m.home);
+                    const away = translateTeam(m.away);
+                    const date = m.date?.toLowerCase()
                         .replace('june', 'juni')
                         .replace('july', 'juli')
                         .replace('august', 'augusti')
@@ -170,12 +201,40 @@ async function scrapeMatches() {
                         .replace('september', 'september')
                         .replace('october', 'oktober')
                         .replace('november', 'november')
-                        .replace('december', 'december'),
-                    home: translateTeam(m.home),
-                    away: translateTeam(m.away),
-                    group: m.group ? (m.group.includes('Group') ? m.group.replace('Group', 'Grupp') : m.group) : ""
-                }));
-                console.log(`Successfully scraped ${matches.length} matches!`);
+                        .replace('december', 'december');
+
+                    // Find existing match to preserve broadcaster and venue
+                    const existingMatch = existingData.matches.find(em => 
+                        em.home === home && em.away === away && em.date === date
+                    );
+
+                    const broadcast = existingMatch?.broadcast || "";
+                    const venue = existingMatch?.venue || "";
+                    let link = existingMatch?.link || "";
+
+                    // If TV4, try to find direct link or use default
+                    if (broadcast.includes('TV4')) {
+                        const directLink = tv4Links.find(tl => {
+                            const t = tl.text.toLowerCase();
+                            const h = home.toLowerCase();
+                            const a = away.toLowerCase();
+                            return t.includes(h) && t.includes(a);
+                        });
+                        link = directLink ? directLink.href : TV4_DEFAULT_LINK;
+                    }
+
+                    return {
+                        date,
+                        time: m.time,
+                        home,
+                        away,
+                        venue,
+                        broadcast,
+                        group: m.group ? (m.group.includes('Group') ? m.group.replace('Group', 'Grupp') : m.group) : "",
+                        link
+                    };
+                });
+                console.log(`Successfully scraped and merged ${matches.length} matches!`);
             }
         } catch (e) {
             console.log('Playwright crawl failed or timed out:', e.message);
@@ -190,11 +249,9 @@ async function scrapeMatches() {
                 source: FIFA_URL
             };
 
-            // Write all matches
             fs.writeFileSync(MATCHES_OUTPUT, JSON.stringify(data, null, 2));
             console.log(`Updated ${MATCHES_OUTPUT}`);
 
-            // Update timestamps for current data files
             [GROUPS_OUTPUT, KNOCKOUT_OUTPUT].forEach(filePath => {
                 if (fs.existsSync(filePath)) {
                     const current = JSON.parse(fs.readFileSync(filePath, 'utf8'));
