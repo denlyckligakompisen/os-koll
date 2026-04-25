@@ -101,13 +101,6 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
         </Card>
     );
 
-    if (match.link) {
-        return (
-            <a href={match.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                {content}
-            </a>
-        );
-    }
     return content;
 };
 

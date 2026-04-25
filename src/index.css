@@ -228,16 +228,8 @@ body {
   }
 
   .segmented-control {
-    min-width: 440px;
+    min-width: 240px;
     flex: none;
-  }
-
-  .tab-icon {
-    display: none;
-  }
-
-  .tab-label {
-    display: inline;
   }
 }
 

@@ -100,15 +100,32 @@ const VMKollen = () => {
         });
     }, []);
 
+    const nextMatchForFilter = React.useMemo(() => {
+        if (!filterCountry || !matchesData?.matches) return null;
+        
+        const countryMatches = matchesData.matches
+            .filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry))
+            .map(m => ({ ...m, fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP) }))
+            .sort((a, b) => a.fullDate - b.fullDate);
+            
+        return countryMatches[0] || null;
+    }, [matchesData, filterCountry]);
+
     const groupedMatches = React.useMemo(() => {
         if (!matchesData?.matches) return {};
         return matchesData.matches.reduce((acc, m) => {
             if (filterCountry && !m.home.includes(filterCountry) && !m.away.includes(filterCountry)) return acc;
+            
+            // Skip the match if it's already shown in the "Next Match" card
+            if (nextMatchForFilter && m.home === nextMatchForFilter.home && m.away === nextMatchForFilter.away && m.date === nextMatchForFilter.date) {
+                return acc;
+            }
+
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [matchesData, filterCountry]);
+    }, [matchesData, filterCountry, nextMatchForFilter]);
 
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -215,19 +232,12 @@ const VMKollen = () => {
     };
 
     const renderNextMatch = () => {
-        const allMatches = [];
-        const country = filterCountry || 'Sverige';
-
-        if (matchesData?.matches) {
-            matchesData.matches.forEach(m => {
-                if (m.home.includes(country) || m.away.includes(country)) {
-                    allMatches.push({ ...m, fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP), displayDate: m.date.toUpperCase(), type: `VM · ${m.group}` });
-                }
-            });
-        }
-
-        const next = allMatches.sort((a,b) => a.fullDate - b.fullDate)[0];
-        if (!next) return null;
+        if (!nextMatchForFilter) return null;
+        const next = { 
+            ...nextMatchForFilter, 
+            displayDate: nextMatchForFilter.date.toUpperCase(), 
+            type: `VM · ${nextMatchForFilter.group}` 
+        };
 
         const homeFlags = getFlagCodes(next.home);
         const awayFlags = getFlagCodes(next.away);
