@@ -806,21 +806,23 @@ const VMKollen = () => {
                                                                         const lastB = b.player.split(' ').pop();
                                                                         return lastA.localeCompare(lastB, 'sv');
                                                                     }).map((s, i) => {
-                                                                        const isSelected = filterCountry && s.team.includes(filterCountry);
+                                                                        const filterCodes = filterCountry ? getFlagCodes(filterCountry) : [];
+                                                                        const scorerCodes = getFlagCodes(s.team);
+                                                                        const isSelected = filterCountry && filterCodes.length > 0 && scorerCodes.length > 0 && filterCodes[0] === scorerCodes[0];
                                                                         return (
                                                                             <tr 
                                                                                 key={i}
                                                                                 style={{
                                                                                     backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                                    transition: 'all 0.2s ease'
+                                                                                    transition: 'background-color 0.2s ease'
                                                                                 }}
                                                                             >
                                                                                 <td style={{ 
                                                                                     padding: '11px 16px',
-                                                                                    borderTopLeftRadius: isSelected ? '12px' : '0',
-                                                                                    borderBottomLeftRadius: isSelected ? '12px' : '0',
-                                                                                    borderTopRightRadius: isSelected ? '12px' : '0',
-                                                                                    borderBottomRightRadius: isSelected ? '12px' : '0'
+                                                                                    borderTopLeftRadius: isSelected ? '10px' : '0',
+                                                                                    borderBottomLeftRadius: isSelected ? '10px' : '0',
+                                                                                    borderTopRightRadius: isSelected ? '10px' : '0',
+                                                                                    borderBottomRightRadius: isSelected ? '10px' : '0'
                                                                                 }}>
                                                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                                                                         <FlagBadge codes={getFlagCodes(s.team)} name={s.team} size={28} />
