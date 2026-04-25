@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
@@ -89,6 +89,14 @@ const VMKollen = () => {
         return teams;
     }, [groupsData]);
 
+
+
+    const handleReset = () => {
+        setFilterCountry(null);
+        setActiveTab('matcher');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const handleCountryClick = (country) => {
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
@@ -96,6 +104,9 @@ const VMKollen = () => {
     };
 
     useEffect(() => {
+        const saved = localStorage.getItem('os-koll-filter');
+        if (saved) setFilterCountry(saved);
+
         const fetchData = async (file) => {
             try {
                 // Try relative path first (for local dev)
@@ -126,6 +137,11 @@ const VMKollen = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (filterCountry) localStorage.setItem('os-koll-filter', filterCountry);
+        else localStorage.removeItem('os-koll-filter');
+    }, [filterCountry]);
 
     useEffect(() => {
         if (activeTab === 'statistik' && filterCountry && rankingRefs.current[filterCountry]) {
@@ -538,14 +554,19 @@ const VMKollen = () => {
         >
             {/* Full-width Sticky Header */}
             <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
-                <a
-                    href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button
+                    onClick={handleReset}
                     className="header-logo"
+                    aria-label="Återställ och visa alla matcher"
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        cursor: 'pointer'
+                    }}
                 >
                     <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
-                </a>
+                </button>
 
                 <div className="segmented-control">
                     <div className="segmented-pill" style={{
@@ -723,6 +744,7 @@ const VMKollen = () => {
                             )}
                         </div>
                     )}
+
                 </div>
             </div>
         </div>
