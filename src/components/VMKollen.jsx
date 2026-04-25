@@ -155,7 +155,7 @@ const VMKollen = () => {
             setTimeout(() => {
                 tableRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
-        } else if (activeTab === 'matcher') {
+        } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [activeTab, filterCountry]);
