@@ -5,7 +5,6 @@ export const flagUrl = (code) =>
 export const getFlagCode = (name) => {
     if (!name) return 'UN';
     if (name.includes('Sverige')) return 'SE';
-    if (name.includes('Ukraina')) return 'UA';
     if (name.includes('Japan')) return 'JP';
     if (name.includes('Nederländerna')) return 'NL';
     if (name.includes('Tunisien')) return 'TN';

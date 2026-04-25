@@ -21,13 +21,21 @@ const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4,
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
 const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
-const parseTournamentDate = (dateStr, monthMap = MONTH_MAP) => {
+const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
     if (!dateStr) return new Date();
     const parts = dateStr.split(' ');
     const day = parseInt(parts[0]);
     const monthName = parts[1]?.toLowerCase();
     const year = parseInt(parts[2]) || CURRENT_YEAR;
-    return new Date(year, monthMap[monthName] ?? 0, day);
+    
+    let hour = 0, minute = 0;
+    if (timeStr && timeStr.includes(':')) {
+        const [h, m] = timeStr.split(':').map(Number);
+        hour = h;
+        minute = m;
+    }
+    
+    return new Date(year, monthMap[monthName] ?? 0, day, hour, minute);
 };
 
 const sortTeams = (teams) => {
@@ -100,15 +108,25 @@ const VMKollen = () => {
         });
     }, []);
 
-    const nextMatchForFilter = React.useMemo(() => {
-        if (!filterCountry || !matchesData?.matches) return null;
+    const nextMatches = React.useMemo(() => {
+        if (!matchesData?.matches) return [];
         
-        const countryMatches = matchesData.matches
-            .filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry))
-            .map(m => ({ ...m, fullDate: parseTournamentDate(m.date, GROUP_MONTH_MAP) }))
-            .sort((a, b) => a.fullDate - b.fullDate);
-            
-        return countryMatches[0] || null;
+        let pool = matchesData.matches;
+        if (filterCountry) {
+            pool = pool.filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry));
+        }
+        
+        if (pool.length === 0) return [];
+
+        const withDates = pool.map(m => ({ 
+            ...m, 
+            fullDate: parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime() 
+        }));
+        
+        const sorted = [...withDates].sort((a, b) => a.fullDate - b.fullDate);
+        const earliestTime = sorted[0].fullDate;
+        
+        return withDates.filter(m => m.fullDate === earliestTime);
     }, [matchesData, filterCountry]);
 
     const groupedMatches = React.useMemo(() => {
@@ -116,16 +134,17 @@ const VMKollen = () => {
         return matchesData.matches.reduce((acc, m) => {
             if (filterCountry && !m.home.includes(filterCountry) && !m.away.includes(filterCountry)) return acc;
             
-            // Skip the match if it's already shown in the "Next Match" card
-            if (nextMatchForFilter && m.home === nextMatchForFilter.home && m.away === nextMatchForFilter.away && m.date === nextMatchForFilter.date) {
-                return acc;
-            }
+            // Skip the matches shown in the "Next Match" cards
+            const isHighlighted = nextMatches.some(nm => 
+                nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time
+            );
+            if (isHighlighted) return acc;
 
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [matchesData, filterCountry, nextMatchForFilter]);
+    }, [matchesData, filterCountry, nextMatches]);
 
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -231,70 +250,76 @@ const VMKollen = () => {
         );
     };
 
-    const renderNextMatch = () => {
-        if (!nextMatchForFilter) return null;
-        const next = { 
-            ...nextMatchForFilter, 
-            displayDate: nextMatchForFilter.date.toUpperCase(), 
-            type: `VM · ${nextMatchForFilter.group}` 
-        };
-
-        const homeFlags = getFlagCodes(next.home);
-        const awayFlags = getFlagCodes(next.away);
-
-        const getBroadcasterUrl = (broadcast) => {
-            if (!broadcast) return null;
-            const b = broadcast.toUpperCase();
-            if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
-            if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
-            return null;
-        };
-
-        const handleBroadcastClick = (e) => {
-            const url = getBroadcasterUrl(next.broadcast);
-            if (url) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
-        };
-
+    const renderNextMatches = () => {
+        if (nextMatches.length === 0) return null;
+        
         return (
-            <div style={{ marginBottom: '40px' }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                    {next.displayDate}
-                </div>
-                <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                        <div 
-                            onClick={() => handleCountryClick(next.home)}
-                            style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                        >
-                            <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
-                            <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
-                        </div>
-                        <div 
-                            onClick={handleBroadcastClick}
-                            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
-                        >
-                            {next.broadcast && (
-                                <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    {next.broadcast}
-                                </div>
-                            )}
-                            <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
-                                {next.time}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
+                {nextMatches.map((m, idx) => {
+                    const next = { 
+                        ...m, 
+                        displayDate: m.date.toUpperCase(), 
+                        type: `VM · ${m.group}` 
+                    };
+                    const homeFlags = getFlagCodes(next.home);
+                    const awayFlags = getFlagCodes(next.away);
+
+                    const getBroadcasterUrl = (broadcast) => {
+                        if (!broadcast) return null;
+                        const b = broadcast.toUpperCase();
+                        if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
+                        if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
+                        return null;
+                    };
+
+                    const handleBroadcastClick = (e) => {
+                        const url = getBroadcasterUrl(next.broadcast);
+                        if (url) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(url, '_blank', 'noopener,noreferrer');
+                        }
+                    };
+
+                    return (
+                        <div key={idx}>
+                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                                {next.displayDate}
                             </div>
+                            <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                                    <div 
+                                        onClick={() => handleCountryClick(next.home)}
+                                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                    >
+                                        <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
+                                        <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
+                                    </div>
+                                    <div 
+                                        onClick={handleBroadcastClick}
+                                        style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
+                                    >
+                                        {next.broadcast && (
+                                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                {next.broadcast}
+                                            </div>
+                                        )}
+                                        <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
+                                            {next.time}
+                                        </div>
+                                    </div>
+                                    <div 
+                                        onClick={() => handleCountryClick(next.away)}
+                                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                    >
+                                        <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
+                                        <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
+                                    </div>
+                                </div>
+                            </Card>
                         </div>
-                        <div 
-                            onClick={() => handleCountryClick(next.away)}
-                            style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                        >
-                            <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
-                            <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
-                        </div>
-                    </div>
-                </Card>
+                    );
+                })}
             </div>
         );
     };
@@ -342,7 +367,7 @@ const VMKollen = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {activeTab === 'matcher' && (
                     <>
-                        {renderNextMatch()}
+                        {renderNextMatches()}
                         {renderAllMatches()}
                     </>
                 )}
