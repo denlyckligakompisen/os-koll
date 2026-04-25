@@ -104,7 +104,7 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                         )}
                         <span style={{ 
                             fontSize: '0.8rem', 
-                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text-muted)', 
+                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text)', 
                             fontWeight: '800', 
                             flexShrink: 0, 
                             backgroundColor: match.status === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)', 

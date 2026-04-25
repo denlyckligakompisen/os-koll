@@ -4,9 +4,11 @@ import PageHeader from './common/PageHeader';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
+import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown } from 'lucide-react';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
@@ -16,6 +18,7 @@ const STAT_SUBTABS = [
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher', icon: Calendar },
     { id: 'gruppspel', label: 'Grupper', icon: List },
+    { id: 'slutspel', label: 'Slutspel', icon: ({ size, ...props }) => <EmojiEventsOutlinedIcon {...props} sx={{ fontSize: size }} /> },
     { id: 'statistik', label: 'Statistik', icon: BarChart3 }
 ];
 
@@ -610,7 +613,11 @@ const VMKollen = () => {
             </div>
 
             {/* Centered Content Container */}
-            <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
+            <div style={{ 
+                maxWidth: activeTab === 'slutspel' ? '100%' : '600px', 
+                margin: '32px auto 0 auto', 
+                padding: activeTab === 'slutspel' ? '0' : '0 10px' 
+            }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
@@ -622,6 +629,12 @@ const VMKollen = () => {
                         <>
                             {groupsData?.groups.map((g, i) => renderTable(g.name, g.teams, null, i))}
                         </>
+                    )}
+                    {activeTab === 'slutspel' && (
+                        <VMBracket 
+                            filterCountry={filterCountry} 
+                            onCountryClick={handleCountryClick} 
+                        />
                     )}
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

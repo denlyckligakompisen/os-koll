@@ -1,12 +1,103 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getFlagCodes } from '../utils/flags';
-import MatchCard from './MatchCard';
 import Card from './common/Card';
+import FlagBadge from './common/FlagBadge';
+import BoldSverige from './BoldSverige';
+
+const TEAM_ABBR = {
+    'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
+    'Bosnien och Hercegovina': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+    'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
+    'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
+    'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
+    'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
+    'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
+    'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
+    'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
+    'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
+    'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
+};
+
+const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
+
+const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick }) => {
+    const homeInfo = resolveTeamInfo(match.home);
+    const awayInfo = resolveTeamInfo(match.away);
+
+    const isHomeSelected = filterCountry && homeInfo.realName?.includes(filterCountry);
+    const isAwaySelected = filterCountry && awayInfo.realName?.includes(filterCountry);
+
+    const handleTeamClick = (e, name) => {
+        if (!onCountryClick || !name || name.includes('Vinnare') || name.includes('/')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        onCountryClick(name);
+    };
+
+    const renderTeam = (info, isSelected) => {
+        const name = info.realName || info.name;
+        let display = info.realName ? getAbbr(info.realName) : info.name;
+        if (info.realName && info.name.includes('(')) {
+            const seed = info.name.split('(')[1].replace(')', '');
+            display = `${display} (${seed})`;
+        }
+        const isPlaceholder = info.isPlaceholder;
+
+        return (
+            <div 
+                onClick={(e) => !isPlaceholder && handleTeamClick(e, info.realName)}
+                style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px', 
+                    padding: '6px 8px',
+                    backgroundColor: isSelected ? 'rgba(0, 122, 255, 0.1)' : 'transparent',
+                    borderRadius: '6px',
+                    cursor: (!isPlaceholder && onCountryClick) ? 'pointer' : 'default',
+                    transition: 'all 0.2s ease',
+                    minWidth: 0,
+                    flex: 1
+                }}
+            >
+                <FlagBadge codes={getFlagCodes(name)} name={name} size={20} />
+                <span style={{ 
+                    fontSize: '0.75rem', 
+                    fontWeight: isSelected ? '800' : '600',
+                    color: isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                }}>
+                    {isSelected ? <BoldSverige text={display} /> : display}
+                </span>
+            </div>
+        );
+    };
+
+    return (
+        <div style={{ position: 'relative', width: '140px' }}>
+            <Card padding="4px" style={{ 
+                border: 'var(--border)', 
+                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                background: 'var(--color-card-bg)',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2px'
+            }}>
+                {renderTeam(homeInfo, isHomeSelected)}
+                <div style={{ height: '1px', background: 'var(--border)', margin: '0 4px' }} />
+                {renderTeam(awayInfo, isAwaySelected)}
+            </Card>
+        </div>
+    );
+};
 
 const VMBracket = ({ filterCountry, onCountryClick }) => {
     const [bracketData, setBracketData] = useState(null);
     const [groupsData, setGroupsData] = useState(null);
-    const [activeRoundIdx, setActiveRoundIdx] = useState(0);
+    const matchRefs = useRef({});
+    const scrollContainerRef = useRef(null);
     const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
     useEffect(() => {
@@ -21,199 +112,125 @@ const VMBracket = ({ filterCountry, onCountryClick }) => {
         .catch(console.error);
     }, []);
 
-    const filteredCountryStatus = useMemo(() => {
-        if (!groupsData?.groups || !filterCountry) return { groupChar: null, rank: null };
-        const group = groupsData.groups.find(g => 
-            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
-        );
-        if (!group) return { groupChar: null, rank: null };
-        
-        const groupChar = group.name.split(' ')[1];
-        const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
-        const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) + 1;
-        
-        return { groupChar, rank };
-    }, [groupsData, filterCountry]);
-
-    const TEAM_ABBR = {
-        'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
-        'Bosnien': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
-        'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
-        'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
-        'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
-        'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
-        'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
-        'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
-        'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
-        'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
-        'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
-    };
-
-    const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
-
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
-
-        // Handle 1A, 2B, etc.
         const rankMatch = label.match(/^([12])([A-L])$/i);
         if (rankMatch) {
             const rank = parseInt(rankMatch[1]);
             const groupChar = rankMatch[2].toUpperCase();
-            const groupIdx = groupChar.charCodeAt(0) - 65; // A=0, B=1...
-            
+            const groupIdx = groupChar.charCodeAt(0) - 65;
             const group = groupsData.groups[groupIdx];
             if (group) {
                 const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
                 const team = sorted[rank - 1];
-                if (team) {
-                    return { 
-                        name: `${label}\n${team.name}`, 
-                        realName: team.name,
-                        isPlaceholder: false 
-                    };
-                }
+                if (team) return { name: `${team.name} (${label})`, realName: team.name, isPlaceholder: false };
             }
         }
-
-        // Handle 3A/B/C/D etc.
-        if (label.includes('/')) {
-            const parts = label.split('/'); // ["3A", "B", "C", "D"]
-            const groupChars = [];
-            const rank = parseInt(parts[0][0]); // usually 3
-            groupChars.push(parts[0][1]);
-            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
-
-            const abbrs = groupChars.map(char => {
-                const idx = char.toUpperCase().charCodeAt(0) - 65;
-                const group = groupsData.groups[idx];
-                if (group) {
-                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
-                    const team = sorted[rank - 1];
-                    return team ? getAbbr(team.name) : char;
-                }
-                return char;
-            });
-
-            return {
-                name: `${label}\n(${abbrs.join('/')})`,
-                isPlaceholder: true // Still a placeholder until the specific 3rd place is locked
-            };
-        }
-
         return { name: label, isPlaceholder: true };
     };
 
-    const groupedMatches = useMemo(() => {
-        if (!bracketData?.rounds || !groupsData) return {};
-        const currentRound = bracketData.rounds[activeRoundIdx];
-        if (!currentRound) return {};
+    const getMatchById = (id) => {
+        if (!bracketData) return null;
+        for (const round of bracketData.rounds) {
+            const match = round.matches.find(m => m.id === id);
+            if (match) return match;
+        }
+        return null;
+    };
 
-        return currentRound.matches.reduce((acc, m) => {
-            const homeInfo = resolveTeamInfo(m.home);
-            const awayInfo = resolveTeamInfo(m.away);
-            
-            const isCountryPlaceholder = (label) => {
-                if (!label || !filteredCountryStatus.groupChar || !filteredCountryStatus.rank) return false;
-                const target = `${filteredCountryStatus.rank}${filteredCountryStatus.groupChar}`;
-                
-                // Direct match like "1F" or "2F"
-                if (label.includes(target)) return true;
-                
-                // Handle 3rd place complex labels like "3A/B/C/F"
-                if (filteredCountryStatus.rank === 3 && label.startsWith('3') && label.includes(filteredCountryStatus.groupChar)) {
-                    return true;
+    // Auto-scroll logic
+    useEffect(() => {
+        if (filterCountry && bracketData && groupsData) {
+            let targetId = null;
+            // Find the first match containing the filterCountry
+            for (const round of bracketData.rounds) {
+                for (const match of round.matches) {
+                    const home = resolveTeamInfo(match.home).realName;
+                    const away = resolveTeamInfo(match.away).realName;
+                    if ((home && home.includes(filterCountry)) || (away && away.includes(filterCountry))) {
+                        targetId = match.id;
+                        break;
+                    }
                 }
-                
-                return false;
-            };
+                if (targetId) break;
+            }
 
-            const isFilterCountryMatch = filterCountry ? (
-                (homeInfo.realName?.includes(filterCountry)) || 
-                (awayInfo.realName?.includes(filterCountry)) ||
-                (m.home?.includes(filterCountry)) ||
-                (m.away?.includes(filterCountry)) ||
-                isCountryPlaceholder(m.home) ||
-                isCountryPlaceholder(m.away)
-            ) : true;
+            if (targetId && matchRefs.current[targetId]) {
+                setTimeout(() => {
+                    matchRefs.current[targetId].scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center', 
+                        inline: 'center' 
+                    });
+                }, 100);
+            }
+        }
+    }, [filterCountry, bracketData, groupsData]);
 
-            if (filterCountry && !isFilterCountryMatch) return acc;
+    if (!bracketData || !groupsData) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)' }}>Laddar träd...</div>;
 
-            const resolved = {
-                ...m,
-                home: homeInfo.name,
-                away: awayInfo.name,
-                isPreliminary: homeInfo.isPlaceholder || awayInfo.isPlaceholder
-            };
-            if (!acc[resolved.date]) acc[resolved.date] = [];
-            acc[resolved.date].push(resolved);
-            return acc;
-        }, {});
-    }, [bracketData, groupsData, activeRoundIdx, filterCountry, filteredCountryStatus]);
+    const leftR32 = [74, 77, 73, 75, 76, 78, 79, 80];
+    const leftR16 = [89, 90, 91, 92];
+    const leftQF = [97, 98];
+    const leftSF = [101];
 
-    if (!bracketData || !groupsData) return (
-        <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>
-            Laddar slutspel...
+    const rightR32 = [81, 82, 83, 84, 85, 86, 87, 88];
+    const rightR16 = [93, 94, 95, 96];
+    const rightQF = [99, 100];
+    const rightSF = [102];
+
+    const finalId = 104;
+
+    const renderColumn = (ids, title) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ 
+                fontSize: '0.65rem', 
+                fontWeight: '900', 
+                textAlign: 'center', 
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                marginBottom: '8px'
+            }}>{title}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', gap: '24px', flex: 1 }}>
+                {ids.map(id => {
+                    const match = getMatchById(id);
+                    return (
+                        <div key={id} ref={el => matchRefs.current[id] = el}>
+                            {match ? <BracketMatch match={match} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} /> : <div style={{ width: '140px' }} />}
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 
-    const rounds = bracketData.rounds || [];
-
     return (
-        <div>
-            {/* Rounds Selector (Premium Segmented Style) */}
+        <div ref={scrollContainerRef} style={{ width: '100%', overflowX: 'auto', padding: '40px 0 60px 0', WebkitOverflowScrolling: 'touch' }}>
             <div style={{ 
                 display: 'flex', 
-                overflowX: 'auto', 
-                gap: '8px', 
-                padding: '4px', 
-                marginBottom: '24px',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
+                alignItems: 'center', 
+                gap: '20px', 
+                minWidth: 'max-content',
+                margin: '0 auto',
+                padding: '0 40px'
             }}>
-                {rounds.map((round, idx) => (
-                    <button
-                        key={round.id}
-                        onClick={() => setActiveRoundIdx(idx)}
-                        style={{
-                            whiteSpace: 'nowrap',
-                            padding: '10px 18px',
-                            borderRadius: '12px',
-                            border: 'none',
-                            backgroundColor: activeRoundIdx === idx ? 'var(--color-primary)' : 'var(--color-surface-subtle)',
-                            color: activeRoundIdx === idx ? '#ffffff' : 'var(--color-text-muted)',
-                            fontSize: '0.8rem',
-                            fontWeight: '700',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                        }}
-                    >
-                        {round.name}
-                    </button>
-                ))}
-            </div>
+                {renderColumn(leftR32, "1/16-final")}
+                {renderColumn(leftR16, "1/8-final")}
+                {renderColumn(leftQF, "Kvartsfinal")}
+                {renderColumn(leftSF, "Semifinal")}
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '40px' }}>
-                {Object.entries(groupedMatches).map(([date, matches], groupIdx) => (
-                    <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <div style={{ 
-                            fontSize: '0.8rem', 
-                            fontWeight: '800', 
-                            textTransform: 'uppercase', 
-                            paddingLeft: '4px',
-                            color: 'var(--color-text-muted)',
-                            letterSpacing: '0.02em'
-                        }}>{date}</div>
-                        {matches.map((m, i) => (
-                            <MatchCard 
-                                key={m.id || i} 
-                                match={m} 
-                                idx={i} 
-                                onCountryClick={onCountryClick}
-                                style={m.isPreliminary ? { opacity: 0.85 } : {}}
-                            />
-                        ))}
+                <div ref={el => matchRefs.current[finalId] = el} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', alignSelf: 'center', padding: '0 20px' }}>
+                    <div style={{ fontSize: '0.7rem', fontWeight: '900', textTransform: 'uppercase', color: 'var(--color-primary)', letterSpacing: '0.1em' }}>FINAL</div>
+                    <div style={{ transform: 'scale(1.3)' }}>
+                        <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
                     </div>
-                ))}
+                </div>
+
+                {renderColumn(rightSF, "Semifinal")}
+                {renderColumn(rightQF, "Kvartsfinal")}
+                {renderColumn(rightR16, "1/8-final")}
+                {renderColumn(rightR32, "1/16-final")}
             </div>
         </div>
     );
