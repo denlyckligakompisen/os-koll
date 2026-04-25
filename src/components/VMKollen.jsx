@@ -302,8 +302,9 @@ const VMKollen = () => {
             <div className="nav-container">
                 <div className="segmented-control">
                     <div className="segmented-pill" style={{ 
-                        transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`,
-                        width: `calc(100% / ${SUBTABS.length})`
+                        left: 'var(--pill-padding)',
+                        width: `calc((100% - (var(--pill-padding) * 2)) / ${SUBTABS.length})`,
+                        transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`
                     }} />
                     {SUBTABS.map(tab => (
                         <button 
