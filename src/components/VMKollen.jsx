@@ -88,6 +88,30 @@ const VMKollen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
+    const scorerRefs = React.useRef({});
+
+    // Auto-scroll in stats sub-tabs
+    useEffect(() => {
+        if (!filterCountry) return;
+
+        setTimeout(() => {
+            if (activeStatTab === 'ranking' && rankingData?.rankings) {
+                const target = rankingData.rankings.find(r => r.team.includes(filterCountry));
+                if (target && rankingRefs.current[target.team]) {
+                    rankingRefs.current[target.team].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else if (activeStatTab === 'skytteliga' && scorersData?.scorers) {
+                const target = scorersData.scorers.find(s => {
+                    const filterCodes = getFlagCodes(filterCountry);
+                    const scorerCodes = getFlagCodes(s.team);
+                    return filterCodes.length > 0 && scorerCodes.length > 0 && filterCodes[0] === scorerCodes[0];
+                });
+                if (target && scorerRefs.current[target.player]) {
+                    scorerRefs.current[target.player].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }, 100);
+    }, [activeStatTab, filterCountry, rankingData, scorersData]);
 
     const allCountries = useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -921,21 +945,18 @@ const VMKollen = () => {
                                                                         const scorerCodes = getFlagCodes(s.team);
                                                                         const isSelected = filterCountry && filterCodes.length > 0 && scorerCodes.length > 0 && filterCodes[0] === scorerCodes[0];
                                                                         return (
-                                                                            <tr 
-                                                                                key={i}
-                                                                                style={{
-                                                                                    backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                                    transition: 'background-color 0.2s ease'
-                                                                                }}
-                                                                            >
-                                                                                <td style={{ 
-                                                                                    padding: '11px 16px',
-                                                                                    borderTopLeftRadius: isSelected ? '10px' : '0',
-                                                                                    borderBottomLeftRadius: isSelected ? '10px' : '0',
-                                                                                    borderTopRightRadius: isSelected ? '10px' : '0',
-                                                                                    borderBottomRightRadius: isSelected ? '10px' : '0'
-                                                                                }}>
-                                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                                            <tr key={i} ref={el => scorerRefs.current[s.player] = el}>
+                                                                                <td style={{ padding: '2px 4px' }}>
+                                                                                    <div style={{ 
+                                                                                        display: 'flex', 
+                                                                                        alignItems: 'center', 
+                                                                                        gap: '10px',
+                                                                                        backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                                        padding: '9px 12px',
+                                                                                        borderRadius: '10px',
+                                                                                        transition: 'background-color 0.2s ease',
+                                                                                        width: 'fit-content'
+                                                                                    }}>
                                                                                         <FlagBadge codes={getFlagCodes(s.team)} name={s.team} size={28} />
                                                                                         <div style={{ fontSize: '0.95rem' }}>{s.player}</div>
                                                                                     </div>
