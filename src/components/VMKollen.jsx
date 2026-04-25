@@ -10,6 +10,7 @@ import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown } from 'lucid
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
+    { id: 'skytteliga', label: 'Skytteliga (Kval)' },
 ];
 
 const SUBTABS = [
@@ -77,6 +78,7 @@ const VMKollen = () => {
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
     const [activeStatTab, setActiveStatTab] = useState('ranking');
+    const [scorersData, setScorersData] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
 
@@ -123,13 +125,15 @@ const VMKollen = () => {
             fetchData('worldcup_2026_groups.json'),
             fetchData('worldcup_2026_matches.json'),
             fetchData('worldcup_2026_knockout.json').catch(() => null),
-            fetchData('fifa_ranking.json').catch(() => null)
+            fetchData('fifa_ranking.json').catch(() => null),
+            fetchData('worldcup_2026_scorers.json').catch(() => null)
         ])
-            .then(([gData, mData, kData, rData]) => {
+            .then(([gData, mData, kData, rData, sData]) => {
                 setGroupsData(gData);
                 setMatchesData(mData);
                 setKnockoutData(kData);
                 setRankingData(rData);
+                setScorersData(sData);
                 setLoading(false);
             })
             .catch(err => {
@@ -754,6 +758,86 @@ const VMKollen = () => {
                                             </tbody>
                                         </table>
                                     </Card>
+                                </div>
+                            )}
+
+                            {activeStatTab === 'skytteliga' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    {(() => {
+                                        const groupedScorers = scorersData?.scorers?.reduce((acc, s) => {
+                                            const goals = s.goals;
+                                            if (!acc[goals]) acc[goals] = [];
+                                            acc[goals].push(s);
+                                            return acc;
+                                        }, {});
+
+                                        const sortedGoals = Object.keys(groupedScorers || {}).sort((a, b) => b - a);
+
+                                        if (!scorersData?.scorers || scorersData.scorers.length === 0) {
+                                            return (
+                                                <Card style={{ padding: '24px', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                                                    Ingen data tillgänglig ännu.
+                                                </Card>
+                                            );
+                                        }
+
+                                        return (
+                                            <>
+                                                {sortedGoals.map(goalCount => (
+                                                    <div key={goalCount} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                        <div style={{ 
+                                                            fontSize: '0.8rem', 
+                                                            fontWeight: '800', 
+                                                            textTransform: 'uppercase', 
+                                                            paddingLeft: '4px', 
+                                                            color: 'var(--color-text-muted)', 
+                                                            letterSpacing: '0.05em' 
+                                                        }}>
+                                                            {goalCount} MÅL
+                                                        </div>
+                                                        <Card style={{ marginBottom: '0', padding: '0', overflow: 'hidden' }}>
+                                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                                                <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
+                                                                    Målskyttar med {goalCount} mål
+                                                                </caption>
+                                                                <tbody>
+                                                                    {groupedScorers[goalCount].sort((a, b) => {
+                                                                        const lastA = a.player.split(' ').pop();
+                                                                        const lastB = b.player.split(' ').pop();
+                                                                        return lastA.localeCompare(lastB, 'sv');
+                                                                    }).map((s, i) => {
+                                                                        const isSelected = filterCountry && s.team.includes(filterCountry);
+                                                                        return (
+                                                                            <tr 
+                                                                                key={i}
+                                                                                style={{
+                                                                                    backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                                    transition: 'all 0.2s ease'
+                                                                                }}
+                                                                            >
+                                                                                <td style={{ 
+                                                                                    padding: '11px 16px',
+                                                                                    borderTopLeftRadius: isSelected ? '12px' : '0',
+                                                                                    borderBottomLeftRadius: isSelected ? '12px' : '0',
+                                                                                    borderTopRightRadius: isSelected ? '12px' : '0',
+                                                                                    borderBottomRightRadius: isSelected ? '12px' : '0'
+                                                                                }}>
+                                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                                                        <FlagBadge codes={getFlagCodes(s.team)} name={s.team} size={28} />
+                                                                                        <div style={{ fontSize: '0.95rem' }}>{s.player}</div>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        );
+                                                                    })}
+                                                                </tbody>
+                                                            </table>
+                                                        </Card>
+                                                    </div>
+                                                ))}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             )}
                         </div>
