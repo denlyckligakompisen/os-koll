@@ -6,7 +6,11 @@ import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3 } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy } from 'lucide-react';
+
+const STAT_SUBTABS = [
+    { id: 'ranking', label: 'Ranking', icon: Trophy },
+];
 
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher', icon: Calendar },
@@ -72,6 +76,7 @@ const VMKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
+    const [activeStatTab, setActiveStatTab] = useState('ranking');
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
 
@@ -586,55 +591,92 @@ const VMKollen = () => {
                     )}
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                                FIFA Världsranking
+                            {/* Stat Sub-tabs */}
+                            <div style={{ 
+                                display: 'flex', 
+                                gap: '8px', 
+                                padding: '4px',
+                                overflowX: 'auto',
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none'
+                            }}>
+                                {STAT_SUBTABS.map(tab => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => setActiveStatTab(tab.id)}
+                                        style={{
+                                            whiteSpace: 'nowrap',
+                                            padding: '10px 18px',
+                                            borderRadius: '12px',
+                                            border: 'none',
+                                            backgroundColor: activeStatTab === tab.id ? 'var(--color-text)' : 'var(--color-surface-subtle)',
+                                            color: activeStatTab === tab.id ? '#ffffff' : 'var(--color-text-muted)',
+                                            fontSize: '0.8rem',
+                                            fontWeight: '700',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px'
+                                        }}
+                                    >
+                                        <tab.icon size={14} />
+                                        {tab.label}
+                                    </button>
+                                ))}
                             </div>
-                            <Card style={{ padding: '0', overflow: 'hidden' }}>
-                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
-                                    <thead style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderBottom: 'var(--border)' }}>
-                                        <tr>
-                                            <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600', width: '60px' }}>RANK</th>
-                                            <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                            <th style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {rankingData?.rankings?.map((r, i) => {
-                                            const isSelected = filterCountry && r.team.includes(filterCountry);
-                                            return (
-                                                <tr 
-                                                    key={i} 
-                                                    ref={el => rankingRefs.current[r.team] = el}
-                                                    style={{ 
-                                                        borderBottom: 'var(--border)', 
-                                                        backgroundColor: isSelected ? 'rgba(0, 122, 255, 0.1)' : 'transparent',
-                                                        transition: 'background-color 0.3s ease'
-                                                    }}
-                                                >
-                                                    <td style={{ padding: '12px 16px', fontWeight: '700', color: isSelected ? 'var(--color-primary)' : 'inherit' }}>{r.rank}</td>
-                                                    <td style={{ padding: '12px 16px' }}>
-                                                        <div 
-                                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                                            onClick={() => handleCountryClick(r.team)}
-                                                        >
-                                                            <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={20} />
-                                                            <span style={{ fontWeight: isSelected ? '700' : '500' }}>
-                                                                <BoldSverige text={r.team} />
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontVariantNumeric: 'tabular-nums' }}>{r.points}</td>
+
+                            {/* Ranking Sub-page */}
+                            {activeStatTab === 'ranking' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                    <Card style={{ padding: '0', overflow: 'hidden' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                                            <thead style={{ backgroundColor: 'rgba(0,0,0,0.02)', borderBottom: 'var(--border)' }}>
+                                                <tr>
+                                                    <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600', width: '60px' }}>RANK</th>
+                                                    <th style={{ padding: '12px 16px', textAlign: 'left', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                                    <th style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
                                                 </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </Card>
-                            {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
-                                <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                    {rankingData.lastUpdate && <div>Officiell uppdatering: {rankingData.lastUpdate}</div>}
-                                    {rankingData.nextUpdate && <div>Nästa officiella uppdatering: {rankingData.nextUpdate}</div>}
-                                    <div style={{ opacity: 0.6, marginTop: '4px' }}>Källa: FIFA · Synkad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}</div>
+                                            </thead>
+                                            <tbody>
+                                                {rankingData?.rankings?.map((r, i) => {
+                                                    const isSelected = filterCountry && r.team.includes(filterCountry);
+                                                    return (
+                                                        <tr 
+                                                            key={i} 
+                                                            ref={el => rankingRefs.current[r.team] = el}
+                                                            style={{ 
+                                                                borderBottom: 'var(--border)', 
+                                                                backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                transition: 'background-color 0.2s ease'
+                                                            }}
+                                                        >
+                                                            <td style={{ padding: '12px 16px', fontWeight: '500' }}>{r.rank}</td>
+                                                            <td style={{ padding: '12px 16px' }}>
+                                                                <div 
+                                                                    style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
+                                                                    onClick={() => handleCountryClick(r.team)}
+                                                                >
+                                                                    <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={20} />
+                                                                    <span style={{ fontWeight: '500' }}>
+                                                                        <BoldSverige text={r.team} />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td style={{ padding: '12px 16px', textAlign: 'right', color: 'var(--color-text-muted)', fontVariantNumeric: 'tabular-nums' }}>{r.points}</td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </Card>
+                                    {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                            {rankingData.lastUpdate && <div>Officiell uppdatering: {rankingData.lastUpdate}</div>}
+                                            {rankingData.nextUpdate && <div>Nästa officiella uppdatering: {rankingData.nextUpdate}</div>}
+                                            <div style={{ opacity: 0.6, marginTop: '4px' }}>Källa: FIFA · Synkad: {new Date(rankingData.lastUpdated).toLocaleDateString('sv-SE')}</div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
