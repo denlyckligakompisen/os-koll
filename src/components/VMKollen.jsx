@@ -7,9 +7,7 @@ import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X } from 'lucide-react';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -21,7 +19,7 @@ const STAT_SUBTABS = [
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher', icon: Calendar },
     { id: 'gruppspel', label: 'Grupper', icon: List },
-    { id: 'slutspel', label: 'Slutspel', icon: ({ size, ...props }) => <EmojiEventsOutlinedIcon {...props} sx={{ fontSize: size }} /> },
+    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
     { id: 'statistik', label: 'Statistik', icon: BarChart3 }
 ];
 
@@ -447,7 +445,9 @@ const VMKollen = () => {
                                             }}
                                         >
                                             <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                            <span style={{ fontWeight: '500' }}><BoldSverige text={team.name} /></span>
+                                            <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>
+                                                <BoldSverige text={team.name} />
+                                            </span>
                                         </button>
                                     </td>
                                         <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
@@ -615,8 +615,7 @@ const VMKollen = () => {
                     className="header-logo"
                     style={{
                         background: 'none',
-                        border: 'none',
-                        padding: 0
+                        border: 'none'
                     }}
                 >
                     <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
@@ -637,7 +636,7 @@ const VMKollen = () => {
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                         >
-                            <tab.icon size={18} className="tab-icon" />
+                            <tab.icon size={22} className="tab-icon" />
                             <span className="tab-label">{tab.label}</span>
                         </button>
                     ))}
@@ -649,9 +648,9 @@ const VMKollen = () => {
                     aria-label="Välj land att filtrera"
                 >
                     {filterCountry ? (
-                        <FlagBadge codes={getFlagCodes(filterCountry)} size={18} shadow={false} />
+                        <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
                     ) : (
-                        <PublicOutlinedIcon sx={{ fontSize: 18 }} />
+                        <Globe size={22} />
                     )}
                 </button>
                 <MuiMenu
@@ -664,7 +663,7 @@ const VMKollen = () => {
                         paper: {
                             style: {
                                 maxHeight: 400,
-                                width: '240px',
+                                width: '280px',
                                 borderRadius: '16px',
                                 marginTop: '8px',
                                 boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
@@ -691,12 +690,14 @@ const VMKollen = () => {
                                     borderRadius: '8px',
                                     margin: '2px 8px',
                                     backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                                    color: 'var(--color-text)'
+                                    color: 'var(--color-text)',
+                                    whiteSpace: 'normal',
+                                    lineHeight: '1.2'
                                 }}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                     <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
-                                    {filterCountry}
+                                    <span style={{ flex: 1 }}>{filterCountry}</span>
                                 </div>
                                 <X size={18} strokeWidth={2.5} />
                             </MenuItem>
@@ -720,11 +721,13 @@ const VMKollen = () => {
                                 gap: '12px',
                                 padding: '12px 16px',
                                 borderRadius: '8px',
-                                margin: '2px 8px'
+                                margin: '2px 8px',
+                                whiteSpace: 'normal',
+                                lineHeight: '1.2'
                             }}
                         >
                             <FlagBadge codes={getFlagCodes(country)} size={22} shadow={false} />
-                            {country}
+                            <span style={{ flex: 1 }}>{country}</span>
                         </MenuItem>
                     ))}
                 </MuiMenu>
