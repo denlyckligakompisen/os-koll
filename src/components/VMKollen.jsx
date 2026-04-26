@@ -611,19 +611,16 @@ const VMKollen = () => {
         >
             {/* Full-width Sticky Header */}
             <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
-                <button
-                    onClick={handleReset}
+                <div
                     className="header-logo"
-                    aria-label="Återställ och visa alla matcher"
                     style={{
                         background: 'none',
                         border: 'none',
-                        padding: 0,
-                        cursor: 'pointer'
+                        padding: 0
                     }}
                 >
                     <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
-                </button>
+                </div>
 
                 <div className="segmented-control">
                     <div className="segmented-pill" style={{
