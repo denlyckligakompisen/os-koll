@@ -276,7 +276,12 @@
       "points": "1478.35",
       "change": 2
     },
-
+    {
+      "rank": "47",
+      "team": "Grekland",
+      "points": "1475.82",
+      "change": -1
+    },
     {
       "rank": "48",
       "team": "Slovakien",
@@ -1263,7 +1268,7 @@
     }
   ],
   "lastUpdate": "01 April 2026",
-  "nextUpdate": "10 June 2026 (46 days)",
-  "lastUpdated": "2026-04-25T12:13:56.730Z",
+  "nextUpdate": "10 June 2026 (45 days)",
+  "lastUpdated": "2026-04-26T02:57:02.396Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
