@@ -10,6 +10,7 @@ import FlagBadge from './common/FlagBadge';
 import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 
 const STAT_SUBTABS = [
     { id: 'ranking', label: 'FIFA:s världsranking' },
@@ -84,6 +85,7 @@ const VMKollen = () => {
     const [activeStatTab, setActiveStatTab] = useState('ranking');
     const [scorersData, setScorersData] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorElStats, setAnchorElStats] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
     const scorerRefs = React.useRef({});
@@ -128,6 +130,9 @@ const VMKollen = () => {
 
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
+
+    const handleStatsMenuClick = (event) => setAnchorElStats(event.currentTarget);
+    const handleStatsMenuClose = () => setAnchorElStats(null);
 
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
@@ -609,6 +614,17 @@ const VMKollen = () => {
         <div
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
+            {/* Floating Filter Button - Only on stats page, opens stats sub-tabs */}
+            {activeTab === 'statistik' && (
+                <button
+                    onClick={handleStatsMenuClick}
+                    className="floating-filter-btn"
+                    aria-label="Välj statistikvy"
+                >
+                    <FilterListRoundedIcon sx={{ fontSize: 24 }} />
+                </button>
+            )}
+
             {/* Full-width Sticky Header */}
             <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
                 <div
@@ -653,6 +669,7 @@ const VMKollen = () => {
                         <Globe size={22} />
                     )}
                 </button>
+            </div>
                 <MuiMenu
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
@@ -731,7 +748,47 @@ const VMKollen = () => {
                         </MenuItem>
                     ))}
                 </MuiMenu>
-            </div>
+
+                {/* Stats Sub-tabs Menu */}
+                <MuiMenu
+                    anchorEl={anchorElStats}
+                    open={Boolean(anchorElStats)}
+                    onClose={handleStatsMenuClose}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    slotProps={{
+                        paper: {
+                            style: {
+                                width: '220px',
+                                borderRadius: '16px',
+                                marginTop: '8px',
+                                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                                border: '0.5px solid rgba(0,0,0,0.08)',
+                                padding: '8px 0'
+                            }
+                        }
+                    }}
+                >
+                    {STAT_SUBTABS.map((tab) => (
+                        <MenuItem 
+                            key={tab.id}
+                            onClick={() => {
+                                setActiveStatTab(tab.id);
+                                handleStatsMenuClose();
+                            }}
+                            selected={activeStatTab === tab.id}
+                            style={{ 
+                                fontSize: '0.9rem', 
+                                fontWeight: activeStatTab === tab.id ? 700 : 500,
+                                padding: '12px 16px',
+                                borderRadius: '8px',
+                                margin: '2px 8px'
+                            }}
+                        >
+                            {tab.label}
+                        </MenuItem>
+                    ))}
+                </MuiMenu>
 
             {/* Centered Content Container */}
             <div style={{ 
@@ -759,38 +816,6 @@ const VMKollen = () => {
                     )}
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {/* Stat Sub-tabs */}
-                            <div style={{
-                                display: 'flex',
-                                gap: '8px',
-                                padding: '4px',
-                                overflowX: 'auto',
-                                scrollbarWidth: 'none',
-                                msOverflowStyle: 'none'
-                            }}>
-                                {STAT_SUBTABS.map(tab => (
-                                    <button
-                                        key={tab.id}
-                                        onClick={() => setActiveStatTab(tab.id)}
-                                        style={{
-                                            whiteSpace: 'nowrap',
-                                            padding: '10px 18px',
-                                            borderRadius: '12px',
-                                            border: 'none',
-                                            backgroundColor: activeStatTab === tab.id ? 'var(--color-text)' : 'var(--color-surface-subtle)',
-                                            color: activeStatTab === tab.id ? '#ffffff' : 'var(--color-text-muted)',
-                                            fontSize: '0.8rem',
-                                            fontWeight: '700',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                                            display: 'flex',
-                                            alignItems: 'center'
-                                        }}
-                                    >
-                                        {tab.label}
-                                    </button>
-                                ))}
-                            </div>
 
                             {/* Ranking Sub-page */}
                             {activeStatTab === 'ranking' && (

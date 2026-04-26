@@ -52,7 +52,7 @@ body {
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(0) scale(1);
+    transform: none;
   }
 }
 
@@ -223,6 +223,14 @@ body {
   display: none;
 }
 
+@media (min-width: 600px) {
+  .tab-label {
+    display: block;
+    margin-left: 8px;
+    font-size: 0.9rem;
+  }
+}
+
 /* Desktop: Restore to top and non-floating */
 /* Ensure header is always at the very top */
 html, body {
@@ -243,7 +251,54 @@ html, body {
   justify-self: end;
 }
 
-.sverige-toggle:hover {
-  background: rgba(0, 0, 0, 0.03);
-  border-radius: 8px;
+.floating-filter-btn {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 1100;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--color-text);
+  padding: 0;
 }
+
+.floating-filter-btn:hover {
+  transform: scale(1.1);
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.floating-filter-btn:active {
+  transform: scale(0.95);
+}
+
+.floating-filter-btn.active {
+  background: var(--color-text);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.filter-badge-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: #ff3b30;
+  border-radius: 50%;
+  border: 2px solid var(--color-text);
+}
+
+
+
