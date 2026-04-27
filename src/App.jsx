@@ -8,7 +8,7 @@ function App() {
     <div className="app-container">
       <Routes>
         <Route path="/vm" element={<VMKollen />} />
-        <Route path="/sirius" element={<SiriusKollen />} />
+        <Route path="/allsvenskan" element={<SiriusKollen />} />
         <Route path="/" element={<Navigate to="/vm" replace />} />
       </Routes>
     </div>

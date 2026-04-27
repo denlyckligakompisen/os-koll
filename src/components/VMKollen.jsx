@@ -636,11 +636,11 @@ const VMKollen = () => {
                         border: 'none',
                         cursor: 'pointer'
                     }}
-                    onClick={() => navigate('/sirius')}
+                    onClick={() => navigate('/allsvenskan')}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
-                        <ArrowLeftRight size={16} color="var(--color-text-muted)" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" alt="VM 2026" style={{ height: '32px' }} />
+                        <ArrowLeftRight size={18} color="#aeafb4" />
                     </div>
                 </div>
 
@@ -665,17 +665,20 @@ const VMKollen = () => {
                     ))}
                 </div>
 
-                <button
-                    onClick={handleMenuClick}
-                    className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
-                    aria-label="Välj land att filtrera"
-                >
-                    {filterCountry ? (
-                        <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
-                    ) : (
-                        <Globe size={22} />
-                    )}
-                </button>
+                <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
+                    <button
+                        onClick={handleMenuClick}
+                        className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
+                        aria-label="Välj land att filtrera"
+                        style={{ height: '100%' }}
+                    >
+                        {filterCountry ? (
+                            <FlagBadge codes={getFlagCodes(filterCountry)} size={24} shadow={false} />
+                        ) : (
+                            <Globe size={24} color="#8e8e93" strokeWidth={1.5} />
+                        )}
+                    </button>
+                </div>
             </div>
                 <MuiMenu
                     anchorEl={anchorEl}

@@ -31,10 +31,14 @@ const SiriusKollen = () => {
     return (
         <div style={{ minHeight: '100vh', paddingBottom: '100px' }}>
             <div className="nav-container" style={{ '--active-color': '#005DAA' }}>
-                <div className="header-logo" style={{ cursor: 'pointer' }} onClick={() => navigate('/vm')}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div
+                    className="header-logo"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate('/vm')}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <img src="https://upload.wikimedia.org/wikipedia/en/2/23/IK_Sirius_logo.png" alt="IK Sirius" style={{ height: '32px' }} />
-                        <ArrowLeftRight size={16} color="var(--color-text-muted)" />
+                        <ArrowLeftRight size={18} color="#aeafb4" />
                     </div>
                 </div>
                 
@@ -51,9 +55,8 @@ const SiriusKollen = () => {
                     ))}
                 </div>
 
-                <div className="sverige-toggle" onClick={() => navigate('/vm')} style={{ cursor: 'pointer', padding: '0 12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Trophy size={20} color="var(--color-text-muted)" />
-                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>VM-Koll</span>
+                <div className="sverige-toggle" style={{ opacity: 0, pointerEvents: 'none' }}>
+                    {/* Placeholder for symmetry if needed, or just leave empty */}
                 </div>
             </div>
 
