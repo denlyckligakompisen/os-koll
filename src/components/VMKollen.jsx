@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
 import Card from './common/Card';
@@ -7,7 +8,7 @@ import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
@@ -75,6 +76,7 @@ const sortTeams = (teams) => {
 };
 
 const VMKollen = () => {
+    const navigate = useNavigate();
     const [groupsData, setGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [knockoutData, setKnockoutData] = useState(null);
@@ -631,10 +633,15 @@ const VMKollen = () => {
                     className="header-logo"
                     style={{
                         background: 'none',
-                        border: 'none'
+                        border: 'none',
+                        cursor: 'pointer'
                     }}
+                    onClick={() => navigate('/sirius')}
                 >
-                    <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <img src={getTeamLogo('FIFA World Cup')} alt="VM 2026" />
+                        <ArrowLeftRight size={16} color="var(--color-text-muted)" />
+                    </div>
                 </div>
 
                 <div className="segmented-control">
