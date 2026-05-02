@@ -7,6 +7,28 @@ import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe,
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+
+const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+
+const parseMatchDate = (dateStr, timeStr) => {
+    if (!dateStr) return new Date();
+    const parts = dateStr.split(' ');
+    if (parts.length < 3) return new Date();
+    
+    const day = parseInt(parts[1]);
+    const monthName = parts[2]?.toLowerCase();
+    const year = parseInt(parts[3]) || 2026;
+
+    let hour = 0, minute = 0;
+    if (timeStr && timeStr.includes(':')) {
+        const [h, m] = timeStr.split(':').map(Number);
+        hour = h;
+        minute = m;
+    }
+
+    return new Date(year, MONTH_MAP[monthName] ?? 0, day, hour, minute);
+};
+
 const AllsvenskanKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [filterTeam, setFilterTeam] = useState(null);
@@ -152,6 +174,16 @@ const AllsvenskanKollen = () => {
         });
         return Object.entries(groups).map(([date, matches]) => ({ date, matches }));
     }, [filteredMatches]);
+
+    const nextMatch = useMemo(() => {
+        if (!matchesData?.matches) return null;
+        const now = new Date();
+        const upcoming = matchesData.matches
+            .map(m => ({ ...m, dateObj: parseMatchDate(m.date, m.time) }))
+            .filter(m => m.dateObj >= now)
+            .sort((a, b) => a.dateObj - b.dateObj);
+        return upcoming[0];
+    }, [matchesData]);
 
     return (
         <div style={{ minHeight: '100vh', paddingBottom: '100px' }}>
@@ -306,8 +338,10 @@ const AllsvenskanKollen = () => {
                                                     key={j} 
                                                     match={match} 
                                                     idx={j} 
+                                                    onCountryClick={handleTeamClick}
                                                     homeLogo={getTeamLogo(match.home)}
                                                     awayLogo={getTeamLogo(match.away)}
+                                                    highlight={nextMatch && match.home === nextMatch.home && match.away === nextMatch.away && match.date === nextMatch.date}
                                                     onClick={() => match.link && window.open(match.link, '_blank')}
                                                 />
                                             ))}
