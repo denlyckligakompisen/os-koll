@@ -1,0 +1,474 @@
+{
+  "table": [
+    {
+      "rank": "1",
+      "team": "Malmö FF",
+      "seasons": "90",
+      "played": "1444",
+      "points": "3920"
+    },
+    {
+      "rank": "2",
+      "team": "IFK Göteborg",
+      "seasons": "93",
+      "played": "1073",
+      "points": "3714"
+    },
+    {
+      "rank": "3",
+      "team": "AIK",
+      "seasons": "97",
+      "played": "760",
+      "points": "3705"
+    },
+    {
+      "rank": "4",
+      "team": "IFK Norrköping",
+      "seasons": "85",
+      "played": "636",
+      "points": "3193"
+    },
+    {
+      "rank": "5",
+      "team": "IF Elfsborg",
+      "seasons": "82",
+      "played": "340",
+      "points": "3007"
+    },
+    {
+      "rank": "6",
+      "team": "Djurgårdens IF",
+      "seasons": "70",
+      "played": "405",
+      "points": "2669"
+    },
+    {
+      "rank": "7",
+      "team": "Helsingborgs IF",
+      "seasons": "69",
+      "played": "438",
+      "points": "2542"
+    },
+    {
+      "rank": "8",
+      "team": "Hammarby IF",
+      "seasons": "57",
+      "played": "-72",
+      "points": "1937"
+    },
+    {
+      "rank": "9",
+      "team": "Halmstads BK",
+      "seasons": "58",
+      "played": "-242",
+      "points": "1883"
+    },
+    {
+      "rank": "10",
+      "team": "GAIS",
+      "seasons": "56",
+      "played": "-43",
+      "points": "1786"
+    },
+    {
+      "rank": "11",
+      "team": "Örgryte IS",
+      "seasons": "56",
+      "played": "105",
+      "points": "1782"
+    },
+    {
+      "rank": "12",
+      "team": "Örebro SK",
+      "seasons": "53",
+      "played": "-195",
+      "points": "1750"
+    },
+    {
+      "rank": "13",
+      "team": "Kalmar FF",
+      "seasons": "37",
+      "played": "-128",
+      "points": "1330"
+    },
+    {
+      "rank": "14",
+      "team": "Östers IF",
+      "seasons": "34",
+      "played": "133",
+      "points": "1142"
+    },
+    {
+      "rank": "15",
+      "team": "BK Häcken",
+      "seasons": "25",
+      "played": "104",
+      "points": "998"
+    },
+    {
+      "rank": "16",
+      "team": "Degerfors IF",
+      "seasons": "33",
+      "played": "-165",
+      "points": "979"
+    },
+    {
+      "rank": "17",
+      "team": "Landskrona BoIS",
+      "seasons": "34",
+      "played": "-294",
+      "points": "977"
+    },
+    {
+      "rank": "18",
+      "team": "Åtvidabergs FF",
+      "seasons": "20",
+      "played": "-53",
+      "points": "649"
+    },
+    {
+      "rank": "19",
+      "team": "Sandvikens IF",
+      "seasons": "21",
+      "played": "-173",
+      "points": "576"
+    },
+    {
+      "rank": "20",
+      "team": "Mjällby AIF",
+      "seasons": "14",
+      "played": "-42",
+      "points": "525"
+    },
+    {
+      "rank": "21",
+      "team": "Trelleborgs FF",
+      "seasons": "18",
+      "played": "-214",
+      "points": "523"
+    },
+    {
+      "rank": "22",
+      "team": "GIF Sundsvall",
+      "seasons": "20",
+      "played": "-334",
+      "points": "495"
+    },
+    {
+      "rank": "23",
+      "team": "IK Brage",
+      "seasons": "18",
+      "played": "-162",
+      "points": "487"
+    },
+    {
+      "rank": "24",
+      "team": "IK Sleipner",
+      "seasons": "16",
+      "played": "-36",
+      "points": "472"
+    },
+    {
+      "rank": "25",
+      "team": "Gefle IF",
+      "seasons": "16",
+      "played": "-222",
+      "points": "467"
+    },
+    {
+      "rank": "26",
+      "team": "IK Sirius",
+      "seasons": "12",
+      "played": "-139",
+      "points": "395"
+    },
+    {
+      "rank": "27",
+      "team": "IFK Malmö",
+      "seasons": "13",
+      "played": "-191",
+      "points": "333"
+    },
+    {
+      "rank": "28",
+      "team": "IFK Eskilstuna",
+      "seasons": "14",
+      "played": "-290",
+      "points": "317"
+    },
+    {
+      "rank": "29",
+      "team": "Jönköpings Södra IF",
+      "seasons": "12",
+      "played": "-176",
+      "points": "314"
+    },
+    {
+      "rank": "30",
+      "team": "Västra Frölunda IF",
+      "seasons": "10",
+      "played": "-129",
+      "points": "257"
+    },
+    {
+      "rank": "31",
+      "team": "IF Brommapojkarna",
+      "seasons": "9",
+      "played": "-192",
+      "points": "250"
+    },
+    {
+      "rank": "32",
+      "team": "IS Halmia",
+      "seasons": "11",
+      "played": "-188",
+      "points": "231"
+    },
+    {
+      "rank": "33",
+      "team": "Östersunds FK",
+      "seasons": "6",
+      "played": "-53",
+      "points": "213"
+    },
+    {
+      "rank": "34",
+      "team": "Gårda BK",
+      "seasons": "8",
+      "played": "-91",
+      "points": "211"
+    },
+    {
+      "rank": "35",
+      "team": "IFK Sundsvall",
+      "seasons": "5",
+      "played": "-75",
+      "points": "145"
+    },
+    {
+      "rank": "36",
+      "team": "IFK Värnamo",
+      "seasons": "4",
+      "played": "-53",
+      "points": "129"
+    },
+    {
+      "rank": "37",
+      "team": "Varbergs BoIS",
+      "seasons": "4",
+      "played": "-69",
+      "points": "120"
+    },
+    {
+      "rank": "38",
+      "team": "Falkenbergs FF",
+      "seasons": "5",
+      "played": "-147",
+      "points": "117"
+    },
+    {
+      "rank": "39",
+      "team": "Västerås SK",
+      "seasons": "5",
+      "played": "-133",
+      "points": "109"
+    },
+    {
+      "rank": "40",
+      "team": "Syrianska FC",
+      "seasons": "3",
+      "played": "-65",
+      "points": "76"
+    },
+    {
+      "rank": "41",
+      "team": "Råå IF",
+      "seasons": "2",
+      "played": "-19",
+      "points": "56"
+    },
+    {
+      "rank": "42",
+      "team": "Ljungskile SK",
+      "seasons": "2",
+      "played": "-55",
+      "points": "44"
+    },
+    {
+      "rank": "43",
+      "team": "Athletic Eskilstuna",
+      "seasons": "2",
+      "played": "-59",
+      "points": "40"
+    },
+    {
+      "rank": "44",
+      "team": "Westermalms IF",
+      "seasons": "2",
+      "played": "-51",
+      "points": "37"
+    },
+    {
+      "rank": "45",
+      "team": "Umeå FC",
+      "seasons": "1",
+      "played": "-10",
+      "points": "30"
+    },
+    {
+      "rank": "46",
+      "team": "IFK Uddevalla",
+      "seasons": "2",
+      "played": "-56",
+      "points": "30"
+    },
+    {
+      "rank": "47",
+      "team": "Hallstahammars SK",
+      "seasons": "2",
+      "played": "-58",
+      "points": "30"
+    },
+    {
+      "rank": "48",
+      "team": "Stattena IF",
+      "seasons": "2",
+      "played": "-97",
+      "points": "28"
+    },
+    {
+      "rank": "49",
+      "team": "Motala AIF",
+      "seasons": "1",
+      "played": "-33",
+      "points": "25"
+    },
+    {
+      "rank": "50",
+      "team": "Dalkurd FF",
+      "seasons": "1",
+      "played": "-27",
+      "points": "24"
+    },
+    {
+      "rank": "51",
+      "team": "Redbergslids IK",
+      "seasons": "1",
+      "played": "-25",
+      "points": "20"
+    },
+    {
+      "rank": "52",
+      "team": "Ludvika FK",
+      "seasons": "1",
+      "played": "-26",
+      "points": "20"
+    },
+    {
+      "rank": "53",
+      "team": "IK Oddevold",
+      "seasons": "1",
+      "played": "-23",
+      "points": "19"
+    },
+    {
+      "rank": "54",
+      "team": "IFK Luleå",
+      "seasons": "1",
+      "played": "-24",
+      "points": "18"
+    },
+    {
+      "rank": "55",
+      "team": "IF Saab",
+      "seasons": "1",
+      "played": "-27",
+      "points": "18"
+    },
+    {
+      "rank": "56",
+      "team": "Reymersholms IK",
+      "seasons": "1",
+      "played": "-30",
+      "points": "16"
+    },
+    {
+      "rank": "57",
+      "team": "Norrby IF",
+      "seasons": "1",
+      "played": "-22",
+      "points": "15"
+    },
+    {
+      "rank": "58",
+      "team": "BK Derby",
+      "seasons": "1",
+      "played": "-35",
+      "points": "15"
+    },
+    {
+      "rank": "59",
+      "team": "Assyriska FF",
+      "seasons": "1",
+      "played": "-35",
+      "points": "14"
+    },
+    {
+      "rank": "60",
+      "team": "Brynäs IF",
+      "seasons": "1",
+      "played": "-36",
+      "points": "14"
+    },
+    {
+      "rank": "61",
+      "team": "Enköpings SK",
+      "seasons": "1",
+      "played": "-37",
+      "points": "14"
+    },
+    {
+      "rank": "62",
+      "team": "Högadals IS",
+      "seasons": "1",
+      "played": "-32",
+      "points": "12"
+    },
+    {
+      "rank": "63",
+      "team": "Västerås IK",
+      "seasons": "1",
+      "played": "-45",
+      "points": "11"
+    },
+    {
+      "rank": "64",
+      "team": "IFK Holmsund",
+      "seasons": "1",
+      "played": "-55",
+      "points": "10"
+    },
+    {
+      "rank": "65",
+      "team": "Sandvikens AIK",
+      "seasons": "1",
+      "played": "-48",
+      "points": "7"
+    },
+    {
+      "rank": "66",
+      "team": "IK City",
+      "seasons": "1",
+      "played": "-51",
+      "points": "7"
+    },
+    {
+      "rank": "67",
+      "team": "Billingsfors IK",
+      "seasons": "1",
+      "played": "-56",
+      "points": "3"
+    }
+  ],
+  "lastUpdated": "2026-05-02T21:51:04.928Z"
+}

@@ -6,7 +6,7 @@
   "GAIS": "https://data-20ca4.kxcdn.com/teamImages%2FGAIS%2Flo72z1bx-gais.png?width=50",
   "Halmstads BK": "https://data-20ca4.kxcdn.com/teamImages%2FHBK%2Flo70nff2-hbk.png?width=50",
   "Hammarby": "https://data-20ca4.kxcdn.com/teamImages%2FHAM%2Flopo2qqr-hammarby-2.png?width=50",
-  "IF Brommapojkarna": "https://data-20ca4.kxcdn.com/teamImages%2FIFBP%2Fle8buz9z-BPlogoguldtransparent.png?width=50",
+  "IF Brommapojkarna": "https://upload.wikimedia.org/wikipedia/sv/thumb/d/d4/IF_Brommapojkarna.svg/512px-IF_Brommapojkarna.svg.png",
   "IF Elfsborg": "https://data-20ca4.kxcdn.com/teamImages%2FIFE%2Flo70p360-ife.png?width=50",
   "IFK Göteborg": "https://data-20ca4.kxcdn.com/teamImages%2FGBG%2Flo8dlo50-ifkgoteborgfotboll.png?width=50",
   "IK Sirius": "https://data-20ca4.kxcdn.com/teamImages%2FIKS%2Flo70q4e1-iks.png?width=50",
@@ -14,5 +14,6 @@
   "Malmö FF": "https://data-20ca4.kxcdn.com/teamImages%2FMFF%2Flo70qypl-mff.png?width=50",
   "Mjällby AIF": "https://data-20ca4.kxcdn.com/teamImages%2FMAIF%2Flfsbc2d2-Mjallby.png?width=50",
   "Västerås SK": "https://data-20ca4.kxcdn.com/teamImages%2FVSK%2Fllcaaiyn-vsk.png?width=50",
-  "Örgryte IS": "https://data-20ca4.kxcdn.com/teamImages%2FOIS%2Fme1h9yq7-ois2026.png?width=50"
+  "Örgryte IS": "https://data-20ca4.kxcdn.com/teamImages%2FOIS%2Fme1h9yq7-ois2026.png?width=50",
+  "ALLSVENSKAN_LOGO": "https://allsvenskan.se/wp-content/themes/sef-leagues/images/allsvenskan/allsvenskan-logo.svg"
 }

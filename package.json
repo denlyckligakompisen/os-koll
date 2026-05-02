@@ -13,7 +13,9 @@
     "scrape:fifa-standings": "node scripts/scrape_fifa_standings.js",
     "scrape:fifa-ranking": "node scripts/scrape_fifa_ranking.js",
     "scrape:allsvenskan": "node scripts/scrape_allsvenskan.js",
-    "scrape:allsvenskan-logos": "node scripts/scrape_allsvenskan_logos.js"
+    "scrape:allsvenskan-logos": "node scripts/scrape_allsvenskan_logos.js",
+    "scrape:allsvenskan-table": "node scripts/scrape_allsvenskan_table.js",
+    "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

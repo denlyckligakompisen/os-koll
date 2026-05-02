@@ -16,8 +16,12 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npm run scrape:allsvenskan
-      - run: npm run scrape:allsvenskan-logos
+      - name: Scrape Allsvenskan Data
+        run: |
+          npm run scrape:allsvenskan
+          npm run scrape:allsvenskan-logos
+          npm run scrape:allsvenskan-table
+          npm run scrape:allsvenskan-maraton
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

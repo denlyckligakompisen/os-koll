@@ -24,6 +24,12 @@ async function scrapeLogos() {
                     }
                 });
             }
+
+            const mainLogoEl = document.querySelector('.site-navigation__logo img');
+            if (mainLogoEl && mainLogoEl.src) {
+                results['ALLSVENSKAN_LOGO'] = mainLogoEl.src;
+            }
+
             return results;
         });
 

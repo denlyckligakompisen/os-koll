@@ -108,18 +108,20 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, ...props })
                         )}
                         <span style={{
                             fontSize: '0.8rem',
-                            color: match.status === 'live' ? '#ff3b30' : 'var(--color-text)',
+                            color: (match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)',
                             fontWeight: '800',
                             flexShrink: 0,
-                            backgroundColor: match.status === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
+                            backgroundColor: (match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
                             padding: '2px 8px',
                             borderRadius: '4px',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '4px'
                         }}>
-                            {match.status === 'live' && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
-                            {match.status === 'live' ? 'LIVE' : match.time}
+                            {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: '6px', height: '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {match.status === 'finished' ? (match.score || match.time) : 
+                             (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
+                             match.time}
                         </span>
                         {match.broadcast && (
                             <div style={{ fontSize: '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
