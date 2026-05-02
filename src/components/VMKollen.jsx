@@ -8,15 +8,12 @@ import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight, ArrowUp } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 
-const STAT_SUBTABS = [
-    { id: 'ranking', label: 'FIFA:s världsranking' },
-    { id: 'skytteliga', label: 'Skytteliga (Kval)' },
-];
+
+
 
 const SUBTABS = [
     { id: 'matcher', label: 'Matcher', icon: Calendar },
@@ -84,36 +81,24 @@ const VMKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
-    const [activeStatTab, setActiveStatTab] = useState('ranking');
-    const [scorersData, setScorersData] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [anchorElStats, setAnchorElStats] = useState(null);
+    const [showScrollTop, setShowScrollTop] = useState(false);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
-    const scorerRefs = React.useRef({});
 
     // Auto-scroll in stats sub-tabs
     useEffect(() => {
         if (!filterCountry) return;
 
         setTimeout(() => {
-            if (activeStatTab === 'ranking' && rankingData?.rankings) {
+            if (rankingData?.rankings) {
                 const target = rankingData.rankings.find(r => r.team.includes(filterCountry));
                 if (target && rankingRefs.current[target.team]) {
                     rankingRefs.current[target.team].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-            } else if (activeStatTab === 'skytteliga' && scorersData?.scorers) {
-                const target = scorersData.scorers.find(s => {
-                    const filterCodes = getFlagCodes(filterCountry);
-                    const scorerCodes = getFlagCodes(s.team);
-                    return filterCodes.length > 0 && scorerCodes.length > 0 && filterCodes[0] === scorerCodes[0];
-                });
-                if (target && scorerRefs.current[target.player]) {
-                    scorerRefs.current[target.player].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
             }
         }, 100);
-    }, [activeStatTab, filterCountry, rankingData, scorersData]);
+    }, [filterCountry, rankingData]);
 
     const allCountries = useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -132,9 +117,6 @@ const VMKollen = () => {
 
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
-
-    const handleStatsMenuClick = (event) => setAnchorElStats(event.currentTarget);
-    const handleStatsMenuClose = () => setAnchorElStats(null);
 
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
@@ -179,15 +161,13 @@ const VMKollen = () => {
             fetchData('worldcup_2026_groups.json'),
             fetchData('worldcup_2026_matches.json'),
             fetchData('worldcup_2026_knockout.json').catch(() => null),
-            fetchData('fifa_ranking.json').catch(() => null),
-            fetchData('worldcup_2026_scorers.json').catch(() => null)
+            fetchData('fifa_ranking.json').catch(() => null)
         ])
-            .then(([gData, mData, kData, rData, sData]) => {
+            .then(([gData, mData, kData, rData]) => {
                 setGroupsData(gData);
                 setMatchesData(mData);
                 setKnockoutData(kData);
                 setRankingData(rData);
-                setScorersData(sData);
                 setLoading(false);
             })
             .catch(err => {
@@ -195,6 +175,18 @@ const VMKollen = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 400);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     useEffect(() => {
         if (filterCountry) localStorage.setItem('os-koll-filter', filterCountry);
@@ -616,16 +608,14 @@ const VMKollen = () => {
         <div
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
-            {/* Floating Filter Button - Only on stats page, opens stats sub-tabs */}
-            {activeTab === 'statistik' && (
-                <button
-                    onClick={handleStatsMenuClick}
-                    className="floating-filter-btn"
-                    aria-label="Välj statistikvy"
-                >
-                    <FilterListRoundedIcon sx={{ fontSize: 24 }} />
-                </button>
-            )}
+            <button
+                className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
+                onClick={scrollToTop}
+                aria-label="Scrolla till toppen"
+            >
+                <ArrowUp size={28} />
+            </button>
+
 
             {/* Full-width Sticky Header */}
             <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
@@ -759,46 +749,7 @@ const VMKollen = () => {
                     ))}
                 </MuiMenu>
 
-                {/* Stats Sub-tabs Menu */}
-                <MuiMenu
-                    anchorEl={anchorElStats}
-                    open={Boolean(anchorElStats)}
-                    onClose={handleStatsMenuClose}
-                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                    slotProps={{
-                        paper: {
-                            style: {
-                                width: '220px',
-                                borderRadius: '16px',
-                                marginTop: '8px',
-                                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-                                border: '0.5px solid rgba(0,0,0,0.08)',
-                                padding: '8px 0'
-                            }
-                        }
-                    }}
-                >
-                    {STAT_SUBTABS.map((tab) => (
-                        <MenuItem 
-                            key={tab.id}
-                            onClick={() => {
-                                setActiveStatTab(tab.id);
-                                handleStatsMenuClose();
-                            }}
-                            selected={activeStatTab === tab.id}
-                            style={{ 
-                                fontSize: '0.9rem', 
-                                fontWeight: activeStatTab === tab.id ? 700 : 500,
-                                padding: '12px 16px',
-                                borderRadius: '8px',
-                                margin: '2px 8px'
-                            }}
-                        >
-                            {tab.label}
-                        </MenuItem>
-                    ))}
-                </MuiMenu>
+
 
             {/* Centered Content Container */}
             <div style={{ 
@@ -826,10 +777,20 @@ const VMKollen = () => {
                     )}
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <div style={{
+                                fontSize: '0.95rem',
+                                fontWeight: '800',
+                                textTransform: 'uppercase',
+                                paddingLeft: '4px',
+                                marginBottom: '4px',
+                                color: 'var(--color-text-muted)',
+                                letterSpacing: '0.05em'
+                            }}>
+                                FIFAs världsranking
+                            </div>
 
                             {/* Ranking Sub-page */}
-                            {activeStatTab === 'ranking' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
                                         <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '8px' }}>
                                             {rankingData.lastUpdate && <div>Senast uppdaterad: {formatSwedishDate(rankingData.lastUpdate)}</div>}
@@ -928,86 +889,6 @@ const VMKollen = () => {
                                         </table>
                                     </Card>
                                 </div>
-                            )}
-
-                            {activeStatTab === 'skytteliga' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                    {(() => {
-                                        const groupedScorers = scorersData?.scorers?.reduce((acc, s) => {
-                                            const goals = s.goals;
-                                            if (!acc[goals]) acc[goals] = [];
-                                            acc[goals].push(s);
-                                            return acc;
-                                        }, {});
-
-                                        const sortedGoals = Object.keys(groupedScorers || {}).sort((a, b) => b - a);
-
-                                        if (!scorersData?.scorers || scorersData.scorers.length === 0) {
-                                            return (
-                                                <Card style={{ padding: '24px', textAlign: 'center', color: 'var(--color-text-muted)' }}>
-                                                    Ingen data tillgänglig ännu.
-                                                </Card>
-                                            );
-                                        }
-
-                                        return (
-                                            <>
-                                                {sortedGoals.map(goalCount => (
-                                                    <div key={goalCount} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                        <div style={{ 
-                                                            fontSize: '0.8rem', 
-                                                            fontWeight: '800', 
-                                                            textTransform: 'uppercase', 
-                                                            paddingLeft: '4px', 
-                                                            color: 'var(--color-text-muted)', 
-                                                            letterSpacing: '0.05em' 
-                                                        }}>
-                                                            {goalCount} MÅL
-                                                        </div>
-                                                        <Card style={{ marginBottom: '0', padding: '0', overflow: 'hidden' }}>
-                                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                                                                <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
-                                                                    Målskyttar med {goalCount} mål
-                                                                </caption>
-                                                                <tbody>
-                                                                    {groupedScorers[goalCount].sort((a, b) => {
-                                                                        const lastA = a.player.split(' ').pop();
-                                                                        const lastB = b.player.split(' ').pop();
-                                                                        return lastA.localeCompare(lastB, 'sv');
-                                                                    }).map((s, i) => {
-                                                                        const filterCodes = filterCountry ? getFlagCodes(filterCountry) : [];
-                                                                        const scorerCodes = getFlagCodes(s.team);
-                                                                        const isSelected = filterCountry && filterCodes.length > 0 && scorerCodes.length > 0 && filterCodes[0] === scorerCodes[0];
-                                                                        return (
-                                                                            <tr key={i} ref={el => scorerRefs.current[s.player] = el}>
-                                                                                <td style={{ padding: '2px 4px' }}>
-                                                                                    <div style={{ 
-                                                                                        display: 'flex', 
-                                                                                        alignItems: 'center', 
-                                                                                        gap: '10px',
-                                                                                        backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                                        padding: '9px 12px',
-                                                                                        borderRadius: '10px',
-                                                                                        transition: 'background-color 0.2s ease',
-                                                                                        width: 'fit-content'
-                                                                                    }}>
-                                                                                        <FlagBadge codes={getFlagCodes(s.team)} name={s.team} size={28} />
-                                                                                        <div style={{ fontSize: '0.95rem' }}>{s.player}</div>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                        );
-                                                                    })}
-                                                                </tbody>
-                                                            </table>
-                                                        </Card>
-                                                    </div>
-                                                ))}
-                                            </>
-                                        );
-                                    })()}
-                                </div>
-                            )}
                         </div>
                     )}
 

@@ -4,7 +4,7 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
@@ -53,9 +53,13 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
 
     const content = (
         <Card key={idx} padding="12px 14px" style={{
-            border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', ...props.style
-        }}>
-            <FlagBadge codes={homeFlags} name={match.home} size={28} onClick={(e) => handleTeamClick(e, match.home)} />
+            border: 'var(--border)', boxShadow: 'none', backgroundColor: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', cursor: props.onClick ? 'pointer' : 'default', ...props.style
+        }} onClick={props.onClick}>
+            {homeLogo ? (
+                <img src={homeLogo} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} />
+            ) : (
+                <FlagBadge codes={homeFlags} name={match.home} size={28} onClick={(e) => handleTeamClick(e, match.home)} />
+            )}
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ fontSize: '0.9rem', color: 'var(--color-text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', textAlign: 'center' }}>
                     <button
@@ -144,7 +148,11 @@ const MatchCard = ({ match, idx, onCountryClick, ...props }) => {
                     </button>
                 </div>
             </div>
-            <FlagBadge codes={awayFlags} name={match.away} size={28} onClick={(e) => handleTeamClick(e, match.away)} />
+            {awayLogo ? (
+                <img src={awayLogo} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} />
+            ) : (
+                <FlagBadge codes={awayFlags} name={match.away} size={28} onClick={(e) => handleTeamClick(e, match.away)} />
+            )}
         </Card>
     );
 
