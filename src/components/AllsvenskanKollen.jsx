@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
+import SvenskaCupenBracket from './SvenskaCupenBracket';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,6 +16,8 @@ const AllsvenskanKollen = () => {
     const [tableData, setTableData] = useState(null);
     const [maratonData, setMaratonData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const tableRefs = React.useRef({});
+    const maratonRefs = React.useRef({});
     const [showScrollTop, setShowScrollTop] = useState(false);
     const navigate = useNavigate();
 
@@ -27,7 +30,7 @@ const AllsvenskanKollen = () => {
     const SUBTABS = [
         { id: 'matcher', label: 'Matcher', icon: Calendar },
         { id: 'gruppspel', label: 'Tabell', icon: List },
-        { id: 'slutspel', label: 'Slutspel', icon: Trophy },
+        { id: 'slutspel', label: 'Svenska Cupen', icon: Trophy },
         { id: 'statistik', label: 'Statistik', icon: BarChart3 }
     ];
 
@@ -54,8 +57,32 @@ const AllsvenskanKollen = () => {
     }, [filterTeam]);
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [activeTab, filterTeam]);
+        // If no team is filtered, always go to top
+        if (!filterTeam) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
+        // Delay to allow for tab switching and DOM rendering
+        const timer = setTimeout(() => {
+            let scrolled = false;
+
+            if (activeTab === 'gruppspel' && tableRefs.current[filterTeam]) {
+                tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                scrolled = true;
+            } else if (activeTab === 'statistik' && maratonRefs.current[filterTeam]) {
+                maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                scrolled = true;
+            }
+
+            // If we didn't scroll to a specific team (e.g. in Matcher tab or if element missing), scroll to top
+            if (!scrolled) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }, 150);
+
+        return () => clearTimeout(timer);
+    }, [activeTab, filterTeam, loading]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -301,7 +328,7 @@ const AllsvenskanKollen = () => {
                                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                                     <thead>
                                         <tr style={{ borderBottom: 'var(--border)' }}>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
+                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
                                             <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
                                             <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
                                             <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
@@ -313,11 +340,15 @@ const AllsvenskanKollen = () => {
                                         const rank = parseInt(team.rank);
                                         const isFiltered = filterTeam === team.team;
                                         const isTop = rank <= 3;
-                                        const isBottom = rank >= 14;
+                                        const isPlayoff = rank === 14;
+                                        const isRelegation = rank >= 15;
+
+                                        const isSeparator = [2, 4, 14, 15].includes(rank);
 
                                         return (
                                             <tr 
                                                 key={idx} 
+                                                ref={el => tableRefs.current[team.team] = el}
                                                 style={{ 
                                                     backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                                                     transition: 'background-color 0.2s ease'
@@ -326,7 +357,8 @@ const AllsvenskanKollen = () => {
                                                 <td style={{ 
                                                     padding: '8px 4px',
                                                     borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0',
+                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                 }}>
                                                     <div style={{ 
                                                         width: '28px', 
@@ -337,13 +369,16 @@ const AllsvenskanKollen = () => {
                                                         borderRadius: '8px', 
                                                         fontWeight: '700', 
                                                         fontSize: '0.85rem', 
-                                                        backgroundColor: isTop ? 'rgba(52, 199, 89, 0.15)' : (isBottom ? 'rgba(255, 59, 48, 0.15)' : 'transparent'), 
-                                                        color: isTop ? '#34c759' : (isBottom ? '#ff3b30' : 'inherit') 
+                                                        backgroundColor: 'transparent', 
+                                                        color: 'inherit' 
                                                     }}>
                                                         {team.rank}
                                                     </div>
                                                 </td>
-                                                <td style={{ padding: '11px 4px' }}>
+                                                <td style={{ 
+                                                    padding: '11px 4px',
+                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                }}>
                                                     <button 
                                                         onClick={() => handleTeamClick(team.team)}
                                                         style={{ 
@@ -364,8 +399,17 @@ const AllsvenskanKollen = () => {
                                                         <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>{team.team}</span>
                                                     </button>
                                                 </td>
-                                                <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                                <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759') }}>
+                                                <td style={{ 
+                                                    padding: '11px 4px', 
+                                                    textAlign: 'center',
+                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                }}>{team.played}</td>
+                                                <td style={{ 
+                                                    padding: '11px 4px', 
+                                                    textAlign: 'center', 
+                                                    color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
+                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                }}>
                                                     {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
                                                 </td>
                                                 <td style={{ 
@@ -373,7 +417,8 @@ const AllsvenskanKollen = () => {
                                                     textAlign: 'right', 
                                                     fontWeight: '800',
                                                     borderTopRightRadius: isFiltered ? '10px' : '0',
-                                                    borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                                    borderBottomRightRadius: isFiltered ? '10px' : '0',
+                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                 }}>{team.points}</td>
                                             </tr>
                                         );
@@ -385,10 +430,12 @@ const AllsvenskanKollen = () => {
                     )}
 
                     {activeTab === 'slutspel' && (
-                        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-muted)' }}>
-                            <Trophy size={48} style={{ marginBottom: '16px', opacity: 0.2, margin: '0 auto' }} />
-                            <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '8px' }}>Inget slutspel</h3>
-                            <p style={{ fontSize: '0.9rem' }}>Allsvenskan är en rak serie utan slutspel.</p>
+                        <div style={{ width: '100%' }}>
+                            <SvenskaCupenBracket 
+                                filterTeam={filterTeam} 
+                                onTeamClick={handleTeamClick} 
+                                getTeamLogo={getTeamLogo}
+                            />
                         </div>
                     )}
 
@@ -401,7 +448,7 @@ const AllsvenskanKollen = () => {
                                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
                                     <thead>
                                         <tr style={{ borderBottom: 'var(--border)' }}>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
+                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
                                             <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
                                             <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>SÄS</th>
                                             <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '50px' }}>S</th>
@@ -409,13 +456,14 @@ const AllsvenskanKollen = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {maratonData?.table.slice(0, 25).map((team, idx) => {
+                                        {maratonData?.table.map((team, idx) => {
                                             const rank = idx + 1;
                                             const isFiltered = filterTeam && team.team.includes(filterTeam);
                                             
                                             return (
                                                 <tr 
                                                     key={idx} 
+                                                    ref={el => tableRefs.current[team.team] = el}
                                                     style={{ 
                                                         backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                                                         transition: 'background-color 0.2s ease'
@@ -431,8 +479,8 @@ const AllsvenskanKollen = () => {
                                                             borderRadius: '8px', 
                                                             fontWeight: '700', 
                                                             fontSize: '0.85rem',
-                                                            backgroundColor: rank <= 3 ? 'rgba(52, 199, 89, 0.15)' : 'transparent',
-                                                            color: rank <= 3 ? '#34c759' : 'inherit'
+                                                            backgroundColor: 'transparent',
+                                                            color: 'inherit'
                                                         }}>
                                                             {team.rank}
                                                         </div>
@@ -451,9 +499,6 @@ const AllsvenskanKollen = () => {
                                         })}
                                     </tbody>
                                 </table>
-                                <div style={{ padding: '16px', textAlign: 'center', borderTop: 'var(--border)', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-                                    Visar de 25 främsta lagen genom tiderna
-                                </div>
                             </Card>
                         </div>
                     )}
