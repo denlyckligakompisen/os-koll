@@ -61,18 +61,19 @@ async function scrapeAllsvenskan() {
                 home = clean(home);
                 away = clean(away);
 
-                const scoreEls = row.querySelectorAll('.heading-lg-h5, .heading-h6');
-                scoreEls.forEach(el => {
-                    const scoreMatch = el.innerText.match(/^(\d+)\s*[-–]\s*(\d+)$/);
-                    if (scoreMatch) {
-                        score = `${scoreMatch[1]} - ${scoreMatch[2]}`;
-                        status = 'finished';
-                    }
-                });
+                const scoreBadges = row.querySelectorAll('.score-result.badge');
+                if (scoreBadges.length >= 2) {
+                    score = `${scoreBadges[0].innerText.trim()} - ${scoreBadges[1].innerText.trim()}`;
+                }
+
+                if (text.includes('SUMMERING')) {
+                    status = 'finished';
+                } else if (text.toLowerCase().includes('live')) {
+                    status = 'live';
+                }
 
                 const timeMatch = text.match(/(\d{2}:\d{2})/);
                 if (timeMatch) time = timeMatch[1];
-                if (text.toLowerCase().includes('live')) status = 'live';
 
                 const linkEl = row.querySelector('a[href*="/matcher/"]');
                 link = linkEl ? (linkEl.href.startsWith('http') ? linkEl.href : 'https://allsvenskan.se' + linkEl.getAttribute('href')) : '';

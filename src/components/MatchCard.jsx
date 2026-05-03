@@ -90,7 +90,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             {homeLogo ? (
                 <img src={homeLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />
             ) : (
-                <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.home)} />
+                homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.home)} />
             )}
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ 
@@ -197,7 +197,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             {awayLogo ? (
                 <img src={awayLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />
             ) : (
-                <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.away)} />
+                awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.away)} />
             )}
         </Card>
     );

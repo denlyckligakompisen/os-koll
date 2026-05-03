@@ -25,7 +25,7 @@ const BracketMatch = ({ match, filterTeam, onTeamClick, getTeamLogo }) => {
                     transition: 'all 0.2s ease', minWidth: 0, flex: 1
                 }}
             >
-                {getTeamLogo && (
+                {getTeamLogo && getTeamLogo(name) && (
                     <img src={getTeamLogo(name)} alt="" style={{ width: '20px', height: '20px', objectFit: 'contain', opacity: isPlaceholder ? 0.3 : 1 }} />
                 )}
                 <span style={{ 

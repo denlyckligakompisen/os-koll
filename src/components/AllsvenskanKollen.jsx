@@ -141,7 +141,7 @@ const AllsvenskanKollen = () => {
     };
 
     const getTeamLogo = (name) => {
-        if (!name) return "";
+        if (!name) return null;
         // Match name directly or clean it
         if (logosData[name]) return logosData[name];
         
@@ -153,7 +153,7 @@ const AllsvenskanKollen = () => {
         const match = logoEntries.find(([team]) => team.includes(cleanName) || cleanName.includes(team));
         if (match) return match[1];
 
-        return logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png";
+        return null;
     };
 
     const filteredMatches = useMemo(() => {
@@ -195,7 +195,7 @@ const AllsvenskanKollen = () => {
                 <ArrowUp size={28} />
             </button>
 
-            <div className="nav-container" style={{ '--active-color': '#005DAA' }}>
+            <div className="nav-container" style={{ '--active-color': '#000000' }}>
                 <div
                     className="header-logo"
                     style={{ background: 'none', border: 'none', cursor: 'pointer' }}
@@ -235,7 +235,7 @@ const AllsvenskanKollen = () => {
                         aria-label="Välj lag att filtrera"
                         style={{ height: '100%' }}
                     >
-                        {filterTeam ? (
+                        {filterTeam && getTeamLogo(filterTeam) ? (
                             <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
                         ) : (
                             <Globe size={24} color="#8e8e93" strokeWidth={1.5} />
@@ -286,7 +286,7 @@ const AllsvenskanKollen = () => {
                         }}
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />
+                            {getTeamLogo(filterTeam) && <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
                             <span>{filterTeam}</span>
                         </div>
                         <X size={18} strokeWidth={2.5} />
@@ -311,7 +311,7 @@ const AllsvenskanKollen = () => {
                             lineHeight: '1.2'
                         }}
                     >
-                        <img src={getTeamLogo(team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />
+                        {getTeamLogo(team) && <img src={getTeamLogo(team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
                         <span>{team}</span>
                     </MenuItem>
                 ))}
@@ -429,8 +429,10 @@ const AllsvenskanKollen = () => {
                                                             textAlign: 'left'
                                                         }}
                                                     >
-                                                        <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />
-                                                        <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>{team.team}</span>
+                                                        <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>
+                                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain', display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }} />}
+                                                            <span style={{ verticalAlign: 'middle' }}>{team.team}</span>
+                                                        </span>
                                                     </button>
                                                 </td>
                                                 <td style={{ 
@@ -521,7 +523,7 @@ const AllsvenskanKollen = () => {
                                                     </td>
                                                     <td style={{ padding: '11px 4px' }}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                            <img src={getTeamLogo(team.team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />
+                                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
                                                             <span style={{ fontWeight: '500' }}>{team.team}</span>
                                                         </div>
                                                     </td>
