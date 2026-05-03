@@ -4,7 +4,7 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, variant, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
@@ -23,7 +23,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             const [rank, teamName] = name.split('\n');
             return (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
+                    <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
                     <BoldSverige text={teamName} />
                 </div>
             );
@@ -48,13 +48,90 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
         }
     };
 
+    if (variant === 'hero') {
+        return (
+            <Card 
+                key={idx} 
+                padding="28px"
+                style={{
+                    background: 'var(--color-card-bg-elevated)',
+                    border: 'var(--border)',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                    ...props.style
+                }}
+                onClick={props.onClick}
+            >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                    <button
+                        onClick={(e) => handleTeamClick(e, match.home)}
+                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: onCountryClick ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
+                    >
+                        {homeLogo ? (
+                            <img src={homeLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
+                        ) : (
+                            homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={72} />
+                        )}
+                        <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
+                    </button>
+
+                    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                        {match.group && (
+                            <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                {match.group}
+                            </div>
+                        )}
+                        <button
+                            onClick={handleBroadcastClick}
+                            disabled={!getBroadcasterUrl(match.broadcast)}
+                            style={{
+                                fontSize: '1.4rem',
+                                fontWeight: '900',
+                                color: (match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)',
+                                backgroundColor: (match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
+                                padding: '8px 20px',
+                                borderRadius: '12px',
+                                border: 'none',
+                                cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px'
+                            }}
+                        >
+                            {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {match.status === 'finished' ? (match.score || match.time) : 
+                             (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
+                             match.time}
+                        </button>
+                        {match.broadcast && (
+                            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                {match.broadcast}
+                            </div>
+                        )}
+                    </div>
+
+                    <button
+                        onClick={(e) => handleTeamClick(e, match.away)}
+                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: onCountryClick ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
+                    >
+                        {awayLogo ? (
+                            <img src={awayLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
+                        ) : (
+                            awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={72} />
+                        )}
+                        <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
+                    </button>
+                </div>
+            </Card>
+        );
+    }
+
     const content = (
         <Card 
             key={idx} 
             padding={highlight ? "20px 14px" : "12px 14px"} 
             style={{
-                border: highlight ? '1.5px solid var(--color-primary)' : 'var(--border)', 
-                boxShadow: highlight ? '0 12px 30px rgba(0,0,0,0.08)' : 'none', 
+                border: 'var(--border)', 
+                boxShadow: 'none', 
                 backgroundColor: 'var(--color-card-bg)', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -68,25 +145,6 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             }} 
             onClick={props.onClick}
         >
-            {highlight && (
-                <div style={{
-                    position: 'absolute',
-                    top: '-12px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'white',
-                    fontSize: '0.6rem',
-                    fontWeight: '900',
-                    padding: '2px 10px',
-                    borderRadius: '10px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
-                }}>
-                    NÄSTA MATCH
-                </div>
-            )}
             {homeLogo ? (
                 <img src={homeLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />
             ) : (

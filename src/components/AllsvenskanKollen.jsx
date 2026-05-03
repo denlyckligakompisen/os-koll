@@ -40,6 +40,7 @@ const AllsvenskanKollen = () => {
     const [loading, setLoading] = useState(true);
     const tableRefs = React.useRef({});
     const maratonRefs = React.useRef({});
+    const nextMatchRef = React.useRef(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const navigate = useNavigate();
 
@@ -79,29 +80,28 @@ const AllsvenskanKollen = () => {
     }, [filterTeam]);
 
     useEffect(() => {
-        // If no team is filtered, always go to top
-        if (!filterTeam) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-        }
-
         // Delay to allow for tab switching and DOM rendering
         const timer = setTimeout(() => {
             let scrolled = false;
 
-            if (activeTab === 'gruppspel' && tableRefs.current[filterTeam]) {
-                tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                scrolled = true;
-            } else if (activeTab === 'statistik' && maratonRefs.current[filterTeam]) {
-                maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                scrolled = true;
+            if (filterTeam) {
+                if (activeTab === 'gruppspel' && tableRefs.current[filterTeam] && window.innerWidth < 1024) {
+                    tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    scrolled = true;
+                } else if (activeTab === 'statistik' && maratonRefs.current[filterTeam]) {
+                    maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    scrolled = true;
+                }
             }
 
-            // If we didn't scroll to a specific team (e.g. in Matcher tab or if element missing), scroll to top
             if (!scrolled) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (activeTab === 'matcher' && nextMatchRef.current) {
+                    nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
-        }, 150);
+        }, 100);
 
         return () => clearTimeout(timer);
     }, [activeTab, filterTeam, loading]);
@@ -135,8 +135,22 @@ const AllsvenskanKollen = () => {
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
 
-    const handleTeamClick = (team) => {
-        setFilterTeam(prev => prev === team ? null : team);
+    const handleTeamClick = (teamName) => {
+        if (!teamName) return;
+        
+        // Find exact match first
+        let matchedTeam = teams.find(t => t === teamName);
+        
+        // If no exact match, try fuzzy match
+        if (!matchedTeam) {
+            const clean = (n) => n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+            const cleanedInput = clean(teamName);
+            matchedTeam = teams.find(t => clean(t) === cleanedInput || t.includes(cleanedInput));
+        }
+
+        if (matchedTeam) {
+            setFilterTeam(prev => prev === matchedTeam ? null : matchedTeam);
+        }
         handleMenuClose();
     };
 
@@ -166,6 +180,16 @@ const AllsvenskanKollen = () => {
         });
     }, [matchesData, filterTeam]);
 
+    const nextMatchTime = useMemo(() => {
+        if (filteredMatches.length === 0) return null;
+        const now = new Date();
+        const upcoming = filteredMatches
+            .map(m => parseMatchDate(m.date, m.time))
+            .filter(d => d >= now)
+            .sort((a, b) => a - b);
+        return upcoming[0] ? upcoming[0].getTime() : null;
+    }, [filteredMatches]);
+
     const groupedMatches = useMemo(() => {
         const groups = {};
         filteredMatches.forEach(match => {
@@ -175,15 +199,10 @@ const AllsvenskanKollen = () => {
         return Object.entries(groups).map(([date, matches]) => ({ date, matches }));
     }, [filteredMatches]);
 
-    const nextMatch = useMemo(() => {
-        if (!matchesData?.matches) return null;
-        const now = new Date();
-        const upcoming = matchesData.matches
-            .map(m => ({ ...m, dateObj: parseMatchDate(m.date, m.time) }))
-            .filter(m => m.dateObj >= now)
-            .sort((a, b) => a.dateObj - b.dateObj);
-        return upcoming[0];
-    }, [matchesData]);
+    const heroMatches = useMemo(() => {
+        if (!nextMatchTime) return [];
+        return filteredMatches.filter(m => parseMatchDate(m.date, m.time).getTime() === nextMatchTime);
+    }, [filteredMatches, nextMatchTime]);
 
     return (
         <div style={{ minHeight: '100vh', paddingBottom: '100px' }}>
@@ -219,7 +238,6 @@ const AllsvenskanKollen = () => {
                             className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
                             onClick={() => {
                                 setActiveTab(tab.id);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                         >
                             <tab.icon size={22} className="tab-icon" />
@@ -326,32 +344,40 @@ const AllsvenskanKollen = () => {
                                 <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
                                     Laddar matcher...
                                 </div>
-                            ) : groupedMatches.length > 0 ? (
-                                groupedMatches.map((group, i) => (
-                                    <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                        <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
-                                            {group.date}
-                                        </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                            {group.matches.map((match, j) => (
-                                                <MatchCard 
-                                                    key={j} 
-                                                    match={match} 
-                                                    idx={j} 
-                                                    onCountryClick={handleTeamClick}
-                                                    homeLogo={getTeamLogo(match.home)}
-                                                    awayLogo={getTeamLogo(match.away)}
-                                                    highlight={nextMatch && match.home === nextMatch.home && match.away === nextMatch.away && match.date === nextMatch.date}
-                                                    onClick={() => match.link && window.open(match.link, '_blank')}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))
                             ) : (
-                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-                                    Inga matcher hittades.
-                                </div>
+                                <>
+                                    {groupedMatches.length > 0 ? (
+                                        groupedMatches.map((group, i) => (
+                                            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
+                                                    {group.date}
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                    {group.matches.map((match, j) => {
+                                                        const isHero = nextMatchTime && parseMatchDate(match.date, match.time).getTime() === nextMatchTime;
+                                                        return (
+                                                            <div key={j} ref={isHero && heroMatches[0] === match ? nextMatchRef : null} style={{ marginBottom: isHero ? '12px' : '0' }}>
+                                                                <MatchCard 
+                                                                    match={match} 
+                                                                    idx={j} 
+                                                                    variant={isHero ? 'hero' : undefined}
+                                                                    onCountryClick={handleTeamClick}
+                                                                    homeLogo={getTeamLogo(match.home)}
+                                                                    awayLogo={getTeamLogo(match.away)}
+                                                                    onClick={() => match.link && window.open(match.link, '_blank')}
+                                                                />
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
+                                            Inga matcher hittades.
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </>
                     )}
@@ -499,7 +525,7 @@ const AllsvenskanKollen = () => {
                                             return (
                                                 <tr 
                                                     key={idx} 
-                                                    ref={el => tableRefs.current[team.team] = el}
+                                                    ref={el => maratonRefs.current[team.team] = el}
                                                     style={{ 
                                                         backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                                                         transition: 'background-color 0.2s ease'
@@ -522,10 +548,24 @@ const AllsvenskanKollen = () => {
                                                         </div>
                                                     </td>
                                                     <td style={{ padding: '11px 4px' }}>
-                                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                        <button 
+                                                            onClick={() => handleTeamClick(team.team)}
+                                                            style={{ 
+                                                                display: 'flex', 
+                                                                alignItems: 'center', 
+                                                                gap: '8px',
+                                                                background: 'none',
+                                                                border: 'none',
+                                                                padding: 0,
+                                                                font: 'inherit',
+                                                                color: 'inherit',
+                                                                cursor: teams.some(t => t.includes(team.team.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim())) ? 'pointer' : 'default',
+                                                                textAlign: 'left'
+                                                            }}
+                                                        >
                                                             {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
                                                             <span style={{ fontWeight: '500' }}>{team.team}</span>
-                                                        </div>
+                                                        </button>
                                                     </td>
                                                     <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.seasons}</td>
                                                     <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
