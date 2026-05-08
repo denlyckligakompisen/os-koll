@@ -445,7 +445,7 @@
       "home": "IFK Göteborg",
       "away": "Hammarby IF",
       "time": "13:00",
-      "date": "FREDAG 8 MAJ",
+      "date": "MÅNDAG 4 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
       "score": "",
       "status": "upcoming"
@@ -2218,7 +2218,7 @@
       "home": "IF Elfsborg",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "FREDAG 8 MAJ",
+      "date": "MÅNDAG 4 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming"
@@ -2251,6 +2251,6 @@
       "status": "upcoming"
     }
   ],
-  "lastUpdated": "2026-05-07T07:40:34.427Z",
+  "lastUpdated": "2026-05-08T06:29:44.143Z",
   "source": "https://allsvenskan.se/matcher"
 }
