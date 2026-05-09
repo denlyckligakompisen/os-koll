@@ -34,6 +34,32 @@ body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.015em;
   /* iOS feels more compact */
+  overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile browsers */
+}
+
+/* Native App Feel Locks */
+button, 
+a, 
+input, 
+select, 
+textarea,
+.segmented-button,
+.sverige-toggle,
+.header-logo,
+.scroll-to-top-btn,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent; /* Disable the grey overlay on tap */
+}
+
+.nav-container,
+.segmented-control,
+.scroll-to-top-btn,
+.bracket-container,
+.header-logo,
+button,
+img {
+  user-select: none;
+  -webkit-user-select: none; /* Prevent selection highlights during swipes */
 }
 
 #root {

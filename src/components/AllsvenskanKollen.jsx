@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
-import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ChevronDown, Filter } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -222,6 +222,104 @@ const AllsvenskanKollen = () => {
 
     const headerStyle = useMemo(() => getHeaderStyle(filterTeam), [filterTeam]);
 
+    const tableTrends = useMemo(() => {
+        if (!tableData?.table || !matchesData?.matches) return {};
+        
+        try {
+            const currentTable = tableData.table;
+            const matches = matchesData.matches;
+
+            // Map each team to their current table stats
+            const prevStats = currentTable.map(row => {
+                const goalsParts = row.goals.split('-').map(Number);
+                return {
+                    team: row.team,
+                    points: parseInt(row.points) || 0,
+                    played: parseInt(row.played) || 0,
+                    won: parseInt(row.won) || 0,
+                    drawn: parseInt(row.drawn) || 0,
+                    lost: parseInt(row.lost) || 0,
+                    goalsFor: goalsParts[0] || 0,
+                    goalsAgainst: goalsParts[1] || 0,
+                    gd: parseInt(row.gd) || 0,
+                    currentRank: parseInt(row.rank) || 0
+                };
+            });
+
+            const clean = (n) => n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+
+            // Find the last finished match for each team and subtract its impact
+            prevStats.forEach(stat => {
+                const cleanTeam = clean(stat.team);
+                
+                // Find all finished matches for this team
+                const teamMatches = matches.filter(m => {
+                    if (m.status !== 'finished' || !m.score) return false;
+                    return clean(m.home).includes(cleanTeam) || clean(m.away).includes(cleanTeam);
+                });
+
+                if (teamMatches.length > 0) {
+                    const sortedMatches = [...teamMatches].sort((a, b) => {
+                        const dateA = parseMatchDate(a.date, a.time);
+                        const dateB = parseMatchDate(b.date, b.time);
+                        return dateB - dateA;
+                    });
+
+                    const lastMatch = sortedMatches[0];
+                    const scoreParts = lastMatch.score.split('-').map(s => parseInt(s.trim()));
+                    if (scoreParts.length === 2 && !isNaN(scoreParts[0]) && !isNaN(scoreParts[1])) {
+                        const homeScore = scoreParts[0];
+                        const awayScore = scoreParts[1];
+                        const isHome = clean(lastMatch.home).includes(cleanTeam);
+
+                        const goalsFor = isHome ? homeScore : awayScore;
+                        const goalsAgainst = isHome ? awayScore : homeScore;
+
+                        stat.goalsFor -= goalsFor;
+                        stat.goalsAgainst -= goalsAgainst;
+                        stat.gd = stat.goalsFor - stat.goalsAgainst;
+                        stat.played -= 1;
+
+                        if (homeScore === awayScore) {
+                            stat.points -= 1;
+                            stat.drawn -= 1;
+                        } else if ((isHome && homeScore > awayScore) || (!isHome && awayScore > homeScore)) {
+                            stat.points -= 3;
+                            stat.won -= 1;
+                        } else {
+                            stat.lost -= 1;
+                        }
+                    }
+                }
+            });
+
+            // Sort previous stats
+            const sortedPrev = [...prevStats].sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                if (b.gd !== a.gd) return b.gd - a.gd;
+                return b.goalsFor - a.goalsFor;
+            });
+
+            const trends = {};
+            sortedPrev.forEach((stat, idx) => {
+                const prevRank = idx + 1;
+                const currentRank = stat.currentRank;
+                if (prevRank > currentRank) {
+                    trends[stat.team] = 'up';
+                } else if (prevRank < currentRank) {
+                    trends[stat.team] = 'down';
+                } else {
+                    trends[stat.team] = 'same';
+                }
+            });
+
+            return trends;
+        } catch (error) {
+            console.error('Error calculating table trends:', error);
+            return {};
+        }
+    }, [tableData, matchesData]);
+
     useEffect(() => {
         // Delay to allow for tab switching and DOM rendering
         const timer = setTimeout(() => {
@@ -306,10 +404,12 @@ const AllsvenskanKollen = () => {
                 if (diffX > 0) {
                     if (currentIndex < SUBTABS.length - 1) {
                         setActiveTab(SUBTABS[currentIndex + 1].id);
+                        if (navigator.vibrate) navigator.vibrate(10);
                     }
                 } else {
                     if (currentIndex > 0) {
                         setActiveTab(SUBTABS[currentIndex - 1].id);
+                        if (navigator.vibrate) navigator.vibrate(10);
                     }
                 }
             }
@@ -336,7 +436,7 @@ const AllsvenskanKollen = () => {
             ref={containerRef}
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
-            {activeTab !== 'matcher' && (
+            {activeTab !== 'matcher' && activeTab !== 'gruppspel' && (
                 <button
                     className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
                     onClick={scrollToTop}
@@ -383,6 +483,7 @@ const AllsvenskanKollen = () => {
                             className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
                             onClick={() => {
                                 setActiveTab(tab.id);
+                                if (navigator.vibrate) navigator.vibrate(10);
                             }}
                             style={{
                                 color: activeTab === tab.id ? headerStyle.text : headerStyle.inactiveText,
@@ -616,18 +717,30 @@ const AllsvenskanKollen = () => {
                                                     borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                 }}>
                                                     <div style={{ 
-                                                        width: '28px', 
-                                                        height: '28px', 
                                                         display: 'flex', 
                                                         alignItems: 'center', 
-                                                        justifyContent: 'center', 
-                                                        borderRadius: '8px', 
-                                                        fontWeight: '700', 
-                                                        fontSize: '0.85rem', 
-                                                        backgroundColor: 'transparent', 
-                                                        color: 'inherit' 
+                                                        gap: '4px',
+                                                        paddingLeft: '4px'
                                                     }}>
-                                                        {team.rank}
+                                                        <div style={{ 
+                                                            width: '20px', 
+                                                            height: '28px', 
+                                                            display: 'flex', 
+                                                            alignItems: 'center', 
+                                                            justifyContent: 'center', 
+                                                            fontWeight: '700', 
+                                                            fontSize: '0.85rem', 
+                                                            backgroundColor: 'transparent', 
+                                                            color: 'inherit' 
+                                                        }}>
+                                                            {team.rank}
+                                                        </div>
+                                                        {tableTrends[team.team] === 'up' && (
+                                                            <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
+                                                        )}
+                                                        {tableTrends[team.team] === 'down' && (
+                                                            <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
+                                                        )}
                                                     </div>
                                                 </td>
                                                 <td style={{ 

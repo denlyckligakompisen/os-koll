@@ -1,0 +1,16 @@
+{
+  "short_name": "SportKollen",
+  "name": "SportKollen - Allsvenskan & VM",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/allsvenskan",
+  "background_color": "#f2f2f7",
+  "theme_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait"
+}
