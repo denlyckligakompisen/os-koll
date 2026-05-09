@@ -15,7 +15,8 @@
     "scrape:allsvenskan": "node scripts/scrape_allsvenskan.js",
     "scrape:allsvenskan-logos": "node scripts/scrape_allsvenskan_logos.js",
     "scrape:allsvenskan-table": "node scripts/scrape_allsvenskan_table.js",
-    "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js"
+    "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js",
+    "scrape:daily": "node scripts/daily_scheduler.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -26,6 +27,7 @@
     "cheerio": "^1.2.0",
     "jsdom": "^28.0.0",
     "lucide-react": "^0.563.0",
+    "node-cron": "^4.2.1",
     "playwright": "^1.58.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
