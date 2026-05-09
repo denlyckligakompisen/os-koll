@@ -1,7 +1,8 @@
 name: Daily Allsvenskan Update
 on:
   schedule:
-    - cron: '0 5 * * *' # Run at 05:00 UTC daily
+    - cron: '0 5 * * *'    # Daily at 05:00 UTC
+    - cron: '0 20 * * *'   # Extra run at 20:00 UTC (after evening matches)
   workflow_dispatch:
 
 jobs:
@@ -15,17 +16,23 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
-      - name: Scrape Allsvenskan Data
+
+      # ── SofaScore API: matches + table (fast, no browser/key needed) ──
+      - name: Fetch Allsvenskan Data (SofaScore)
+        run: npm run fetch:allsvenskan
+
+      # ── Playwright: maraton table + logos (still scraped from allsvenskan.se) ──
+      - name: Install Playwright for remaining scrapers
+        run: npx playwright install --with-deps chromium
+      - name: Scrape Maratontabell and Logos
         run: |
-          npm run scrape:allsvenskan
-          npm run scrape:allsvenskan-logos
-          npm run scrape:allsvenskan-table
           npm run scrape:allsvenskan-maraton
+          npm run scrape:allsvenskan-logos
+
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add public/data/allsvenskan_matches.json public/data/allsvenskan_logos.json
-          git commit -m "Update Allsvenskan match data [skip ci]" || exit 0
+          git add public/data/allsvenskan_matches.json public/data/allsvenskan_table.json public/data/allsvenskan_logos.json public/data/allsvenskan_maraton.json
+          git commit -m "Update Allsvenskan data [skip ci]" || exit 0
           git push

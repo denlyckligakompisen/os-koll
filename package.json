@@ -16,7 +16,11 @@
     "scrape:allsvenskan-logos": "node scripts/scrape_allsvenskan_logos.js",
     "scrape:allsvenskan-table": "node scripts/scrape_allsvenskan_table.js",
     "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js",
-    "scrape:daily": "node scripts/daily_scheduler.js"
+    "scrape:daily": "node scripts/daily_scheduler.js",
+    "fetch:allsvenskan": "node scripts/fetch_allsvenskan_api.js --all",
+    "fetch:allsvenskan-matches": "node scripts/fetch_allsvenskan_api.js --matches",
+    "fetch:allsvenskan-table": "node scripts/fetch_allsvenskan_api.js --table",
+    "fetch:allsvenskan-logos": "node scripts/fetch_allsvenskan_api.js --logos"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

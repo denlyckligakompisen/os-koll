@@ -1,30 +1,21 @@
 {
   "matches": [
     {
-      "home": "Hammarby IF",
-      "away": "Mjällby AIF",
-      "time": "TBA",
-      "date": "LÖRDAG 4 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529830/hammarby-mot-mjallby-aif",
-      "score": "3 - 0",
-      "status": "finished"
-    },
-    {
       "home": "Degerfors IF",
       "away": "IK Sirius",
       "time": "TBA",
       "date": "LÖRDAG 4 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529835/degerfors-if-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 3",
       "status": "finished"
     },
     {
-      "home": "AIK",
-      "away": "Halmstads BK",
+      "home": "Hammarby IF",
+      "away": "Mjällby AIF",
       "time": "TBA",
       "date": "LÖRDAG 4 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529829/aik-mot-halmstads-bk",
-      "score": "2 - 1",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "3 - 0",
       "status": "finished"
     },
     {
@@ -32,8 +23,17 @@
       "away": "Västerås SK",
       "time": "TBA",
       "date": "SÖNDAG 5 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529836/kalmar-ff-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "AIK",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "SÖNDAG 5 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "2 - 1",
       "status": "finished"
     },
     {
@@ -41,7 +41,7 @@
       "away": "Malmö FF",
       "time": "TBA",
       "date": "SÖNDAG 5 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529832/orgryte-is-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 1",
       "status": "finished"
     },
@@ -49,8 +49,8 @@
       "home": "BK Häcken",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "SÖNDAG 5 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529833/bk-hacken-mot-if-brommapojkarna",
+      "date": "MÅNDAG 6 APRIL",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 2",
       "status": "finished"
     },
@@ -59,7 +59,7 @@
       "away": "IFK Göteborg",
       "time": "TBA",
       "date": "MÅNDAG 6 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529834/if-elfsborg-mot-ifk-goteborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 0",
       "status": "finished"
     },
@@ -68,17 +68,8 @@
       "away": "Djurgårdens IF",
       "time": "TBA",
       "date": "MÅNDAG 6 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529831/gais-mot-djurgardens-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "BK Häcken",
-      "time": "TBA",
-      "date": "MÅNDAG 6 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529838/ifk-goteborg-mot-bk-hacken",
-      "score": "0 - 2",
       "status": "finished"
     },
     {
@@ -86,7 +77,7 @@
       "away": "Örgryte IS",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529839/mjallby-aif-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 2",
       "status": "finished"
     },
@@ -95,17 +86,17 @@
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529843/vasteras-sk-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 2",
       "status": "finished"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "Kalmar FF",
+      "home": "IFK Göteborg",
+      "away": "BK Häcken",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529837/djurgardens-if-mot-kalmar-ff",
-      "score": "3 - 2",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "0 - 2",
       "status": "finished"
     },
     {
@@ -113,8 +104,17 @@
       "away": "Degerfors IF",
       "time": "TBA",
       "date": "SÖNDAG 12 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529844/halmstads-bk-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 3",
+      "status": "finished"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Kalmar FF",
+      "time": "TBA",
+      "date": "SÖNDAG 12 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "3 - 2",
       "status": "finished"
     },
     {
@@ -122,7 +122,7 @@
       "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 12 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529840/malmo-ff-mot-gais",
+      "link": "https://allsvenskan.se/matcher",
       "score": "3 - 1",
       "status": "finished"
     },
@@ -130,8 +130,8 @@
       "home": "IF Brommapojkarna",
       "away": "AIK",
       "time": "TBA",
-      "date": "SÖNDAG 12 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529841/if-brommapojkarna-mot-aik",
+      "date": "MÅNDAG 13 APRIL",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 2",
       "status": "finished"
     },
@@ -140,17 +140,8 @@
       "away": "Hammarby IF",
       "time": "TBA",
       "date": "MÅNDAG 13 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529842/ik-sirius-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 0",
-      "status": "finished"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "Malmö FF",
-      "time": "TBA",
-      "date": "MÅNDAG 13 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529846/djurgardens-if-mot-malmo-ff",
-      "score": "0 - 1",
       "status": "finished"
     },
     {
@@ -158,26 +149,17 @@
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "FREDAG 17 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529850/degerfors-if-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 1",
       "status": "finished"
     },
     {
-      "home": "Hammarby IF",
-      "away": "Örgryte IS",
+      "home": "Djurgårdens IF",
+      "away": "Malmö FF",
       "time": "TBA",
       "date": "FREDAG 17 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529847/hammarby-mot-orgryte-is",
-      "score": "8 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "IF Brommapojkarna",
-      "time": "TBA",
-      "date": "LÖRDAG 18 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529849/mjallby-aif-mot-if-brommapojkarna",
-      "score": "3 - 0",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "0 - 1",
       "status": "finished"
     },
     {
@@ -185,7 +167,7 @@
       "away": "Västerås SK",
       "time": "TBA",
       "date": "LÖRDAG 18 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529851/ik-sirius-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "4 - 1",
       "status": "finished"
     },
@@ -194,16 +176,34 @@
       "away": "IFK Göteborg",
       "time": "TBA",
       "date": "LÖRDAG 18 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529852/halmstads-bk-mot-ifk-goteborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IF Brommapojkarna",
+      "time": "TBA",
+      "date": "LÖRDAG 18 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "3 - 0",
+      "status": "finished"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Örgryte IS",
+      "time": "TBA",
+      "date": "LÖRDAG 18 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "8 - 1",
       "status": "finished"
     },
     {
       "home": "AIK",
       "away": "Kalmar FF",
       "time": "TBA",
-      "date": "LÖRDAG 18 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529845/aik-mot-kalmar-ff",
+      "date": "SÖNDAG 19 APRIL",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 0",
       "status": "finished"
     },
@@ -212,17 +212,8 @@
       "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 19 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529848/bk-hacken-mot-gais",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "Halmstads BK",
-      "time": "TBA",
-      "date": "SÖNDAG 19 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529853/hammarby-mot-halmstads-bk",
-      "score": "1 - 1",
       "status": "finished"
     },
     {
@@ -230,17 +221,8 @@
       "away": "IF Brommapojkarna",
       "time": "TBA",
       "date": "ONSDAG 22 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529855/orgryte-is-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 2",
-      "status": "finished"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "Djurgårdens IF",
-      "time": "TBA",
-      "date": "ONSDAG 22 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529857/if-elfsborg-mot-djurgardens-if",
-      "score": "2 - 1",
       "status": "finished"
     },
     {
@@ -248,16 +230,52 @@
       "away": "BK Häcken",
       "time": "TBA",
       "date": "ONSDAG 22 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529859/vasteras-sk-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
       "score": "3 - 3",
+      "status": "finished"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "ONSDAG 22 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Djurgårdens IF",
+      "time": "TBA",
+      "date": "ONSDAG 22 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "2 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "IFK Göteborg",
+      "time": "TBA",
+      "date": "TORSDAG 23 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "AIK",
+      "time": "TBA",
+      "date": "TORSDAG 23 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "2 - 1",
       "status": "finished"
     },
     {
       "home": "GAIS",
       "away": "Mjällby AIF",
       "time": "TBA",
-      "date": "ONSDAG 22 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529854/gais-mot-mjallby-aif",
+      "date": "TORSDAG 23 APRIL",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 0",
       "status": "finished"
     },
@@ -266,44 +284,17 @@
       "away": "IK Sirius",
       "time": "TBA",
       "date": "TORSDAG 23 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529856/malmo-ff-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 3",
-      "status": "finished"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "AIK",
-      "time": "TBA",
-      "date": "TORSDAG 23 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529858/degerfors-if-mot-aik",
-      "score": "2 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "IFK Göteborg",
-      "time": "TBA",
-      "date": "TORSDAG 23 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529860/kalmar-ff-mot-ifk-goteborg",
-      "score": "1 - 1",
       "status": "finished"
     },
     {
       "home": "Djurgårdens IF",
       "away": "Hammarby IF",
       "time": "TBA",
-      "date": "TORSDAG 23 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529862/djurgardens-if-mot-hammarby",
-      "score": "1 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "GAIS",
-      "time": "TBA",
       "date": "SÖNDAG 26 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529863/ifk-goteborg-mot-gais",
-      "score": "2 - 2",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "1 - 1",
       "status": "finished"
     },
     {
@@ -311,17 +302,17 @@
       "away": "Västerås SK",
       "time": "TBA",
       "date": "SÖNDAG 26 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529867/if-brommapojkarna-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 2",
       "status": "finished"
     },
     {
-      "home": "AIK",
-      "away": "Malmö FF",
+      "home": "IFK Göteborg",
+      "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 26 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529861/aik-mot-malmo-ff",
-      "score": "0 - 1",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "2 - 2",
       "status": "finished"
     },
     {
@@ -329,17 +320,8 @@
       "away": "Degerfors IF",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529864/orgryte-is-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 1",
-      "status": "finished"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "IK Sirius",
-      "time": "TBA",
-      "date": "MÅNDAG 27 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529865/bk-hacken-mot-ik-sirius",
-      "score": "2 - 2",
       "status": "finished"
     },
     {
@@ -347,8 +329,17 @@
       "away": "Halmstads BK",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529866/mjallby-aif-mot-halmstads-bk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 0",
+      "status": "finished"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "IK Sirius",
+      "time": "TBA",
+      "date": "MÅNDAG 27 APRIL",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "2 - 2",
       "status": "finished"
     },
     {
@@ -356,17 +347,17 @@
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529868/kalmar-ff-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 1",
       "status": "finished"
     },
     {
-      "home": "Degerfors IF",
-      "away": "BK Häcken",
+      "home": "AIK",
+      "away": "Malmö FF",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
-      "link": "https://allsvenskan.se/matcher/2026/6529874/degerfors-if-mot-bk-hacken",
-      "score": "1 - 1",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "0 - 1",
       "status": "finished"
     },
     {
@@ -374,16 +365,25 @@
       "away": "Kalmar FF",
       "time": "TBA",
       "date": "LÖRDAG 2 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529875/ik-sirius-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "3 - 2",
+      "status": "finished"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "BK Häcken",
+      "time": "TBA",
+      "date": "LÖRDAG 2 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "1 - 1",
       "status": "finished"
     },
     {
       "home": "Hammarby IF",
       "away": "Västerås SK",
       "time": "TBA",
-      "date": "LÖRDAG 2 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529870/hammarby-mot-vasteras-sk",
+      "date": "SÖNDAG 3 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "3 - 0",
       "status": "finished"
     },
@@ -392,7 +392,7 @@
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529872/malmo-ff-mot-mjallby-aif",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 3",
       "status": "finished"
     },
@@ -401,7 +401,7 @@
       "away": "Örgryte IS",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529871/gais-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
       "score": "4 - 0",
       "status": "finished"
     },
@@ -410,43 +410,43 @@
       "away": "AIK",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529873/if-elfsborg-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 1",
       "status": "finished"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "IFK Göteborg",
-      "time": "TBA",
-      "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529869/djurgardens-if-mot-ifk-goteborg",
-      "score": "6 - 0",
-      "status": "finished"
-    },
-    {
       "home": "Halmstads BK",
       "away": "IF Brommapojkarna",
       "time": "TBA",
       "date": "MÅNDAG 4 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529876/halmstads-bk-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 3",
       "status": "finished"
     },
     {
+      "home": "Djurgårdens IF",
+      "away": "IFK Göteborg",
+      "time": "TBA",
+      "date": "MÅNDAG 4 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "6 - 0",
+      "status": "finished"
+    },
+    {
       "home": "IF Elfsborg",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "MÅNDAG 4 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
+      "date": "FREDAG 8 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "2 - 0",
       "status": "finished"
     },
     {
-      "home": "IFK Göteborg",
-      "away": "Hammarby IF",
+      "home": "Västerås SK",
+      "away": "GAIS",
       "time": "TBA",
-      "date": "FREDAG 8 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
+      "date": "LÖRDAG 9 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 1",
       "status": "finished"
     },
@@ -455,16 +455,16 @@
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "LÖRDAG 9 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529881/degerfors-if-mot-mjallby-aif",
+      "link": "https://allsvenskan.se/matcher",
       "score": "1 - 4",
       "status": "finished"
     },
     {
-      "home": "Västerås SK",
-      "away": "GAIS",
+      "home": "IFK Göteborg",
+      "away": "Hammarby IF",
       "time": "TBA",
       "date": "LÖRDAG 9 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529883/vasteras-sk-mot-gais",
+      "link": "https://allsvenskan.se/matcher",
       "score": "0 - 1",
       "status": "finished"
     },
@@ -472,8 +472,8 @@
       "home": "AIK",
       "away": "Djurgårdens IF",
       "time": "14:00",
-      "date": "LÖRDAG 9 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529877/aik-mot-djurgardens-if",
+      "date": "SÖNDAG 10 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -482,7 +482,7 @@
       "away": "Halmstads BK",
       "time": "14:00",
       "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529884/kalmar-ff-mot-halmstads-bk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -491,7 +491,7 @@
       "away": "Malmö FF",
       "time": "16:30",
       "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529879/bk-hacken-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -499,17 +499,8 @@
       "home": "IK Sirius",
       "away": "Örgryte IS",
       "time": "19:00",
-      "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529882/ik-sirius-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "Degerfors IF",
-      "time": "15:00",
       "date": "MÅNDAG 11 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529887/gais-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -518,16 +509,25 @@
       "away": "IF Elfsborg",
       "time": "15:00",
       "date": "LÖRDAG 16 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529892/halmstads-bk-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Hammarby IF",
-      "away": "Malmö FF",
-      "time": "14:00",
+      "home": "GAIS",
+      "away": "Degerfors IF",
+      "time": "15:00",
       "date": "LÖRDAG 16 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529886/hammarby-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Malmö FF",
+      "time": "14:00",
+      "date": "SÖNDAG 17 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -536,7 +536,7 @@
       "away": "Kalmar FF",
       "time": "14:00",
       "date": "SÖNDAG 17 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529890/if-brommapojkarna-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -545,7 +545,7 @@
       "away": "BK Häcken",
       "time": "16:30",
       "date": "SÖNDAG 17 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529889/mjallby-aif-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -554,7 +554,7 @@
       "away": "AIK",
       "time": "16:30",
       "date": "SÖNDAG 17 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529891/vasteras-sk-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -562,8 +562,8 @@
       "home": "Djurgårdens IF",
       "away": "IK Sirius",
       "time": "19:00",
-      "date": "SÖNDAG 17 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529885/djurgardens-if-mot-ik-sirius",
+      "date": "MÅNDAG 18 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -572,448 +572,7 @@
       "away": "IFK Göteborg",
       "time": "19:00",
       "date": "MÅNDAG 18 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529888/orgryte-is-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "IF Brommapojkarna",
-      "time": "19:00",
-      "date": "MÅNDAG 18 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529893/djurgardens-if-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "Degerfors IF",
-      "time": "15:00",
-      "date": "FREDAG 22 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529899/kalmar-ff-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Halmstads BK",
-      "away": "Örgryte IS",
-      "time": "15:00",
-      "date": "LÖRDAG 23 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529900/halmstads-bk-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "AIK",
-      "time": "14:00",
-      "date": "LÖRDAG 23 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529894/hammarby-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IK Sirius",
-      "away": "GAIS",
-      "time": "14:00",
-      "date": "SÖNDAG 24 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529898/ik-sirius-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Västerås SK",
-      "time": "16:30",
-      "date": "SÖNDAG 24 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529896/malmo-ff-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Mjällby AIF",
-      "time": "19:00",
-      "date": "SÖNDAG 24 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529895/ifk-goteborg-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "BK Häcken",
-      "time": "19:00",
-      "date": "MÅNDAG 25 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529897/if-elfsborg-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "IF Elfsborg",
-      "time": "19:00",
-      "date": "MÅNDAG 25 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529903/orgryte-is-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "AIK",
-      "away": "IK Sirius",
-      "time": "15:00",
-      "date": "FREDAG 29 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529901/aik-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "Kalmar FF",
-      "time": "15:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529902/gais-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Halmstads BK",
-      "time": "15:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529906/malmo-ff-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Hammarby IF",
-      "time": "14:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529904/bk-hacken-mot-hammarby",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "IF Brommapojkarna",
-      "time": "14:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529907/degerfors-if-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Västerås SK",
-      "away": "IFK Göteborg",
-      "time": "14:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529908/vasteras-sk-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "Djurgårdens IF",
-      "time": "16:30",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529905/mjallby-aif-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529909/ifk-goteborg-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529910/bk-hacken-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529911/if-elfsborg-mot-hammarby",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529912/if-brommapojkarna-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Malmö FF",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529913/degerfors-if-mot-malmo-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IK Sirius",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529914/ik-sirius-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529915/kalmar-ff-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Halmstads BK",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529916/halmstads-bk-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529917/djurgardens-if-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529918/hammarby-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529919/gais-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "BK Häcken",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529920/orgryte-is-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529921/mjallby-aif-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529922/malmo-ff-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529923/if-brommapojkarna-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Västerås SK",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529924/vasteras-sk-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "AIK",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529925/aik-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529926/hammarby-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529927/ifk-goteborg-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529928/orgryte-is-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529929/mjallby-aif-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529930/if-elfsborg-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "Malmö FF",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529931/kalmar-ff-mot-malmo-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Halmstads BK",
-      "away": "BK Häcken",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529932/halmstads-bk-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529933/gais-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529934/bk-hacken-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529935/malmo-ff-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529936/if-brommapojkarna-mot-hammarby",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529937/degerfors-if-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IK Sirius",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529938/ik-sirius-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Västerås SK",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529939/vasteras-sk-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529940/kalmar-ff-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "Hammarby IF",
-      "time": "19:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529944/gais-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
@@ -1021,1236 +580,1587 @@
       "home": "IF Elfsborg",
       "away": "Mjällby AIF",
       "time": "19:00",
-      "date": "ONSDAG 20 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529946/if-elfsborg-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "AIK",
-      "away": "Örgryte IS",
-      "time": "00:00",
       "date": "TORSDAG 21 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529941/aik-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Degerfors IF",
+      "time": "15:00",
+      "date": "LÖRDAG 23 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Örgryte IS",
+      "time": "15:00",
+      "date": "LÖRDAG 23 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "BK Häcken",
+      "time": "16:00",
+      "date": "LÖRDAG 23 MAJ",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Djurgårdens IF",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "AIK",
+      "time": "14:00",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "GAIS",
+      "time": "14:00",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
       "away": "Västerås SK",
-      "time": "00:00",
+      "time": "16:30",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Mjällby AIF",
+      "time": "19:00",
+      "date": "MÅNDAG 25 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IF Elfsborg",
+      "time": "19:00",
+      "date": "FREDAG 29 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Halmstads BK",
+      "time": "15:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "IK Sirius",
+      "time": "15:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Kalmar FF",
+      "time": "15:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Hammarby IF",
+      "time": "14:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "IFK Göteborg",
+      "time": "14:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "IF Brommapojkarna",
+      "time": "14:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Djurgårdens IF",
+      "time": "16:30",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Malmö FF",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Hammarby IF",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "AIK",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Mjällby AIF",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Örgryte IS",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "AIK",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Halmstads BK",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "BK Häcken",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Malmö FF",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "BK Häcken",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "AIK",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Hammarby IF",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Mjällby AIF",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Halmstads BK",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Örgryte IS",
+      "time": "12:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Malmö FF",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529942/djurgardens-if-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IFK Göteborg",
-      "away": "Degerfors IF",
-      "time": "00:00",
+      "home": "Djurgårdens IF",
+      "away": "Västerås SK",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529943/ifk-goteborg-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "BK Häcken",
-      "away": "Kalmar FF",
-      "time": "00:00",
+      "home": "GAIS",
+      "away": "Hammarby IF",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529945/bk-hacken-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IF Brommapojkarna",
-      "away": "Malmö FF",
-      "time": "00:00",
+      "home": "BK Häcken",
+      "away": "Kalmar FF",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529947/if-brommapojkarna-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Halmstads BK",
-      "away": "IK Sirius",
-      "time": "00:00",
+      "home": "AIK",
+      "away": "Örgryte IS",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529948/halmstads-bk-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Hammarby IF",
-      "away": "BK Häcken",
-      "time": "00:00",
+      "home": "IFK Göteborg",
+      "away": "Degerfors IF",
+      "time": "12:00",
       "date": "SÖNDAG 2 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529949/hammarby-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IFK Göteborg",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529950/ifk-goteborg-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529951/orgryte-is-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529952/mjallby-aif-mot-if-elfsborg",
+      "home": "Halmstads BK",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 2 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "Degerfors IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529953/malmo-ff-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IK Sirius",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
+      "home": "Hammarby IF",
+      "away": "BK Häcken",
+      "time": "12:00",
       "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529954/ik-sirius-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Västerås SK",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529955/vasteras-sk-mot-djurgardens-if",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "AIK",
+      "time": "12:00",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "GAIS",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529956/halmstads-bk-mot-gais",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "AIK",
-      "time": "00:00",
+      "home": "IK Sirius",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
       "date": "SÖNDAG 9 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529957/djurgardens-if-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "GAIS",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529958/gais-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "BK Häcken",
-      "away": "Halmstads BK",
-      "time": "00:00",
+      "home": "Djurgårdens IF",
+      "away": "AIK",
+      "time": "12:00",
       "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529959/bk-hacken-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529960/mjallby-aif-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529961/if-elfsborg-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529962/if-brommapojkarna-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529963/degerfors-if-mot-ifk-goteborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Kalmar FF",
       "away": "Hammarby IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529964/kalmar-ff-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Halmstads BK",
+      "time": "12:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Örgryte IS",
+      "time": "12:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "AIK",
       "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529965/aik-mot-mjallby-aif",
+      "time": "12:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Hammarby IF",
       "away": "GAIS",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529966/hammarby-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529967/ifk-goteborg-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529968/orgryte-is-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529969/malmo-ff-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529970/if-brommapojkarna-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IK Sirius",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529971/ik-sirius-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Västerås SK",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529972/vasteras-sk-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529973/aik-mot-hammarby",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529974/djurgardens-if-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529975/ifk-goteborg-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529976/gais-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529977/bk-hacken-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
+      "home": "IF Brommapojkarna",
       "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529978/if-elfsborg-mot-degerfors-if",
+      "time": "12:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Halmstads BK",
+      "time": "12:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IK Sirius",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529979/ik-sirius-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Mjällby AIF",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Hammarby IF",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Örgryte IS",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529980/halmstads-bk-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "BK Häcken",
-      "time": "00:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529981/gais-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529982/orgryte-is-mot-hammarby",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529983/mjallby-aif-mot-ifk-goteborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "AIK",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529984/malmo-ff-mot-aik",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529985/if-brommapojkarna-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529986/degerfors-if-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Västerås SK",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529987/vasteras-sk-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Kalmar FF",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529988/kalmar-ff-mot-djurgardens-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "Västerås SK",
-      "time": "00:00",
+      "home": "GAIS",
+      "away": "BK Häcken",
+      "time": "12:00",
       "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529989/aik-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529990/djurgardens-if-mot-gais",
+      "home": "Mjällby AIF",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Hammarby IF",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529991/hammarby-mot-if-brommapojkarna",
+      "home": "IF Brommapojkarna",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IFK Göteborg",
+      "home": "Örgryte IS",
+      "away": "Hammarby IF",
+      "time": "12:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
       "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529992/ifk-goteborg-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529993/bk-hacken-mot-mjallby-aif",
+      "time": "12:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "Örgryte IS",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529994/malmo-ff-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Mjällby AIF",
+      "time": "12:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Elfsborg",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529995/if-elfsborg-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Halmstads BK",
+      "time": "12:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IK Sirius",
       "away": "Degerfors IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529996/ik-sirius-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529997/djurgardens-if-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529998/orgryte-is-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529999/mjallby-aif-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530000/if-brommapojkarna-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530001/degerfors-if-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Västerås SK",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530002/vasteras-sk-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Kalmar FF",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530003/kalmar-ff-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Hammarby IF",
+      "time": "12:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "AIK",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530004/halmstads-bk-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
+      "home": "IF Brommapojkarna",
+      "away": "IFK Göteborg",
+      "time": "12:00",
       "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530005/aik-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Hammarby IF",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530006/hammarby-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530007/ifk-goteborg-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530008/gais-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530009/bk-hacken-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530010/mjallby-aif-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530011/malmo-ff-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Elfsborg",
       "away": "Halmstads BK",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530012/if-elfsborg-mot-halmstads-bk",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Örgryte IS",
+      "time": "12:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "AIK",
-      "away": "IFK Göteborg",
-      "time": "00:00",
+      "away": "IF Brommapojkarna",
+      "time": "12:00",
       "date": "SÖNDAG 11 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530013/aik-mot-ifk-goteborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Örgryte IS",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530014/orgryte-is-mot-gais",
+      "home": "IFK Göteborg",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530015/malmo-ff-mot-bk-hacken",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Brommapojkarna",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530016/if-brommapojkarna-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530017/degerfors-if-mot-kalmar-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IK Sirius",
       "away": "IF Elfsborg",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530018/ik-sirius-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Västerås SK",
-      "away": "Mjällby AIF",
-      "time": "00:00",
+      "home": "AIK",
+      "away": "IFK Göteborg",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530019/vasteras-sk-mot-mjallby-aif",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "Hammarby IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530020/halmstads-bk-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "Örgryte IS",
-      "time": "00:00",
+      "home": "Västerås SK",
+      "away": "Mjällby AIF",
+      "time": "12:00",
       "date": "SÖNDAG 18 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530021/djurgardens-if-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "GAIS",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530022/gais-mot-ifk-goteborg",
+      "home": "Degerfors IF",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "BK Häcken",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530023/bk-hacken-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530024/mjallby-aif-mot-hammarby",
+      "home": "Örgryte IS",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Elfsborg",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "11:00",
       "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530025/if-elfsborg-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Hammarby IF",
+      "time": "11:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Örgryte IS",
+      "time": "11:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Degerfors IF",
+      "time": "11:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IK Sirius",
       "away": "AIK",
-      "time": "00:00",
+      "time": "11:00",
       "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530026/ik-sirius-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Västerås SK",
-      "away": "Halmstads BK",
-      "time": "00:00",
+      "home": "GAIS",
+      "away": "IFK Göteborg",
+      "time": "11:00",
       "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530027/vasteras-sk-mot-halmstads-bk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Kalmar FF",
       "away": "IF Brommapojkarna",
-      "time": "00:00",
+      "time": "11:00",
       "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530028/kalmar-ff-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "IF Elfsborg",
-      "time": "00:00",
+      "home": "Västerås SK",
+      "away": "Halmstads BK",
+      "time": "11:00",
       "date": "SÖNDAG 25 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530029/aik-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530030/hammarby-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530031/ifk-goteborg-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530032/orgryte-is-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "BK Häcken",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530033/if-brommapojkarna-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530034/degerfors-if-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530035/kalmar-ff-mot-gais",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530036/halmstads-bk-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Djurgårdens IF",
-      "away": "Degerfors IF",
-      "time": "00:00",
+      "home": "AIK",
+      "away": "IF Elfsborg",
+      "time": "12:00",
       "date": "ONSDAG 28 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530037/djurgardens-if-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "GAIS",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530038/gais-mot-aik",
+      "home": "IFK Göteborg",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "BK Häcken",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530039/bk-hacken-mot-ifk-goteborg",
+      "home": "Hammarby IF",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Mjällby AIF",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530040/mjallby-aif-mot-kalmar-ff",
+      "home": "IF Brommapojkarna",
+      "away": "BK Häcken",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Mjällby AIF",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "Hammarby IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530041/malmo-ff-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Elfsborg",
       "away": "Örgryte IS",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530042/if-elfsborg-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IK Sirius",
-      "away": "Halmstads BK",
-      "time": "00:00",
+      "home": "GAIS",
+      "away": "AIK",
+      "time": "12:00",
       "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530043/ik-sirius-mot-halmstads-bk",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Västerås SK",
       "away": "IF Brommapojkarna",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530044/vasteras-sk-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "BK Häcken",
-      "time": "00:00",
+      "home": "IK Sirius",
+      "away": "Halmstads BK",
+      "time": "12:00",
       "date": "SÖNDAG 1 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530045/aik-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530046/hammarby-mot-if-elfsborg",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IFK Göteborg",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530047/ifk-goteborg-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Örgryte IS",
-      "away": "Västerås SK",
-      "time": "00:00",
+      "home": "Hammarby IF",
+      "away": "IF Elfsborg",
+      "time": "12:00",
       "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530048/orgryte-is-mot-vasteras-sk",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "IF Brommapojkarna",
-      "away": "Mjällby AIF",
-      "time": "00:00",
+      "home": "AIK",
+      "away": "BK Häcken",
+      "time": "12:00",
       "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530049/if-brommapojkarna-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530050/degerfors-if-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530051/kalmar-ff-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530052/halmstads-bk-mot-djurgardens-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "AIK",
-      "away": "Degerfors IF",
-      "time": "00:00",
+      "home": "IF Brommapojkarna",
+      "away": "Mjällby AIF",
+      "time": "12:00",
       "date": "SÖNDAG 8 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530053/aik-mot-degerfors-if",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "Hammarby IF",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530054/hammarby-mot-ifk-goteborg",
+      "home": "Kalmar FF",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
-      "home": "GAIS",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530055/gais-mot-vasteras-sk",
+      "home": "Degerfors IF",
+      "away": "GAIS",
+      "time": "12:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Örgryte IS",
-      "away": "Kalmar FF",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530056/orgryte-is-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530057/bk-hacken-mot-if-elfsborg",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Mjällby AIF",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530058/mjallby-aif-mot-malmo-ff",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "IF Elfsborg",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IFK Göteborg",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Djurgårdens IF",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Degerfors IF",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Västerås SK",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Kalmar FF",
+      "time": "12:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Brommapojkarna",
       "away": "Halmstads BK",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530059/if-brommapojkarna-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IK Sirius",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530060/ik-sirius-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "BK Häcken",
-      "time": "00:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530061/djurgardens-if-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530062/ifk-goteborg-mot-ik-sirius",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Malmö FF",
       "away": "IF Brommapojkarna",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530063/malmo-ff-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "BK Häcken",
+      "time": "12:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IF Elfsborg",
       "away": "GAIS",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530064/if-elfsborg-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530065/degerfors-if-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Västerås SK",
       "away": "Hammarby IF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530066/vasteras-sk-mot-hammarby",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Kalmar FF",
       "away": "AIK",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530067/kalmar-ff-mot-aik",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Halmstads BK",
       "away": "Mjällby AIF",
-      "time": "00:00",
+      "time": "12:00",
       "date": "SÖNDAG 29 NOVEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530068/halmstads-bk-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "IFK Göteborg",
-      "time": "TBA",
-      "date": "MÅNDAG 4 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529869/djurgardens-if-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Halmstads BK",
-      "away": "IF Brommapojkarna",
-      "time": "TBA",
-      "date": "MÅNDAG 4 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529876/halmstads-bk-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IF Elfsborg",
-      "away": "IF Brommapojkarna",
-      "time": "TBA",
-      "date": "FREDAG 8 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "IFK Göteborg",
-      "away": "Hammarby IF",
-      "time": "TBA",
-      "date": "FREDAG 8 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
+      "away": "IK Sirius",
+      "time": "12:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     },
     {
       "home": "Degerfors IF",
-      "away": "Mjällby AIF",
-      "time": "TBA",
-      "date": "FREDAG 8 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529881/degerfors-if-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Västerås SK",
-      "away": "GAIS",
-      "time": "TBA",
-      "date": "FREDAG 8 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529883/vasteras-sk-mot-gais",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "AIK",
-      "away": "Djurgårdens IF",
-      "time": "TBA",
-      "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529877/aik-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Kalmar FF",
-      "away": "Halmstads BK",
-      "time": "TBA",
-      "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529884/kalmar-ff-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Malmö FF",
-      "time": "TBA",
-      "date": "SÖNDAG 10 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529879/bk-hacken-mot-malmo-ff",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "IK Sirius",
       "away": "Örgryte IS",
-      "time": "TBA",
-      "date": "MÅNDAG 11 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529882/ik-sirius-mot-orgryte-is",
+      "time": "12:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming"
     }
   ],
-  "lastUpdated": "2026-05-09T21:08:17.881Z",
-  "source": "https://allsvenskan.se/matcher"
+  "lastUpdated": "2026-05-09T21:35:39.498Z",
+  "source": "SofaScore"
 }
