@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
-import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ChevronDown } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -33,6 +33,7 @@ const AllsvenskanKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [filterTeam, setFilterTeam] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [navAnchorEl, setNavAnchorEl] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [logosData, setLogosData] = useState({});
     const [tableData, setTableData] = useState(null);
@@ -120,6 +121,8 @@ const AllsvenskanKollen = () => {
 
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
+    const handleNavMenuClick = (event) => setNavAnchorEl(event.currentTarget);
+    const handleNavMenuClose = () => setNavAnchorEl(null);
 
     const handleTeamClick = (teamName) => {
         if (!teamName) return;
@@ -190,8 +193,50 @@ const AllsvenskanKollen = () => {
         return filteredMatches.filter(m => parseMatchDate(m.date, m.time).getTime() === nextMatchTime);
     }, [filteredMatches, nextMatchTime]);
 
+    const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+
+    const handleTouchStart = (e) => {
+        setTouchStart({
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY
+        });
+    };
+
+    const handleTouchEnd = (e) => {
+        if (!touchStart.x || !touchStart.y) return;
+
+        // Blixtsnabb avbrytning om användaren sveper inuti cup-trädet som har egen horisontell scroll
+        if (e.target.closest('.bracket-container') || e.target.closest('[style*="overflow-x: auto"]') || e.target.closest('[style*="overflowX: auto"]')) {
+            return;
+        }
+
+        const diffX = touchStart.x - e.changedTouches[0].clientX;
+        const diffY = touchStart.y - e.changedTouches[0].clientY;
+
+        // Tröskel på 60px för att undvika oavsiktliga svep vid vertikal scroll
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 60) {
+            const currentIndex = SUBTABS.findIndex(t => t.id === activeTab);
+            if (diffX > 0) {
+                // Svep åt vänster -> Nästa flik
+                if (currentIndex < SUBTABS.length - 1) {
+                    setActiveTab(SUBTABS[currentIndex + 1].id);
+                }
+            } else {
+                // Svep åt höger -> Föregående flik
+                if (currentIndex > 0) {
+                    setActiveTab(SUBTABS[currentIndex - 1].id);
+                }
+            }
+        }
+        setTouchStart({ x: 0, y: 0 });
+    };
+
     return (
-        <div style={{ minHeight: '100vh', paddingBottom: '100px' }}>
+        <div 
+            style={{ minHeight: '100vh', paddingBottom: '100px' }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+        >
             <button
                 className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
                 onClick={scrollToTop}
@@ -201,15 +246,22 @@ const AllsvenskanKollen = () => {
             </button>
 
             <div className="nav-container" style={{ '--active-color': '#000000' }}>
-                <div
-                    className="header-logo"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                    onClick={() => navigate('/vm')}
-                >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="" style={{ height: '36px' }} />
-                        <ArrowLeftRight size={18} color="#aeafb4" />
-                    </div>
+                <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
+                    <button
+                        onClick={handleNavMenuClick}
+                        style={{ 
+                            background: 'none', 
+                            border: 'none', 
+                            cursor: 'pointer',
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            padding: '6px 8px',
+                            borderRadius: '12px',
+                            transition: 'background-color 0.2s',
+                        }}
+                    >
+                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan Logo" style={{ height: '34px', objectFit: 'contain' }} />
+                    </button>
                 </div>
                 
                 <div className="segmented-control">
@@ -237,7 +289,11 @@ const AllsvenskanKollen = () => {
                         onClick={handleMenuClick}
                         className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
                         aria-label="Välj lag att filtrera"
-                        style={{ height: '100%' }}
+                        style={{ 
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}
                     >
                         {filterTeam && getTeamLogo(filterTeam) ? (
                             <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
@@ -321,6 +377,47 @@ const AllsvenskanKollen = () => {
                 ))}
             </MuiMenu>
 
+            <MuiMenu
+                anchorEl={navAnchorEl}
+                open={Boolean(navAnchorEl)}
+                onClose={handleNavMenuClose}
+                transformOrigin={{ horizontal: 'left', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+                slotProps={{
+                    paper: {
+                        style: {
+                            borderRadius: '16px',
+                            marginTop: '8px',
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                            border: '0.5px solid rgba(0,0,0,0.08)',
+                            padding: '6px 0',
+                            minWidth: '160px'
+                        }
+                    }
+                }}
+            >
+                <MenuItem 
+                    onClick={() => {
+                        navigate('/vm');
+                        handleNavMenuClose();
+                    }}
+                    style={{ 
+                        fontSize: '0.9rem', 
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        margin: '2px 8px',
+                        color: 'var(--color-text)',
+                    }}
+                >
+                    <Globe size={20} color="#007aff" />
+                    <span>VM-Kollen</span>
+                </MenuItem>
+            </MuiMenu>
+
             <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
@@ -340,14 +437,13 @@ const AllsvenskanKollen = () => {
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                     {group.matches.map((match, j) => {
-                                                        const isHero = nextMatchTime && parseMatchDate(match.date, match.time).getTime() === nextMatchTime;
+                                                        const isNext = nextMatchTime && parseMatchDate(match.date, match.time).getTime() === nextMatchTime;
                                                         return (
-                                                            <div key={j} ref={isHero && heroMatches[0] === match ? nextMatchRef : null} style={{ marginBottom: isHero ? '12px' : '0' }}>
+                                                            <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
                                                                 <MatchCard 
                                                                     match={match} 
                                                                     idx={j} 
-                                                                    variant={isHero ? 'hero' : undefined}
-                                                                    onCountryClick={handleTeamClick}
+                                                                    variant={isNext ? 'hero' : undefined}
                                                                     homeLogo={getTeamLogo(match.home)}
                                                                     awayLogo={getTeamLogo(match.away)}
                                                                     onClick={() => match.link && window.open(match.link, '_blank')}
@@ -425,27 +521,10 @@ const AllsvenskanKollen = () => {
                                                     padding: '11px 4px',
                                                     borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                 }}>
-                                                    <button 
-                                                        onClick={() => handleTeamClick(team.team)}
-                                                        style={{ 
-                                                            display: 'flex', 
-                                                            alignItems: 'center', 
-                                                            gap: '8px', 
-                                                            cursor: 'pointer',
-                                                            background: 'none',
-                                                            border: 'none',
-                                                            padding: 0,
-                                                            font: 'inherit',
-                                                            color: 'inherit',
-                                                            width: '100%',
-                                                            textAlign: 'left'
-                                                        }}
-                                                    >
-                                                        <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>
-                                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain', display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }} />}
-                                                            <span style={{ verticalAlign: 'middle' }}>{team.team}</span>
-                                                        </span>
-                                                    </button>
+                                                    <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                        {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
+                                                        <span>{team.team}</span>
+                                                    </span>
                                                 </td>
                                                 <td style={{ 
                                                     padding: '11px 4px', 

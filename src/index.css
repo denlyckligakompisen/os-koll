@@ -3,7 +3,7 @@
 
 :root {
   --color-bg: #f2f2f7;
-  --color-card-bg: rgba(255, 255, 255, 0.8);
+  --color-card-bg: #ffffff;
   --color-card-bg-elevated: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   --color-text: #000000;
   --color-text-muted: #8e8e93;

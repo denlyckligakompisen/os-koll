@@ -62,9 +62,8 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                 onClick={props.onClick}
             >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                    <button
-                        onClick={(e) => handleTeamClick(e, match.home)}
-                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: onCountryClick ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
+                    <div
+                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}
                     >
                         {homeLogo ? (
                             <img src={homeLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
@@ -72,7 +71,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={72} />
                         )}
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
-                    </button>
+                    </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                         {match.group && (
@@ -109,9 +108,8 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                         )}
                     </div>
 
-                    <button
-                        onClick={(e) => handleTeamClick(e, match.away)}
-                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', cursor: onCountryClick ? 'pointer' : 'default', background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
+                    <div
+                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}
                     >
                         {awayLogo ? (
                             <img src={awayLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
@@ -119,7 +117,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={72} />
                         )}
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
-                    </button>
+                    </div>
                 </div>
             </Card>
         );
@@ -161,26 +159,18 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                     textAlign: 'center',
                     transition: 'all 0.3s ease'
                 }}>
-                    <button
-                        onClick={(e) => handleTeamClick(e, match.home)}
-                        aria-label={`Visa information om ${match.home}`}
+                    <span
                         style={{
                             flex: 1,
                             textAlign: 'right',
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            cursor: onCountryClick ? 'pointer' : 'default',
-                            background: 'none',
-                            border: 'none',
-                            padding: 0,
-                            font: 'inherit',
-                            color: 'inherit',
                             fontWeight: highlight ? '700' : '500'
                         }}
                     >
                         {renderTeamName(match.home)}
-                    </button>
+                    </span>
                     <button
                         onClick={handleBroadcastClick}
                         aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
@@ -230,26 +220,18 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             </div>
                         )}
                     </button>
-                    <button
-                        onClick={(e) => handleTeamClick(e, match.away)}
-                        aria-label={`Visa information om ${match.away}`}
+                    <span
                         style={{
                             flex: 1,
                             textAlign: 'left',
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            cursor: onCountryClick ? 'pointer' : 'default',
-                            background: 'none',
-                            border: 'none',
-                            padding: 0,
-                            font: 'inherit',
-                            color: 'inherit',
                             fontWeight: highlight ? '700' : '500'
                         }}
                     >
                         {renderTeamName(match.away)}
-                    </button>
+                    </span>
                 </div>
             </div>
             {awayLogo ? (
