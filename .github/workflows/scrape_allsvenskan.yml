@@ -1,8 +1,7 @@
 name: Daily Allsvenskan Update
 on:
   schedule:
-    - cron: '0 5 * * *'    # Daily at 05:00 UTC
-    - cron: '0 20 * * *'   # Extra run at 20:00 UTC (after evening matches)
+    - cron: '0 2 * * *'     # Daily at 04:00 Swedish time
   workflow_dispatch:
 
 jobs:

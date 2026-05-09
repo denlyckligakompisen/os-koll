@@ -82,29 +82,15 @@ const AllsvenskanKollen = () => {
     useEffect(() => {
         // Delay to allow for tab switching and DOM rendering
         const timer = setTimeout(() => {
-            let scrolled = false;
-
-            if (filterTeam) {
-                if (activeTab === 'gruppspel' && tableRefs.current[filterTeam] && window.innerWidth < 1024) {
-                    tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    scrolled = true;
-                } else if (activeTab === 'statistik' && maratonRefs.current[filterTeam]) {
-                    maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    scrolled = true;
-                }
-            }
-
-            if (!scrolled) {
-                if (activeTab === 'matcher' && nextMatchRef.current) {
-                    nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+            if (activeTab === 'matcher' && nextMatchRef.current) {
+                nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }, 100);
 
         return () => clearTimeout(timer);
-    }, [activeTab, filterTeam, loading]);
+    }, [activeTab, loading]);
 
     useEffect(() => {
         const fetchData = async () => {
