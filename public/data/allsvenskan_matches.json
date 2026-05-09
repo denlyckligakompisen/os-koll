@@ -435,17 +435,17 @@
     {
       "home": "IF Elfsborg",
       "away": "IF Brommapojkarna",
-      "time": "17:00",
+      "time": "TBA",
       "date": "MÅNDAG 4 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming"
+      "score": "2 - 0",
+      "status": "finished"
     },
     {
       "home": "IFK Göteborg",
       "away": "Hammarby IF",
       "time": "13:00",
-      "date": "MÅNDAG 4 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
       "score": "",
       "status": "upcoming"
@@ -454,7 +454,7 @@
       "home": "Degerfors IF",
       "away": "Mjällby AIF",
       "time": "13:00",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529881/degerfors-if-mot-mjallby-aif",
       "score": "",
       "status": "upcoming"
@@ -463,7 +463,7 @@
       "home": "Västerås SK",
       "away": "GAIS",
       "time": "13:00",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529883/vasteras-sk-mot-gais",
       "score": "",
       "status": "upcoming"
@@ -472,7 +472,7 @@
       "home": "AIK",
       "away": "Djurgårdens IF",
       "time": "12:00",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529877/aik-mot-djurgardens-if",
       "score": "",
       "status": "upcoming"
@@ -2161,33 +2161,6 @@
       "status": "upcoming"
     },
     {
-      "home": "Hammarby IF",
-      "away": "Västerås SK",
-      "time": "TBA",
-      "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529870/hammarby-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Mjällby AIF",
-      "time": "TBA",
-      "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529872/malmo-ff-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
-      "home": "GAIS",
-      "away": "Örgryte IS",
-      "time": "TBA",
-      "date": "SÖNDAG 3 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529871/gais-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming"
-    },
-    {
       "home": "IF Elfsborg",
       "away": "AIK",
       "time": "TBA",
@@ -2218,7 +2191,7 @@
       "home": "IF Elfsborg",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "MÅNDAG 4 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming"
@@ -2227,7 +2200,7 @@
       "home": "IFK Göteborg",
       "away": "Hammarby IF",
       "time": "TBA",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
       "score": "",
       "status": "upcoming"
@@ -2236,7 +2209,7 @@
       "home": "Degerfors IF",
       "away": "Mjällby AIF",
       "time": "TBA",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529881/degerfors-if-mot-mjallby-aif",
       "score": "",
       "status": "upcoming"
@@ -2245,12 +2218,39 @@
       "home": "Västerås SK",
       "away": "GAIS",
       "time": "TBA",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529883/vasteras-sk-mot-gais",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Djurgårdens IF",
+      "time": "TBA",
+      "date": "SÖNDAG 10 MAJ",
+      "link": "https://allsvenskan.se/matcher/2026/6529877/aik-mot-djurgardens-if",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "SÖNDAG 10 MAJ",
+      "link": "https://allsvenskan.se/matcher/2026/6529884/kalmar-ff-mot-halmstads-bk",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Malmö FF",
+      "time": "TBA",
+      "date": "SÖNDAG 10 MAJ",
+      "link": "https://allsvenskan.se/matcher/2026/6529879/bk-hacken-mot-malmo-ff",
       "score": "",
       "status": "upcoming"
     }
   ],
-  "lastUpdated": "2026-05-08T06:29:44.143Z",
+  "lastUpdated": "2026-05-09T07:05:08.996Z",
   "source": "https://allsvenskan.se/matcher"
 }
