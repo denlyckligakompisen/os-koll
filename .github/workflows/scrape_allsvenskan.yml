@@ -21,18 +21,16 @@ jobs:
       - name: Fetch Allsvenskan Data (SofaScore)
         run: npm run fetch:allsvenskan
 
-      # ── Playwright: maraton table + logos (still scraped from allsvenskan.se) ──
-      - name: Install Playwright for remaining scrapers
+      # ── Playwright: logos (downloaded from SofaScore) ──
+      - name: Install Playwright for logo download
         run: npx playwright install --with-deps chromium
-      - name: Scrape Maratontabell and Logos
-        run: |
-          npm run scrape:allsvenskan-maraton
-          npm run scrape:allsvenskan-logos
+      - name: Download team logos
+        run: npm run scrape:allsvenskan-logos
 
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add public/data/allsvenskan_matches.json public/data/allsvenskan_table.json public/data/allsvenskan_logos.json public/data/allsvenskan_maraton.json
+          git add public/data/allsvenskan_matches.json public/data/allsvenskan_table.json public/data/allsvenskan_logos.json public/logos/
           git commit -m "Update Allsvenskan data [skip ci]" || exit 0
           git push

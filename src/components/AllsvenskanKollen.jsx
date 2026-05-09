@@ -502,80 +502,9 @@ const AllsvenskanKollen = () => {
                     )}
 
                     {activeTab === 'statistik' && (
-                        <div style={{ marginBottom: '32px' }}>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
-                                Allsvenskans Maratontabell
-                            </div>
-                            <Card style={{ marginBottom: '0' }}>
-                                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                                    <thead>
-                                        <tr style={{ borderBottom: 'var(--border)' }}>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                            <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>SÄS</th>
-                                            <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '50px' }}>S</th>
-                                            <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '60px' }}>P</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {maratonData?.table.map((team, idx) => {
-                                            const rank = idx + 1;
-                                            const isFiltered = filterTeam && team.team.includes(filterTeam);
-                                            
-                                            return (
-                                                <tr 
-                                                    key={idx} 
-                                                    ref={el => maratonRefs.current[team.team] = el}
-                                                    style={{ 
-                                                        backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                        transition: 'background-color 0.2s ease'
-                                                    }}
-                                                >
-                                                    <td style={{ padding: '8px 4px' }}>
-                                                        <div style={{ 
-                                                            width: '28px', 
-                                                            height: '28px', 
-                                                            display: 'flex', 
-                                                            alignItems: 'center', 
-                                                            justifyContent: 'center', 
-                                                            borderRadius: '8px', 
-                                                            fontWeight: '700', 
-                                                            fontSize: '0.85rem',
-                                                            backgroundColor: 'transparent',
-                                                            color: 'inherit'
-                                                        }}>
-                                                            {team.rank}
-                                                        </div>
-                                                    </td>
-                                                    <td style={{ padding: '11px 4px' }}>
-                                                        <button 
-                                                            onClick={() => handleTeamClick(team.team)}
-                                                            style={{ 
-                                                                display: 'flex', 
-                                                                alignItems: 'center', 
-                                                                gap: '8px',
-                                                                background: 'none',
-                                                                border: 'none',
-                                                                padding: 0,
-                                                                font: 'inherit',
-                                                                color: 'inherit',
-                                                                cursor: teams.some(t => t.includes(team.team.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim())) ? 'pointer' : 'default',
-                                                                textAlign: 'left'
-                                                            }}
-                                                        >
-                                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
-                                                            <span style={{ fontWeight: '500' }}>{team.team}</span>
-                                                        </button>
-                                                    </td>
-                                                    <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.seasons}</td>
-                                                    <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                                    <td style={{ padding: '11px 4px', textAlign: 'right', fontWeight: '800' }}>{team.points}</td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </Card>
+                        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-muted)' }}>
+                            <BarChart3 size={40} strokeWidth={1.2} style={{ marginBottom: '12px', opacity: 0.4 }} />
+                            <div style={{ fontSize: '0.95rem', fontWeight: '600' }}>Kommer snart</div>
                         </div>
                     )}
                 </div>
