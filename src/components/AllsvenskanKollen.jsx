@@ -10,6 +10,44 @@ import MenuItem from '@mui/material/MenuItem';
 
 const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
 
+const TEAM_COLORS = {
+    "AIK": { bg: "#000000", text: "#ffca28", label: "#ffffff" },
+    "BK Häcken": { bg: "#ffd600", text: "#000000", label: "#000000" },
+    "Djurgårdens IF": { bg: "#002d62", text: "#7bc3e5", label: "#ffffff" },
+    "GAIS": { bg: "#006241", text: "#ffca28", label: "#ffffff" },
+    "Halmstads BK": { bg: "#0054a6", text: "#ffd700", label: "#ffffff" },
+    "Hammarby IF": { bg: "#007e4a", text: "#ffffff", label: "#ffffff" },
+    "IF Brommapojkarna": { bg: "#d32f2f", text: "#000000", label: "#ffffff" },
+    "IF Elfsborg": { bg: "#ffd200", text: "#000000", label: "#000000" },
+    "IFK Göteborg": { bg: "#004b87", text: "#ffffff", label: "#ffffff" },
+    "IK Sirius": { bg: "#004f9f", text: "#ffffff", label: "#ffffff" },
+    "Kalmar FF": { bg: "#c2185b", text: "#ffffff", label: "#ffffff" },
+    "Malmö FF": { bg: "#7bc3e5", text: "#004b87", label: "#1d2a44" },
+    "Mjällby AIF": { bg: "#ff9900", text: "#000000", label: "#000000" },
+    "Västerås SK": { bg: "#006338", text: "#ffffff", label: "#ffffff" },
+    "Degerfors IF": { bg: "#e53935", text: "#ffffff", label: "#ffffff" },
+    "Örgryte IS": { bg: "#aa1111", text: "#2196f3", label: "#ffffff" }
+};
+
+const getHeaderStyle = (teamName) => {
+    if (!teamName || !TEAM_COLORS[teamName]) {
+        return {
+            bg: "#ffffff",
+            text: "#000000",
+            inactiveText: "#8e8e93",
+            activeLine: "#000000"
+        };
+    }
+    const colors = TEAM_COLORS[teamName];
+    const isLightBg = ["BK Häcken", "IF Elfsborg", "Malmö FF", "Mjällby AIF"].includes(teamName);
+    return {
+        bg: colors.bg,
+        text: colors.label,
+        inactiveText: isLightBg ? "rgba(0, 0, 0, 0.45)" : "rgba(255, 255, 255, 0.6)",
+        activeLine: colors.text
+    };
+};
+
 const parseMatchDate = (dateStr, timeStr) => {
     if (!dateStr) return new Date();
     const parts = dateStr.split(' ');
@@ -80,18 +118,7 @@ const AllsvenskanKollen = () => {
         else localStorage.removeItem('allsvenskan-koll-filter');
     }, [filterTeam]);
 
-    useEffect(() => {
-        // Delay to allow for tab switching and DOM rendering
-        const timer = setTimeout(() => {
-            if (activeTab === 'matcher' && nextMatchRef.current) {
-                nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }, 100);
 
-        return () => clearTimeout(timer);
-    }, [activeTab, loading]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -193,6 +220,21 @@ const AllsvenskanKollen = () => {
         return filteredMatches.filter(m => parseMatchDate(m.date, m.time).getTime() === nextMatchTime);
     }, [filteredMatches, nextMatchTime]);
 
+    const headerStyle = useMemo(() => getHeaderStyle(filterTeam), [filterTeam]);
+
+    useEffect(() => {
+        // Delay to allow for tab switching and DOM rendering
+        const timer = setTimeout(() => {
+            if (activeTab === 'matcher' && nextMatchRef.current) {
+                nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (activeTab !== 'matcher') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }, 150);
+
+        return () => clearTimeout(timer);
+    }, [activeTab, loading, filterTeam, nextMatchTime]);
+
     const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
 
     const handleTouchStart = (e) => {
@@ -245,7 +287,13 @@ const AllsvenskanKollen = () => {
                 <ArrowUp size={28} />
             </button>
 
-            <div className="nav-container" style={{ '--active-color': '#000000' }}>
+            <div className="nav-container" style={{ 
+                backgroundColor: headerStyle.bg,
+                color: headerStyle.text,
+                '--active-color': headerStyle.activeLine,
+                transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
+                boxShadow: filterTeam ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+            }}>
                 <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
                     <button
                         onClick={handleNavMenuClick}
@@ -277,6 +325,11 @@ const AllsvenskanKollen = () => {
                             onClick={() => {
                                 setActiveTab(tab.id);
                             }}
+                            style={{
+                                color: activeTab === tab.id ? headerStyle.text : headerStyle.inactiveText,
+                                borderBottomColor: activeTab === tab.id ? headerStyle.activeLine : 'transparent',
+                                transition: 'all 0.3s ease'
+                            }}
                         >
                             <tab.icon size={22} className="tab-icon" />
                             <span className="tab-label">{tab.label}</span>
@@ -298,7 +351,7 @@ const AllsvenskanKollen = () => {
                         {filterTeam && getTeamLogo(filterTeam) ? (
                             <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
                         ) : (
-                            <Globe size={24} color="#8e8e93" strokeWidth={1.5} />
+                            <Globe size={24} color={headerStyle.inactiveText} strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} />
                         )}
                     </button>
                 </div>
