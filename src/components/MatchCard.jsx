@@ -4,9 +4,38 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
-const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, variant, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, variant, filterTeam, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
+
+    let outcomeBg = null;
+    let outcomeTextColor = null;
+
+    if (filterTeam && match.status === 'finished' && match.score && match.score.includes('-')) {
+        const parts = match.score.split('-').map(s => parseInt(s.trim()));
+        if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            const homeScore = parts[0];
+            const awayScore = parts[1];
+            
+            const clean = (n) => n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+            const cleanFilter = clean(filterTeam);
+            const isHome = clean(match.home).includes(cleanFilter);
+            const isAway = clean(match.away).includes(cleanFilter);
+            
+            if (isHome || isAway) {
+                if (homeScore === awayScore) {
+                    outcomeBg = '#8e8e93'; // Grey
+                    outcomeTextColor = '#ffffff';
+                } else if ((isHome && homeScore > awayScore) || (isAway && awayScore > homeScore)) {
+                    outcomeBg = '#34c759'; // Green
+                    outcomeTextColor = '#ffffff';
+                } else {
+                    outcomeBg = '#ff3b30'; // Red
+                    outcomeTextColor = '#ffffff';
+                }
+            }
+        }
+    }
 
     const handleTeamClick = (e, name) => {
         if (!onCountryClick) return;
@@ -85,8 +114,8 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             style={{
                                 fontSize: '1.4rem',
                                 fontWeight: '900',
-                                color: (match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)',
-                                backgroundColor: (match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
+                                color: outcomeTextColor || ((match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)'),
+                                backgroundColor: outcomeBg || ((match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                                 padding: '8px 20px',
                                 borderRadius: '12px',
                                 border: 'none',
@@ -198,10 +227,10 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                         )}
                         <span style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
-                            color: (match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)',
+                            color: outcomeTextColor || ((match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)'),
                             fontWeight: '800',
                             flexShrink: 0,
-                            backgroundColor: (match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)',
+                            backgroundColor: outcomeBg || ((match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                             padding: highlight ? '4px 12px' : '2px 8px',
                             borderRadius: '6px',
                             display: 'flex',

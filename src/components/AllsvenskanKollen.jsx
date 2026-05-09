@@ -499,6 +499,7 @@ const AllsvenskanKollen = () => {
                                                                     variant={isNext ? 'hero' : undefined}
                                                                     homeLogo={getTeamLogo(match.home)}
                                                                     awayLogo={getTeamLogo(match.away)}
+                                                                    filterTeam={filterTeam}
                                                                     onClick={() => match.link && window.open(match.link, '_blank')}
                                                                 />
                                                             </div>
