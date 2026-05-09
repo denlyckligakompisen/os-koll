@@ -480,19 +480,21 @@ const AllsvenskanKollen = () => {
             }}>
                 <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
                     <button
-                        onClick={handleNavMenuClick}
+                        onClick={() => navigate('/vm')}
                         style={{ 
                             background: 'none', 
                             border: 'none', 
                             cursor: 'pointer',
                             display: 'flex', 
                             alignItems: 'center', 
+                            gap: '10px',
                             padding: '6px 8px',
                             borderRadius: '12px',
                             transition: 'background-color 0.2s',
                         }}
                     >
                         <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan Logo" style={{ height: '34px', objectFit: 'contain' }} />
+                        <ArrowLeftRight size={18} color="#aeafb4" />
                     </button>
                 </div>
                 
@@ -623,46 +625,7 @@ const AllsvenskanKollen = () => {
                 ))}
             </MuiMenu>
 
-            <MuiMenu
-                anchorEl={navAnchorEl}
-                open={Boolean(navAnchorEl)}
-                onClose={handleNavMenuClose}
-                transformOrigin={{ horizontal: 'left', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                slotProps={{
-                    paper: {
-                        style: {
-                            borderRadius: '16px',
-                            marginTop: '8px',
-                            boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-                            border: '0.5px solid rgba(0,0,0,0.08)',
-                            padding: '6px 0',
-                            minWidth: '160px'
-                        }
-                    }
-                }}
-            >
-                <MenuItem 
-                    onClick={() => {
-                        navigate('/vm');
-                        handleNavMenuClose();
-                    }}
-                    style={{ 
-                        fontSize: '0.9rem', 
-                        fontWeight: 600,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        padding: '10px 16px',
-                        borderRadius: '8px',
-                        margin: '2px 8px',
-                        color: 'var(--color-text)',
-                    }}
-                >
-                    <Globe size={20} color="#007aff" />
-                    <span>VM-Kollen</span>
-                </MenuItem>
-            </MuiMenu>
+
 
             <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>

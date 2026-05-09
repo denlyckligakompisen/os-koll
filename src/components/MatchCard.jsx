@@ -299,7 +299,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 key={idx} 
                 padding="28px"
                 style={{
-                    background: 'var(--color-card-bg-elevated)',
+                    backgroundColor: 'var(--color-card-bg-elevated)',
                     border: 'var(--border)',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                     ...props.style
