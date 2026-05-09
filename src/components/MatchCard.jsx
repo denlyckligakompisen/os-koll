@@ -4,6 +4,45 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
+export const cleanTeamNameForDisplay = (name) => {
+    if (!name) return '';
+    let cleaned = name.trim();
+    
+    // Explicit clean mapping for known teams
+    if (cleaned === 'Djurgårdens IF') return 'Djurgården';
+    if (cleaned === 'Hammarby IF') return 'Hammarby';
+    if (cleaned === 'Malmö FF') return 'Malmö';
+    if (cleaned === 'IK Sirius') return 'Sirius';
+    if (cleaned === 'BK Häcken') return 'Häcken';
+    if (cleaned === 'Halmstads BK') return 'Halmstad';
+    if (cleaned === 'Kalmar FF') return 'Kalmar';
+    if (cleaned === 'Mjällby AIF') return 'Mjällby';
+    if (cleaned === 'Västerås SK') return 'Västerås';
+    if (cleaned === 'IFK Göteborg') return 'Göteborg';
+    if (cleaned === 'IFK Norrköping') return 'Norrköping';
+    if (cleaned === 'IFK Värnamo') return 'Värnamo';
+    if (cleaned === 'IF Elfsborg') return 'Elfsborg';
+    if (cleaned === 'IF Brommapojkarna') return 'BP';
+    if (cleaned === 'Degerfors IF') return 'Degerfors';
+    if (cleaned === 'Örgryte IS') return 'Örgryte';
+    if (cleaned === 'Varbergs BoIS') return 'Varberg';
+    if (cleaned === 'Landskrona BoIS') return 'Landskrona';
+    if (cleaned === 'Trelleborgs FF') return 'Trelleborg';
+    if (cleaned === 'Gefle IF') return 'Gefle';
+    if (cleaned === 'IK Oddevold') return 'Oddevold';
+    if (cleaned === 'Östers IF') return 'Öster';
+    if (cleaned === 'Örebro SK') return 'Örebro';
+    if (cleaned === 'Helsingborgs IF') return 'Helsingborg';
+    if (cleaned === 'GIF Sundsvall') return 'Sundsvall';
+    
+    // Generic regex fallbacks
+    cleaned = cleaned.replace(/^IFK\s+/i, '');
+    cleaned = cleaned.replace(/^(BK|IK)\s+/i, '');
+    cleaned = cleaned.replace(/\s+(IF|FF|BK|BoIS|IS|FK|IK|AIF|SK)\b/gi, '');
+    
+    return cleaned;
+};
+
 const getLastName = (name) => {
     if (!name) return '';
     const parts = name.trim().split(/\s+/);
@@ -45,9 +84,140 @@ const getCombinedScorers = (homeScorers = [], awayScorers = []) => {
     return [...homeWithTeam, ...awayWithTeam].sort((a, b) => a.minVal - b.minVal);
 };
 
-const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, variant, filterTeam, ...props }) => {
+const MONTH_MAP_LOCAL = { 
+    'jan': 0, 'januari': 0,
+    'feb': 1, 'februari': 1,
+    'mar': 2, 'mars': 2,
+    'apr': 3, 'april': 3,
+    'maj': 4,
+    'jun': 5, 'juni': 5,
+    'jul': 6, 'juli': 6,
+    'aug': 7, 'augusti': 7,
+    'sep': 8, 'september': 8,
+    'okt': 9, 'oktober': 9,
+    'nov': 10, 'november': 10,
+    'dec': 11, 'december': 11
+};
+
+const parseMatchDateLocal = (dateStr, timeStr) => {
+    if (!dateStr) return new Date();
+    const parts = dateStr.split(' ');
+    if (parts.length < 3) return new Date();
+    
+    const day = parseInt(parts[1]);
+    const monthName = parts[2]?.toLowerCase();
+    const year = parseInt(parts[3]) || 2026;
+
+    let hour = 0, minute = 0;
+    if (timeStr && timeStr.includes(':')) {
+        const [h, m] = timeStr.split(':').map(Number);
+        hour = h;
+        minute = m;
+    }
+
+    return new Date(year, MONTH_MAP_LOCAL[monthName] ?? 0, day, hour, minute);
+};
+
+const cleanTeamName = (n) => {
+    if (!n) return '';
+    return n.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim();
+};
+
+const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
+
+    // Calculate Head-to-Head (H2H)
+    let homeWins = match.h2h?.homeWins;
+    let draws = match.h2h?.draws;
+    let awayWins = match.h2h?.awayWins;
+
+    if (homeWins === undefined || draws === undefined || awayWins === undefined) {
+        const cleanHome = cleanTeamName(match.home);
+        const cleanAway = cleanTeamName(match.away);
+
+        const h2hMatches = (allMatches || []).filter(m => {
+            if (m.status !== 'finished' || !m.score) return false;
+            const mHome = cleanTeamName(m.home);
+            const mAway = cleanTeamName(m.away);
+            return (mHome === cleanHome && mAway === cleanAway) || (mHome === cleanAway && mAway === cleanHome);
+        });
+
+        homeWins = 0;
+        draws = 0;
+        awayWins = 0;
+
+        h2hMatches.forEach(m => {
+            const parts = m.score.split('-').map(s => parseInt(s.trim()));
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                const mHome = cleanTeamName(m.home);
+                const isMatchHomeHome = mHome === cleanHome;
+                const homeScore = parts[0];
+                const awayScore = parts[1];
+                if (homeScore === awayScore) {
+                    draws++;
+                } else if (homeScore > awayScore) {
+                    if (isMatchHomeHome) homeWins++; else awayWins++;
+                } else {
+                    if (isMatchHomeHome) awayWins++; else homeWins++;
+                }
+            }
+        });
+    }
+
+    // Calculate Form
+    const getTeamForm = (teamName) => {
+        const cleanTeam = cleanTeamName(teamName);
+        const teamFinished = (allMatches || [])
+            .filter(m => m.status === 'finished' && m.score)
+            .filter(m => cleanTeamName(m.home) === cleanTeam || cleanTeamName(m.away) === cleanTeam);
+
+        const sorted = [...teamFinished].sort((a, b) => {
+            return parseMatchDateLocal(b.date, b.time) - parseMatchDateLocal(a.date, a.time);
+        });
+
+        const last5 = sorted.slice(0, 5).reverse();
+
+        return last5.map(m => {
+            const parts = m.score.split('-').map(s => parseInt(s.trim()));
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                const homeScore = parts[0];
+                const awayScore = parts[1];
+                const isHome = cleanTeamName(m.home) === cleanTeam;
+                if (homeScore === awayScore) return 'O'; // Draw
+                if ((isHome && homeScore > awayScore) || (!isHome && awayScore > homeScore)) return 'V'; // Win
+                return 'F'; // Loss
+            }
+            return null;
+        }).filter(Boolean);
+    };
+
+    const homeForm = getTeamForm(match.home);
+    const awayForm = getTeamForm(match.away).reverse();
+
+    const renderFormBadge = (result, key) => {
+        let bg = '#8e8e93';
+        if (result === 'V') bg = '#34c759'; // Green
+        else if (result === 'F') bg = '#ff3b30'; // Red
+        
+        return (
+            <span key={key} style={{
+                width: '18px',
+                height: '18px',
+                borderRadius: '50%',
+                backgroundColor: bg,
+                color: 'white',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '0.62rem',
+                fontWeight: '800',
+                lineHeight: 1
+            }}>
+                {result}
+            </span>
+        );
+    };
 
     let outcomeBg = null;
     let outcomeTextColor = null;
@@ -79,26 +249,31 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
     }
 
     const handleTeamClick = (e, name) => {
-        if (!onCountryClick) return;
+        if (!onTeamClick && !onCountryClick) return;
         e.preventDefault();
         e.stopPropagation();
 
-        const country = name.includes('\n') ? name.split('\n')[1] : name;
-        onCountryClick(country);
+        const cleanName = name.includes('\n') ? name.split('\n')[1] : name;
+        if (onTeamClick) {
+            onTeamClick(cleanName);
+        } else if (onCountryClick) {
+            onCountryClick(cleanName);
+        }
     };
 
     const renderTeamName = (name) => {
         if (!name) return null;
         if (name.includes('\n')) {
             const [rank, teamName] = name.split('\n');
+            const cleanedTeam = cleanTeamNameForDisplay(teamName);
             return (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
-                    <BoldSverige text={teamName} />
+                    <BoldSverige text={cleanedTeam} />
                 </div>
             );
         }
-        return <BoldSverige text={name} />;
+        return <BoldSverige text={cleanTeamNameForDisplay(name)} />;
     };
 
     const getBroadcasterUrl = (broadcast) => {
@@ -133,14 +308,32 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
                     <div
-                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}
+                        onClick={(e) => handleTeamClick(e, match.home)}
+                        style={{ 
+                            flex: 1, 
+                            textAlign: 'center', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            gap: '12px',
+                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                        }}
                     >
                         {homeLogo ? (
                             <img src={homeLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
                         ) : (
                             homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={72} />
                         )}
+
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
+
+                        {/* Form badges under team name */}
+                        {allMatches && homeForm.length > 0 && (
+                            <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginTop: '-4px' }}>
+                                {homeForm.map((f, i) => renderFormBadge(f, i))}
+                            </div>
+                        )}
+
                         {match.scorers?.home?.length > 0 && (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
                                 {getSortedScorers(match.scorers.home).map((s, i) => (
@@ -185,17 +378,61 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                                 {match.broadcast}
                             </div>
                         )}
+
+                        {/* H2H Stats under the time/middle section */}
+                        {allMatches && (
+                            <div style={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignItems: 'center', 
+                                gap: '2px', 
+                                marginTop: '10px',
+                                padding: '4px 8px',
+                                borderRadius: '8px',
+                                backgroundColor: 'rgba(0,0,0,0.02)',
+                                border: '0.5px solid rgba(0,0,0,0.03)'
+                            }}>
+                                <div style={{ fontSize: '0.55rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                    Inbördes möten
+                                </div>
+                                <div style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--color-text)', display: 'flex', gap: '4px', alignItems: 'center' }}>
+                                    <span style={{ color: '#34c759' }}>{homeWins}V</span>
+                                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>-</span>
+                                    <span style={{ color: '#8e8e93' }}>{draws}O</span>
+                                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>-</span>
+                                    <span style={{ color: '#34c759' }}>{awayWins}V</span>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div
-                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}
+                        onClick={(e) => handleTeamClick(e, match.away)}
+                        style={{ 
+                            flex: 1, 
+                            textAlign: 'center', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            gap: '12px',
+                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                        }}
                     >
                         {awayLogo ? (
                             <img src={awayLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
                         ) : (
                             awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={72} />
                         )}
+
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
+
+                        {/* Form badges under team name */}
+                        {allMatches && awayForm.length > 0 && (
+                            <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginTop: '-4px' }}>
+                                {awayForm.map((f, i) => renderFormBadge(f, i))}
+                            </div>
+                        )}
+
                         {match.scorers?.away?.length > 0 && (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
                                 {getSortedScorers(match.scorers.away).map((s, i) => (
@@ -220,7 +457,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                 boxShadow: 'none', 
                 backgroundColor: 'var(--color-card-bg)', 
                 display: 'flex', 
-                alignItems: 'flex-start', 
+                alignItems: match.status === 'upcoming' ? 'center' : 'flex-start', 
                 gap: highlight ? '20px' : '12px', 
                 cursor: props.onClick ? 'pointer' : 'default',
                 transform: highlight ? 'scale(1.02)' : 'none',
@@ -232,7 +469,18 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
             onClick={props.onClick}
         >
             {homeLogo ? (
-                <img src={homeLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />
+                <img 
+                    src={homeLogo} 
+                    alt="" 
+                    onClick={(e) => handleTeamClick(e, match.home)}
+                    style={{ 
+                        height: highlight ? '42px' : '28px', 
+                        width: highlight ? '42px' : '28px', 
+                        objectFit: 'contain', 
+                        transition: 'all 0.3s ease',
+                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                    }} 
+                />
             ) : (
                 homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.home)} />
             )}
@@ -248,13 +496,15 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                     transition: 'all 0.3s ease'
                 }}>
                     <span
+                        onClick={(e) => handleTeamClick(e, match.home)}
                         style={{
                             flex: 1,
                             textAlign: 'right',
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            fontWeight: highlight ? '700' : '500'
+                            fontWeight: highlight ? '700' : '500',
+                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
                         {renderTeamName(match.home)}
@@ -309,13 +559,15 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                         )}
                     </button>
                     <span
+                        onClick={(e) => handleTeamClick(e, match.away)}
                         style={{
                             flex: 1,
                             textAlign: 'left',
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            fontWeight: highlight ? '700' : '500'
+                            fontWeight: highlight ? '700' : '500',
+                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
                         {renderTeamName(match.away)}
@@ -378,7 +630,18 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                 })()}
             </div>
             {awayLogo ? (
-                <img src={awayLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />
+                <img 
+                    src={awayLogo} 
+                    alt="" 
+                    onClick={(e) => handleTeamClick(e, match.away)}
+                    style={{ 
+                        height: highlight ? '42px' : '28px', 
+                        width: highlight ? '42px' : '28px', 
+                        objectFit: 'contain', 
+                        transition: 'all 0.3s ease',
+                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                    }} 
+                />
             ) : (
                 awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.away)} />
             )}

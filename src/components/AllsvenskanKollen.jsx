@@ -1,14 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
-import MatchCard from './MatchCard';
+import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-const MONTH_MAP = { 'jan': 0, 'feb': 1, 'mar': 2, 'mars': 2, 'apr': 3, 'maj': 4, 'jun': 5, 'juni': 5, 'jul': 6, 'juli': 6, 'aug': 7, 'sep': 8, 'okt': 9, 'nov': 10, 'dec': 11 };
+const MONTH_MAP = { 
+    'jan': 0, 'januari': 0,
+    'feb': 1, 'februari': 1,
+    'mar': 2, 'mars': 2,
+    'apr': 3, 'april': 3,
+    'maj': 4,
+    'jun': 5, 'juni': 5,
+    'jul': 6, 'juli': 6,
+    'aug': 7, 'augusti': 7,
+    'sep': 8, 'september': 8,
+    'okt': 9, 'oktober': 9,
+    'nov': 10, 'november': 10,
+    'dec': 11, 'december': 11
+};
 
 const TEAM_COLORS = {
     "AIK": { bg: "#000000", text: "#ffca28", label: "#ffffff" },
@@ -188,23 +201,32 @@ const AllsvenskanKollen = () => {
 
     const filteredMatches = useMemo(() => {
         if (!matchesData?.matches) return [];
-        if (!filterTeam) return matchesData.matches;
-        return matchesData.matches.filter(m => {
-            const cleanFilter = filterTeam.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
-            return m.home.includes(cleanFilter) || m.away.includes(cleanFilter) || 
-                   m.home.includes(filterTeam) || m.away.includes(filterTeam);
+        let result = matchesData.matches;
+        if (filterTeam) {
+            result = matchesData.matches.filter(m => {
+                const cleanFilter = filterTeam.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+                return m.home.includes(cleanFilter) || m.away.includes(cleanFilter) || 
+                       m.home.includes(filterTeam) || m.away.includes(filterTeam);
+            });
+        }
+        
+        // Sort matches chronologically
+        return [...result].sort((a, b) => {
+            return parseMatchDate(a.date, a.time) - parseMatchDate(b.date, b.time);
         });
     }, [matchesData, filterTeam]);
 
-    const nextMatchTime = useMemo(() => {
+    const nextMatchDateString = useMemo(() => {
         if (filteredMatches.length === 0) return null;
         const now = new Date();
-        const upcoming = filteredMatches
-            .map(m => parseMatchDate(m.date, m.time))
-            .filter(d => d >= now)
-            .sort((a, b) => a - b);
-        return upcoming[0] ? upcoming[0].getTime() : null;
+        const upcoming = filteredMatches.filter(m => parseMatchDate(m.date, m.time) >= now);
+        return upcoming[0] ? upcoming[0].date : null;
     }, [filteredMatches]);
+
+    const heroMatches = useMemo(() => {
+        if (!nextMatchDateString) return [];
+        return filteredMatches.filter(m => m.date === nextMatchDateString);
+    }, [filteredMatches, nextMatchDateString]);
 
     const groupedMatches = useMemo(() => {
         const groups = {};
@@ -212,13 +234,16 @@ const AllsvenskanKollen = () => {
             if (!groups[match.date]) groups[match.date] = [];
             groups[match.date].push(match);
         });
-        return Object.entries(groups).map(([date, matches]) => ({ date, matches }));
+        const list = Object.entries(groups).map(([date, matches]) => ({ date, matches }));
+        
+        // Sort grouped dates chronologically
+        return list.sort((a, b) => {
+            if (a.matches.length === 0) return 1;
+            if (b.matches.length === 0) return -1;
+            return parseMatchDate(a.matches[0].date, a.matches[0].time) - parseMatchDate(b.matches[0].date, b.matches[0].time);
+        });
     }, [filteredMatches]);
 
-    const heroMatches = useMemo(() => {
-        if (!nextMatchTime) return [];
-        return filteredMatches.filter(m => parseMatchDate(m.date, m.time).getTime() === nextMatchTime);
-    }, [filteredMatches, nextMatchTime]);
 
     const headerStyle = useMemo(() => getHeaderStyle(filterTeam), [filterTeam]);
 
@@ -331,7 +356,7 @@ const AllsvenskanKollen = () => {
         }, 150);
 
         return () => clearTimeout(timer);
-    }, [activeTab, loading, filterTeam, nextMatchTime]);
+    }, [activeTab, loading, filterTeam, nextMatchDateString]);
 
     const activeTabRef = React.useRef(activeTab);
     useEffect(() => {
@@ -568,7 +593,7 @@ const AllsvenskanKollen = () => {
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             {getTeamLogo(filterTeam) && <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
-                            <span>{filterTeam}</span>
+                            <span>{cleanTeamNameForDisplay(filterTeam)}</span>
                         </div>
                         <X size={18} strokeWidth={2.5} />
                     </MenuItem>
@@ -593,7 +618,7 @@ const AllsvenskanKollen = () => {
                         }}
                     >
                         {getTeamLogo(team) && <img src={getTeamLogo(team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
-                        <span>{team}</span>
+                        <span>{cleanTeamNameForDisplay(team)}</span>
                     </MenuItem>
                 ))}
             </MuiMenu>
@@ -658,7 +683,7 @@ const AllsvenskanKollen = () => {
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                     {group.matches.map((match, j) => {
-                                                        const isNext = nextMatchTime && parseMatchDate(match.date, match.time).getTime() === nextMatchTime;
+                                                        const isNext = nextMatchDateString && match.date === nextMatchDateString;
                                                         return (
                                                             <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
                                                                 <MatchCard 
@@ -668,6 +693,8 @@ const AllsvenskanKollen = () => {
                                                                     homeLogo={getTeamLogo(match.home)}
                                                                     awayLogo={getTeamLogo(match.away)}
                                                                     filterTeam={filterTeam}
+                                                                    allMatches={matchesData?.matches}
+                                                                    onTeamClick={setFilterTeam}
                                                                     onClick={() => match.link && window.open(match.link, '_blank')}
                                                                 />
                                                             </div>
@@ -757,7 +784,7 @@ const AllsvenskanKollen = () => {
                                                 }}>
                                                     <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                         {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
-                                                        <span>{team.team}</span>
+                                                        <span>{cleanTeamNameForDisplay(team.team)}</span>
                                                     </span>
                                                 </td>
                                                 <td style={{ 

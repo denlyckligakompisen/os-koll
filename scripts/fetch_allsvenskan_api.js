@@ -186,13 +186,44 @@ async function fetchMatches(fetchApi, isDelta = false) {
 
     const matchObj = { id, home, away, time, date, link, score, status, startTimestamp: event.startTimestamp };
 
+    // Find existing match in cache
+    const existing = existingMatches.find(m => 
+      (m.id === id) || 
+      (m.home === home && m.away === away && m.date === date)
+    );
+
+    // Reuse existing H2H if available
+    if (existing && existing.h2h) {
+      matchObj.h2h = existing.h2h;
+    }
+
+    // For upcoming matches within the next 2 days that don't have H2H yet, fetch it
+    const now = new Date();
+    const twoDaysFromNow = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
+    const matchTime = new Date(event.startTimestamp * 1000);
+
+    if (status === 'upcoming' && !matchObj.h2h && matchTime >= now && matchTime <= twoDaysFromNow) {
+      try {
+        console.log(`  Fetching H2H history for ${home} - ${away} (ID: ${id})...`);
+        const h2hData = await fetchApi(`/event/${id}/h2h`);
+        const team1Wins = h2hData.teamDuel?.homeWins ?? 0;
+        const draws = h2hData.teamDuel?.draws ?? 0;
+        const team2Wins = h2hData.teamDuel?.awayWins ?? 0;
+        matchObj.h2h = {
+          homeWins: team1Wins,
+          draws: draws,
+          awayWins: team2Wins
+        };
+        console.log(`    → H2H loaded: ${matchObj.h2h.homeWins}V - ${matchObj.h2h.draws}O - ${matchObj.h2h.awayWins}V`);
+        // Polite delay to prevent rate limit
+        await new Promise(r => setTimeout(r, 200));
+      } catch (err) {
+        console.log(`  ⚠ Failed to fetch H2H for ${home} - ${away}: ${err.message}`);
+      }
+    }
+
     // Fetch or reuse scorers if finished
     if (status === 'finished') {
-      const existing = existingMatches.find(m => 
-        (m.id === id) || 
-        (m.home === home && m.away === away && m.date === date)
-      );
-
       if (existing && existing.scorers) {
         matchObj.scorers = existing.scorers;
       } else {

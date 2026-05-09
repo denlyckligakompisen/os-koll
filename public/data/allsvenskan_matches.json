@@ -3048,7 +3048,12 @@
       "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1778414400
+      "startTimestamp": 1778414400,
+      "h2h": {
+        "homeWins": 6,
+        "draws": 2,
+        "awayWins": 2
+      }
     },
     {
       "id": 15272417,
@@ -3059,7 +3064,12 @@
       "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1778414400
+      "startTimestamp": 1778414400,
+      "h2h": {
+        "homeWins": 5,
+        "draws": 3,
+        "awayWins": 2
+      }
     },
     {
       "id": 15272412,
@@ -3070,7 +3080,12 @@
       "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1778423400
+      "startTimestamp": 1778423400,
+      "h2h": {
+        "homeWins": 4,
+        "draws": 4,
+        "awayWins": 2
+      }
     },
     {
       "id": 15272415,
@@ -3081,7 +3096,12 @@
       "link": "https://allsvenskan.se/matcher",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1778518800
+      "startTimestamp": 1778518800,
+      "h2h": {
+        "homeWins": 2,
+        "draws": 1,
+        "awayWins": 1
+      }
     },
     {
       "id": 15272428,
@@ -3370,6 +3390,6 @@
       "startTimestamp": 1783245600
     }
   ],
-  "lastUpdated": "2026-05-09T22:43:29.263Z",
+  "lastUpdated": "2026-05-09T23:15:01.549Z",
   "source": "SofaScore"
 }
