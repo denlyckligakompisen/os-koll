@@ -482,7 +482,15 @@ const AllsvenskanKollen = () => {
                             key={tab.id}
                             className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
                             onClick={() => {
-                                setActiveTab(tab.id);
+                                if (tab.id === 'matcher' && activeTab === 'matcher') {
+                                    if (nextMatchRef.current) {
+                                        nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    } else {
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }
+                                } else {
+                                    setActiveTab(tab.id);
+                                }
                                 if (navigator.vibrate) navigator.vibrate(10);
                             }}
                             style={{

@@ -4,6 +4,47 @@ import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 
+const getLastName = (name) => {
+    if (!name) return '';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length <= 1) return name;
+    
+    // Check if the last part is a common suffix like "Jr.", "Sr.", "III", "II"
+    const lastPart = parts[parts.length - 1];
+    const lowerLast = lastPart.toLowerCase().replace(/\./g, '');
+    if ((lowerLast === 'jr' || lowerLast === 'sr' || lowerLast === 'ii' || lowerLast === 'iii') && parts.length > 2) {
+        return parts[parts.length - 2] + ' ' + lastPart;
+    }
+    return lastPart;
+};
+
+const getSortedScorers = (scorersList) => {
+    if (!scorersList || !Array.isArray(scorersList)) return [];
+    
+    const parseMinute = (minStr) => {
+        if (!minStr) return 0;
+        const base = parseInt(minStr.split('+')[0]);
+        const extra = parseInt(minStr.split('+')[1] || '0');
+        return isNaN(base) ? 0 : base + (extra / 100);
+    };
+
+    return [...scorersList].sort((a, b) => parseMinute(a.minute) - parseMinute(b.minute));
+};
+
+const getCombinedScorers = (homeScorers = [], awayScorers = []) => {
+    const parseMinute = (minStr) => {
+        if (!minStr) return 0;
+        const base = parseInt(minStr.split('+')[0]);
+        const extra = parseInt(minStr.split('+')[1] || '0');
+        return isNaN(base) ? 0 : base + (extra / 100);
+    };
+
+    const homeWithTeam = (homeScorers || []).map(s => ({ ...s, team: 'home', minVal: parseMinute(s.minute) }));
+    const awayWithTeam = (awayScorers || []).map(s => ({ ...s, team: 'away', minVal: parseMinute(s.minute) }));
+
+    return [...homeWithTeam, ...awayWithTeam].sort((a, b) => a.minVal - b.minVal);
+};
+
 const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, variant, filterTeam, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
@@ -90,7 +131,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                 }}
                 onClick={props.onClick}
             >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
                     <div
                         style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}
                     >
@@ -100,6 +141,15 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={72} />
                         )}
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
+                        {match.scorers?.home?.length > 0 && (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+                                {getSortedScorers(match.scorers.home).map((s, i) => (
+                                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <span>{getLastName(s.player)} {s.minute}'{s.suffix || ''}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
@@ -146,6 +196,15 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                             awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={72} />
                         )}
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
+                        {match.scorers?.away?.length > 0 && (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+                                {getSortedScorers(match.scorers.away).map((s, i) => (
+                                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <span>{getLastName(s.player)} {s.minute}'{s.suffix || ''}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </Card>
@@ -161,7 +220,7 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                 boxShadow: 'none', 
                 backgroundColor: 'var(--color-card-bg)', 
                 display: 'flex', 
-                alignItems: 'center', 
+                alignItems: 'flex-start', 
                 gap: highlight ? '20px' : '12px', 
                 cursor: props.onClick ? 'pointer' : 'default',
                 transform: highlight ? 'scale(1.02)' : 'none',
@@ -262,6 +321,61 @@ const MatchCard = ({ match, idx, onCountryClick, homeLogo, awayLogo, highlight, 
                         {renderTeamName(match.away)}
                     </span>
                 </div>
+                {match.scorers && (match.scorers.home?.length > 0 || match.scorers.away?.length > 0) && (() => {
+                    const sortedHome = getSortedScorers(match.scorers.home);
+                    const sortedAway = getSortedScorers(match.scorers.away);
+                    const rowCount = Math.max(sortedHome.length, sortedAway.length);
+                    const rows = Array.from({ length: rowCount });
+                    
+                    return (
+                        <div style={{ 
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            fontSize: '0.72rem', 
+                            color: 'var(--color-text-muted)', 
+                            marginTop: '6px',
+                            lineHeight: '1.4',
+                            transition: 'all 0.3s ease',
+                            width: '100%'
+                        }}>
+                            {rows.map((_, i) => {
+                                const homeScorer = sortedHome[i];
+                                const awayScorer = sortedAway[i];
+                                return (
+                                    <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                                        {/* Left: Home scorer */}
+                                        <div style={{ 
+                                            flex: 1, 
+                                            textAlign: 'right', 
+                                            paddingRight: '8px'
+                                        }}>
+                                            {homeScorer ? (
+                                                <span>{getLastName(homeScorer.player)} {homeScorer.minute}'{homeScorer.suffix || ''}</span>
+                                            ) : ''}
+                                        </div>
+
+                                        {/* Middle: Spacer */}
+                                        <div style={{ 
+                                            minWidth: highlight ? '90px' : '70px', 
+                                            flexShrink: 0
+                                        }} />
+
+                                        {/* Right: Away scorer */}
+                                        <div style={{ 
+                                            flex: 1, 
+                                            textAlign: 'left', 
+                                            paddingLeft: '8px'
+                                        }}>
+                                            {awayScorer ? (
+                                                <span>{getLastName(awayScorer.player)} {awayScorer.minute}'{awayScorer.suffix || ''}</span>
+                                            ) : ''}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })()}
             </div>
             {awayLogo ? (
                 <img src={awayLogo} alt="" style={{ height: highlight ? '42px' : '28px', width: highlight ? '42px' : '28px', objectFit: 'contain', transition: 'all 0.3s ease' }} />

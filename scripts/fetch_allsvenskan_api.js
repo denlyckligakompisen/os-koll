@@ -86,14 +86,15 @@ async function createBrowserFetcher() {
 
 // ─── Fetch Matches ───────────────────────────────────────────────────────────
 
-async function fetchMatches(fetchApi) {
+async function fetchMatches(fetchApi, isDelta = false) {
   console.log('\n📅 Fetching Allsvenskan matches...');
 
   const allEvents = [];
+  const maxPages = isDelta ? 1 : 10;
 
   // Fetch finished matches (paginated: page 0 is most recent)
-  console.log('  Fetching finished matches...');
-  for (let page = 0; page < 10; page++) {
+  console.log(`  Fetching finished matches (max ${maxPages} pages)...`);
+  for (let page = 0; page < maxPages; page++) {
     try {
       const data = await fetchApi(
         `/unique-tournament/${TOURNAMENT_ID}/season/${SEASON_ID}/events/last/${page}`
@@ -109,8 +110,8 @@ async function fetchMatches(fetchApi) {
   }
 
   // Fetch upcoming matches (paginated)
-  console.log('  Fetching upcoming matches...');
-  for (let page = 0; page < 10; page++) {
+  console.log(`  Fetching upcoming matches (max ${maxPages} pages)...`);
+  for (let page = 0; page < maxPages; page++) {
     try {
       const data = await fetchApi(
         `/unique-tournament/${TOURNAMENT_ID}/season/${SEASON_ID}/events/next/${page}`
@@ -138,9 +139,22 @@ async function fetchMatches(fetchApi) {
     return true;
   });
 
-  const matches = uniqueEvents.map(event => {
+  // Try to load existing matches to reuse already fetched scorers
+  let existingMatches = [];
+  if (fs.existsSync(OUTPUT_FILES.matches)) {
+    try {
+      const content = fs.readFileSync(OUTPUT_FILES.matches, 'utf8');
+      existingMatches = JSON.parse(content).matches || [];
+    } catch (e) {
+      console.log('  Could not read existing matches for caching:', e.message);
+    }
+  }
+
+  const matches = [];
+  for (const event of uniqueEvents) {
     const home = event.homeTeam?.name || '';
     const away = event.awayTeam?.name || '';
+    const id = event.id;
 
     // Determine status
     let status = 'upcoming';
@@ -170,8 +184,85 @@ async function fetchMatches(fetchApi) {
     // Link
     const link = `https://allsvenskan.se/matcher`;
 
-    return { home, away, time, date, link, score, status };
-  }).filter(m => m.home && m.away);
+    const matchObj = { id, home, away, time, date, link, score, status, startTimestamp: event.startTimestamp };
+
+    // Fetch or reuse scorers if finished
+    if (status === 'finished') {
+      const existing = existingMatches.find(m => 
+        (m.id === id) || 
+        (m.home === home && m.away === away && m.date === date)
+      );
+
+      if (existing && existing.scorers) {
+        matchObj.scorers = existing.scorers;
+      } else {
+        try {
+          console.log(`  Fetching scorers for ${home} - ${away} (ID: ${id})...`);
+          const incidentsData = await fetchApi(`/event/${id}/incidents`);
+          const incidents = incidentsData.incidents || [];
+          
+          const homeScorers = [];
+          const awayScorers = [];
+          
+          const goals = incidents.filter(inc => inc.incidentType === 'goal');
+          goals.forEach(goal => {
+            const player = goal.player?.shortName || goal.player?.name || 'Okänd';
+            const minute = goal.time + (goal.injuryTime ? `+${goal.injuryTime}` : '');
+            
+            let suffix = '';
+            if (goal.goalType === 'penalty') suffix = ' (str)';
+            else if (goal.goalType === 'own') suffix = ' (självmål)';
+            
+            const scorerObj = { player, minute };
+            if (suffix) scorerObj.suffix = suffix;
+
+            // Determine scoring team
+            let scoringTeam = goal.isHome ? 'home' : 'away';
+            if (goal.goalType === 'own') {
+              scoringTeam = goal.isHome ? 'away' : 'home';
+            }
+
+            if (scoringTeam === 'home') {
+              homeScorers.push(scorerObj);
+            } else {
+              awayScorers.push(scorerObj);
+            }
+          });
+
+          matchObj.scorers = {
+            home: homeScorers,
+            away: awayScorers
+          };
+
+          // Polite delay to prevent rate limit
+          await new Promise(r => setTimeout(r, 200));
+        } catch (err) {
+          console.log(`  ⚠ Failed to fetch scorers for ${home} - ${away}: ${err.message}`);
+        }
+      }
+    }
+
+    if (home && away) {
+      matches.push(matchObj);
+    }
+  }
+
+  // If in delta mode, merge with existing matches that were not in the newly fetched pages
+  if (isDelta) {
+    console.log('  Merging newly fetched matches with existing matches...');
+    const newlyFetchedIds = new Set(matches.map(m => m.id));
+    let mergedCount = 0;
+    for (const existing of existingMatches) {
+      if (!newlyFetchedIds.has(existing.id)) {
+        matches.push(existing);
+        mergedCount++;
+      }
+    }
+    console.log(`  ✓ Merged ${mergedCount} existing matches from cache`);
+  }
+
+  // Sort by startTimestamp so matches are always chronologically correct
+  matches.sort((a, b) => (a.startTimestamp || 0) - (b.startTimestamp || 0));
 
   const output = {
     matches,
@@ -180,7 +271,7 @@ async function fetchMatches(fetchApi) {
   };
 
   fs.writeFileSync(OUTPUT_FILES.matches, JSON.stringify(output, null, 2));
-  console.log(`  ✓ Saved ${matches.length} matches to ${OUTPUT_FILES.matches}`);
+  console.log(`  ✓ Saved ${matches.length} total matches to ${OUTPUT_FILES.matches}`);
 }
 
 // ─── Fetch Table/Standings ───────────────────────────────────────────────────
@@ -223,18 +314,24 @@ async function fetchTable(fetchApi) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const runAll = args.length === 0 || args.includes('--all');
+  const isDelta = args.includes('--delta');
+  const runAll = args.length === 0 || args.includes('--all') || isDelta;
 
   console.log('⚽ Allsvenskan Data Fetcher (SofaScore API)');
   console.log(`   Tournament: Allsvenskan (ID: ${TOURNAMENT_ID})`);
   console.log(`   Season: 2026 (ID: ${SEASON_ID})`);
+  if (isDelta) {
+    console.log('   Mode: Smart Delta Update (Last 24 Hours / Page 0 Only)');
+  } else {
+    console.log('   Mode: Full Schedule Sync');
+  }
   console.log('─'.repeat(50));
 
   const { fetchApi, close } = await createBrowserFetcher();
 
   try {
     if (runAll || args.includes('--matches')) {
-      await fetchMatches(fetchApi);
+      await fetchMatches(fetchApi, isDelta);
     }
 
     if (runAll || args.includes('--table')) {
