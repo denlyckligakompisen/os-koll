@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
@@ -149,7 +149,36 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
+    const [timeLeft, setTimeLeft] = useState(null);
 
+    useEffect(() => {
+        if (match.status !== 'upcoming' || !match.startTimestamp) {
+            setTimeLeft(null);
+            return;
+        }
+
+        const targetTime = match.startTimestamp * 1000;
+
+        const updateTimer = () => {
+            const now = Date.now();
+            const diff = targetTime - now;
+
+            if (diff > 0 && diff <= 60 * 60 * 1000) {
+                const totalSecs = Math.floor(diff / 1000);
+                const mins = String(Math.floor(totalSecs / 60)).padStart(2, '0');
+                const secs = String(totalSecs % 60).padStart(2, '0');
+                setTimeLeft(`${mins}:${secs}`);
+            } else {
+                setTimeLeft(null);
+            }
+        };
+
+        // Run once immediately
+        updateTimer();
+
+        const interval = setInterval(updateTimer, 1000);
+        return () => clearInterval(interval);
+    }, [match.status, match.startTimestamp]);
 
     // Calculate Form
     const getTeamForm = (teamName) => {
@@ -362,7 +391,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {match.status === 'finished' ? (match.score || match.time) : 
                              (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
-                             match.time}
+                             (timeLeft || match.time)}
                         </button>
 
                         {(match.venue || getStadiumForTeam(match.home)) && (
@@ -534,7 +563,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: highlight ? '8px' : '6px', height: highlight ? '8px' : '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {match.status === 'finished' ? (match.score || match.time) : 
                              (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
-                             match.time}
+                             (timeLeft || match.time)}
                         </span>
                         {match.broadcast && (
                             <div style={{ fontSize: highlight ? '0.85rem' : '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
