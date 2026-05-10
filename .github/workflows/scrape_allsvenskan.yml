@@ -16,13 +16,14 @@ jobs:
           node-version: 20
       - run: npm install
 
-      # ── SofaScore API: matches + table (fast, no browser/key needed) ──
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      # ── SofaScore API: matches + table ──
       - name: Fetch Allsvenskan Data (SofaScore)
         run: npm run fetch:allsvenskan
 
       # ── Playwright: logos (downloaded from SofaScore) ──
-      - name: Install Playwright for logo download
-        run: npx playwright install --with-deps chromium
       - name: Download team logos
         run: npm run scrape:allsvenskan-logos
 
