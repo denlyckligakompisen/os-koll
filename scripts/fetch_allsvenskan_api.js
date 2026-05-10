@@ -103,6 +103,9 @@ async function fetchMatches(fetchApi, isDelta = false) {
       if (events.length === 0) break;
       allEvents.push(...events);
       if (!data.hasNextPage) break;
+
+      // Polite delay between page requests
+      await new Promise(r => setTimeout(r, 300));
     } catch (e) {
       if (page === 0) throw e;
       break;
@@ -120,6 +123,9 @@ async function fetchMatches(fetchApi, isDelta = false) {
       if (events.length === 0) break;
       allEvents.push(...events);
       if (!data.hasNextPage) break;
+
+      // Polite delay between page requests
+      await new Promise(r => setTimeout(r, 300));
     } catch (e) {
       if (page === 0) console.log('  ⚠ No upcoming matches found');
       break;
@@ -184,7 +190,18 @@ async function fetchMatches(fetchApi, isDelta = false) {
     // Link
     const link = `https://allsvenskan.se/matcher`;
 
-    const matchObj = { id, home, away, time, date, link, score, status, startTimestamp: event.startTimestamp };
+    const matchObj = { 
+      id, 
+      home, 
+      away, 
+      time, 
+      date, 
+      link, 
+      score, 
+      status, 
+      startTimestamp: event.startTimestamp,
+      round: event.roundInfo?.round
+    };
 
     // Find existing match in cache
     const existing = existingMatches.find(m => 

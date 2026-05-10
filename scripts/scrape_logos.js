@@ -46,11 +46,23 @@ async function scrapeOfficialLogos() {
         const filename = `${slug}.png`;
         const filepath = path.join(LOGO_DIR, filename);
 
+        // Skip downloading if the logo already exists and is not empty
+        if (fs.existsSync(filepath) && fs.statSync(filepath).size > 0) {
+            console.log(`Using cached logo for ${name} -> ${filename}`);
+            continue;
+        }
+
         try {
             await downloadImage(url, filepath);
             console.log(`Downloaded ${name} -> ${filename}`);
+            
+            // Polite delay after successful download
+            await new Promise(resolve => setTimeout(resolve, 500));
         } catch (e) {
             console.error(`Failed to download ${name}: ${e.message}`);
+            // Polite delay on error
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
         }
     }
 }

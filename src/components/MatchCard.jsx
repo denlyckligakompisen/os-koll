@@ -43,6 +43,28 @@ export const cleanTeamNameForDisplay = (name) => {
     return cleaned;
 };
 
+export const getStadiumForTeam = (teamName) => {
+    if (!teamName) return '';
+    const clean = teamName.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim();
+    if (clean.includes('AIK')) return 'Strawberry Arena';
+    if (clean.includes('Häcken')) return 'Bravida Arena';
+    if (clean.includes('Djurgården')) return 'Tele2 Arena';
+    if (clean.includes('GAIS')) return 'Gamla Ullevi';
+    if (clean.includes('Halmstad')) return 'Örjans Vall';
+    if (clean.includes('Hammarby')) return 'Tele2 Arena';
+    if (clean.includes('Brommapojkarna') || clean === 'BP') return 'Grimsta IP';
+    if (clean.includes('Elfsborg')) return 'Borås Arena';
+    if (clean.includes('Göteborg')) return 'Gamla Ullevi';
+    if (clean.includes('Sirius')) return 'Studenternas IP';
+    if (clean.includes('Kalmar')) return 'Guldfågeln Arena';
+    if (clean.includes('Malmö')) return 'Eleda Stadion';
+    if (clean.includes('Mjällby')) return 'Strandvallen';
+    if (clean.includes('Västerås')) return 'Hitachi Energy Arena';
+    if (clean.includes('Degerfors')) return 'Stora Valla';
+    if (clean.includes('Örgryte')) return 'Gamla Ullevi';
+    return '';
+};
+
 const getLastName = (name) => {
     if (!name) return '';
     const parts = name.trim().split(/\s+/);
@@ -127,43 +149,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
-    // Calculate Head-to-Head (H2H)
-    let homeWins = match.h2h?.homeWins;
-    let draws = match.h2h?.draws;
-    let awayWins = match.h2h?.awayWins;
 
-    if (homeWins === undefined || draws === undefined || awayWins === undefined) {
-        const cleanHome = cleanTeamName(match.home);
-        const cleanAway = cleanTeamName(match.away);
-
-        const h2hMatches = (allMatches || []).filter(m => {
-            if (m.status !== 'finished' || !m.score) return false;
-            const mHome = cleanTeamName(m.home);
-            const mAway = cleanTeamName(m.away);
-            return (mHome === cleanHome && mAway === cleanAway) || (mHome === cleanAway && mAway === cleanHome);
-        });
-
-        homeWins = 0;
-        draws = 0;
-        awayWins = 0;
-
-        h2hMatches.forEach(m => {
-            const parts = m.score.split('-').map(s => parseInt(s.trim()));
-            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-                const mHome = cleanTeamName(m.home);
-                const isMatchHomeHome = mHome === cleanHome;
-                const homeScore = parts[0];
-                const awayScore = parts[1];
-                if (homeScore === awayScore) {
-                    draws++;
-                } else if (homeScore > awayScore) {
-                    if (isMatchHomeHome) homeWins++; else awayWins++;
-                } else {
-                    if (isMatchHomeHome) awayWins++; else homeWins++;
-                }
-            }
-        });
-    }
 
     // Calculate Form
     const getTeamForm = (teamName) => {
@@ -299,7 +285,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 key={idx} 
                 padding="28px"
                 style={{
-                    backgroundColor: 'var(--color-card-bg-elevated)',
+                    backgroundColor: 'var(--color-card-bg)',
                     border: 'var(--border)',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                     ...props.style
@@ -346,11 +332,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                        {match.group && (
+                        {match.round ? (
+                            <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>
+                                Omgång {match.round}
+                            </div>
+                        ) : match.group ? (
                             <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.group}
                             </div>
-                        )}
+                        ) : null}
                         <button
                             onClick={handleBroadcastClick}
                             disabled={!getBroadcasterUrl(match.broadcast)}
@@ -373,35 +363,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
                              match.time}
                         </button>
-                        {match.broadcast && (
-                            <div style={{ fontSize: '0.85rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                {match.broadcast}
-                            </div>
-                        )}
 
-                        {/* H2H Stats under the time/middle section */}
-                        {allMatches && (
+                        {(match.venue || getStadiumForTeam(match.home)) && (
                             <div style={{ 
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                alignItems: 'center', 
-                                gap: '2px', 
-                                marginTop: '10px',
-                                padding: '4px 8px',
-                                borderRadius: '8px',
-                                backgroundColor: 'rgba(0,0,0,0.02)',
-                                border: '0.5px solid rgba(0,0,0,0.03)'
+                                fontSize: '0.7rem', 
+                                fontWeight: '600', 
+                                color: 'var(--color-text-muted)', 
+                                marginTop: '2px'
                             }}>
-                                <div style={{ fontSize: '0.55rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                    Inbördes möten
-                                </div>
-                                <div style={{ fontSize: '0.78rem', fontWeight: '800', color: 'var(--color-text)', display: 'flex', gap: '4px', alignItems: 'center' }}>
-                                    <span style={{ color: '#34c759' }}>{homeWins}V</span>
-                                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>-</span>
-                                    <span style={{ color: '#8e8e93' }}>{draws}O</span>
-                                    <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>-</span>
-                                    <span style={{ color: '#34c759' }}>{awayWins}V</span>
-                                </div>
+                                {match.venue || getStadiumForTeam(match.home)}
                             </div>
                         )}
                     </div>

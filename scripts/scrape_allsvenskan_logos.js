@@ -52,6 +52,13 @@ async function scrapeLogos() {
       .replace(/å/g, 'a').replace(/ä/g, 'a').replace(/ö/g, 'o') + '.png';
     const filepath = path.join(logosDir, filename);
 
+    // Skip downloading if the file already exists and is not empty
+    if (fs.existsSync(filepath) && fs.statSync(filepath).size > 0) {
+      logoMap[teamName] = `/logos/${filename}`;
+      console.log(`  ✓ ${teamName} (cached)`);
+      continue;
+    }
+
     try {
       const base64 = await page.evaluate(async (url) => {
         const res = await fetch(url);
@@ -68,8 +75,13 @@ async function scrapeLogos() {
       fs.writeFileSync(filepath, buffer);
       logoMap[teamName] = `/logos/${filename}`;
       console.log(`  ✓ ${teamName} (${Math.round(buffer.length / 1024)}KB)`);
+      
+      // Polite delay after successful download
+      await new Promise(r => setTimeout(r, 500));
     } catch (e) {
       console.log(`  ✗ ${teamName}: ${e.message}`);
+      // Polite delay on error
+      await new Promise(r => setTimeout(r, 500));
     }
   }
 

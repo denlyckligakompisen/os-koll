@@ -18,6 +18,7 @@
     "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js",
     "scrape:daily": "node scripts/daily_scheduler.js",
     "fetch:allsvenskan": "node scripts/fetch_allsvenskan_api.js --all",
+    "fetch:allsvenskan-delta": "node scripts/fetch_allsvenskan_api.js --delta",
     "fetch:allsvenskan-matches": "node scripts/fetch_allsvenskan_api.js --matches",
     "fetch:allsvenskan-table": "node scripts/fetch_allsvenskan_api.js --table",
     "fetch:allsvenskan-logos": "node scripts/fetch_allsvenskan_api.js --logos"
