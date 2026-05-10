@@ -1,11 +1,13 @@
 {
   "short_name": "SportKollen",
   "name": "SportKollen - Allsvenskan & VM",
+  "description": "Följ Allsvenskan och VM med blixtsnabb statistik, spelscheman och resultat i ett modernt mobilvänligt gränssnitt.",
   "icons": [
     {
-      "src": "/vite.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
+      "src": "/app_icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/allsvenskan",

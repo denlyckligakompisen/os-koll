@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const Card = ({ children, style = {}, padding = '20px', glass = true }) => {
+const Card = ({ children, style = {}, padding = '20px', glass = true, ...props }) => {
     const baseStyle = {
         backgroundColor: 'var(--color-card-bg)',
         backdropFilter: glass ? 'saturate(180%) blur(20px)' : 'none',
@@ -14,7 +14,7 @@ const Card = ({ children, style = {}, padding = '20px', glass = true }) => {
     };
 
     return (
-        <div style={baseStyle}>
+        <div style={baseStyle} {...props}>
             {children}
         </div>
     );

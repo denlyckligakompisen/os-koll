@@ -284,6 +284,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <Card 
                 key={idx} 
                 padding="28px"
+                className={props.onClick ? "clickable-card" : ""}
                 style={{
                     backgroundColor: 'var(--color-card-bg)',
                     border: 'var(--border)',
@@ -434,6 +435,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         <Card 
             key={idx} 
             padding={highlight ? "20px 14px" : "12px 14px"} 
+            className={props.onClick ? "clickable-card" : ""}
             style={{
                 border: 'var(--border)', 
                 boxShadow: 'none', 
