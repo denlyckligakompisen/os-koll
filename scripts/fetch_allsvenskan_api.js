@@ -192,6 +192,7 @@ async function fetchMatches(fetchApi, isDelta = false) {
 
     const matchObj = { 
       id, 
+      customId: event.customId,
       home, 
       away, 
       time, 
@@ -214,24 +215,48 @@ async function fetchMatches(fetchApi, isDelta = false) {
       matchObj.h2h = existing.h2h;
     }
 
-    // For upcoming matches within the next 2 days that don't have H2H yet, fetch it
-    const now = new Date();
-    const twoDaysFromNow = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
-    const matchTime = new Date(event.startTimestamp * 1000);
-
-    if (status === 'upcoming' && !matchObj.h2h && matchTime >= now && matchTime <= twoDaysFromNow) {
+    // For upcoming matches that don't have the last 5 H2H yet, fetch it
+    if (status === 'upcoming' && (!matchObj.h2h || !matchObj.h2h.isLast5) && event.customId) {
       try {
-        console.log(`  Fetching H2H history for ${home} - ${away} (ID: ${id})...`);
-        const h2hData = await fetchApi(`/event/${id}/h2h`);
-        const team1Wins = h2hData.teamDuel?.homeWins ?? 0;
-        const draws = h2hData.teamDuel?.draws ?? 0;
-        const team2Wins = h2hData.teamDuel?.awayWins ?? 0;
-        matchObj.h2h = {
-          homeWins: team1Wins,
-          draws: draws,
-          awayWins: team2Wins
-        };
-        console.log(`    → H2H loaded: ${matchObj.h2h.homeWins}V - ${matchObj.h2h.draws}O - ${matchObj.h2h.awayWins}V`);
+        console.log(`  Fetching H2H history for ${home} - ${away} (customId: ${event.customId})...`);
+        const h2hRes = await fetchApi(`/event/${event.customId}/h2h/events`);
+        if (h2hRes && h2hRes.events) {
+          const finished = h2hRes.events.filter(e => e.winnerCode !== undefined);
+          
+          let homeWins = 0;
+          let draws = 0;
+          let awayWins = 0;
+
+          const cleanName = (n) => n.replace(/\b(IF|FF|BK|AIF|SK)\b/g, '').replace(/\s+/g, ' ').trim();
+          const cleanHomeTarget = cleanName(home);
+          const cleanAwayTarget = cleanName(away);
+
+          finished.slice(0, 5).forEach(e => {
+            if (e.winnerCode === 3) {
+              draws++;
+            } else {
+              const cleanPastHome = cleanName(e.homeTeam.name);
+              const cleanPastAway = cleanName(e.awayTeam.name);
+              
+              const homeWon = e.winnerCode === 1;
+              const winnerName = homeWon ? cleanPastHome : cleanPastAway;
+              
+              if (winnerName.includes(cleanHomeTarget) || cleanHomeTarget.includes(winnerName)) {
+                homeWins++;
+              } else if (winnerName.includes(cleanAwayTarget) || cleanAwayTarget.includes(winnerName)) {
+                awayWins++;
+              }
+            }
+          });
+
+          matchObj.h2h = {
+            homeWins,
+            draws,
+            awayWins,
+            isLast5: true
+          };
+          console.log(`    → H2H (last 5) loaded: ${homeWins}V - ${draws}O - ${awayWins}F`);
+        }
         // Polite delay to prevent rate limit
         await new Promise(r => setTimeout(r, 200));
       } catch (err) {

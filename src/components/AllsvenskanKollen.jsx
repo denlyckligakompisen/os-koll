@@ -100,7 +100,7 @@ const AllsvenskanKollen = () => {
         "AIK", "BK Häcken", "Djurgårdens IF", "GAIS", "Halmstads BK", "Hammarby IF", 
         "IF Brommapojkarna", "IF Elfsborg", "IFK Göteborg", 
         "IK Sirius", "Kalmar FF", "Malmö FF", "Mjällby AIF", "Västerås SK", "Degerfors IF", "Örgryte IS"
-    ].sort((a, b) => a.localeCompare(b, 'sv'));
+    ].sort((a, b) => cleanTeamNameForDisplay(a).localeCompare(cleanTeamNameForDisplay(b), 'sv'));
 
     const SUBTABS = [
         { id: 'matcher', label: 'Matcher', icon: Calendar },

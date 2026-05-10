@@ -374,6 +374,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.venue || getStadiumForTeam(match.home)}
                             </div>
                         )}
+                        {match.h2h && (
+                            <div style={{ 
+                                fontSize: '0.65rem', 
+                                fontWeight: '700', 
+                                color: 'var(--color-text-muted)', 
+                                marginTop: '2px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.04em'
+                            }}>
+                                {match.h2h.homeWins}-{match.h2h.draws}-{match.h2h.awayWins}
+                            </div>
+                        )}
                     </div>
 
                     <div
