@@ -57,6 +57,30 @@ const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
     return new Date(year, monthMap[monthName] ?? 0, day, hour, minute);
 };
 
+const getRelativeDateLabel = (dateStr) => {
+    if (!dateStr) return '';
+    try {
+        const matchDate = parseTournamentDate(dateStr, "12:00", GROUP_MONTH_MAP);
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        
+        matchDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        if (matchDate.getTime() === today.getTime()) {
+            return "Idag";
+        }
+        if (matchDate.getTime() === tomorrow.getTime()) {
+            return "Imorgon";
+        }
+    } catch (e) {
+        // Fallback
+    }
+    return dateStr;
+};
+
 const getCountryColor = (name) => {
     return '#000000';
 };
@@ -502,7 +526,7 @@ const VMKollen = () => {
                                     paddingLeft: '4px',
                                     color: 'var(--color-text-muted)',
                                     letterSpacing: '0.02em'
-                                }}>{date}</div>
+                                }}>{getRelativeDateLabel(date)}</div>
                             )}
                             {matches.map((m, i) => (
                                 <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
@@ -522,7 +546,7 @@ const VMKollen = () => {
                 {nextMatches.map((m, idx) => {
                     const next = {
                         ...m,
-                        displayDate: m.date.toUpperCase(),
+                        displayDate: getRelativeDateLabel(m.date).toUpperCase(),
                         type: `VM · ${m.group}`
                     };
                     const homeFlags = getFlagCodes(next.home);
@@ -556,7 +580,7 @@ const VMKollen = () => {
                                         onClick={() => handleCountryClick(next.home)}
                                         style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                                     >
-                                        <FlagBadge codes={homeFlags} name={next.home} size={72} shadow={true} />
+                                        <FlagBadge codes={homeFlags} name={next.home} size={64} shadow={true} />
                                         <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
                                     </div>
                                     <div
@@ -582,7 +606,7 @@ const VMKollen = () => {
                                         onClick={() => handleCountryClick(next.away)}
                                         style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
                                     >
-                                        <FlagBadge codes={awayFlags} name={next.away} size={72} shadow={true} />
+                                        <FlagBadge codes={awayFlags} name={next.away} size={64} shadow={true} />
                                         <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
                                     </div>
                                 </div>

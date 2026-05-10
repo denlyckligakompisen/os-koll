@@ -47,7 +47,7 @@ const getHeaderStyle = (teamName) => {
         return {
             bg: "#ffffff",
             text: "#000000",
-            inactiveText: "#8e8e93",
+            inactiveText: "#636366",
             activeLine: "#000000"
         };
     }
@@ -78,6 +78,30 @@ const parseMatchDate = (dateStr, timeStr) => {
     }
 
     return new Date(year, MONTH_MAP[monthName] ?? 0, day, hour, minute);
+};
+
+const getRelativeDateLabel = (dateStr) => {
+    if (!dateStr) return '';
+    try {
+        const matchDate = parseMatchDate(dateStr, "12:00");
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        
+        matchDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        if (matchDate.getTime() === today.getTime()) {
+            return "Idag";
+        }
+        if (matchDate.getTime() === tomorrow.getTime()) {
+            return "Imorgon";
+        }
+    } catch (e) {
+        // Fallback
+    }
+    return dateStr;
 };
 
 const AllsvenskanKollen = () => {
@@ -642,7 +666,7 @@ const AllsvenskanKollen = () => {
                                         groupedMatches.map((group, i) => (
                                             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                 <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
-                                                    {group.date}
+                                                    {getRelativeDateLabel(group.date)}
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                     {group.matches.map((match, j) => {

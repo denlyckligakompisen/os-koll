@@ -307,9 +307,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}
                     >
                         {homeLogo ? (
-                            <img src={homeLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
+                            <img src={homeLogo} alt="" style={{ height: '64px', width: '64px', objectFit: 'contain' }} />
                         ) : (
-                            homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={72} />
+                            homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={64} />
                         )}
 
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
@@ -402,9 +402,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}
                     >
                         {awayLogo ? (
-                            <img src={awayLogo} alt="" style={{ height: '72px', width: '72px', objectFit: 'contain' }} />
+                            <img src={awayLogo} alt="" style={{ height: '64px', width: '64px', objectFit: 'contain' }} />
                         ) : (
-                            awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={72} />
+                            awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={64} />
                         )}
 
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
@@ -458,15 +458,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     alt="" 
                     onClick={(e) => handleTeamClick(e, match.home)}
                     style={{ 
-                        height: highlight ? '42px' : '28px', 
-                        width: highlight ? '42px' : '28px', 
+                        height: highlight ? '64px' : '32px', 
+                        width: highlight ? '64px' : '32px', 
                         objectFit: 'contain', 
                         transition: 'all 0.3s ease',
                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                     }} 
                 />
             ) : (
-                homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.home)} />
+                homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 64 : 32} onClick={(e) => handleTeamClick(e, match.home)} />
             )}
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ 
@@ -619,15 +619,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     alt="" 
                     onClick={(e) => handleTeamClick(e, match.away)}
                     style={{ 
-                        height: highlight ? '42px' : '28px', 
-                        width: highlight ? '42px' : '28px', 
+                        height: highlight ? '64px' : '32px', 
+                        width: highlight ? '64px' : '32px', 
                         objectFit: 'contain', 
                         transition: 'all 0.3s ease',
                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                     }} 
                 />
             ) : (
-                awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 42 : 28} onClick={(e) => handleTeamClick(e, match.away)} />
+                awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 64 : 32} onClick={(e) => handleTeamClick(e, match.away)} />
             )}
         </Card>
     );
