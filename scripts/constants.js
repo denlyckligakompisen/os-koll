@@ -304,7 +304,7 @@ export const translateTeam = (name) => {
     if (parts.length > 1) {
         return parts.map(p => translateTeam(p.trim())).join('/');
     }
-    const trimmed = name.trim();
+    const trimmed = name.trim().replace(/\s*&\s*/g, ' and ');
     const cleanName = trimmed.replace(/\s\([A-Z]+\)$/, '');
     return TEAM_TRANSLATIONS[cleanName] || TEAM_TRANSLATIONS[trimmed] || trimmed;
 };

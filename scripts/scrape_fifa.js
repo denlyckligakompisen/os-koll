@@ -1,185 +1,332 @@
+/**
+ * FIFA World Cup 2026 Data Fetcher via SofaScore API (through Playwright browser context)
+ * 
+ * Uses Playwright's browser context to bypass Cloudflare protection,
+ * then makes clean JSON API calls to SofaScore to retrieve match schedules,
+ * live scores, and group standings.
+ */
+
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
 import { translateTeam } from './constants.js';
 
-const FIFA_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures?country=&wtw-filter=ALL';
+// ─── Configuration ───────────────────────────────────────────────────────────
+
+const TOURNAMENT_ID = 16;   // FIFA World Cup
+const SEASON_ID = 58210;    // 2026 season
+const API_BASE = 'https://www.sofascore.com/api/v1';
+
 const TV4_LIST_URL = 'https://www.tv4play.se/lista/1EGE533EMNsEsyaAulLPNT';
 const TV4_DEFAULT_LINK = 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
 
-const MATCHES_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_matches.json');
-const GROUPS_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_groups.json');
-const KNOCKOUT_OUTPUT = path.join(process.cwd(), 'public/data/worldcup_2026_knockout.json');
+const OUTPUT_DIR = path.join(process.cwd(), 'public/data');
+const OUTPUT_FILES = {
+  matches: path.join(OUTPUT_DIR, 'worldcup_2026_matches.json'),
+  groups: path.join(OUTPUT_DIR, 'worldcup_2026_groups.json'),
+  knockout: path.join(OUTPUT_DIR, 'worldcup_2026_knockout.json')
+};
+
+// ─── Swedish date formatting ─────────────────────────────────────────────────
+
+const MONTHS_SV = {
+  0: 'januari', 1: 'februari', 2: 'mars', 3: 'april',
+  4: 'maj', 5: 'juni', 6: 'juli', 7: 'augusti',
+  8: 'september', 9: 'oktober', 10: 'november', 11: 'december'
+};
+
+function formatDateSwedish(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const day = parseInt(date.toLocaleDateString('sv-SE', { day: 'numeric', timeZone: 'Europe/Stockholm' }));
+  const monthIndex = parseInt(date.toLocaleDateString('sv-SE', { month: 'numeric', timeZone: 'Europe/Stockholm' })) - 1;
+  return `${day} ${MONTHS_SV[monthIndex]}`;
+}
+
+function formatTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Stockholm' });
+}
+
+// ─── TV4 play link scraping helper ───────────────────────────────────────────
 
 async function scrapeTv4Links(page) {
-    console.log(`Scraping TV4 Play links from ${TV4_LIST_URL}...`);
-    try {
-        await page.goto(TV4_LIST_URL, { waitUntil: 'networkidle', timeout: 60000 });
-        await page.waitForTimeout(3000);
-        
-        return await page.evaluate(() => {
-            return Array.from(document.querySelectorAll('a[href*="/program/"]'))
-                .map(a => ({
-                    text: a.innerText.trim(),
-                    href: a.href.startsWith('http') ? a.href : 'https://www.tv4play.se' + a.getAttribute('href')
-                }))
-                .filter(l => l.text.length > 5);
-        });
-    } catch (e) {
-        console.error('Failed to scrape TV4 links:', e.message);
-        return [];
-    }
+  console.log(`Scraping TV4 Play links from ${TV4_LIST_URL}...`);
+  try {
+    await page.goto(TV4_LIST_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.waitForTimeout(3000);
+    
+    return await page.evaluate(() => {
+      return Array.from(document.querySelectorAll('a[href*="/program/"]'))
+        .map(a => ({
+          text: a.innerText.trim(),
+          href: a.href.startsWith('http') ? a.href : 'https://www.tv4play.se' + a.getAttribute('href')
+        }))
+        .filter(l => l.text.length > 5);
+    });
+  } catch (e) {
+    console.error('Failed to scrape TV4 links:', e.message);
+    return [];
+  }
 }
 
-async function scrapeMatches() {
-    console.log(`Starting crawl of FIFA World Cup 2026 schedule from ${FIFA_URL}...`);
+// ─── Main Runner ─────────────────────────────────────────────────────────────
 
-    let matches = [];
-    const existingData = fs.existsSync(MATCHES_OUTPUT) ? JSON.parse(fs.readFileSync(MATCHES_OUTPUT, 'utf8')) : { matches: [] };
+async function fetchFifaData() {
+  console.log('🚀 Starting FIFA World Cup 2026 update via SofaScore API...');
+  
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+  });
+  const page = await context.newPage();
 
-    try {
-        const browser = await chromium.launch({ headless: true });
-        const context = await browser.newContext({
-            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+  try {
+    // Navigate once to Sofascore to bypass Cloudflare
+    await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+    const fetchApi = async (endpoint) => {
+      console.log(`  → GET ${endpoint}`);
+      return await page.evaluate(async (url) => {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        return res.json();
+      }, `${API_BASE}${endpoint}`);
+    };
+
+    // 1. Scrape TV4 Direct Play Links
+    const tv4Links = await scrapeTv4Links(page);
+    console.log(`Found ${tv4Links.length} potential TV4 links.`);
+
+    // 2. Fetch all events (matches)
+    console.log('\n📅 Fetching matches...');
+    let allEvents = [];
+    
+    // Fetch upcoming next matches
+    let pageNum = 0;
+    let hasMore = true;
+    while (hasMore) {
+      try {
+        const result = await fetchApi(`/unique-tournament/${TOURNAMENT_ID}/season/${SEASON_ID}/events/next/${pageNum}`);
+        if (result.events && result.events.length > 0) {
+          allEvents = allEvents.concat(result.events);
+        }
+        hasMore = result.hasNextPage;
+        pageNum++;
+      } catch (err) {
+        console.error(`Error next matches page ${pageNum}:`, err.message);
+        hasMore = false;
+      }
+    }
+
+    // Fetch finished past matches (just in case they already started/finished)
+    pageNum = 0;
+    hasMore = true;
+    while (hasMore) {
+      try {
+        const result = await fetchApi(`/unique-tournament/${TOURNAMENT_ID}/season/${SEASON_ID}/events/last/${pageNum}`);
+        if (result.events && result.events.length > 0) {
+          allEvents = allEvents.concat(result.events);
+        }
+        hasMore = result.hasNextPage;
+        pageNum++;
+      } catch (err) {
+        // Quiet capture of 404 since there are no past matches yet
+        hasMore = false;
+      }
+    }
+
+    // Filter duplicates by event ID
+    const uniqueEventsMap = new Map();
+    allEvents.forEach(e => uniqueEventsMap.set(e.id, e));
+    const uniqueEvents = Array.from(uniqueEventsMap.values());
+    console.log(`Successfully fetched ${uniqueEvents.length} unique events.`);
+
+    // Load existing match data to preserve manual additions (broadcasters, etc.)
+    const existingMatchesData = fs.existsSync(OUTPUT_FILES.matches) 
+      ? JSON.parse(fs.readFileSync(OUTPUT_FILES.matches, 'utf8')) 
+      : { matches: [] };
+    const existingMatches = existingMatchesData.matches || [];
+
+    // Separate group matches from knockout matches
+    const groupStageMatches = [];
+    const knockoutStageEvents = [];
+
+    for (const event of uniqueEvents) {
+      if (event.tournament?.isGroup) {
+        groupStageMatches.push(event);
+      } else {
+        knockoutStageEvents.push(event);
+      }
+    }
+
+    console.log(`Group Stage matches: ${groupStageMatches.length}`);
+    console.log(`Knockout Stage matches: ${knockoutStageEvents.length}`);
+
+    // Parse and save Group Stage Matches
+    const parsedGroupMatches = groupStageMatches.map(event => {
+      const home = translateTeam(event.homeTeam?.name || '');
+      const away = translateTeam(event.awayTeam?.name || '');
+      const date = formatDateSwedish(event.startTimestamp);
+      const time = formatTime(event.startTimestamp);
+      
+      const groupName = event.tournament.groupName 
+        ? event.tournament.groupName.replace('Group', 'Grupp') 
+        : (event.tournament.groupSign ? 'Grupp ' + event.tournament.groupSign : '');
+
+      // Find existing match to preserve broadcaster and venue
+      const existingMatch = existingMatches.find(em => 
+        (em.home === home && em.away === away && em.date === date) ||
+        (em.id === event.id)
+      );
+
+      const broadcast = existingMatch?.broadcast || "";
+      const venue = event.venue?.city?.name || event.venue?.name || existingMatch?.venue || "";
+      let link = existingMatch?.link || "";
+
+      // Handle TV4 Direct Links
+      if (broadcast.includes('TV4')) {
+        const directLink = tv4Links.find(tl => {
+          const t = tl.text.toLowerCase();
+          const h = home.toLowerCase();
+          const a = away.toLowerCase();
+          return t.includes(h) && t.includes(a);
         });
-        const page = await context.newPage();
-        
-        try {
-            // 1. Scrape TV4 Links
-            const tv4Links = await scrapeTv4Links(page);
-            console.log(`Found ${tv4Links.length} potential TV4 links.`);
+        link = directLink ? directLink.href : TV4_DEFAULT_LINK;
+      }
 
-            // 2. Scrape FIFA Matches
-            await page.goto(FIFA_URL, { waitUntil: 'networkidle', timeout: 60000 });
-            await page.waitForTimeout(5000);
+      // Determine match status and score
+      let status = 'upcoming';
+      const statusType = event.status?.type || '';
+      if (statusType === 'finished') {
+        status = 'finished';
+      } else if (statusType === 'inprogress') {
+        status = 'live';
+      } else if (statusType === 'canceled' || statusType === 'postponed') {
+        status = 'postponed';
+      }
+
+      let score = '';
+      if (status === 'finished' || status === 'live') {
+        const homeGoals = event.homeScore?.current ?? 0;
+        const awayGoals = event.awayScore?.current ?? 0;
+        score = `${homeGoals} - ${awayGoals}`;
+      }
+
+      const matchObj = {
+        id: event.id,
+        customId: event.customId,
+        date,
+        time,
+        home,
+        away,
+        venue,
+        broadcast,
+        group: groupName,
+        link,
+        status,
+        score,
+        startTimestamp: event.startTimestamp
+      };
+
+      // Add scorers if finished
+      if (status === 'finished' && existingMatch?.scorers) {
+        matchObj.scorers = existingMatch.scorers;
+      }
+
+      return matchObj;
+    });
+
+    // Sort group stage matches chronologically
+    parsedGroupMatches.sort((a, b) => a.startTimestamp - b.startTimestamp);
+
+    fs.writeFileSync(OUTPUT_FILES.matches, JSON.stringify({
+      matches: parsedGroupMatches,
+      lastUpdated: new Date().toISOString(),
+      source: 'SofaScore API'
+    }, null, 2));
+    console.log(`Saved group matches to ${OUTPUT_FILES.matches}`);
+
+    // 3. Process and save Knockout Stage Matches
+    if (knockoutStageEvents.length > 0 && fs.existsSync(OUTPUT_FILES.knockout)) {
+      console.log('\n🏆 Processing knockout matches...');
+      const knockoutData = JSON.parse(fs.readFileSync(OUTPUT_FILES.knockout, 'utf8'));
+
+      const roundMapping = {
+        "Round of 32": "r32",
+        "Round of 16": "r16",
+        "Quarterfinals": "qf",
+        "Semifinals": "sf",
+        "Match for 3rd place": "3p",
+        "Final": "f"
+      };
+
+      // Map Sofascore events into round buckets
+      const buckets = { r32: [], r16: [], qf: [], sf: [], '3p': [], f: [] };
+      knockoutStageEvents.forEach(event => {
+        const roundName = event.roundInfo?.name;
+        const roundId = roundMapping[roundName];
+        if (roundId) {
+          buckets[roundId].push(event);
+        }
+      });
+
+      // Sort each bucket chronologically
+      Object.keys(buckets).forEach(roundId => {
+        buckets[roundId].sort((a, b) => a.startTimestamp - b.startTimestamp);
+      });
+
+      // Pair and update knockout rounds
+      knockoutData.rounds.forEach(round => {
+        const roundId = round.id;
+        const bucket = buckets[roundId] || [];
+        
+        round.matches.forEach((m, idx) => {
+          const event = bucket[idx];
+          if (event) {
+            m.time = formatTime(event.startTimestamp);
+            m.date = formatDateSwedish(event.startTimestamp);
+            m.startTimestamp = event.startTimestamp;
             
-            const extracted = await page.evaluate(() => {
-                const results = [];
-                const daySections = document.querySelectorAll('[class*="MatchDateSection"], [class*="MatchGroup"], .match-list-date');
-                
-                if (daySections.length > 0) {
-                    daySections.forEach(section => {
-                        const dateText = section.querySelector('[class*="DateHeader"], .date-header')?.innerText || "";
-                        const matchItems = section.querySelectorAll('[class*="MatchItem"], .match-card');
-                        
-                        matchItems.forEach(item => {
-                            const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
-                            const time = item.querySelector('[class*="MatchTime"], .match-time')?.innerText || "TBA";
-                            const groupText = item.querySelector('[class*="GroupName"], .group-name')?.innerText || "";
-                            
-                            if (teamNames.length >= 2) {
-                                results.push({
-                                    home: teamNames[0],
-                                    away: teamNames[1],
-                                    time: time.match(/\d{2}:\d{2}/)?.[0] || time,
-                                    date: dateText.trim(),
-                                    group: groupText.trim()
-                                });
-                            }
-                        });
-                    });
-                } else {
-                    document.querySelectorAll('[class*="MatchItem"], .match-card, [class*="FpMatchCard"]').forEach(item => {
-                        const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
-                        const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
-                        
-                        if (teamNames.length >= 2) {
-                            results.push({
-                                home: teamNames[0],
-                                away: teamNames[1],
-                                time,
-                                date: "",
-                                group: ""
-                            });
-                        }
-                    });
-                }
-                return results;
-            });
-
-            if (extracted.length > 0) {
-                matches = extracted.map(m => {
-                    const home = translateTeam(m.home);
-                    const away = translateTeam(m.away);
-                    const date = m.date?.toLowerCase()
-                        .replace('june', 'juni')
-                        .replace('july', 'juli')
-                        .replace('august', 'augusti')
-                        .replace('january', 'januari')
-                        .replace('february', 'februari')
-                        .replace('march', 'mars')
-                        .replace('april', 'april')
-                        .replace('may', 'maj')
-                        .replace('september', 'september')
-                        .replace('october', 'oktober')
-                        .replace('november', 'november')
-                        .replace('december', 'december');
-
-                    // Find existing match to preserve broadcaster and venue
-                    const existingMatch = existingData.matches.find(em => 
-                        em.home === home && em.away === away && em.date === date
-                    );
-
-                    const broadcast = existingMatch?.broadcast || "";
-                    const venue = existingMatch?.venue || "";
-                    let link = existingMatch?.link || "";
-
-                    // If TV4, try to find direct link or use default
-                    if (broadcast.includes('TV4')) {
-                        const directLink = tv4Links.find(tl => {
-                            const t = tl.text.toLowerCase();
-                            const h = home.toLowerCase();
-                            const a = away.toLowerCase();
-                            return t.includes(h) && t.includes(a);
-                        });
-                        link = directLink ? directLink.href : TV4_DEFAULT_LINK;
-                    }
-
-                    return {
-                        date,
-                        time: m.time,
-                        home,
-                        away,
-                        venue,
-                        broadcast,
-                        group: m.group ? (m.group.includes('Group') ? m.group.replace('Group', 'Grupp') : m.group) : "",
-                        link
-                    };
-                });
-                console.log(`Successfully scraped and merged ${matches.length} matches!`);
+            if (event.venue) {
+              m.venue = event.venue.city?.name || event.venue.name;
             }
-        } catch (e) {
-            console.log('Playwright crawl failed or timed out:', e.message);
-        } finally {
-            await browser.close();
-        }
 
-        if (matches.length > 0) {
-            const data = {
-                matches: matches,
-                lastUpdated: new Date().toISOString(),
-                source: FIFA_URL
-            };
+            let status = 'upcoming';
+            const statusType = event.status?.type || '';
+            if (statusType === 'finished') {
+              status = 'finished';
+            } else if (statusType === 'inprogress') {
+              status = 'live';
+            }
 
-            fs.writeFileSync(MATCHES_OUTPUT, JSON.stringify(data, null, 2));
-            console.log(`Updated ${MATCHES_OUTPUT}`);
+            m.status = status;
+            
+            if (status === 'finished' || status === 'live') {
+              m.score = `${event.homeScore?.current ?? 0}-${event.awayScore?.current ?? 0}`;
+            }
 
-            [GROUPS_OUTPUT, KNOCKOUT_OUTPUT].forEach(filePath => {
-                if (fs.existsSync(filePath)) {
-                    const current = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-                    current.lastUpdated = new Date().toISOString();
-                    current.source = FIFA_URL;
-                    fs.writeFileSync(filePath, JSON.stringify(current, null, 2));
-                    console.log(`Timestamp updated for ${path.basename(filePath)}`);
-                }
-            });
-        } else {
-            console.log('No matches parsed from FIFA.com. Keeping existing files.');
-        }
+            // Real country names if they are resolved (disabled: false means real team)
+            if (event.homeTeam && !event.homeTeam.disabled) {
+              m.realHome = translateTeam(event.homeTeam.name);
+            }
+            if (event.awayTeam && !event.awayTeam.disabled) {
+              m.realAway = translateTeam(event.awayTeam.name);
+            }
+          }
+        });
+      });
 
-    } catch (error) {
-        console.error('Scraping error:', error.message);
+      knockoutData.lastUpdated = new Date().toISOString();
+      knockoutData.source = 'SofaScore API';
+      fs.writeFileSync(OUTPUT_FILES.knockout, JSON.stringify(knockoutData, null, 2));
+      console.log(`Saved knockout stages to ${OUTPUT_FILES.knockout}`);
     }
+
+  } catch (err) {
+    console.error('Global fetch error:', err.message);
+  } finally {
+    await browser.close();
+  }
 }
 
-scrapeMatches();
+fetchFifaData();

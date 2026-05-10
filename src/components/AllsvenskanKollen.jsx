@@ -87,10 +87,13 @@ const getRelativeDateLabel = (dateStr) => {
         const today = new Date();
         const tomorrow = new Date();
         tomorrow.setDate(today.getDate() + 1);
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
         
         matchDate.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
         tomorrow.setHours(0, 0, 0, 0);
+        yesterday.setHours(0, 0, 0, 0);
         
         if (matchDate.getTime() === today.getTime()) {
             return "Idag";
@@ -98,7 +101,10 @@ const getRelativeDateLabel = (dateStr) => {
         if (matchDate.getTime() === tomorrow.getTime()) {
             return "Imorgon";
         }
-    } catch (e) {
+        if (matchDate.getTime() === yesterday.getTime()) {
+            return "Igår";
+        }
+    } catch {
         // Fallback
     }
     return dateStr;

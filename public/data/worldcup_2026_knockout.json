@@ -6,22 +6,166 @@
       "id": "r32",
       "date": "28 juni – 3 juli",
       "matches": [
-        { "id": 73, "home": "2A", "away": "2B", "time": "21:00", "date": "28 juni", "venue": "Los Angeles" },
-        { "id": 74, "home": "1E", "away": "3A/B/C/D", "time": "18:00", "date": "29 juni", "venue": "Boston" },
-        { "id": 75, "home": "1F", "away": "2C", "time": "21:00", "date": "29 juni", "venue": "Toronto" },
-        { "id": 76, "home": "1A", "away": "3C/D/F", "time": "18:00", "date": "30 juni", "venue": "New Jersey" },
-        { "id": 77, "home": "1B", "away": "3E/F/G/I/J", "time": "21:00", "date": "30 juni", "venue": "Houston" },
-        { "id": 78, "home": "2E", "away": "2F", "time": "00:00", "date": "30 juni", "venue": "Dallas" },
-        { "id": 79, "home": "1C", "away": "3A/B/F/G", "time": "18:00", "date": "1 juli", "venue": "Atlanta" },
-        { "id": 80, "home": "1D", "away": "3I/J/K/L", "time": "21:00", "date": "1 juli", "venue": "San Francisco" },
-        { "id": 81, "home": "1G", "away": "3A/B/D/E", "time": "00:00", "date": "1 juli", "venue": "Seattle" },
-        { "id": 82, "home": "1H", "away": "2J", "time": "18:00", "date": "2 juli", "venue": "Monterrey" },
-        { "id": 83, "home": "1I", "away": "3E/F/H/I", "time": "21:00", "date": "2 juli", "venue": "Miami" },
-        { "id": 84, "home": "1J", "away": "2L", "time": "00:00", "date": "2 juli", "venue": "Mexico City" },
-        { "id": 85, "home": "1K", "away": "3I/J/L", "time": "18:00", "date": "3 juli", "venue": "Kansas City" },
-        { "id": 86, "home": "1L", "away": "2G", "time": "21:00", "date": "3 juli", "venue": "Dallas" },
-        { "id": 87, "home": "2I", "away": "2K", "time": "00:00", "date": "3 juli", "venue": "Vancouver" },
-        { "id": 88, "home": "2D", "away": "2H", "time": "00:00", "date": "3 juli", "venue": "Mexico City" }
+        {
+          "id": 73,
+          "home": "2A",
+          "away": "2B",
+          "time": "21:00",
+          "date": "28 juni",
+          "venue": "Inglewood",
+          "startTimestamp": 1782673200,
+          "status": "upcoming"
+        },
+        {
+          "id": 74,
+          "home": "1E",
+          "away": "3A/B/C/D",
+          "time": "19:00",
+          "date": "29 juni",
+          "venue": "Houston",
+          "startTimestamp": 1782752400,
+          "status": "upcoming"
+        },
+        {
+          "id": 75,
+          "home": "1F",
+          "away": "2C",
+          "time": "22:30",
+          "date": "29 juni",
+          "venue": "Foxborough",
+          "startTimestamp": 1782765000,
+          "status": "upcoming"
+        },
+        {
+          "id": 76,
+          "home": "1A",
+          "away": "3C/D/F",
+          "time": "03:00",
+          "date": "30 juni",
+          "venue": "Monterrey",
+          "startTimestamp": 1782781200,
+          "status": "upcoming"
+        },
+        {
+          "id": 77,
+          "home": "1B",
+          "away": "3E/F/G/I/J",
+          "time": "19:00",
+          "date": "30 juni",
+          "venue": "Arlington",
+          "startTimestamp": 1782838800,
+          "status": "upcoming"
+        },
+        {
+          "id": 78,
+          "home": "2E",
+          "away": "2F",
+          "time": "23:00",
+          "date": "30 juni",
+          "venue": "East Rutherford",
+          "startTimestamp": 1782853200,
+          "status": "upcoming"
+        },
+        {
+          "id": 79,
+          "home": "1C",
+          "away": "3A/B/F/G",
+          "time": "03:00",
+          "date": "1 juli",
+          "venue": "Mexico City",
+          "startTimestamp": 1782867600,
+          "status": "upcoming"
+        },
+        {
+          "id": 80,
+          "home": "1D",
+          "away": "3I/J/K/L",
+          "time": "18:00",
+          "date": "1 juli",
+          "venue": "Atlanta",
+          "startTimestamp": 1782921600,
+          "status": "upcoming"
+        },
+        {
+          "id": 81,
+          "home": "1G",
+          "away": "3A/B/D/E",
+          "time": "22:00",
+          "date": "1 juli",
+          "venue": "Seattle",
+          "startTimestamp": 1782936000,
+          "status": "upcoming"
+        },
+        {
+          "id": 82,
+          "home": "1H",
+          "away": "2J",
+          "time": "02:00",
+          "date": "2 juli",
+          "venue": "Santa Clara",
+          "startTimestamp": 1782950400,
+          "status": "upcoming"
+        },
+        {
+          "id": 83,
+          "home": "1I",
+          "away": "3E/F/H/I",
+          "time": "21:00",
+          "date": "2 juli",
+          "venue": "Inglewood",
+          "startTimestamp": 1783018800,
+          "status": "upcoming"
+        },
+        {
+          "id": 84,
+          "home": "1J",
+          "away": "2L",
+          "time": "01:00",
+          "date": "3 juli",
+          "venue": "Toronto",
+          "startTimestamp": 1783033200,
+          "status": "upcoming"
+        },
+        {
+          "id": 85,
+          "home": "1K",
+          "away": "3I/J/L",
+          "time": "05:00",
+          "date": "3 juli",
+          "venue": "Vancouver",
+          "startTimestamp": 1783047600,
+          "status": "upcoming"
+        },
+        {
+          "id": 86,
+          "home": "1L",
+          "away": "2G",
+          "time": "20:00",
+          "date": "3 juli",
+          "venue": "Arlington",
+          "startTimestamp": 1783101600,
+          "status": "upcoming"
+        },
+        {
+          "id": 87,
+          "home": "2I",
+          "away": "2K",
+          "time": "00:00",
+          "date": "4 juli",
+          "venue": "Miami Gardens",
+          "startTimestamp": 1783116000,
+          "status": "upcoming"
+        },
+        {
+          "id": 88,
+          "home": "2D",
+          "away": "2H",
+          "time": "03:30",
+          "date": "4 juli",
+          "venue": "Kansas City",
+          "startTimestamp": 1783128600,
+          "status": "upcoming"
+        }
       ]
     },
     {
@@ -29,14 +173,86 @@
       "id": "r16",
       "date": "4 juli – 7 juli",
       "matches": [
-        { "id": 89, "home": "Vinnare 74", "away": "Vinnare 77", "time": "21:00", "date": "4 juli", "venue": "Philadelphia" },
-        { "id": 90, "home": "Vinnare 73", "away": "Vinnare 75", "time": "21:00", "date": "4 juli", "venue": "Houston" },
-        { "id": 91, "home": "Vinnare 76", "away": "Vinnare 78", "time": "21:00", "date": "5 juli", "venue": "New Jersey" },
-        { "id": 92, "home": "Vinnare 79", "away": "Vinnare 80", "time": "21:00", "date": "5 juli", "venue": "Dallas" },
-        { "id": 93, "home": "Vinnare 81", "away": "Vinnare 82", "time": "21:00", "date": "6 juli", "venue": "Atlanta" },
-        { "id": 94, "home": "Vinnare 83", "away": "Vinnare 84", "time": "21:00", "date": "6 juli", "venue": "Vancouver" },
-        { "id": 95, "home": "Vinnare 85", "away": "Vinnare 86", "time": "21:00", "date": "7 juli", "venue": "Los Angeles" },
-        { "id": 96, "home": "Vinnare 87", "away": "Vinnare 88", "time": "21:00", "date": "7 juli", "venue": "Miami" }
+        {
+          "id": 89,
+          "home": "Vinnare 74",
+          "away": "Vinnare 77",
+          "time": "19:00",
+          "date": "4 juli",
+          "venue": "Houston",
+          "startTimestamp": 1783184400,
+          "status": "upcoming"
+        },
+        {
+          "id": 90,
+          "home": "Vinnare 73",
+          "away": "Vinnare 75",
+          "time": "23:00",
+          "date": "4 juli",
+          "venue": "Philadelphia",
+          "startTimestamp": 1783198800,
+          "status": "upcoming"
+        },
+        {
+          "id": 91,
+          "home": "Vinnare 76",
+          "away": "Vinnare 78",
+          "time": "22:00",
+          "date": "5 juli",
+          "venue": "East Rutherford",
+          "startTimestamp": 1783281600,
+          "status": "upcoming"
+        },
+        {
+          "id": 92,
+          "home": "Vinnare 79",
+          "away": "Vinnare 80",
+          "time": "02:00",
+          "date": "6 juli",
+          "venue": "Mexico City",
+          "startTimestamp": 1783296000,
+          "status": "upcoming"
+        },
+        {
+          "id": 93,
+          "home": "Vinnare 81",
+          "away": "Vinnare 82",
+          "time": "21:00",
+          "date": "6 juli",
+          "venue": "Arlington",
+          "startTimestamp": 1783364400,
+          "status": "upcoming"
+        },
+        {
+          "id": 94,
+          "home": "Vinnare 83",
+          "away": "Vinnare 84",
+          "time": "02:00",
+          "date": "7 juli",
+          "venue": "Seattle",
+          "startTimestamp": 1783382400,
+          "status": "upcoming"
+        },
+        {
+          "id": 95,
+          "home": "Vinnare 85",
+          "away": "Vinnare 86",
+          "time": "18:00",
+          "date": "7 juli",
+          "venue": "Atlanta",
+          "startTimestamp": 1783440000,
+          "status": "upcoming"
+        },
+        {
+          "id": 96,
+          "home": "Vinnare 87",
+          "away": "Vinnare 88",
+          "time": "22:00",
+          "date": "7 juli",
+          "venue": "Vancouver",
+          "startTimestamp": 1783454400,
+          "status": "upcoming"
+        }
       ]
     },
     {
@@ -44,10 +260,46 @@
       "id": "qf",
       "date": "9 juli – 11 juli",
       "matches": [
-        { "id": 97, "home": "Vinnare 89", "away": "Vinnare 90", "time": "21:00", "date": "9 juli", "venue": "Boston" },
-        { "id": 98, "home": "Vinnare 91", "away": "Vinnare 92", "time": "21:00", "date": "10 juli", "venue": "Los Angeles" },
-        { "id": 99, "home": "Vinnare 93", "away": "Vinnare 94", "time": "21:00", "date": "11 juli", "venue": "Miami" },
-        { "id": 100, "home": "Vinnare 95", "away": "Vinnare 96", "time": "21:00", "date": "11 juli", "venue": "Kansas City" }
+        {
+          "id": 97,
+          "home": "Vinnare 89",
+          "away": "Vinnare 90",
+          "time": "22:00",
+          "date": "9 juli",
+          "venue": "Foxborough",
+          "startTimestamp": 1783627200,
+          "status": "upcoming"
+        },
+        {
+          "id": 98,
+          "home": "Vinnare 91",
+          "away": "Vinnare 92",
+          "time": "21:00",
+          "date": "10 juli",
+          "venue": "Inglewood",
+          "startTimestamp": 1783710000,
+          "status": "upcoming"
+        },
+        {
+          "id": 99,
+          "home": "Vinnare 93",
+          "away": "Vinnare 94",
+          "time": "23:00",
+          "date": "11 juli",
+          "venue": "Miami Gardens",
+          "startTimestamp": 1783803600,
+          "status": "upcoming"
+        },
+        {
+          "id": 100,
+          "home": "Vinnare 95",
+          "away": "Vinnare 96",
+          "time": "03:00",
+          "date": "12 juli",
+          "venue": "Kansas City",
+          "startTimestamp": 1783818000,
+          "status": "upcoming"
+        }
       ]
     },
     {
@@ -55,8 +307,26 @@
       "id": "sf",
       "date": "14 juli – 15 juli",
       "matches": [
-        { "id": 101, "home": "Vinnare 97", "away": "Vinnare 98", "time": "21:00", "date": "14 juli", "venue": "Dallas" },
-        { "id": 102, "home": "Vinnare 99", "away": "Vinnare 100", "time": "21:00", "date": "15 juli", "venue": "Atlanta" }
+        {
+          "id": 101,
+          "home": "Vinnare 97",
+          "away": "Vinnare 98",
+          "time": "21:00",
+          "date": "14 juli",
+          "venue": "Arlington",
+          "startTimestamp": 1784055600,
+          "status": "upcoming"
+        },
+        {
+          "id": 102,
+          "home": "Vinnare 99",
+          "away": "Vinnare 100",
+          "time": "21:00",
+          "date": "15 juli",
+          "venue": "Atlanta",
+          "startTimestamp": 1784142000,
+          "status": "upcoming"
+        }
       ]
     },
     {
@@ -64,7 +334,16 @@
       "id": "3p",
       "date": "18 juli",
       "matches": [
-        { "id": 103, "home": "Förlorare 101", "away": "Förlorare 102", "time": "21:00", "date": "18 juli", "venue": "Miami" }
+        {
+          "id": 103,
+          "home": "Förlorare 101",
+          "away": "Förlorare 102",
+          "time": "23:00",
+          "date": "18 juli",
+          "venue": "Miami Gardens",
+          "startTimestamp": 1784408400,
+          "status": "upcoming"
+        }
       ]
     },
     {
@@ -72,8 +351,19 @@
       "id": "f",
       "date": "19 juli",
       "matches": [
-        { "id": 104, "home": "Vinnare 101", "away": "Vinnare 102", "time": "21:00", "date": "19 juli", "venue": "New York/New Jersey" }
+        {
+          "id": 104,
+          "home": "Vinnare 101",
+          "away": "Vinnare 102",
+          "time": "21:00",
+          "date": "19 juli",
+          "venue": "East Rutherford",
+          "startTimestamp": 1784487600,
+          "status": "upcoming"
+        }
       ]
     }
-  ]
+  ],
+  "lastUpdated": "2026-05-10T09:19:32.149Z",
+  "source": "SofaScore API"
 }
