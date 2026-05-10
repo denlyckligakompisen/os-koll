@@ -161,8 +161,6 @@ const AllsvenskanKollen = () => {
         else localStorage.removeItem('allsvenskan-koll-filter');
     }, [filterTeam]);
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -186,7 +184,21 @@ const AllsvenskanKollen = () => {
                 setLoading(false);
             }
         };
+
         fetchData();
+
+        // Refetch matches every minute to keep live data updated
+        const interval = setInterval(async () => {
+            try {
+                const matchesRes = await fetch('/data/allsvenskan_matches.json');
+                const matches = await matchesRes.json();
+                setMatchesData(matches);
+            } catch (error) {
+                console.error('Error refetching Allsvenskan matches:', error);
+            }
+        }, 60000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);

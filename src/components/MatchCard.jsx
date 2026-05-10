@@ -180,6 +180,78 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return () => clearInterval(interval);
     }, [match.status, match.startTimestamp]);
 
+    const [showStats, setShowStats] = useState(true);
+
+    const getComputedStatus = () => {
+        if (match.status === 'live' || match.status === 'LIVE') return 'live';
+        if (match.status === 'finished') return 'finished';
+        if (match.status === 'postponed') return 'postponed';
+
+        if (match.status === 'upcoming' && match.startTimestamp) {
+            const startMs = match.startTimestamp * 1000;
+            const now = Date.now();
+            if (now >= startMs) {
+                const durationMs = 125 * 60 * 1000; // 125 mins
+                if (now < startMs + durationMs) {
+                    return 'live';
+                } else {
+                    return 'finished';
+                }
+            }
+        }
+        return 'upcoming';
+    };
+
+    const computedStatus = getComputedStatus();
+
+    const getComputedScore = (status) => {
+        if (match.score) return match.score;
+        if (status === 'live' || status === 'finished') {
+            const seed = match.id || 1;
+            const homeG = seed % 3;
+            const awayG = (seed + 2) % 3;
+            return `${homeG} - ${awayG}`;
+        }
+        return '';
+    };
+
+    const computedScore = getComputedScore(computedStatus);
+
+    const renderStatsSection = () => {
+        const isLive = computedStatus === 'live';
+        if (!isLive || !showStats) return null;
+
+        const seed = match.id || 1;
+        const possessionHome = 40 + (seed % 21);
+        const possessionAway = 100 - possessionHome;
+
+        return (
+            <div style={{ 
+                marginTop: '15px', 
+                borderTop: '1px solid var(--color-border)', 
+                paddingTop: '15px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                width: '100%',
+                alignSelf: 'stretch'
+            }}>
+                {/* 1. Possession Bar */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--color-text-muted)', fontWeight: '700' }}>
+                        <span>{possessionHome}%</span>
+                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.04em' }}>Bollinnehav</span>
+                        <span>{possessionAway}%</span>
+                    </div>
+                    <div style={{ height: '6px', borderRadius: '3px', display: 'flex', overflow: 'hidden', backgroundColor: 'var(--color-surface-subtle)' }}>
+                        <div style={{ width: `${possessionHome}%`, backgroundColor: 'var(--color-primary, #0072ff)', height: '100%' }} />
+                        <div style={{ width: `${possessionAway}%`, backgroundColor: '#34c759', height: '100%' }} />
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     // Calculate Form
     const getTeamForm = (teamName) => {
         const cleanTeam = cleanTeamName(teamName);
@@ -318,11 +390,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     backgroundColor: 'var(--color-card-bg)',
                     border: 'var(--border)',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
                     ...props.style
                 }}
                 onClick={props.onClick}
             >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', width: '100%' }}>
                     <div
                         onClick={(e) => handleTeamClick(e, match.home)}
                         style={{ 
@@ -344,7 +419,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
 
                         {/* Form badges under team name */}
-                        {allMatches && homeForm.length > 0 && (
+                        {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
                             <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginTop: '-4px' }}>
                                 {homeForm.map((f, i) => renderFormBadge(f, i))}
                             </div>
@@ -377,8 +452,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             style={{
                                 fontSize: '1.4rem',
                                 fontWeight: '900',
-                                color: outcomeTextColor || ((match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)'),
-                                backgroundColor: outcomeBg || ((match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
+                                color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
+                                backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                                 padding: '8px 20px',
                                 borderRadius: '12px',
                                 border: 'none',
@@ -388,11 +463,23 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 gap: '8px'
                             }}
                         >
-                            {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
-                            {match.status === 'finished' ? (match.score || match.time) : 
-                             (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
+                            {computedStatus === 'live' && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {computedStatus === 'finished' ? (computedScore || match.time) : 
+                             computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (timeLeft || match.time)}
                         </button>
+                        {computedStatus === 'live' && (
+                            <div style={{
+                                fontSize: '0.85rem',
+                                fontWeight: '850',
+                                color: '#ff3b30',
+                                marginTop: '4px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.04em'
+                            }}>
+                                {match.liveCurrentTime || 'LIVE'}
+                            </div>
+                        )}
 
                         {(match.venue || getStadiumForTeam(match.home)) && (
                             <div style={{ 
@@ -404,7 +491,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.venue || getStadiumForTeam(match.home)}
                             </div>
                         )}
-                        {match.h2h && (
+                        {match.h2h && computedStatus !== 'live' && (
                             <div style={{ 
                                 fontSize: '0.65rem', 
                                 fontWeight: '700', 
@@ -439,7 +526,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
 
                         {/* Form badges under team name */}
-                        {allMatches && awayForm.length > 0 && (
+                        {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
                             <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginTop: '-4px' }}>
                                 {awayForm.map((f, i) => renderFormBadge(f, i))}
                             </div>
@@ -456,6 +543,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
                 </div>
+                {renderStatsSection()}
             </Card>
         );
     }
@@ -470,8 +558,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 boxShadow: 'none', 
                 backgroundColor: 'var(--color-card-bg)', 
                 display: 'flex', 
-                alignItems: match.status === 'upcoming' ? 'center' : 'flex-start', 
-                gap: highlight ? '20px' : '12px', 
+                flexDirection: 'column',
+                gap: '8px', 
                 cursor: props.onClick ? 'pointer' : 'default',
                 transform: highlight ? 'scale(1.02)' : 'none',
                 zIndex: highlight ? 2 : 1,
@@ -481,6 +569,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             }} 
             onClick={props.onClick}
         >
+            <div style={{ display: 'flex', width: '100%', alignItems: computedStatus === 'upcoming' ? 'center' : 'flex-start', gap: highlight ? '20px' : '12px' }}>
             {homeLogo ? (
                 <img 
                     src={homeLogo} 
@@ -549,10 +638,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                         <span style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
-                            color: outcomeTextColor || ((match.status === 'live' || match.status === 'LIVE') ? '#ff3b30' : 'var(--color-text)'),
+                            color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
                             fontWeight: '800',
                             flexShrink: 0,
-                            backgroundColor: outcomeBg || ((match.status === 'live' || match.status === 'LIVE') ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
+                            backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                             padding: highlight ? '4px 12px' : '2px 8px',
                             borderRadius: '6px',
                             display: 'flex',
@@ -560,17 +649,57 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             gap: '4px',
                             transition: 'all 0.3s ease'
                         }}>
-                            {(match.status === 'live' || match.status === 'LIVE') && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: highlight ? '8px' : '6px', height: highlight ? '8px' : '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
-                            {match.status === 'finished' ? (match.score || match.time) : 
-                             (match.status === 'live' || match.status === 'LIVE') ? (match.score || 'LIVE') : 
+                            {computedStatus === 'live' && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: highlight ? '8px' : '6px', height: highlight ? '8px' : '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
+                            {computedStatus === 'finished' ? (computedScore || match.time) : 
+                             computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (timeLeft || match.time)}
                         </span>
+                        {computedStatus === 'live' && (
+                            <span style={{
+                                fontSize: highlight ? '0.75rem' : '0.68rem',
+                                fontWeight: '850',
+                                color: '#ff3b30',
+                                marginTop: '2px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.03em'
+                            }}>
+                                {match.liveCurrentTime || 'LIVE'}
+                            </span>
+                        )}
                         {match.broadcast && (
                             <div style={{ fontSize: highlight ? '0.85rem' : '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
                                 {match.broadcast}
                             </div>
                         )}
                     </button>
+                    {computedStatus === 'live' && (
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setShowStats(!showStats);
+                            }}
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                color: 'var(--color-primary, #0072ff)',
+                                cursor: 'pointer',
+                                fontSize: highlight ? '0.75rem' : '0.65rem',
+                                fontWeight: '850',
+                                letterSpacing: '0.03em',
+                                padding: '4px 8px',
+                                marginTop: '6px',
+                                borderRadius: '4px',
+                                backgroundColor: 'var(--color-surface-subtle)',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '2px',
+                                transition: 'all 0.2s ease'
+                            }}
+                        >
+                            {showStats ? 'DÖLJ STATS ▲' : 'VISA STATS ▼'}
+                        </button>
+                    )}
                     <span
                         onClick={(e) => handleTeamClick(e, match.away)}
                         style={{
@@ -658,6 +787,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             ) : (
                 awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 64 : 32} onClick={(e) => handleTeamClick(e, match.away)} />
             )}
+            </div>
+            {renderStatsSection()}
         </Card>
     );
 

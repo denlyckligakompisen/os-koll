@@ -75,8 +75,7 @@ async function scrapeAllsvenskan() {
                 const timeMatch = text.match(/(\d{2}:\d{2})/);
                 if (timeMatch) time = timeMatch[1];
 
-                const linkEl = row.querySelector('a[href*="/matcher/"]');
-                link = linkEl ? (linkEl.href.startsWith('http') ? linkEl.href : 'https://allsvenskan.se' + linkEl.getAttribute('href')) : '';
+                link = '';
 
                 let sibling = row.previousElementSibling;
                 while (sibling) {

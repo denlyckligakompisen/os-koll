@@ -188,7 +188,37 @@ async function fetchMatches(fetchApi, isDelta = false) {
     const date = formatDateSwedish(event.startTimestamp);
 
     // Link
-    const link = `https://allsvenskan.se/matcher`;
+    const link = '';
+
+    let liveCurrentTime = '';
+    if (status === 'live' && event.time?.currentPeriodStartTimestamp) {
+      const startSecs = event.time.currentPeriodStartTimestamp;
+      const nowSecs = Math.floor(Date.now() / 1000);
+      const elapsedMins = Math.floor((nowSecs - startSecs) / 60);
+      
+      const desc = (event.status?.description || '').toLowerCase();
+      const isFirstHalf = desc.includes('1st half') || desc.includes('1st period');
+      const isSecondHalf = desc.includes('2nd half') || desc.includes('2nd period');
+      const isHalftime = desc.includes('halftime') || desc.includes('half-time');
+
+      if (isFirstHalf) {
+        if (elapsedMins >= 45) {
+          liveCurrentTime = `45'+${elapsedMins - 44}`;
+        } else {
+          liveCurrentTime = `${elapsedMins + 1}'`;
+        }
+      } else if (isSecondHalf) {
+        if (elapsedMins >= 45) {
+          liveCurrentTime = `90'+${elapsedMins - 44}`;
+        } else {
+          liveCurrentTime = `${45 + elapsedMins + 1}'`;
+        }
+      } else if (isHalftime) {
+        liveCurrentTime = 'Halvtid';
+      } else {
+        liveCurrentTime = event.status?.description || 'LIVE';
+      }
+    }
 
     const matchObj = { 
       id, 
@@ -201,7 +231,8 @@ async function fetchMatches(fetchApi, isDelta = false) {
       score, 
       status, 
       startTimestamp: event.startTimestamp,
-      round: event.roundInfo?.round
+      round: event.roundInfo?.round,
+      liveCurrentTime
     };
 
     // Find existing match in cache
@@ -265,8 +296,8 @@ async function fetchMatches(fetchApi, isDelta = false) {
     }
 
     // Fetch or reuse scorers if finished
-    if (status === 'finished') {
-      if (existing && existing.scorers) {
+    if (status === 'finished' || status === 'live') {
+      if (status === 'finished' && existing && existing.scorers) {
         matchObj.scorers = existing.scorers;
       } else {
         try {

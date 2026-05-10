@@ -163,7 +163,8 @@ async function fetchFifaData() {
     console.log(`Knockout Stage matches: ${knockoutStageEvents.length}`);
 
     // Parse and save Group Stage Matches
-    const parsedGroupMatches = groupStageMatches.map(event => {
+    const parsedGroupMatches = [];
+    for (const event of groupStageMatches) {
       const home = translateTeam(event.homeTeam?.name || '');
       const away = translateTeam(event.awayTeam?.name || '');
       const date = formatDateSwedish(event.startTimestamp);
@@ -212,6 +213,36 @@ async function fetchFifaData() {
         score = `${homeGoals} - ${awayGoals}`;
       }
 
+      let liveCurrentTime = '';
+      if (status === 'live' && event.time?.currentPeriodStartTimestamp) {
+        const startSecs = event.time.currentPeriodStartTimestamp;
+        const nowSecs = Math.floor(Date.now() / 1000);
+        const elapsedMins = Math.floor((nowSecs - startSecs) / 60);
+        
+        const desc = (event.status?.description || '').toLowerCase();
+        const isFirstHalf = desc.includes('1st half') || desc.includes('1st period');
+        const isSecondHalf = desc.includes('2nd half') || desc.includes('2nd period');
+        const isHalftime = desc.includes('halftime') || desc.includes('half-time');
+
+        if (isFirstHalf) {
+          if (elapsedMins >= 45) {
+            liveCurrentTime = `45'+${elapsedMins - 44}`;
+          } else {
+            liveCurrentTime = `${elapsedMins + 1}'`;
+          }
+        } else if (isSecondHalf) {
+          if (elapsedMins >= 45) {
+            liveCurrentTime = `90'+${elapsedMins - 44}`;
+          } else {
+            liveCurrentTime = `${45 + elapsedMins + 1}'`;
+          }
+        } else if (isHalftime) {
+          liveCurrentTime = 'Halvtid';
+        } else {
+          liveCurrentTime = event.status?.description || 'LIVE';
+        }
+      }
+
       const matchObj = {
         id: event.id,
         customId: event.customId,
@@ -225,16 +256,62 @@ async function fetchFifaData() {
         link,
         status,
         score,
-        startTimestamp: event.startTimestamp
+        startTimestamp: event.startTimestamp,
+        liveCurrentTime
       };
 
-      // Add scorers if finished
-      if (status === 'finished' && existingMatch?.scorers) {
-        matchObj.scorers = existingMatch.scorers;
+      // Add scorers if finished or live
+      if (status === 'finished' || status === 'live') {
+        if (status === 'finished' && existingMatch?.scorers) {
+          matchObj.scorers = existingMatch.scorers;
+        } else {
+          try {
+            console.log(`  Fetching scorers for ${home} - ${away} (ID: ${event.id})...`);
+            const incidentsData = await fetchApi(`/event/${event.id}/incidents`);
+            const incidents = incidentsData.incidents || [];
+            
+            const homeScorers = [];
+            const awayScorers = [];
+            
+            const goals = incidents.filter(inc => inc.incidentType === 'goal');
+            goals.forEach(goal => {
+              const player = goal.player?.shortName || goal.player?.name || 'Okänd';
+              const minute = goal.time + (goal.injuryTime ? `+${goal.injuryTime}` : '');
+              
+              let suffix = '';
+              if (goal.goalType === 'penalty') suffix = ' (str)';
+              else if (goal.goalType === 'own') suffix = ' (självmål)';
+              
+              const scorerObj = { player, minute };
+              if (suffix) scorerObj.suffix = suffix;
+
+              let scoringTeam = goal.isHome ? 'home' : 'away';
+              if (goal.goalType === 'own') {
+                scoringTeam = goal.isHome ? 'away' : 'home';
+              }
+
+              if (scoringTeam === 'home') {
+                homeScorers.push(scorerObj);
+              } else {
+                awayScorers.push(scorerObj);
+              }
+            });
+
+            matchObj.scorers = {
+              home: homeScorers,
+              away: awayScorers
+            };
+            
+            // Polite delay
+            await new Promise(r => setTimeout(r, 200));
+          } catch (err) {
+            console.log(`  ⚠ Failed to fetch scorers for ${home} - ${away}: ${err.message}`);
+          }
+        }
       }
 
-      return matchObj;
-    });
+      parsedGroupMatches.push(matchObj);
+    }
 
     // Sort group stage matches chronologically
     parsedGroupMatches.sort((a, b) => a.startTimestamp - b.startTimestamp);
