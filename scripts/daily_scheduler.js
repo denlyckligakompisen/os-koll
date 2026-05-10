@@ -13,9 +13,9 @@ function log(message) {
 }
 
 function runScraper() {
-  log('🔄 Starting daily scrape of Allsvenskan matches...');
+  log('🔄 Starting daily fetch of Allsvenskan data from SofaScore...');
   
-  const scraper = spawn('npm', ['run', 'scrape:allsvenskan'], {
+  const scraper = spawn('npm', ['run', 'fetch:allsvenskan'], {
     cwd: process.cwd(),
     stdio: 'pipe'
   });
@@ -30,20 +30,20 @@ function runScraper() {
 
   scraper.on('close', (code) => {
     if (code === 0) {
-      log('✓ Scraper completed successfully');
+      log('✓ SofaScore fetch completed successfully');
     } else {
-      log(`✗ Scraper failed with exit code ${code}`);
+      log(`✗ SofaScore fetch failed with exit code ${code}`);
     }
   });
 }
 
-// Schedule to run every day at 06:00 (6 AM)
-cron.schedule('0 6 * * *', () => {
+// Schedule to run every day at 03:00 (3 AM)
+cron.schedule('0 3 * * *', () => {
   runScraper();
 });
 
 // Also run once at startup
-log('📅 Daily scheduler started - will run at 06:00 every day');
+log('📅 Daily scheduler started - will run at 03:00 every day');
 runScraper();
 
 // Keep process alive
