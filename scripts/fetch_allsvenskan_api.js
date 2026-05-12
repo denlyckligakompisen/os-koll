@@ -61,22 +61,67 @@ function formatTime(timestamp) {
 
 async function createBrowserFetcher() {
   const browser = await chromium.launch({ headless: true });
+  
+  // Get default User-Agent and clean it (remove HeadlessChrome) to match a real browser fingerprint
+  const tempContext = await browser.newContext();
+  const tempPage = await tempContext.newPage();
+  const defaultUA = await tempPage.evaluate(() => navigator.userAgent);
+  await tempPage.close();
+  await tempContext.close();
+  
+  const cleanUA = defaultUA.replace(/HeadlessChrome/g, 'Chrome');
+
   const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    userAgent: cleanUA,
+    extraHTTPHeaders: {
+      'Accept-Language': 'sv-SE,sv;q=0.9,en-SE;q=0.8,en;q=0.7,en-US;q=0.6',
+    }
   });
+
+  // Hide webdriver property to bypass basic headless detection
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', {
+      get: () => undefined
+    });
+  });
+
   const page = await context.newPage();
 
-  // Navigate to SofaScore once to get cookies/session
-  await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
+  // Navigate once to SofaScore homepage to establish browser session/cookies
+  try {
+    console.log('  Establishing SofaScore session...');
+    const response = await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
+    if (response && response.status() !== 200) {
+      console.warn(`  ⚠️  Homepage load returned status ${response.status()}. Cloudflare challenge may be active.`);
+    }
+  } catch (err) {
+    console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}. Will rely on fallback API requests.`);
+  }
 
   const fetchApi = async (endpoint) => {
     console.log(`  → GET ${endpoint}`);
-    const result = await page.evaluate(async (url) => {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      return res.json();
-    }, `${API_BASE}${endpoint}`);
-    return result;
+    try {
+      // Try primary API domain (www.sofascore.com)
+      const result = await page.evaluate(async (url) => {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP_${res.status}`);
+        return res.json();
+      }, `${API_BASE}${endpoint}`);
+      return result;
+    } catch (e) {
+      console.log(`  ⚠️  Primary fetch failed (${e.message}). Falling back to api.sofascore.app...`);
+      try {
+        // Fallback to secondary API domain (api.sofascore.app)
+        const result = await page.evaluate(async (url) => {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`HTTP_${res.status}`);
+          return res.json();
+        }, `https://api.sofascore.app/api/v1${endpoint}`);
+        return result;
+      } catch (fallbackError) {
+        throw new Error(`Both primary and fallback fetches failed. Primary: ${e.message}, Fallback: ${fallbackError.message}`);
+      }
+    }
   };
 
   const close = () => browser.close();

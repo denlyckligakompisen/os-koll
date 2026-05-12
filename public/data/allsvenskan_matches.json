@@ -748,6 +748,66 @@
       }
     },
     {
+      "id": 15272381,
+      "customId": "iKsrK",
+      "home": "Hammarby IF",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "ONSDAG 22 APRIL",
+      "link": "",
+      "score": "1 - 1",
+      "status": "finished",
+      "startTimestamp": 1776877200,
+      "round": 4,
+      "liveCurrentTime": "",
+      "scorers": {
+        "home": [
+          {
+            "player": "F. J. Adjei",
+            "minute": "58"
+          }
+        ],
+        "away": [
+          {
+            "player": "O. Liimatta",
+            "minute": "10"
+          }
+        ]
+      }
+    },
+    {
+      "id": 15272384,
+      "customId": "jKsmK",
+      "home": "IF Elfsborg",
+      "away": "Djurgårdens IF",
+      "time": "TBA",
+      "date": "ONSDAG 22 APRIL",
+      "link": "",
+      "score": "2 - 1",
+      "status": "finished",
+      "startTimestamp": 1776877200,
+      "round": 4,
+      "liveCurrentTime": "",
+      "scorers": {
+        "home": [
+          {
+            "player": "J. Rinne",
+            "minute": "88"
+          },
+          {
+            "player": "F. Ihler",
+            "minute": "25"
+          }
+        ],
+        "away": [
+          {
+            "player": "P. Johansson",
+            "minute": "19"
+          }
+        ]
+      }
+    },
+    {
       "id": 15272383,
       "customId": "qKsMK",
       "home": "Örgryte IS",
@@ -819,66 +879,6 @@
           {
             "player": "J. Agbonifo",
             "minute": "12"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272381,
-      "customId": "iKsrK",
-      "home": "Hammarby IF",
-      "away": "Halmstads BK",
-      "time": "TBA",
-      "date": "ONSDAG 22 APRIL",
-      "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "F. J. Adjei",
-            "minute": "58"
-          }
-        ],
-        "away": [
-          {
-            "player": "O. Liimatta",
-            "minute": "10"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272384,
-      "customId": "jKsmK",
-      "home": "IF Elfsborg",
-      "away": "Djurgårdens IF",
-      "time": "TBA",
-      "date": "ONSDAG 22 APRIL",
-      "link": "",
-      "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "J. Rinne",
-            "minute": "88"
-          },
-          {
-            "player": "F. Ihler",
-            "minute": "25"
-          }
-        ],
-        "away": [
-          {
-            "player": "P. Johansson",
-            "minute": "19"
           }
         ]
       }
@@ -1642,14 +1642,14 @@
       "customId": "rKsQM",
       "home": "Kalmar FF",
       "away": "Halmstads BK",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 10 MAJ",
       "link": "",
-      "score": "0 - 0",
-      "status": "live",
+      "score": "2 - 0",
+      "status": "finished",
       "startTimestamp": 1778414400,
       "round": 7,
-      "liveCurrentTime": "39'",
+      "liveCurrentTime": "",
       "h2h": {
         "homeWins": 2,
         "draws": 1,
@@ -1666,14 +1666,14 @@
       "customId": "jKsoK",
       "home": "AIK",
       "away": "Djurgårdens IF",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 10 MAJ",
       "link": "",
-      "score": "1 - 2",
-      "status": "live",
+      "score": "2 - 4",
+      "status": "finished",
       "startTimestamp": 1778414400,
       "round": 7,
-      "liveCurrentTime": "38'",
+      "liveCurrentTime": "",
       "h2h": {
         "homeWins": 2,
         "draws": 2,
@@ -1704,11 +1704,11 @@
       "customId": "kKsRM",
       "home": "BK Häcken",
       "away": "Malmö FF",
-      "time": "16:30",
+      "time": "TBA",
       "date": "SÖNDAG 10 MAJ",
       "link": "",
-      "score": "",
-      "status": "upcoming",
+      "score": "3 - 2",
+      "status": "finished",
       "startTimestamp": 1778423400,
       "round": 7,
       "liveCurrentTime": "",
@@ -1717,6 +1717,32 @@
         "draws": 2,
         "awayWins": 2,
         "isLast5": true
+      },
+      "scorers": {
+        "home": [
+          {
+            "player": "G. Lindgren",
+            "minute": "37"
+          },
+          {
+            "player": "J. Stryger Larsen",
+            "minute": "20"
+          },
+          {
+            "player": "G. Lindgren",
+            "minute": "4"
+          }
+        ],
+        "away": [
+          {
+            "player": "E. Botheim",
+            "minute": "39"
+          },
+          {
+            "player": "Busanello",
+            "minute": "24"
+          }
+        ]
       }
     },
     {
@@ -1724,11 +1750,11 @@
       "customId": "qKsTK",
       "home": "IK Sirius",
       "away": "Örgryte IS",
-      "time": "19:00",
+      "time": "TBA",
       "date": "MÅNDAG 11 MAJ",
       "link": "",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 0",
+      "status": "finished",
       "startTimestamp": 1778518800,
       "round": 7,
       "liveCurrentTime": "",
@@ -1737,6 +1763,19 @@
         "draws": 1,
         "awayWins": 1,
         "isLast5": true
+      },
+      "scorers": {
+        "home": [
+          {
+            "player": "I. Bjerkebo",
+            "minute": "73"
+          },
+          {
+            "player": "I. Bjerkebo",
+            "minute": "39"
+          }
+        ],
+        "away": []
       }
     },
     {
@@ -1896,6 +1935,26 @@
         "homeWins": 0,
         "draws": 0,
         "awayWins": 4,
+        "isLast5": true
+      }
+    },
+    {
+      "id": 15272487,
+      "customId": "iKsLK",
+      "home": "GAIS",
+      "away": "Hammarby IF",
+      "time": "19:00",
+      "date": "ONSDAG 20 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming",
+      "startTimestamp": 1779296400,
+      "round": 15,
+      "liveCurrentTime": "",
+      "h2h": {
+        "homeWins": 2,
+        "draws": 3,
+        "awayWins": 0,
         "isLast5": true
       }
     },
@@ -2915,26 +2974,6 @@
       "h2h": {
         "homeWins": 3,
         "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
-    },
-    {
-      "id": 15272487,
-      "customId": "iKsLK",
-      "home": "GAIS",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 2 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785664800,
-      "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 3,
         "awayWins": 0,
         "isLast5": true
       }
@@ -5420,6 +5459,6 @@
       }
     }
   ],
-  "lastUpdated": "2026-05-10T12:39:04.115Z",
+  "lastUpdated": "2026-05-12T16:40:22.119Z",
   "source": "SofaScore"
 }

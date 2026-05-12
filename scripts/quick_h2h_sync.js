@@ -43,13 +43,64 @@ async function run() {
 
   console.log('Launching browser to fetch H2H data...');
   const browser = await chromium.launch({ headless: true });
+  
+  // Get default User-Agent and clean it (remove HeadlessChrome) to match a real browser fingerprint
+  const tempContext = await browser.newContext();
+  const tempPage = await tempContext.newPage();
+  const defaultUA = await tempPage.evaluate(() => navigator.userAgent);
+  await tempPage.close();
+  await tempContext.close();
+  
+  const cleanUA = defaultUA.replace(/HeadlessChrome/g, 'Chrome');
+
   const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    userAgent: cleanUA,
+    extraHTTPHeaders: {
+      'Accept-Language': 'sv-SE,sv;q=0.9,en-SE;q=0.8,en;q=0.7,en-US;q=0.6',
+    }
   });
+
+  // Hide webdriver property to bypass basic headless detection
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', {
+      get: () => undefined
+    });
+  });
+
   const page = await context.newPage();
 
   console.log('Navigating to sofascore.com...');
-  await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
+  try {
+    const response = await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
+    if (response && response.status() !== 200) {
+      console.warn(`  ⚠️  Homepage load returned status ${response.status()}. Cloudflare challenge may be active.`);
+    }
+  } catch (err) {
+    console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}. Will rely on fallback API requests.`);
+  }
+
+  const fetchApi = async (endpoint) => {
+    try {
+      const result = await page.evaluate(async (url) => {
+        const res = await fetch(url);
+        return res.ok ? res.json() : null;
+      }, `${API_BASE}${endpoint}`);
+      if (!result) throw new Error("HTTP_FAILED");
+      return result;
+    } catch (e) {
+      console.log(`  ⚠️  Primary fetch failed for ${endpoint} (${e.message}). Falling back to api.sofascore.app...`);
+      try {
+        const result = await page.evaluate(async (url) => {
+          const res = await fetch(url);
+          return res.ok ? res.json() : null;
+        }, `https://api.sofascore.app/api/v1${endpoint}`);
+        return result;
+      } catch (fallbackError) {
+        console.log(`  ❌ Both primary and fallback fetches failed: ${fallbackError.message}`);
+        return null;
+      }
+    }
+  };
 
   // Update next 16 upcoming matches (full 2 rounds)
   const targets = upcomingMatches.slice(0, 16);
@@ -60,12 +111,8 @@ async function run() {
     // If it's missing, let's fetch event detail to get customId
     if (!match.customId && match.id) {
       try {
-        const url = `${API_BASE}/event/${match.id}`;
         console.log(`  Fetching event details for ${match.home} - ${match.away} (ID: ${match.id})...`);
-        const eventRes = await page.evaluate(async (fetchUrl) => {
-          const res = await fetch(fetchUrl);
-          return res.ok ? res.json() : null;
-        }, url);
+        const eventRes = await fetchApi(`/event/${match.id}`);
         if (eventRes && eventRes.event && eventRes.event.customId) {
           match.customId = eventRes.event.customId;
           match.round = eventRes.event.roundInfo?.round;
@@ -77,12 +124,8 @@ async function run() {
 
     if (match.customId) {
       try {
-        const url = `${API_BASE}/event/${match.customId}/h2h/events`;
         console.log(`  Fetching H2H history for ${match.home} - ${match.away} (customId: ${match.customId})...`);
-        const h2hRes = await page.evaluate(async (fetchUrl) => {
-          const res = await fetch(fetchUrl);
-          return res.ok ? res.json() : null;
-        }, url);
+        const h2hRes = await fetchApi(`/event/${match.customId}/h2h/events`);
 
         if (h2hRes && h2hRes.events) {
           const finished = h2hRes.events.filter(e => e.winnerCode !== undefined);
