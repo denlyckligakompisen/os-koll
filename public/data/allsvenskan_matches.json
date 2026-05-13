@@ -17,16 +17,18 @@
         "home": [],
         "away": [
           {
-            "player": "R. Ure",
-            "minute": "82"
+            "player": "Robbie Ure",
+            "minute": "82",
+            "assist": "Victor Svensson"
           },
           {
-            "player": "I. Bjerkebo",
+            "player": "Isak Bjerkebo",
             "minute": "78"
           },
           {
-            "player": "N. Jönsson",
-            "minute": "46"
+            "player": "Neo Jönsson",
+            "minute": "46",
+            "assist": "Isak Bjerkebo"
           }
         ]
       }
@@ -47,15 +49,17 @@
       "scorers": {
         "home": [
           {
-            "player": "P. Abraham",
-            "minute": "48"
+            "player": "Paulos Abraham",
+            "minute": "48",
+            "assist": "Nahir Besara"
           },
           {
-            "player": "P. Abraham",
-            "minute": "44"
+            "player": "Paulos Abraham",
+            "minute": "44",
+            "assist": "Nahir Besara"
           },
           {
-            "player": "P. Abraham",
+            "player": "Paulos Abraham",
             "minute": "42"
           }
         ],
@@ -79,7 +83,7 @@
         "home": [],
         "away": [
           {
-            "player": "Z. Ravik",
+            "player": "Zakarias Ravik",
             "minute": "11"
           }
         ]
@@ -101,18 +105,20 @@
       "scorers": {
         "home": [
           {
-            "player": "Z. Yohanna",
-            "minute": "83"
+            "player": "Zadok Yohanna",
+            "minute": "83",
+            "assist": "Stanley Wilson"
           },
           {
-            "player": "I. Cissé",
+            "player": "Ibrahim Cissé",
             "minute": "21"
           }
         ],
         "away": [
           {
-            "player": "O. Liimatta",
-            "minute": "64"
+            "player": "Otso Liimatta",
+            "minute": "64",
+            "assist": "Malte Persson"
           }
         ]
       }
@@ -133,13 +139,14 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Andreasson",
-            "minute": "51"
+            "player": "Anton Andreasson",
+            "minute": "51",
+            "assist": "Mikael Dyrestam"
           }
         ],
         "away": [
           {
-            "player": "E. Botheim",
+            "player": "Erik Botheim",
             "minute": "73"
           }
         ]
@@ -161,22 +168,25 @@
       "scorers": {
         "home": [
           {
-            "player": "J. Simpson",
+            "player": "Jordan Simpson",
             "minute": "70"
           },
           {
-            "player": "A. Svanbäck",
-            "minute": "47"
+            "player": "Adrian Svanback",
+            "minute": "47",
+            "assist": "Amor Layouni"
           }
         ],
         "away": [
           {
-            "player": "A. Troelsen",
-            "minute": "89"
+            "player": "Andreas Troelsen",
+            "minute": "89",
+            "assist": "Oliver Zandén"
           },
           {
-            "player": "L. Björklund",
-            "minute": "8"
+            "player": "Lukas Björklund",
+            "minute": "8",
+            "assist": "Mads Hansen"
           }
         ]
       }
@@ -197,12 +207,14 @@
       "scorers": {
         "home": [
           {
-            "player": "J. Magnusson",
-            "minute": "65"
+            "player": "Julius Magnusson",
+            "minute": "65",
+            "assist": "Simon Olsson"
           },
           {
-            "player": "T. Silverholt",
-            "minute": "59"
+            "player": "Taylor Silverholt",
+            "minute": "59",
+            "assist": "Simon Olsson"
           }
         ],
         "away": []
@@ -225,8 +237,9 @@
         "home": [],
         "away": [
           {
-            "player": "P. Åslund",
-            "minute": "65"
+            "player": "Patric Åslund",
+            "minute": "65",
+            "assist": "Oskar Fallenius"
           }
         ]
       }
@@ -248,12 +261,14 @@
         "home": [],
         "away": [
           {
-            "player": "J. T. Ugwo",
-            "minute": "26"
+            "player": "Jerome Tibbling Ugwo",
+            "minute": "26",
+            "assist": "Mikael Dyrestam"
           },
           {
-            "player": "A. Andreasson",
-            "minute": "21"
+            "player": "Anton Andreasson",
+            "minute": "21",
+            "assist": "Tobias Sana"
           }
         ]
       }
@@ -274,22 +289,26 @@
       "scorers": {
         "home": [
           {
-            "player": "M. Ladefoged",
-            "minute": "81"
+            "player": "Mikkel Ladefoged",
+            "minute": "81",
+            "assist": "Mamadou Diagne"
           },
           {
-            "player": "M. Ladefoged",
-            "minute": "74"
+            "player": "Mikkel Ladefoged",
+            "minute": "74",
+            "assist": "Marcus Baggesen"
           }
         ],
         "away": [
           {
-            "player": "A. Sigurpálsson",
-            "minute": "90"
+            "player": "Ari Sigurpálsson",
+            "minute": "90",
+            "assist": "Thomas Isherwood"
           },
           {
-            "player": "N. Hult",
-            "minute": "49"
+            "player": "Niklas Hult",
+            "minute": "49",
+            "assist": "Rufai Mohammed"
           }
         ]
       }
@@ -311,12 +330,14 @@
         "home": [],
         "away": [
           {
-            "player": "M. Rygaard",
-            "minute": "84"
+            "player": "Mikkel Rygaard",
+            "minute": "84",
+            "assist": "Amor Layouni"
           },
           {
-            "player": "G. Lindgren",
-            "minute": "17"
+            "player": "Gustav Lindgren",
+            "minute": "17",
+            "assist": "Julius Lindberg"
           }
         ]
       }
@@ -338,15 +359,17 @@
         "home": [],
         "away": [
           {
-            "player": "M. Rafferty",
-            "minute": "90"
+            "player": "Marcus Rafferty",
+            "minute": "90",
+            "assist": "Nahom Girmai"
           },
           {
-            "player": "S. Ohlsson",
-            "minute": "56"
+            "player": "Sebastian Ohlsson",
+            "minute": "56",
+            "assist": "Juhani Pikkarainen"
           },
           {
-            "player": "D. Sundgren",
+            "player": "Daniel Sundgren",
             "minute": "44"
           }
         ]
@@ -368,26 +391,30 @@
       "scorers": {
         "home": [
           {
-            "player": "K. S. Lien",
-            "minute": "85"
+            "player": "Kristian Stromland Lien",
+            "minute": "85",
+            "assist": "Matias Siltanen"
           },
           {
-            "player": "K. S. Lien",
+            "player": "Kristian Stromland Lien",
             "minute": "7"
           },
           {
-            "player": "B. Å. Hegland",
-            "minute": "2"
+            "player": "Bo Åsulv Hegland",
+            "minute": "2",
+            "assist": "Mikael Marques"
           }
         ],
         "away": [
           {
-            "player": "A. Dari",
-            "minute": "29"
+            "player": "Achraf Dari",
+            "minute": "29",
+            "assist": "Melker Hallberg"
           },
           {
-            "player": "C. Rosenqvist",
-            "minute": "16"
+            "player": "Charlie Rosenqvist",
+            "minute": "16",
+            "assist": "Robert Gojani"
           }
         ]
       }
@@ -406,26 +433,8 @@
       "round": 2,
       "liveCurrentTime": "",
       "scorers": {
-        "home": [
-          {
-            "player": "O. Rosengren",
-            "minute": "42"
-          },
-          {
-            "player": "O. Sjöstrand",
-            "minute": "37"
-          },
-          {
-            "player": "P. Jansson",
-            "minute": "21"
-          }
-        ],
-        "away": [
-          {
-            "player": "S. Ekong",
-            "minute": "87"
-          }
-        ]
+        "home": [],
+        "away": []
       }
     },
     {
@@ -444,22 +453,25 @@
       "scorers": {
         "home": [
           {
-            "player": "A. T. Andersson",
-            "minute": "90"
+            "player": "Alex Timossi Andersson",
+            "minute": "90",
+            "assist": "Kamilcan Sever"
           },
           {
-            "player": "M. K. Hansen",
+            "player": "Mads Hansen",
             "minute": "62"
           }
         ],
         "away": [
           {
-            "player": "V. Andersson",
-            "minute": "78"
+            "player": "Victor Andersson",
+            "minute": "78",
+            "assist": "Johan Hove"
           },
           {
-            "player": "B. Celina",
-            "minute": "59"
+            "player": "Bersant Celina",
+            "minute": "59",
+            "assist": "Zadok Yohanna"
           }
         ]
       }
@@ -480,12 +492,13 @@
       "scorers": {
         "home": [
           {
-            "player": "R. Ure",
+            "player": "Robbie Ure",
             "minute": "70"
           },
           {
-            "player": "I. Bjerkebo",
-            "minute": "9"
+            "player": "Isak Bjerkebo",
+            "minute": "9",
+            "assist": "Oscar Krusnell"
           }
         ],
         "away": []
@@ -508,7 +521,7 @@
         "home": [],
         "away": [
           {
-            "player": "J. Magnusson",
+            "player": "Julius Magnusson",
             "minute": "52"
           }
         ]
@@ -531,8 +544,9 @@
         "home": [],
         "away": [
           {
-            "player": "S. Hakšabanović",
-            "minute": "61"
+            "player": "Sead Hakšabanović",
+            "minute": "61",
+            "assist": "Otto Rosengren"
           }
         ]
       }
@@ -553,26 +567,29 @@
       "scorers": {
         "home": [
           {
-            "player": "H. Castegren",
-            "minute": "62"
+            "player": "Henrik Castegren",
+            "minute": "62",
+            "assist": "Tobias Anker"
           },
           {
-            "player": "T. Anker",
-            "minute": "45"
+            "player": "Tobias Anker",
+            "minute": "45",
+            "assist": "Robbie Ure"
           },
           {
-            "player": "I. Bjerkebo",
+            "player": "Isak Bjerkebo",
             "minute": "31"
           },
           {
-            "player": "I. Bjerkebo",
+            "player": "Isak Bjerkebo",
             "minute": "8"
           }
         ],
         "away": [
           {
-            "player": "F. Nsabiyumva",
-            "minute": "53"
+            "player": "Frédéric Nsabiyumva",
+            "minute": "53",
+            "assist": "Marcus Baggesen"
           }
         ]
       }
@@ -593,14 +610,16 @@
       "scorers": {
         "home": [
           {
-            "player": "O. Faraj",
-            "minute": "62"
+            "player": "Omar Faraj",
+            "minute": "62",
+            "assist": "Ludvig Arvidsson"
           }
         ],
         "away": [
           {
-            "player": "T. Heintz",
-            "minute": "64"
+            "player": "Tobias Heintz",
+            "minute": "64",
+            "assist": "Saidou Alioum Moubarak"
           }
         ]
       }
@@ -621,16 +640,19 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Manneh",
-            "minute": "32"
+            "player": "Abdoulie Manneh",
+            "minute": "32",
+            "assist": "Jesper Gustavsson"
           },
           {
-            "player": "J. Bergström",
-            "minute": "28"
+            "player": "Jacob Bergström",
+            "minute": "28",
+            "assist": "Elliot Stroud"
           },
           {
-            "player": "L. Thorell",
-            "minute": "5"
+            "player": "Ludwig Thorell",
+            "minute": "5",
+            "assist": "Abdoulie Manneh"
           }
         ],
         "away": []
@@ -652,41 +674,48 @@
       "scorers": {
         "home": [
           {
-            "player": "N. Vasic",
-            "minute": "86"
+            "player": "Nikola Vasic",
+            "minute": "86",
+            "assist": "Victor Lind"
           },
           {
-            "player": "N. Vasic",
-            "minute": "79"
+            "player": "Nikola Vasic",
+            "minute": "79",
+            "assist": "Victor Lind"
           },
           {
-            "player": "N. Vasic",
-            "minute": "70"
+            "player": "Nikola Vasic",
+            "minute": "70",
+            "assist": "Frank Junior Adjei"
           },
           {
-            "player": "M. Madjed",
-            "minute": "57"
+            "player": "Montader Madjed",
+            "minute": "57",
+            "assist": "Nahir Besara"
           },
           {
-            "player": "V. Lind",
-            "minute": "33"
+            "player": "Victor Lind",
+            "minute": "33",
+            "assist": "Nahir Besara"
           },
           {
-            "player": "P. Abraham",
+            "player": "Paulos Abraham",
             "minute": "22"
           },
           {
-            "player": "N. Besara",
-            "minute": "18"
+            "player": "Nahir Besara",
+            "minute": "18",
+            "assist": "Noah Persson"
           },
           {
-            "player": "N. Persson",
-            "minute": "11"
+            "player": "Noah Persson",
+            "minute": "11",
+            "assist": "Markus Karlsson"
           }
         ],
         "away": [
           {
-            "player": "C. Styffe",
+            "player": "Christoffer Styffe",
             "minute": "32"
           }
         ]
@@ -708,7 +737,7 @@
       "scorers": {
         "home": [
           {
-            "player": "J. Hove",
+            "player": "Johan Hove",
             "minute": "26"
           }
         ],
@@ -731,18 +760,20 @@
       "scorers": {
         "home": [
           {
-            "player": "G. Lindgren",
-            "minute": "80"
+            "player": "Gustav Lindgren",
+            "minute": "80",
+            "assist": "Mikkel Rygaard"
           },
           {
-            "player": "A. Doumbia",
+            "player": "Abdoulaye Doumbia",
             "minute": "51"
           }
         ],
         "away": [
           {
-            "player": "R. F. Thorkelsson",
-            "minute": "57"
+            "player": "Róbert Frosti Thorkelsson",
+            "minute": "57",
+            "assist": "Samuel Salter"
           }
         ]
       }
@@ -763,13 +794,13 @@
       "scorers": {
         "home": [
           {
-            "player": "F. J. Adjei",
+            "player": "Frank Junior Adjei",
             "minute": "58"
           }
         ],
         "away": [
           {
-            "player": "O. Liimatta",
+            "player": "Otso Liimatta",
             "minute": "10"
           }
         ]
@@ -791,18 +822,19 @@
       "scorers": {
         "home": [
           {
-            "player": "J. Rinne",
+            "player": "Jacob Rinne",
             "minute": "88"
           },
           {
-            "player": "F. Ihler",
+            "player": "Frederik Ihler",
             "minute": "25"
           }
         ],
         "away": [
           {
-            "player": "P. Johansson",
-            "minute": "19"
+            "player": "Piotr Johansson",
+            "minute": "19",
+            "assist": "Bo Åsulv Hegland"
           }
         ]
       }
@@ -823,18 +855,21 @@
       "scorers": {
         "home": [
           {
-            "player": "C. Styffe",
-            "minute": "67"
+            "player": "Christoffer Styffe",
+            "minute": "67",
+            "assist": "Tobias Sana"
           }
         ],
         "away": [
           {
-            "player": "L. Björklund",
-            "minute": "72"
+            "player": "Lukas Björklund",
+            "minute": "72",
+            "assist": "Rasmus Örqvist"
           },
           {
-            "player": "D. Isso",
-            "minute": "39"
+            "player": "David Isso",
+            "minute": "39",
+            "assist": "Mads Hansen"
           }
         ]
       }
@@ -855,30 +890,36 @@
       "scorers": {
         "home": [
           {
-            "player": "M. Ladefoged",
-            "minute": "58"
+            "player": "Mikkel Ladefoged",
+            "minute": "58",
+            "assist": "Jonathan Ring"
           },
           {
-            "player": "M. Ladefoged",
-            "minute": "45"
+            "player": "Mikkel Ladefoged",
+            "minute": "45",
+            "assist": "Abdelrahman Boudah"
           },
           {
-            "player": "M. Ladefoged",
-            "minute": "4"
+            "player": "Mikkel Ladefoged",
+            "minute": "4",
+            "assist": "Ismet Lushaku"
           }
         ],
         "away": [
           {
-            "player": "F. Helander",
-            "minute": "83"
+            "player": "Filip Helander",
+            "minute": "83",
+            "assist": "Amor Layouni"
           },
           {
-            "player": "A. Svanbäck",
-            "minute": "64"
+            "player": "Adrian Svanback",
+            "minute": "64",
+            "assist": "Mikkel Rygaard"
           },
           {
-            "player": "J. Agbonifo",
-            "minute": "12"
+            "player": "Jeremy Agbonifo",
+            "minute": "12",
+            "assist": "Adrian Svanback"
           }
         ]
       }
@@ -899,14 +940,16 @@
       "scorers": {
         "home": [
           {
-            "player": "C. Rosenqvist",
-            "minute": "29"
+            "player": "Charlie Rosenqvist",
+            "minute": "29",
+            "assist": "Rony Jansson"
           }
         ],
         "away": [
           {
-            "player": "T. Heintz",
-            "minute": "45"
+            "player": "Tobias Heintz",
+            "minute": "45",
+            "assist": "Adam Bergmark Wiberg"
           }
         ]
       }
@@ -927,18 +970,20 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Taranis",
-            "minute": "85"
+            "player": "Arman Taranis",
+            "minute": "85",
+            "assist": "Dijan Vukojevic"
           },
           {
-            "player": "S. Wilson",
+            "player": "Stanley Wilson",
             "minute": "15"
           }
         ],
         "away": [
           {
-            "player": "J. Hove",
-            "minute": "45"
+            "player": "Johan Hove",
+            "minute": "45",
+            "assist": "Erik Flataker"
           }
         ]
       }
@@ -977,25 +1022,28 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Skogmar",
-            "minute": "77"
+            "player": "Adrian Skogmar",
+            "minute": "77",
+            "assist": "Jens Stryger Larsen"
           },
           {
-            "player": "S. Hakšabanović",
+            "player": "Sead Hakšabanović",
             "minute": "55"
           }
         ],
         "away": [
           {
-            "player": "R. Ure",
-            "minute": "65"
+            "player": "Robbie Ure",
+            "minute": "65",
+            "assist": "Neo Jönsson"
           },
           {
-            "player": "I. Bjerkebo",
-            "minute": "60"
+            "player": "Isak Bjerkebo",
+            "minute": "60",
+            "assist": "Marcus Lindberg"
           },
           {
-            "player": "M. Soumah",
+            "player": "Mohamed Soumah",
             "minute": "13"
           }
         ]
@@ -1017,14 +1065,16 @@
       "scorers": {
         "home": [
           {
-            "player": "K. S. Lien",
-            "minute": "9"
+            "player": "Kristian Stromland Lien",
+            "minute": "9",
+            "assist": "Hampus Finndell"
           }
         ],
         "away": [
           {
-            "player": "N. Besara",
-            "minute": "61"
+            "player": "Nahir Besara",
+            "minute": "61",
+            "assist": "Oscar Johansson Schellhas"
           }
         ]
       }
@@ -1045,18 +1095,20 @@
       "scorers": {
         "home": [
           {
-            "player": "O. Berg",
+            "player": "Oliver Berg",
             "minute": "7"
           }
         ],
         "away": [
           {
-            "player": "P. Bonde",
-            "minute": "58"
+            "player": "Philip Bonde",
+            "minute": "58",
+            "assist": "Ismet Lushaku"
           },
           {
-            "player": "P. Bonde",
-            "minute": "3"
+            "player": "Philip Bonde",
+            "minute": "3",
+            "assist": "Ismet Lushaku"
           }
         ]
       }
@@ -1077,21 +1129,24 @@
       "scorers": {
         "home": [
           {
-            "player": "D. Kruse",
-            "minute": "72"
+            "player": "David Kruse",
+            "minute": "72",
+            "assist": "Adam Bergmark Wiberg"
           },
           {
-            "player": "R. Yeboah",
-            "minute": "25"
+            "player": "Rockson Yeboah",
+            "minute": "25",
+            "assist": "David Kruse"
           }
         ],
         "away": [
           {
-            "player": "W. Milovanovic",
-            "minute": "69"
+            "player": "William Milovanovic",
+            "minute": "69",
+            "assist": "Joackim Fagerjord"
           },
           {
-            "player": "M. Andersson",
+            "player": "Max Andersson",
             "minute": "63"
           }
         ]
@@ -1113,14 +1168,15 @@
       "scorers": {
         "home": [
           {
-            "player": "T. Sana",
+            "player": "Tobias Sana",
             "minute": "85"
           }
         ],
         "away": [
           {
-            "player": "Y. Gideon",
-            "minute": "68"
+            "player": "Yiriyon Gideon",
+            "minute": "68",
+            "assist": "Nahom Girmai"
           }
         ]
       }
@@ -1141,11 +1197,12 @@
       "scorers": {
         "home": [
           {
-            "player": "V. Granath",
-            "minute": "84"
+            "player": "Villiam Granath",
+            "minute": "84",
+            "assist": "Olle Lindberg"
           },
           {
-            "player": "J. Bergström",
+            "player": "Jacob Bergström",
             "minute": "56"
           }
         ],
@@ -1168,21 +1225,24 @@
       "scorers": {
         "home": [
           {
-            "player": "G. Lindgren",
-            "minute": "37"
+            "player": "Gustav Lindgren",
+            "minute": "37",
+            "assist": "Brice Wembangomo"
           },
           {
-            "player": "M. Rygaard",
-            "minute": "25"
+            "player": "Mikkel Rygaard",
+            "minute": "25",
+            "assist": "Adrian Svanback"
           }
         ],
         "away": [
           {
-            "player": "M. Soumah",
-            "minute": "86"
+            "player": "Mohamed Soumah",
+            "minute": "86",
+            "assist": "Neo Jönsson"
           },
           {
-            "player": "R. Ure",
+            "player": "Robbie Ure",
             "minute": "40"
           }
         ]
@@ -1202,22 +1262,8 @@
       "round": 5,
       "liveCurrentTime": "",
       "scorers": {
-        "home": [
-          {
-            "player": "A. Olusanya",
-            "minute": "57"
-          },
-          {
-            "player": "C. Rosenqvist",
-            "minute": "12"
-          }
-        ],
-        "away": [
-          {
-            "player": "F. Ihler",
-            "minute": "5"
-          }
-        ]
+        "home": [],
+        "away": []
       }
     },
     {
@@ -1237,8 +1283,9 @@
         "home": [],
         "away": [
           {
-            "player": "E. Botheim",
-            "minute": "25"
+            "player": "Erik Botheim",
+            "minute": "25",
+            "assist": "Sead Hakšabanović"
           }
         ]
       }
@@ -1259,26 +1306,30 @@
       "scorers": {
         "home": [
           {
-            "player": "O. S. Adindu",
-            "minute": "90"
+            "player": "Odera Samuel Adindu",
+            "minute": "90",
+            "assist": "Joakim Persson"
           },
           {
-            "player": "I. Bjerkebo",
+            "player": "Isak Bjerkebo",
             "minute": "74"
           },
           {
-            "player": "V. Svensson",
-            "minute": "64"
+            "player": "Victor Svensson",
+            "minute": "64",
+            "assist": "Marcus Lindberg"
           }
         ],
         "away": [
           {
-            "player": "R. Jansson",
-            "minute": "45"
+            "player": "Rony Jansson",
+            "minute": "45",
+            "assist": "Charles Sagoe Jr."
           },
           {
-            "player": "C. Rosenqvist",
-            "minute": "38"
+            "player": "Charlie Rosenqvist",
+            "minute": "38",
+            "assist": "Charles Sagoe Jr."
           }
         ]
       }
@@ -1299,13 +1350,14 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Taranis",
-            "minute": "71"
+            "player": "Arman Taranis",
+            "minute": "71",
+            "assist": "Daniel Sundgren"
           }
         ],
         "away": [
           {
-            "player": "S. Andersen",
+            "player": "Silas Andersen",
             "minute": "19"
           }
         ]
@@ -1327,16 +1379,19 @@
       "scorers": {
         "home": [
           {
-            "player": "M. Madjed",
-            "minute": "86"
+            "player": "Montader Madjed",
+            "minute": "86",
+            "assist": "Noah Persson"
           },
           {
-            "player": "P. Abraham",
-            "minute": "73"
+            "player": "Paulos Abraham",
+            "minute": "73",
+            "assist": "Ibrahima Fofana"
           },
           {
-            "player": "V. Lind",
-            "minute": "67"
+            "player": "Victor Lind",
+            "minute": "67",
+            "assist": "Hampus Skoglund"
           }
         ],
         "away": []
@@ -1358,26 +1413,31 @@
       "scorers": {
         "home": [
           {
-            "player": "S. Hakšabanović",
-            "minute": "81"
+            "player": "Sead Hakšabanović",
+            "minute": "81",
+            "assist": "Taha Abdi Ali"
           },
           {
-            "player": "T. Ali",
-            "minute": "57"
+            "player": "Taha Abdi Ali",
+            "minute": "57",
+            "assist": "Sead Hakšabanović"
           }
         ],
         "away": [
           {
-            "player": "J. Bergström",
-            "minute": "70"
+            "player": "Jacob Bergström",
+            "minute": "70",
+            "assist": "Jeppe Kjaer"
           },
           {
-            "player": "E. Stroud",
-            "minute": "49"
+            "player": "Elliot Stroud",
+            "minute": "49",
+            "assist": "Abdoulie Manneh"
           },
           {
-            "player": "J. Bergström",
-            "minute": "2"
+            "player": "Jacob Bergström",
+            "minute": "2",
+            "assist": "Villiam Granath"
           }
         ]
       }
@@ -1398,20 +1458,23 @@
       "scorers": {
         "home": [
           {
-            "player": "O. Pettersson",
-            "minute": "90"
+            "player": "Oscar Pettersson",
+            "minute": "90",
+            "assist": "William Milovanovic"
           },
           {
-            "player": "J. Fagerjord",
+            "player": "Joackim Fagerjord",
             "minute": "52"
           },
           {
-            "player": "S. Salter",
-            "minute": "46"
+            "player": "Samuel Salter",
+            "minute": "46",
+            "assist": "Max Andersson"
           },
           {
-            "player": "M. Andersson",
-            "minute": "33"
+            "player": "Max Andersson",
+            "minute": "33",
+            "assist": "William Milovanovic"
           }
         ],
         "away": []
@@ -1433,14 +1496,16 @@
       "scorers": {
         "home": [
           {
-            "player": "A. Sigurpálsson",
-            "minute": "8"
+            "player": "Ari Sigurpálsson",
+            "minute": "8",
+            "assist": "Frederik Ihler"
           }
         ],
         "away": [
           {
-            "player": "Z. Yohanna",
-            "minute": "9"
+            "player": "Zadok Yohanna",
+            "minute": "9",
+            "assist": "Bersant Celina"
           }
         ]
       }
@@ -1461,22 +1526,25 @@
       "scorers": {
         "home": [
           {
-            "player": "L. Cavallius",
+            "player": "Leo Cavallius",
             "minute": "90"
           }
         ],
         "away": [
           {
-            "player": "M. K. Hansen",
-            "minute": "82"
+            "player": "Mads Hansen",
+            "minute": "82",
+            "assist": "Oliver Berg"
           },
           {
-            "player": "K. Barslund",
-            "minute": "69"
+            "player": "Kaare Barslund",
+            "minute": "69",
+            "assist": "Mads Hansen"
           },
           {
-            "player": "S. Oppong",
-            "minute": "59"
+            "player": "Sion Oppong",
+            "minute": "59",
+            "assist": "David Isso"
           }
         ]
       }
@@ -1497,28 +1565,33 @@
       "scorers": {
         "home": [
           {
-            "player": "J. Asoro",
-            "minute": "90"
+            "player": "Joel Asoro",
+            "minute": "90",
+            "assist": "Bo Åsulv Hegland"
           },
           {
-            "player": "J. Asoro",
-            "minute": "81"
+            "player": "Joel Asoro",
+            "minute": "81",
+            "assist": "Mikael Anderson"
           },
           {
-            "player": "P. Åslund",
-            "minute": "62"
+            "player": "Patric Åslund",
+            "minute": "62",
+            "assist": "Bo Åsulv Hegland"
           },
           {
-            "player": "K. S. Lien",
-            "minute": "34"
+            "player": "Kristian Stromland Lien",
+            "minute": "34",
+            "assist": "Piotr Johansson"
           },
           {
-            "player": "P. Åslund",
+            "player": "Patric Åslund",
             "minute": "31"
           },
           {
-            "player": "J. Okkels",
-            "minute": "15"
+            "player": "Jeppe Okkels",
+            "minute": "15",
+            "assist": "Bo Åsulv Hegland"
           }
         ],
         "away": []
@@ -1540,12 +1613,14 @@
       "scorers": {
         "home": [
           {
-            "player": "L. Östman",
-            "minute": "90"
+            "player": "Leo Östman",
+            "minute": "90",
+            "assist": "Arbër Zeneli"
           },
           {
-            "player": "L. Östman",
-            "minute": "72"
+            "player": "Leo Östman",
+            "minute": "72",
+            "assist": "Julius Magnusson"
           }
         ],
         "away": []
@@ -1568,8 +1643,9 @@
         "home": [],
         "away": [
           {
-            "player": "R. F. Thorkelsson",
-            "minute": "56"
+            "player": "Róbert Frosti Thorkelsson",
+            "minute": "56",
+            "assist": "Rasmus Niklasson"
           }
         ]
       }
@@ -1590,26 +1666,31 @@
       "scorers": {
         "home": [
           {
-            "player": "N. Moro",
-            "minute": "51"
+            "player": "Nasiru Moro",
+            "minute": "51",
+            "assist": "Daniel Sundgren"
           }
         ],
         "away": [
           {
-            "player": "E. Stroud",
-            "minute": "84"
+            "player": "Elliot Stroud",
+            "minute": "84",
+            "assist": "Jesper Gustavsson"
           },
           {
-            "player": "A. Manneh",
-            "minute": "37"
+            "player": "Abdoulie Manneh",
+            "minute": "37",
+            "assist": "Tony Miettinen"
           },
           {
-            "player": "T. Pettersson",
-            "minute": "30"
+            "player": "Tom Pettersson",
+            "minute": "30",
+            "assist": "Abdullah Iqbal"
           },
           {
-            "player": "J. Kjaer",
-            "minute": "4"
+            "player": "Jeppe Kjaer",
+            "minute": "4",
+            "assist": "Ludwig Thorell"
           }
         ]
       }
@@ -1631,8 +1712,9 @@
         "home": [],
         "away": [
           {
-            "player": "V. Eriksson",
-            "minute": "90"
+            "player": "Victor Eriksson",
+            "minute": "90",
+            "assist": "Oscar Johansson Schellhas"
           }
         ]
       }
@@ -1650,14 +1732,19 @@
       "startTimestamp": 1778414400,
       "round": 7,
       "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      },
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": "Anthony Olusanya",
+            "minute": "60",
+            "assist": "Marius Söderbäck"
+          },
+          {
+            "player": "Charles Sagoe Jr.",
+            "minute": "52",
+            "assist": "Charlie Rosenqvist"
+          }
+        ],
         "away": []
       }
     },
@@ -1674,26 +1761,37 @@
       "startTimestamp": 1778414400,
       "round": 7,
       "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      },
       "scorers": {
         "home": [
           {
-            "player": "K. Filling",
-            "minute": "22"
+            "player": "Dino Beširović",
+            "minute": "64",
+            "assist": "Áron Csongvai"
+          },
+          {
+            "player": "Kevin Filling",
+            "minute": "22",
+            "assist": "Zadok Yohanna"
           }
         ],
         "away": [
           {
-            "player": "M. Tenho",
-            "minute": "16"
+            "player": "Bo Åsulv Hegland",
+            "minute": "86",
+            "assist": "Kristian Stromland Lien"
           },
           {
-            "player": "H. Finndell",
+            "player": "Mikael Marques",
+            "minute": "45",
+            "assist": "Bo Åsulv Hegland"
+          },
+          {
+            "player": "Miro Tenho",
+            "minute": "16",
+            "assist": "Bo Åsulv Hegland"
+          },
+          {
+            "player": "Hampus Finndell",
             "minute": "10"
           }
         ]
@@ -1712,35 +1810,33 @@
       "startTimestamp": 1778423400,
       "round": 7,
       "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 2,
-        "awayWins": 2,
-        "isLast5": true
-      },
       "scorers": {
         "home": [
           {
-            "player": "G. Lindgren",
-            "minute": "37"
+            "player": "Gustav Lindgren",
+            "minute": "37",
+            "assist": "Adam Lundqvist"
           },
           {
-            "player": "J. Stryger Larsen",
+            "player": "Jens Stryger Larsen",
             "minute": "20"
           },
           {
-            "player": "G. Lindgren",
-            "minute": "4"
+            "player": "Gustav Lindgren",
+            "minute": "4",
+            "assist": "Adrian Svanback"
           }
         ],
         "away": [
           {
-            "player": "E. Botheim",
-            "minute": "39"
+            "player": "Erik Botheim",
+            "minute": "39",
+            "assist": "Sead Hakšabanović"
           },
           {
             "player": "Busanello",
-            "minute": "24"
+            "minute": "24",
+            "assist": "Otto Rosengren"
           }
         ]
       }
@@ -1758,20 +1854,15 @@
       "startTimestamp": 1778518800,
       "round": 7,
       "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      },
       "scorers": {
         "home": [
           {
-            "player": "I. Bjerkebo",
-            "minute": "73"
+            "player": "Isak Bjerkebo",
+            "minute": "73",
+            "assist": "Joakim Persson"
           },
           {
-            "player": "I. Bjerkebo",
+            "player": "Isak Bjerkebo",
             "minute": "39"
           }
         ],
@@ -1970,13 +2061,7 @@
       "status": "upcoming",
       "startTimestamp": 1779382800,
       "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 2,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272438,
@@ -1990,13 +2075,7 @@
       "status": "upcoming",
       "startTimestamp": 1779541200,
       "round": 9,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 0,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272436,
@@ -2030,13 +2109,7 @@
       "status": "upcoming",
       "startTimestamp": 1779544800,
       "round": 9,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272425,
@@ -2110,13 +2183,7 @@
       "status": "upcoming",
       "startTimestamp": 1779633000,
       "round": 9,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272426,
@@ -2150,13 +2217,7 @@
       "status": "upcoming",
       "startTimestamp": 1780074000,
       "round": 10,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272435,
@@ -2210,13 +2271,7 @@
       "status": "upcoming",
       "startTimestamp": 1780146000,
       "round": 10,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272433,
@@ -2270,13 +2325,7 @@
       "status": "upcoming",
       "startTimestamp": 1780228800,
       "round": 10,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 0,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272443,
@@ -2310,13 +2359,7 @@
       "status": "upcoming",
       "startTimestamp": 1783245600,
       "round": 11,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272442,
@@ -2390,13 +2433,7 @@
       "status": "upcoming",
       "startTimestamp": 1783245600,
       "round": 11,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272441,
@@ -2430,13 +2467,7 @@
       "status": "upcoming",
       "startTimestamp": 1783245600,
       "round": 11,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272450,
@@ -2450,13 +2481,7 @@
       "status": "upcoming",
       "startTimestamp": 1783245600,
       "round": 11,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 3,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272456,
@@ -2510,13 +2535,7 @@
       "status": "upcoming",
       "startTimestamp": 1783850400,
       "round": 12,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 0,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272451,
@@ -2570,13 +2589,7 @@
       "status": "upcoming",
       "startTimestamp": 1783850400,
       "round": 12,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272457,
@@ -2590,13 +2603,7 @@
       "status": "upcoming",
       "startTimestamp": 1783850400,
       "round": 12,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272455,
@@ -2610,13 +2617,7 @@
       "status": "upcoming",
       "startTimestamp": 1783850400,
       "round": 12,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272462,
@@ -2630,13 +2631,7 @@
       "status": "upcoming",
       "startTimestamp": 1784455200,
       "round": 13,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 2,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272460,
@@ -2670,13 +2665,7 @@
       "status": "upcoming",
       "startTimestamp": 1784455200,
       "round": 13,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272459,
@@ -2730,13 +2719,7 @@
       "status": "upcoming",
       "startTimestamp": 1784455200,
       "round": 13,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272464,
@@ -2770,13 +2753,7 @@
       "status": "upcoming",
       "startTimestamp": 1784455200,
       "round": 13,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 0,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272467,
@@ -2790,13 +2767,7 @@
       "status": "upcoming",
       "startTimestamp": 1785060000,
       "round": 14,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272468,
@@ -2870,13 +2841,7 @@
       "status": "upcoming",
       "startTimestamp": 1785060000,
       "round": 14,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 5,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272472,
@@ -2890,13 +2855,7 @@
       "status": "upcoming",
       "startTimestamp": 1785060000,
       "round": 14,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 2,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272465,
@@ -2930,13 +2889,7 @@
       "status": "upcoming",
       "startTimestamp": 1785060000,
       "round": 14,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 3,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272485,
@@ -2950,13 +2903,7 @@
       "status": "upcoming",
       "startTimestamp": 1785664800,
       "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272475,
@@ -2990,13 +2937,7 @@
       "status": "upcoming",
       "startTimestamp": 1785664800,
       "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272476,
@@ -3010,13 +2951,7 @@
       "status": "upcoming",
       "startTimestamp": 1785664800,
       "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 0,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272481,
@@ -3050,13 +2985,7 @@
       "status": "upcoming",
       "startTimestamp": 1785664800,
       "round": 15,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272479,
@@ -3070,13 +2999,7 @@
       "status": "upcoming",
       "startTimestamp": 1786269600,
       "round": 16,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272477,
@@ -3110,13 +3033,7 @@
       "status": "upcoming",
       "startTimestamp": 1786269600,
       "round": 16,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272486,
@@ -3150,13 +3067,7 @@
       "status": "upcoming",
       "startTimestamp": 1786269600,
       "round": 16,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 0,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272482,
@@ -3170,13 +3081,7 @@
       "status": "upcoming",
       "startTimestamp": 1786269600,
       "round": 16,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272491,
@@ -3210,13 +3115,7 @@
       "status": "upcoming",
       "startTimestamp": 1786269600,
       "round": 16,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 0,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272490,
@@ -3310,13 +3209,7 @@
       "status": "upcoming",
       "startTimestamp": 1786874400,
       "round": 17,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272495,
@@ -3330,13 +3223,7 @@
       "status": "upcoming",
       "startTimestamp": 1786874400,
       "round": 17,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272496,
@@ -3370,13 +3257,7 @@
       "status": "upcoming",
       "startTimestamp": 1786874400,
       "round": 17,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272497,
@@ -3510,13 +3391,7 @@
       "status": "upcoming",
       "startTimestamp": 1787479200,
       "round": 18,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 0,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271351,
@@ -3692,9 +3567,9 @@
       "round": 19,
       "liveCurrentTime": "",
       "h2h": {
-        "homeWins": 2,
+        "homeWins": 1,
         "draws": 1,
-        "awayWins": 2,
+        "awayWins": 3,
         "isLast5": true
       }
     },
@@ -3710,13 +3585,7 @@
       "status": "upcoming",
       "startTimestamp": 1788688800,
       "round": 20,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 3,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272516,
@@ -3750,13 +3619,7 @@
       "status": "upcoming",
       "startTimestamp": 1788688800,
       "round": 20,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 0,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272511,
@@ -3850,13 +3713,7 @@
       "status": "upcoming",
       "startTimestamp": 1788688800,
       "round": 20,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272524,
@@ -3870,13 +3727,7 @@
       "status": "upcoming",
       "startTimestamp": 1789293600,
       "round": 21,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272518,
@@ -3930,13 +3781,7 @@
       "status": "upcoming",
       "startTimestamp": 1789293600,
       "round": 21,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272522,
@@ -3990,13 +3835,7 @@
       "status": "upcoming",
       "startTimestamp": 1789293600,
       "round": 21,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272526,
@@ -4030,13 +3869,7 @@
       "status": "upcoming",
       "startTimestamp": 1789898400,
       "round": 22,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272521,
@@ -4070,13 +3903,7 @@
       "status": "upcoming",
       "startTimestamp": 1789898400,
       "round": 22,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272527,
@@ -4150,13 +3977,7 @@
       "status": "upcoming",
       "startTimestamp": 1789898400,
       "round": 22,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272525,
@@ -4174,7 +3995,7 @@
       "h2h": {
         "homeWins": 1,
         "draws": 1,
-        "awayWins": 2,
+        "awayWins": 3,
         "isLast5": true
       }
     },
@@ -4190,13 +4011,7 @@
       "status": "upcoming",
       "startTimestamp": 1791712800,
       "round": 23,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272528,
@@ -4250,13 +4065,7 @@
       "status": "upcoming",
       "startTimestamp": 1791712800,
       "round": 23,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272538,
@@ -4290,13 +4099,7 @@
       "status": "upcoming",
       "startTimestamp": 1791712800,
       "round": 23,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272532,
@@ -4353,8 +4156,8 @@
       "liveCurrentTime": "",
       "h2h": {
         "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
+        "draws": 1,
+        "awayWins": 2,
         "isLast5": true
       }
     },
@@ -4390,13 +4193,7 @@
       "status": "upcoming",
       "startTimestamp": 1792317600,
       "round": 24,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 0,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272541,
@@ -4470,13 +4267,7 @@
       "status": "upcoming",
       "startTimestamp": 1792317600,
       "round": 24,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 0,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272542,
@@ -4510,13 +4301,7 @@
       "status": "upcoming",
       "startTimestamp": 1792922400,
       "round": 25,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 1,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15272553,
@@ -4650,13 +4435,7 @@
       "status": "upcoming",
       "startTimestamp": 1792922400,
       "round": 25,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 3,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271590,
@@ -4690,13 +4469,7 @@
       "status": "upcoming",
       "startTimestamp": 1793185200,
       "round": 26,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271584,
@@ -4750,13 +4523,7 @@
       "status": "upcoming",
       "startTimestamp": 1793185200,
       "round": 26,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271587,
@@ -4770,13 +4537,7 @@
       "status": "upcoming",
       "startTimestamp": 1793185200,
       "round": 26,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271586,
@@ -4790,13 +4551,7 @@
       "status": "upcoming",
       "startTimestamp": 1793185200,
       "round": 26,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 2,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271591,
@@ -4810,13 +4565,7 @@
       "status": "upcoming",
       "startTimestamp": 1793185200,
       "round": 26,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271599,
@@ -4890,13 +4639,7 @@
       "status": "upcoming",
       "startTimestamp": 1793530800,
       "round": 27,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271596,
@@ -4930,13 +4673,7 @@
       "status": "upcoming",
       "startTimestamp": 1793530800,
       "round": 27,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 5,
-        "draws": 0,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271604,
@@ -4950,13 +4687,7 @@
       "status": "upcoming",
       "startTimestamp": 1793530800,
       "round": 27,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271597,
@@ -4970,13 +4701,7 @@
       "status": "upcoming",
       "startTimestamp": 1793530800,
       "round": 27,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271608,
@@ -5070,13 +4795,7 @@
       "status": "upcoming",
       "startTimestamp": 1794135600,
       "round": 28,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 2,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271611,
@@ -5090,13 +4809,7 @@
       "status": "upcoming",
       "startTimestamp": 1794135600,
       "round": 28,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 1,
-        "awayWins": 4,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271613,
@@ -5130,13 +4843,7 @@
       "status": "upcoming",
       "startTimestamp": 1794135600,
       "round": 28,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 1,
-        "draws": 3,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271620,
@@ -5170,13 +4877,7 @@
       "status": "upcoming",
       "startTimestamp": 1795345200,
       "round": 29,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 0,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271617,
@@ -5270,13 +4971,7 @@
       "status": "upcoming",
       "startTimestamp": 1795345200,
       "round": 29,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 1,
-        "awayWins": 2,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271619,
@@ -5290,13 +4985,7 @@
       "status": "upcoming",
       "startTimestamp": 1795345200,
       "round": 29,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271594,
@@ -5310,13 +4999,7 @@
       "status": "upcoming",
       "startTimestamp": 1795950000,
       "round": 30,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 3,
-        "draws": 1,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271623,
@@ -5350,13 +5033,7 @@
       "status": "upcoming",
       "startTimestamp": 1795950000,
       "round": 30,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 0,
-        "awayWins": 3,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271592,
@@ -5410,13 +5087,7 @@
       "status": "upcoming",
       "startTimestamp": 1795950000,
       "round": 30,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 0,
-        "draws": 0,
-        "awayWins": 5,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271621,
@@ -5430,13 +5101,7 @@
       "status": "upcoming",
       "startTimestamp": 1795950000,
       "round": 30,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 2,
-        "draws": 2,
-        "awayWins": 1,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     },
     {
       "id": 15271605,
@@ -5450,15 +5115,9 @@
       "status": "upcoming",
       "startTimestamp": 1795950000,
       "round": 30,
-      "liveCurrentTime": "",
-      "h2h": {
-        "homeWins": 4,
-        "draws": 1,
-        "awayWins": 0,
-        "isLast5": true
-      }
+      "liveCurrentTime": ""
     }
   ],
-  "lastUpdated": "2026-05-13T21:26:33.346Z",
+  "lastUpdated": "2026-05-13T21:38:55.734Z",
   "source": "SofaScore"
 }

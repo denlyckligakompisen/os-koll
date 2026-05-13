@@ -161,7 +161,7 @@ async function fetchMatches(isDelta = false) {
 
   // Try to load existing matches to reuse already fetched scorers
   let existingMatches = [];
-  if (fs.existsSync(OUTPUT_FILES.matches)) {
+  if (!process.argv.includes('--all') && fs.existsSync(OUTPUT_FILES.matches)) {
     try {
       const content = fs.readFileSync(OUTPUT_FILES.matches, 'utf8');
       existingMatches = JSON.parse(content).matches || [];
@@ -311,11 +311,13 @@ async function fetchMatches(isDelta = false) {
 
     // Fetch or reuse scorers if finished
     if (status === 'finished' || status === 'live') {
-      if (status === 'finished' && existing && existing.scorers) {
+      const hasAssistsInCache = existing?.scorers?.home?.some(s => s.assist !== undefined) || 
+                                existing?.scorers?.away?.some(s => s.assist !== undefined);
+      if (status === 'finished' && existing && existing.scorers && hasAssistsInCache) {
         matchObj.scorers = existing.scorers;
       } else {
         try {
-          console.log(`  Fetching scorers for ${home} - ${away} (ID: ${id})...`);
+          console.log(`  Fetching scorers and assists for ${home} - ${away} (ID: ${id})...`);
           const incidentsData = await fetchApi(`/event/${id}/incidents`);
           const incidents = incidentsData.incidents || [];
           
@@ -324,7 +326,7 @@ async function fetchMatches(isDelta = false) {
           
           const goals = incidents.filter(inc => inc.incidentType === 'goal');
           goals.forEach(goal => {
-            const player = goal.player?.shortName || goal.player?.name || 'Okänd';
+            const player = goal.player?.name || goal.player?.shortName || 'Okänd';
             const minute = goal.time + (goal.injuryTime ? `+${goal.injuryTime}` : '');
             
             let suffix = '';
@@ -333,6 +335,10 @@ async function fetchMatches(isDelta = false) {
             
             const scorerObj = { player, minute };
             if (suffix) scorerObj.suffix = suffix;
+
+            if (goal.assist1?.name || goal.assist1?.shortName) {
+              scorerObj.assist = goal.assist1.name || goal.assist1.shortName;
+            }
 
             // Determine scoring team
             let scoringTeam = goal.isHome ? 'home' : 'away';

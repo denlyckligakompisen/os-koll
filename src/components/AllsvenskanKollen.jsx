@@ -113,6 +113,7 @@ const getRelativeDateLabel = (dateStr) => {
 const AllsvenskanKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [statFilter, setStatFilter] = useState('lag');
+    const [playerFilter, setPlayerFilter] = useState('mål');
     const [filterTeam, setFilterTeam] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [navAnchorEl, setNavAnchorEl] = useState(null);
@@ -413,6 +414,33 @@ const AllsvenskanKollen = () => {
         return Object.entries(counts)
             .map(([player, data]) => ({ player, goals: data.goals, team: data.team }))
             .sort((a, b) => b.goals - a.goals || a.player.localeCompare(b.player, 'sv'));
+    }, [matchesData]);
+
+    const topAssists = useMemo(() => {
+        if (!matchesData?.matches) return [];
+        const counts = {};
+        matchesData.matches.forEach(m => {
+            if (m.status === 'finished' && m.scorers) {
+                (m.scorers.home || []).forEach(s => {
+                    if (s.assist) {
+                        const key = s.assist;
+                        if (!counts[key]) counts[key] = { assists: 0, team: m.home };
+                        counts[key].assists += 1;
+                    }
+                });
+                (m.scorers.away || []).forEach(s => {
+                    if (s.assist) {
+                        const key = s.assist;
+                        if (!counts[key]) counts[key] = { assists: 0, team: m.away };
+                        counts[key].assists += 1;
+                    }
+                });
+            }
+        });
+
+        return Object.entries(counts)
+            .map(([player, data]) => ({ player, assists: data.assists, team: data.team }))
+            .sort((a, b) => b.assists - a.assists || a.player.localeCompare(b.player, 'sv'));
     }, [matchesData]);
 
     useEffect(() => {
@@ -867,40 +895,158 @@ const AllsvenskanKollen = () => {
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
                             {/* Spotify-style filter pills */}
-                            <div style={{ display: 'flex', gap: '8px', paddingLeft: '4px' }}>
-                                <button
-                                    onClick={() => setStatFilter('lag')}
-                                    style={{
-                                        padding: '8px 18px',
-                                        borderRadius: '20px',
-                                        fontSize: '0.9rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        border: 'none',
-                                        transition: 'all 0.2s ease',
-                                        backgroundColor: statFilter === 'lag' ? '#ffffff' : '#2a2a2a',
-                                        color: statFilter === 'lag' ? '#000000' : '#ffffff',
-                                    }}
-                                >
-                                    Lag
-                                </button>
-                                <button
-                                    onClick={() => setStatFilter('spelare')}
-                                    style={{
-                                        padding: '8px 18px',
-                                        borderRadius: '20px',
-                                        fontSize: '0.9rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        border: 'none',
-                                        transition: 'all 0.2s ease',
-                                        backgroundColor: statFilter === 'spelare' ? '#ffffff' : '#2a2a2a',
-                                        color: statFilter === 'spelare' ? '#000000' : '#ffffff',
-                                    }}
-                                >
-                                    Spelare
-                                </button>
-                            </div>
+                            {statFilter === 'lag' ? (
+                                <div style={{ display: 'flex', gap: '8px', paddingLeft: '4px', flexWrap: 'wrap' }}>
+                                    <button
+                                        onClick={() => setStatFilter('lag')}
+                                        style={{
+                                            padding: '8px 18px',
+                                            borderRadius: '20px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: '600',
+                                            cursor: 'pointer',
+                                            border: 'none',
+                                            transition: 'all 0.2s ease',
+                                            backgroundColor: '#ffffff',
+                                            color: '#000000',
+                                        }}
+                                    >
+                                        Lag
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setStatFilter('spelare');
+                                            setPlayerFilter('mål');
+                                        }}
+                                        style={{
+                                            padding: '8px 18px',
+                                            borderRadius: '20px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: '600',
+                                            cursor: 'pointer',
+                                            border: 'none',
+                                            transition: 'all 0.2s ease',
+                                            backgroundColor: '#2a2a2a',
+                                            color: '#ffffff',
+                                        }}
+                                    >
+                                        Spelare
+                                    </button>
+                                </div>
+                            ) : (
+                                <div style={{ display: 'flex', gap: '8px', paddingLeft: '4px', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <button
+                                        onClick={() => {
+                                            setStatFilter('lag');
+                                            setPlayerFilter('mål');
+                                        }}
+                                        style={{
+                                            width: '35px',
+                                            height: '35px',
+                                            borderRadius: '50%',
+                                            backgroundColor: '#2a2a2a',
+                                            color: '#ffffff',
+                                            border: 'none',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s ease',
+                                        }}
+                                        aria-label="Återställ till Lag"
+                                    >
+                                        <X size={18} strokeWidth={2.5} />
+                                    </button>
+
+                                    {playerFilter === null ? (
+                                        <>
+                                            <button
+                                                style={{
+                                                    padding: '8px 18px',
+                                                    borderRadius: '20px',
+                                                    fontSize: '0.9rem',
+                                                    fontWeight: '600',
+                                                    cursor: 'default',
+                                                    border: 'none',
+                                                    backgroundColor: '#ffffff',
+                                                    color: '#000000',
+                                                }}
+                                            >
+                                                Spelare
+                                            </button>
+
+                                            <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
+
+                                            <button
+                                                onClick={() => setPlayerFilter('mål')}
+                                                style={{
+                                                    padding: '8px 18px',
+                                                    borderRadius: '20px',
+                                                    fontSize: '0.9rem',
+                                                    fontWeight: '600',
+                                                    cursor: 'pointer',
+                                                    border: 'none',
+                                                    transition: 'all 0.2s ease',
+                                                    backgroundColor: '#2a2a2a',
+                                                    color: '#ffffff',
+                                                }}
+                                            >
+                                                Mål
+                                            </button>
+                                            <button
+                                                onClick={() => setPlayerFilter('assists')}
+                                                style={{
+                                                    padding: '8px 18px',
+                                                    borderRadius: '20px',
+                                                    fontSize: '0.9rem',
+                                                    fontWeight: '600',
+                                                    cursor: 'pointer',
+                                                    border: 'none',
+                                                    transition: 'all 0.2s ease',
+                                                    backgroundColor: '#2a2a2a',
+                                                    color: '#ffffff',
+                                                }}
+                                            >
+                                                Assist
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <div
+                                            onClick={() => setPlayerFilter(null)}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                backgroundColor: '#e6e6e6',
+                                                borderRadius: '20px',
+                                                padding: '2px',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s ease'
+                                            }}
+                                            title="Klicka för att välja annat underfilter"
+                                        >
+                                            <div style={{
+                                                padding: '6px 16px',
+                                                borderRadius: '18px',
+                                                backgroundColor: '#ffffff',
+                                                color: '#000000',
+                                                fontSize: '0.9rem',
+                                                fontWeight: '600',
+                                                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                                            }}>
+                                                Spelare
+                                            </div>
+                                            <div style={{
+                                                padding: '6px 16px',
+                                                color: '#000000',
+                                                fontSize: '0.9rem',
+                                                fontWeight: '600'
+                                            }}>
+                                                {playerFilter === 'mål' ? 'Mål' : 'Assist'}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
                             {statFilter === 'lag' && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -970,7 +1116,7 @@ const AllsvenskanKollen = () => {
                                 </div>
                             )}
 
-                            {statFilter === 'spelare' && (
+                            {statFilter === 'spelare' && (playerFilter === null || playerFilter === 'mål') && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     <div style={{
                                         fontSize: '0.8rem',
@@ -1037,6 +1183,79 @@ const AllsvenskanKollen = () => {
                                         ) : (
                                             <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
                                                 Inga mål registrerade ännu för säsongen 2026.
+                                            </div>
+                                        )}
+                                    </Card>
+                                </div>
+                            )}
+
+                            {statFilter === 'spelare' && (playerFilter === null || playerFilter === 'assists') && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    <div style={{
+                                        fontSize: '0.8rem',
+                                        fontWeight: '800',
+                                        textTransform: 'uppercase',
+                                        paddingLeft: '4px',
+                                        color: 'var(--color-text-muted)',
+                                        letterSpacing: '0.05em'
+                                    }}>
+                                        Assistliga
+                                    </div>
+                                    <Card style={{ marginBottom: '0' }}>
+                                        {topAssists.length > 0 ? (
+                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                                <thead>
+                                                    <tr style={{ borderBottom: 'var(--border)' }}>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>SPELARE</th>
+                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>ASSIST</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {topAssists.map((item, idx) => {
+                                                        const isFiltered = filterTeam && item.team.includes(filterTeam);
+                                                        return (
+                                                            <tr 
+                                                                key={idx}
+                                                                style={{
+                                                                    backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                    transition: 'background-color 0.2s ease'
+                                                                }}
+                                                            >
+                                                                <td style={{ 
+                                                                    padding: '8px 4px',
+                                                                    borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                                                }}>
+                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                        {idx + 1}
+                                                                    </div>
+                                                                </td>
+                                                                <td style={{ padding: '11px 4px' }}>
+                                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                                        <span style={{ fontWeight: '600' }}>{item.player}</span>
+                                                                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                                            {getTeamLogo(item.team) && <img src={getTeamLogo(item.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
+                                                                            {cleanTeamNameForDisplay(item.team)}
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td style={{ 
+                                                                    padding: '11px 4px', 
+                                                                    textAlign: 'right', 
+                                                                    fontWeight: '800',
+                                                                    fontSize: '1rem',
+                                                                    borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                                    borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                                                }}>{item.assists}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
+                                                Inga assists registrerade ännu för säsongen 2026.
                                             </div>
                                         )}
                                     </Card>
