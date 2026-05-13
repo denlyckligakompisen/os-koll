@@ -11,6 +11,7 @@ import FlagBadge from './common/FlagBadge';
 import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight, ArrowUp } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
 
 
 
@@ -87,8 +88,70 @@ const getRelativeDateLabel = (dateStr) => {
     return dateStr;
 };
 
-const getCountryColor = (name) => {
-    return '#000000';
+const COUNTRY_COLORS = {
+    'Sverige': { bg: '#004B87', text: '#FFCD00', active: '#FFCD00' },
+    'Mexiko': { bg: '#006341', text: '#FFFFFF', active: '#C8102E' },
+    'USA': { bg: '#002868', text: '#FFFFFF', active: '#BF0A30' },
+    'Kanada': { bg: '#D22630', text: '#FFFFFF', active: '#FFFFFF' },
+    'Brasilien': { bg: '#009C3B', text: '#FFDF00', active: '#002776' },
+    'Bosnien och Hercegovina': { bg: '#002F6C', text: '#FFCD00', active: '#FFCD00' },
+    'Turkiet': { bg: '#E30A17', text: '#FFFFFF', active: '#FFFFFF' },
+    'Tjeckien': { bg: '#11457E', text: '#FFFFFF', active: '#D7141A' },
+    'Nederländerna': { bg: '#FF4F00', text: '#FFFFFF', active: '#21468B' },
+    'Tyskland': { bg: '#000000', text: '#FFFFFF', active: '#FFCE00' },
+    'Spanien': { bg: '#AA151B', text: '#F1BF00', active: '#F1BF00' },
+    'Frankrike': { bg: '#002395', text: '#FFFFFF', active: '#ED2939' },
+    'Argentina': { bg: '#43A1D5', text: '#FFFFFF', active: '#FFB81C' },
+    'England': { bg: '#FFFFFF', text: '#CF0820', active: '#CF0820' },
+    'Portugal': { bg: '#046A38', text: '#FFFFFF', active: '#DA291C' },
+    'Belgien': { bg: '#E20613', text: '#FFD200', active: '#000000' },
+    'Italien': { bg: '#0066B2', text: '#FFFFFF', active: '#FFFFFF' },
+    'Japan': { bg: '#000555', text: '#FFFFFF', active: '#EE0000' },
+    'Sydkorea': { bg: '#003478', text: '#FFFFFF', active: '#C60C30' },
+    'Ecuador': { bg: '#FFDD00', text: '#00205B', active: '#ED1C24' },
+    'Uruguay': { bg: '#0038A8', text: '#FFFFFF', active: '#FCD116' },
+    'Senegal': { bg: '#00853F', text: '#FDEF42', active: '#E31B23' },
+    'Marocko': { bg: '#C1272D', text: '#FFFFFF', active: '#006233' },
+    'Schweiz': { bg: '#D52B1E', text: '#FFFFFF', active: '#FFFFFF' },
+    'Österrike': { bg: '#ED2939', text: '#FFFFFF', active: '#FFFFFF' },
+    'Kroatien': { bg: '#ED1C24', text: '#FFFFFF', active: '#0051BA' },
+    'Colombia': { bg: '#FCD116', text: '#003893', active: '#CE1126' },
+    'Norge': { bg: '#BA0C2F', text: '#FFFFFF', active: '#00205B' },
+    'Danmark': { bg: '#C60C30', text: '#FFFFFF', active: '#FFFFFF' },
+    'Saudiarabien': { bg: '#006C35', text: '#FFFFFF', active: '#FFFFFF' },
+    'Egypten': { bg: '#CE1126', text: '#FFFFFF', active: '#000000' },
+    'Tunisien': { bg: '#E70013', text: '#FFFFFF', active: '#FFFFFF' },
+    'Ghana': { bg: '#006B3F', text: '#FCD116', active: '#CE1126' },
+    'Sydafrika': { bg: '#007749', text: '#FFB81C', active: '#001489' },
+    'Australien': { bg: '#008751', text: '#FFCD00', active: '#FFCD00' },
+    'Haiti': { bg: '#00209F', text: '#FFFFFF', active: '#D21034' },
+    'Jamaika': { bg: '#009B3A', text: '#FED100', active: '#000000' },
+    'Bolivia': { bg: '#007A33', text: '#FFFFFF', active: '#EE3A43' },
+    'Panama': { bg: '#DA291C', text: '#FFFFFF', active: '#00205B' },
+    'Curaçao': { bg: '#002B7F', text: '#FED100', active: '#FED100' },
+    'Uzbekistan': { bg: '#0099B5', text: '#FFFFFF', active: '#1EB53A' },
+    'Paraguay': { bg: '#D52B1E', text: '#FFFFFF', active: '#0038A8' },
+    'Jordanien': { bg: '#000000', text: '#FFFFFF', active: '#CE1126' },
+    'Qatar': { bg: '#8A1538', text: '#FFFFFF', active: '#FFFFFF' },
+    'Skottland': { bg: '#005EB8', text: '#FFFFFF', active: '#FFFFFF' }
+};
+
+const getVMHeaderStyle = (countryName) => {
+    if (!countryName) {
+        return {
+            bg: '#ffffff',
+            text: '#000000',
+            inactiveText: '#636366',
+            activeLine: '#000000'
+        };
+    }
+    const colors = COUNTRY_COLORS[countryName] || { bg: '#1c1c1e', text: '#ffffff', active: '#34c759' };
+    return {
+        bg: colors.bg,
+        text: colors.text,
+        inactiveText: 'rgba(255, 255, 255, 0.6)',
+        activeLine: colors.active
+    };
 };
 
 const TEAM_ABBR = {
@@ -128,6 +191,8 @@ const VMKollen = () => {
     const [showScrollTop, setShowScrollTop] = useState(false);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
+    useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
+    const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
 
     // Auto-scroll in stats sub-tabs
     useEffect(() => {
@@ -523,6 +588,27 @@ const VMKollen = () => {
         );
     };
 
+    const formatSwedishDate = (dateStr) => {
+        if (!dateStr) return '';
+        const match = dateStr.match(/^(\d{1,2})\s+([A-Za-z]+).*?(\(\d+\s+days\))?$/);
+        if (!match) return dateStr;
+        
+        const day = parseInt(match[1]);
+        const monthEng = match[2].toLowerCase();
+        
+        const engToSwe = {
+            'january': 'januari', 'february': 'februari', 'march': 'mars', 'april': 'april',
+            'may': 'maj', 'june': 'juni', 'july': 'juli', 'august': 'augusti',
+            'september': 'september', 'october': 'oktober', 'november': 'november', 'december': 'december',
+            'jan': 'januari', 'feb': 'februari', 'mar': 'mars', 'apr': 'april',
+            'jun': 'juni', 'jul': 'juli', 'aug': 'augusti', 'sep': 'september',
+            'oct': 'oktober', 'nov': 'november', 'dec': 'december'
+        };
+        
+        const monthSwe = engToSwe[monthEng] || monthEng;
+        return `${day} ${monthSwe}`;
+    };
+
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
@@ -591,7 +677,13 @@ const VMKollen = () => {
 
 
             {/* Full-width Sticky Header */}
-            <div className="nav-container" style={{ '--active-color': getCountryColor(filterCountry) }}>
+            <div className="nav-container" style={{ 
+                backgroundColor: headerStyle.bg,
+                color: headerStyle.text,
+                '--active-color': headerStyle.activeLine,
+                transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
+                boxShadow: filterCountry ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+            }}>
                 <div
                     className="header-logo"
                     style={{
@@ -620,6 +712,11 @@ const VMKollen = () => {
                             onClick={() => {
                                 setActiveTab(tab.id);
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            style={{
+                                color: activeTab === tab.id ? headerStyle.text : headerStyle.inactiveText,
+                                borderBottomColor: activeTab === tab.id ? headerStyle.activeLine : 'transparent',
+                                transition: 'all 0.3s ease'
                             }}
                         >
                             <tab.icon size={22} className="tab-icon" />

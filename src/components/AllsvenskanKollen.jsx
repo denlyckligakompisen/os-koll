@@ -6,6 +6,7 @@ import SvenskaCupenBracket from './SvenskaCupenBracket';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useSwipeNavigation } from '../utils/navigation';
 
 
 const MONTH_MAP = { 
@@ -460,107 +461,10 @@ const AllsvenskanKollen = () => {
         return () => clearTimeout(timer);
     }, [activeTab, loading, filterTeam, nextMatchDateString, statFilter]);
 
-    const activeTabRef = React.useRef(activeTab);
-    useEffect(() => {
-        activeTabRef.current = activeTab;
-    }, [activeTab]);
-
-    const containerRef = React.useRef(null);
-
-    useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        let startX = 0;
-        let startY = 0;
-        let isHorizontalSwipe = false;
-        let isVerticalSwipe = false;
-
-        const handleStart = (e) => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            isHorizontalSwipe = false;
-            isVerticalSwipe = false;
-        };
-
-        const handleMove = (e) => {
-            if (!startX || !startY) return;
-
-            // Avbryt om användaren sveper inuti cup-trädet eller andra scrollbara vyer
-            if (e.target.closest('.bracket-container') || e.target.closest('[style*="overflow-x: auto"]') || e.target.closest('[style*="overflowX: auto"]')) {
-                return;
-            }
-
-            const currentX = e.touches[0].clientX;
-            const currentY = e.touches[0].clientY;
-            const diffX = startX - currentX;
-            const diffY = startY - currentY;
-
-            if (isVerticalSwipe) return;
-
-            if (!isHorizontalSwipe && !isVerticalSwipe) {
-                if (Math.abs(diffX) > 8 || Math.abs(diffY) > 8) {
-                    if (Math.abs(diffX) > Math.abs(diffY)) {
-                        isHorizontalSwipe = true;
-                    } else {
-                        isVerticalSwipe = true;
-                    }
-                }
-            }
-
-            // Blockera vertikal scroll helt om vi sveper horisontellt! (Detta tar bort diagonal jiggle)
-            if (isHorizontalSwipe) {
-                if (e.cancelable) {
-                    e.preventDefault();
-                }
-            }
-        };
-
-        const handleEnd = (e) => {
-            if (!startX || !startY || !isHorizontalSwipe) {
-                startX = 0;
-                startY = 0;
-                return;
-            }
-
-            const endX = e.changedTouches[0].clientX;
-            const diffX = startX - endX;
-
-            if (Math.abs(diffX) > 60) {
-                const currentIndex = SUBTABS.findIndex(t => t.id === activeTabRef.current);
-                if (diffX > 0) {
-                    if (currentIndex < SUBTABS.length - 1) {
-                        setActiveTab(SUBTABS[currentIndex + 1].id);
-                        if (navigator.vibrate) navigator.vibrate(10);
-                    }
-                } else {
-                    if (currentIndex > 0) {
-                        setActiveTab(SUBTABS[currentIndex - 1].id);
-                        if (navigator.vibrate) navigator.vibrate(10);
-                    }
-                }
-            }
-
-            startX = 0;
-            startY = 0;
-            isHorizontalSwipe = false;
-            isVerticalSwipe = false;
-        };
-
-        container.addEventListener('touchstart', handleStart, { passive: true });
-        container.addEventListener('touchmove', handleMove, { passive: false });
-        container.addEventListener('touchend', handleEnd, { passive: true });
-
-        return () => {
-            container.removeEventListener('touchstart', handleStart);
-            container.removeEventListener('touchmove', handleMove);
-            container.removeEventListener('touchend', handleEnd);
-        };
-    }, []);
+    useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
 
     return (
         <div 
-            ref={containerRef}
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
             {activeTab !== 'matcher' && activeTab !== 'gruppspel' && (

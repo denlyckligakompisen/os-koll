@@ -482,7 +482,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
-                        {(match.venue || getStadiumForTeam(match.home)) && (
+                        {match.broadcast && (
+                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
+                                {match.broadcast}
+                            </div>
+                        )}
+                        {!onCountryClick && (match.venue || getStadiumForTeam(match.home)) && (
                             <div style={{ 
                                 fontSize: '0.7rem', 
                                 fontWeight: '600', 
