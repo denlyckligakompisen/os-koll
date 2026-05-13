@@ -42,7 +42,10 @@ async function run() {
   }
 
   console.log('Launching browser to fetch H2H data...');
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+  });
   
   // Get default User-Agent and clean it (remove HeadlessChrome) to match a real browser fingerprint
   const tempContext = await browser.newContext();
@@ -55,6 +58,9 @@ async function run() {
 
   const context = await browser.newContext({
     userAgent: cleanUA,
+    viewport: { width: 1920, height: 1080 },
+    locale: 'sv-SE',
+    timezoneId: 'Europe/Stockholm',
     extraHTTPHeaders: {
       'Accept-Language': 'sv-SE,sv;q=0.9,en-SE;q=0.8,en;q=0.7,en-US;q=0.6',
     }
@@ -69,37 +75,78 @@ async function run() {
 
   const page = await context.newPage();
 
+  // Try to establish SofaScore session with Cloudflare challenge handling
+  let sessionEstablished = false;
   console.log('Navigating to sofascore.com...');
   try {
-    const response = await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
-    if (response && response.status() !== 200) {
-      console.warn(`  ⚠️  Homepage load returned status ${response.status()}. Cloudflare challenge may be active.`);
+    const response = await page.goto('https://www.sofascore.com', { waitUntil: 'networkidle', timeout: 30000 });
+    if (response && response.status() === 200) {
+      sessionEstablished = true;
+      console.log('  ✓ Session established.');
+    } else {
+      const status = response?.status() || 'unknown';
+      console.warn(`  ⚠️  Homepage returned status ${status}. Cloudflare may be active.`);
+      console.log('  ⏳ Waiting for Cloudflare challenge to resolve...');
+      await page.waitForTimeout(5000);
+      try {
+        const testResult = await page.evaluate(async () => {
+          const r = await fetch('/api/v1/config/top-tournaments/SE');
+          return r.status;
+        });
+        if (testResult === 200) {
+          sessionEstablished = true;
+          console.log('  ✓ Session established after challenge wait.');
+        }
+      } catch { /* session not established */ }
     }
   } catch (err) {
-    console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}. Will rely on fallback API requests.`);
+    console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}`);
   }
 
+  // Dedicated page for direct API navigation (used as fallback)
+  const apiPage = await context.newPage();
+  const H2H_API_DOMAINS = [API_BASE, 'https://api.sofascore.app/api/v1'];
+
   const fetchApi = async (endpoint) => {
-    try {
-      const result = await page.evaluate(async (url) => {
-        const res = await fetch(url);
-        return res.ok ? res.json() : null;
-      }, `${API_BASE}${endpoint}`);
-      if (!result) throw new Error("HTTP_FAILED");
-      return result;
-    } catch (e) {
-      console.log(`  ⚠️  Primary fetch failed for ${endpoint} (${e.message}). Falling back to api.sofascore.app...`);
+    // Strategy 1: In-page fetch (fastest, works when session cookies are valid)
+    if (sessionEstablished) {
       try {
         const result = await page.evaluate(async (url) => {
           const res = await fetch(url);
           return res.ok ? res.json() : null;
-        }, `https://api.sofascore.app/api/v1${endpoint}`);
-        return result;
-      } catch (fallbackError) {
-        console.log(`  ❌ Both primary and fallback fetches failed: ${fallbackError.message}`);
-        return null;
+        }, `${API_BASE}${endpoint}`);
+        if (result) return result;
+        throw new Error('HTTP_FAILED');
+      } catch (e) {
+        const msg = e.message.split('\n')[0];
+        console.log(`  ⚠️  In-page fetch failed (${msg}). Trying direct navigation...`);
+        sessionEstablished = false;
       }
     }
+
+    // Strategy 2: Navigate directly to API URL (full browser pipeline)
+    for (const base of H2H_API_DOMAINS) {
+      try {
+        const url = `${base}${endpoint}`;
+        const response = await apiPage.goto(url, { waitUntil: 'commit', timeout: 15000 });
+        if (response && response.ok()) {
+          return await response.json();
+        }
+      } catch { continue; }
+    }
+
+    // Strategy 3: Playwright's built-in request API (shares browser cookies)
+    for (const base of H2H_API_DOMAINS) {
+      try {
+        const response = await context.request.get(`${base}${endpoint}`);
+        if (response.ok()) {
+          return await response.json();
+        }
+      } catch { continue; }
+    }
+
+    console.log(`  ❌ All fetch strategies failed for ${endpoint}`);
+    return null;
   };
 
   // Update next 16 upcoming matches (full 2 rounds)

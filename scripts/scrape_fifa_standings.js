@@ -21,7 +21,10 @@ const OUTPUT_PATH = path.join(process.cwd(), 'public/data/worldcup_2026_groups.j
 async function fetchFifaStandings() {
   console.log('🚀 Starting FIFA World Cup 2026 standings update via SofaScore API...');
   
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox'],
+  });
   
   // Get default User-Agent and clean it (remove HeadlessChrome) to match a real browser fingerprint
   const tempContext = await browser.newContext();
@@ -34,6 +37,9 @@ async function fetchFifaStandings() {
 
   const context = await browser.newContext({
     userAgent: cleanUA,
+    viewport: { width: 1920, height: 1080 },
+    locale: 'sv-SE',
+    timezoneId: 'Europe/Stockholm',
     extraHTTPHeaders: {
       'Accept-Language': 'sv-SE,sv;q=0.9,en-SE;q=0.8,en;q=0.7,en-US;q=0.6',
     }
@@ -49,41 +55,79 @@ async function fetchFifaStandings() {
   const page = await context.newPage();
 
   try {
-    // Navigate once to Sofascore to bypass Cloudflare
+    // Try to establish SofaScore session with Cloudflare challenge handling
+    let sessionEstablished = false;
     try {
       console.log('  Establishing SofaScore session...');
-      const response = await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 30000 });
-      if (response && response.status() !== 200) {
-        console.warn(`  ⚠️  Homepage load returned status ${response.status()}. Cloudflare challenge may be active.`);
+      const response = await page.goto('https://www.sofascore.com', { waitUntil: 'networkidle', timeout: 30000 });
+      if (response && response.status() === 200) {
+        sessionEstablished = true;
+        console.log('  ✓ Session established.');
+      } else {
+        const status = response?.status() || 'unknown';
+        console.warn(`  ⚠️  Homepage returned status ${status}. Cloudflare may be active.`);
+        console.log('  ⏳ Waiting for Cloudflare challenge to resolve...');
+        await page.waitForTimeout(5000);
+        try {
+          const testResult = await page.evaluate(async () => {
+            const r = await fetch('/api/v1/config/top-tournaments/SE');
+            return r.status;
+          });
+          if (testResult === 200) {
+            sessionEstablished = true;
+            console.log('  ✓ Session established after challenge wait.');
+          }
+        } catch { /* session not established */ }
       }
     } catch (err) {
-      console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}. Will rely on fallback API requests.`);
+      console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}`);
     }
+
+    // Dedicated page for direct API navigation (used as fallback)
+    const apiPage = await context.newPage();
+    const STANDINGS_API_DOMAINS = [API_BASE, 'https://api.sofascore.app/api/v1'];
 
     const fetchApi = async (endpoint) => {
       console.log(`  → GET ${endpoint}`);
-      try {
-        // Try primary API domain (www.sofascore.com)
-        const result = await page.evaluate(async (url) => {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error(`HTTP_${res.status}`);
-          return res.json();
-        }, `${API_BASE}${endpoint}`);
-        return result;
-      } catch (e) {
-        console.log(`  ⚠️  Primary fetch failed (${e.message}). Falling back to api.sofascore.app...`);
+      
+      // Strategy 1: In-page fetch (fastest, works when session cookies are valid)
+      if (sessionEstablished) {
         try {
-          // Fallback to secondary API domain (api.sofascore.app)
           const result = await page.evaluate(async (url) => {
             const res = await fetch(url);
             if (!res.ok) throw new Error(`HTTP_${res.status}`);
             return res.json();
-          }, `https://api.sofascore.app/api/v1${endpoint}`);
+          }, `${API_BASE}${endpoint}`);
           return result;
-        } catch (fallbackError) {
-          throw new Error(`Both primary and fallback fetches failed. Primary: ${e.message}, Fallback: ${fallbackError.message}`);
+        } catch (e) {
+          const msg = e.message.split('\n')[0];
+          console.log(`  ⚠️  In-page fetch failed (${msg}). Trying direct navigation...`);
+          sessionEstablished = false;
         }
       }
+
+      // Strategy 2: Navigate directly to API URL (full browser pipeline)
+      for (const base of STANDINGS_API_DOMAINS) {
+        try {
+          const url = `${base}${endpoint}`;
+          const response = await apiPage.goto(url, { waitUntil: 'commit', timeout: 15000 });
+          if (response && response.ok()) {
+            return await response.json();
+          }
+        } catch { continue; }
+      }
+
+      // Strategy 3: Playwright's built-in request API (shares browser cookies)
+      for (const base of STANDINGS_API_DOMAINS) {
+        try {
+          const response = await context.request.get(`${base}${endpoint}`);
+          if (response.ok()) {
+            return await response.json();
+          }
+        } catch { continue; }
+      }
+
+      throw new Error(`All fetch strategies failed for ${endpoint}`);
     };
 
     // Fetch and save Standings

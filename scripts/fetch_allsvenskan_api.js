@@ -1,9 +1,8 @@
 /**
- * Allsvenskan Data Fetcher via SofaScore API (through Playwright browser context)
+ * Allsvenskan Data Fetcher via SofaScore API (direct HTTP)
  * 
- * Uses Playwright's browser context to bypass Cloudflare protection,
- * then makes clean JSON API calls to SofaScore. Much faster and more
- * reliable than DOM scraping — no fragile selectors, just stable API endpoints.
+ * Uses direct HTTP requests to api.sofascore.com which doesn't require
+ * Cloudflare bypass. Much faster and more reliable than browser-based fetching.
  * 
  * Usage:
  *   node scripts/fetch_allsvenskan_api.js
@@ -14,13 +13,13 @@
 
 import fs from 'fs';
 import path from 'path';
-import { chromium } from 'playwright';
+import axios from 'axios';
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 
 const TOURNAMENT_ID = 40;   // Allsvenskan
 const SEASON_ID = 87925;    // 2026 season
-const API_BASE = 'https://www.sofascore.com/api/v1';
+const API_BASE = 'https://api.sofascore.com/api/v1';
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public/data');
 
@@ -57,81 +56,32 @@ function formatTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-// ─── Browser-based API fetch ─────────────────────────────────────────────────
+// ─── HTTP-based API fetch ────────────────────────────────────────────────────
 
-async function createBrowserFetcher() {
-  const browser = await chromium.launch({ headless: true });
-  
-  // Get default User-Agent and clean it (remove HeadlessChrome) to match a real browser fingerprint
-  const tempContext = await browser.newContext();
-  const tempPage = await tempContext.newPage();
-  const defaultUA = await tempPage.evaluate(() => navigator.userAgent);
-  await tempPage.close();
-  await tempContext.close();
-  
-  const cleanUA = defaultUA.replace(/HeadlessChrome/g, 'Chrome');
+const httpClient = axios.create({
+  baseURL: API_BASE,
+  timeout: 15000,
+  headers: {
+    'Accept': 'application/json',
+    'Accept-Language': 'sv-SE,sv;q=0.9,en;q=0.7',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+  },
+});
 
-  const context = await browser.newContext({
-    userAgent: cleanUA,
-    extraHTTPHeaders: {
-      'Accept-Language': 'sv-SE,sv;q=0.9,en-SE;q=0.8,en;q=0.7,en-US;q=0.6',
-    }
-  });
-
-  // Hide webdriver property to bypass basic headless detection
-  await context.addInitScript(() => {
-    Object.defineProperty(navigator, 'webdriver', {
-      get: () => undefined
-    });
-  });
-
-  const page = await context.newPage();
-
-  // Navigate once to SofaScore homepage to establish browser session/cookies
+async function fetchApi(endpoint) {
+  console.log(`  → GET ${endpoint}`);
   try {
-    console.log('  Establishing SofaScore session...');
-    const response = await page.goto('https://www.sofascore.com', { waitUntil: 'domcontentloaded', timeout: 15000 });
-    if (response && response.status() !== 200) {
-      console.warn(`  ⚠️  Homepage load returned status ${response.status()}. Cloudflare challenge may be active.`);
-    }
+    const { data } = await httpClient.get(endpoint);
+    return data;
   } catch (err) {
-    console.warn(`  ⚠️  Failed to load SofaScore homepage: ${err.message}. Will rely on fallback API requests.`);
+    const status = err.response?.status || 'network error';
+    throw new Error(`HTTP ${status} for ${endpoint}: ${err.message}`);
   }
-
-  const fetchApi = async (endpoint) => {
-    console.log(`  → GET ${endpoint}`);
-    try {
-      // Try primary API domain (www.sofascore.com)
-      const result = await page.evaluate(async (url) => {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP_${res.status}`);
-        return res.json();
-      }, `${API_BASE}${endpoint}`);
-      return result;
-    } catch (e) {
-      console.log(`  ⚠️  Primary fetch failed (${e.message}). Falling back to api.sofascore.app...`);
-      try {
-        // Fallback to secondary API domain (api.sofascore.app)
-        const result = await page.evaluate(async (url) => {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error(`HTTP_${res.status}`);
-          return res.json();
-        }, `https://api.sofascore.app/api/v1${endpoint}`);
-        return result;
-      } catch (fallbackError) {
-        throw new Error(`Both primary and fallback fetches failed. Primary: ${e.message}, Fallback: ${fallbackError.message}`);
-      }
-    }
-  };
-
-  const close = () => browser.close();
-
-  return { fetchApi, close };
 }
 
 // ─── Fetch Matches ───────────────────────────────────────────────────────────
 
-async function fetchMatches(fetchApi, isDelta = false) {
+async function fetchMatches(isDelta = false) {
   console.log('\n📅 Fetching Allsvenskan matches...');
 
   const allEvents = [];
@@ -425,7 +375,7 @@ async function fetchMatches(fetchApi, isDelta = false) {
 
 // ─── Fetch Table/Standings ───────────────────────────────────────────────────
 
-async function fetchTable(fetchApi) {
+async function fetchTable() {
   console.log('\n📊 Fetching Allsvenskan standings...');
 
   const data = await fetchApi(
@@ -469,6 +419,7 @@ async function main() {
   console.log('⚽ Allsvenskan Data Fetcher (SofaScore API)');
   console.log(`   Tournament: Allsvenskan (ID: ${TOURNAMENT_ID})`);
   console.log(`   Season: 2026 (ID: ${SEASON_ID})`);
+  console.log(`   API: ${API_BASE} (direct HTTP, no browser needed)`);
   if (isDelta) {
     console.log('   Mode: Smart Delta Update (Last 24 Hours / Page 0 Only)');
   } else {
@@ -476,23 +427,19 @@ async function main() {
   }
   console.log('─'.repeat(50));
 
-  const { fetchApi, close } = await createBrowserFetcher();
-
   try {
     if (runAll || args.includes('--matches')) {
-      await fetchMatches(fetchApi, isDelta);
+      await fetchMatches(isDelta);
     }
 
     if (runAll || args.includes('--table')) {
-      await fetchTable(fetchApi);
+      await fetchTable();
     }
 
     console.log('\n✅ All done!');
   } catch (error) {
     console.error(`\n❌ Error: ${error.message}`);
     process.exit(1);
-  } finally {
-    await close();
   }
 }
 
