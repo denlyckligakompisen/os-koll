@@ -575,28 +575,7 @@ const VMKollen = () => {
         );
     };
 
-    const formatSwedishDate = (dateStr) => {
-        if (!dateStr) return '';
-        // Handle "10 June 2026 (46 days)" -> "10 juni (46 dagar)"
-        const match = dateStr.match(/^(\d{1,2})\s+([A-Za-z]+).*?(\(\d+\s+days\))?$/);
-        if (!match) return dateStr;
-        
-        const day = parseInt(match[1]);
-        const monthEng = match[2].toLowerCase();
-        const daysLeft = match[3] ? match[3].replace('days', 'dagar') : '';
-        
-        const engToSwe = {
-            'january': 'januari', 'february': 'februari', 'march': 'mars', 'april': 'april',
-            'may': 'maj', 'june': 'juni', 'july': 'juli', 'august': 'augusti',
-            'september': 'september', 'october': 'oktober', 'november': 'november', 'december': 'december',
-            'jan': 'januari', 'feb': 'februari', 'mar': 'mars', 'apr': 'april',
-            'jun': 'juni', 'jul': 'juli', 'aug': 'augusti', 'sep': 'september',
-            'oct': 'oktober', 'nov': 'november', 'dec': 'december'
-        };
-        
-        const monthSwe = engToSwe[monthEng] || monthEng;
-        return `${day} ${monthSwe}`;
-    };
+
 
     return (
         <div
