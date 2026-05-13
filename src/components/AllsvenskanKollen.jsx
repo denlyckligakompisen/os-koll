@@ -112,6 +112,7 @@ const getRelativeDateLabel = (dateStr) => {
 
 const AllsvenskanKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
+    const [statFilter, setStatFilter] = useState('lag');
     const [filterTeam, setFilterTeam] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [navAnchorEl, setNavAnchorEl] = useState(null);
@@ -387,18 +388,49 @@ const AllsvenskanKollen = () => {
         }
     }, [tableData, matchesData]);
 
+    const topScorers = useMemo(() => {
+        if (!matchesData?.matches) return [];
+        const counts = {};
+        matchesData.matches.forEach(m => {
+            if (m.status === 'finished' && m.scorers) {
+                (m.scorers.home || []).forEach(s => {
+                    if (!s.suffix?.includes('självmål')) {
+                        const key = s.player;
+                        if (!counts[key]) counts[key] = { goals: 0, team: m.home };
+                        counts[key].goals += 1;
+                    }
+                });
+                (m.scorers.away || []).forEach(s => {
+                    if (!s.suffix?.includes('självmål')) {
+                        const key = s.player;
+                        if (!counts[key]) counts[key] = { goals: 0, team: m.away };
+                        counts[key].goals += 1;
+                    }
+                });
+            }
+        });
+
+        return Object.entries(counts)
+            .map(([player, data]) => ({ player, goals: data.goals, team: data.team }))
+            .sort((a, b) => b.goals - a.goals || a.player.localeCompare(b.player, 'sv'));
+    }, [matchesData]);
+
     useEffect(() => {
         // Delay to allow for tab switching and DOM rendering
         const timer = setTimeout(() => {
             if (activeTab === 'matcher' && nextMatchRef.current) {
                 nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (activeTab === 'gruppspel' && filterTeam && tableRefs.current[filterTeam]) {
+                tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (activeTab === 'statistik' && statFilter === 'lag' && filterTeam && maratonRefs.current[filterTeam]) {
+                maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else if (activeTab !== 'matcher') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }, 150);
 
         return () => clearTimeout(timer);
-    }, [activeTab, loading, filterTeam, nextMatchDateString]);
+    }, [activeTab, loading, filterTeam, nextMatchDateString, statFilter]);
 
     const activeTabRef = React.useRef(activeTab);
     useEffect(() => {
@@ -833,9 +865,183 @@ const AllsvenskanKollen = () => {
                     )}
 
                     {activeTab === 'statistik' && (
-                        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-muted)' }}>
-                            <BarChart3 size={40} strokeWidth={1.2} style={{ marginBottom: '12px', opacity: 0.4 }} />
-                            <div style={{ fontSize: '0.95rem', fontWeight: '600' }}>Kommer snart</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
+                            {/* Spotify-style filter pills */}
+                            <div style={{ display: 'flex', gap: '8px', paddingLeft: '4px' }}>
+                                <button
+                                    onClick={() => setStatFilter('lag')}
+                                    style={{
+                                        padding: '8px 18px',
+                                        borderRadius: '20px',
+                                        fontSize: '0.9rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        border: 'none',
+                                        transition: 'all 0.2s ease',
+                                        backgroundColor: statFilter === 'lag' ? '#ffffff' : '#2a2a2a',
+                                        color: statFilter === 'lag' ? '#000000' : '#ffffff',
+                                    }}
+                                >
+                                    Lag
+                                </button>
+                                <button
+                                    onClick={() => setStatFilter('spelare')}
+                                    style={{
+                                        padding: '8px 18px',
+                                        borderRadius: '20px',
+                                        fontSize: '0.9rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        border: 'none',
+                                        transition: 'all 0.2s ease',
+                                        backgroundColor: statFilter === 'spelare' ? '#ffffff' : '#2a2a2a',
+                                        color: statFilter === 'spelare' ? '#000000' : '#ffffff',
+                                    }}
+                                >
+                                    Spelare
+                                </button>
+                            </div>
+
+                            {statFilter === 'lag' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    <div style={{
+                                        fontSize: '0.8rem',
+                                        fontWeight: '800',
+                                        textTransform: 'uppercase',
+                                        paddingLeft: '4px',
+                                        color: 'var(--color-text-muted)',
+                                        letterSpacing: '0.05em'
+                                    }}>
+                                        Allsvenska Maratontabellen
+                                    </div>
+                                    <Card style={{ marginBottom: '0' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <thead>
+                                                <tr style={{ borderBottom: 'var(--border)' }}>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '35px' }}>SÄS</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>M</th>
+                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>P</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {maratonData?.table.map((row, idx) => {
+                                                    const isFiltered = filterTeam && row.team.includes(filterTeam);
+                                                    return (
+                                                        <tr 
+                                                            key={idx}
+                                                            ref={el => maratonRefs.current[row.team] = el}
+                                                            style={{
+                                                                backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                transition: 'background-color 0.2s ease'
+                                                            }}
+                                                        >
+                                                            <td style={{ 
+                                                                padding: '8px 4px',
+                                                                borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                                            }}>
+                                                                <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                    {row.rank}
+                                                                </div>
+                                                            </td>
+                                                            <td style={{ padding: '11px 4px' }}>
+                                                                <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                    {getTeamLogo(row.team) && <img src={getTeamLogo(row.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
+                                                                    <span>{cleanTeamNameForDisplay(row.team)}</span>
+                                                                </span>
+                                                            </td>
+                                                            <td style={{ padding: '11px 4px', textAlign: 'center' }}>{row.seasons}</td>
+                                                            <td style={{ padding: '11px 4px', textAlign: 'center' }}>{row.played}</td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'right', 
+                                                                fontWeight: '800',
+                                                                borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                                            }}>{row.points}</td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </Card>
+                                </div>
+                            )}
+
+                            {statFilter === 'spelare' && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                    <div style={{
+                                        fontSize: '0.8rem',
+                                        fontWeight: '800',
+                                        textTransform: 'uppercase',
+                                        paddingLeft: '4px',
+                                        color: 'var(--color-text-muted)',
+                                        letterSpacing: '0.05em'
+                                    }}>
+                                        Skytteliga
+                                    </div>
+                                    <Card style={{ marginBottom: '0' }}>
+                                        {topScorers.length > 0 ? (
+                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                                <thead>
+                                                    <tr style={{ borderBottom: 'var(--border)' }}>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>SPELARE</th>
+                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>MÅL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {topScorers.map((scorer, idx) => {
+                                                        const isFiltered = filterTeam && scorer.team.includes(filterTeam);
+                                                        return (
+                                                            <tr 
+                                                                key={idx}
+                                                                style={{
+                                                                    backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                    transition: 'background-color 0.2s ease'
+                                                                }}
+                                                            >
+                                                                <td style={{ 
+                                                                    padding: '8px 4px',
+                                                                    borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                                                }}>
+                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                        {idx + 1}
+                                                                    </div>
+                                                                </td>
+                                                                <td style={{ padding: '11px 4px' }}>
+                                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                                        <span style={{ fontWeight: '600' }}>{scorer.player}</span>
+                                                                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                                                            {getTeamLogo(scorer.team) && <img src={getTeamLogo(scorer.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
+                                                                            {cleanTeamNameForDisplay(scorer.team)}
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td style={{ 
+                                                                    padding: '11px 4px', 
+                                                                    textAlign: 'right', 
+                                                                    fontWeight: '800',
+                                                                    fontSize: '1rem',
+                                                                    borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                                    borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                                                }}>{scorer.goals}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
+                                                Inga mål registrerade ännu för säsongen 2026.
+                                            </div>
+                                        )}
+                                    </Card>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
