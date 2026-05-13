@@ -536,16 +536,14 @@ const VMKollen = () => {
                     const matches = groupedMatches[date];
                     return (
                         <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            {(!nextMatches.length || date !== nextMatches[0].date) && (
-                                <div style={{
-                                    fontSize: '0.8rem',
-                                    fontWeight: '800',
-                                    textTransform: 'uppercase',
-                                    paddingLeft: '4px',
-                                    color: 'var(--color-text-muted)',
-                                    letterSpacing: '0.02em'
-                                }}>{getRelativeDateLabel(date)}</div>
-                            )}
+                            <div style={{
+                                fontSize: '0.8rem',
+                                fontWeight: '800',
+                                textTransform: 'uppercase',
+                                paddingLeft: '4px',
+                                color: 'var(--color-text-muted)',
+                                letterSpacing: '0.02em'
+                            }}>{getRelativeDateLabel(date)}</div>
                             {matches.map((m, i) => (
                                 <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
                             ))}
@@ -561,77 +559,18 @@ const VMKollen = () => {
 
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
-                {nextMatches.map((m, idx) => {
-                    const next = {
-                        ...m,
-                        displayDate: getRelativeDateLabel(m.date).toUpperCase(),
-                        type: `VM · ${m.group}`
-                    };
-                    const homeFlags = getFlagCodes(next.home);
-                    const awayFlags = getFlagCodes(next.away);
-
-                    const getBroadcasterUrl = (broadcast) => {
-                        if (!broadcast) return null;
-                        const b = broadcast.toUpperCase();
-                        if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
-                        if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
-                        return null;
-                    };
-
-                    const handleBroadcastClick = (e) => {
-                        const url = getBroadcasterUrl(next.broadcast);
-                        if (url) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            window.open(url, '_blank', 'noopener,noreferrer');
-                        }
-                    };
-
-                    return (
-                        <div key={idx}>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                                {next.displayDate}
-                            </div>
-                            <Card style={{ position: 'relative', overflow: 'hidden', background: 'var(--color-card-bg-elevated)', border: 'var(--border)' }} padding="28px">
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-                                    <div
-                                        onClick={() => handleCountryClick(next.home)}
-                                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                    >
-                                        <FlagBadge codes={homeFlags} name={next.home} size={64} shadow={true} />
-                                        <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.home} /></div>
-                                    </div>
-                                    <div
-                                        onClick={handleBroadcastClick}
-                                        style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: getBroadcasterUrl(next.broadcast) ? 'pointer' : 'default' }}
-                                    >
-                                        {next.group && (
-                                            <div style={{ fontSize: '0.65rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '4px' }}>
-                                                {next.group}
-                                                {next.isPreliminary && ' (prel.)'}
-                                            </div>
-                                        )}
-                                        <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'var(--color-text)', backgroundColor: 'var(--color-surface-subtle)', padding: '6px 14px', borderRadius: '8px', letterSpacing: '-0.02em' }}>
-                                            {next.time}
-                                        </div>
-                                        {next.broadcast && (
-                                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
-                                                {next.broadcast}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div
-                                        onClick={() => handleCountryClick(next.away)}
-                                        style={{ flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}
-                                    >
-                                        <FlagBadge codes={awayFlags} name={next.away} size={64} shadow={true} />
-                                        <div style={{ fontSize: '1rem', fontWeight: '500' }}><BoldSverige text={next.away} /></div>
-                                    </div>
-                                </div>
-                            </Card>
+                {nextMatches.map((m, idx) => (
+                    <div key={idx}>
+                        <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                            {getRelativeDateLabel(m.date).toUpperCase()}
                         </div>
-                    );
-                })}
+                        <MatchCard 
+                            match={m} 
+                            variant="hero" 
+                            onCountryClick={handleCountryClick} 
+                        />
+                    </div>
+                ))}
             </div>
         );
     };

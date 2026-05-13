@@ -364,6 +364,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const getBroadcasterUrl = (broadcast) => {
+        if (match.link) return match.link;
         if (!broadcast) return null;
         const b = broadcast.toUpperCase();
         if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
