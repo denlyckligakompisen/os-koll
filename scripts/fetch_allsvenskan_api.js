@@ -19,7 +19,11 @@ import axios from 'axios';
 
 const TOURNAMENT_ID = 40;   // Allsvenskan
 const SEASON_ID = 87925;    // 2026 season
-const API_BASE = 'https://api.sofascore.com/api/v1';
+const API_DOMAINS = [
+  'https://api.sofascore.app/api/v1',
+  'https://api.sofascore.com/api/v1',
+  'https://www.sofascore.com/api/v1'
+];
 
 const OUTPUT_DIR = path.join(process.cwd(), 'public/data');
 
@@ -58,25 +62,40 @@ function formatTime(timestamp) {
 
 // ─── HTTP-based API fetch ────────────────────────────────────────────────────
 
-const httpClient = axios.create({
-  baseURL: API_BASE,
-  timeout: 15000,
-  headers: {
-    'Accept': 'application/json',
-    'Accept-Language': 'sv-SE,sv;q=0.9,en;q=0.7',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-  },
-});
-
 async function fetchApi(endpoint) {
   console.log(`  → GET ${endpoint}`);
-  try {
-    const { data } = await httpClient.get(endpoint);
-    return data;
-  } catch (err) {
-    const status = err.response?.status || 'network error';
-    throw new Error(`HTTP ${status} for ${endpoint}: ${err.message}`);
+  let lastError = null;
+
+  for (const domain of API_DOMAINS) {
+    try {
+      const url = `${domain}${endpoint}`;
+      const { data } = await axios.get(url, {
+        timeout: 15000,
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Accept-Language': 'sv-SE,sv;q=0.9,en-US;q=0.8,en;q=0.7',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+          'Referer': 'https://www.sofascore.com/',
+          'Origin': 'https://www.sofascore.com',
+          'Sec-Ch-Ua': '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
+          'Sec-Ch-Ua-Mobile': '?0',
+          'Sec-Ch-Ua-Platform': '"Windows"',
+          'Sec-Fetch-Dest': 'empty',
+          'Sec-Fetch-Mode': 'cors',
+          'Sec-Fetch-Site': 'same-site'
+        }
+      });
+      return data;
+    } catch (err) {
+      const status = err.response?.status || 'network error';
+      console.log(`    ⚠️  Fetch failed on ${domain} (HTTP ${status}). Trying fallback...`);
+      lastError = err;
+    }
   }
+
+  const finalStatus = lastError?.response?.status || 'network error';
+  const errMsg = lastError?.message || 'Unknown error';
+  throw new Error(`HTTP ${finalStatus} for ${endpoint} across all domains: ${errMsg}`);
 }
 
 // ─── Fetch Matches ───────────────────────────────────────────────────────────
@@ -419,7 +438,7 @@ async function main() {
   console.log('⚽ Allsvenskan Data Fetcher (SofaScore API)');
   console.log(`   Tournament: Allsvenskan (ID: ${TOURNAMENT_ID})`);
   console.log(`   Season: 2026 (ID: ${SEASON_ID})`);
-  console.log(`   API: ${API_BASE} (direct HTTP, no browser needed)`);
+  console.log('   API: Multiple Sofascore Domains (with automatic failover)');
   if (isDelta) {
     console.log('   Mode: Smart Delta Update (Last 24 Hours / Page 0 Only)');
   } else {

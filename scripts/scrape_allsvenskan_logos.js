@@ -52,24 +52,40 @@ async function scrapeLogos() {
       continue;
     }
 
-    try {
-      const response = await axios.get(`https://api.sofascore.com/api/v1/team/${teamId}/image`, {
-        responseType: 'arraybuffer',
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-          'Accept': 'image/png,image/*;q=0.8,*/*;q=0.5'
-        }
-      });
+    const API_DOMAINS = [
+      'https://api.sofascore.app/api/v1',
+      'https://api.sofascore.com/api/v1',
+      'https://www.sofascore.com/api/v1'
+    ];
 
-      const buffer = Buffer.from(response.data);
-      fs.writeFileSync(filepath, buffer);
-      logoMap[teamName] = `/logos/${filename}`;
-      console.log(`  ✓ ${teamName} (${Math.round(buffer.length / 1024)}KB)`);
-      
-      // Polite delay after successful download
-      await new Promise(r => setTimeout(r, 300));
-    } catch (e) {
-      console.log(`  ✗ ${teamName}: ${e.message}`);
+    let success = false;
+    for (const domain of API_DOMAINS) {
+      try {
+        const response = await axios.get(`${domain}/team/${teamId}/image`, {
+          responseType: 'arraybuffer',
+          timeout: 15000,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+            'Accept': 'image/png,image/*;q=0.8,*/*;q=0.5',
+            'Referer': 'https://www.sofascore.com/',
+            'Origin': 'https://www.sofascore.com'
+          }
+        });
+
+        const buffer = Buffer.from(response.data);
+        fs.writeFileSync(filepath, buffer);
+        logoMap[teamName] = `/logos/${filename}`;
+        console.log(`  ✓ ${teamName} (${Math.round(buffer.length / 1024)}KB) [via ${domain}]`);
+        success = true;
+        await new Promise(r => setTimeout(r, 300));
+        break;
+      } catch (e) {
+        // Silently try next domain
+      }
+    }
+
+    if (!success) {
+      console.log(`  ✗ ${teamName}: Failed across all API domains`);
       await new Promise(r => setTimeout(r, 300));
     }
   }
