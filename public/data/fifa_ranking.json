@@ -351,7 +351,7 @@
     {
       "rank": "59",
       "team": "Irland",
-      "points": "1436.63",
+      "points": "1436.63*",
       "change": 0
     },
     {
@@ -975,7 +975,7 @@
     {
       "rank": "163",
       "team": "Grenada",
-      "points": "982.57",
+      "points": "982.57*",
       "change": 1
     },
     {
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": "01 April 2026",
-  "nextUpdate": "10 June 2026 (25 days)",
-  "lastUpdated": "2026-05-16T03:24:52.214Z",
+  "nextUpdate": "10 June 2026 (24 days)",
+  "lastUpdated": "2026-05-17T03:39:18.372Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
