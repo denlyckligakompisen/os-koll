@@ -282,60 +282,6 @@ async function fetchMatches(isDelta = false) {
       (m.home === home && m.away === away && m.date === date)
     );
 
-    // Reuse existing H2H if available
-    if (existing && existing.h2h) {
-      matchObj.h2h = existing.h2h;
-    }
-
-    // For upcoming matches that don't have the last 5 H2H yet, fetch it
-    if (status === 'upcoming' && (!matchObj.h2h || !matchObj.h2h.isLast5) && event.customId) {
-      try {
-        console.log(`  Fetching H2H history for ${home} - ${away} (customId: ${event.customId})...`);
-        const h2hRes = await fetchApi(`/event/${event.customId}/h2h/events`);
-        if (h2hRes && h2hRes.events) {
-          const finished = h2hRes.events.filter(e => e.winnerCode !== undefined);
-          
-          let homeWins = 0;
-          let draws = 0;
-          let awayWins = 0;
-
-          const cleanName = (n) => n.replace(/\b(IF|FF|BK|AIF|SK)\b/g, '').replace(/\s+/g, ' ').trim();
-          const cleanHomeTarget = cleanName(home);
-          const cleanAwayTarget = cleanName(away);
-
-          finished.slice(0, 5).forEach(e => {
-            if (e.winnerCode === 3) {
-              draws++;
-            } else {
-              const cleanPastHome = cleanName(e.homeTeam.name);
-              const cleanPastAway = cleanName(e.awayTeam.name);
-              
-              const homeWon = e.winnerCode === 1;
-              const winnerName = homeWon ? cleanPastHome : cleanPastAway;
-              
-              if (winnerName.includes(cleanHomeTarget) || cleanHomeTarget.includes(winnerName)) {
-                homeWins++;
-              } else if (winnerName.includes(cleanAwayTarget) || cleanAwayTarget.includes(winnerName)) {
-                awayWins++;
-              }
-            }
-          });
-
-          matchObj.h2h = {
-            homeWins,
-            draws,
-            awayWins,
-            isLast5: true
-          };
-          console.log(`    → H2H (last 5) loaded: ${homeWins}V - ${draws}O - ${awayWins}F`);
-        }
-        // Polite delay to prevent rate limit
-        await new Promise(r => setTimeout(r, 200));
-      } catch (err) {
-        console.log(`  ⚠ Failed to fetch H2H for ${home} - ${away}: ${err.message}`);
-      }
-    }
-
     // Fetch or reuse scorers if finished
     if (status === 'finished' || status === 'live') {
       const hasAssistsInCache = existing?.scorers?.home?.some(s => s.assist !== undefined) || 

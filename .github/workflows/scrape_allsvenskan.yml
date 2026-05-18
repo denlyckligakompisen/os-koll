@@ -16,7 +16,10 @@ jobs:
           node-version: 20
       - run: npm install
 
-      # ── SofaScore API: matches + table (direct HTTP, no browser needed) ──
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      # ── SofaScore API via Playwright browser ──
       - name: Fetch Allsvenskan Data (SofaScore)
         run: npm run fetch:allsvenskan
 

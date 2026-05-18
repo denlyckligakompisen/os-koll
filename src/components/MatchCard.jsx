@@ -43,27 +43,7 @@ export const cleanTeamNameForDisplay = (name) => {
     return cleaned;
 };
 
-export const getStadiumForTeam = (teamName) => {
-    if (!teamName) return '';
-    const clean = teamName.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim();
-    if (clean.includes('AIK')) return 'Strawberry Arena';
-    if (clean.includes('Häcken')) return 'Bravida Arena';
-    if (clean.includes('Djurgården')) return 'Tele2 Arena';
-    if (clean.includes('GAIS')) return 'Gamla Ullevi';
-    if (clean.includes('Halmstad')) return 'Örjans Vall';
-    if (clean.includes('Hammarby')) return 'Tele2 Arena';
-    if (clean.includes('Brommapojkarna') || clean === 'BP') return 'Grimsta IP';
-    if (clean.includes('Elfsborg')) return 'Borås Arena';
-    if (clean.includes('Göteborg')) return 'Gamla Ullevi';
-    if (clean.includes('Sirius')) return 'Studenternas IP';
-    if (clean.includes('Kalmar')) return 'Guldfågeln Arena';
-    if (clean.includes('Malmö')) return 'Eleda Stadion';
-    if (clean.includes('Mjällby')) return 'Strandvallen';
-    if (clean.includes('Västerås')) return 'Hitachi Energy Arena';
-    if (clean.includes('Degerfors')) return 'Stora Valla';
-    if (clean.includes('Örgryte')) return 'Gamla Ullevi';
-    return '';
-};
+
 
 const getLastName = (name) => {
     if (!name) return '';
@@ -487,28 +467,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.broadcast}
                             </div>
                         )}
-                        {!onCountryClick && (match.venue || getStadiumForTeam(match.home)) && (
-                            <div style={{ 
-                                fontSize: '0.7rem', 
-                                fontWeight: '600', 
-                                color: 'var(--color-text-muted)', 
-                                marginTop: '2px'
-                            }}>
-                                {match.venue || getStadiumForTeam(match.home)}
-                            </div>
-                        )}
-                        {match.h2h && computedStatus !== 'live' && (
-                            <div style={{ 
-                                fontSize: '0.65rem', 
-                                fontWeight: '700', 
-                                color: 'var(--color-text-muted)', 
-                                marginTop: '2px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.04em'
-                            }}>
-                                {match.h2h.homeWins}-{match.h2h.draws}-{match.h2h.awayWins}
-                            </div>
-                        )}
+
+
                     </div>
 
                     <div
