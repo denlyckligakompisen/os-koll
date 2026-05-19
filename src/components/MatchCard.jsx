@@ -44,7 +44,6 @@ export const cleanTeamNameForDisplay = (name) => {
 };
 
 
-
 const getLastName = (name) => {
     if (!name) return '';
     const parts = name.trim().split(/\s+/);
@@ -467,7 +466,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.broadcast}
                             </div>
                         )}
-
 
                     </div>
 
