@@ -14,6 +14,11 @@ export const useSwipeNavigation = (activeTab, setActiveTab, subtabs) => {
         let isVerticalSwipe = false;
 
         const handleStart = (e) => {
+            if (e.target.closest('input[type="range"]') || e.target.closest('.custom-slider')) {
+                startX = 0;
+                startY = 0;
+                return;
+            }
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
             isHorizontalSwipe = false;
@@ -21,6 +26,9 @@ export const useSwipeNavigation = (activeTab, setActiveTab, subtabs) => {
         };
 
         const handleMove = (e) => {
+            if (e.target.closest('input[type="range"]') || e.target.closest('.custom-slider')) {
+                return;
+            }
             if (!startX || !startY) return;
 
             if (e.target.closest('.bracket-container') || e.target.closest('[style*="overflow-x: auto"]') || e.target.closest('[style*="overflowX: auto"]')) {

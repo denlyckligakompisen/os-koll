@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
-import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useSwipeNavigation } from '../utils/navigation';
+import { AllsvenskanChat } from './AllsvenskanChat';
 
 
 const MONTH_MAP = { 
@@ -131,6 +132,7 @@ const AllsvenskanKollen = () => {
     
     const [selectedSeason, setSelectedSeason] = useState(2026);
     const [currentRoundSliderVal, setCurrentRoundSliderVal] = useState(30);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     const teams = useMemo(() => {
         if (!matchesData?.matches) return [];
@@ -176,6 +178,7 @@ const AllsvenskanKollen = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setIsPlaying(false);
                 setLoading(true);
                 const matchesUrl = selectedSeason === 2026 
                     ? '/data/allsvenskan_matches.json' 
@@ -523,6 +526,29 @@ const AllsvenskanKollen = () => {
         return trends;
     }, [matchesData, currentRoundSliderVal, computedTableData]);
 
+    useEffect(() => {
+        if (!isPlaying) return;
+
+        const interval = setInterval(() => {
+            setCurrentRoundSliderVal(prev => {
+                if (prev >= maxPlayedRound) {
+                    setIsPlaying(false);
+                    return prev;
+                }
+                return prev + 1;
+            });
+        }, 700);
+
+        return () => clearInterval(interval);
+    }, [isPlaying, maxPlayedRound]);
+
+    const togglePlayback = () => {
+        if (currentRoundSliderVal >= maxPlayedRound) {
+            setCurrentRoundSliderVal(0);
+        }
+        setIsPlaying(prev => !prev);
+    };
+
     const headerStyle = useMemo(() => getHeaderStyle(filterTeam), [filterTeam]);
 
     const tableTrends = useMemo(() => {
@@ -759,6 +785,7 @@ const AllsvenskanKollen = () => {
                                     }
                                 } else {
                                     setActiveTab(tab.id);
+                                    window.scrollTo({ top: 0 });
                                 }
                                 if (navigator.vibrate) navigator.vibrate(10);
                             }}
@@ -873,72 +900,144 @@ const AllsvenskanKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
                     {/* Season Selector */}
-                    {(activeTab === 'matcher' || activeTab === 'gruppspel') && (
+                    {/* Season Selector */}
+                    {/* Season Selector with Inline Slider */}
+                    {activeTab !== 'slutspel' && (
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            padding: '4px 0',
-                            overflowX: 'auto',
-                            whiteSpace: 'nowrap',
-                            scrollbarWidth: 'none',
-                            msOverflowStyle: 'none',
-                            WebkitOverflowScrolling: 'touch',
-                            margin: '0 0 -8px 0'
-                        }} className="season-selector-container">
-                            <span style={{ 
-                                fontSize: '0.75rem', 
-                                fontWeight: '800', 
-                                color: 'var(--color-text-muted)', 
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                flexShrink: 0
-                            }}>
-                                Säsong:
-                            </span>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                                {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map((year) => {
-                                    const isSelected = selectedSeason === year;
-                                    return (
-                                        <button
-                                            key={year}
-                                            onClick={() => {
-                                                setSelectedSeason(year);
-                                                if (navigator.vibrate) navigator.vibrate(5);
-                                            }}
-                                            style={{
-                                                padding: '6px 14px',
-                                                borderRadius: '20px',
-                                                fontSize: '0.85rem',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                border: 'none',
-                                                transition: 'all 0.2s ease',
-                                                backgroundColor: isSelected 
-                                                    ? (filterTeam ? headerStyle.bg : 'var(--color-text)') 
-                                                    : 'rgba(0,0,0,0.05)',
-                                                color: isSelected 
-                                                    ? (filterTeam ? headerStyle.text : 'var(--color-bg)') 
-                                                    : 'var(--color-text)',
-                                                boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-                                            }}
-                                        >
+                            width: '100%',
+                            flexWrap: 'wrap',
+                            margin: '0 0 -8px 0',
+                            padding: '4px 0'
+                        }}>
+                            {/* Season Select */}
+                            <div style={{ position: 'relative', width: '85px', flexShrink: 0 }}>
+                                <select
+                                    value={selectedSeason}
+                                    onChange={(e) => {
+                                        setSelectedSeason(parseInt(e.target.value));
+                                        if (navigator.vibrate) navigator.vibrate(5);
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px 24px 8px 12px',
+                                        fontSize: '0.85rem',
+                                        fontWeight: '700',
+                                        color: 'var(--color-text)',
+                                        backgroundColor: 'rgba(0,0,0,0.05)',
+                                        border: '1px solid rgba(0,0,0,0.08)',
+                                        borderRadius: '20px',
+                                        outline: 'none',
+                                        cursor: 'pointer',
+                                        WebkitAppearance: 'none',
+                                        appearance: 'none',
+                                        transition: 'all 0.2s ease',
+                                        boxShadow: 'var(--shadow-sm)'
+                                    }}
+                                    className="premium-select"
+                                >
+                                    {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map((year) => (
+                                        <option key={year} value={year} style={{ color: '#000', fontWeight: '600' }}>
                                             {year}
-                                            {year === 2026 && (
-                                                <span style={{ 
-                                                    display: 'inline-block',
-                                                    width: '6px', 
-                                                    height: '6px', 
-                                                    borderRadius: '50%', 
-                                                    backgroundColor: '#34c759', 
-                                                    marginLeft: '6px',
-                                                    verticalAlign: 'middle',
-                                                }} className="live-indicator-pulse" />
-                                            )}
-                                        </button>
-                                    );
-                                })}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div style={{
+                                    position: 'absolute',
+                                    right: '8px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    pointerEvents: 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    color: 'var(--color-text-muted)'
+                                }}>
+                                    <ChevronDown size={12} strokeWidth={2.5} />
+                                </div>
                             </div>
+
+                            {/* Round Slider & Playback Capsule (only for 'gruppspel') */}
+                            {activeTab === 'gruppspel' && (
+                                <div style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: '10px', 
+                                    flex: 1, 
+                                    minWidth: '200px',
+                                    backgroundColor: 'rgba(0,0,0,0.03)',
+                                    padding: '4px 12px 4px 8px',
+                                    borderRadius: '20px',
+                                    border: '1px solid rgba(0,0,0,0.04)'
+                                }}>
+                                    <button
+                                        onClick={() => {
+                                            togglePlayback();
+                                            if (navigator.vibrate) navigator.vibrate(5);
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: '28px',
+                                            height: '28px',
+                                            borderRadius: '50%',
+                                            border: 'none',
+                                            backgroundColor: filterTeam ? headerStyle.bg : 'var(--color-text)',
+                                            color: filterTeam ? headerStyle.text : 'var(--color-bg)',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                                            transition: 'transform 0.2s ease, opacity 0.2s ease',
+                                            flexShrink: 0
+                                        }}
+                                        aria-label={isPlaying ? "Pausa uppspelning" : "Spela upp säsongen"}
+                                    >
+                                        {isPlaying ? (
+                                            <Pause size={12} fill="currentColor" />
+                                        ) : (
+                                            <Play size={12} fill="currentColor" style={{ marginLeft: '1px' }} />
+                                        )}
+                                    </button>
+
+                                    <input 
+                                        type="range" 
+                                        min="0" 
+                                        max={maxPlayedRound} 
+                                        value={currentRoundSliderVal}
+                                        onChange={(e) => {
+                                            const val = parseInt(e.target.value);
+                                            setCurrentRoundSliderVal(val);
+                                            if (isPlaying) setIsPlaying(false);
+                                            if (navigator.vibrate) navigator.vibrate(2);
+                                        }}
+                                        style={{
+                                            flex: 1,
+                                            height: '4px',
+                                            borderRadius: '2px',
+                                            background: 'rgba(0, 0, 0, 0.1)',
+                                            outline: 'none',
+                                            WebkitAppearance: 'none',
+                                            appearance: 'none',
+                                            cursor: 'pointer',
+                                            touchAction: 'none',
+                                            '--range-color': filterTeam ? headerStyle.bg : 'var(--color-text)'
+                                        }}
+                                        className="custom-slider"
+                                    />
+
+                                    <span style={{ 
+                                        fontSize: '0.75rem', 
+                                        fontWeight: '800', 
+                                        color: 'var(--color-text)',
+                                        whiteSpace: 'nowrap',
+                                        minWidth: '50px',
+                                        textAlign: 'right'
+                                    }}>
+                                        {currentRoundSliderVal === 0 ? 'Start' : `Omg ${currentRoundSliderVal}`}
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     )}
                     
@@ -989,158 +1088,110 @@ const AllsvenskanKollen = () => {
                     )}
 
                     {activeTab === 'gruppspel' && (
-                        <div style={{ marginBottom: '32px' }}>
-                            {/* Slider control card */}
-                            <Card style={{ padding: '16px', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                                        Spela upp säsongen ({selectedSeason})
-                                    </span>
-                                    <span style={{ 
-                                        fontSize: '0.9rem', 
-                                        fontWeight: '800', 
-                                        backgroundColor: filterTeam ? headerStyle.bg : 'var(--color-text)', 
-                                        color: filterTeam ? headerStyle.text : 'var(--color-bg)',
-                                        padding: '4px 12px',
-                                        borderRadius: '12px',
-                                        boxShadow: 'var(--shadow-sm)',
-                                        transition: 'all 0.3s'
-                                    }}>
-                                        {currentRoundSliderVal === 0 ? 'Före omgång 1' : `Omgång ${currentRoundSliderVal}`}
-                                    </span>
-                                </div>
-                                
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                    <input 
-                                        type="range" 
-                                        min="0" 
-                                        max={maxPlayedRound} 
-                                        value={currentRoundSliderVal}
-                                        onChange={(e) => {
-                                            const val = parseInt(e.target.value);
-                                            setCurrentRoundSliderVal(val);
-                                            if (navigator.vibrate) navigator.vibrate(2);
-                                        }}
-                                        style={{
-                                            flex: 1,
-                                            height: '6px',
-                                            borderRadius: '3px',
-                                            background: 'rgba(0, 0, 0, 0.1)',
-                                            outline: 'none',
-                                            WebkitAppearance: 'none',
-                                            cursor: 'pointer',
-                                            '--range-color': filterTeam ? headerStyle.bg : 'var(--color-text)'
-                                        }}
-                                        className="custom-slider"
-                                    />
-                                </div>
-                                
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>
-                                    <span>Start</span>
-                                    <span>Slut (Omgång {maxPlayedRound})</span>
-                                </div>
-                            </Card>
-
+                        <div style={{ marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {loading ? (
                                 <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
                                     Laddar tabell...
                                 </div>
                             ) : (
-                                <Card style={{ marginBottom: '0' }}>
-                                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                                        <thead>
-                                            <tr style={{ borderBottom: 'var(--border)' }}>
-                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
-                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
-                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
-                                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>P</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {computedTableData.map((team, idx) => {
-                                                const rank = parseInt(team.rank);
-                                                const isFiltered = filterTeam === team.team;
-                                                const isSeparator = [2, 4, 14, 15].includes(rank);
+                                <>
+                                    {/* Table standings card first */}
+                                    <Card style={{ marginBottom: '0' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <thead>
+                                                <tr style={{ borderBottom: 'var(--border)' }}>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
+                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>P</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {computedTableData.map((team, idx) => {
+                                                    const rank = parseInt(team.rank);
+                                                    const isFiltered = filterTeam === team.team;
+                                                    const isSeparator = [2, 4, 14, 15].includes(rank);
 
-                                                return (
-                                                    <tr 
-                                                        key={idx} 
-                                                        ref={el => tableRefs.current[team.team] = el}
-                                                        style={{ 
-                                                            backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                            transition: 'background-color 0.2s ease'
-                                                        }}
-                                                    >
-                                                        <td style={{ 
-                                                            padding: '8px 4px',
-                                                            borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                                            borderBottomLeftRadius: isFiltered ? '10px' : '0',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            <div style={{ 
-                                                                display: 'flex', 
-                                                                alignItems: 'center', 
-                                                                gap: '4px',
-                                                                paddingLeft: '4px'
+                                                    return (
+                                                        <tr 
+                                                            key={idx} 
+                                                            ref={el => tableRefs.current[team.team] = el}
+                                                            style={{ 
+                                                                backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                transition: 'background-color 0.2s ease'
+                                                            }}
+                                                        >
+                                                            <td style={{ 
+                                                                padding: '8px 4px',
+                                                                borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomLeftRadius: isFiltered ? '10px' : '0',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                             }}>
                                                                 <div style={{ 
-                                                                    width: '20px', 
-                                                                    height: '28px', 
                                                                     display: 'flex', 
                                                                     alignItems: 'center', 
-                                                                    justifyContent: 'center', 
-                                                                    fontWeight: '700', 
-                                                                    fontSize: '0.85rem', 
-                                                                    backgroundColor: 'transparent', 
-                                                                    color: 'inherit' 
+                                                                    gap: '4px',
+                                                                    paddingLeft: '4px'
                                                                 }}>
-                                                                    {team.rank}
+                                                                    <div style={{ 
+                                                                        width: '20px', 
+                                                                        height: '28px', 
+                                                                        display: 'flex', 
+                                                                        alignItems: 'center', 
+                                                                        justifyContent: 'center', 
+                                                                        fontWeight: '700', 
+                                                                        fontSize: '0.85rem', 
+                                                                        backgroundColor: 'transparent', 
+                                                                        color: 'inherit' 
+                                                                    }}>
+                                                                        {team.rank}
+                                                                    </div>
+                                                                    {sliderTableTrends[team.team] === 'up' && (
+                                                                        <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
+                                                                    )}
+                                                                    {sliderTableTrends[team.team] === 'down' && (
+                                                                        <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
+                                                                    )}
                                                                 </div>
-                                                                {sliderTableTrends[team.team] === 'up' && (
-                                                                    <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
-                                                                )}
-                                                                {sliderTableTrends[team.team] === 'down' && (
-                                                                    <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
-                                                                )}
-                                                            </div>
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                                {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
-                                                                <span>{cleanTeamNameForDisplay(team.team)}</span>
-                                                            </span>
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'center',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>{team.played}</td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'center', 
-                                                            color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'right', 
-                                                            fontWeight: '800',
-                                                            borderTopRightRadius: isFiltered ? '10px' : '0',
-                                                            borderBottomRightRadius: isFiltered ? '10px' : '0',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>{team.points}</td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </Card>
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>
+                                                                <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                    {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
+                                                                    <span>{cleanTeamNameForDisplay(team.team)}</span>
+                                                                </span>
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'center',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>{team.played}</td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'center', 
+                                                                color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>
+                                                                {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'right', 
+                                                                fontWeight: '800',
+                                                                borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomRightRadius: isFiltered ? '10px' : '0',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>{team.points}</td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </Card>
+                                </>
                             )}
                         </div>
                     )}
@@ -1170,8 +1221,8 @@ const AllsvenskanKollen = () => {
                                             cursor: 'pointer',
                                             border: 'none',
                                             transition: 'all 0.2s ease',
-                                            backgroundColor: '#ffffff',
-                                            color: '#000000',
+                                            backgroundColor: '#000000',
+                                            color: '#ffffff',
                                         }}
                                     >
                                         Lag
@@ -1189,8 +1240,8 @@ const AllsvenskanKollen = () => {
                                             cursor: 'pointer',
                                             border: 'none',
                                             transition: 'all 0.2s ease',
-                                            backgroundColor: '#2a2a2a',
-                                            color: '#ffffff',
+                                            backgroundColor: 'rgba(0,0,0,0.05)',
+                                            color: 'var(--color-text-muted)',
                                         }}
                                     >
                                         Spelare
@@ -1207,8 +1258,8 @@ const AllsvenskanKollen = () => {
                                             width: '35px',
                                             height: '35px',
                                             borderRadius: '50%',
-                                            backgroundColor: '#2a2a2a',
-                                            color: '#ffffff',
+                                            backgroundColor: 'rgba(0,0,0,0.05)',
+                                            color: 'var(--color-text)',
                                             border: 'none',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -1231,14 +1282,14 @@ const AllsvenskanKollen = () => {
                                                     fontWeight: '600',
                                                     cursor: 'default',
                                                     border: 'none',
-                                                    backgroundColor: '#ffffff',
-                                                    color: '#000000',
+                                                    backgroundColor: '#000000',
+                                                    color: '#ffffff',
                                                 }}
                                             >
                                                 Spelare
                                             </button>
 
-                                            <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
+                                            <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(0,0,0,0.08)', margin: '0 4px' }} />
 
                                             <button
                                                 onClick={() => setPlayerFilter('mål')}
@@ -1250,8 +1301,8 @@ const AllsvenskanKollen = () => {
                                                     cursor: 'pointer',
                                                     border: 'none',
                                                     transition: 'all 0.2s ease',
-                                                    backgroundColor: '#2a2a2a',
-                                                    color: '#ffffff',
+                                                    backgroundColor: 'rgba(0,0,0,0.05)',
+                                                    color: 'var(--color-text-muted)',
                                                 }}
                                             >
                                                 Mål
@@ -1266,8 +1317,8 @@ const AllsvenskanKollen = () => {
                                                     cursor: 'pointer',
                                                     border: 'none',
                                                     transition: 'all 0.2s ease',
-                                                    backgroundColor: '#2a2a2a',
-                                                    color: '#ffffff',
+                                                    backgroundColor: 'rgba(0,0,0,0.05)',
+                                                    color: 'var(--color-text-muted)',
                                                 }}
                                             >
                                                 Assist
@@ -1279,7 +1330,7 @@ const AllsvenskanKollen = () => {
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                backgroundColor: '#e6e6e6',
+                                                backgroundColor: 'rgba(0,0,0,0.05)',
                                                 borderRadius: '20px',
                                                 padding: '2px',
                                                 cursor: 'pointer',
@@ -1290,8 +1341,8 @@ const AllsvenskanKollen = () => {
                                             <div style={{
                                                 padding: '6px 16px',
                                                 borderRadius: '18px',
-                                                backgroundColor: '#ffffff',
-                                                color: '#000000',
+                                                backgroundColor: '#000000',
+                                                color: '#ffffff',
                                                 fontSize: '0.9rem',
                                                 fontWeight: '600',
                                                 boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
@@ -1300,7 +1351,7 @@ const AllsvenskanKollen = () => {
                                             </div>
                                             <div style={{
                                                 padding: '6px 16px',
-                                                color: '#000000',
+                                                color: 'var(--color-text)',
                                                 fontSize: '0.9rem',
                                                 fontWeight: '600'
                                             }}>
@@ -1532,6 +1583,7 @@ const AllsvenskanKollen = () => {
                     )}
                 </div>
             </div>
+            <AllsvenskanChat />
         </div>
     );
 };
