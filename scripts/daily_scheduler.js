@@ -15,7 +15,7 @@ function log(message) {
 function runScraper() {
   log('🔄 Starting daily scrape of Allsvenskan matches...');
   
-  const scraper = spawn('node', ['scripts/fetch_allsvenskan_api.js', '--all'], {
+  const scraper = spawn('node', ['scripts/fetch_allsvenskan_api.js'], {
     cwd: process.cwd(),
     stdio: 'pipe'
   });

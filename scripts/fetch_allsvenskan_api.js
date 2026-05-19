@@ -147,12 +147,12 @@ async function fetchMatches(isDelta = false) {
   const yesterdayStart = Math.floor(new Date(todayStart.getTime() - 24 * 60 * 60 * 1000).getTime() / 1000);
   const tomorrowEnd = Math.floor(new Date(todayStart.getTime() + 2 * 24 * 60 * 60 * 1000).getTime() / 1000);
 
-  const hasCache = existingMatches.length > 0;
+  const hasCache = existingMatches.length > 0 && !process.argv.includes('--all');
   if (hasCache) {
     console.log(`  Loaded ${existingMatches.length} existing matches from cache.`);
     console.log(`  Optimization active: Will ONLY update matches between yesterday and tomorrow.`);
   } else {
-    console.log('  No cache found. Running full sync...');
+    console.log('  Running full sync (either no cache or --all flag supplied)...');
   }
 
   const allEvents = [];
