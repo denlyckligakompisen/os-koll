@@ -120,10 +120,31 @@ async function scrapeTv4Links(page) {
 }
 
 async function scrapeMatches() {
-    console.log(`Starting crawl of FIFA World Cup 2026 schedule from ${FIFA_URL}...`);
-
     let matches = [];
     const existingData = fs.existsSync(MATCHES_OUTPUT) ? JSON.parse(fs.readFileSync(MATCHES_OUTPUT, 'utf8')) : { matches: [] };
+
+    // Calculate start and end timestamp for yesterday, today, and tomorrow
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterdayStart = Math.floor(new Date(todayStart.getTime() - 24 * 60 * 60 * 1000).getTime() / 1000);
+    const tomorrowEnd = Math.floor(new Date(todayStart.getTime() + 2 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
+    const hasCache = existingData.matches.length > 0 && !process.argv.includes('--all');
+    if (hasCache) {
+        const matchesInWindow = existingData.matches.filter(m => 
+            m.startTimestamp && m.startTimestamp >= yesterdayStart && m.startTimestamp < tomorrowEnd
+        );
+        if (matchesInWindow.length === 0) {
+            console.log('⚽ FIFA World Cup 2026 Scraper');
+            console.log('   Loaded existing matches from cache.');
+            console.log('   Optimization active: No matches scheduled for yesterday, today, or tomorrow.');
+            console.log('   Exiting early to save resources and API hits. Use --all to force full sync.');
+            return;
+        }
+        console.log(`   Optimization active: Found ${matchesInWindow.length} match(es) in the 3-day window. Proceeding to update...`);
+    }
+
+    console.log(`Starting crawl of FIFA World Cup 2026 schedule from ${FIFA_URL}...`);
 
     try {
         const browser = await chromium.launch({ headless: true });

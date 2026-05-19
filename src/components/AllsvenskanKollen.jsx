@@ -1112,7 +1112,7 @@ const AllsvenskanKollen = () => {
                                             boxShadow: 'var(--shadow-sm)'
                                         }}
                                     >
-                                        <option value="maraton" style={{ color: '#000', fontWeight: '600' }}>Maratontabellen</option>
+                                        <option value="maraton" style={{ color: '#000', fontWeight: '600' }}>Maratontabell</option>
                                         {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map(yr => (
                                             <option key={yr} value={yr} style={{ color: '#000', fontWeight: '600' }}>{yr}</option>
                                         ))}

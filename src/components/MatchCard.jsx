@@ -44,6 +44,85 @@ export const cleanTeamNameForDisplay = (name) => {
 };
 
 
+const TeamLogo = ({ logoUrl, teamName, size = 64, flags = [], onClick }) => {
+    const [hasError, setHasError] = useState(false);
+
+    useEffect(() => {
+        setHasError(false);
+    }, [logoUrl]);
+
+    if (logoUrl && !hasError) {
+        return (
+            <img 
+                src={logoUrl} 
+                alt="" 
+                onError={() => setHasError(true)}
+                onClick={onClick}
+                style={{ 
+                    height: `${size}px`, 
+                    width: `${size}px`, 
+                    objectFit: 'contain',
+                    transition: 'all 0.3s ease',
+                    cursor: onClick ? 'pointer' : 'default'
+                }} 
+            />
+        );
+    }
+
+    if (flags && flags.length > 0) {
+        return <FlagBadge codes={flags} name={teamName} size={size} onClick={onClick} />;
+    }
+
+    const initials = teamName
+        ? teamName.replace(/\b(IF|FF|BK|AIF|IK|IS|FK|SK|BoIS)\b/g, '').trim().substring(0, 2).toUpperCase()
+        : 'T';
+
+    const colors = [
+        ['#4f46e5', '#3b82f6'],
+        ['#059669', '#10b981'],
+        ['#dc2626', '#f43f5e'],
+        ['#b45309', '#d97706'],
+        ['#7c3aed', '#8b5cf6'],
+        ['#0891b2', '#06b6d4'],
+        ['#2563eb', '#3b82f6'],
+        ['#0284c7', '#0ea5e9'],
+    ];
+    let sum = 0;
+    for (let i = 0; i < (teamName || '').length; i++) {
+        sum += (teamName || '').charCodeAt(i);
+    }
+    const [color1, color2] = colors[sum % colors.length];
+
+    return (
+        <div 
+            onClick={onClick}
+            style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: '50%',
+                background: `linear-gradient(135deg, ${color1}, ${color2})`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ffffff',
+                fontWeight: '800',
+                fontSize: `${Math.round(size * 0.38)}px`,
+                letterSpacing: '0.02em',
+                boxShadow: 'var(--shadow-sm)',
+                border: '1.5px solid rgba(255, 255, 255, 0.7)',
+                flexShrink: 0,
+                textShadow: '0 1px 2px rgba(0,0,0,0.15)',
+                userSelect: 'none',
+                cursor: onClick ? 'pointer' : 'default',
+                transition: 'all 0.2s ease'
+            }}
+        >
+            {initials}
+        </div>
+    );
+};
+
+
 const getLastName = (name) => {
     if (!name) return '';
     const parts = name.trim().split(/\s+/);
@@ -390,11 +469,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
-                        {homeLogo ? (
-                            <img src={homeLogo} alt="" style={{ height: '64px', width: '64px', objectFit: 'contain' }} />
-                        ) : (
-                            homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={64} />
-                        )}
+                        <TeamLogo 
+                            logoUrl={homeLogo} 
+                            teamName={match.home} 
+                            size={64} 
+                            flags={homeFlags} 
+                        />
 
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
 
@@ -481,11 +561,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
-                        {awayLogo ? (
-                            <img src={awayLogo} alt="" style={{ height: '64px', width: '64px', objectFit: 'contain' }} />
-                        ) : (
-                            awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={64} />
-                        )}
+                        <TeamLogo 
+                            logoUrl={awayLogo} 
+                            teamName={match.away} 
+                            size={64} 
+                            flags={awayFlags} 
+                        />
 
                         <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
 
@@ -534,22 +615,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             onClick={props.onClick}
         >
             <div style={{ display: 'flex', width: '100%', alignItems: computedStatus === 'upcoming' ? 'center' : 'flex-start', gap: highlight ? '20px' : '12px' }}>
-            {homeLogo ? (
-                <img 
-                    src={homeLogo} 
-                    alt="" 
-                    onClick={(e) => handleTeamClick(e, match.home)}
-                    style={{ 
-                        height: highlight ? '64px' : '32px', 
-                        width: highlight ? '64px' : '32px', 
-                        objectFit: 'contain', 
-                        transition: 'all 0.3s ease',
-                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
-                    }} 
-                />
-            ) : (
-                homeFlags.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={highlight ? 64 : 32} onClick={(e) => handleTeamClick(e, match.home)} />
-            )}
+            <TeamLogo 
+                logoUrl={homeLogo} 
+                teamName={match.home} 
+                size={highlight ? 64 : 32} 
+                flags={homeFlags} 
+                onClick={(e) => handleTeamClick(e, match.home)}
+            />
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                 <div style={{ 
                     fontSize: highlight ? '1.05rem' : '0.9rem', 
@@ -735,22 +807,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     );
                 })()}
             </div>
-            {awayLogo ? (
-                <img 
-                    src={awayLogo} 
-                    alt="" 
-                    onClick={(e) => handleTeamClick(e, match.away)}
-                    style={{ 
-                        height: highlight ? '64px' : '32px', 
-                        width: highlight ? '64px' : '32px', 
-                        objectFit: 'contain', 
-                        transition: 'all 0.3s ease',
-                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
-                    }} 
-                />
-            ) : (
-                awayFlags.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={highlight ? 64 : 32} onClick={(e) => handleTeamClick(e, match.away)} />
-            )}
+            <TeamLogo 
+                logoUrl={awayLogo} 
+                teamName={match.away} 
+                size={highlight ? 64 : 32} 
+                flags={awayFlags} 
+                onClick={(e) => handleTeamClick(e, match.away)}
+            />
             </div>
             {renderStatsSection()}
         </Card>
