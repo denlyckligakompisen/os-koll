@@ -130,8 +130,33 @@ async function fetchApi(endpoint) {
 async function fetchMatches(isDelta = false) {
   console.log('\n📅 Fetching Allsvenskan matches...');
 
+  // Try to load existing matches from file
+  let existingMatches = [];
+  if (fs.existsSync(OUTPUT_FILES.matches)) {
+    try {
+      const content = fs.readFileSync(OUTPUT_FILES.matches, 'utf8');
+      existingMatches = JSON.parse(content).matches || [];
+    } catch (e) {
+      console.log('  Could not read existing matches:', e.message);
+    }
+  }
+
+  // Calculate start and end timestamp for yesterday, today, and tomorrow
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const yesterdayStart = Math.floor(new Date(todayStart.getTime() - 24 * 60 * 60 * 1000).getTime() / 1000);
+  const tomorrowEnd = Math.floor(new Date(todayStart.getTime() + 2 * 24 * 60 * 60 * 1000).getTime() / 1000);
+
+  const hasCache = existingMatches.length > 0;
+  if (hasCache) {
+    console.log(`  Loaded ${existingMatches.length} existing matches from cache.`);
+    console.log(`  Optimization active: Will ONLY update matches between yesterday and tomorrow.`);
+  } else {
+    console.log('  No cache found. Running full sync...');
+  }
+
   const allEvents = [];
-  const maxPages = isDelta ? 1 : 10;
+  const maxPages = hasCache ? 2 : 10;
 
   // Fetch finished matches (paginated: page 0 is most recent)
   console.log(`  Fetching finished matches (max ${maxPages} pages)...`);
@@ -186,22 +211,19 @@ async function fetchMatches(isDelta = false) {
     return true;
   });
 
-  // Try to load existing matches to reuse already fetched scorers
-  let existingMatches = [];
-  if (!process.argv.includes('--all') && fs.existsSync(OUTPUT_FILES.matches)) {
-    try {
-      const content = fs.readFileSync(OUTPUT_FILES.matches, 'utf8');
-      existingMatches = JSON.parse(content).matches || [];
-    } catch (e) {
-      console.log('  Could not read existing matches for caching:', e.message);
-    }
-  }
+  const matches = [...existingMatches];
 
-  const matches = [];
   for (const event of uniqueEvents) {
     const home = event.homeTeam?.name || '';
     const away = event.awayTeam?.name || '';
     const id = event.id;
+    const startTimestamp = event.startTimestamp || 0;
+
+    // If cache exists, ONLY update if it falls within the yesterday-today-tomorrow window
+    const in3DayWindow = startTimestamp >= yesterdayStart && startTimestamp < tomorrowEnd;
+    if (hasCache && !in3DayWindow) {
+      continue; // Skip updating matches outside the window
+    }
 
     // Determine status
     let status = 'upcoming';
@@ -277,10 +299,7 @@ async function fetchMatches(isDelta = false) {
     };
 
     // Find existing match in cache
-    const existing = existingMatches.find(m => 
-      (m.id === id) || 
-      (m.home === home && m.away === away && m.date === date)
-    );
+    const existing = existingMatches.find(m => m.id === id);
 
     // Fetch or reuse scorers if finished
     if (status === 'finished' || status === 'live') {
@@ -290,7 +309,7 @@ async function fetchMatches(isDelta = false) {
         matchObj.scorers = existing.scorers;
       } else {
         try {
-          console.log(`  Fetching scorers and assists for ${home} - ${away} (ID: ${id})...`);
+          console.log(`  Updating scorers and assists for ${home} - ${away} (ID: ${id})...`);
           const incidentsData = await fetchApi(`/event/${id}/incidents`);
           const incidents = incidentsData.incidents || [];
           
@@ -340,22 +359,13 @@ async function fetchMatches(isDelta = false) {
     }
 
     if (home && away) {
-      matches.push(matchObj);
-    }
-  }
-
-  // If in delta mode, merge with existing matches that were not in the newly fetched pages
-  if (isDelta) {
-    console.log('  Merging newly fetched matches with existing matches...');
-    const newlyFetchedIds = new Set(matches.map(m => m.id));
-    let mergedCount = 0;
-    for (const existing of existingMatches) {
-      if (!newlyFetchedIds.has(existing.id)) {
-        matches.push(existing);
-        mergedCount++;
+      const idx = matches.findIndex(m => m.id === id);
+      if (idx !== -1) {
+        matches[idx] = matchObj;
+      } else {
+        matches.push(matchObj);
       }
     }
-    console.log(`  ✓ Merged ${mergedCount} existing matches from cache`);
   }
 
   // Sort by startTimestamp so matches are always chronologically correct

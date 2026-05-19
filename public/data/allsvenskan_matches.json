@@ -2092,14 +2092,44 @@
       "customId": "jKsTK",
       "home": "Djurgårdens IF",
       "away": "IK Sirius",
-      "time": "19:00",
+      "time": "TBA",
       "date": "MÅNDAG 18 MAJ",
       "link": "",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 3",
+      "status": "finished",
       "startTimestamp": 1779123600,
       "round": 8,
-      "liveCurrentTime": ""
+      "liveCurrentTime": "",
+      "scorers": {
+        "home": [
+          {
+            "player": "Tobias Anker",
+            "minute": "51"
+          },
+          {
+            "player": "Mikael Anderson",
+            "minute": "13",
+            "assist": "Bo Åsulv Hegland"
+          }
+        ],
+        "away": [
+          {
+            "player": "Neo Jönsson",
+            "minute": "57",
+            "assist": "Robbie Ure"
+          },
+          {
+            "player": "Robbie Ure",
+            "minute": "43",
+            "assist": "Isak Bjerkebo"
+          },
+          {
+            "player": "Marcus Lindberg",
+            "minute": "38",
+            "assist": "Melker Heier"
+          }
+        ]
+      }
     },
     {
       "id": 15272431,
@@ -4580,6 +4610,6 @@
       "liveCurrentTime": ""
     }
   ],
-  "lastUpdated": "2026-05-18T15:06:58.249Z",
+  "lastUpdated": "2026-05-19T04:23:03.817Z",
   "source": "SofaScore"
 }

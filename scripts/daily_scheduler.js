@@ -116,16 +116,9 @@ cron.schedule('0 6 * * *', () => {
   runScraper();
 });
 
-// Check for live matches every 60 seconds
-setInterval(() => {
-  if (shouldScrapeLive()) {
-    runLiveScrape();
-  }
-}, 60000);
-
-log('📅 Daily scheduler and real-time live scraper started successfully!');
+log('📅 Daily scheduler started successfully!');
 log('- Daily complete scrape scheduled for 06:00');
-log('- Active matches will be scraped every minute automatically');
+log('- Real-time live match scraping is disabled');
 
 // Keep process alive
 setInterval(() => {}, 10000);
