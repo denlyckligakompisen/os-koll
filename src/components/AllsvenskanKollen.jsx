@@ -128,12 +128,21 @@ const AllsvenskanKollen = () => {
     const nextMatchRef = React.useRef(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const navigate = useNavigate();
+    
+    const [selectedSeason, setSelectedSeason] = useState(2026);
+    const [currentRoundSliderVal, setCurrentRoundSliderVal] = useState(30);
 
-    const teams = [
-        "AIK", "BK Häcken", "Djurgårdens IF", "GAIS", "Halmstads BK", "Hammarby IF", 
-        "IF Brommapojkarna", "IF Elfsborg", "IFK Göteborg", 
-        "IK Sirius", "Kalmar FF", "Malmö FF", "Mjällby AIF", "Västerås SK", "Degerfors IF", "Örgryte IS"
-    ].sort((a, b) => cleanTeamNameForDisplay(a).localeCompare(cleanTeamNameForDisplay(b), 'sv'));
+    const teams = useMemo(() => {
+        if (!matchesData?.matches) return [];
+        const uniqueTeams = new Set();
+        matchesData.matches.forEach(m => {
+            if (m.home) uniqueTeams.add(m.home);
+            if (m.away) uniqueTeams.add(m.away);
+        });
+        return Array.from(uniqueTeams).sort((a, b) => 
+            cleanTeamNameForDisplay(a).localeCompare(cleanTeamNameForDisplay(b), 'sv')
+        );
+    }, [matchesData]);
 
     const SUBTABS = [
         { id: 'matcher', label: 'Matcher', icon: Calendar },
@@ -167,10 +176,18 @@ const AllsvenskanKollen = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
+                const matchesUrl = selectedSeason === 2026 
+                    ? '/data/allsvenskan_matches.json' 
+                    : `/data/allsvenskan_matches_${selectedSeason}.json`;
+                const tableUrl = selectedSeason === 2026 
+                    ? '/data/allsvenskan_table.json' 
+                    : `/data/allsvenskan_table_${selectedSeason}.json`;
+
                 const [matchesRes, logosRes, tableRes, maratonRes] = await Promise.all([
-                    fetch('/data/allsvenskan_matches.json'),
+                    fetch(matchesUrl),
                     fetch('/data/allsvenskan_logos.json'),
-                    fetch('/data/allsvenskan_table.json'),
+                    fetch(tableUrl),
                     fetch('/data/allsvenskan_maraton.json')
                 ]);
                 const matches = await matchesRes.json();
@@ -183,14 +200,18 @@ const AllsvenskanKollen = () => {
                 setMaratonData(maraton);
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching Allsvenskan data:', error);
+                console.error(`Error fetching Allsvenskan data for season ${selectedSeason}:`, error);
                 setLoading(false);
             }
         };
 
         fetchData();
+    }, [selectedSeason]);
 
-        // Refetch matches every minute to keep live data updated
+    useEffect(() => {
+        if (selectedSeason !== 2026) return;
+
+        // Refetch matches every minute to keep live data updated (only for current season)
         const interval = setInterval(async () => {
             try {
                 const matchesRes = await fetch('/data/allsvenskan_matches.json');
@@ -202,7 +223,7 @@ const AllsvenskanKollen = () => {
         }, 60000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [selectedSeason]);
 
     const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
@@ -289,6 +310,218 @@ const AllsvenskanKollen = () => {
         });
     }, [filteredMatches]);
 
+
+    const maxPlayedRound = useMemo(() => {
+        if (!matchesData?.matches) return 30;
+        const finishedMatches = matchesData.matches.filter(m => m.status === 'finished');
+        if (finishedMatches.length === 0) return 0;
+        return Math.max(...finishedMatches.map(m => m.round || 1));
+    }, [matchesData]);
+
+    useEffect(() => {
+        if (matchesData) {
+            setCurrentRoundSliderVal(maxPlayedRound);
+        }
+    }, [matchesData, maxPlayedRound]);
+
+    const computedTableData = useMemo(() => {
+        if (!matchesData?.matches) return [];
+        
+        const teamSet = new Set();
+        matchesData.matches.forEach(m => {
+            if (m.home) teamSet.add(m.home);
+            if (m.away) teamSet.add(m.away);
+        });
+        const teamList = Array.from(teamSet);
+        
+        const stats = {};
+        teamList.forEach(team => {
+            stats[team] = {
+                team,
+                played: 0,
+                won: 0,
+                drawn: 0,
+                lost: 0,
+                goalsFor: 0,
+                goalsAgainst: 0,
+                points: 0
+            };
+        });
+
+        const finishedMatches = matchesData.matches.filter(m => 
+            m.status === 'finished' && 
+            m.score && 
+            (m.round || 1) <= currentRoundSliderVal
+        );
+
+        finishedMatches.forEach(m => {
+            const scoreParts = m.score.split('-').map(s => parseInt(s.trim()));
+            if (scoreParts.length === 2 && !isNaN(scoreParts[0]) && !isNaN(scoreParts[1])) {
+                const homeGoals = scoreParts[0];
+                const awayGoals = scoreParts[1];
+                const homeTeam = m.home;
+                const awayTeam = m.away;
+
+                if (stats[homeTeam] && stats[awayTeam]) {
+                    stats[homeTeam].played += 1;
+                    stats[awayTeam].played += 1;
+                    stats[homeTeam].goalsFor += homeGoals;
+                    stats[homeTeam].goalsAgainst += awayGoals;
+                    stats[awayTeam].goalsFor += awayGoals;
+                    stats[awayTeam].goalsAgainst += homeGoals;
+
+                    if (homeGoals > awayGoals) {
+                        stats[homeTeam].won += 1;
+                        stats[homeTeam].points += 3;
+                        stats[awayTeam].lost += 1;
+                    } else if (awayGoals > homeGoals) {
+                        stats[awayTeam].won += 1;
+                        stats[awayTeam].points += 3;
+                        stats[homeTeam].lost += 1;
+                    } else {
+                        stats[homeTeam].drawn += 1;
+                        stats[homeTeam].points += 1;
+                        stats[awayTeam].drawn += 1;
+                        stats[awayTeam].points += 1;
+                    }
+                }
+            }
+        });
+
+        const table = Object.values(stats).map(teamStat => {
+            const gd = teamStat.goalsFor - teamStat.goalsAgainst;
+            return {
+                team: teamStat.team,
+                played: String(teamStat.played),
+                won: String(teamStat.won),
+                drawn: String(teamStat.drawn),
+                lost: String(teamStat.lost),
+                goals: `${teamStat.goalsFor}-${teamStat.goalsAgainst}`,
+                gd: String(gd),
+                points: String(teamStat.points),
+                goalsForNum: teamStat.goalsFor,
+                gdNum: gd,
+                pointsNum: teamStat.points
+            };
+        });
+
+        table.sort((a, b) => {
+            if (b.pointsNum !== a.pointsNum) return b.pointsNum - a.pointsNum;
+            if (b.gdNum !== a.gdNum) return b.gdNum - a.gdNum;
+            if (b.goalsForNum !== a.goalsForNum) return b.goalsForNum - a.goalsForNum;
+            return cleanTeamNameForDisplay(a.team).localeCompare(cleanTeamNameForDisplay(b.team), 'sv');
+        });
+
+        return table.map((team, index) => ({
+            ...team,
+            rank: String(index + 1)
+        }));
+    }, [matchesData, currentRoundSliderVal]);
+
+    const sliderTableTrends = useMemo(() => {
+        if (!matchesData?.matches || currentRoundSliderVal <= 0) return {};
+
+        const tableR = computedTableData;
+        const teamSet = new Set();
+        matchesData.matches.forEach(m => {
+            if (m.home) teamSet.add(m.home);
+            if (m.away) teamSet.add(m.away);
+        });
+        const teamList = Array.from(teamSet);
+        
+        const statsPrev = {};
+        teamList.forEach(team => {
+            statsPrev[team] = {
+                team,
+                played: 0,
+                won: 0,
+                drawn: 0,
+                lost: 0,
+                goalsFor: 0,
+                goalsAgainst: 0,
+                points: 0
+            };
+        });
+
+        const finishedMatchesPrev = matchesData.matches.filter(m => 
+            m.status === 'finished' && 
+            m.score && 
+            (m.round || 1) < currentRoundSliderVal
+        );
+
+        finishedMatchesPrev.forEach(m => {
+            const scoreParts = m.score.split('-').map(s => parseInt(s.trim()));
+            if (scoreParts.length === 2 && !isNaN(scoreParts[0]) && !isNaN(scoreParts[1])) {
+                const homeGoals = scoreParts[0];
+                const awayGoals = scoreParts[1];
+                const homeTeam = m.home;
+                const awayTeam = m.away;
+
+                if (statsPrev[homeTeam] && statsPrev[awayTeam]) {
+                    statsPrev[homeTeam].played += 1;
+                    statsPrev[awayTeam].played += 1;
+                    statsPrev[homeTeam].goalsFor += homeGoals;
+                    statsPrev[homeTeam].goalsAgainst += awayGoals;
+                    statsPrev[awayTeam].goalsFor += awayGoals;
+                    statsPrev[awayTeam].goalsAgainst += homeGoals;
+
+                    if (homeGoals > awayGoals) {
+                        statsPrev[homeTeam].won += 1;
+                        statsPrev[homeTeam].points += 3;
+                        statsPrev[awayTeam].lost += 1;
+                    } else if (awayGoals > homeGoals) {
+                        statsPrev[awayTeam].won += 1;
+                        statsPrev[awayTeam].points += 3;
+                        statsPrev[homeTeam].lost += 1;
+                    } else {
+                        statsPrev[homeTeam].drawn += 1;
+                        statsPrev[homeTeam].points += 1;
+                        statsPrev[awayTeam].drawn += 1;
+                        statsPrev[awayTeam].points += 1;
+                    }
+                }
+            }
+        });
+
+        const tablePrev = Object.values(statsPrev).map(teamStat => {
+            const gd = teamStat.goalsFor - teamStat.goalsAgainst;
+            return {
+                team: teamStat.team,
+                goalsForNum: teamStat.goalsFor,
+                gdNum: gd,
+                pointsNum: teamStat.points
+            };
+        });
+
+        tablePrev.sort((a, b) => {
+            if (b.pointsNum !== a.pointsNum) return b.pointsNum - a.pointsNum;
+            if (b.gdNum !== a.gdNum) return b.gdNum - a.gdNum;
+            if (b.goalsForNum !== a.goalsForNum) return b.goalsForNum - a.goalsForNum;
+            return cleanTeamNameForDisplay(a.team).localeCompare(cleanTeamNameForDisplay(b.team), 'sv');
+        });
+
+        const prevRanks = {};
+        tablePrev.forEach((t, index) => {
+            prevRanks[t.team] = index + 1;
+        });
+
+        const trends = {};
+        tableR.forEach((t, index) => {
+            const currentRank = index + 1;
+            const prevRank = prevRanks[t.team];
+            if (!prevRank) {
+                trends[t.team] = 'same';
+            } else if (prevRank > currentRank) {
+                trends[t.team] = 'up';
+            } else if (prevRank < currentRank) {
+                trends[t.team] = 'down';
+            } else {
+                trends[t.team] = 'same';
+            }
+        });
+
+        return trends;
+    }, [matchesData, currentRoundSliderVal, computedTableData]);
 
     const headerStyle = useMemo(() => getHeaderStyle(filterTeam), [filterTeam]);
 
@@ -449,8 +682,11 @@ const AllsvenskanKollen = () => {
         const timer = setTimeout(() => {
             if (activeTab === 'matcher' && nextMatchRef.current) {
                 nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else if (activeTab === 'gruppspel' && filterTeam && tableRefs.current[filterTeam]) {
-                tableRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (activeTab === 'gruppspel') {
+                // Do not scroll at all in table if a filter is active
+                if (!filterTeam) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             } else if (activeTab === 'statistik' && statFilter === 'lag' && filterTeam && maratonRefs.current[filterTeam]) {
                 maratonRefs.current[filterTeam].scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else if (activeTab !== 'matcher') {
@@ -636,6 +872,76 @@ const AllsvenskanKollen = () => {
             <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
+                    {/* Season Selector */}
+                    {(activeTab === 'matcher' || activeTab === 'gruppspel') && (
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            padding: '4px 0',
+                            overflowX: 'auto',
+                            whiteSpace: 'nowrap',
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none',
+                            WebkitOverflowScrolling: 'touch',
+                            margin: '0 0 -8px 0'
+                        }} className="season-selector-container">
+                            <span style={{ 
+                                fontSize: '0.75rem', 
+                                fontWeight: '800', 
+                                color: 'var(--color-text-muted)', 
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                                flexShrink: 0
+                            }}>
+                                Säsong:
+                            </span>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map((year) => {
+                                    const isSelected = selectedSeason === year;
+                                    return (
+                                        <button
+                                            key={year}
+                                            onClick={() => {
+                                                setSelectedSeason(year);
+                                                if (navigator.vibrate) navigator.vibrate(5);
+                                            }}
+                                            style={{
+                                                padding: '6px 14px',
+                                                borderRadius: '20px',
+                                                fontSize: '0.85rem',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                transition: 'all 0.2s ease',
+                                                backgroundColor: isSelected 
+                                                    ? (filterTeam ? headerStyle.bg : 'var(--color-text)') 
+                                                    : 'rgba(0,0,0,0.05)',
+                                                color: isSelected 
+                                                    ? (filterTeam ? headerStyle.text : 'var(--color-bg)') 
+                                                    : 'var(--color-text)',
+                                                boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+                                            }}
+                                        >
+                                            {year}
+                                            {year === 2026 && (
+                                                <span style={{ 
+                                                    display: 'inline-block',
+                                                    width: '6px', 
+                                                    height: '6px', 
+                                                    borderRadius: '50%', 
+                                                    backgroundColor: '#34c759', 
+                                                    marginLeft: '6px',
+                                                    verticalAlign: 'middle',
+                                                }} className="live-indicator-pulse" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+                    
                     {activeTab === 'matcher' && (
                         <>
                             {loading ? (
@@ -684,106 +990,159 @@ const AllsvenskanKollen = () => {
 
                     {activeTab === 'gruppspel' && (
                         <div style={{ marginBottom: '32px' }}>
-                            <Card style={{ marginBottom: '0' }}>
-                                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                                    <thead>
-                                        <tr style={{ borderBottom: 'var(--border)' }}>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
-                                            <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                            <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
-                                            <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
-                                            <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>P</th>
-                                        </tr>
-                                    </thead>
-                                <tbody>
-                                    {tableData?.table.map((team, idx) => {
-                                        const rank = parseInt(team.rank);
-                                        const isFiltered = filterTeam === team.team;
-                                        const isTop = rank <= 3;
-                                        const isPlayoff = rank === 14;
-                                        const isRelegation = rank >= 15;
+                            {/* Slider control card */}
+                            <Card style={{ padding: '16px', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                                        Spela upp säsongen ({selectedSeason})
+                                    </span>
+                                    <span style={{ 
+                                        fontSize: '0.9rem', 
+                                        fontWeight: '800', 
+                                        backgroundColor: filterTeam ? headerStyle.bg : 'var(--color-text)', 
+                                        color: filterTeam ? headerStyle.text : 'var(--color-bg)',
+                                        padding: '4px 12px',
+                                        borderRadius: '12px',
+                                        boxShadow: 'var(--shadow-sm)',
+                                        transition: 'all 0.3s'
+                                    }}>
+                                        {currentRoundSliderVal === 0 ? 'Före omgång 1' : `Omgång ${currentRoundSliderVal}`}
+                                    </span>
+                                </div>
+                                
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                    <input 
+                                        type="range" 
+                                        min="0" 
+                                        max={maxPlayedRound} 
+                                        value={currentRoundSliderVal}
+                                        onChange={(e) => {
+                                            const val = parseInt(e.target.value);
+                                            setCurrentRoundSliderVal(val);
+                                            if (navigator.vibrate) navigator.vibrate(2);
+                                        }}
+                                        style={{
+                                            flex: 1,
+                                            height: '6px',
+                                            borderRadius: '3px',
+                                            background: 'rgba(0, 0, 0, 0.1)',
+                                            outline: 'none',
+                                            WebkitAppearance: 'none',
+                                            cursor: 'pointer',
+                                            '--range-color': filterTeam ? headerStyle.bg : 'var(--color-text)'
+                                        }}
+                                        className="custom-slider"
+                                    />
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>
+                                    <span>Start</span>
+                                    <span>Slut (Omgång {maxPlayedRound})</span>
+                                </div>
+                            </Card>
 
-                                        const isSeparator = [2, 4, 14, 15].includes(rank);
-
-                                        return (
-                                            <tr 
-                                                key={idx} 
-                                                ref={el => tableRefs.current[team.team] = el}
-                                                style={{ 
-                                                    backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                    transition: 'background-color 0.2s ease'
-                                                }}
-                                            >
-                                                <td style={{ 
-                                                    padding: '8px 4px',
-                                                    borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0',
-                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                }}>
-                                                    <div style={{ 
-                                                        display: 'flex', 
-                                                        alignItems: 'center', 
-                                                        gap: '4px',
-                                                        paddingLeft: '4px'
-                                                    }}>
-                                                        <div style={{ 
-                                                            width: '20px', 
-                                                            height: '28px', 
-                                                            display: 'flex', 
-                                                            alignItems: 'center', 
-                                                            justifyContent: 'center', 
-                                                            fontWeight: '700', 
-                                                            fontSize: '0.85rem', 
-                                                            backgroundColor: 'transparent', 
-                                                            color: 'inherit' 
-                                                        }}>
-                                                            {team.rank}
-                                                        </div>
-                                                        {tableTrends[team.team] === 'up' && (
-                                                            <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
-                                                        )}
-                                                        {tableTrends[team.team] === 'down' && (
-                                                            <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
-                                                        )}
-                                                    </div>
-                                                </td>
-                                                <td style={{ 
-                                                    padding: '11px 4px',
-                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                }}>
-                                                    <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                        {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
-                                                        <span>{cleanTeamNameForDisplay(team.team)}</span>
-                                                    </span>
-                                                </td>
-                                                <td style={{ 
-                                                    padding: '11px 4px', 
-                                                    textAlign: 'center',
-                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                }}>{team.played}</td>
-                                                <td style={{ 
-                                                    padding: '11px 4px', 
-                                                    textAlign: 'center', 
-                                                    color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
-                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                }}>
-                                                    {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
-                                                </td>
-                                                <td style={{ 
-                                                    padding: '11px 4px', 
-                                                    textAlign: 'right', 
-                                                    fontWeight: '800',
-                                                    borderTopRightRadius: isFiltered ? '10px' : '0',
-                                                    borderBottomRightRadius: isFiltered ? '10px' : '0',
-                                                    borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                }}>{team.points}</td>
+                            {loading ? (
+                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
+                                    Laddar tabell...
+                                </div>
+                            ) : (
+                                <Card style={{ marginBottom: '0' }}>
+                                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                        <thead>
+                                            <tr style={{ borderBottom: 'var(--border)' }}>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
+                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
+                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
+                                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>P</th>
                                             </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </Card>
-                    </div>
+                                        </thead>
+                                        <tbody>
+                                            {computedTableData.map((team, idx) => {
+                                                const rank = parseInt(team.rank);
+                                                const isFiltered = filterTeam === team.team;
+                                                const isSeparator = [2, 4, 14, 15].includes(rank);
+
+                                                return (
+                                                    <tr 
+                                                        key={idx} 
+                                                        ref={el => tableRefs.current[team.team] = el}
+                                                        style={{ 
+                                                            backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                            transition: 'background-color 0.2s ease'
+                                                        }}
+                                                    >
+                                                        <td style={{ 
+                                                            padding: '8px 4px',
+                                                            borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                            borderBottomLeftRadius: isFiltered ? '10px' : '0',
+                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                        }}>
+                                                            <div style={{ 
+                                                                display: 'flex', 
+                                                                alignItems: 'center', 
+                                                                gap: '4px',
+                                                                paddingLeft: '4px'
+                                                            }}>
+                                                                <div style={{ 
+                                                                    width: '20px', 
+                                                                    height: '28px', 
+                                                                    display: 'flex', 
+                                                                    alignItems: 'center', 
+                                                                    justifyContent: 'center', 
+                                                                    fontWeight: '700', 
+                                                                    fontSize: '0.85rem', 
+                                                                    backgroundColor: 'transparent', 
+                                                                    color: 'inherit' 
+                                                                }}>
+                                                                    {team.rank}
+                                                                </div>
+                                                                {sliderTableTrends[team.team] === 'up' && (
+                                                                    <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
+                                                                )}
+                                                                {sliderTableTrends[team.team] === 'down' && (
+                                                                    <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
+                                                                )}
+                                                            </div>
+                                                        </td>
+                                                        <td style={{ 
+                                                            padding: '11px 4px',
+                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                        }}>
+                                                            <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
+                                                                <span>{cleanTeamNameForDisplay(team.team)}</span>
+                                                            </span>
+                                                        </td>
+                                                        <td style={{ 
+                                                            padding: '11px 4px', 
+                                                            textAlign: 'center',
+                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                        }}>{team.played}</td>
+                                                        <td style={{ 
+                                                            padding: '11px 4px', 
+                                                            textAlign: 'center', 
+                                                            color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
+                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                        }}>
+                                                            {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
+                                                        </td>
+                                                        <td style={{ 
+                                                            padding: '11px 4px', 
+                                                            textAlign: 'right', 
+                                                            fontWeight: '800',
+                                                            borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                            borderBottomRightRadius: isFiltered ? '10px' : '0',
+                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                        }}>{team.points}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </Card>
+                            )}
+                        </div>
                     )}
 
                     {activeTab === 'slutspel' && (
@@ -1086,7 +1445,9 @@ const AllsvenskanKollen = () => {
                                             </table>
                                         ) : (
                                             <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
-                                                Inga mål registrerade ännu för säsongen 2026.
+                                                {selectedSeason === 2026 
+                                                    ? 'Inga mål registrerade ännu för säsongen 2026.' 
+                                                    : `Målstatistik för säsongen ${selectedSeason} är inte tillgänglig.`}
                                             </div>
                                         )}
                                     </Card>
@@ -1159,7 +1520,9 @@ const AllsvenskanKollen = () => {
                                             </table>
                                         ) : (
                                             <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
-                                                Inga assists registrerade ännu för säsongen 2026.
+                                                {selectedSeason === 2026 
+                                                    ? 'Inga assists registrerade ännu för säsongen 2026.' 
+                                                    : `Assiststatistik för säsongen ${selectedSeason} är inte tillgänglig.`}
                                             </div>
                                         )}
                                     </Card>
