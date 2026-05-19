@@ -631,7 +631,7 @@ const VMKollen = () => {
                                 letterSpacing: '0.02em'
                             }}>{getRelativeDateLabel(date)}</div>
                             {matches.map((m, i) => (
-                                <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} />
+                                <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} />
                             ))}
                         </div>
                     );
@@ -654,6 +654,7 @@ const VMKollen = () => {
                             match={m} 
                             variant="hero" 
                             onCountryClick={handleCountryClick} 
+                            allMatches={combinedMatches}
                         />
                     </div>
                 ))}

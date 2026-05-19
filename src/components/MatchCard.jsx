@@ -340,6 +340,38 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeForm = getTeamForm(match.home);
     const awayForm = getTeamForm(match.away).reverse();
 
+    const getTeamAverageGoals = (teamName) => {
+        if (!allMatches || !allMatches.length) return null;
+        const cleanTeam = cleanTeamName(teamName);
+        const teamFinished = allMatches
+            .filter(m => m.status === 'finished' && m.score && m.score.includes('-'))
+            .filter(m => cleanTeamName(m.home) === cleanTeam || cleanTeamName(m.away) === cleanTeam);
+
+        if (teamFinished.length === 0) return 0;
+
+        let totalGoals = 0;
+        teamFinished.forEach(m => {
+            const parts = m.score.split('-').map(s => parseInt(s.trim()));
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                const homeScore = parts[0];
+                const awayScore = parts[1];
+                const isHome = cleanTeamName(m.home) === cleanTeam;
+                totalGoals += isHome ? homeScore : awayScore;
+            }
+        });
+
+        return totalGoals / teamFinished.length;
+    };
+
+    const formatAvg = (val) => {
+        if (val === null || val === undefined) return '0,00';
+        return val.toFixed(2).replace('.', ',');
+    };
+
+    const homeAvg = getTeamAverageGoals(match.home);
+    const awayAvg = getTeamAverageGoals(match.away);
+    const xGText = (homeAvg !== null && awayAvg !== null) ? `${formatAvg(homeAvg)} - ${formatAvg(awayAvg)}` : null;
+
     const renderFormBadge = (result, key) => {
         let bg = '#8e8e93';
         if (result === 'V') bg = '#34c759'; // Green
@@ -544,6 +576,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {match.broadcast && (
                             <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
                                 {match.broadcast}
+                            </div>
+                        )}
+
+                        {xGText && (
+                            <div style={{
+                                fontSize: '0.75rem',
+                                fontWeight: '600',
+                                color: 'var(--color-text-muted)',
+                                marginTop: '4px',
+                                letterSpacing: '0.04em'
+                            }}>
+                                xG: {xGText}
                             </div>
                         )}
 
