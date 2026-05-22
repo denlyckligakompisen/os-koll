@@ -14,7 +14,10 @@
 
 import fs from 'fs';
 import path from 'path';
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-extra';
+import stealth from 'puppeteer-extra-plugin-stealth';
+
+chromium.use(stealth());
 
 // ─── Configuration ───────────────────────────────────────────────────────────
 

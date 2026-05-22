@@ -2164,28 +2164,64 @@
       "customId": "mKsIK",
       "home": "IF Elfsborg",
       "away": "Mjällby AIF",
-      "time": "19:00",
+      "time": "TBA",
       "date": "TORSDAG 21 MAJ",
       "link": "",
-      "score": "",
-      "status": "upcoming",
+      "score": "1 - 1",
+      "status": "finished",
       "startTimestamp": 1779382800,
       "round": 15,
-      "liveCurrentTime": ""
+      "liveCurrentTime": "",
+      "scorers": {
+        "home": [
+          {
+            "player": "Leo Östman",
+            "minute": "7",
+            "assist": "Simon Hedlund"
+          }
+        ],
+        "away": [
+          {
+            "player": "Jeppe Kjaer",
+            "minute": "49",
+            "assist": "Ludwig Thorell"
+          }
+        ]
+      }
     },
     {
       "id": 15272425,
       "customId": "jKsMK",
       "home": "Djurgårdens IF",
       "away": "IF Brommapojkarna",
-      "time": "19:00",
+      "time": "TBA",
       "date": "FREDAG 22 MAJ",
       "link": "",
-      "score": "",
-      "status": "upcoming",
+      "score": "1 - 2",
+      "status": "finished",
       "startTimestamp": 1779469200,
       "round": 9,
-      "liveCurrentTime": ""
+      "liveCurrentTime": "",
+      "scorers": {
+        "home": [
+          {
+            "player": "Mikael Anderson",
+            "minute": "28",
+            "assist": "Adam Stahl"
+          }
+        ],
+        "away": [
+          {
+            "player": "Simon Strand",
+            "minute": "63"
+          },
+          {
+            "player": "Mads Hansen",
+            "minute": "24",
+            "assist": "Oliver Berg"
+          }
+        ]
+      }
     },
     {
       "id": 15272438,
@@ -4610,6 +4646,6 @@
       "liveCurrentTime": ""
     }
   ],
-  "lastUpdated": "2026-05-19T04:23:03.817Z",
+  "lastUpdated": "2026-05-22T19:31:20.621Z",
   "source": "SofaScore"
 }
