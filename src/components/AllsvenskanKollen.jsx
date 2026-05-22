@@ -290,23 +290,8 @@ const AllsvenskanKollen = () => {
 
     const nextMatchDateString = useMemo(() => {
         if (filteredMatches.length === 0) return null;
-        const now = new Date();
-        
-        // Priority 1: Are there any matches TODAY?
-        const todayMatches = filteredMatches.filter(m => {
-            const matchDate = parseMatchDate(m.date, m.time);
-            return matchDate.getFullYear() === now.getFullYear() &&
-                   matchDate.getMonth() === now.getMonth() &&
-                   matchDate.getDate() === now.getDate();
-        });
-        
-        if (todayMatches.length > 0) {
-            return todayMatches[0].date;
-        }
-
-        // Priority 2: Next upcoming match date
-        const upcoming = filteredMatches.filter(m => parseMatchDate(m.date, m.time) >= now);
-        return upcoming[0] ? upcoming[0].date : null;
+        const firstActiveMatch = filteredMatches.find(m => m.status === 'upcoming' || m.status === 'live');
+        return firstActiveMatch ? firstActiveMatch.date : null;
     }, [filteredMatches]);
 
     const heroMatches = useMemo(() => {
@@ -1008,7 +993,7 @@ const AllsvenskanKollen = () => {
                                                                 <MatchCard 
                                                                     match={match} 
                                                                     idx={j} 
-                                                                    variant={isNext ? 'hero' : undefined}
+                                                                    variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
                                                                     homeLogo={getTeamLogo(match.home)}
                                                                     awayLogo={getTeamLogo(match.away)}
                                                                     filterTeam={filterTeam}
@@ -1127,16 +1112,6 @@ const AllsvenskanKollen = () => {
                                         className="custom-slider"
                                     />
 
-                                    <span style={{ 
-                                        fontSize: '0.75rem', 
-                                        fontWeight: '800', 
-                                        color: 'var(--color-text)',
-                                        whiteSpace: 'nowrap',
-                                        minWidth: '50px',
-                                        textAlign: 'right'
-                                    }}>
-                                        {currentRoundSliderVal === 0 ? 'Start' : `Omg ${currentRoundSliderVal}`}
-                                    </span>
                                 </div>
                             </div>
 
