@@ -7,7 +7,6 @@ import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe,
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useSwipeNavigation } from '../utils/navigation';
-import { AllsvenskanChat } from './AllsvenskanChat';
 
 
 const MONTH_MAP = { 
@@ -1705,7 +1704,6 @@ const AllsvenskanKollen = () => {
                     )}
                 </div>
             </div>
-            <AllsvenskanChat />
         </div>
     );
 };
