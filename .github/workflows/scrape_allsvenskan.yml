@@ -1,0 +1,39 @@
+name: Daily Allsvenskan Update
+on:
+  schedule:
+    - cron: '0 2 * * *'     # Daily at 04:00 Swedish time
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      # ── Allsvenskan.se Scrapers ──
+      - name: Fetch Allsvenskan Matches (allsvenskan.se)
+        run: npm run scrape:allsvenskan
+        
+      - name: Fetch Allsvenskan Table (allsvenskan.se)
+        run: npm run scrape:allsvenskan-table
+
+      # ── Playwright: logos ──
+      - name: Download team logos
+        run: npm run scrape:allsvenskan-logos
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/data/allsvenskan_matches.json public/data/allsvenskan_table.json public/data/allsvenskan_logos.json public/logos/
+          git commit -m "Update Allsvenskan data from allsvenskan.se [skip ci]" || exit 0
+          git push

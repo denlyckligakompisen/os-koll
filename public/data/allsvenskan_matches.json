@@ -1,4695 +1,2247 @@
 {
   "matches": [
     {
-      "id": 15385893,
-      "customId": "TKshL",
-      "home": "Degerfors IF",
-      "away": "IK Sirius",
-      "time": "TBA",
-      "date": "LÖRDAG 4 APRIL",
-      "link": "",
-      "score": "0 - 3",
-      "status": "finished",
-      "startTimestamp": 1775307600,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Robbie Ure",
-            "minute": "82",
-            "assist": "Victor Svensson"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "78"
-          },
-          {
-            "player": "Neo Jönsson",
-            "minute": "46",
-            "assist": "Isak Bjerkebo"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15385887,
-      "customId": "iKsIK",
       "home": "Hammarby IF",
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "LÖRDAG 4 APRIL",
       "link": "",
       "score": "3 - 0",
-      "status": "finished",
-      "startTimestamp": 1775307600,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Paulos Abraham",
-            "minute": "48",
-            "assist": "Nahir Besara"
-          },
-          {
-            "player": "Paulos Abraham",
-            "minute": "44",
-            "assist": "Nahir Besara"
-          },
-          {
-            "player": "Paulos Abraham",
-            "minute": "42"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15385894,
-      "customId": "AKsQM",
+      "home": "Degerfors IF",
+      "away": "IK Sirius",
+      "time": "TBA",
+      "date": "LÖRDAG 4 APRIL",
+      "link": "",
+      "score": "0 - 3",
+      "status": "finished"
+    },
+    {
+      "home": "AIK",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "LÖRDAG 4 APRIL",
+      "link": "",
+      "score": "2 - 1",
+      "status": "finished"
+    },
+    {
       "home": "Kalmar FF",
       "away": "Västerås SK",
       "time": "TBA",
       "date": "SÖNDAG 5 APRIL",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1775390400,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Zakarias Ravik",
-            "minute": "11"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15385886,
-      "customId": "oKsrK",
-      "home": "AIK",
-      "away": "Halmstads BK",
-      "time": "TBA",
-      "date": "SÖNDAG 5 APRIL",
-      "link": "",
-      "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1775390400,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Zadok Yohanna",
-            "minute": "83",
-            "assist": "Stanley Wilson"
-          },
-          {
-            "player": "Ibrahim Cissé",
-            "minute": "21"
-          }
-        ],
-        "away": [
-          {
-            "player": "Otso Liimatta",
-            "minute": "64",
-            "assist": "Malte Persson"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15385889,
-      "customId": "qKsRM",
       "home": "Örgryte IS",
       "away": "Malmö FF",
       "time": "TBA",
       "date": "SÖNDAG 5 APRIL",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1775399400,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Anton Andreasson",
-            "minute": "51",
-            "assist": "Mikael Dyrestam"
-          }
-        ],
-        "away": [
-          {
-            "player": "Erik Botheim",
-            "minute": "73"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15385890,
-      "customId": "kKsMK",
       "home": "BK Häcken",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "MÅNDAG 6 APRIL",
+      "date": "SÖNDAG 5 APRIL",
       "link": "",
       "score": "2 - 2",
-      "status": "finished",
-      "startTimestamp": 1775476800,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Jordan Simpson",
-            "minute": "70"
-          },
-          {
-            "player": "Adrian Svanback",
-            "minute": "47",
-            "assist": "Amor Layouni"
-          }
-        ],
-        "away": [
-          {
-            "player": "Andreas Troelsen",
-            "minute": "89",
-            "assist": "Oliver Zandén"
-          },
-          {
-            "player": "Lukas Björklund",
-            "minute": "8",
-            "assist": "Mads Hansen"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15385891,
-      "customId": "lKsmK",
       "home": "IF Elfsborg",
       "away": "IFK Göteborg",
       "time": "TBA",
       "date": "MÅNDAG 6 APRIL",
       "link": "",
       "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1775476800,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Julius Magnusson",
-            "minute": "65",
-            "assist": "Simon Olsson"
-          },
-          {
-            "player": "Taylor Silverholt",
-            "minute": "59",
-            "assist": "Simon Olsson"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15385888,
-      "customId": "jKsLK",
       "home": "GAIS",
       "away": "Djurgårdens IF",
       "time": "TBA",
       "date": "MÅNDAG 6 APRIL",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1775485800,
-      "round": 1,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Patric Åslund",
-            "minute": "65",
-            "assist": "Oskar Fallenius"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406402,
-      "customId": "qKsIK",
+      "home": "IFK Göteborg",
+      "away": "BK Häcken",
+      "time": "TBA",
+      "date": "MÅNDAG 6 APRIL",
+      "link": "",
+      "score": "0 - 2",
+      "status": "finished"
+    },
+    {
       "home": "Mjällby AIF",
       "away": "Örgryte IS",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
       "link": "",
       "score": "0 - 2",
-      "status": "finished",
-      "startTimestamp": 1775912400,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Jerome Tibbling Ugwo",
-            "minute": "26",
-            "assist": "Mikael Dyrestam"
-          },
-          {
-            "player": "Anton Andreasson",
-            "minute": "21",
-            "assist": "Tobias Sana"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406403,
-      "customId": "mKsAK",
       "home": "Västerås SK",
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
       "link": "",
       "score": "2 - 2",
-      "status": "finished",
-      "startTimestamp": 1775912400,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Mikkel Ladefoged",
-            "minute": "81",
-            "assist": "Mamadou Diagne"
-          },
-          {
-            "player": "Mikkel Ladefoged",
-            "minute": "74",
-            "assist": "Marcus Baggesen"
-          }
-        ],
-        "away": [
-          {
-            "player": "Ari Sigurpálsson",
-            "minute": "90",
-            "assist": "Thomas Isherwood"
-          },
-          {
-            "player": "Niklas Hult",
-            "minute": "49",
-            "assist": "Rufai Mohammed"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406401,
-      "customId": "kKslK",
-      "home": "IFK Göteborg",
-      "away": "BK Häcken",
+      "home": "Djurgårdens IF",
+      "away": "Kalmar FF",
       "time": "TBA",
       "date": "LÖRDAG 11 APRIL",
       "link": "",
-      "score": "0 - 2",
-      "status": "finished",
-      "startTimestamp": 1775912400,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Mikkel Rygaard",
-            "minute": "84",
-            "assist": "Amor Layouni"
-          },
-          {
-            "player": "Gustav Lindgren",
-            "minute": "17",
-            "assist": "Julius Lindberg"
-          }
-        ]
-      }
+      "score": "3 - 2",
+      "status": "finished"
     },
     {
-      "id": 15406407,
-      "customId": "rKshL",
       "home": "Halmstads BK",
       "away": "Degerfors IF",
       "time": "TBA",
       "date": "SÖNDAG 12 APRIL",
       "link": "",
       "score": "0 - 3",
-      "status": "finished",
-      "startTimestamp": 1775995200,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Marcus Rafferty",
-            "minute": "90",
-            "assist": "Nahom Girmai"
-          },
-          {
-            "player": "Sebastian Ohlsson",
-            "minute": "56",
-            "assist": "Juhani Pikkarainen"
-          },
-          {
-            "player": "Daniel Sundgren",
-            "minute": "44"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406400,
-      "customId": "jKsQM",
-      "home": "Djurgårdens IF",
-      "away": "Kalmar FF",
-      "time": "TBA",
-      "date": "SÖNDAG 12 APRIL",
-      "link": "",
-      "score": "3 - 2",
-      "status": "finished",
-      "startTimestamp": 1775995200,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Kristian Stromland Lien",
-            "minute": "85",
-            "assist": "Matias Siltanen"
-          },
-          {
-            "player": "Kristian Stromland Lien",
-            "minute": "7"
-          },
-          {
-            "player": "Bo Åsulv Hegland",
-            "minute": "2",
-            "assist": "Mikael Marques"
-          }
-        ],
-        "away": [
-          {
-            "player": "Achraf Dari",
-            "minute": "29",
-            "assist": "Melker Hallberg"
-          },
-          {
-            "player": "Charlie Rosenqvist",
-            "minute": "16",
-            "assist": "Robert Gojani"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15406404,
-      "customId": "LKsRM",
       "home": "Malmö FF",
       "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 12 APRIL",
       "link": "",
       "score": "3 - 1",
-      "status": "finished",
-      "startTimestamp": 1776004200,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Otto Rosengren",
-            "minute": "42",
-            "assist": "Colin Rösler"
-          },
-          {
-            "player": "Oscar Sjostrand",
-            "minute": "37"
-          },
-          {
-            "player": "Pontus Jansson",
-            "minute": "21",
-            "assist": "Jens Stryger Larsen"
-          }
-        ],
-        "away": [
-          {
-            "player": "Shalom Ekong",
-            "minute": "87",
-            "assist": "William Milovanovic"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406406,
-      "customId": "oKsMK",
       "home": "IF Brommapojkarna",
       "away": "AIK",
       "time": "TBA",
-      "date": "MÅNDAG 13 APRIL",
+      "date": "SÖNDAG 12 APRIL",
       "link": "",
       "score": "2 - 2",
-      "status": "finished",
-      "startTimestamp": 1776099600,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Alex Timossi Andersson",
-            "minute": "90",
-            "assist": "Kamilcan Sever"
-          },
-          {
-            "player": "Mads Hansen",
-            "minute": "62"
-          }
-        ],
-        "away": [
-          {
-            "player": "Victor Andersson",
-            "minute": "78",
-            "assist": "Johan Hove"
-          },
-          {
-            "player": "Bersant Celina",
-            "minute": "59",
-            "assist": "Zadok Yohanna"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15406405,
-      "customId": "iKsTK",
       "home": "IK Sirius",
       "away": "Hammarby IF",
       "time": "TBA",
       "date": "MÅNDAG 13 APRIL",
       "link": "",
       "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1776099600,
-      "round": 2,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Robbie Ure",
-            "minute": "70"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "9",
-            "assist": "Oscar Krusnell"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272377,
-      "customId": "mKshL",
+      "home": "Djurgårdens IF",
+      "away": "Malmö FF",
+      "time": "TBA",
+      "date": "MÅNDAG 13 APRIL",
+      "link": "",
+      "score": "0 - 1",
+      "status": "finished"
+    },
+    {
       "home": "Degerfors IF",
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "FREDAG 17 APRIL",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1776445200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Julius Magnusson",
-            "minute": "52"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272386,
-      "customId": "jKsRM",
-      "home": "Djurgårdens IF",
-      "away": "Malmö FF",
+      "home": "Hammarby IF",
+      "away": "Örgryte IS",
       "time": "TBA",
       "date": "FREDAG 17 APRIL",
       "link": "",
-      "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1776445200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Sead Hakšabanović",
-            "minute": "61",
-            "assist": "Otto Rosengren"
-          }
-        ]
-      }
+      "score": "8 - 1",
+      "status": "finished"
     },
     {
-      "id": 15272379,
-      "customId": "AKsTK",
-      "home": "IK Sirius",
-      "away": "Västerås SK",
-      "time": "TBA",
-      "date": "LÖRDAG 18 APRIL",
-      "link": "",
-      "score": "4 - 1",
-      "status": "finished",
-      "startTimestamp": 1776517200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Henrik Castegren",
-            "minute": "62",
-            "assist": "Tobias Anker"
-          },
-          {
-            "player": "Tobias Anker",
-            "minute": "45",
-            "assist": "Robbie Ure"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "31"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "8"
-          }
-        ],
-        "away": [
-          {
-            "player": "Frédéric Nsabiyumva",
-            "minute": "53",
-            "assist": "Marcus Baggesen"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272390,
-      "customId": "lKsrK",
-      "home": "Halmstads BK",
-      "away": "IFK Göteborg",
-      "time": "TBA",
-      "date": "LÖRDAG 18 APRIL",
-      "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1776517200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Omar Faraj",
-            "minute": "62",
-            "assist": "Ludvig Arvidsson"
-          }
-        ],
-        "away": [
-          {
-            "player": "Tobias Heintz",
-            "minute": "64",
-            "assist": "Saidou Alioum Moubarak"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272388,
-      "customId": "IKsMK",
       "home": "Mjällby AIF",
       "away": "IF Brommapojkarna",
       "time": "TBA",
       "date": "LÖRDAG 18 APRIL",
       "link": "",
       "score": "3 - 0",
-      "status": "finished",
-      "startTimestamp": 1776517200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Abdoulie Manneh",
-            "minute": "32",
-            "assist": "Jesper Gustavsson"
-          },
-          {
-            "player": "Jacob Bergström",
-            "minute": "28",
-            "assist": "Elliot Stroud"
-          },
-          {
-            "player": "Ludwig Thorell",
-            "minute": "5",
-            "assist": "Abdoulie Manneh"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272385,
-      "customId": "iKsqK",
-      "home": "Hammarby IF",
-      "away": "Örgryte IS",
+      "home": "IK Sirius",
+      "away": "Västerås SK",
       "time": "TBA",
       "date": "LÖRDAG 18 APRIL",
       "link": "",
-      "score": "8 - 1",
-      "status": "finished",
-      "startTimestamp": 1776517200,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Nikola Vasic",
-            "minute": "86",
-            "assist": "Victor Lind"
-          },
-          {
-            "player": "Nikola Vasic",
-            "minute": "79",
-            "assist": "Victor Lind"
-          },
-          {
-            "player": "Nikola Vasic",
-            "minute": "70",
-            "assist": "Frank Junior Adjei"
-          },
-          {
-            "player": "Montader Madjed",
-            "minute": "57",
-            "assist": "Nahir Besara"
-          },
-          {
-            "player": "Victor Lind",
-            "minute": "33",
-            "assist": "Nahir Besara"
-          },
-          {
-            "player": "Paulos Abraham",
-            "minute": "22"
-          },
-          {
-            "player": "Nahir Besara",
-            "minute": "18",
-            "assist": "Noah Persson"
-          },
-          {
-            "player": "Noah Persson",
-            "minute": "11",
-            "assist": "Markus Karlsson"
-          }
-        ],
-        "away": [
-          {
-            "player": "Christoffer Styffe",
-            "minute": "32"
-          }
-        ]
-      }
+      "score": "4 - 1",
+      "status": "finished"
     },
     {
-      "id": 15272374,
-      "customId": "oKsQM",
+      "home": "Halmstads BK",
+      "away": "IFK Göteborg",
+      "time": "TBA",
+      "date": "LÖRDAG 18 APRIL",
+      "link": "",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
       "home": "AIK",
       "away": "Kalmar FF",
       "time": "TBA",
-      "date": "SÖNDAG 19 APRIL",
+      "date": "LÖRDAG 18 APRIL",
       "link": "",
       "score": "1 - 0",
-      "status": "finished",
-      "startTimestamp": 1776600000,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Johan Hove",
-            "minute": "26"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272378,
-      "customId": "kKsLK",
       "home": "BK Häcken",
       "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 19 APRIL",
       "link": "",
       "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1776609000,
-      "round": 3,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Gustav Lindgren",
-            "minute": "80",
-            "assist": "Mikkel Rygaard"
-          },
-          {
-            "player": "Abdoulaye Doumbia",
-            "minute": "51"
-          }
-        ],
-        "away": [
-          {
-            "player": "Róbert Frosti Thorkelsson",
-            "minute": "57",
-            "assist": "Samuel Salter"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272383,
-      "customId": "qKsMK",
+      "home": "Hammarby IF",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "SÖNDAG 19 APRIL",
+      "link": "",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
       "home": "Örgryte IS",
       "away": "IF Brommapojkarna",
       "time": "TBA",
       "date": "ONSDAG 22 APRIL",
       "link": "",
       "score": "1 - 2",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Christoffer Styffe",
-            "minute": "67",
-            "assist": "Tobias Sana"
-          }
-        ],
-        "away": [
-          {
-            "player": "Lukas Björklund",
-            "minute": "72",
-            "assist": "Rasmus Örqvist"
-          },
-          {
-            "player": "David Isso",
-            "minute": "39",
-            "assist": "Mads Hansen"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272387,
-      "customId": "kKsAK",
+      "home": "IF Elfsborg",
+      "away": "Djurgårdens IF",
+      "time": "TBA",
+      "date": "ONSDAG 22 APRIL",
+      "link": "",
+      "score": "2 - 1",
+      "status": "finished"
+    },
+    {
       "home": "Västerås SK",
       "away": "BK Häcken",
       "time": "TBA",
       "date": "ONSDAG 22 APRIL",
       "link": "",
       "score": "3 - 3",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Mikkel Ladefoged",
-            "minute": "58",
-            "assist": "Jonathan Ring"
-          },
-          {
-            "player": "Mikkel Ladefoged",
-            "minute": "45",
-            "assist": "Abdelrahman Boudah"
-          },
-          {
-            "player": "Mikkel Ladefoged",
-            "minute": "4",
-            "assist": "Ismet Lushaku"
-          }
-        ],
-        "away": [
-          {
-            "player": "Filip Helander",
-            "minute": "83",
-            "assist": "Amor Layouni"
-          },
-          {
-            "player": "Adrian Svanback",
-            "minute": "64",
-            "assist": "Mikkel Rygaard"
-          },
-          {
-            "player": "Jeremy Agbonifo",
-            "minute": "12",
-            "assist": "Adrian Svanback"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272381,
-      "customId": "iKsrK",
-      "home": "Hammarby IF",
-      "away": "Halmstads BK",
+      "home": "GAIS",
+      "away": "Mjällby AIF",
       "time": "TBA",
       "date": "ONSDAG 22 APRIL",
       "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Frank Junior Adjei",
-            "minute": "58"
-          }
-        ],
-        "away": [
-          {
-            "player": "Otso Liimatta",
-            "minute": "10"
-          }
-        ]
-      }
+      "score": "0 - 0",
+      "status": "finished"
     },
     {
-      "id": 15272384,
-      "customId": "jKsmK",
-      "home": "IF Elfsborg",
-      "away": "Djurgårdens IF",
-      "time": "TBA",
-      "date": "ONSDAG 22 APRIL",
-      "link": "",
-      "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1776877200,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Jacob Rinne",
-            "minute": "88"
-          },
-          {
-            "player": "Frederik Ihler",
-            "minute": "25"
-          }
-        ],
-        "away": [
-          {
-            "player": "Piotr Johansson",
-            "minute": "19",
-            "assist": "Bo Åsulv Hegland"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272389,
-      "customId": "lKsQM",
-      "home": "Kalmar FF",
-      "away": "IFK Göteborg",
+      "home": "Malmö FF",
+      "away": "IK Sirius",
       "time": "TBA",
       "date": "TORSDAG 23 APRIL",
       "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1776963600,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Charlie Rosenqvist",
-            "minute": "29",
-            "assist": "Rony Jansson"
-          }
-        ],
-        "away": [
-          {
-            "player": "Tobias Heintz",
-            "minute": "45",
-            "assist": "Adam Bergmark Wiberg"
-          }
-        ]
-      }
+      "score": "2 - 3",
+      "status": "finished"
     },
     {
-      "id": 15272394,
-      "customId": "oKshL",
       "home": "Degerfors IF",
       "away": "AIK",
       "time": "TBA",
       "date": "TORSDAG 23 APRIL",
       "link": "",
       "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1776963600,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Arman Taranis",
-            "minute": "85",
-            "assist": "Dijan Vukojevic"
-          },
-          {
-            "player": "Stanley Wilson",
-            "minute": "15"
-          }
-        ],
-        "away": [
-          {
-            "player": "Johan Hove",
-            "minute": "45",
-            "assist": "Erik Flataker"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272382,
-      "customId": "IKsLK",
-      "home": "GAIS",
-      "away": "Mjällby AIF",
+      "home": "Kalmar FF",
+      "away": "IFK Göteborg",
       "time": "TBA",
       "date": "TORSDAG 23 APRIL",
       "link": "",
-      "score": "0 - 0",
-      "status": "finished",
-      "startTimestamp": 1776963600,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": []
-      }
+      "score": "1 - 1",
+      "status": "finished"
     },
     {
-      "id": 15272375,
-      "customId": "TKsRM",
-      "home": "Malmö FF",
-      "away": "IK Sirius",
-      "time": "TBA",
-      "date": "TORSDAG 23 APRIL",
-      "link": "",
-      "score": "2 - 3",
-      "status": "finished",
-      "startTimestamp": 1776963600,
-      "round": 4,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Adrian Skogmar",
-            "minute": "77",
-            "assist": "Jens Stryger Larsen"
-          },
-          {
-            "player": "Sead Hakšabanović",
-            "minute": "55"
-          }
-        ],
-        "away": [
-          {
-            "player": "Robbie Ure",
-            "minute": "65",
-            "assist": "Neo Jönsson"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "60",
-            "assist": "Marcus Lindberg"
-          },
-          {
-            "player": "Mohamed Soumah",
-            "minute": "13"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272397,
-      "customId": "iKsjK",
       "home": "Djurgårdens IF",
       "away": "Hammarby IF",
       "time": "TBA",
-      "date": "SÖNDAG 26 APRIL",
+      "date": "TORSDAG 23 APRIL",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1777204800,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Kristian Stromland Lien",
-            "minute": "9",
-            "assist": "Hampus Finndell"
-          }
-        ],
-        "away": [
-          {
-            "player": "Nahir Besara",
-            "minute": "61",
-            "assist": "Oscar Johansson Schellhas"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272400,
-      "customId": "AKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Västerås SK",
-      "time": "TBA",
-      "date": "SÖNDAG 26 APRIL",
-      "link": "",
-      "score": "1 - 2",
-      "status": "finished",
-      "startTimestamp": 1777213800,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Oliver Berg",
-            "minute": "7"
-          }
-        ],
-        "away": [
-          {
-            "player": "Philip Bonde",
-            "minute": "58",
-            "assist": "Ismet Lushaku"
-          },
-          {
-            "player": "Philip Bonde",
-            "minute": "3",
-            "assist": "Ismet Lushaku"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272392,
-      "customId": "lKsLK",
       "home": "IFK Göteborg",
       "away": "GAIS",
       "time": "TBA",
       "date": "SÖNDAG 26 APRIL",
       "link": "",
       "score": "2 - 2",
-      "status": "finished",
-      "startTimestamp": 1777213800,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "David Kruse",
-            "minute": "72",
-            "assist": "Adam Bergmark Wiberg"
-          },
-          {
-            "player": "Rockson Yeboah",
-            "minute": "25",
-            "assist": "David Kruse"
-          }
-        ],
-        "away": [
-          {
-            "player": "William Milovanovic",
-            "minute": "69",
-            "assist": "Joackim Fagerjord"
-          },
-          {
-            "player": "Max Andersson",
-            "minute": "63"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272391,
-      "customId": "qKshL",
+      "home": "IF Brommapojkarna",
+      "away": "Västerås SK",
+      "time": "TBA",
+      "date": "SÖNDAG 26 APRIL",
+      "link": "",
+      "score": "1 - 2",
+      "status": "finished"
+    },
+    {
+      "home": "AIK",
+      "away": "Malmö FF",
+      "time": "TBA",
+      "date": "SÖNDAG 26 APRIL",
+      "link": "",
+      "score": "0 - 1",
+      "status": "finished"
+    },
+    {
       "home": "Örgryte IS",
       "away": "Degerfors IF",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1777309200,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Tobias Sana",
-            "minute": "85"
-          }
-        ],
-        "away": [
-          {
-            "player": "Yiriyon Gideon",
-            "minute": "68",
-            "assist": "Nahom Girmai"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272399,
-      "customId": "rKsIK",
-      "home": "Mjällby AIF",
-      "away": "Halmstads BK",
-      "time": "TBA",
-      "date": "MÅNDAG 27 APRIL",
-      "link": "",
-      "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1777309200,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Villiam Granath",
-            "minute": "84",
-            "assist": "Olle Lindberg"
-          },
-          {
-            "player": "Jacob Bergström",
-            "minute": "56"
-          }
-        ],
-        "away": []
-      }
-    },
-    {
-      "id": 15272398,
-      "customId": "kKsTK",
       "home": "BK Häcken",
       "away": "IK Sirius",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
       "link": "",
       "score": "2 - 2",
-      "status": "finished",
-      "startTimestamp": 1777309200,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Gustav Lindgren",
-            "minute": "37",
-            "assist": "Brice Wembangomo"
-          },
-          {
-            "player": "Mikkel Rygaard",
-            "minute": "25",
-            "assist": "Adrian Svanback"
-          }
-        ],
-        "away": [
-          {
-            "player": "Mohamed Soumah",
-            "minute": "86",
-            "assist": "Neo Jönsson"
-          },
-          {
-            "player": "Robbie Ure",
-            "minute": "40"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272401,
-      "customId": "mKsQM",
+      "home": "Mjällby AIF",
+      "away": "Halmstads BK",
+      "time": "TBA",
+      "date": "MÅNDAG 27 APRIL",
+      "link": "",
+      "score": "2 - 0",
+      "status": "finished"
+    },
+    {
       "home": "Kalmar FF",
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
       "link": "",
       "score": "2 - 1",
-      "status": "finished",
-      "startTimestamp": 1777309200,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Anthony Olusanya",
-            "minute": "57",
-            "assist": "Charles Sagoe Jr."
-          },
-          {
-            "player": "Charlie Rosenqvist",
-            "minute": "12",
-            "assist": "Charles Sagoe Jr."
-          }
-        ],
-        "away": [
-          {
-            "player": "Frederik Ihler",
-            "minute": "5",
-            "assist": "Taylor Silverholt"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272395,
-      "customId": "oKsRM",
-      "home": "AIK",
-      "away": "Malmö FF",
+      "home": "Degerfors IF",
+      "away": "BK Häcken",
       "time": "TBA",
       "date": "MÅNDAG 27 APRIL",
       "link": "",
-      "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1777309200,
-      "round": 5,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Erik Botheim",
-            "minute": "25",
-            "assist": "Sead Hakšabanović"
-          }
-        ]
-      }
+      "score": "1 - 1",
+      "status": "finished"
     },
     {
-      "id": 15272409,
-      "customId": "TKsQM",
       "home": "IK Sirius",
       "away": "Kalmar FF",
       "time": "TBA",
       "date": "LÖRDAG 2 MAJ",
       "link": "",
       "score": "3 - 2",
-      "status": "finished",
-      "startTimestamp": 1777726800,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Odera Samuel Adindu",
-            "minute": "90",
-            "assist": "Joakim Persson"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "74"
-          },
-          {
-            "player": "Victor Svensson",
-            "minute": "64",
-            "assist": "Marcus Lindberg"
-          }
-        ],
-        "away": [
-          {
-            "player": "Rony Jansson",
-            "minute": "45",
-            "assist": "Charles Sagoe Jr."
-          },
-          {
-            "player": "Charlie Rosenqvist",
-            "minute": "38",
-            "assist": "Charles Sagoe Jr."
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272406,
-      "customId": "kKshL",
-      "home": "Degerfors IF",
-      "away": "BK Häcken",
-      "time": "TBA",
-      "date": "LÖRDAG 2 MAJ",
-      "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1777726800,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Arman Taranis",
-            "minute": "71",
-            "assist": "Daniel Sundgren"
-          }
-        ],
-        "away": [
-          {
-            "player": "Silas Andersen",
-            "minute": "19"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272403,
-      "customId": "iKsAK",
       "home": "Hammarby IF",
       "away": "Västerås SK",
       "time": "TBA",
-      "date": "SÖNDAG 3 MAJ",
+      "date": "LÖRDAG 2 MAJ",
       "link": "",
       "score": "3 - 0",
-      "status": "finished",
-      "startTimestamp": 1777809600,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Montader Madjed",
-            "minute": "86",
-            "assist": "Noah Persson"
-          },
-          {
-            "player": "Paulos Abraham",
-            "minute": "73",
-            "assist": "Ibrahima Fofana"
-          },
-          {
-            "player": "Victor Lind",
-            "minute": "67",
-            "assist": "Hampus Skoglund"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272404,
-      "customId": "IKsRM",
       "home": "Malmö FF",
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
       "link": "",
       "score": "2 - 3",
-      "status": "finished",
-      "startTimestamp": 1777809600,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Sead Hakšabanović",
-            "minute": "81",
-            "assist": "Taha Abdi Ali"
-          },
-          {
-            "player": "Taha Abdi Ali",
-            "minute": "57",
-            "assist": "Sead Hakšabanović"
-          }
-        ],
-        "away": [
-          {
-            "player": "Jacob Bergström",
-            "minute": "70",
-            "assist": "Jeppe Kjaer"
-          },
-          {
-            "player": "Elliot Stroud",
-            "minute": "49",
-            "assist": "Abdoulie Manneh"
-          },
-          {
-            "player": "Jacob Bergström",
-            "minute": "2",
-            "assist": "Villiam Granath"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272405,
-      "customId": "qKsLK",
       "home": "GAIS",
       "away": "Örgryte IS",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
       "link": "",
       "score": "4 - 0",
-      "status": "finished",
-      "startTimestamp": 1777818600,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Oscar Pettersson",
-            "minute": "90",
-            "assist": "William Milovanovic"
-          },
-          {
-            "player": "Joackim Fagerjord",
-            "minute": "52"
-          },
-          {
-            "player": "Samuel Salter",
-            "minute": "46",
-            "assist": "Max Andersson"
-          },
-          {
-            "player": "Max Andersson",
-            "minute": "33",
-            "assist": "William Milovanovic"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272408,
-      "customId": "mKsoK",
       "home": "IF Elfsborg",
       "away": "AIK",
       "time": "TBA",
       "date": "SÖNDAG 3 MAJ",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1777818600,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Ari Sigurpálsson",
-            "minute": "8",
-            "assist": "Frederik Ihler"
-          }
-        ],
-        "away": [
-          {
-            "player": "Zadok Yohanna",
-            "minute": "9",
-            "assist": "Bersant Celina"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272410,
-      "customId": "rKsMK",
+      "home": "Djurgårdens IF",
+      "away": "IFK Göteborg",
+      "time": "TBA",
+      "date": "SÖNDAG 3 MAJ",
+      "link": "",
+      "score": "6 - 0",
+      "status": "finished"
+    },
+    {
       "home": "Halmstads BK",
       "away": "IF Brommapojkarna",
       "time": "TBA",
       "date": "MÅNDAG 4 MAJ",
       "link": "",
       "score": "1 - 3",
-      "status": "finished",
-      "startTimestamp": 1777914000,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Leo Cavallius",
-            "minute": "90"
-          }
-        ],
-        "away": [
-          {
-            "player": "Mads Hansen",
-            "minute": "82",
-            "assist": "Oliver Berg"
-          },
-          {
-            "player": "Kaare Barslund",
-            "minute": "69",
-            "assist": "Mads Hansen"
-          },
-          {
-            "player": "Sion Oppong",
-            "minute": "59",
-            "assist": "David Isso"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272402,
-      "customId": "jKslK",
-      "home": "Djurgårdens IF",
-      "away": "IFK Göteborg",
-      "time": "TBA",
-      "date": "MÅNDAG 4 MAJ",
-      "link": "",
-      "score": "6 - 0",
-      "status": "finished",
-      "startTimestamp": 1777914000,
-      "round": 6,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Joel Asoro",
-            "minute": "90",
-            "assist": "Bo Åsulv Hegland"
-          },
-          {
-            "player": "Joel Asoro",
-            "minute": "81",
-            "assist": "Mikael Anderson"
-          },
-          {
-            "player": "Patric Åslund",
-            "minute": "62",
-            "assist": "Bo Åsulv Hegland"
-          },
-          {
-            "player": "Kristian Stromland Lien",
-            "minute": "34",
-            "assist": "Piotr Johansson"
-          },
-          {
-            "player": "Patric Åslund",
-            "minute": "31"
-          },
-          {
-            "player": "Jeppe Okkels",
-            "minute": "15",
-            "assist": "Bo Åsulv Hegland"
-          }
-        ],
-        "away": []
-      }
-    },
-    {
-      "id": 15272411,
-      "customId": "mKsMK",
       "home": "IF Elfsborg",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "FREDAG 8 MAJ",
+      "date": "MÅNDAG 4 MAJ",
       "link": "",
       "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1778259600,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Leo Östman",
-            "minute": "90",
-            "assist": "Arbër Zeneli"
-          },
-          {
-            "player": "Leo Östman",
-            "minute": "72",
-            "assist": "Julius Magnusson"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272416,
-      "customId": "AKsLK",
-      "home": "Västerås SK",
-      "away": "GAIS",
+      "home": "IFK Göteborg",
+      "away": "Hammarby IF",
       "time": "TBA",
-      "date": "LÖRDAG 9 MAJ",
+      "date": "FREDAG 8 MAJ",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1778331600,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Róbert Frosti Thorkelsson",
-            "minute": "56",
-            "assist": "Rasmus Niklasson"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272414,
-      "customId": "IKshL",
       "home": "Degerfors IF",
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "LÖRDAG 9 MAJ",
       "link": "",
       "score": "1 - 4",
-      "status": "finished",
-      "startTimestamp": 1778331600,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Nasiru Moro",
-            "minute": "51",
-            "assist": "Daniel Sundgren"
-          }
-        ],
-        "away": [
-          {
-            "player": "Elliot Stroud",
-            "minute": "84",
-            "assist": "Jesper Gustavsson"
-          },
-          {
-            "player": "Abdoulie Manneh",
-            "minute": "37",
-            "assist": "Tony Miettinen"
-          },
-          {
-            "player": "Tom Pettersson",
-            "minute": "30",
-            "assist": "Abdullah Iqbal"
-          },
-          {
-            "player": "Jeppe Kjaer",
-            "minute": "4",
-            "assist": "Ludwig Thorell"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272407,
-      "customId": "iKslK",
-      "home": "IFK Göteborg",
-      "away": "Hammarby IF",
+      "home": "Västerås SK",
+      "away": "GAIS",
       "time": "TBA",
       "date": "LÖRDAG 9 MAJ",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1778331600,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Victor Eriksson",
-            "minute": "90",
-            "assist": "Oscar Johansson Schellhas"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272417,
-      "customId": "rKsQM",
+      "home": "AIK",
+      "away": "Djurgårdens IF",
+      "time": "TBA",
+      "date": "LÖRDAG 9 MAJ",
+      "link": "",
+      "score": "2 - 4",
+      "status": "finished"
+    },
+    {
       "home": "Kalmar FF",
       "away": "Halmstads BK",
       "time": "TBA",
       "date": "SÖNDAG 10 MAJ",
       "link": "",
       "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1778414400,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Anthony Olusanya",
-            "minute": "59",
-            "assist": "Marius Söderbäck"
-          },
-          {
-            "player": "Charles Sagoe Jr.",
-            "minute": "52",
-            "assist": "Charlie Rosenqvist"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272413,
-      "customId": "jKsoK",
-      "home": "AIK",
-      "away": "Djurgårdens IF",
-      "time": "TBA",
-      "date": "SÖNDAG 10 MAJ",
-      "link": "",
-      "score": "2 - 4",
-      "status": "finished",
-      "startTimestamp": 1778414400,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Dino Beširović",
-            "minute": "63",
-            "assist": "Áron Csongvai"
-          },
-          {
-            "player": "Kevin Filling",
-            "minute": "21",
-            "assist": "Zadok Yohanna"
-          }
-        ],
-        "away": [
-          {
-            "player": "Bo Åsulv Hegland",
-            "minute": "85",
-            "assist": "Kristian Stromland Lien"
-          },
-          {
-            "player": "Mikael Marques",
-            "minute": "45",
-            "assist": "Bo Åsulv Hegland"
-          },
-          {
-            "player": "Miro Tenho",
-            "minute": "16",
-            "assist": "Bo Åsulv Hegland"
-          },
-          {
-            "player": "Hampus Finndell",
-            "minute": "10"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272412,
-      "customId": "kKsRM",
       "home": "BK Häcken",
       "away": "Malmö FF",
       "time": "TBA",
       "date": "SÖNDAG 10 MAJ",
       "link": "",
       "score": "3 - 2",
-      "status": "finished",
-      "startTimestamp": 1778423400,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Gustav Lindgren",
-            "minute": "37",
-            "assist": "Adam Lundqvist"
-          },
-          {
-            "player": "Jens Stryger Larsen",
-            "minute": "20"
-          },
-          {
-            "player": "Gustav Lindgren",
-            "minute": "4",
-            "assist": "Adrian Svanback"
-          }
-        ],
-        "away": [
-          {
-            "player": "Erik Botheim",
-            "minute": "39",
-            "assist": "Sead Hakšabanović"
-          },
-          {
-            "player": "Busanello",
-            "minute": "24",
-            "assist": "Otto Rosengren"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272415,
-      "customId": "qKsTK",
       "home": "IK Sirius",
       "away": "Örgryte IS",
       "time": "TBA",
-      "date": "MÅNDAG 11 MAJ",
+      "date": "SÖNDAG 10 MAJ",
       "link": "",
       "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1778518800,
-      "round": 7,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "73",
-            "assist": "Joakim Persson"
-          },
-          {
-            "player": "Isak Bjerkebo",
-            "minute": "39"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272419,
-      "customId": "LKshL",
       "home": "GAIS",
       "away": "Degerfors IF",
       "time": "TBA",
-      "date": "LÖRDAG 16 MAJ",
+      "date": "MÅNDAG 11 MAJ",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1778936400,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "William Milovanovic",
-            "minute": "12",
-            "assist": "Matteo de Brienne"
-          }
-        ],
-        "away": [
-          {
-            "player": "Erik Lindell",
-            "minute": "82",
-            "assist": "Elias Barsoum"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272428,
-      "customId": "mKsrK",
       "home": "Halmstads BK",
       "away": "IF Elfsborg",
       "time": "TBA",
       "date": "LÖRDAG 16 MAJ",
       "link": "",
       "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1778936400,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Hussein Carneil",
-            "minute": "24",
-            "assist": "Andre Boman"
-          }
-        ],
-        "away": [
-          {
-            "player": "Arbër Zeneli",
-            "minute": "81",
-            "assist": "Momoh Ibrahim Kamara"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272420,
-      "customId": "MKsQM",
+      "home": "Hammarby IF",
+      "away": "Malmö FF",
+      "time": "TBA",
+      "date": "LÖRDAG 16 MAJ",
+      "link": "",
+      "score": "4 - 1",
+      "status": "finished"
+    },
+    {
       "home": "IF Brommapojkarna",
       "away": "Kalmar FF",
       "time": "TBA",
       "date": "SÖNDAG 17 MAJ",
       "link": "",
       "score": "1 - 0",
-      "status": "finished",
-      "startTimestamp": 1779019200,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Sion Oppong",
-            "minute": "25",
-            "assist": "Oliver Berg"
-          }
-        ],
-        "away": []
-      }
+      "status": "finished"
     },
     {
-      "id": 15272421,
-      "customId": "iKsRM",
-      "home": "Hammarby IF",
-      "away": "Malmö FF",
-      "time": "TBA",
-      "date": "SÖNDAG 17 MAJ",
-      "link": "",
-      "score": "4 - 1",
-      "status": "finished",
-      "startTimestamp": 1779019200,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Victor Lind",
-            "minute": "73",
-            "assist": "Nahir Besara"
-          },
-          {
-            "player": "Nahir Besara",
-            "minute": "44"
-          },
-          {
-            "player": "Nahir Besara",
-            "minute": "29",
-            "assist": "Paulos Abraham"
-          },
-          {
-            "player": "Nahir Besara",
-            "minute": "13"
-          }
-        ],
-        "away": [
-          {
-            "player": "Kenan Busuladžić",
-            "minute": "38",
-            "assist": "Erik Botheim"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272423,
-      "customId": "oKsAK",
-      "home": "Västerås SK",
-      "away": "AIK",
-      "time": "TBA",
-      "date": "SÖNDAG 17 MAJ",
-      "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1779028200,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Marcus Baggesen",
-            "minute": "45",
-            "assist": "Karl Gunnarsson"
-          }
-        ],
-        "away": [
-          {
-            "player": "Áron Csongvai",
-            "minute": "45"
-          }
-        ]
-      }
-    },
-    {
-      "id": 15272422,
-      "customId": "kKsIK",
       "home": "Mjällby AIF",
       "away": "BK Häcken",
       "time": "TBA",
       "date": "SÖNDAG 17 MAJ",
       "link": "",
       "score": "0 - 1",
-      "status": "finished",
-      "startTimestamp": 1779028200,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [],
-        "away": [
-          {
-            "player": "Julius Lindberg",
-            "minute": "75",
-            "assist": "Jeremy Agbonifo"
-          }
-        ]
-      }
+      "status": "finished"
     },
     {
-      "id": 15272418,
-      "customId": "jKsTK",
+      "home": "Västerås SK",
+      "away": "AIK",
+      "time": "TBA",
+      "date": "SÖNDAG 17 MAJ",
+      "link": "",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "IK Sirius",
+      "time": "TBA",
+      "date": "SÖNDAG 17 MAJ",
+      "link": "",
+      "score": "2 - 3",
+      "status": "finished"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IFK Göteborg",
+      "time": "TBA",
+      "date": "MÅNDAG 18 MAJ",
+      "link": "",
+      "score": "2 - 3",
+      "status": "finished"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "IF Brommapojkarna",
+      "time": "TBA",
+      "date": "TISDAG 19 MAJ",
+      "link": "",
+      "score": "1 - 2",
+      "status": "finished"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Degerfors IF",
+      "time": "15:00",
+      "date": "FREDAG 22 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Örgryte IS",
+      "time": "15:00",
+      "date": "LÖRDAG 23 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "AIK",
+      "time": "14:00",
+      "date": "LÖRDAG 23 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "GAIS",
+      "time": "14:00",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Västerås SK",
+      "time": "16:30",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Mjällby AIF",
+      "time": "19:00",
+      "date": "SÖNDAG 24 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "BK Häcken",
+      "time": "19:00",
+      "date": "MÅNDAG 25 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IF Elfsborg",
+      "time": "19:00",
+      "date": "MÅNDAG 25 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "IK Sirius",
+      "time": "15:00",
+      "date": "FREDAG 29 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Kalmar FF",
+      "time": "15:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Halmstads BK",
+      "time": "15:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Hammarby IF",
+      "time": "14:00",
+      "date": "LÖRDAG 30 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "IF Brommapojkarna",
+      "time": "14:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "IFK Göteborg",
+      "time": "14:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Mjällby AIF",
+      "time": "19:00",
+      "date": "SÖNDAG 31 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Malmö FF",
+      "time": "15:00",
+      "date": "FREDAG 3 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Västerås SK",
+      "time": "15:00",
+      "date": "LÖRDAG 4 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "AIK",
+      "time": "14:00",
+      "date": "LÖRDAG 4 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Örgryte IS",
+      "time": "14:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Hammarby IF",
+      "time": "16:30",
+      "date": "SÖNDAG 5 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Djurgårdens IF",
+      "time": "19:00",
+      "date": "SÖNDAG 5 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "GAIS",
+      "time": "19:00",
+      "date": "MÅNDAG 6 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "AIK",
+      "time": "15:00",
+      "date": "MÅNDAG 6 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "BK Häcken",
+      "time": "17:30",
+      "date": "LÖRDAG 11 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Kalmar FF",
+      "time": "14:00",
+      "date": "LÖRDAG 11 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "IFK Göteborg",
+      "time": "14:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Degerfors IF",
+      "time": "14:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IF Elfsborg",
+      "time": "16:30",
+      "date": "SÖNDAG 12 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "IK Sirius",
+      "time": "16:30",
+      "date": "SÖNDAG 12 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Halmstads BK",
+      "time": "19:00",
+      "date": "SÖNDAG 12 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Västerås SK",
+      "time": "19:00",
+      "date": "MÅNDAG 13 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "GAIS",
+      "time": "15:00",
+      "date": "FREDAG 17 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IF Brommapojkarna",
+      "time": "14:00",
+      "date": "LÖRDAG 18 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Degerfors IF",
+      "time": "16:30",
+      "date": "SÖNDAG 19 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "IK Sirius",
+      "time": "16:30",
+      "date": "SÖNDAG 19 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "BK Häcken",
+      "time": "16:30",
+      "date": "SÖNDAG 19 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Djurgårdens IF",
+      "time": "19:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Malmö FF",
+      "time": "19:00",
+      "date": "MÅNDAG 20 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Örgryte IS",
+      "time": "19:00",
+      "date": "MÅNDAG 20 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Djurgårdens IF",
+      "time": "15:00",
+      "date": "FREDAG 24 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Mjällby AIF",
+      "time": "17:30",
+      "date": "LÖRDAG 25 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Hammarby IF",
+      "time": "14:00",
+      "date": "LÖRDAG 25 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "IFK Göteborg",
+      "time": "14:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Halmstads BK",
+      "time": "16:30",
+      "date": "SÖNDAG 26 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "IF Elfsborg",
+      "time": "16:30",
+      "date": "SÖNDAG 26 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "AIK",
+      "time": "19:00",
+      "date": "SÖNDAG 26 JULI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Hammarby IF",
+      "time": "TBA",
+      "date": "MÅNDAG 27 JULI",
+      "link": "",
+      "score": "2 - 0",
+      "status": "finished"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Mjällby AIF",
+      "time": "TBA",
+      "date": "ONSDAG 20 MAJ",
+      "link": "",
+      "score": "1 - 1",
+      "status": "finished"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Kalmar FF",
+      "time": "15:00",
+      "date": "TORSDAG 21 MAJ",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Degerfors IF",
+      "time": "14:00",
+      "date": "LÖRDAG 1 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Malmö FF",
+      "time": "14:00",
+      "date": "SÖNDAG 2 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Örgryte IS",
+      "time": "16:30",
+      "date": "SÖNDAG 2 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Västerås SK",
+      "time": "19:00",
+      "date": "SÖNDAG 2 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "IK Sirius",
+      "time": "19:00",
+      "date": "MÅNDAG 3 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "AIK",
+      "time": "15:00",
+      "date": "MÅNDAG 3 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IF Elfsborg",
+      "time": "17:30",
+      "date": "LÖRDAG 8 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "BK Häcken",
+      "time": "14:00",
+      "date": "LÖRDAG 8 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Degerfors IF",
+      "time": "14:00",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Kalmar FF",
+      "time": "16:30",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "GAIS",
+      "time": "16:30",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "IF Brommapojkarna",
+      "time": "19:00",
+      "date": "SÖNDAG 9 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Djurgårdens IF",
+      "time": "19:00",
+      "date": "MÅNDAG 10 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Västerås SK",
+      "time": "19:00",
+      "date": "MÅNDAG 10 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IK Sirius",
+      "time": "15:00",
+      "date": "FREDAG 14 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "AIK",
+      "time": "14:00",
+      "date": "LÖRDAG 15 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Örgryte IS",
+      "time": "14:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "IFK Göteborg",
+      "time": "14:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Malmö FF",
+      "time": "16:30",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Hammarby IF",
+      "time": "16:30",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Halmstads BK",
+      "time": "19:00",
+      "date": "SÖNDAG 16 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "MÅNDAG 17 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 23 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 30 AUGUSTI",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "AIK",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "SÖNDAG 6 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 13 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "AIK",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 20 SEPTEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 11 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 18 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "AIK",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 25 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "ONSDAG 28 OKTOBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "AIK",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 1 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "AIK",
+      "away": "Degerfors IF",
+      "time": "00:00",
+      "date": "SÖNDAG 8 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IFK Göteborg",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "GAIS",
+      "away": "Västerås SK",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Kalmar FF",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "BK Häcken",
+      "away": "IF Elfsborg",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "Malmö FF",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Halmstads BK",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Djurgårdens IF",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "BK Häcken",
+      "time": "00:00",
+      "date": "SÖNDAG 22 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IK Sirius",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Malmö FF",
+      "away": "IF Brommapojkarna",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "IF Elfsborg",
+      "away": "GAIS",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Degerfors IF",
+      "away": "Örgryte IS",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Västerås SK",
+      "away": "Hammarby IF",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Kalmar FF",
+      "away": "AIK",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
+      "home": "Halmstads BK",
+      "away": "Mjällby AIF",
+      "time": "00:00",
+      "date": "SÖNDAG 29 NOVEMBER",
+      "link": "",
+      "score": "",
+      "status": "upcoming"
+    },
+    {
       "home": "Djurgårdens IF",
       "away": "IK Sirius",
       "time": "TBA",
       "date": "MÅNDAG 18 MAJ",
       "link": "",
-      "score": "2 - 3",
-      "status": "finished",
-      "startTimestamp": 1779123600,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Tobias Anker",
-            "minute": "51"
-          },
-          {
-            "player": "Mikael Anderson",
-            "minute": "13",
-            "assist": "Bo Åsulv Hegland"
-          }
-        ],
-        "away": [
-          {
-            "player": "Neo Jönsson",
-            "minute": "57",
-            "assist": "Robbie Ure"
-          },
-          {
-            "player": "Robbie Ure",
-            "minute": "43",
-            "assist": "Isak Bjerkebo"
-          },
-          {
-            "player": "Marcus Lindberg",
-            "minute": "38",
-            "assist": "Melker Heier"
-          }
-        ]
-      }
+      "score": "",
+      "status": "upcoming"
     },
     {
-      "id": 15272431,
-      "customId": "lKsqK",
       "home": "Örgryte IS",
       "away": "IFK Göteborg",
       "time": "TBA",
       "date": "TISDAG 19 MAJ",
       "link": "",
-      "score": "2 - 3",
-      "status": "finished",
-      "startTimestamp": 1779195600,
-      "round": 8,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Daniel Paulson",
-            "minute": "87",
-            "assist": "Tobias Sana"
-          },
-          {
-            "player": "William Hofvander",
-            "minute": "37",
-            "assist": "Tobias Sana"
-          }
-        ],
-        "away": [
-          {
-            "player": "Felix Eriksson",
-            "minute": "90",
-            "assist": "Max Fenger"
-          },
-          {
-            "player": "Benjamin Brantlind",
-            "minute": "28",
-            "assist": "Sebastian Clemmensen"
-          },
-          {
-            "player": "August Erlingmark",
-            "minute": "21",
-            "assist": "Sebastian Clemmensen"
-          }
-        ]
-      }
+      "score": "",
+      "status": "upcoming"
     },
     {
-      "id": 15272487,
-      "customId": "iKsLK",
       "home": "GAIS",
       "away": "Hammarby IF",
       "time": "TBA",
       "date": "ONSDAG 20 MAJ",
       "link": "",
-      "score": "2 - 0",
-      "status": "finished",
-      "startTimestamp": 1779296400,
-      "round": 15,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Samuel Salter",
-            "minute": "81"
-          },
-          {
-            "player": "Rasmus Niklasson",
-            "minute": "26"
-          }
-        ],
-        "away": []
-      }
+      "score": "",
+      "status": "upcoming"
     },
     {
-      "id": 15272473,
-      "customId": "mKsIK",
       "home": "IF Elfsborg",
       "away": "Mjällby AIF",
       "time": "TBA",
       "date": "TORSDAG 21 MAJ",
       "link": "",
-      "score": "1 - 1",
-      "status": "finished",
-      "startTimestamp": 1779382800,
-      "round": 15,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Leo Östman",
-            "minute": "7",
-            "assist": "Simon Hedlund"
-          }
-        ],
-        "away": [
-          {
-            "player": "Jeppe Kjaer",
-            "minute": "49",
-            "assist": "Ludwig Thorell"
-          }
-        ]
-      }
+      "score": "",
+      "status": "upcoming"
     },
     {
-      "id": 15272425,
-      "customId": "jKsMK",
       "home": "Djurgårdens IF",
       "away": "IF Brommapojkarna",
       "time": "TBA",
-      "date": "FREDAG 22 MAJ",
+      "date": "TORSDAG 21 MAJ",
       "link": "",
-      "score": "1 - 2",
-      "status": "finished",
-      "startTimestamp": 1779469200,
-      "round": 9,
-      "liveCurrentTime": "",
-      "scorers": {
-        "home": [
-          {
-            "player": "Mikael Anderson",
-            "minute": "28",
-            "assist": "Adam Stahl"
-          }
-        ],
-        "away": [
-          {
-            "player": "Simon Strand",
-            "minute": "63"
-          },
-          {
-            "player": "Mads Hansen",
-            "minute": "24",
-            "assist": "Oliver Berg"
-          }
-        ]
-      }
+      "score": "",
+      "status": "upcoming"
     },
     {
-      "id": 15272438,
-      "customId": "hLsQM",
       "home": "Kalmar FF",
       "away": "Degerfors IF",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 23 MAJ",
       "link": "",
       "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779541200,
-      "round": 9,
-      "liveCurrentTime": ""
+      "status": "upcoming"
     },
     {
-      "id": 15272436,
-      "customId": "qKsrK",
       "home": "Halmstads BK",
       "away": "Örgryte IS",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 23 MAJ",
       "link": "",
       "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779541200,
-      "round": 9,
-      "liveCurrentTime": ""
+      "status": "upcoming"
     },
     {
-      "id": 15272427,
-      "customId": "iKsoK",
       "home": "Hammarby IF",
       "away": "AIK",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "",
       "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779624000,
-      "round": 9,
-      "liveCurrentTime": ""
+      "status": "upcoming"
     },
     {
-      "id": 15272440,
-      "customId": "LKsTK",
       "home": "IK Sirius",
       "away": "GAIS",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "",
       "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779624000,
-      "round": 9,
-      "liveCurrentTime": ""
+      "status": "upcoming"
     },
     {
-      "id": 15272432,
-      "customId": "AKsRM",
       "home": "Malmö FF",
       "away": "Västerås SK",
-      "time": "16:30",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "",
       "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779633000,
-      "round": 9,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 16190070,
-      "customId": "kKsmK",
-      "home": "IF Elfsborg",
-      "away": "BK Häcken",
-      "time": "19:00",
-      "date": "MÅNDAG 25 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779728400,
-      "round": 9,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272426,
-      "customId": "lKsIK",
-      "home": "IFK Göteborg",
-      "away": "Mjällby AIF",
-      "time": "19:00",
-      "date": "MÅNDAG 25 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1779728400,
-      "round": 9,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272430,
-      "customId": "mKsqK",
-      "home": "Örgryte IS",
-      "away": "IF Elfsborg",
-      "time": "19:00",
-      "date": "FREDAG 29 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780074000,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272435,
-      "customId": "rKsRM",
-      "home": "Malmö FF",
-      "away": "Halmstads BK",
-      "time": "15:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780146000,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272429,
-      "customId": "oKsTK",
-      "home": "AIK",
-      "away": "IK Sirius",
-      "time": "15:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780146000,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272434,
-      "customId": "LKsQM",
-      "home": "GAIS",
-      "away": "Kalmar FF",
-      "time": "15:00",
-      "date": "LÖRDAG 30 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780146000,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272433,
-      "customId": "iKskK",
-      "home": "BK Häcken",
-      "away": "Hammarby IF",
-      "time": "14:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780228800,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272439,
-      "customId": "lKsAK",
-      "home": "Västerås SK",
-      "away": "IFK Göteborg",
-      "time": "14:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780228800,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272437,
-      "customId": "MKshL",
-      "home": "Degerfors IF",
-      "away": "IF Brommapojkarna",
-      "time": "14:00",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780228800,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272443,
-      "customId": "jKsIK",
-      "home": "Mjällby AIF",
-      "away": "Djurgårdens IF",
-      "time": "16:30",
-      "date": "SÖNDAG 31 MAJ",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1780237800,
-      "round": 10,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272444,
-      "customId": "hLsRM",
-      "home": "Degerfors IF",
-      "away": "Malmö FF",
-      "time": "15:00",
-      "date": "LÖRDAG 4 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783170000,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272450,
-      "customId": "rKsAK",
-      "home": "Halmstads BK",
-      "away": "Västerås SK",
-      "time": "15:00",
-      "date": "LÖRDAG 4 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783170000,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272447,
-      "customId": "IKsTK",
-      "home": "IK Sirius",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783245600,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272445,
-      "customId": "lKsoK",
-      "home": "IFK Göteborg",
-      "away": "AIK",
-      "time": "14:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783252800,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272448,
-      "customId": "qKsQM",
-      "home": "Kalmar FF",
-      "away": "Örgryte IS",
-      "time": "14:00",
-      "date": "SÖNDAG 5 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783252800,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272446,
-      "customId": "iKsmK",
-      "home": "IF Elfsborg",
-      "away": "Hammarby IF",
-      "time": "16:30",
-      "date": "SÖNDAG 5 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783261800,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272442,
-      "customId": "jKskK",
-      "home": "BK Häcken",
-      "away": "Djurgårdens IF",
-      "time": "19:00",
-      "date": "MÅNDAG 6 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783357200,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272441,
-      "customId": "LKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "GAIS",
-      "time": "19:00",
-      "date": "MÅNDAG 6 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783357200,
-      "round": 11,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272454,
-      "customId": "oKsIK",
-      "home": "Mjällby AIF",
-      "away": "AIK",
-      "time": "15:00",
-      "date": "LÖRDAG 11 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783774800,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272453,
-      "customId": "kKsqK",
-      "home": "Örgryte IS",
-      "away": "BK Häcken",
-      "time": "17:30",
-      "date": "LÖRDAG 11 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783783800,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272456,
-      "customId": "lKsRM",
-      "home": "Malmö FF",
-      "away": "IFK Göteborg",
-      "time": "14:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783857600,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272451,
-      "customId": "iKsQM",
-      "home": "Hammarby IF",
-      "away": "Kalmar FF",
-      "time": "14:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783857600,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272457,
-      "customId": "AKshL",
-      "home": "Västerås SK",
-      "away": "Degerfors IF",
-      "time": "14:00",
-      "date": "SÖNDAG 12 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783857600,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272452,
-      "customId": "mKsLK",
-      "home": "GAIS",
-      "away": "IF Elfsborg",
-      "time": "16:30",
-      "date": "SÖNDAG 12 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783866600,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272455,
-      "customId": "MKsTK",
-      "home": "IF Brommapojkarna",
-      "away": "IK Sirius",
-      "time": "16:30",
-      "date": "SÖNDAG 12 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783866600,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272449,
-      "customId": "jKsrK",
-      "home": "Djurgårdens IF",
-      "away": "Halmstads BK",
-      "time": "19:00",
-      "date": "MÅNDAG 13 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1783962000,
-      "round": 12,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272458,
-      "customId": "oKsLK",
-      "home": "AIK",
-      "away": "GAIS",
-      "time": "15:00",
-      "date": "LÖRDAG 18 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784379600,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272464,
-      "customId": "AKsIK",
-      "home": "Mjällby AIF",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784455200,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272461,
-      "customId": "lKsMK",
-      "home": "IFK Göteborg",
-      "away": "IF Brommapojkarna",
-      "time": "14:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784462400,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272463,
-      "customId": "mKsTK",
-      "home": "IF Elfsborg",
-      "away": "IK Sirius",
-      "time": "16:30",
-      "date": "SÖNDAG 19 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784471400,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272459,
-      "customId": "iKshL",
-      "home": "Hammarby IF",
-      "away": "Degerfors IF",
-      "time": "16:30",
-      "date": "SÖNDAG 19 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784471400,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272466,
-      "customId": "kKsrK",
-      "home": "Halmstads BK",
-      "away": "BK Häcken",
-      "time": "16:30",
-      "date": "SÖNDAG 19 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784471400,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272462,
-      "customId": "QMsRM",
-      "home": "Kalmar FF",
-      "away": "Malmö FF",
-      "time": "19:00",
-      "date": "MÅNDAG 20 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784566800,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272460,
-      "customId": "jKsqK",
-      "home": "Örgryte IS",
-      "away": "Djurgårdens IF",
-      "time": "19:00",
-      "date": "MÅNDAG 20 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784566800,
-      "round": 13,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272469,
-      "customId": "jKshL",
-      "home": "Degerfors IF",
-      "away": "Djurgårdens IF",
-      "time": "15:00",
-      "date": "LÖRDAG 25 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784984400,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272471,
-      "customId": "IKsQM",
-      "home": "Kalmar FF",
-      "away": "Mjällby AIF",
-      "time": "17:30",
-      "date": "LÖRDAG 25 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1784993400,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272474,
-      "customId": "qKsAK",
-      "home": "Västerås SK",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785060000,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272470,
-      "customId": "iKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Hammarby IF",
-      "time": "14:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785067200,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272472,
-      "customId": "lKsTK",
-      "home": "IK Sirius",
-      "away": "IFK Göteborg",
-      "time": "14:00",
-      "date": "SÖNDAG 26 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785067200,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272467,
-      "customId": "mKsRM",
-      "home": "Malmö FF",
-      "away": "IF Elfsborg",
-      "time": "16:30",
-      "date": "SÖNDAG 26 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785076200,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272465,
-      "customId": "rKsLK",
-      "home": "GAIS",
-      "away": "Halmstads BK",
-      "time": "16:30",
-      "date": "SÖNDAG 26 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785076200,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272468,
-      "customId": "kKsoK",
-      "home": "BK Häcken",
-      "away": "AIK",
-      "time": "19:00",
-      "date": "MÅNDAG 27 JULI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785171600,
-      "round": 14,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272483,
-      "customId": "kKsQM",
-      "home": "BK Häcken",
-      "away": "Kalmar FF",
-      "time": "15:00",
-      "date": "LÖRDAG 1 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785589200,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272485,
-      "customId": "MKsRM",
-      "home": "IF Brommapojkarna",
-      "away": "Malmö FF",
-      "time": "14:00",
-      "date": "SÖNDAG 2 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785672000,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272481,
-      "customId": "lKshL",
-      "home": "IFK Göteborg",
-      "away": "Degerfors IF",
-      "time": "14:00",
-      "date": "SÖNDAG 2 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785672000,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272476,
-      "customId": "oKsqK",
-      "home": "AIK",
-      "away": "Örgryte IS",
-      "time": "16:30",
-      "date": "SÖNDAG 2 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785681000,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272475,
-      "customId": "jKsAK",
-      "home": "Djurgårdens IF",
-      "away": "Västerås SK",
-      "time": "19:00",
-      "date": "MÅNDAG 3 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785776400,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272478,
-      "customId": "rKsTK",
-      "home": "Halmstads BK",
-      "away": "IK Sirius",
-      "time": "19:00",
-      "date": "MÅNDAG 3 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1785776400,
-      "round": 15,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272484,
-      "customId": "oKsqK",
-      "home": "Örgryte IS",
-      "away": "AIK",
-      "time": "15:00",
-      "date": "LÖRDAG 8 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786194000,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272480,
-      "customId": "mKsIK",
-      "home": "Mjällby AIF",
-      "away": "IF Elfsborg",
-      "time": "17:30",
-      "date": "LÖRDAG 8 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786203000,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272479,
-      "customId": "hLsRM",
-      "home": "Malmö FF",
-      "away": "Degerfors IF",
-      "time": "14:00",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786276800,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272477,
-      "customId": "iKskK",
-      "home": "Hammarby IF",
-      "away": "BK Häcken",
-      "time": "14:00",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786276800,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272482,
-      "customId": "lKsQM",
-      "home": "IFK Göteborg",
-      "away": "Kalmar FF",
-      "time": "16:30",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786285800,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272491,
-      "customId": "rKsLK",
-      "home": "Halmstads BK",
-      "away": "GAIS",
-      "time": "16:30",
-      "date": "SÖNDAG 9 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786285800,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272486,
-      "customId": "jKsAK",
-      "home": "Västerås SK",
-      "away": "Djurgårdens IF",
-      "time": "19:00",
-      "date": "MÅNDAG 10 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786381200,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272488,
-      "customId": "MKsTK",
-      "home": "IK Sirius",
-      "away": "IF Brommapojkarna",
-      "time": "19:00",
-      "date": "MÅNDAG 10 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786381200,
-      "round": 16,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272495,
-      "customId": "IKsTK",
-      "home": "Mjällby AIF",
-      "away": "IK Sirius",
-      "time": "15:00",
-      "date": "LÖRDAG 15 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786798800,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272493,
-      "customId": "mKsAK",
-      "home": "IF Elfsborg",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786874400,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272489,
-      "customId": "jKsoK",
-      "home": "Djurgårdens IF",
-      "away": "AIK",
-      "time": "14:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786881600,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272496,
-      "customId": "lKshL",
-      "home": "Degerfors IF",
-      "away": "IFK Göteborg",
-      "time": "14:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786881600,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272494,
-      "customId": "qKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Örgryte IS",
-      "time": "14:00",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786881600,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272490,
-      "customId": "LKsRM",
-      "home": "GAIS",
-      "away": "Malmö FF",
-      "time": "16:30",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786890600,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271350,
-      "customId": "iKsQM",
-      "home": "Kalmar FF",
-      "away": "Hammarby IF",
-      "time": "16:30",
-      "date": "SÖNDAG 16 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786890600,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272492,
-      "customId": "kKsrK",
-      "home": "BK Häcken",
-      "away": "Halmstads BK",
-      "time": "19:00",
-      "date": "MÅNDAG 17 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1786986000,
-      "round": 17,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272497,
-      "customId": "jKsRM",
-      "home": "Malmö FF",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271352,
-      "customId": "oKsIK",
-      "home": "AIK",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271353,
-      "customId": "lKsmK",
-      "home": "IFK Göteborg",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271354,
-      "customId": "iKsLK",
-      "home": "Hammarby IF",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272499,
-      "customId": "kKsTK",
-      "home": "IK Sirius",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272500,
-      "customId": "AKsQM",
-      "home": "Västerås SK",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272498,
-      "customId": "MKshL",
-      "home": "IF Brommapojkarna",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271351,
-      "customId": "qKsrK",
-      "home": "Örgryte IS",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 23 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1787479200,
-      "round": 18,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272507,
-      "customId": "TKsRM",
-      "home": "IK Sirius",
-      "away": "Malmö FF",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272501,
-      "customId": "jKsIK",
-      "home": "Djurgårdens IF",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272502,
-      "customId": "iKsoK",
-      "home": "AIK",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272506,
-      "customId": "mKshL",
-      "home": "IF Elfsborg",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272505,
-      "customId": "kKsAK",
-      "home": "BK Häcken",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272504,
-      "customId": "lKsqK",
-      "home": "IFK Göteborg",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272503,
-      "customId": "LKsMK",
-      "home": "GAIS",
-      "away": "IF Brommapojkarna",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272510,
-      "customId": "rKsQM",
-      "home": "Halmstads BK",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 30 AUGUSTI",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788084000,
-      "round": 19,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272512,
-      "customId": "oKsRM",
-      "home": "Malmö FF",
-      "away": "AIK",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272516,
-      "customId": "jKsQM",
-      "home": "Kalmar FF",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272509,
-      "customId": "kKsLK",
-      "home": "GAIS",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272511,
-      "customId": "lKsIK",
-      "home": "Mjällby AIF",
-      "away": "IFK Göteborg",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272513,
-      "customId": "mKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272508,
-      "customId": "iKsqK",
-      "home": "Örgryte IS",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272514,
-      "customId": "AKsTK",
-      "home": "Västerås SK",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272520,
-      "customId": "rKshL",
-      "home": "Degerfors IF",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 6 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1788688800,
-      "round": 20,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272524,
-      "customId": "qKsRM",
-      "home": "Malmö FF",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272518,
-      "customId": "kKsIK",
-      "home": "BK Häcken",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272517,
-      "customId": "jKsLK",
-      "home": "Djurgårdens IF",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272523,
-      "customId": "mKsQM",
-      "home": "IF Elfsborg",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272522,
-      "customId": "iKsMK",
-      "home": "Hammarby IF",
-      "away": "IF Brommapojkarna",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272515,
-      "customId": "oKsAK",
-      "home": "AIK",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272519,
-      "customId": "lKsrK",
-      "home": "IFK Göteborg",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272526,
-      "customId": "TKshL",
-      "home": "IK Sirius",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 13 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789293600,
-      "round": 21,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272535,
-      "customId": "AKsRM",
-      "home": "Västerås SK",
-      "away": "Malmö FF",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272521,
-      "customId": "jKsmK",
-      "home": "Djurgårdens IF",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272529,
-      "customId": "kKsQM",
-      "home": "Kalmar FF",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272527,
-      "customId": "iKshL",
-      "home": "Degerfors IF",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272530,
-      "customId": "IKsLK",
-      "home": "Mjällby AIF",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272534,
-      "customId": "oKsrK",
-      "home": "Halmstads BK",
-      "away": "AIK",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272531,
-      "customId": "lKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "IFK Göteborg",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272525,
-      "customId": "qKsTK",
-      "home": "Örgryte IS",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "SÖNDAG 20 SEPTEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1789898400,
-      "round": 22,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272539,
-      "customId": "QMsRM",
-      "home": "Malmö FF",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272528,
-      "customId": "iKsjK",
-      "home": "Hammarby IF",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272543,
-      "customId": "mKsrK",
-      "home": "IF Elfsborg",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272537,
-      "customId": "kKsqK",
-      "home": "BK Häcken",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272538,
-      "customId": "IKshL",
-      "home": "Mjällby AIF",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272533,
-      "customId": "oKsMK",
-      "home": "AIK",
-      "away": "IF Brommapojkarna",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272532,
-      "customId": "lKsAK",
-      "home": "IFK Göteborg",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272536,
-      "customId": "LKsTK",
-      "home": "GAIS",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "SÖNDAG 11 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1791712800,
-      "round": 23,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272544,
-      "customId": "kKsRM",
-      "home": "Malmö FF",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272540,
-      "customId": "jKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272546,
-      "customId": "mKsTK",
-      "home": "IK Sirius",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272541,
-      "customId": "lKsoK",
-      "home": "AIK",
-      "away": "IFK Göteborg",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272548,
-      "customId": "iKsrK",
-      "home": "Halmstads BK",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272547,
-      "customId": "AKsIK",
-      "home": "Västerås SK",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272545,
-      "customId": "hLsQM",
-      "home": "Degerfors IF",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272542,
-      "customId": "qKsLK",
-      "home": "Örgryte IS",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 18 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792317600,
-      "round": 24,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272554,
-      "customId": "mKsRM",
-      "home": "IF Elfsborg",
-      "away": "Malmö FF",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272553,
-      "customId": "iKsIK",
-      "home": "Mjällby AIF",
-      "away": "Hammarby IF",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272549,
-      "customId": "jKsqK",
-      "home": "Djurgårdens IF",
-      "away": "Örgryte IS",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272551,
-      "customId": "kKshL",
-      "home": "BK Häcken",
-      "away": "Degerfors IF",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272552,
-      "customId": "oKsTK",
-      "home": "IK Sirius",
-      "away": "AIK",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272550,
-      "customId": "lKsLK",
-      "home": "GAIS",
-      "away": "IFK Göteborg",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272555,
-      "customId": "MKsQM",
-      "home": "Kalmar FF",
-      "away": "IF Brommapojkarna",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15272556,
-      "customId": "rKsAK",
-      "home": "Västerås SK",
-      "away": "Halmstads BK",
-      "time": "11:00",
-      "date": "SÖNDAG 25 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1792922400,
-      "round": 25,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271590,
-      "customId": "rKsRM",
-      "home": "Halmstads BK",
-      "away": "Malmö FF",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271589,
-      "customId": "mKsoK",
-      "home": "AIK",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271584,
-      "customId": "jKslK",
-      "home": "IFK Göteborg",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271588,
-      "customId": "iKsTK",
-      "home": "Hammarby IF",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271585,
-      "customId": "kKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271587,
-      "customId": "qKsIK",
-      "home": "Örgryte IS",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271586,
-      "customId": "LKsQM",
-      "home": "Kalmar FF",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271591,
-      "customId": "AKshL",
-      "home": "Degerfors IF",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "ONSDAG 28 OKTOBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793185200,
-      "round": 26,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271599,
-      "customId": "iKsRM",
-      "home": "Malmö FF",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271602,
-      "customId": "kKslK",
-      "home": "BK Häcken",
-      "away": "IFK Göteborg",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271593,
-      "customId": "jKshL",
-      "home": "Djurgårdens IF",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271601,
-      "customId": "mKsqK",
-      "home": "IF Elfsborg",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271596,
-      "customId": "oKsLK",
-      "home": "GAIS",
-      "away": "AIK",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271603,
-      "customId": "IKsQM",
-      "home": "Mjällby AIF",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271604,
-      "customId": "AKsMK",
-      "home": "Västerås SK",
-      "away": "IF Brommapojkarna",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271597,
-      "customId": "rKsTK",
-      "home": "IK Sirius",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 1 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1793530800,
-      "round": 27,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271608,
-      "customId": "lKsRM",
-      "home": "IFK Göteborg",
-      "away": "Malmö FF",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271606,
-      "customId": "iKsmK",
-      "home": "Hammarby IF",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271607,
-      "customId": "kKsoK",
-      "home": "AIK",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271612,
-      "customId": "jKsrK",
-      "home": "Halmstads BK",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271610,
-      "customId": "IKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271611,
-      "customId": "TKsQM",
-      "home": "Kalmar FF",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271613,
-      "customId": "LKshL",
-      "home": "Degerfors IF",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271609,
-      "customId": "qKsAK",
-      "home": "Örgryte IS",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 8 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1794135600,
-      "round": 28,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271620,
-      "customId": "IKsRM",
-      "home": "Mjällby AIF",
-      "away": "Malmö FF",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271616,
-      "customId": "kKsmK",
-      "home": "BK Häcken",
-      "away": "IF Elfsborg",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271617,
-      "customId": "iKslK",
-      "home": "Hammarby IF",
-      "away": "IFK Göteborg",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271622,
-      "customId": "jKsTK",
-      "home": "IK Sirius",
-      "away": "Djurgårdens IF",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271615,
-      "customId": "oKshL",
-      "home": "AIK",
-      "away": "Degerfors IF",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271614,
-      "customId": "AKsLK",
-      "home": "GAIS",
-      "away": "Västerås SK",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271618,
-      "customId": "qKsQM",
-      "home": "Örgryte IS",
-      "away": "Kalmar FF",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271619,
-      "customId": "rKsMK",
-      "home": "IF Brommapojkarna",
-      "away": "Halmstads BK",
-      "time": "12:00",
-      "date": "SÖNDAG 22 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795345200,
-      "round": 29,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271594,
-      "customId": "MKsRM",
-      "home": "Malmö FF",
-      "away": "IF Brommapojkarna",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271623,
-      "customId": "jKskK",
-      "home": "Djurgårdens IF",
-      "away": "BK Häcken",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271600,
-      "customId": "mKsLK",
-      "home": "IF Elfsborg",
-      "away": "GAIS",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271592,
-      "customId": "iKsAK",
-      "home": "Västerås SK",
-      "away": "Hammarby IF",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271598,
-      "customId": "oKsQM",
-      "home": "Kalmar FF",
-      "away": "AIK",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271595,
-      "customId": "rKsIK",
-      "home": "Halmstads BK",
-      "away": "Mjällby AIF",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271621,
-      "customId": "lKsTK",
-      "home": "IFK Göteborg",
-      "away": "IK Sirius",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
-    },
-    {
-      "id": 15271605,
-      "customId": "qKshL",
-      "home": "Degerfors IF",
-      "away": "Örgryte IS",
-      "time": "12:00",
-      "date": "SÖNDAG 29 NOVEMBER",
-      "link": "",
-      "score": "",
-      "status": "upcoming",
-      "startTimestamp": 1795950000,
-      "round": 30,
-      "liveCurrentTime": ""
+      "status": "upcoming"
     }
   ],
-  "lastUpdated": "2026-05-22T19:38:29.450Z",
-  "source": "SofaScore"
+  "lastUpdated": "2026-05-22T21:03:28.986Z",
+  "source": "https://allsvenskan.se/matcher"
 }
