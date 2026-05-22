@@ -133,7 +133,7 @@ async function scrapeAllsvenskan() {
         }
 
         const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-        const today = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Including tomorrow just to be safe if a match runs late into the night
+        const today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
         yesterday.setHours(0,0,0,0);
         today.setHours(23,59,59,999);
 
@@ -156,7 +156,7 @@ async function scrapeAllsvenskan() {
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
             const inWindow = matchDate >= yesterday && matchDate <= today;
 
-            if (inWindow && (nm.status === 'live' || nm.status === 'finished') && nm.link) {
+            if (inWindow && nm.link) {
                 console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
                 try {
                     await page.goto(nm.link, { waitUntil: 'domcontentloaded', timeout: 15000 });
@@ -175,10 +175,21 @@ async function scrapeAllsvenskan() {
                                 const time = parseInt(timeStr, 10);
                                 const name = nameEl.innerText.trim();
                                 
+                                const svgHtml = li.querySelector('svg')?.outerHTML || '';
+                                let incidentClass = 'goal';
+                                
+                                if (svgHtml.includes('#FFD600') || svgHtml.includes('#ffd600') || svgHtml.toLowerCase().includes('yellow')) {
+                                    incidentClass = 'yellow-card';
+                                } else if (svgHtml.includes('url(#paint') || svgHtml.includes('linearGradient')) {
+                                    incidentClass = 'goal';
+                                } else if (svgHtml.match(/fill="#(E[0-9A-F]|F[0-9A-F])[0-9A-F]{4}"/i) || svgHtml.toLowerCase().includes('red')) {
+                                    incidentClass = 'red-card';
+                                }
+
                                 const event = {
                                     player: { name },
                                     time: isNaN(time) ? timeStr : time,
-                                    incidentClass: "regular"
+                                    incidentClass: incidentClass
                                 };
 
                                 if (li.className.includes('lg-start')) {

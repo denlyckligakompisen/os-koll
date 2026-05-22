@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './common/Card';
-import BoldSverige from './BoldSverige';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-
 export const cleanTeamNameForDisplay = (name) => {
     if (!name) return '';
     let cleaned = name.trim();
@@ -149,7 +147,9 @@ const getSortedScorers = (scorersList) => {
         return isNaN(base) ? 0 : base + (extra / 100);
     };
 
-    return [...scorersList].sort((a, b) => parseMinute(a.minute || a.time) - parseMinute(b.minute || b.time));
+    return [...scorersList]
+        .filter(s => s.incidentClass !== 'yellow-card')
+        .sort((a, b) => parseMinute(a.minute || a.time) - parseMinute(b.minute || b.time));
 };
 
 const getCombinedScorers = (homeScorers = [], awayScorers = []) => {
@@ -340,11 +340,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             return (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
-                    <BoldSverige text={cleanedTeam} />
+                    {cleanedTeam}
                 </div>
             );
         }
-        return <BoldSverige text={cleanTeamNameForDisplay(name)} />;
+        return cleanTeamNameForDisplay(name);
     };
 
     const getBroadcasterUrl = (broadcast) => {
@@ -367,6 +367,32 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
 
     if (variant === 'hero') {
+        let arena = null;
+        let roundStr = null;
+        if (match.detailedStats?.info?.length > 1) {
+            const info = match.detailedStats.info;
+            const roundIndex = info.findIndex(i => i.toLowerCase().includes('omgång'));
+            
+            if (roundIndex !== -1) {
+                roundStr = info[roundIndex];
+                if (roundIndex > 0) {
+                    const candidate = info[roundIndex - 1];
+                    // Make sure the candidate is not the date string (index 0) if referees are missing,
+                    // but wait, if roundIndex is 1, then arena is index 0? The date is always index 0.
+                    // If roundIndex is 1, arena and referees are missing.
+                    if (roundIndex > 1) {
+                        arena = candidate.split(',')[0].trim();
+                    }
+                }
+            } else if (info.length > 2) {
+                // Fallback if 'omgång' is missing for some reason
+                const candidate = info[2];
+                if (!candidate.includes('OMGÅNG')) {
+                    arena = candidate.split(',')[0].trim();
+                }
+            }
+        }
+
         return (
             <Card 
                 key={idx} 
@@ -403,7 +429,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flags={homeFlags} 
                         />
 
-                        <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.home)}</div>
+                        <div style={{ fontSize: '1.1rem', fontWeight: '500' }}>{renderTeamName(match.home)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -412,10 +438,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
-                        {match.scorers?.home?.length > 0 && (
+                        {match.scorers?.home?.length > 0 && getSortedScorers(match.scorers.home).length > 0 && (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
                                 {getSortedScorers(match.scorers.home).map((s, i) => (
                                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        {s.incidentClass === 'red-card' && (
+                                            <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '2px' }} title="Rött kort" />
+                                        )}
                                         <span>{getLastName(s.player?.name || s.player)} {s.minute || s.time}'{s.suffix || ''}</span>
                                     </div>
                                 ))}
@@ -426,9 +455,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                        {match.round ? (
+                        {(match.round || roundStr) ? (
                             <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>
-                                Omgång {match.round}
+                                {match.round ? `Omgång ${match.round}` : roundStr}
                             </div>
                         ) : match.group ? (
                             <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -476,6 +505,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
+                        {arena && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
+                                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                                    {arena}
+                                </div>
+                            </div>
+                        )}
+
 
                     </div>
 
@@ -498,7 +535,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flags={awayFlags} 
                         />
 
-                        <div style={{ fontSize: '1.1rem', fontWeight: '700' }}>{renderTeamName(match.away)}</div>
+                        <div style={{ fontSize: '1.1rem', fontWeight: '500' }}>{renderTeamName(match.away)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
@@ -507,11 +544,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
-                        {match.scorers?.away?.length > 0 && (
+                        {match.scorers?.away?.length > 0 && getSortedScorers(match.scorers.away).length > 0 && (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
                                 {getSortedScorers(match.scorers.away).map((s, i) => (
                                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                                         <span>{getLastName(s.player?.name || s.player)} {s.minute || s.time}'{s.suffix || ''}</span>
+                                        {s.incidentClass === 'red-card' && (
+                                            <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '2px' }} title="Rött kort" />
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -680,10 +720,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         <div style={{ 
                                             flex: 1, 
                                             textAlign: 'right', 
-                                            paddingRight: '8px'
+                                            paddingRight: '8px',
+                                            display: 'flex',
+                                            justifyContent: 'flex-end',
+                                            alignItems: 'center',
+                                            gap: '4px'
                                         }}>
                                             {homeScorer ? (
-                                                <span>{getLastName(homeScorer.player?.name || homeScorer.player)} {homeScorer.minute || homeScorer.time}'{homeScorer.suffix || ''}</span>
+                                                <>
+                                                    {homeScorer.incidentClass === 'red-card' && (
+                                                        <div style={{ width: '6px', height: '9px', backgroundColor: '#e53935', borderRadius: '1px' }} title="Rött kort" />
+                                                    )}
+                                                    <span>{getLastName(homeScorer.player?.name || homeScorer.player)} {homeScorer.minute || homeScorer.time}'{homeScorer.suffix || ''}</span>
+                                                </>
                                             ) : ''}
                                         </div>
 
@@ -697,10 +746,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         <div style={{ 
                                             flex: 1, 
                                             textAlign: 'left', 
-                                            paddingLeft: '8px'
+                                            paddingLeft: '8px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '4px'
                                         }}>
                                             {awayScorer ? (
-                                                <span>{getLastName(awayScorer.player?.name || awayScorer.player)} {awayScorer.minute || awayScorer.time}'{awayScorer.suffix || ''}</span>
+                                                <>
+                                                    <span>{getLastName(awayScorer.player?.name || awayScorer.player)} {awayScorer.minute || awayScorer.time}'{awayScorer.suffix || ''}</span>
+                                                    {awayScorer.incidentClass === 'red-card' && (
+                                                        <div style={{ width: '6px', height: '9px', backgroundColor: '#e53935', borderRadius: '1px' }} title="Rött kort" />
+                                                    )}
+                                                </>
                                             ) : ''}
                                         </div>
                                     </div>
