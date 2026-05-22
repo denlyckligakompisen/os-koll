@@ -763,15 +763,13 @@ const AllsvenskanKollen = () => {
         <div 
             style={{ paddingBottom: '24px' }}
         >
-            {activeTab !== 'matcher' && activeTab !== 'gruppspel' && (
-                <button
-                    className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
-                    onClick={scrollToTop}
-                    aria-label="Scrolla till toppen"
-                >
-                    <ArrowUp size={28} />
-                </button>
-            )}
+            <button
+                className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
+                onClick={scrollToTop}
+                aria-label="Scrolla till toppen"
+            >
+                <ArrowUp size={28} />
+            </button>
 
             <div className="nav-container" style={{ 
                 backgroundColor: headerStyle.bg,
@@ -946,6 +944,50 @@ const AllsvenskanKollen = () => {
                     
                     {activeTab === 'matcher' && (
                         <>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '4px', marginBottom: '16px' }}>
+                                <div style={{ position: 'relative', width: '100px', flexShrink: 0 }}>
+                                    <select
+                                        value={selectedSeason}
+                                        onChange={(e) => {
+                                            const val = parseInt(e.target.value);
+                                            setSelectedSeason(val);
+                                            if (navigator.vibrate) navigator.vibrate(5);
+                                        }}
+                                        style={{
+                                            width: '100%',
+                                            padding: '8px 32px 8px 12px',
+                                            fontSize: '0.85rem',
+                                            fontWeight: '750',
+                                            color: 'var(--color-text)',
+                                            backgroundColor: 'rgba(0,0,0,0.05)',
+                                            border: '1px solid rgba(0,0,0,0.08)',
+                                            borderRadius: '20px',
+                                            outline: 'none',
+                                            cursor: 'pointer',
+                                            WebkitAppearance: 'none',
+                                            appearance: 'none',
+                                            transition: 'all 0.2s ease',
+                                            boxShadow: 'var(--shadow-sm)'
+                                        }}
+                                    >
+                                        {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008].map(yr => (
+                                            <option key={yr} value={yr} style={{ color: '#000', fontWeight: '600' }}>{yr}</option>
+                                        ))}
+                                    </select>
+                                    <div style={{
+                                        position: 'absolute',
+                                        right: '12px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        pointerEvents: 'none',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        color: 'var(--color-text-muted)'
+                                    }}>
+                                        <ChevronDown size={14} strokeWidth={2.5} />
+                                    </div>
+                                </div>
+                            </div>
                             {loading ? (
                                 <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
                                     Laddar matcher...
@@ -1028,7 +1070,7 @@ const AllsvenskanKollen = () => {
                                             boxShadow: 'var(--shadow-sm)'
                                         }}
                                     >
-                                        {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017].map(yr => (
+                                        {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008].map(yr => (
                                             <option key={yr} value={yr} style={{ color: '#000', fontWeight: '600' }}>{yr}</option>
                                         ))}
                                     </select>

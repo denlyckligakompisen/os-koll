@@ -1,0 +1,181 @@
+{
+  "table": [
+    {
+      "rank": "1",
+      "team": "Kalmar FF",
+      "played": "30",
+      "won": "20",
+      "drawn": "4",
+      "lost": "6",
+      "goals": "70-32",
+      "gd": "38",
+      "points": "64"
+    },
+    {
+      "rank": "2",
+      "team": "IF Elfsborg",
+      "played": "30",
+      "won": "19",
+      "drawn": "6",
+      "lost": "5",
+      "goals": "49-18",
+      "gd": "31",
+      "points": "63"
+    },
+    {
+      "rank": "3",
+      "team": "IFK Göteborg",
+      "played": "30",
+      "won": "15",
+      "drawn": "9",
+      "lost": "6",
+      "goals": "50-26",
+      "gd": "24",
+      "points": "54"
+    },
+    {
+      "rank": "4",
+      "team": "Helsingborgs IF",
+      "played": "30",
+      "won": "16",
+      "drawn": "6",
+      "lost": "8",
+      "goals": "54-41",
+      "gd": "13",
+      "points": "54"
+    },
+    {
+      "rank": "5",
+      "team": "AIK",
+      "played": "30",
+      "won": "12",
+      "drawn": "9",
+      "lost": "9",
+      "goals": "36-32",
+      "gd": "4",
+      "points": "45"
+    },
+    {
+      "rank": "6",
+      "team": "Malmö FF",
+      "played": "30",
+      "won": "12",
+      "drawn": "8",
+      "lost": "10",
+      "goals": "51-46",
+      "gd": "5",
+      "points": "44"
+    },
+    {
+      "rank": "7",
+      "team": "Örebro SK",
+      "played": "30",
+      "won": "11",
+      "drawn": "9",
+      "lost": "10",
+      "goals": "36-39",
+      "gd": "-3",
+      "points": "42"
+    },
+    {
+      "rank": "8",
+      "team": "Halmstads BK",
+      "played": "30",
+      "won": "11",
+      "drawn": "8",
+      "lost": "11",
+      "goals": "41-38",
+      "gd": "3",
+      "points": "41"
+    },
+    {
+      "rank": "9",
+      "team": "Hammarby IF",
+      "played": "30",
+      "won": "11",
+      "drawn": "8",
+      "lost": "11",
+      "goals": "44-51",
+      "gd": "-7",
+      "points": "41"
+    },
+    {
+      "rank": "10",
+      "team": "Trelleborgs FF",
+      "played": "30",
+      "won": "9",
+      "drawn": "13",
+      "lost": "8",
+      "goals": "33-31",
+      "gd": "2",
+      "points": "40"
+    },
+    {
+      "rank": "11",
+      "team": "GAIS",
+      "played": "30",
+      "won": "9",
+      "drawn": "11",
+      "lost": "10",
+      "goals": "30-36",
+      "gd": "-6",
+      "points": "38"
+    },
+    {
+      "rank": "12",
+      "team": "Djurgårdens IF",
+      "played": "30",
+      "won": "9",
+      "drawn": "9",
+      "lost": "12",
+      "goals": "30-41",
+      "gd": "-11",
+      "points": "36"
+    },
+    {
+      "rank": "13",
+      "team": "Gefle IF",
+      "played": "30",
+      "won": "7",
+      "drawn": "7",
+      "lost": "16",
+      "goals": "33-42",
+      "gd": "-9",
+      "points": "28"
+    },
+    {
+      "rank": "14",
+      "team": "Ljungskile SK",
+      "played": "30",
+      "won": "6",
+      "drawn": "6",
+      "lost": "18",
+      "goals": "23-52",
+      "gd": "-29",
+      "points": "24"
+    },
+    {
+      "rank": "15",
+      "team": "GIF Sundsvall",
+      "played": "30",
+      "won": "5",
+      "drawn": "7",
+      "lost": "18",
+      "goals": "26-54",
+      "gd": "-28",
+      "points": "22"
+    },
+    {
+      "rank": "16",
+      "team": "IFK Norrköping",
+      "played": "30",
+      "won": "4",
+      "drawn": "8",
+      "lost": "18",
+      "goals": "31-58",
+      "gd": "-27",
+      "points": "20"
+    }
+  ],
+  "lastUpdated": "2026-05-22T19:29:28.748Z"
+}

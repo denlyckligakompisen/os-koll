@@ -207,7 +207,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
-    const [showStats, setShowStats] = useState(true);
 
     const getComputedStatus = () => {
         if (match.status === 'finished') return 'finished';
@@ -230,51 +229,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const getComputedScore = (status) => {
         if (match.score) return match.score;
-        if (status === 'live' || status === 'finished') {
-            const seed = match.id || 1;
-            const homeG = seed % 3;
-            const awayG = (seed + 2) % 3;
-            return `${homeG} - ${awayG}`;
-        }
         return '';
     };
 
     const computedScore = getComputedScore(computedStatus);
-
-    const renderStatsSection = () => {
-        const isLive = computedStatus === 'live';
-        if (!isLive || !showStats) return null;
-
-        const seed = match.id || 1;
-        const possessionHome = 40 + (seed % 21);
-        const possessionAway = 100 - possessionHome;
-
-        return (
-            <div style={{ 
-                marginTop: '15px', 
-                borderTop: '1px solid var(--color-border)', 
-                paddingTop: '15px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
-                width: '100%',
-                alignSelf: 'stretch'
-            }}>
-                {/* 1. Possession Bar */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--color-text-muted)', fontWeight: '700' }}>
-                        <span>{possessionHome}%</span>
-                        <span style={{ textTransform: 'uppercase', letterSpacing: '0.04em' }}>Bollinnehav</span>
-                        <span>{possessionAway}%</span>
-                    </div>
-                    <div style={{ height: '6px', borderRadius: '3px', display: 'flex', overflow: 'hidden', backgroundColor: 'var(--color-surface-subtle)' }}>
-                        <div style={{ width: `${possessionHome}%`, backgroundColor: 'var(--color-primary, #0072ff)', height: '100%' }} />
-                        <div style={{ width: `${possessionAway}%`, backgroundColor: '#34c759', height: '100%' }} />
-                    </div>
-                </div>
-            </div>
-        );
-    };
 
     // Calculate Form
     const getTeamForm = (teamName) => {
@@ -555,7 +513,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
                 </div>
-                {renderStatsSection()}
             </Card>
         );
     }
@@ -675,34 +632,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
                     </button>
-                    {computedStatus === 'live' && (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setShowStats(!showStats);
-                            }}
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                color: 'var(--color-primary, #0072ff)',
-                                cursor: 'pointer',
-                                fontSize: highlight ? '0.75rem' : '0.65rem',
-                                fontWeight: '850',
-                                letterSpacing: '0.03em',
-                                padding: '4px 8px',
-                                marginTop: '6px',
-                                borderRadius: '4px',
-                                backgroundColor: 'var(--color-surface-subtle)',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '2px',
-                                transition: 'all 0.2s ease'
-                            }}
-                        >
-                            {showStats ? 'DÖLJ STATS ▲' : 'VISA STATS ▼'}
-                        </button>
-                    )}
                     <span
                         onClick={(e) => handleTeamClick(e, match.away)}
                         style={{
@@ -782,7 +711,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
             </div>
-            {renderStatsSection()}
         </Card>
     );
 

@@ -283,17 +283,6 @@ const VMKollen = () => {
                 setLoading(false);
             });
 
-        // Refetch VM matches every minute to stay live
-        const interval = setInterval(async () => {
-            try {
-                const matches = await fetchData('worldcup_2026_matches.json');
-                setMatchesData(matches);
-            } catch (error) {
-                console.error('Error refetching VM matches:', error);
-            }
-        }, 60000);
-
-        return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
