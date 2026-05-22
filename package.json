@@ -22,7 +22,8 @@
     "fetch:allsvenskan-delta": "node scripts/fetch_allsvenskan_api.js --delta",
     "fetch:allsvenskan-matches": "node scripts/fetch_allsvenskan_api.js --matches",
     "fetch:allsvenskan-table": "node scripts/fetch_allsvenskan_api.js --table",
-    "fetch:allsvenskan-logos": "node scripts/fetch_allsvenskan_api.js --logos"
+    "fetch:allsvenskan-logos": "node scripts/fetch_allsvenskan_api.js --logos",
+    "scrape:transfers": "node scripts/scrape_transfermarkt_transfers.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

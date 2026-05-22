@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
-import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useSwipeNavigation } from '../utils/navigation';
@@ -123,6 +123,7 @@ const AllsvenskanKollen = () => {
     const [logosData, setLogosData] = useState({});
     const [tableData, setTableData] = useState(null);
     const [maratonData, setMaratonData] = useState(null);
+    const [transfersData, setTransfersData] = useState(null);
     const [loading, setLoading] = useState(true);
     const tableRefs = React.useRef({});
     const maratonRefs = React.useRef({});
@@ -151,7 +152,8 @@ const AllsvenskanKollen = () => {
         { id: 'matcher', label: 'Matcher', icon: Calendar },
         { id: 'gruppspel', label: 'Tabell', icon: List },
         { id: 'slutspel', label: 'Svenska Cupen', icon: Trophy },
-        { id: 'statistik', label: 'Statistik', icon: BarChart3 }
+        { id: 'statistik', label: 'Statistik', icon: BarChart3 },
+        { id: 'transfers', label: 'Transfers', icon: Repeat }
     ];
 
     useEffect(() => {
@@ -198,10 +200,24 @@ const AllsvenskanKollen = () => {
                 const logos = await logosRes.json();
                 const table = await tableRes.json();
                 const maraton = await maratonRes.json();
+
+                // Transfers loaded separately to avoid crashing main data load
+                let transfers = null;
+                try {
+                    const transfersRes = await fetch('/data/allsvenskan_transfers.json');
+                    const contentType = transfersRes.headers.get('content-type') || '';
+                    if (transfersRes.ok && contentType.includes('application/json')) {
+                        transfers = await transfersRes.json();
+                    }
+                } catch (e) {
+                    // Transfers data not available yet — ignore
+                }
+
                 setMatchesData(matches);
                 setLogosData(logos);
                 setTableData(table);
                 setMaratonData(maraton);
+                setTransfersData(transfers);
                 setLoading(false);
             } catch (error) {
                 console.error(`Error fetching Allsvenskan data for season ${selectedSeason}:`, error);
@@ -212,22 +228,6 @@ const AllsvenskanKollen = () => {
         fetchData();
     }, [selectedSeason]);
 
-    useEffect(() => {
-        if (selectedSeason !== 2026) return;
-
-        // Refetch matches every minute to keep live data updated (only for current season)
-        const interval = setInterval(async () => {
-            try {
-                const matchesRes = await fetch('/data/allsvenskan_matches.json');
-                const matches = await matchesRes.json();
-                setMatchesData(matches);
-            } catch (error) {
-                console.error('Error refetching Allsvenskan matches:', error);
-            }
-        }, 60000);
-
-        return () => clearInterval(interval);
-    }, [selectedSeason]);
 
 
 
@@ -292,6 +292,20 @@ const AllsvenskanKollen = () => {
     const nextMatchDateString = useMemo(() => {
         if (filteredMatches.length === 0) return null;
         const now = new Date();
+        
+        // Priority 1: Are there any matches TODAY?
+        const todayMatches = filteredMatches.filter(m => {
+            const matchDate = parseMatchDate(m.date, m.time);
+            return matchDate.getFullYear() === now.getFullYear() &&
+                   matchDate.getMonth() === now.getMonth() &&
+                   matchDate.getDate() === now.getDate();
+        });
+        
+        if (todayMatches.length > 0) {
+            return todayMatches[0].date;
+        }
+
+        // Priority 2: Next upcoming match date
         const upcoming = filteredMatches.filter(m => parseMatchDate(m.date, m.time) >= now);
         return upcoming[0] ? upcoming[0].date : null;
     }, [filteredMatches]);
@@ -1494,6 +1508,198 @@ const AllsvenskanKollen = () => {
                                         )}
                                     </Card>
                                 </div>
+                            )}
+                        </div>
+                    )}
+
+                    {activeTab === 'transfers' && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {loading ? (
+                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
+                                    Laddar transfers...
+                                </div>
+                            ) : !transfersData?.teams ? (
+                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
+                                    Inga transferdata tillgängliga.
+                                </div>
+                            ) : (
+                                <>
+                                    {transfersData.lastUpdated && (
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'right', padding: '0 4px' }}>
+                                            Uppdaterad: {new Date(transfersData.lastUpdated).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                        </div>
+                                    )}
+                                    {Object.entries(transfersData.teams)
+                                        .filter(([teamName]) => {
+                                            if (!filterTeam) return true;
+                                            const cleanFilter = filterTeam.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+                                            return teamName.includes(cleanFilter) || teamName.includes(filterTeam) || teamName === filterTeam;
+                                        })
+                                        .sort(([a], [b]) => cleanTeamNameForDisplay(a).localeCompare(cleanTeamNameForDisplay(b), 'sv'))
+                                        .map(([teamName, teamTransfers]) => {
+                                            const hasArrivals = teamTransfers.arrivals?.length > 0;
+                                            const hasDepartures = teamTransfers.departures?.length > 0;
+                                            if (!hasArrivals && !hasDepartures) return null;
+                                            const teamColor = TEAM_COLORS[teamName];
+
+                                            return (
+                                                <Card key={teamName} padding="0" style={{ overflow: 'hidden' }}>
+                                                    {/* Team header */}
+                                                    <div style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '10px',
+                                                        padding: '14px 16px',
+                                                        backgroundColor: teamColor?.bg || 'var(--color-card-bg)',
+                                                        borderBottom: '1px solid rgba(0,0,0,0.06)'
+                                                    }}>
+                                                        {getTeamLogo(teamName) && (
+                                                            <img src={getTeamLogo(teamName)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />
+                                                        )}
+                                                        <span style={{
+                                                            fontWeight: 700,
+                                                            fontSize: '0.95rem',
+                                                            color: teamColor?.label || 'var(--color-text)'
+                                                        }}>
+                                                            {cleanTeamNameForDisplay(teamName)}
+                                                        </span>
+                                                        <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
+                                                            {hasArrivals && (
+                                                                <span style={{
+                                                                    fontSize: '0.7rem',
+                                                                    fontWeight: 700,
+                                                                    backgroundColor: 'rgba(52, 199, 89, 0.2)',
+                                                                    color: '#2d9e4e',
+                                                                    padding: '2px 8px',
+                                                                    borderRadius: '10px'
+                                                                }}>
+                                                                    {teamTransfers.arrivals.length} IN
+                                                                </span>
+                                                            )}
+                                                            {hasDepartures && (
+                                                                <span style={{
+                                                                    fontSize: '0.7rem',
+                                                                    fontWeight: 700,
+                                                                    backgroundColor: 'rgba(255, 59, 48, 0.15)',
+                                                                    color: '#d93025',
+                                                                    padding: '2px 8px',
+                                                                    borderRadius: '10px'
+                                                                }}>
+                                                                    {teamTransfers.departures.length} UT
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Arrivals */}
+                                                    {hasArrivals && (
+                                                        <div style={{ padding: '12px 16px' }}>
+                                                            <div style={{
+                                                                fontSize: '0.7rem',
+                                                                fontWeight: 800,
+                                                                textTransform: 'uppercase',
+                                                                color: '#2d9e4e',
+                                                                letterSpacing: '0.05em',
+                                                                marginBottom: '8px',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '6px'
+                                                            }}>
+                                                                <ArrowDown size={12} /> Nyförvärv
+                                                            </div>
+                                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                                                {teamTransfers.arrivals.map((t, idx) => (
+                                                                    <div key={idx} style={{
+                                                                        display: 'flex',
+                                                                        alignItems: 'center',
+                                                                        gap: '10px',
+                                                                        padding: '8px 10px',
+                                                                        borderRadius: '10px',
+                                                                        backgroundColor: 'rgba(52, 199, 89, 0.04)',
+                                                                        border: '0.5px solid rgba(52, 199, 89, 0.1)',
+                                                                    }}>
+                                                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                                                            <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                                                {t.player}
+                                                                            </div>
+                                                                            <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
+                                                                                {t.position && <span style={{ opacity: 0.8 }}>{t.position}</span>}
+                                                                                {t.age && <span>· {t.age} år</span>}
+                                                                                {t.from && <span>· från {t.from}</span>}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style={{
+                                                                            fontSize: '0.72rem',
+                                                                            fontWeight: 700,
+                                                                            color: t.fee && t.fee !== '-' && !t.fee.toLowerCase().includes('free') ? '#2d9e4e' : 'var(--color-text-muted)',
+                                                                            textAlign: 'right',
+                                                                            whiteSpace: 'nowrap',
+                                                                            flexShrink: 0
+                                                                        }}>
+                                                                            {t.fee || '-'}
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Departures */}
+                                                    {hasDepartures && (
+                                                        <div style={{ padding: '12px 16px', borderTop: hasArrivals ? '1px solid rgba(0,0,0,0.04)' : 'none' }}>
+                                                            <div style={{
+                                                                fontSize: '0.7rem',
+                                                                fontWeight: 800,
+                                                                textTransform: 'uppercase',
+                                                                color: '#d93025',
+                                                                letterSpacing: '0.05em',
+                                                                marginBottom: '8px',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: '6px'
+                                                            }}>
+                                                                <ArrowUp size={12} /> Försäljningar
+                                                            </div>
+                                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                                                {teamTransfers.departures.map((t, idx) => (
+                                                                    <div key={idx} style={{
+                                                                        display: 'flex',
+                                                                        alignItems: 'center',
+                                                                        gap: '10px',
+                                                                        padding: '8px 10px',
+                                                                        borderRadius: '10px',
+                                                                        backgroundColor: 'rgba(255, 59, 48, 0.03)',
+                                                                        border: '0.5px solid rgba(255, 59, 48, 0.08)',
+                                                                    }}>
+                                                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                                                            <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                                                {t.player}
+                                                                            </div>
+                                                                            <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '2px' }}>
+                                                                                {t.position && <span style={{ opacity: 0.8 }}>{t.position}</span>}
+                                                                                {t.age && <span>· {t.age} år</span>}
+                                                                                {t.to && <span>· till {t.to}</span>}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style={{
+                                                                            fontSize: '0.72rem',
+                                                                            fontWeight: 700,
+                                                                            color: t.fee && t.fee !== '-' && !t.fee.toLowerCase().includes('free') ? '#d93025' : 'var(--color-text-muted)',
+                                                                            textAlign: 'right',
+                                                                            whiteSpace: 'nowrap',
+                                                                            flexShrink: 0
+                                                                        }}>
+                                                                            {t.fee || '-'}
+                                                                        </div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </Card>
+                                            );
+                                        })}
+                                </>
                             )}
                         </div>
                     )}

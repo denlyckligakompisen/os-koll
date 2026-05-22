@@ -207,41 +207,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
-    const [timeLeft, setTimeLeft] = useState(null);
-
-    useEffect(() => {
-        if (match.status !== 'upcoming' || !match.startTimestamp) {
-            setTimeLeft(null);
-            return;
-        }
-
-        const targetTime = match.startTimestamp * 1000;
-
-        const updateTimer = () => {
-            const now = Date.now();
-            const diff = targetTime - now;
-
-            if (diff > 0 && diff <= 60 * 60 * 1000) {
-                const totalSecs = Math.floor(diff / 1000);
-                const mins = String(Math.floor(totalSecs / 60)).padStart(2, '0');
-                const secs = String(totalSecs % 60).padStart(2, '0');
-                setTimeLeft(`${mins}:${secs}`);
-            } else {
-                setTimeLeft(null);
-            }
-        };
-
-        // Run once immediately
-        updateTimer();
-
-        const interval = setInterval(updateTimer, 1000);
-        return () => clearInterval(interval);
-    }, [match.status, match.startTimestamp]);
-
     const [showStats, setShowStats] = useState(true);
 
     const getComputedStatus = () => {
-        if (match.status === 'live' || match.status === 'LIVE') return 'live';
         if (match.status === 'finished') return 'finished';
         if (match.status === 'postponed') return 'postponed';
 
@@ -250,9 +218,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             const now = Date.now();
             if (now >= startMs) {
                 const durationMs = 125 * 60 * 1000; // 125 mins
-                if (now < startMs + durationMs) {
-                    return 'live';
-                } else {
+                if (now >= startMs + durationMs) {
                     return 'finished';
                 }
             }
@@ -339,74 +305,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const homeForm = getTeamForm(match.home);
     const awayForm = getTeamForm(match.away).reverse();
-
-    const getTeamAverageGoals = (teamName) => {
-        if (!allMatches || !allMatches.length) return null;
-        const cleanTeam = cleanTeamName(teamName);
-        const teamFinished = allMatches
-            .filter(m => m.status === 'finished' && m.score && m.score.includes('-'))
-            .filter(m => cleanTeamName(m.home) === cleanTeam || cleanTeamName(m.away) === cleanTeam);
-
-        if (teamFinished.length === 0) return 0;
-
-        let totalGoals = 0;
-        teamFinished.forEach(m => {
-            const parts = m.score.split('-').map(s => parseInt(s.trim()));
-            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-                const homeScore = parts[0];
-                const awayScore = parts[1];
-                const isHome = cleanTeamName(m.home) === cleanTeam;
-                totalGoals += isHome ? homeScore : awayScore;
-            }
-        });
-
-        return totalGoals / teamFinished.length;
-    };
-
-    const getTeamAverageConceded = (teamName) => {
-        if (!allMatches || !allMatches.length) return null;
-        const cleanTeam = cleanTeamName(teamName);
-        const teamFinished = allMatches
-            .filter(m => m.status === 'finished' && m.score && m.score.includes('-'))
-            .filter(m => cleanTeamName(m.home) === cleanTeam || cleanTeamName(m.away) === cleanTeam);
-
-        if (teamFinished.length === 0) return 0;
-
-        let totalConceded = 0;
-        teamFinished.forEach(m => {
-            const parts = m.score.split('-').map(s => parseInt(s.trim()));
-            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-                const homeScore = parts[0];
-                const awayScore = parts[1];
-                const isHome = cleanTeamName(m.home) === cleanTeam;
-                totalConceded += isHome ? awayScore : homeScore;
-            }
-        });
-
-        return totalConceded / teamFinished.length;
-    };
-
-    const formatAvg = (val) => {
-        if (val === null || val === undefined) return '0,00';
-        return val.toFixed(2).replace('.', ',');
-    };
-
-    const homeAvg = getTeamAverageGoals(match.home);
-    const awayAvg = getTeamAverageGoals(match.away);
-    const homeConceded = getTeamAverageConceded(match.home);
-    const awayConceded = getTeamAverageConceded(match.away);
-
-    let homeXG = null;
-    let awayXG = null;
-
-    if (homeAvg !== null && awayConceded !== null) {
-        homeXG = (homeAvg + awayConceded) / 2;
-    }
-    if (awayAvg !== null && homeConceded !== null) {
-        awayXG = (awayAvg + homeConceded) / 2;
-    }
-
-    const xGText = (homeXG !== null && awayXG !== null) ? `${formatAvg(homeXG)} - ${formatAvg(awayXG)}` : null;
 
     const renderFormBadge = (result, key) => {
         let bg = '#8e8e93';
@@ -594,7 +492,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             {computedStatus === 'live' && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {computedStatus === 'finished' ? (computedScore || match.time) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (timeLeft || match.time)}
+                             match.time}
                         </button>
                         {computedStatus === 'live' && (
                             <div style={{
@@ -615,17 +513,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
-                        {xGText && (
-                            <div style={{
-                                fontSize: '0.75rem',
-                                fontWeight: '600',
-                                color: 'var(--color-text-muted)',
-                                marginTop: '4px',
-                                letterSpacing: '0.04em'
-                            }}>
-                                xG: {xGText}
-                            </div>
-                        )}
 
                     </div>
 
@@ -768,7 +655,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             {computedStatus === 'live' && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: highlight ? '8px' : '6px', height: highlight ? '8px' : '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {computedStatus === 'finished' ? (computedScore || match.time) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (timeLeft || match.time)}
+                             match.time}
                         </span>
                         {computedStatus === 'live' && (
                             <span style={{
