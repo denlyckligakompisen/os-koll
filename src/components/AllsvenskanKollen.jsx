@@ -290,7 +290,18 @@ const AllsvenskanKollen = () => {
 
     const nextMatchDateString = useMemo(() => {
         if (filteredMatches.length === 0) return null;
-        const firstActiveMatch = filteredMatches.find(m => m.status === 'upcoming' || m.status === 'live');
+        const now = new Date();
+        now.setHours(0,0,0,0);
+        const firstActiveMatch = filteredMatches.find(m => {
+            if (m.status === 'live') return true;
+            if (m.status === 'upcoming') {
+                const md = parseMatchDate(m.date, m.time);
+                md.setHours(0,0,0,0);
+                if (md.getTime() < now.getTime()) return false;
+                return true;
+            }
+            return false;
+        });
         return firstActiveMatch ? firstActiveMatch.date : null;
     }, [filteredMatches]);
 

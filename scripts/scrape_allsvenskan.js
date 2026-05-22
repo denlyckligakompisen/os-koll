@@ -11,9 +11,33 @@ const TEAM_NAME_MAP = {
     'BP': 'IF Brommapojkarna'
 };
 
+const monthMap = { 'JANUARI': 0, 'FEBRUARI': 1, 'MARS': 2, 'APRIL': 3, 'MAJ': 4, 'JUNI': 5, 'JULI': 6, 'AUGUSTI': 7, 'SEPTEMBER': 8, 'OKTOBER': 9, 'NOVEMBER': 10, 'DECEMBER': 11 };
+
+function parseDate(dateStr, timeStr) {
+    const parts = dateStr.split(' ');
+    if (parts.length < 3) return new Date();
+    const day = parseInt(parts[1], 10);
+    const month = monthMap[parts[2].toUpperCase()] || 0;
+    const now = new Date();
+    const year = now.getFullYear();
+    const [hours, mins] = timeStr === 'TBA' || !timeStr ? [0,0] : timeStr.split(':').map(Number);
+    return new Date(year, month, day, hours || 0, mins || 0);
+}
+
 async function scrapeAllsvenskan() {
     console.log(`Scraping Allsvenskan matches from ${URL}...`);
     
+    // Load cache
+    let existingMatches = [];
+    if (fs.existsSync(OUTPUT_FILE)) {
+        try {
+            existingMatches = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf-8')).matches || [];
+            console.log(`Loaded ${existingMatches.length} existing matches from cache.`);
+        } catch(e) {
+            console.error('Failed to parse existing cache.');
+        }
+    }
+
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
@@ -24,7 +48,7 @@ async function scrapeAllsvenskan() {
         await page.goto(URL, { waitUntil: 'networkidle', timeout: 60000 });
         await page.waitForTimeout(5000);
 
-        const matches = await page.evaluate((teamNameMap) => {
+        const newMatches = await page.evaluate((teamNameMap) => {
             const results = [];
             const rows = document.querySelectorAll('.data-container__row');
             
@@ -75,20 +99,16 @@ async function scrapeAllsvenskan() {
                 const timeMatch = text.match(/(\d{2}:\d{2})/);
                 if (timeMatch) time = timeMatch[1];
 
-                link = '';
+                const aEl = row.querySelector('a');
+                if (aEl) {
+                    link = aEl.href;
+                }
 
-                let sibling = row.previousElementSibling;
-                while (sibling) {
-                    if (sibling.innerText && /(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG)\s+\d+\s+(JANUARI|FEBRUARI|MARS|APRIL|MAJ|JUNI|JULI|AUGUSTI|SEPTEMBER|OKTOBER|NOVEMBER|DECEMBER)/i.test(sibling.innerText)) {
-                        date = sibling.innerText.split('\n')[0].trim();
-                        break;
-                    }
-                    sibling = sibling.previousElementSibling;
+                const dateInRow = text.match(/(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG)\s+\d+\s+(JANUARI|FEBRUARI|MARS|APRIL|MAJ|JUNI|JULI|AUGUSTI|SEPTEMBER|OKTOBER|NOVEMBER|DECEMBER)/i);
+                if (dateInRow) {
+                    teamNameMap.__currentDate = dateInRow[0].toUpperCase();
                 }
-                if (!date) {
-                    const dateInRow = text.match(/(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG)\s+\d+\s+(JANUARI|FEBRUARI|MARS|APRIL|MAJ|JUNI|JULI|AUGUSTI|SEPTEMBER|OKTOBER|NOVEMBER|DECEMBER)/i);
-                    if (dateInRow) date = dateInRow[0];
-                }
+                date = teamNameMap.__currentDate || '';
 
                 if (home && away) {
                     results.push({ home, away, time, date: date.trim(), link, score, status });
@@ -98,14 +118,42 @@ async function scrapeAllsvenskan() {
             return results;
         }, TEAM_NAME_MAP);
 
+        // Merge and process details
+        const now = new Date();
+
+        // Deduplicate newMatches (allsvenskan.se sometimes lists matches twice in top carousels)
+        const uniqueNewMatches = [];
+        const seen = new Set();
+        for (const m of newMatches) {
+            const key = `${m.home}-${m.away}`;
+            if (!seen.has(key)) {
+                seen.add(key);
+                uniqueNewMatches.push(m);
+            }
+        }
+
+        const mergedMatches = [];
+        for (const nm of uniqueNewMatches) {
+            // Find existing
+            const existing = existingMatches.find(e => e.home === nm.home && e.away === nm.away && e.date === nm.date);
+
+            const matchDate = parseDate(nm.date, nm.time);
+            const startTimestamp = Math.floor(matchDate.getTime() / 1000);
+
+            mergedMatches.push({
+                ...nm,
+                startTimestamp
+            });
+        }
+
         const data = {
-            matches,
+            matches: mergedMatches,
             lastUpdated: new Date().toISOString(),
             source: URL
         };
 
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
-        console.log(`Successfully scraped ${matches.length} matches and saved to ${OUTPUT_FILE}`);
+        console.log(`Successfully scraped ${mergedMatches.length} matches and saved to ${OUTPUT_FILE}`);
 
     } catch (error) {
         console.error('Error scraping Allsvenskan:', error.message);
