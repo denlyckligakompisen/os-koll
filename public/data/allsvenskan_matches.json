@@ -8,7 +8,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529830/hammarby-mot-mjallby-aif",
       "score": "3 - 0",
       "status": "finished",
-      "startTimestamp": 1775253600
+      "startTimestamp": 1775253600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -18,7 +23,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529835/degerfors-if-mot-ik-sirius",
       "score": "0 - 3",
       "status": "finished",
-      "startTimestamp": 1775253600
+      "startTimestamp": 1775253600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -28,7 +38,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529829/aik-mot-halmstads-bk",
       "score": "2 - 1",
       "status": "finished",
-      "startTimestamp": 1775340000
+      "startTimestamp": 1775340000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -38,7 +53,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529836/kalmar-ff-mot-vasteras-sk",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1775340000
+      "startTimestamp": 1775340000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -48,7 +68,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529832/orgryte-is-mot-malmo-ff",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1775340000
+      "startTimestamp": 1775340000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -58,7 +83,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529833/bk-hacken-mot-if-brommapojkarna",
       "score": "2 - 2",
       "status": "finished",
-      "startTimestamp": 1775426400
+      "startTimestamp": 1775426400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -68,7 +98,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529834/if-elfsborg-mot-ifk-goteborg",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1775426400
+      "startTimestamp": 1775426400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -78,7 +113,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529831/gais-mot-djurgardens-if",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1775426400
+      "startTimestamp": 1775426400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -88,7 +128,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529838/ifk-goteborg-mot-bk-hacken",
       "score": "0 - 2",
       "status": "finished",
-      "startTimestamp": 1775858400
+      "startTimestamp": 1775858400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -98,7 +143,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529839/mjallby-aif-mot-orgryte-is",
       "score": "0 - 2",
       "status": "finished",
-      "startTimestamp": 1775858400
+      "startTimestamp": 1775858400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -108,7 +158,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529843/vasteras-sk-mot-if-elfsborg",
       "score": "2 - 2",
       "status": "finished",
-      "startTimestamp": 1775858400
+      "startTimestamp": 1775858400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -118,7 +173,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529837/djurgardens-if-mot-kalmar-ff",
       "score": "3 - 2",
       "status": "finished",
-      "startTimestamp": 1775944800
+      "startTimestamp": 1775944800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -128,7 +188,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529844/halmstads-bk-mot-degerfors-if",
       "score": "0 - 3",
       "status": "finished",
-      "startTimestamp": 1775944800
+      "startTimestamp": 1775944800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -138,7 +203,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529840/malmo-ff-mot-gais",
       "score": "3 - 1",
       "status": "finished",
-      "startTimestamp": 1775944800
+      "startTimestamp": 1775944800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -148,7 +218,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529841/if-brommapojkarna-mot-aik",
       "score": "2 - 2",
       "status": "finished",
-      "startTimestamp": 1776031200
+      "startTimestamp": 1776031200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -158,7 +233,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529842/ik-sirius-mot-hammarby",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1776031200
+      "startTimestamp": 1776031200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -168,7 +248,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529846/djurgardens-if-mot-malmo-ff",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1776376800
+      "startTimestamp": 1776376800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -178,7 +263,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529850/degerfors-if-mot-if-elfsborg",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1776376800
+      "startTimestamp": 1776376800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -188,7 +278,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529847/hammarby-mot-orgryte-is",
       "score": "8 - 1",
       "status": "finished",
-      "startTimestamp": 1776463200
+      "startTimestamp": 1776463200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -198,7 +293,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529849/mjallby-aif-mot-if-brommapojkarna",
       "score": "3 - 0",
       "status": "finished",
-      "startTimestamp": 1776463200
+      "startTimestamp": 1776463200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -208,7 +308,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529851/ik-sirius-mot-vasteras-sk",
       "score": "4 - 1",
       "status": "finished",
-      "startTimestamp": 1776463200
+      "startTimestamp": 1776463200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -218,7 +323,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529852/halmstads-bk-mot-ifk-goteborg",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1776463200
+      "startTimestamp": 1776463200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -228,7 +338,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529845/aik-mot-kalmar-ff",
       "score": "1 - 0",
       "status": "finished",
-      "startTimestamp": 1776549600
+      "startTimestamp": 1776549600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -238,7 +353,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529848/bk-hacken-mot-gais",
       "score": "2 - 1",
       "status": "finished",
-      "startTimestamp": 1776549600
+      "startTimestamp": 1776549600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -248,7 +368,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529853/hammarby-mot-halmstads-bk",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1776808800
+      "startTimestamp": 1776808800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -258,7 +383,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529855/orgryte-is-mot-if-brommapojkarna",
       "score": "1 - 2",
       "status": "finished",
-      "startTimestamp": 1776808800
+      "startTimestamp": 1776808800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -268,7 +398,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529857/if-elfsborg-mot-djurgardens-if",
       "score": "2 - 1",
       "status": "finished",
-      "startTimestamp": 1776808800
+      "startTimestamp": 1776808800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -278,7 +413,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529859/vasteras-sk-mot-bk-hacken",
       "score": "3 - 3",
       "status": "finished",
-      "startTimestamp": 1776808800
+      "startTimestamp": 1776808800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -288,7 +428,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529854/gais-mot-mjallby-aif",
       "score": "0 - 0",
       "status": "finished",
-      "startTimestamp": 1776895200
+      "startTimestamp": 1776895200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -298,7 +443,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529856/malmo-ff-mot-ik-sirius",
       "score": "2 - 3",
       "status": "finished",
-      "startTimestamp": 1776895200
+      "startTimestamp": 1776895200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -308,7 +458,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529858/degerfors-if-mot-aik",
       "score": "2 - 1",
       "status": "finished",
-      "startTimestamp": 1776895200
+      "startTimestamp": 1776895200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -318,7 +473,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529860/kalmar-ff-mot-ifk-goteborg",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1776895200
+      "startTimestamp": 1776895200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -328,7 +488,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529862/djurgardens-if-mot-hammarby",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1777154400
+      "startTimestamp": 1777154400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -338,7 +503,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529863/ifk-goteborg-mot-gais",
       "score": "2 - 2",
       "status": "finished",
-      "startTimestamp": 1777154400
+      "startTimestamp": 1777154400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -348,7 +518,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529867/if-brommapojkarna-mot-vasteras-sk",
       "score": "1 - 2",
       "status": "finished",
-      "startTimestamp": 1777154400
+      "startTimestamp": 1777154400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -358,7 +533,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529861/aik-mot-malmo-ff",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1777240800
+      "startTimestamp": 1777240800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -368,7 +548,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529864/orgryte-is-mot-degerfors-if",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1777240800
+      "startTimestamp": 1777240800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -378,7 +563,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529865/bk-hacken-mot-ik-sirius",
       "score": "2 - 2",
       "status": "finished",
-      "startTimestamp": 1777240800
+      "startTimestamp": 1777240800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -388,7 +578,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529866/mjallby-aif-mot-halmstads-bk",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1777240800
+      "startTimestamp": 1777240800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -398,7 +593,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529868/kalmar-ff-mot-if-elfsborg",
       "score": "2 - 1",
       "status": "finished",
-      "startTimestamp": 1777240800
+      "startTimestamp": 1777240800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -408,7 +608,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529874/degerfors-if-mot-bk-hacken",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1777672800
+      "startTimestamp": 1777672800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -418,7 +623,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529875/ik-sirius-mot-kalmar-ff",
       "score": "3 - 2",
       "status": "finished",
-      "startTimestamp": 1777672800
+      "startTimestamp": 1777672800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -428,7 +638,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529870/hammarby-mot-vasteras-sk",
       "score": "3 - 0",
       "status": "finished",
-      "startTimestamp": 1777759200
+      "startTimestamp": 1777759200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -438,7 +653,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529872/malmo-ff-mot-mjallby-aif",
       "score": "2 - 3",
       "status": "finished",
-      "startTimestamp": 1777759200
+      "startTimestamp": 1777759200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -448,7 +668,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529871/gais-mot-orgryte-is",
       "score": "4 - 0",
       "status": "finished",
-      "startTimestamp": 1777759200
+      "startTimestamp": 1777759200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -458,7 +683,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529873/if-elfsborg-mot-aik",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1777759200
+      "startTimestamp": 1777759200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -468,7 +698,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529869/djurgardens-if-mot-ifk-goteborg",
       "score": "6 - 0",
       "status": "finished",
-      "startTimestamp": 1777845600
+      "startTimestamp": 1777845600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -478,7 +713,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529876/halmstads-bk-mot-if-brommapojkarna",
       "score": "1 - 3",
       "status": "finished",
-      "startTimestamp": 1777845600
+      "startTimestamp": 1777845600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -488,7 +728,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529880/if-elfsborg-mot-if-brommapojkarna",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1778191200
+      "startTimestamp": 1778191200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -498,7 +743,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529878/ifk-goteborg-mot-hammarby",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1778277600
+      "startTimestamp": 1778277600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -508,7 +758,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529881/degerfors-if-mot-mjallby-aif",
       "score": "1 - 4",
       "status": "finished",
-      "startTimestamp": 1778277600
+      "startTimestamp": 1778277600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -518,7 +773,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529883/vasteras-sk-mot-gais",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1778277600
+      "startTimestamp": 1778277600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -528,7 +788,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529877/aik-mot-djurgardens-if",
       "score": "2 - 4",
       "status": "finished",
-      "startTimestamp": 1778364000
+      "startTimestamp": 1778364000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -538,7 +803,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529884/kalmar-ff-mot-halmstads-bk",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1778364000
+      "startTimestamp": 1778364000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -548,7 +818,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529879/bk-hacken-mot-malmo-ff",
       "score": "3 - 2",
       "status": "finished",
-      "startTimestamp": 1778364000
+      "startTimestamp": 1778364000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -558,7 +833,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529882/ik-sirius-mot-orgryte-is",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1778450400
+      "startTimestamp": 1778450400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -568,7 +848,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529887/gais-mot-degerfors-if",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1778882400
+      "startTimestamp": 1778882400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -578,7 +863,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529892/halmstads-bk-mot-if-elfsborg",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1778882400
+      "startTimestamp": 1778882400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -588,7 +878,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529886/hammarby-mot-malmo-ff",
       "score": "4 - 1",
       "status": "finished",
-      "startTimestamp": 1778968800
+      "startTimestamp": 1778968800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -598,7 +893,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529890/if-brommapojkarna-mot-kalmar-ff",
       "score": "1 - 0",
       "status": "finished",
-      "startTimestamp": 1778968800
+      "startTimestamp": 1778968800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -608,7 +908,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529889/mjallby-aif-mot-bk-hacken",
       "score": "0 - 1",
       "status": "finished",
-      "startTimestamp": 1778968800
+      "startTimestamp": 1778968800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -618,7 +923,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529891/vasteras-sk-mot-aik",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1778968800
+      "startTimestamp": 1778968800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -628,7 +938,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529885/djurgardens-if-mot-ik-sirius",
       "score": "2 - 3",
       "status": "finished",
-      "startTimestamp": 1779055200
+      "startTimestamp": 1779055200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -638,7 +953,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529888/orgryte-is-mot-ifk-goteborg",
       "score": "2 - 3",
       "status": "finished",
-      "startTimestamp": 1779141600
+      "startTimestamp": 1779141600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -648,7 +968,108 @@
       "link": "https://allsvenskan.se/matcher/2026/6529893/djurgardens-if-mot-if-brommapojkarna",
       "score": "1 - 2",
       "status": "finished",
-      "startTimestamp": 1779400800
+      "startTimestamp": 1779400800,
+      "scorers": {
+        "home": [
+          {
+            "player": {
+              "name": "Mikael Anderson"
+            },
+            "time": 28,
+            "incidentClass": "regular"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Mads Kristian Hansen"
+            },
+            "time": 24,
+            "incidentClass": "regular"
+          },
+          {
+            "player": {
+              "name": "Simon Strand"
+            },
+            "time": 63,
+            "incidentClass": "regular"
+          }
+        ]
+      },
+      "detailedStats": {
+        "info": [
+          "FRE 22 MAJ 19:00",
+          "ERIK MATTSSON, DANIEL GUSTAVSSON, ABDELMASIH GERGESS",
+          "3ARENA",
+          "OMGÅNG 9",
+          "21 836"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nIF Brommapojkarna",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "62.5%",
+            "label": "62.5%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 212",
+            "label": "Löpmeter (m)",
+            "away": "120 154"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "8"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Kaare Barslund | IF Brommapojkarna | 12 611 | 30,06",
+          "2 | Mikael Anderson | Djurgårdens IF | 12 574 | 29,42",
+          "3 | Matias Siltanen | Djurgårdens IF | 12 500 | 29,88",
+          "4 | Oliver Berg | IF Brommapojkarna | 12 200 | 32,01",
+          "5 | Simon Strand | IF Brommapojkarna | 12 133 | 31,5",
+          "6 | Adam Ståhl | Djurgårdens IF | 11 907 | 33,48",
+          "7 | Rasmus Örqvist | IF Brommapojkarna | 11 459 | 30,53",
+          "8 | Oliver Zandén | IF Brommapojkarna | 11 275 | 31,61",
+          "9 | Alex Timossi Andersson | IF Brommapojkarna | 11 132 | 33,71",
+          "10 | Mads Kristian Hansen | IF Brommapojkarna | 10 841 | 31,89",
+          "11 | Miro Tenho | Djurgårdens IF | 10 571 | 30,87",
+          "12 | Mikael Marques | Djurgårdens IF | 10 357 | 31,41",
+          "13 | Jordan Simpson | IF Brommapojkarna | 10 295 | 28,59",
+          "14 | Piotr Johansson | Djurgårdens IF | 10 267 | 30,57",
+          "15 | Sion Oppong | IF Brommapojkarna | 10 120 | 30,33",
+          "16 | Andreas Troelsen | IF Brommapojkarna | 10 051 | 29,1",
+          "17 | Patric Åslund | Djurgårdens IF | 8 848 | 29,75",
+          "18 | Daniel Stensson | Djurgårdens IF | 8 828 | 27,83",
+          "19 | Bo Hegland | Djurgårdens IF | 8 703 | 31,67",
+          "20 | Kristian Lien | Djurgårdens IF | 8 355 | 29,03"
+        ]
+      }
     },
     {
       "home": "Kalmar FF",
@@ -658,7 +1079,28 @@
       "link": "https://allsvenskan.se/matcher/2026/6529899/kalmar-ff-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779541200
+      "startTimestamp": 1779541200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": {
+        "info": [
+          "LÖR 23 MAJ 15:00",
+          "NICLAS KARLSSON, MIKAEL HALLIN, ALEXANDER MILOVANOVIC",
+          "GULDFÅGELN ARENA, KALMAR",
+          "OMGÅNG 9"
+        ],
+        "stats": [],
+        "players": [
+          "TABELLEN | S | V | O | F | +/- | P",
+          "10 | AIK | 8 | 2 | 3 | 3 | 10-12 | 9",
+          "11 | Degerfors IF | 8 | 2 | 3 | 3 | 9-12 | 9",
+          "12 | Västerås SK | 8 | 2 | 3 | 3 | 10-15 | 9",
+          "13 | Kalmar FF | 8 | 2 | 1 | 5 | 9-11 | 7",
+          "14 | IFK Göteborg | 8 | 1 | 3 | 4 | 7-17 | 6"
+        ]
+      }
     },
     {
       "home": "Halmstads BK",
@@ -668,7 +1110,27 @@
       "link": "https://allsvenskan.se/matcher/2026/6529900/halmstads-bk-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779541200
+      "startTimestamp": 1779541200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": {
+        "info": [
+          "LÖR 23 MAJ 15:00",
+          "GRANIT MAQEDONCI, ROBIN WILDE, HANA MOHAMMAD SALEH",
+          "ÖRJANS VALL",
+          "OMGÅNG 9"
+        ],
+        "stats": [],
+        "players": [
+          "TABELLEN | S | V | O | F | +/- | P",
+          "13 | Kalmar FF | 8 | 2 | 1 | 5 | 9-11 | 7",
+          "14 | IFK Göteborg | 8 | 1 | 3 | 4 | 7-17 | 6",
+          "15 | Örgryte IS | 8 | 1 | 2 | 5 | 8-21 | 5",
+          "16 | Halmstads BK | 8 | 0 | 3 | 5 | 5-15 | 3"
+        ]
+      }
     },
     {
       "home": "Hammarby IF",
@@ -678,7 +1140,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529894/hammarby-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779624000
+      "startTimestamp": 1779624000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -688,7 +1155,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529898/ik-sirius-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779624000
+      "startTimestamp": 1779624000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -698,7 +1170,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529896/malmo-ff-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779633000
+      "startTimestamp": 1779633000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -708,7 +1185,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529895/ifk-goteborg-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779728400
+      "startTimestamp": 1779728400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -718,7 +1200,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529897/if-elfsborg-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1779728400
+      "startTimestamp": 1779728400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -728,7 +1215,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529903/orgryte-is-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780074000
+      "startTimestamp": 1780074000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -738,7 +1230,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529901/aik-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780146000
+      "startTimestamp": 1780146000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -748,7 +1245,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529902/gais-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780146000
+      "startTimestamp": 1780146000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -758,7 +1260,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529906/malmo-ff-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780146000
+      "startTimestamp": 1780146000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -768,7 +1275,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529904/bk-hacken-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780228800
+      "startTimestamp": 1780228800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -778,7 +1290,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529907/degerfors-if-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780228800
+      "startTimestamp": 1780228800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -788,7 +1305,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529908/vasteras-sk-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1780228800
+      "startTimestamp": 1780228800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -798,7 +1320,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529914/ik-sirius-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783098000
+      "startTimestamp": 1783098000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -808,7 +1335,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529913/degerfors-if-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783170000
+      "startTimestamp": 1783170000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -818,7 +1350,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529916/halmstads-bk-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783170000
+      "startTimestamp": 1783170000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -828,7 +1365,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529909/ifk-goteborg-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783252800
+      "startTimestamp": 1783252800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -838,7 +1380,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529915/kalmar-ff-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783252800
+      "startTimestamp": 1783252800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -848,7 +1395,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529911/if-elfsborg-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783261800
+      "startTimestamp": 1783261800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -858,7 +1410,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529910/bk-hacken-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783357200
+      "startTimestamp": 1783357200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -868,7 +1425,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529912/if-brommapojkarna-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783357200
+      "startTimestamp": 1783357200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -878,7 +1440,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529921/mjallby-aif-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783774800
+      "startTimestamp": 1783774800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -888,7 +1455,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529920/orgryte-is-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783783800
+      "startTimestamp": 1783783800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -898,7 +1470,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529918/hammarby-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783857600
+      "startTimestamp": 1783857600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -908,7 +1485,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529922/malmo-ff-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783857600
+      "startTimestamp": 1783857600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -918,7 +1500,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529924/vasteras-sk-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783857600
+      "startTimestamp": 1783857600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -928,7 +1515,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529919/gais-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783866600
+      "startTimestamp": 1783866600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -938,7 +1530,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529923/if-brommapojkarna-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783866600
+      "startTimestamp": 1783866600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -948,7 +1545,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529917/djurgardens-if-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1783962000
+      "startTimestamp": 1783962000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -958,7 +1560,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529929/mjallby-aif-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784307600
+      "startTimestamp": 1784307600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -968,7 +1575,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529925/aik-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784379600
+      "startTimestamp": 1784379600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -978,7 +1590,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529927/ifk-goteborg-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784462400
+      "startTimestamp": 1784462400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -988,7 +1605,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529926/hammarby-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784471400
+      "startTimestamp": 1784471400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -998,7 +1620,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529930/if-elfsborg-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784471400
+      "startTimestamp": 1784471400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1008,7 +1635,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529932/halmstads-bk-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784471400
+      "startTimestamp": 1784471400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1018,7 +1650,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529928/orgryte-is-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784566800
+      "startTimestamp": 1784566800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1028,7 +1665,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529931/kalmar-ff-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784566800
+      "startTimestamp": 1784566800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1038,7 +1680,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529939/vasteras-sk-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784912400
+      "startTimestamp": 1784912400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -1048,7 +1695,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529937/degerfors-if-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784984400
+      "startTimestamp": 1784984400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1058,7 +1710,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529940/kalmar-ff-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1784993400
+      "startTimestamp": 1784993400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1068,7 +1725,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529936/if-brommapojkarna-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785067200
+      "startTimestamp": 1785067200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1078,7 +1740,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529938/ik-sirius-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785067200
+      "startTimestamp": 1785067200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1088,7 +1755,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529933/gais-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785076200
+      "startTimestamp": 1785076200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1098,7 +1770,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529935/malmo-ff-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785076200
+      "startTimestamp": 1785076200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1108,7 +1785,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529934/bk-hacken-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785171600
+      "startTimestamp": 1785171600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1118,7 +1800,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529944/gais-mot-hammarby",
       "score": "2 - 0",
       "status": "finished",
-      "startTimestamp": 1779228000
+      "startTimestamp": 1779228000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1128,7 +1815,101 @@
       "link": "https://allsvenskan.se/matcher/2026/6529946/if-elfsborg-mot-mjallby-aif",
       "score": "1 - 1",
       "status": "finished",
-      "startTimestamp": 1779314400
+      "startTimestamp": 1779314400,
+      "scorers": {
+        "home": [
+          {
+            "player": {
+              "name": "Leo Östman"
+            },
+            "time": 7,
+            "incidentClass": "regular"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Jeppe Kjaer Jensen"
+            },
+            "time": 49,
+            "incidentClass": "regular"
+          }
+        ]
+      },
+      "detailedStats": {
+        "info": [
+          "TOR 21 MAJ 19:00",
+          "ADI AGANOVIC, PÄR LEEK, JONAS DAHL",
+          "BORÅS ARENA",
+          "OMGÅNG 15",
+          "5 818"
+        ],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nMjällby AIF",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "39%",
+            "label": "39%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 774",
+            "label": "Löpmeter (m)",
+            "away": "124 312"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Julius Magnusson | IF Elfsborg | 12 618 | 31,37",
+          "2 | Simon Olsson | IF Elfsborg | 12 184 | 28,81",
+          "3 | Jesper Gustavsson | Mjällby AIF | 12 157 | 29,25",
+          "4 | Ludwig Malachowski | Mjällby AIF | 12 043 | 28,64",
+          "5 | Tony Miettinen | Mjällby AIF | 11 711 | 32,06",
+          "6 | Thomas Isherwood | IF Elfsborg | 11 559 | 30,76",
+          "7 | Jacob Bergström | Mjällby AIF | 11 381 | 30,75",
+          "8 | Niklas Hult | IF Elfsborg | 11 365 | 33,18",
+          "9 | Ludvig Tidstrand | Mjällby AIF | 10 988 | 31,24",
+          "10 | Sebastian Holmén | IF Elfsborg | 10 851 | 29,28",
+          "11 | Villiam Granath | Mjällby AIF | 10 633 | 31,63",
+          "12 | Jeppe Kjaer | Mjällby AIF | 10 251 | 32,54",
+          "13 | Leo Östman | IF Elfsborg | 9 727 | 29,81",
+          "14 | Mohammed Rufai | IF Elfsborg | 9 709 | 31,25",
+          "15 | Julius Beck | IF Elfsborg | 9 576 | 31,02",
+          "16 | Bork Bang | Mjällby AIF | 8 310 | 28,94",
+          "17 | Simon Hedlund | IF Elfsborg | 8 196 | 31,05",
+          "18 | Romeo Leandersson | Mjällby AIF | 7 570 | 29,94",
+          "19 | Arber Zeneli | IF Elfsborg | 7 478 | 30,11",
+          "20 | Isak Pettersson | IF Elfsborg | 7 276 | 26,32"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -1138,7 +1919,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529945/bk-hacken-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785589200
+      "startTimestamp": 1785589200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1148,7 +1934,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529943/ifk-goteborg-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785672000
+      "startTimestamp": 1785672000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1158,7 +1949,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529947/if-brommapojkarna-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785672000
+      "startTimestamp": 1785672000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1168,7 +1964,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529941/aik-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785681000
+      "startTimestamp": 1785681000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1178,7 +1979,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529942/djurgardens-if-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785776400
+      "startTimestamp": 1785776400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1188,7 +1994,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529948/halmstads-bk-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1785776400
+      "startTimestamp": 1785776400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1198,7 +2009,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529951/orgryte-is-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786194000
+      "startTimestamp": 1786194000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1208,7 +2024,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529952/mjallby-aif-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786203000
+      "startTimestamp": 1786203000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -1218,7 +2039,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529949/hammarby-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786276800
+      "startTimestamp": 1786276800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1228,7 +2054,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529953/malmo-ff-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786276800
+      "startTimestamp": 1786276800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1238,7 +2069,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529950/ifk-goteborg-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786285800
+      "startTimestamp": 1786285800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1248,7 +2084,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529956/halmstads-bk-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786285800
+      "startTimestamp": 1786285800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1258,7 +2099,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529954/ik-sirius-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786381200
+      "startTimestamp": 1786381200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1268,7 +2114,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529955/vasteras-sk-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786381200
+      "startTimestamp": 1786381200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1278,7 +2129,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529961/if-elfsborg-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786726800
+      "startTimestamp": 1786726800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1288,7 +2144,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529960/mjallby-aif-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786798800
+      "startTimestamp": 1786798800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1298,7 +2159,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529957/djurgardens-if-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786881600
+      "startTimestamp": 1786881600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1308,7 +2174,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529962/if-brommapojkarna-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786881600
+      "startTimestamp": 1786881600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -1318,7 +2189,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529963/degerfors-if-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786881600
+      "startTimestamp": 1786881600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1328,7 +2204,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529958/gais-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786890600
+      "startTimestamp": 1786890600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1338,7 +2219,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529964/kalmar-ff-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786890600
+      "startTimestamp": 1786890600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1348,7 +2234,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529959/bk-hacken-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1786986000
+      "startTimestamp": 1786986000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1358,7 +2249,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529965/aik-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -1368,7 +2264,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529966/hammarby-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1378,7 +2279,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529967/ifk-goteborg-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1388,7 +2294,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529968/orgryte-is-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1398,7 +2309,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529969/malmo-ff-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1408,7 +2324,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529970/if-brommapojkarna-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1418,7 +2339,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529971/ik-sirius-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1428,7 +2354,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529972/vasteras-sk-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1787436000
+      "startTimestamp": 1787436000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1438,7 +2369,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529973/aik-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1448,7 +2384,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529974/djurgardens-if-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1458,7 +2399,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529975/ifk-goteborg-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1468,7 +2414,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529976/gais-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1478,7 +2429,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529977/bk-hacken-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1488,7 +2444,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529978/if-elfsborg-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1498,7 +2459,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529979/ik-sirius-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1508,7 +2474,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529980/halmstads-bk-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788040800
+      "startTimestamp": 1788040800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1518,7 +2489,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529981/gais-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1528,7 +2504,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529982/orgryte-is-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1538,7 +2519,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529983/mjallby-aif-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1548,7 +2534,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529984/malmo-ff-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1558,7 +2549,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529985/if-brommapojkarna-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -1568,7 +2564,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529986/degerfors-if-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1578,7 +2579,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529987/vasteras-sk-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1588,7 +2594,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529988/kalmar-ff-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1788645600
+      "startTimestamp": 1788645600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1598,7 +2609,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529989/aik-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1608,7 +2624,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529990/djurgardens-if-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -1618,7 +2639,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529991/hammarby-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1628,7 +2654,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529992/ifk-goteborg-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1638,7 +2669,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529993/bk-hacken-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1648,7 +2684,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529994/malmo-ff-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1658,7 +2699,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529995/if-elfsborg-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1668,7 +2714,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529996/ik-sirius-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789250400
+      "startTimestamp": 1789250400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1678,7 +2729,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529997/djurgardens-if-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1688,7 +2744,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529998/orgryte-is-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1698,7 +2759,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6529999/mjallby-aif-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1708,7 +2774,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530000/if-brommapojkarna-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -1718,7 +2789,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530001/degerfors-if-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1728,7 +2804,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530002/vasteras-sk-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1738,7 +2819,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530003/kalmar-ff-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1748,7 +2834,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530004/halmstads-bk-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1789855200
+      "startTimestamp": 1789855200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1758,7 +2849,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530005/aik-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -1768,7 +2864,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530006/hammarby-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -1778,7 +2879,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530007/ifk-goteborg-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1788,7 +2894,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530008/gais-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1798,7 +2909,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530009/bk-hacken-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1808,7 +2924,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530010/mjallby-aif-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1818,7 +2939,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530011/malmo-ff-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1828,7 +2954,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530012/if-elfsborg-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1791669600
+      "startTimestamp": 1791669600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1838,7 +2969,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530013/aik-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -1848,7 +2984,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530014/orgryte-is-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -1858,7 +2999,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530015/malmo-ff-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -1868,7 +3014,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530016/if-brommapojkarna-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -1878,7 +3029,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530017/degerfors-if-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1888,7 +3044,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530018/ik-sirius-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1898,7 +3059,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530019/vasteras-sk-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -1908,7 +3074,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530020/halmstads-bk-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792274400
+      "startTimestamp": 1792274400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -1918,7 +3089,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530021/djurgardens-if-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -1928,7 +3104,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530022/gais-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -1938,7 +3119,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530023/bk-hacken-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -1948,7 +3134,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530024/mjallby-aif-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -1958,7 +3149,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530025/if-elfsborg-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -1968,7 +3164,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530026/ik-sirius-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -1978,7 +3179,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530027/vasteras-sk-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -1988,7 +3194,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530028/kalmar-ff-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1792879200
+      "startTimestamp": 1792879200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -1998,7 +3209,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530029/aik-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -2008,7 +3224,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530030/hammarby-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -2018,7 +3239,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530031/ifk-goteborg-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -2028,7 +3254,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530032/orgryte-is-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -2038,7 +3269,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530033/if-brommapojkarna-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -2048,7 +3284,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530034/degerfors-if-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -2058,7 +3299,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530035/kalmar-ff-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -2068,7 +3314,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530036/halmstads-bk-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793142000
+      "startTimestamp": 1793142000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -2078,7 +3329,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530037/djurgardens-if-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -2088,7 +3344,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530038/gais-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -2098,7 +3359,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530039/bk-hacken-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -2108,7 +3374,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530040/mjallby-aif-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -2118,7 +3389,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530041/malmo-ff-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -2128,7 +3404,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530042/if-elfsborg-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -2138,7 +3419,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530043/ik-sirius-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -2148,7 +3434,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530044/vasteras-sk-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1793487600
+      "startTimestamp": 1793487600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -2158,7 +3449,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530045/aik-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -2168,7 +3464,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530046/hammarby-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -2178,7 +3479,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530047/ifk-goteborg-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -2188,7 +3494,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530048/orgryte-is-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -2198,7 +3509,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530049/if-brommapojkarna-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -2208,7 +3524,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530050/degerfors-if-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -2218,7 +3539,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530051/kalmar-ff-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -2228,7 +3554,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530052/halmstads-bk-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1794092400
+      "startTimestamp": 1794092400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "AIK",
@@ -2238,7 +3569,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530053/aik-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Hammarby IF",
@@ -2248,7 +3584,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530054/hammarby-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "GAIS",
@@ -2258,7 +3599,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530055/gais-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Örgryte IS",
@@ -2268,7 +3614,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530056/orgryte-is-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "BK Häcken",
@@ -2278,7 +3629,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530057/bk-hacken-mot-if-elfsborg",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Mjällby AIF",
@@ -2288,7 +3644,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530058/mjallby-aif-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Brommapojkarna",
@@ -2298,7 +3659,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530059/if-brommapojkarna-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IK Sirius",
@@ -2308,7 +3674,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530060/ik-sirius-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795302000
+      "startTimestamp": 1795302000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Djurgårdens IF",
@@ -2318,7 +3689,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530061/djurgardens-if-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IFK Göteborg",
@@ -2328,7 +3704,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530062/ifk-goteborg-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Malmö FF",
@@ -2338,7 +3719,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530063/malmo-ff-mot-if-brommapojkarna",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "IF Elfsborg",
@@ -2348,7 +3734,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530064/if-elfsborg-mot-gais",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Degerfors IF",
@@ -2358,7 +3749,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530065/degerfors-if-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Västerås SK",
@@ -2368,7 +3764,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530066/vasteras-sk-mot-hammarby",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Kalmar FF",
@@ -2378,7 +3779,12 @@
       "link": "https://allsvenskan.se/matcher/2026/6530067/kalmar-ff-mot-aik",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     },
     {
       "home": "Halmstads BK",
@@ -2388,9 +3794,14 @@
       "link": "https://allsvenskan.se/matcher/2026/6530068/halmstads-bk-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
-      "startTimestamp": 1795906800
+      "startTimestamp": 1795906800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-22T21:23:23.615Z",
+  "lastUpdated": "2026-05-22T21:44:01.920Z",
   "source": "https://allsvenskan.se/matcher"
 }

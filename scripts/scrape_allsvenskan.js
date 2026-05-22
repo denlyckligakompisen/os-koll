@@ -132,17 +132,104 @@ async function scrapeAllsvenskan() {
             }
         }
 
+        const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const today = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Including tomorrow just to be safe if a match runs late into the night
+        yesterday.setHours(0,0,0,0);
+        today.setHours(23,59,59,999);
+
         const mergedMatches = [];
         for (const nm of uniqueNewMatches) {
             // Find existing
             const existing = existingMatches.find(e => e.home === nm.home && e.away === nm.away && e.date === nm.date);
+            
+            let scorers = { home: [], away: [] };
+            if (existing && existing.scorers) {
+                scorers = existing.scorers;
+            }
+
+            let detailedStats = null;
+            if (existing && existing.detailedStats) {
+                detailedStats = existing.detailedStats;
+            }
 
             const matchDate = parseDate(nm.date, nm.time);
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
+            const inWindow = matchDate >= yesterday && matchDate <= today;
+
+            if (inWindow && (nm.status === 'live' || nm.status === 'finished') && nm.link) {
+                console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
+                try {
+                    await page.goto(nm.link, { waitUntil: 'domcontentloaded', timeout: 15000 });
+                    await page.waitForTimeout(2000);
+                    
+                    const extracted = await page.evaluate(() => {
+                        const hScorers = [];
+                        const aScorers = [];
+                        
+                        document.querySelectorAll('.match-events > li').forEach(li => {
+                            const minEl = li.querySelector('.match-events__minute');
+                            const nameEl = li.querySelector('span:not(.match-events__minute)');
+                            
+                            if (minEl && nameEl) {
+                                const timeStr = minEl.innerText.trim().replace("'", "");
+                                const time = parseInt(timeStr, 10);
+                                const name = nameEl.innerText.trim();
+                                
+                                const event = {
+                                    player: { name },
+                                    time: isNaN(time) ? timeStr : time,
+                                    incidentClass: "regular"
+                                };
+
+                                if (li.className.includes('lg-start')) {
+                                    hScorers.push(event);
+                                } else {
+                                    aScorers.push(event);
+                                }
+                            }
+                        });
+
+                        const info = [];
+                        document.querySelectorAll('.match-hero__info > div').forEach(div => info.push(div.innerText.trim()));
+
+                        const stats = [];
+                        document.querySelectorAll('.data-container__row').forEach(row => {
+                            const cols = row.querySelectorAll('div');
+                            if(cols.length >= 3) {
+                                stats.push({
+                                    home: cols[0].innerText.trim(),
+                                    label: cols[1].innerText.trim(),
+                                    away: cols[2].innerText.trim()
+                                });
+                            }
+                        });
+
+                        const players = [];
+                        document.querySelectorAll('.stats-table__row').forEach(row => {
+                            const cols = row.querySelectorAll('div');
+                            if(cols.length > 3) {
+                                players.push(row.innerText.replace(/\n/g, ' | '));
+                            }
+                        });
+
+                        return { 
+                            scorers: { home: hScorers, away: aScorers },
+                            detailedStats: { info, stats, players }
+                        };
+                    });
+                    
+                    scorers = extracted.scorers;
+                    detailedStats = extracted.detailedStats;
+                } catch(e) {
+                    console.log(`Failed to fetch details for ${nm.home} - ${nm.away}: ${e.message}`);
+                }
+            }
 
             mergedMatches.push({
                 ...nm,
-                startTimestamp
+                startTimestamp,
+                scorers,
+                detailedStats
             });
         }
 
