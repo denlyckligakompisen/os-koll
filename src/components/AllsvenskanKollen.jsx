@@ -744,20 +744,31 @@ const AllsvenskanKollen = () => {
     const topScorers = useMemo(() => {
         if (!matchesData?.matches) return [];
         const counts = {};
+        const normalizeName = (name) => {
+            if (name === 'Robbie Philip Thomas Ure') return 'Robbie Ure';
+            return name;
+        };
+
         matchesData.matches.forEach(m => {
             if (m.status === 'finished' && m.scorers) {
                 (m.scorers.home || []).forEach(s => {
                     if (!s.suffix?.includes('självmål')) {
-                        const key = s.player;
-                        if (!counts[key]) counts[key] = { goals: 0, team: m.home };
-                        counts[key].goals += 1;
+                        let key = typeof s.player === 'string' ? s.player : (s.player?.name || 'Okänd');
+                        key = normalizeName(key);
+                        if (key && key !== 'Okänd') {
+                            if (!counts[key]) counts[key] = { goals: 0, team: m.home };
+                            counts[key].goals += 1;
+                        }
                     }
                 });
                 (m.scorers.away || []).forEach(s => {
                     if (!s.suffix?.includes('självmål')) {
-                        const key = s.player;
-                        if (!counts[key]) counts[key] = { goals: 0, team: m.away };
-                        counts[key].goals += 1;
+                        let key = typeof s.player === 'string' ? s.player : (s.player?.name || 'Okänd');
+                        key = normalizeName(key);
+                        if (key && key !== 'Okänd') {
+                            if (!counts[key]) counts[key] = { goals: 0, team: m.away };
+                            counts[key].goals += 1;
+                        }
                     }
                 });
             }
@@ -768,32 +779,7 @@ const AllsvenskanKollen = () => {
             .sort((a, b) => b.goals - a.goals || a.player.localeCompare(b.player, 'sv'));
     }, [matchesData]);
 
-    const topAssists = useMemo(() => {
-        if (!matchesData?.matches) return [];
-        const counts = {};
-        matchesData.matches.forEach(m => {
-            if (m.status === 'finished' && m.scorers) {
-                (m.scorers.home || []).forEach(s => {
-                    if (s.assist) {
-                        const key = s.assist;
-                        if (!counts[key]) counts[key] = { assists: 0, team: m.home };
-                        counts[key].assists += 1;
-                    }
-                });
-                (m.scorers.away || []).forEach(s => {
-                    if (s.assist) {
-                        const key = s.assist;
-                        if (!counts[key]) counts[key] = { assists: 0, team: m.away };
-                        counts[key].assists += 1;
-                    }
-                });
-            }
-        });
 
-        return Object.entries(counts)
-            .map(([player, data]) => ({ player, assists: data.assists, team: data.team }))
-            .sort((a, b) => b.assists - a.assists || a.player.localeCompare(b.player, 'sv'));
-    }, [matchesData]);
 
     useEffect(() => {
         // Delay to allow for tab switching and DOM rendering
@@ -1276,7 +1262,7 @@ const AllsvenskanKollen = () => {
                                                         {team.form && team.form.length > 0 && (
                                                             <tr style={{ backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent' }}>
                                                                 <td colSpan="5" style={{ 
-                                                                    padding: '0 4px 10px 22px', 
+                                                                    padding: '0 12px 10px 12px', 
                                                                     borderTop: 'none',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
@@ -1285,12 +1271,12 @@ const AllsvenskanKollen = () => {
                                                                         display: 'flex', 
                                                                         borderRadius: '3px', 
                                                                         overflow: 'hidden', 
-                                                                        width: 'fit-content',
+                                                                        width: `${(team.form.length / 30) * 100}%`,
                                                                         height: '5px'
                                                                     }}>
                                                                         {team.form.map((f, i) => (
                                                                             <div key={i} style={{
-                                                                                width: '10px',
+                                                                                flex: 1,
                                                                                 height: '100%',
                                                                                 backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#ffcc00'
                                                                             }} title={f === 'W' ? 'Vinst' : f === 'L' ? 'Förlust' : 'Oavgjort'} />
@@ -1398,24 +1384,7 @@ const AllsvenskanKollen = () => {
                                         >
                                             Mål
                                         </button>
-                                        <button
-                                            onClick={() => {
-                                                setPlayerFilter('assists');
-                                                if (navigator.vibrate) navigator.vibrate(5);
-                                            }}
-                                            style={{
-                                                padding: '6px 14px',
-                                                borderRadius: '16px',
-                                                fontSize: '0.8rem',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.2s ease',
-                                                backgroundColor: playerFilter === 'assists' ? 'rgba(0,0,0,0.08)' : 'transparent',
-                                                color: playerFilter === 'assists' ? 'var(--color-text)' : 'var(--color-text-muted)',
-                                                border: '1px solid rgba(0,0,0,0.08)'
-                                            }}
-                                        >
-                                            Assist
-                                        </button>
+
                                     </>
                                 )}
                             </div>
@@ -1540,67 +1509,7 @@ const AllsvenskanKollen = () => {
                                 </div>
                             )}
 
-                            {statFilter === 'spelare' && playerFilter === 'assists' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '4px' }}>
-                                    <Card style={{ marginBottom: '0' }}>
-                                        {topAssists.length > 0 ? (
-                                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
-                                                <thead>
-                                                    <tr style={{ borderBottom: 'var(--border)' }}>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}>#</th>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>SPELARE</th>
-                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>ASSIST</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {topAssists.map((item, idx) => {
-                                                        const isFiltered = filterTeam && item.team.includes(filterTeam);
-                                                        return (
-                                                            <tr 
-                                                                key={idx}
-                                                                style={{
-                                                                    backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                    transition: 'background-color 0.2s ease'
-                                                                }}
-                                                            >
-                                                                <td style={{ 
-                                                                    padding: '8px 4px',
-                                                                    borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0'
-                                                                }}>
-                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
-                                                                        {idx + 1}
-                                                                    </div>
-                                                                </td>
-                                                                <td style={{ padding: '11px 4px' }}>
-                                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                                        <span style={{ }}>{item.player}</span>
-                                                                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                                            {getTeamLogo(item.team) && <img src={getTeamLogo(item.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
-                                                                            {cleanTeamNameForDisplay(item.team)}
-                                                                        </span>
-                                                                    </div>
-                                                                </td>
-                                                                <td style={{ 
-                                                                    padding: '11px 4px', 
-                                                                    textAlign: 'right', 
-                                                                    fontSize: '1rem',
-                                                                    borderTopRightRadius: isFiltered ? '10px' : '0',
-                                                                    borderBottomRightRadius: isFiltered ? '10px' : '0'
-                                                                }}>{item.assists}</td>
-                                                            </tr>
-                                                        );
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        ) : (
-                                            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--color-text-muted)' }}>
-                                                Inga assists registrerade ännu för säsongen 2026.
-                                            </div>
-                                        )}
-                                    </Card>
-                                </div>
-                            )}
+
                         </div>
                     )}
 
