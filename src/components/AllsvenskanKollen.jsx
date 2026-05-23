@@ -1231,12 +1231,6 @@ const AllsvenskanKollen = () => {
                                                                     }}>
                                                                         {team.rank}
                                                                     </div>
-                                                                    {sliderTableTrends[team.team] === 'up' && (
-                                                                        <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
-                                                                    )}
-                                                                    {sliderTableTrends[team.team] === 'down' && (
-                                                                        <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
-                                                                    )}
                                                                 </div>
                                                             </td>
                                                             <td style={{ 
