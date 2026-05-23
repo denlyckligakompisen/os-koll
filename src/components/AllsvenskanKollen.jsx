@@ -1679,11 +1679,14 @@ const AllsvenskanKollen = () => {
                                                                                         <span>{p.name}</span>
                                                                                         {p.nationalities && p.nationalities.length > 0 && (
                                                                                             <span style={{ display: 'inline-flex', gap: '4px', flexShrink: 0 }}>
-                                                                                                <FlagBadge 
-                                                                                                    codes={p.nationalities.map(nat => getFlagCode(nat.country)).filter(Boolean)} 
-                                                                                                    size={16} 
-                                                                                                    shadow={true} 
-                                                                                                />
+                                                                                                {p.nationalities.map(nat => getFlagCode(nat.country)).filter(Boolean).map((code, idx) => (
+                                                                                                    <FlagBadge 
+                                                                                                        key={idx}
+                                                                                                        codes={[code]} 
+                                                                                                        size={16} 
+                                                                                                        shadow={true} 
+                                                                                                    />
+                                                                                                ))}
                                                                                             </span>
                                                                                         )}
                                                                                     </div>
