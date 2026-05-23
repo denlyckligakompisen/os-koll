@@ -460,7 +460,7 @@ const AllsvenskanKollen = () => {
                 goalsForNum: teamStat.goalsFor,
                 gdNum: gd,
                 pointsNum: teamStat.points,
-                form: teamStat.form.slice(-5) // Take up to 5 most recent matches
+                form: teamStat.form // Show all played matches
             };
         });
 
@@ -1239,7 +1239,7 @@ const AllsvenskanKollen = () => {
                                                                     <span>{cleanTeamNameForDisplay(team.team)}</span>
                                                                 </span>
                                                                 {team.form && team.form.length > 0 && (
-                                                                    <div style={{ display: 'flex', gap: '4px', marginLeft: '34px', height: '6px' }}>
+                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginLeft: '34px' }}>
                                                                         {team.form.map((f, i) => (
                                                                             <div key={i} style={{
                                                                                 width: '6px',
