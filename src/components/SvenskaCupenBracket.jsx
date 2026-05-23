@@ -64,23 +64,23 @@ const SvenskaCupenBracket = ({ filterTeam, onTeamClick, getTeamLogo }) => {
             {
                 title: "Kvartsfinal",
                 matches: [
-                    { id: 1, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
-                    { id: 2, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
-                    { id: 3, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
-                    { id: 4, home: "TBD", away: "TBD", homeScore: null, awayScore: null }
+                    { id: 1, home: "", away: "", homeScore: null, awayScore: null },
+                    { id: 2, home: "", away: "", homeScore: null, awayScore: null },
+                    { id: 3, home: "", away: "", homeScore: null, awayScore: null },
+                    { id: 4, home: "", away: "", homeScore: null, awayScore: null }
                 ]
             },
             {
                 title: "Semifinal",
                 matches: [
-                    { id: 5, home: "Vinnare QF1", away: "Vinnare QF2", homeScore: null, awayScore: null },
-                    { id: 6, home: "Vinnare QF3", away: "Vinnare QF4", homeScore: null, awayScore: null }
+                    { id: 5, home: "", away: "", homeScore: null, awayScore: null },
+                    { id: 6, home: "", away: "", homeScore: null, awayScore: null }
                 ]
             },
             {
                 title: "Final",
                 matches: [
-                    { id: 7, home: "Vinnare SF1", away: "Vinnare SF2", homeScore: null, awayScore: null, date: 'TBD' }
+                    { id: 7, home: "", away: "", homeScore: null, awayScore: null, date: "" }
                 ]
             }
         ]
