@@ -1263,18 +1263,23 @@ const AllsvenskanKollen = () => {
                                                         {team.form && team.form.length > 0 && (
                                                             <tr style={{ backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent' }}>
                                                                 <td colSpan="5" style={{ 
-                                                                    padding: '0 4px 8px 38px', 
+                                                                    padding: '0 4px 10px 38px', 
                                                                     borderTop: 'none',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
                                                                 }}>
-                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px' }}>
+                                                                    <div style={{ 
+                                                                        display: 'flex', 
+                                                                        borderRadius: '3px', 
+                                                                        overflow: 'hidden', 
+                                                                        width: 'fit-content',
+                                                                        height: '5px'
+                                                                    }}>
                                                                         {team.form.map((f, i) => (
                                                                             <div key={i} style={{
-                                                                                width: '6px',
-                                                                                height: '6px',
-                                                                                borderRadius: '50%',
-                                                                                backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#8e8e93'
+                                                                                width: '10px',
+                                                                                height: '100%',
+                                                                                backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#ffcc00'
                                                                             }} title={f === 'W' ? 'Vinst' : f === 'L' ? 'Förlust' : 'Oavgjort'} />
                                                                         ))}
                                                                     </div>
