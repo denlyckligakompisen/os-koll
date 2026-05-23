@@ -188,10 +188,12 @@ const AllsvenskanKollen = () => {
     }, [filterTeam]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (isBackground = false) => {
             try {
-                setIsPlaying(false);
-                setLoading(true);
+                if (!isBackground) {
+                    setIsPlaying(false);
+                    setLoading(true);
+                }
                 const matchesUrl = selectedSeason === 2026 
                     ? '/data/allsvenskan_matches.json' 
                     : `/data/allsvenskan_matches_${selectedSeason}.json`;
@@ -226,15 +228,26 @@ const AllsvenskanKollen = () => {
                 setLogosData(logos);
                 setTableData(table);
                 setMaratonData(maraton);
-                setSquadsData(squads);
-                setLoading(false);
+                if (squads) setSquadsData(squads);
+                if (!isBackground) setLoading(false);
             } catch (error) {
                 console.error(`Error fetching Allsvenskan data for season ${selectedSeason}:`, error);
-                setLoading(false);
+                if (!isBackground) setLoading(false);
             }
         };
 
         fetchData();
+
+        let intervalId;
+        if (selectedSeason === 2026) {
+            intervalId = setInterval(() => {
+                fetchData(true);
+            }, 60000);
+        }
+
+        return () => {
+            if (intervalId) clearInterval(intervalId);
+        };
     }, [selectedSeason]);
 
 

@@ -94,10 +94,14 @@ async function scrapeAllsvenskan() {
                     score = `${scoreBadges[0].innerText.trim()} - ${scoreBadges[1].innerText.trim()}`;
                 }
 
+                let liveCurrentTime = null;
                 if (text.includes('SUMMERING')) {
                     status = 'finished';
                 } else if (text.toLowerCase().includes('live')) {
                     status = 'live';
+                    const minMatch = text.match(/(\d{1,3}(?:\+\d{1,2})?')/);
+                    if (minMatch) liveCurrentTime = minMatch[1];
+                    else if (text.match(/halvtid/i) || text.match(/\bHT\b/i)) liveCurrentTime = 'HT';
                 }
 
                 const timeMatch = text.match(/(\d{2}:\d{2})/);
@@ -117,7 +121,7 @@ async function scrapeAllsvenskan() {
                 date = teamNameMap.__currentDate || '';
 
                 if (home && away) {
-                    results.push({ home, away, time, date: date.trim(), link, score, status });
+                    results.push({ home, away, time, date: date.trim(), link, score, status, liveCurrentTime });
                 }
             });
             
@@ -146,9 +150,9 @@ async function scrapeAllsvenskan() {
             today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
             console.log("Restricting details scraping to yesterday's matches only.");
         } else {
-            yesterday = new Date(2026, 3, 1); // TEMP: backfill from season start
-            today = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-            console.log("Backfilling details for ALL matches since season start.");
+            yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
+            console.log("Scraping details for yesterday's matches only.");
         }
         yesterday.setHours(0,0,0,0);
         today.setHours(23,59,59,999);
@@ -177,7 +181,7 @@ async function scrapeAllsvenskan() {
             const matchDate = parseDate(date, nm.time);
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
             const inWindow = matchDate >= yesterday && matchDate <= today;
-            const hasDetails = false; // TEMP: force re-fetch all
+            const hasDetails = existing && existing.status === 'finished' && existing.detailedStats !== null;
 
             if (inWindow && nm.link && !hasDetails) {
                 console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
