@@ -1263,27 +1263,19 @@ const AllsvenskanKollen = () => {
                                                         {team.form && team.form.length > 0 && (
                                                             <tr style={{ backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent' }}>
                                                                 <td colSpan="5" style={{ 
-                                                                    padding: '0 4px 12px 38px', 
+                                                                    padding: '0 4px 8px 38px', 
                                                                     borderTop: 'none',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
                                                                 }}>
-                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px' }}>
                                                                         {team.form.map((f, i) => (
                                                                             <div key={i} style={{
-                                                                                width: '14px',
-                                                                                height: '14px',
-                                                                                borderRadius: '3px',
-                                                                                backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#8e8e93',
-                                                                                display: 'flex',
-                                                                                alignItems: 'center',
-                                                                                justifyContent: 'center',
-                                                                                color: '#fff',
-                                                                                fontSize: '9px',
-                                                                                fontWeight: 'bold'
-                                                                            }} title={f === 'W' ? 'Vinst' : f === 'L' ? 'Förlust' : 'Oavgjort'}>
-                                                                                {f === 'W' ? 'V' : f === 'L' ? 'F' : 'O'}
-                                                                            </div>
+                                                                                width: '6px',
+                                                                                height: '6px',
+                                                                                borderRadius: '50%',
+                                                                                backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#8e8e93'
+                                                                            }} title={f === 'W' ? 'Vinst' : f === 'L' ? 'Förlust' : 'Oavgjort'} />
                                                                         ))}
                                                                     </div>
                                                                 </td>
