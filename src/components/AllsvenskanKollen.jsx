@@ -383,7 +383,8 @@ const AllsvenskanKollen = () => {
                 lost: 0,
                 goalsFor: 0,
                 goalsAgainst: 0,
-                points: 0
+                points: 0,
+                form: []
             };
         });
 
@@ -424,16 +425,22 @@ const AllsvenskanKollen = () => {
                     if (homeGoals > awayGoals) {
                         stats[homeTeam].won += 1;
                         stats[homeTeam].points += 3;
+                        stats[homeTeam].form.push('W');
                         stats[awayTeam].lost += 1;
+                        stats[awayTeam].form.push('L');
                     } else if (awayGoals > homeGoals) {
                         stats[awayTeam].won += 1;
                         stats[awayTeam].points += 3;
+                        stats[awayTeam].form.push('W');
                         stats[homeTeam].lost += 1;
+                        stats[homeTeam].form.push('L');
                     } else {
                         stats[homeTeam].drawn += 1;
                         stats[homeTeam].points += 1;
+                        stats[homeTeam].form.push('D');
                         stats[awayTeam].drawn += 1;
                         stats[awayTeam].points += 1;
+                        stats[awayTeam].form.push('D');
                     }
                 }
             }
@@ -452,7 +459,8 @@ const AllsvenskanKollen = () => {
                 points: String(teamStat.points),
                 goalsForNum: teamStat.goalsFor,
                 gdNum: gd,
-                pointsNum: teamStat.points
+                pointsNum: teamStat.points,
+                form: teamStat.form.slice(-5) // Take up to 5 most recent matches
             };
         });
 
@@ -1225,10 +1233,24 @@ const AllsvenskanKollen = () => {
                                                             padding: '11px 4px',
                                                             borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                         }}>
-                                                            <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                                {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
-                                                                <span>{cleanTeamNameForDisplay(team.team)}</span>
-                                                            </span>
+                                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                                                <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                    {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
+                                                                    <span>{cleanTeamNameForDisplay(team.team)}</span>
+                                                                </span>
+                                                                {team.form && team.form.length > 0 && (
+                                                                    <div style={{ display: 'flex', gap: '4px', marginLeft: '34px', height: '6px' }}>
+                                                                        {team.form.map((f, i) => (
+                                                                            <div key={i} style={{
+                                                                                width: '6px',
+                                                                                height: '6px',
+                                                                                borderRadius: '50%',
+                                                                                backgroundColor: f === 'W' ? '#34c759' : f === 'L' ? '#ff3b30' : '#8e8e93'
+                                                                            }} title={f === 'W' ? 'Vinst' : f === 'L' ? 'Förlust' : 'Oavgjort'} />
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         </td>
                                                         <td style={{ 
                                                             padding: '11px 4px', 
