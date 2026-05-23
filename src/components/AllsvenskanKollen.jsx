@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
-import SvenskaCupenBracket from './SvenskaCupenBracket';
 import BoldSverige from './BoldSverige';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
@@ -162,7 +161,6 @@ const AllsvenskanKollen = () => {
     const SUBTABS = [
         { id: 'matcher', label: 'Matcher', icon: Calendar },
         { id: 'gruppspel', label: 'Tabell', icon: List },
-        { id: 'slutspel', label: 'Svenska Cupen', icon: Trophy },
         { id: 'statistik', label: 'Statistik', icon: BarChart3 },
         { id: 'squads', label: 'Trupper', icon: Users }
     ];
@@ -1308,15 +1306,7 @@ const AllsvenskanKollen = () => {
                         </div>
                     )}
 
-                    {activeTab === 'slutspel' && (
-                        <div style={{ width: '100%' }}>
-                            <SvenskaCupenBracket 
-                                filterTeam={filterTeam} 
-                                onTeamClick={handleTeamClick} 
-                                getTeamLogo={getTeamLogo}
-                            />
-                        </div>
-                    )}
+
 
                     {activeTab === 'statistik' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
