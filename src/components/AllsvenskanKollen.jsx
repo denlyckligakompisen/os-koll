@@ -4,6 +4,8 @@ import Card from './common/Card';
 import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
 import BoldSverige from './BoldSverige';
+import FlagBadge from './common/FlagBadge';
+import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -1677,9 +1679,11 @@ const AllsvenskanKollen = () => {
                                                                                         <span>{p.name}</span>
                                                                                         {p.nationalities && p.nationalities.length > 0 && (
                                                                                             <span style={{ display: 'inline-flex', gap: '4px', flexShrink: 0 }}>
-                                                                                                {p.nationalities.map((nat, i) => (
-                                                                                                    <img key={i} src={nat.url} alt={nat.country} title={nat.country} style={{ width: '16px', height: '16px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '50%', objectFit: 'cover' }} />
-                                                                                                ))}
+                                                                                                <FlagBadge 
+                                                                                                    codes={p.nationalities.map(nat => getFlagCode(nat.country)).filter(Boolean)} 
+                                                                                                    size={16} 
+                                                                                                    shadow={true} 
+                                                                                                />
                                                                                             </span>
                                                                                         )}
                                                                                     </div>
