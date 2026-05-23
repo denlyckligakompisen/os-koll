@@ -52,7 +52,7 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
             >
                 <FlagBadge codes={getFlagCodes(name)} name={name} size={20} />
                 <span style={{ 
-                    fontSize: '0.75rem', fontWeight: isSelected ? '800' : '600',
+                    fontSize: '0.75rem', fontWeight: '400',
                     color: info.isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
                 }}>

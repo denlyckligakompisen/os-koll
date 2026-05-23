@@ -1034,7 +1034,7 @@ const AllsvenskanKollen = () => {
                                             width: '100%',
                                             padding: '8px 32px 8px 12px',
                                             fontSize: '0.85rem',
-                                            fontWeight: '750',
+                                            fontWeight: '400',
                                             color: 'var(--color-text)',
                                             backgroundColor: 'rgba(0,0,0,0.05)',
                                             border: '1px solid rgba(0,0,0,0.08)',
@@ -1134,7 +1134,7 @@ const AllsvenskanKollen = () => {
                                             width: '100%',
                                             padding: '8px 32px 8px 12px',
                                             fontSize: '0.85rem',
-                                            fontWeight: '750',
+                                            fontWeight: '400',
                                             color: 'var(--color-text)',
                                             backgroundColor: 'rgba(0,0,0,0.05)',
                                             border: '1px solid rgba(0,0,0,0.08)',
@@ -1346,7 +1346,7 @@ const AllsvenskanKollen = () => {
                                         padding: '8px 20px',
                                         borderRadius: '20px',
                                         fontSize: '0.9rem',
-                                        fontWeight: '750',
+                                        fontWeight: '400',
                                         cursor: 'pointer',
                                         border: 'none',
                                         transition: 'all 0.2s ease',
@@ -1366,7 +1366,7 @@ const AllsvenskanKollen = () => {
                                         padding: '8px 20px',
                                         borderRadius: '20px',
                                         fontSize: '0.9rem',
-                                        fontWeight: '750',
+                                        fontWeight: '400',
                                         cursor: 'pointer',
                                         border: 'none',
                                         transition: 'all 0.2s ease',
@@ -1391,7 +1391,7 @@ const AllsvenskanKollen = () => {
                                                 borderRadius: '16px',
                                                 fontSize: '0.8rem',
                                                 cursor: 'pointer',
-                                                fontWeight: playerFilter === 'maraton' ? '600' : '400',
+                                                fontWeight: '400',
                                                 transition: 'all 0.2s ease',
                                                 backgroundColor: playerFilter === 'maraton' ? (filterTeam ? headerStyle.bg : 'var(--color-text)') : 'transparent',
                                                 color: playerFilter === 'maraton' ? (filterTeam ? headerStyle.text : 'var(--color-bg)') : 'var(--color-text-muted)',
@@ -1413,7 +1413,7 @@ const AllsvenskanKollen = () => {
                                                 borderRadius: '16px',
                                                 fontSize: '0.8rem',
                                                 cursor: 'pointer',
-                                                fontWeight: playerFilter === 'mål' ? '600' : '400',
+                                                fontWeight: '400',
                                                 transition: 'all 0.2s ease',
                                                 backgroundColor: playerFilter === 'mål' ? (filterTeam ? headerStyle.bg : 'var(--color-text)') : 'transparent',
                                                 color: playerFilter === 'mål' ? (filterTeam ? headerStyle.text : 'var(--color-bg)') : 'var(--color-text-muted)',
@@ -1500,7 +1500,7 @@ const AllsvenskanKollen = () => {
                                                                 <tr>
                                                                     <td style={{ 
                                                                         padding: '16px 4px 6px 4px', 
-                                                                        fontWeight: '600', 
+                                                                        fontWeight: '400', 
                                                                         fontSize: '0.85rem', 
                                                                         color: 'var(--color-text-muted)',
                                                                         borderBottom: '1px solid rgba(0,0,0,0.05)'
@@ -1524,7 +1524,7 @@ const AllsvenskanKollen = () => {
                                                                                 borderRadius: isFiltered ? '8px' : '0'
                                                                             }}>
                                                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                                                    <span style={{ fontWeight: '500' }}>{scorer.player}</span>
+                                                                                    <span style={{ fontWeight: '400'}}>{scorer.player}</span>
                                                                                     <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                                                                         {getTeamLogo(scorer.team) && <img src={getTeamLogo(scorer.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
                                                                                         {cleanTeamNameForDisplay(scorer.team)}

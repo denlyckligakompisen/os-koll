@@ -225,7 +225,7 @@ img {
   background: none;
   border: none;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 400;
   transition: all 0.2s ease;
   position: relative;
   border-bottom: 3px solid transparent;

@@ -464,7 +464,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {computedStatus === 'live' && (
                             <div style={{
                                 fontSize: '0.85rem',
-                                fontWeight: '850',
+                                fontWeight: '400',
                                 color: '#ff3b30',
                                 marginTop: '4px',
                                 textTransform: 'uppercase',
@@ -581,7 +581,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            fontWeight: highlight ? '700' : '500',
+                            fontWeight: '400',
                             cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
@@ -632,7 +632,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {computedStatus === 'live' && (
                             <span style={{
                                 fontSize: highlight ? '0.75rem' : '0.68rem',
-                                fontWeight: '850',
+                                fontWeight: '400',
                                 color: '#ff3b30',
                                 marginTop: '2px',
                                 textTransform: 'uppercase',
@@ -655,7 +655,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             whiteSpace: 'normal',
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
-                            fontWeight: highlight ? '700' : '500',
+                            fontWeight: '400',
                             cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
                         }}
                     >
