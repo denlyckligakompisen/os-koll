@@ -1075,7 +1075,7 @@
       "home": "Kalmar FF",
       "away": "Degerfors IF",
       "time": "15:00",
-      "date": "FREDAG 22 MAJ",
+      "date": "LÖRDAG 23 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529899/kalmar-ff-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
@@ -1106,7 +1106,7 @@
       "home": "Halmstads BK",
       "away": "Örgryte IS",
       "time": "15:00",
-      "date": "FREDAG 22 MAJ",
+      "date": "LÖRDAG 23 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529900/halmstads-bk-mot-orgryte-is",
       "score": "",
       "status": "upcoming",
@@ -3888,6 +3888,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-23T07:58:40.275Z",
+  "lastUpdated": "2026-05-23T08:03:15.471Z",
   "source": "https://allsvenskan.se/matcher"
 }

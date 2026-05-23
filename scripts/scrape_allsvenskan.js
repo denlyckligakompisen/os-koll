@@ -76,7 +76,7 @@ async function scrapeAllsvenskan() {
                 }
 
                 const clean = (name) => {
-                    let cleaned = name.replace(/^(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG).*?\d+\s+[A-ZÅÄÖ]+\s+/i, '')
+                    let cleaned = name.replace(/^(M.NDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|L.RDAG|S.NDAG).*?\d+\s+[A-ZÅÄÖ]+\s+/i, '')
                                .replace(/^[A-ZÅÄÖ\s]{5,}\s+(?=[A-ZÅÄÖ][a-zåäö])/g, '')
                                .trim();
                     
@@ -105,9 +105,11 @@ async function scrapeAllsvenskan() {
                     link = aEl.href;
                 }
 
-                const dateInRow = text.match(/(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG)\s+\d+\s+(JANUARI|FEBRUARI|MARS|APRIL|MAJ|JUNI|JULI|AUGUSTI|SEPTEMBER|OKTOBER|NOVEMBER|DECEMBER)/i);
+                const dateInRow = text.match(/(M.NDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|L.RDAG|S.NDAG)\s+\d+\s+(JANUARI|FEBRUARI|MARS|APRIL|MAJ|JUNI|JULI|AUGUSTI|SEPTEMBER|OKTOBER|NOVEMBER|DECEMBER)/i);
                 if (dateInRow) {
-                    teamNameMap.__currentDate = dateInRow[0].toUpperCase();
+                    let d = dateInRow[0].toUpperCase();
+                    d = d.replace(/M.NDAG/, 'MÅNDAG').replace(/L.RDAG/, 'LÖRDAG').replace(/S.NDAG/, 'SÖNDAG');
+                    teamNameMap.__currentDate = d;
                 }
                 date = teamNameMap.__currentDate || '';
 
