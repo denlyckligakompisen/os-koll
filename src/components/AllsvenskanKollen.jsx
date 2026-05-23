@@ -1674,9 +1674,11 @@ const AllsvenskanKollen = () => {
                                                                                 </div>
                                                                                 <div style={{ flex: 1, minWidth: 0 }}>
                                                                                     <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
-                                                                                    <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px' }}>
+                                                                                    <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                                                                                         <span>{p.position}</span>
                                                                                         {p.age && <span>• {p.age.split(' ')[0]} {p.age.includes('(') ? p.age.split(' ')[1] : ''}</span>}
+                                                                                        {p.joined && p.joined !== '-' && <span>• Anslöt {p.joined.slice(-4)}</span>}
+                                                                                        {p.contract && p.contract !== '-' && <span>• Kontrakt t.o.m {p.contract.slice(-4)}</span>}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div style={{ fontSize: '0.75rem', fontWeight: 700, color: p.value && p.value !== '-' ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'right' }}>

@@ -119,6 +119,10 @@ async function main() {
                 const valEl = row.querySelector('.rechts.hauptlink');
                 
                 const imgEl = row.querySelector('.inline-table td[rowspan="2"] img');
+                
+                const allTds = row.querySelectorAll('td');
+                const joined = allTds.length > 9 ? allTds[9].textContent.trim() : '';
+                const contract = allTds.length > 11 ? allTds[11].textContent.trim() : '';
 
                 squad.push({
                     name: nameEl.textContent.trim(),
@@ -126,6 +130,8 @@ async function main() {
                     number: numEl && numEl.textContent.trim() !== '-' ? numEl.textContent.trim() : null,
                     age: ageEl ? ageEl.textContent.trim() : '',
                     value: valEl ? valEl.textContent.trim() : '-',
+                    joined: joined,
+                    contract: contract,
                     image: imgEl ? imgEl.src : null
                 });
             }
