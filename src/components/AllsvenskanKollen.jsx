@@ -1673,7 +1673,16 @@ const AllsvenskanKollen = () => {
                                                                                     {p.number || '-'}
                                                                                 </div>
                                                                                 <div style={{ flex: 1, minWidth: 0 }}>
-                                                                                    <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</div>
+                                                                                    <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                                        <span>{p.name}</span>
+                                                                                        {p.nationalities && p.nationalities.length > 0 && (
+                                                                                            <span style={{ display: 'inline-flex', gap: '3px', flexShrink: 0 }}>
+                                                                                                {p.nationalities.map((nat, i) => (
+                                                                                                    <img key={i} src={nat.url} alt={nat.country} title={nat.country} style={{ width: '16px', height: '11px', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '2px', objectFit: 'cover' }} />
+                                                                                                ))}
+                                                                                            </span>
+                                                                                        )}
+                                                                                    </div>
                                                                                     <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                                                                                         <span>{p.position}</span>
                                                                                         {p.age && <span>• {p.age.split(' ')[0]} {p.age.includes('(') ? p.age.split(' ')[1] : ''}</span>}

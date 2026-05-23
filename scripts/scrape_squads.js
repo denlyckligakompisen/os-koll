@@ -123,6 +123,16 @@ async function main() {
                 const allTds = row.querySelectorAll('td');
                 const joined = allTds.length > 9 ? allTds[9].textContent.trim() : '';
                 const contract = allTds.length > 11 ? allTds[11].textContent.trim() : '';
+                
+                let nationalities = [];
+                if (allTds.length > 6) {
+                    const natImgs = allTds[6].querySelectorAll('img');
+                    for (const img of natImgs) {
+                        if (img.src && img.title) {
+                            nationalities.push({ url: img.src, country: img.title });
+                        }
+                    }
+                }
 
                 squad.push({
                     name: nameEl.textContent.trim(),
@@ -132,6 +142,7 @@ async function main() {
                     value: valEl ? valEl.textContent.trim() : '-',
                     joined: joined,
                     contract: contract,
+                    nationalities: nationalities,
                     image: imgEl ? imgEl.src : null
                 });
             }
