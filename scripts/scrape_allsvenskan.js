@@ -150,9 +150,10 @@ async function scrapeAllsvenskan() {
             today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
             console.log("Restricting details scraping to yesterday's matches only.");
         } else {
+            // Used by live_scraper.js, so we want to fetch details for TODAY'S matches!
             yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-            today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
-            console.log("Scraping details for yesterday's matches only.");
+            today = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Include tomorrow to be safe
+            console.log("Scraping details for today's matches (live scraper).");
         }
         yesterday.setHours(0,0,0,0);
         today.setHours(23,59,59,999);
@@ -181,7 +182,7 @@ async function scrapeAllsvenskan() {
             const matchDate = parseDate(date, nm.time);
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
             const inWindow = matchDate >= yesterday && matchDate <= today;
-            const hasDetails = existing && existing.status === 'finished' && existing.detailedStats !== null;
+            const hasDetails = existing && existing.status === 'finished' && existing.detailedStats !== null && existing.scorers && (existing.scorers.home.length > 0 || existing.scorers.away.length > 0 || (existing.score && existing.score === '0 - 0'));
 
             if (inWindow && nm.link && !hasDetails) {
                 console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
