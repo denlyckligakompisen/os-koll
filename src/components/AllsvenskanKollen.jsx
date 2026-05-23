@@ -11,6 +11,15 @@ import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useSwipeNavigation } from '../utils/navigation';
 
+const formatTmDate = (dateStr) => {
+    if (!dateStr || !dateStr.includes('/')) return dateStr;
+    const parts = dateStr.split('/');
+    if (parts.length !== 3) return dateStr;
+    const [d, m, y] = parts;
+    const months = ['jan', 'feb', 'mars', 'apr', 'maj', 'juni', 'juli', 'aug', 'sep', 'okt', 'nov', 'dec'];
+    const monthName = months[parseInt(m, 10) - 1];
+    return `${parseInt(d, 10)} ${monthName} ${y}`;
+};
 
 const MONTH_MAP = { 
     'jan': 0, 'januari': 0,
@@ -1693,8 +1702,8 @@ const AllsvenskanKollen = () => {
                                                                                     <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                                                                                         <span>{p.position}</span>
                                                                                         {p.age && <span>• {p.age.split(' ')[0]} {p.age.includes('(') ? p.age.split(' ')[1] : ''}</span>}
-                                                                                        {p.joined && p.joined !== '-' && <span>• Anslöt {p.joined.slice(-4)}</span>}
-                                                                                        {p.contract && p.contract !== '-' && <span>• Kontrakt t.o.m {p.contract.slice(-4)}</span>}
+                                                                                        {p.joined && p.joined !== '-' && <span>• Anslöt {formatTmDate(p.joined)}</span>}
+                                                                                        {p.contract && p.contract !== '-' && <span>• Kontrakt till {formatTmDate(p.contract)}</span>}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div style={{ fontSize: '0.75rem', fontWeight: 700, color: p.value && p.value !== '-' ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'right' }}>
