@@ -1700,7 +1700,6 @@ const AllsvenskanKollen = () => {
                                                                                         )}
                                                                                     </div>
                                                                                     <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                                                                                        <span>{p.position}</span>
                                                                                         {p.age && <span>• {p.age.split(' ')[0]} {p.age.includes('(') ? p.age.split(' ')[1] : ''}</span>}
                                                                                         {p.joined && p.joined !== '-' && <span>• Anslöt {formatTmDate(p.joined)}</span>}
                                                                                         {p.contract && p.contract !== '-' && <span>• Kontrakt till {formatTmDate(p.contract)}</span>}
