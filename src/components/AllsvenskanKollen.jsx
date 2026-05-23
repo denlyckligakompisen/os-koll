@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
 import SvenskaCupenBracket from './SvenskaCupenBracket';
+import BoldSverige from './BoldSverige';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
