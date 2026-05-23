@@ -1188,58 +1188,87 @@ const AllsvenskanKollen = () => {
                                                 const isSeparator = [2, 4, 14, 15].includes(rank);
 
                                                 return (
-                                                    <tr 
-                                                        key={idx} 
-                                                        ref={el => tableRefs.current[team.team] = el}
-                                                        style={{ 
-                                                            backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                            transition: 'background-color 0.2s ease'
-                                                        }}
-                                                    >
-                                                        <td style={{ 
-                                                            padding: '8px 4px',
-                                                            borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                                            borderBottomLeftRadius: isFiltered ? '10px' : '0',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            <div style={{ 
-                                                                display: 'flex', 
-                                                                alignItems: 'center', 
-                                                                gap: '4px',
-                                                                paddingLeft: '4px'
+                                                    <React.Fragment key={idx}>
+                                                        <tr 
+                                                            ref={el => tableRefs.current[team.team] = el}
+                                                            style={{ 
+                                                                backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                                transition: 'background-color 0.2s ease'
+                                                            }}
+                                                        >
+                                                            <td style={{ 
+                                                                padding: '8px 4px',
+                                                                borderTopLeftRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomLeftRadius: (isFiltered && (!team.form || team.form.length === 0)) ? '10px' : '0',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                             }}>
                                                                 <div style={{ 
-                                                                    width: '20px', 
-                                                                    height: '28px', 
                                                                     display: 'flex', 
                                                                     alignItems: 'center', 
-                                                                    justifyContent: 'center', 
-                                                                    fontWeight: '700', 
-                                                                    fontSize: '0.85rem', 
-                                                                    backgroundColor: 'transparent', 
-                                                                    color: 'inherit' 
+                                                                    gap: '4px',
+                                                                    paddingLeft: '4px'
                                                                 }}>
-                                                                    {team.rank}
+                                                                    <div style={{ 
+                                                                        width: '20px', 
+                                                                        height: '28px', 
+                                                                        display: 'flex', 
+                                                                        alignItems: 'center', 
+                                                                        justifyContent: 'center', 
+                                                                        fontWeight: '700', 
+                                                                        fontSize: '0.85rem', 
+                                                                        backgroundColor: 'transparent', 
+                                                                        color: 'inherit' 
+                                                                    }}>
+                                                                        {team.rank}
+                                                                    </div>
+                                                                    {sliderTableTrends[team.team] === 'up' && (
+                                                                        <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
+                                                                    )}
+                                                                    {sliderTableTrends[team.team] === 'down' && (
+                                                                        <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
+                                                                    )}
                                                                 </div>
-                                                                {sliderTableTrends[team.team] === 'up' && (
-                                                                    <ArrowUp size={12} style={{ color: '#34c759', flexShrink: 0 }} strokeWidth={3} />
-                                                                )}
-                                                                {sliderTableTrends[team.team] === 'down' && (
-                                                                    <ArrowDown size={12} style={{ color: '#ff3b30', flexShrink: 0 }} strokeWidth={3} />
-                                                                )}
-                                                            </div>
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>
                                                                 <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                                     {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
                                                                     <span>{cleanTeamNameForDisplay(team.team)}</span>
                                                                 </span>
-                                                                {team.form && team.form.length > 0 && (
-                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginLeft: '34px' }}>
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'center',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>{team.played}</td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'center', 
+                                                                color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>
+                                                                {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
+                                                            </td>
+                                                            <td style={{ 
+                                                                padding: '11px 4px', 
+                                                                textAlign: 'right', 
+                                                                fontWeight: '800',
+                                                                borderTopRightRadius: isFiltered ? '10px' : '0',
+                                                                borderBottomRightRadius: (isFiltered && (!team.form || team.form.length === 0)) ? '10px' : '0',
+                                                                borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
+                                                            }}>{team.points}</td>
+                                                        </tr>
+                                                        {team.form && team.form.length > 0 && (
+                                                            <tr style={{ backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent' }}>
+                                                                <td colSpan="5" style={{ 
+                                                                    padding: '0 4px 12px 38px', 
+                                                                    borderTop: 'none',
+                                                                    borderBottomLeftRadius: isFiltered ? '10px' : '0',
+                                                                    borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                                                }}>
+                                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                                                                         {team.form.map((f, i) => (
                                                                             <div key={i} style={{
                                                                                 width: '14px',
@@ -1257,31 +1286,10 @@ const AllsvenskanKollen = () => {
                                                                             </div>
                                                                         ))}
                                                                     </div>
-                                                                )}
-                                                            </div>
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'center',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>{team.played}</td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'center', 
-                                                            color: team.gd.startsWith('-') ? '#ff3b30' : (team.gd === '0' ? 'inherit' : '#34c759'),
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>
-                                                            {(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}
-                                                        </td>
-                                                        <td style={{ 
-                                                            padding: '11px 4px', 
-                                                            textAlign: 'right', 
-                                                            fontWeight: '800',
-                                                            borderTopRightRadius: isFiltered ? '10px' : '0',
-                                                            borderBottomRightRadius: isFiltered ? '10px' : '0',
-                                                            borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
-                                                        }}>{team.points}</td>
-                                                    </tr>
+                                                                </td>
+                                                            </tr>
+                                                        )}
+                                                    </React.Fragment>
                                                 );
                                             })}
                                         </tbody>
