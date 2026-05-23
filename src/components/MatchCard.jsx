@@ -123,7 +123,13 @@ const TeamLogo = ({ logoUrl, teamName, size = 64, flags = [], onClick }) => {
 
 
 const getLastName = (name) => {
-    if (!name) return '';
+    if (!name || typeof name !== 'string') {
+        if (name && typeof name === 'object' && name.name) {
+            name = name.name;
+        } else {
+            return '';
+        }
+    }
     const parts = name.trim().split(/\s+/);
     if (parts.length <= 1) return name;
     

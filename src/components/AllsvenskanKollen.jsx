@@ -1642,13 +1642,23 @@ const AllsvenskanKollen = () => {
                                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                         {Object.entries(positionGroups).map(([groupName, groupPlayers]) => {
                                                             if (groupPlayers.length === 0) return null;
+                                                            
+                                                            const sortedPlayers = [...groupPlayers].sort((a, b) => {
+                                                                const getNumber = (numStr) => {
+                                                                    if (!numStr || numStr === '-') return Number.MAX_SAFE_INTEGER;
+                                                                    const num = parseInt(numStr, 10);
+                                                                    return isNaN(num) ? Number.MAX_SAFE_INTEGER : num;
+                                                                };
+                                                                return getNumber(a.number) - getNumber(b.number);
+                                                            });
+
                                                             return (
                                                                 <div key={groupName} style={{ padding: '12px 16px', borderTop: '1px solid rgba(0,0,0,0.04)' }}>
                                                                     <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em', marginBottom: '10px' }}>
-                                                                        {groupName} ({groupPlayers.length})
+                                                                        {groupName} ({sortedPlayers.length})
                                                                     </div>
                                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                                                                        {groupPlayers.map((p, idx) => (
+                                                                        {sortedPlayers.map((p, idx) => (
                                                                             <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 10px', borderRadius: '8px', backgroundColor: 'rgba(0,0,0,0.02)' }}>
                                                                                 <div style={{ width: '24px', fontSize: '0.8rem', color: p.number ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'center' }}>
                                                                                     {p.number || '-'}

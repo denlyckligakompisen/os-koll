@@ -10,10 +10,105 @@
       "status": "finished",
       "startTimestamp": 1775253600,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Paulos Abraham"
+            },
+            "time": 42,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Paulos Abraham"
+            },
+            "time": 44,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Paulos Abraham"
+            },
+            "time": 48,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 4 APR 15:00",
+          "KRISTOFFER KARLSSON, ANDREAS SÖDERKVIST, SEBASTIAN ROBERTSSON",
+          "3ARENA",
+          "OMGÅNG 1",
+          "30 162"
+        ],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nMjällby AIF",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "51.5%",
+            "label": "51.5%",
+            "away": ""
+          },
+          {
+            "home": "14",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 290",
+            "label": "Löpmeter (m)",
+            "away": "126 853"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Markus Karlsson | Hammarby | 12 948 | 27,39",
+          "2 | Jesper Gustavsson | Mjällby AIF | 12 601 | 27,85",
+          "3 | Paulos Abraham | Hammarby | 12 210 | 32,26",
+          "4 | Hampus Skoglund | Hammarby | 11 653 | 29,85",
+          "5 | Frederik Winther | Hammarby | 11 570 | 29,53",
+          "6 | Abdoulie Manneh | Mjällby AIF | 11 355 | 29,97",
+          "7 | Elliot Stroud | Mjällby AIF | 11 322 | 32,66",
+          "8 | Abdullah Iqbal | Mjällby AIF | 11 313 | 32,04",
+          "9 | Ibrahima Fofana | Hammarby | 11 210 | 30,52",
+          "10 | Axel Norén | Mjällby AIF | 10 939 | 29,88",
+          "11 | Nahir Besara | Hammarby | 10 784 | 28,16",
+          "12 | Oscar Johansson | Hammarby | 10 650 | 29,88",
+          "13 | Viktor Gustafson | Mjällby AIF | 10 567 | 29,15",
+          "14 | Victor Eriksson | Hammarby | 10 243 | 29,77",
+          "15 | Tom Pettersson | Mjällby AIF | 10 136 | 27,23",
+          "16 | Jacob Bergström | Mjällby AIF | 9 847 | 29,29",
+          "17 | Victor Lind | Hammarby | 8 777 | 31,19",
+          "18 | Montader Madjed | Hammarby | 8 726 | 28,05",
+          "19 | Villiam Granath | Mjällby AIF | 6 837 | 33,47",
+          "20 | Timo Stavitski | Mjällby AIF | 6 727 | 32,21"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
@@ -26,9 +121,104 @@
       "startTimestamp": 1775253600,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Neo Jönsson"
+            },
+            "time": 46,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 78,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Ure"
+            },
+            "time": 82,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 4 APR 15:00",
+          "FREDRIK KLITTE, MAHBOD BEIGI, PER REHNLUND",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 1",
+          "4 015"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nIK Sirius",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "49%",
+            "label": "49%",
+            "away": ""
+          },
+          {
+            "home": "2",
+            "label": "Avslut",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "112 305",
+            "label": "Löpmeter (m)",
+            "away": "113 064"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Marcus Lindberg | IK Sirius | 11 878 | 29,1",
+          "2 | Ludvig Fritzson | Degerfors IF | 11 520 | 29,87",
+          "3 | Victor Svensson | IK Sirius | 10 945 | 30,47",
+          "4 | Tobias Anker | IK Sirius | 10 790 | 31,2",
+          "5 | Yiriyon Gideon Yaw | Degerfors IF | 10 673 | 33,35",
+          "6 | Henrik Castegren | IK Sirius | 10 647 | 30,33",
+          "7 | Victor Ekström | IK Sirius | 10 631 | 30,87",
+          "8 | Oscar Krusnell | IK Sirius | 10 557 | 29,54",
+          "9 | Robbie Ure | IK Sirius | 10 413 | 30,36",
+          "10 | Nahom Netabay | Degerfors IF | 10 338 | 32,69",
+          "11 | Juhani Pikkarainen | Degerfors IF | 10 136 | 30,88",
+          "12 | Samba Diatara | Degerfors IF | 10 120 | 32,66",
+          "13 | Melker Heier | IK Sirius | 9 947 | 33,91",
+          "14 | Daniel Sundgren | Degerfors IF | 9 740 | 32,96",
+          "15 | Isak Bjerkebo | IK Sirius | 9 387 | 33,13",
+          "16 | Neo Jönsson | IK Sirius | 9 339 | 31,45",
+          "17 | Kazper Karlsson | Degerfors IF | 8 036 | 27,21",
+          "18 | Dijan Vukojevic | Degerfors IF | 7 686 | 29,46",
+          "19 | Marcus Rafferty | Degerfors IF | 7 665 | 34,13",
+          "20 | Jesus Hernandez Mesas | Degerfors IF | 5 640 | 28"
+        ]
+      }
     },
     {
       "home": "AIK",
@@ -40,10 +230,86 @@
       "status": "finished",
       "startTimestamp": 1775340000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Ibrahim Cisse"
+            },
+            "time": 21,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Zadok Yohanna"
+            },
+            "time": 83,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Otso Liimatta"
+            },
+            "time": 64,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 5 APR 14:00",
+          "ADAM LADEBÄCK, DANIEL YNG, ANTON SJÖBERG",
+          "NATIONALARENAN, STRAWBERRY ARENA",
+          "OMGÅNG 1",
+          "39 085"
+        ],
+        "stats": [
+          {
+            "home": "AIK\nTotalt\nHalmstads BK",
+            "label": "AIK",
+            "away": "Totalt"
+          },
+          {
+            "home": "56.5%",
+            "label": "56.5%",
+            "away": ""
+          },
+          {
+            "home": "15",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 049",
+            "label": "Löpmeter (m)",
+            "away": "124 523"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Kalmar FF",
@@ -56,9 +322,70 @@
       "startTimestamp": 1775340000,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Achraf Dari"
+            },
+            "time": 11,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 5 APR 14:00",
+          "GRANIT MAQEDONCI, MARCUS KLITTE, NIKLAS NYBERG",
+          "GULDFÅGELN ARENA, KALMAR",
+          "OMGÅNG 1",
+          "6 789"
+        ],
+        "stats": [
+          {
+            "home": "Kalmar FF\nTotalt\nVästerås SK",
+            "label": "Kalmar FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "61.5%",
+            "label": "61.5%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "1"
+          },
+          {
+            "home": "118 533",
+            "label": "Löpmeter (m)",
+            "away": "112 462"
+          },
+          {
+            "home": "14",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Örgryte IS",
@@ -70,10 +397,99 @@
       "status": "finished",
       "startTimestamp": 1775340000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Anton Andreasson"
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 73,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 5 APR 16:30",
+          "JOAKIM SARS, ROBIN WILDE, SIMON KRISTENSSON",
+          "GAMLA ULLEVI",
+          "OMGÅNG 1",
+          "13 360"
+        ],
+        "stats": [
+          {
+            "home": "Örgryte IS\nTotalt\nMalmö FF",
+            "label": "Örgryte IS",
+            "away": "Totalt"
+          },
+          {
+            "home": "45%",
+            "label": "45%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "15"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 948",
+            "label": "Löpmeter (m)",
+            "away": "123 731"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "10"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Owen Parker-Price | Örgryte IS | 12 997 | 28,29",
+          "2 | Otto Rosengren | Malmö FF | 12 535 | 27,73",
+          "3 | Daniel Paulson | Örgryte IS | 12 518 | 28,47",
+          "4 | Pontus Jansson | Malmö FF | 11 401 | 31,11",
+          "5 | Christoffer Styffe | Örgryte IS | 11 310 | 31,87",
+          "6 | Taha Ali | Malmö FF | 11 155 | 32,77",
+          "7 | Johan Karlsson | Malmö FF | 11 131 | 30,73",
+          "8 | Colin Rösler | Malmö FF | 10 983 | 29,02",
+          "9 | Erik Botheim | Malmö FF | 10 953 | 32,07",
+          "10 | Michael Parker | Örgryte IS | 10 784 | 30,97",
+          "11 | Anton Andreasson | Örgryte IS | 10 719 | 31,74",
+          "12 | Tobias Sana | Örgryte IS | 10 693 | 29,8",
+          "13 | Benjamin Laturnus | Örgryte IS | 10 509 | 29,88",
+          "14 | Noah Christoffersson | Örgryte IS | 10 375 | 32,62",
+          "15 | Mikael Dyrestam | Örgryte IS | 10 251 | 30,74",
+          "16 | William Hofvander | Örgryte IS | 9 804 | 33,35",
+          "17 | Anders Christiansen | Malmö FF | 9 722 | 29,12",
+          "18 | Yanis Karabelyov | Malmö FF | 8 690 | 28,54",
+          "19 | Arnor Sigurdsson | Malmö FF | 8 548 | 31,11",
+          "20 | Hampus Gustafsson | Örgryte IS | 6 311 | 25,46"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -85,10 +501,83 @@
       "status": "finished",
       "startTimestamp": 1775426400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Adrian Svanbäck"
+            },
+            "time": 47,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jordan Simpson"
+            },
+            "time": 70,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Lukas Björklund"
+            },
+            "time": 8,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Andreas Troelsen"
+            },
+            "time": 89,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 6 APR 14:00",
+          "OSCAR JOHNSON, ALMIRA SPAHIC, ALEXANDER MILOVANOVIC",
+          "NORDIC WELLNESS ARENA",
+          "OMGÅNG 1",
+          "4 104"
+        ],
+        "stats": [
+          {
+            "home": "BK Häcken\nTotalt\nIF Brommapojkarna",
+            "label": "BK Häcken",
+            "away": "Totalt"
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IF Elfsborg",
@@ -100,10 +589,98 @@
       "status": "finished",
       "startTimestamp": 1775426400,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Taylor Silverholt"
+            },
+            "time": 59,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Júlíus Magnússon"
+            },
+            "time": 65,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 6 APR 14:00",
+          "VICTOR WOLF, MIKAEL HALLIN, DANIEL GUSTAVSSON",
+          "BORÅS ARENA",
+          "OMGÅNG 1",
+          "14 344"
+        ],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nIFK Göteborg",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "37.5%",
+            "label": "37.5%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "1"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "117 691",
+            "label": "Löpmeter (m)",
+            "away": "115 722"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 12 413 | 27,7",
+          "2 | Julius Magnusson | IF Elfsborg | 12 056 | 31,45",
+          "3 | Simon Olsson | IF Elfsborg | 11 639 | 27,71",
+          "4 | Alexander Jallow | IFK Göteborg | 11 135 | 30,14",
+          "5 | Niklas Hult | IF Elfsborg | 11 085 | 32,1",
+          "6 | Adam Bergmark Wiberg | IFK Göteborg | 11 050 | 32,67",
+          "7 | Thomas Isherwood | IF Elfsborg | 10 982 | 29,41",
+          "8 | Tobias Heintz | IFK Göteborg | 10 945 | 29,02",
+          "9 | August Erlingmark | IFK Göteborg | 10 384 | 28,56",
+          "10 | Felix Eriksson | IFK Göteborg | 10 365 | 29,46",
+          "11 | Rasmus Wikström | IF Elfsborg | 10 326 | 32,69",
+          "12 | Sebastian Holmén | IF Elfsborg | 9 053 | 31,43",
+          "13 | Jonas Bager | IFK Göteborg | 8 890 | 31,12",
+          "14 | Kolbeinn Thordarson | IFK Göteborg | 8 561 | 28,53",
+          "15 | Simon Hedlund | IF Elfsborg | 8 114 | 31,91",
+          "16 | Filip Ottosson | IFK Göteborg | 8 105 | 31,31",
+          "17 | Taylor Silverholt | IF Elfsborg | 8 052 | 30,99",
+          "18 | Per Frick | IF Elfsborg | 7 966 | 28,33",
+          "19 | Arber Zeneli | IF Elfsborg | 7 687 | 29,61",
+          "20 | Saidou Alioum Moubarak | IFK Göteborg | 7 535 | 31,9"
+        ]
+      }
     },
     {
       "home": "GAIS",
@@ -116,9 +693,70 @@
       "startTimestamp": 1775426400,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Patric Åslund"
+            },
+            "time": 65,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 6 APR 16:30",
+          "MOHAMMED AL-HAKIM, MEHMET CULUM, FREDRIK KLYVER",
+          "GAMLA ULLEVI",
+          "OMGÅNG 1",
+          "17 165"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nDjurgårdens IF",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "53.5%",
+            "label": "53.5%",
+            "away": ""
+          },
+          {
+            "home": "7",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 534",
+            "label": "Löpmeter (m)",
+            "away": "121 135"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "10"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IFK Göteborg",
@@ -131,9 +769,77 @@
       "startTimestamp": 1775858400,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Gustav Lindgren"
+            },
+            "time": 17,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mikkel Rygaard Jensen"
+            },
+            "time": 84,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 11 APR 15:00",
+          "JOAKIM SARS, SIMON KRISTENSSON, NIKLAS NYBERG",
+          "GAMLA ULLEVI",
+          "OMGÅNG 2",
+          "17 457"
+        ],
+        "stats": [
+          {
+            "home": "IFK Göteborg\nTotalt\nBK Häcken",
+            "label": "IFK Göteborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "68%",
+            "label": "68%",
+            "away": ""
+          },
+          {
+            "home": "15",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "120 550",
+            "label": "Löpmeter (m)",
+            "away": "118 273"
+          },
+          {
+            "home": "9",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Mjällby AIF",
@@ -146,9 +852,77 @@
       "startTimestamp": 1775858400,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Anton Andreasson"
+            },
+            "time": 21,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jerome Tibbling Ugwo"
+            },
+            "time": 26,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 11 APR 15:00",
+          "ADI AGANOVIC, ANDREAS SVENSSON, ROBERT NYBERG",
+          "STRANDVALLEN A-PLAN",
+          "OMGÅNG 2",
+          "3 884"
+        ],
+        "stats": [
+          {
+            "home": "Mjällby AIF\nTotalt\nÖrgryte IS",
+            "label": "Mjällby AIF",
+            "away": "Totalt"
+          },
+          {
+            "home": "64.5%",
+            "label": "64.5%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "126 342",
+            "label": "Löpmeter (m)",
+            "away": "118 829"
+          },
+          {
+            "home": "12",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Västerås SK",
@@ -160,10 +934,93 @@
       "status": "finished",
       "startTimestamp": 1775858400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 74,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 81,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Niklas Hult"
+            },
+            "time": 49,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Ari Sigurpálsson"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 11 APR 15:00",
+          "TESS OLOFSSON, ROBIN WILDE, ABDELMASIH GERGESS",
+          "HITACHI ENERGY ARENA",
+          "OMGÅNG 2",
+          "7 449"
+        ],
+        "stats": [
+          {
+            "home": "Västerås SK\nTotalt\nIF Elfsborg",
+            "label": "Västerås SK",
+            "away": "Totalt"
+          },
+          {
+            "home": "51.5%",
+            "label": "51.5%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "114 743",
+            "label": "Löpmeter (m)",
+            "away": "121 063"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -175,10 +1032,100 @@
       "status": "finished",
       "startTimestamp": 1775944800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Bo Hegland"
+            },
+            "time": 2,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kristian Lien"
+            },
+            "time": 7,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kristian Lien"
+            },
+            "time": 85,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Charlie Rosenqvist"
+            },
+            "time": 16,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Achraf Dari"
+            },
+            "time": 29,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 12 APR 14:00",
+          "RICHARD SUNDELL, DANIEL YNG, SEBASTIAN ROBERTSSON",
+          "3ARENA",
+          "OMGÅNG 2",
+          "26 454"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nKalmar FF",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "67%",
+            "label": "67%",
+            "away": ""
+          },
+          {
+            "home": "17",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "9",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "118 303",
+            "label": "Löpmeter (m)",
+            "away": "120 931"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Halmstads BK",
@@ -191,9 +1138,84 @@
       "startTimestamp": 1775944800,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Daniel Sundgren"
+            },
+            "time": 44,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Sebastian Ohlsson"
+            },
+            "time": 56,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Marcus Rafferty"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 12 APR 14:00",
+          "ERIK MATTSSON, ANDREAS SÖDERKVIST, JONAS DAHL",
+          "ÖRJANS VALL",
+          "OMGÅNG 2",
+          "4 638"
+        ],
+        "stats": [
+          {
+            "home": "Halmstads BK\nTotalt\nDegerfors IF",
+            "label": "Halmstads BK",
+            "away": "Totalt"
+          },
+          {
+            "home": "58%",
+            "label": "58%",
+            "away": ""
+          },
+          {
+            "home": "4",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 895",
+            "label": "Löpmeter (m)",
+            "away": "121 002"
+          },
+          {
+            "home": "0",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Malmö FF",
@@ -205,10 +1227,63 @@
       "status": "finished",
       "startTimestamp": 1775944800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Pontus Jansson"
+            },
+            "time": 21,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Oscar Sjöstrand"
+            },
+            "time": 38,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Otto Rosengren"
+            },
+            "time": 42,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Shalom Ekong"
+            },
+            "time": 87,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 12 APR 16:30",
+          "VICTOR WOLF, MIKAEL HALLIN, PER REHNLUND",
+          "ELEDA STADION",
+          "OMGÅNG 2",
+          "19 500"
+        ],
+        "stats": [
+          {
+            "home": "Malmö FF\nTotalt\nGAIS",
+            "label": "Malmö FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "",
+            "label": "Hörnor",
+            "away": ""
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IF Brommapojkarna",
@@ -220,10 +1295,93 @@
       "status": "finished",
       "startTimestamp": 1776031200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Mads Kristian Hansen"
+            },
+            "time": 62,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Alex Timossi Andersson"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Bersant Celina"
+            },
+            "time": 59,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Victor Goncalves Andersson"
+            },
+            "time": 78,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 13 APR 19:00",
+          "MOHAMMED AL-HAKIM, FREDRIK KLYVER, MARCUS KLITTE",
+          "GRIMSTA IP 1",
+          "OMGÅNG 2",
+          "4 421"
+        ],
+        "stats": [
+          {
+            "home": "IF Brommapojkarna\nTotalt\nAIK",
+            "label": "IF Brommapojkarna",
+            "away": "Totalt"
+          },
+          {
+            "home": "42%",
+            "label": "42%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "7"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "122 502",
+            "label": "Löpmeter (m)",
+            "away": "121 521"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "9"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IK Sirius",
@@ -235,10 +1393,78 @@
       "status": "finished",
       "startTimestamp": 1776031200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 9,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Ure"
+            },
+            "time": 70,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 13 APR 19:00",
+          "GLENN NYBERG, MAHBOD BEIGI, MEHMET CULUM",
+          "STUDENTERNAS",
+          "OMGÅNG 2",
+          "10 306"
+        ],
+        "stats": [
+          {
+            "home": "IK Sirius\nTotalt\nHammarby",
+            "label": "IK Sirius",
+            "away": "Totalt"
+          },
+          {
+            "home": "28.5%",
+            "label": "28.5%",
+            "away": ""
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "14"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "119 369",
+            "label": "Löpmeter (m)",
+            "away": "116 610"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -251,9 +1477,70 @@
       "startTimestamp": 1776376800,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Sead Haksabanovic"
+            },
+            "time": 61,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "FRE 17 APR 19:00",
+          "FREDRIK KLITTE, SIMON KRISTENSSON, DANIEL GUSTAVSSON",
+          "3ARENA",
+          "OMGÅNG 3",
+          "27 902"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nMalmö FF",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "61%",
+            "label": "61%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "5",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "126 551",
+            "label": "Löpmeter (m)",
+            "away": "121 007"
+          },
+          {
+            "home": "10",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
@@ -266,9 +1553,70 @@
       "startTimestamp": 1776376800,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Júlíus Magnússon"
+            },
+            "time": 52,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "FRE 17 APR 19:00",
+          "GLENN NYBERG, DANIEL YNG, ANTON SJÖBERG",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 3",
+          "3 112"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nIF Elfsborg",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "65.5%",
+            "label": "65.5%",
+            "away": ""
+          },
+          {
+            "home": "5",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "5",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "114 130",
+            "label": "Löpmeter (m)",
+            "away": "118 493"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "1"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Hammarby IF",
@@ -280,10 +1628,128 @@
       "status": "finished",
       "startTimestamp": 1776463200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Noah Persson"
+            },
+            "time": 11,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nahir Besara"
+            },
+            "time": 18,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Paulos Abraham"
+            },
+            "time": 23,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Victor Stange Lind"
+            },
+            "time": 33,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Montader Madjed"
+            },
+            "time": 57,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nikola Vasic"
+            },
+            "time": 70,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nikola Vasic"
+            },
+            "time": 79,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nikola Vasic"
+            },
+            "time": 86,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Christoffer Styffe"
+            },
+            "time": 32,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 18 APR 15:00",
+          "GRANIT MAQEDONCI, MARCUS KLITTE, ANDREAS SVENSSON",
+          "3ARENA",
+          "OMGÅNG 3",
+          "26 623"
+        ],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nÖrgryte IS",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "58.5%",
+            "label": "58.5%",
+            "away": ""
+          },
+          {
+            "home": "26",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "17",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 385",
+            "label": "Löpmeter (m)",
+            "away": "118 256"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Mjällby AIF",
@@ -295,10 +1761,85 @@
       "status": "finished",
       "startTimestamp": 1776463200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Ludwig Malachowski Thorell"
+            },
+            "time": 5,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jacob Bergström"
+            },
+            "time": 28,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Abdoulie Manneh"
+            },
+            "time": 32,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 18 APR 15:00",
+          "ADAM LADEBÄCK, MEHMET CULUM, NIKLAS NYBERG",
+          "STRANDVALLEN A-PLAN",
+          "OMGÅNG 3",
+          "3 512"
+        ],
+        "stats": [
+          {
+            "home": "Mjällby AIF\nTotalt\nIF Brommapojkarna",
+            "label": "Mjällby AIF",
+            "away": "Totalt"
+          },
+          {
+            "home": "51.5%",
+            "label": "51.5%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "126 777",
+            "label": "Löpmeter (m)",
+            "away": "118 367"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "1"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IK Sirius",
@@ -310,10 +1851,100 @@
       "status": "finished",
       "startTimestamp": 1776463200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 8,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 31,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Tobias Anker"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Henrik Rönnlöf Castegren"
+            },
+            "time": 62,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Frederic Nsabiyumva"
+            },
+            "time": 53,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 18 APR 15:00",
+          "ERIK MATTSSON, MIKAEL HALLIN, JONAS DAHL",
+          "STUDENTERNAS",
+          "OMGÅNG 3",
+          "9 228"
+        ],
+        "stats": [
+          {
+            "home": "IK Sirius\nTotalt\nVästerås SK",
+            "label": "IK Sirius",
+            "away": "Totalt"
+          },
+          {
+            "home": "49.5%",
+            "label": "49.5%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "113 841",
+            "label": "Löpmeter (m)",
+            "away": "111 926"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "8"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Halmstads BK",
@@ -325,10 +1956,99 @@
       "status": "finished",
       "startTimestamp": 1776463200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Omar Faraj"
+            },
+            "time": 62,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Tobias Heintz"
+            },
+            "time": 64,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 18 APR 15:00",
+          "OSCAR JOHNSON, SEBASTIAN ROBERTSSON, ALEXANDER MILOVANOVIC",
+          "ÖRJANS VALL",
+          "OMGÅNG 3",
+          "8 644"
+        ],
+        "stats": [
+          {
+            "home": "Halmstads BK\nTotalt\nIFK Göteborg",
+            "label": "Halmstads BK",
+            "away": "Totalt"
+          },
+          {
+            "home": "40%",
+            "label": "40%",
+            "away": ""
+          },
+          {
+            "home": "7",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "125 951",
+            "label": "Löpmeter (m)",
+            "away": "122 789"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 13 465 | 31,13",
+          "2 | Joel Allansson | Halmstads BK | 12 699 | 29,48",
+          "3 | Rocco Ascone | Halmstads BK | 12 352 | 31,8",
+          "4 | Rami Kaib | Halmstads BK | 12 244 | 30,78",
+          "5 | Tobias Heintz | IFK Göteborg | 11 943 | 30,57",
+          "6 | Erko Tõugjas | Halmstads BK | 11 756 | 34,18",
+          "7 | Alexander Jallow | IFK Göteborg | 11 715 | 29,7",
+          "8 | Saidou Alioum Moubarak | IFK Göteborg | 11 685 | 33,69",
+          "9 | Filip Ottosson | IFK Göteborg | 11 379 | 30,94",
+          "10 | Pascal Gregor | Halmstads BK | 11 330 | 32,18",
+          "11 | Felix Eriksson | IFK Göteborg | 11 326 | 33,24",
+          "12 | André Boman | Halmstads BK | 11 311 | 33,02",
+          "13 | August Erlingmark | IFK Göteborg | 10 922 | 26,02",
+          "14 | Rockson Yeboah | IFK Göteborg | 10 753 | 31,64",
+          "15 | Aleksander Damnjanovic Nilsson | Halmstads BK | 10 416 | 29,88",
+          "16 | Otso Liimatta | Halmstads BK | 10 353 | 31,86",
+          "17 | Ludvig Arvidsson | Halmstads BK | 9 254 | 30,02",
+          "18 | Omar Faraj | Halmstads BK | 9 210 | 30,24",
+          "19 | Kolbeinn Thordarson | IFK Göteborg | 8 446 | 28,32",
+          "20 | Tim Rönning | Halmstads BK | 6 353 | 25,7"
+        ]
+      }
     },
     {
       "home": "AIK",
@@ -340,10 +2060,71 @@
       "status": "finished",
       "startTimestamp": 1776549600,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Johan Hove"
+            },
+            "time": 26,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 19 APR 14:00",
+          "ADI AGANOVIC, MAHBOD BEIGI, ABDELMASIH GERGESS",
+          "NATIONALARENAN, STRAWBERRY ARENA",
+          "OMGÅNG 3",
+          "27 784"
+        ],
+        "stats": [
+          {
+            "home": "AIK\nTotalt\nKalmar FF",
+            "label": "AIK",
+            "away": "Totalt"
+          },
+          {
+            "home": "47.5%",
+            "label": "47.5%",
+            "away": ""
+          },
+          {
+            "home": "7",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 659",
+            "label": "Löpmeter (m)",
+            "away": "126 490"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -355,10 +2136,86 @@
       "status": "finished",
       "startTimestamp": 1776549600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Abdoulaye Doumbia"
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Gustav Lindgren"
+            },
+            "time": 80,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Róbert Frosti Þorkelsson"
+            },
+            "time": 57,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 19 APR 16:30",
+          "KRISTOFFER KARLSSON, ROBIN WILDE, PER REHNLUND",
+          "NORDIC WELLNESS ARENA",
+          "OMGÅNG 3",
+          "6 316"
+        ],
+        "stats": [
+          {
+            "home": "BK Häcken\nTotalt\nGAIS",
+            "label": "BK Häcken",
+            "away": "Totalt"
+          },
+          {
+            "home": "45%",
+            "label": "45%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "4",
+            "label": "Gula kort",
+            "away": "5"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "127 006",
+            "label": "Löpmeter (m)",
+            "away": "132 096"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Hammarby IF",
@@ -370,10 +2227,99 @@
       "status": "finished",
       "startTimestamp": 1776808800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Frank Junior Agyei"
+            },
+            "time": 58,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Otso Liimatta"
+            },
+            "time": 10,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "ONS 22 APR 19:00",
+          "ERIK MATTSSON, FREDRIK KLYVER, ABDELMASIH GERGESS",
+          "3ARENA",
+          "OMGÅNG 4",
+          "22 283"
+        ],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nHalmstads BK",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "75%",
+            "label": "75%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "126 050",
+            "label": "Löpmeter (m)",
+            "away": "127 077"
+          },
+          {
+            "home": "9",
+            "label": "Hörnor",
+            "away": "0"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Hampus Skoglund | Hammarby | 13 024 | 32,63",
+          "2 | Noah Persson | Hammarby | 13 023 | 30,41",
+          "3 | Markus Karlsson | Hammarby | 12 696 | 27,57",
+          "4 | Joel Allansson | Halmstads BK | 12 543 | 29,88",
+          "5 | Paulos Abraham | Hammarby | 12 150 | 29,1",
+          "6 | Frederik Winther | Hammarby | 12 120 | 29,96",
+          "7 | André Boman | Halmstads BK | 11 643 | 32,09",
+          "8 | Erko Tõugjas | Halmstads BK | 11 618 | 30,13",
+          "9 | Pascal Gregor | Halmstads BK | 11 579 | 26,5",
+          "10 | Victor Eriksson | Hammarby | 11 223 | 30,8",
+          "11 | Oliver Kapsimalis | Halmstads BK | 11 169 | 31,87",
+          "12 | Gabriel Wallentin | Halmstads BK | 10 948 | 28,89",
+          "13 | Nahir Besara | Hammarby | 10 235 | 28,14",
+          "14 | Otso Liimatta | Halmstads BK | 9 215 | 29,31",
+          "15 | Omar Faraj | Halmstads BK | 9 150 | 31,46",
+          "16 | Victor Lind | Hammarby | 8 692 | 31,27",
+          "17 | Rocco Ascone | Halmstads BK | 8 561 | 30,74",
+          "18 | Ludvig Arvidsson | Halmstads BK | 8 375 | 28,17",
+          "19 | Oscar Johansson | Hammarby | 8 083 | 29,37",
+          "20 | Oliver Jordan Hagen | Hammarby | 6 795 | 32,32"
+        ]
+      }
     },
     {
       "home": "Örgryte IS",
@@ -385,10 +2331,106 @@
       "status": "finished",
       "startTimestamp": 1776808800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Christoffer Styffe"
+            },
+            "time": 67,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "David Isso"
+            },
+            "time": 39,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Lukas Björklund"
+            },
+            "time": 72,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "ONS 22 APR 19:00",
+          "TESS OLOFSSON, MAHBOD BEIGI, ALMIRA SPAHIC",
+          "GAMLA ULLEVI",
+          "OMGÅNG 4",
+          "5 001"
+        ],
+        "stats": [
+          {
+            "home": "Örgryte IS\nTotalt\nIF Brommapojkarna",
+            "label": "Örgryte IS",
+            "away": "Totalt"
+          },
+          {
+            "home": "59%",
+            "label": "59%",
+            "away": ""
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "4"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 410",
+            "label": "Löpmeter (m)",
+            "away": "124 836"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "1"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Owen Parker-Price | Örgryte IS | 13 533 | 30,41",
+          "2 | Oliver Berg | IF Brommapojkarna | 13 044 | 30,83",
+          "3 | Mads Kristian Hansen | IF Brommapojkarna | 11 923 | 31",
+          "4 | William Hofvander | Örgryte IS | 11 888 | 32,69",
+          "5 | Christoffer Styffe | Örgryte IS | 11 811 | 30,57",
+          "6 | Simon Strand | IF Brommapojkarna | 11 727 | 28,04",
+          "7 | Oliver Zandén | IF Brommapojkarna | 11 416 | 32,65",
+          "8 | Oskar Cotton | IF Brommapojkarna | 11 258 | 30,88",
+          "9 | Alex Timossi Andersson | IF Brommapojkarna | 11 152 | 33,64",
+          "10 | Mikael Dyrestam | Örgryte IS | 11 087 | 29,25",
+          "11 | Rasmus Örqvist | IF Brommapojkarna | 11 079 | 30,93",
+          "12 | Daniel Paulson | Örgryte IS | 10 973 | 30,2",
+          "13 | Benjamin Laturnus | Örgryte IS | 10 815 | 26,85",
+          "14 | Andreas Troelsen | IF Brommapojkarna | 10 721 | 28,97",
+          "15 | Tobias Sana | Örgryte IS | 10 616 | 30,76",
+          "16 | Michael Parker | Örgryte IS | 10 275 | 33,17",
+          "17 | Kevin Ackermann | IF Brommapojkarna | 10 032 | 32,31",
+          "18 | David Isso | IF Brommapojkarna | 8 033 | 32,37",
+          "19 | Anton Andreasson | Örgryte IS | 7 825 | 30,6",
+          "20 | Noah Christoffersson | Örgryte IS | 7 240 | 31,8"
+        ]
+      }
     },
     {
       "home": "IF Elfsborg",
@@ -400,10 +2442,86 @@
       "status": "finished",
       "startTimestamp": 1776808800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Frederik Dahl Ihler"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 88,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Piotr Johansson"
+            },
+            "time": 19,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "ONS 22 APR 19:00",
+          "GRANIT MAQEDONCI, NIKLAS NYBERG, PER REHNLUND",
+          "BORÅS ARENA",
+          "OMGÅNG 4",
+          "9 426"
+        ],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nDjurgårdens IF",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "23%",
+            "label": "23%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "12"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "118 731",
+            "label": "Löpmeter (m)",
+            "away": "116 033"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "7"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Västerås SK",
@@ -415,10 +2533,107 @@
       "status": "finished",
       "startTimestamp": 1776808800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 4,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 58,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Jeremy Agbonifo"
+            },
+            "time": 12,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Adrian Svanbäck"
+            },
+            "time": 64,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Filip Helander"
+            },
+            "time": 83,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "ONS 22 APR 19:00",
+          "RICHARD SUNDELL, DANIEL GUSTAVSSON, ROBERT NYBERG",
+          "HITACHI ENERGY ARENA",
+          "OMGÅNG 4",
+          "5 908"
+        ],
+        "stats": [
+          {
+            "home": "Västerås SK\nTotalt\nBK Häcken",
+            "label": "Västerås SK",
+            "away": "Totalt"
+          },
+          {
+            "home": "38%",
+            "label": "38%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 582",
+            "label": "Löpmeter (m)",
+            "away": "122 997"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "9"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "GAIS",
@@ -433,7 +2648,60 @@
         "home": [],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "TOR 23 APR 19:00",
+          "OSCAR JOHNSON, ALEXANDER MILOVANOVIC, ANTON SJÖBERG",
+          "GAMLA ULLEVI",
+          "OMGÅNG 4",
+          "8 011"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nMjällby AIF",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "46%",
+            "label": "46%",
+            "away": ""
+          },
+          {
+            "home": "17",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "129 979",
+            "label": "Löpmeter (m)",
+            "away": "127 151"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Malmö FF",
@@ -445,10 +2713,100 @@
       "status": "finished",
       "startTimestamp": 1776895200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Sead Haksabanovic"
+            },
+            "time": 55,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Adrian Skogmar"
+            },
+            "time": 77,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Mohamed Soumah"
+            },
+            "time": 13,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 60,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Philip Thomas Ure"
+            },
+            "time": 65,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "TOR 23 APR 19:00",
+          "KRISTOFFER KARLSSON, MARCUS KLITTE, ANDREAS SVENSSON",
+          "ELEDA STADION",
+          "OMGÅNG 4",
+          "18 535"
+        ],
+        "stats": [
+          {
+            "home": "Malmö FF\nTotalt\nIK Sirius",
+            "label": "Malmö FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "57%",
+            "label": "57%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "119 218",
+            "label": "Löpmeter (m)",
+            "away": "123 183"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
@@ -460,10 +2818,106 @@
       "status": "finished",
       "startTimestamp": 1776895200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Stanley Wilson Omondi"
+            },
+            "time": 15,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Arman Taranis"
+            },
+            "time": 85,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Johan Hove"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "TOR 23 APR 19:00",
+          "VICTOR WOLF, MIKAEL HALLIN, JONAS DAHL",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 4",
+          "5 449"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nAIK",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "43%",
+            "label": "43%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "116 398",
+            "label": "Löpmeter (m)",
+            "away": "115 972"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "7"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Johan Hove | AIK | 11 987 | 29,8",
+          "2 | Áron Csongvai | AIK | 11 961 | 30,31",
+          "3 | Ludvig Fritzson | Degerfors IF | 11 873 | 30,61",
+          "4 | Yiriyon Gideon Yaw | Degerfors IF | 11 497 | 31,81",
+          "5 | Marcus Rafferty | Degerfors IF | 11 468 | 31,89",
+          "6 | Nahom Netabay | Degerfors IF | 11 422 | 28,94",
+          "7 | Zadok Yohanna | AIK | 11 191 | 30,77",
+          "8 | Nasiru Moro | Degerfors IF | 10 940 | 29,01",
+          "9 | Stanley Wilson | AIK | 10 819 | 29,91",
+          "10 | Lukas Bergquist | AIK | 10 743 | 30,85",
+          "11 | Sebastian Ohlsson | Degerfors IF | 10 425 | 30,65",
+          "12 | Samba Diatara | Degerfors IF | 10 341 | 33,57",
+          "13 | Daniel Sundgren | Degerfors IF | 10 122 | 30,81",
+          "14 | Erik Hovden Flataker | AIK | 9 908 | 30,27",
+          "15 | Ibrahim Cisse | AIK | 9 822 | 31,22",
+          "16 | Sotirios Papagiannopoulos | AIK | 9 755 | 30,94",
+          "17 | Kazper Karlsson | Degerfors IF | 9 385 | 27,93",
+          "18 | Amel Mujanic | AIK | 9 250 | 27,41",
+          "19 | Elias Barsoum | Degerfors IF | 7 921 | 28,08",
+          "20 | Victor Andersson | AIK | 5 919 | 30,18"
+        ]
+      }
     },
     {
       "home": "Kalmar FF",
@@ -475,10 +2929,99 @@
       "status": "finished",
       "startTimestamp": 1776895200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Charlie Rosenqvist"
+            },
+            "time": 29,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Tobias Heintz"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "TOR 23 APR 19:00",
+          "ADAM LADEBÄCK, DANIEL YNG, SEBASTIAN ROBERTSSON",
+          "GULDFÅGELN ARENA, KALMAR",
+          "OMGÅNG 4",
+          "4 896"
+        ],
+        "stats": [
+          {
+            "home": "Kalmar FF\nTotalt\nIFK Göteborg",
+            "label": "Kalmar FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "45.5%",
+            "label": "45.5%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "126 905",
+            "label": "Löpmeter (m)",
+            "away": "126 491"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 13 747 | 32,94",
+          "2 | Charlie Rosenqvist | Kalmar FF | 12 745 | 32,92",
+          "3 | Robert Gojani | Kalmar FF | 12 577 | 29,87",
+          "4 | Filip Ottosson | IFK Göteborg | 12 214 | 30,26",
+          "5 | Charles Sagoe Jr | Kalmar FF | 11 976 | 30,72",
+          "6 | Victor Larsson | Kalmar FF | 11 800 | 30,53",
+          "7 | Nassef Chourak | Kalmar FF | 11 712 | 32,49",
+          "8 | Rony Jansson | Kalmar FF | 11 708 | 30,67",
+          "9 | Tobias Heintz | IFK Göteborg | 11 692 | 30,24",
+          "10 | Alexander Jallow | IFK Göteborg | 11 577 | 31,48",
+          "11 | Felix Eriksson | IFK Göteborg | 11 548 | 30,52",
+          "12 | August Erlingmark | IFK Göteborg | 11 513 | 30,42",
+          "13 | Adam Bergmark Wiberg | IFK Göteborg | 11 159 | 32,89",
+          "14 | Achraf Dari | Kalmar FF | 10 875 | 29,58",
+          "15 | Rockson Yeboah | IFK Göteborg | 10 844 | 30,69",
+          "16 | Lars Saetra | Kalmar FF | 10 837 | 28,6",
+          "17 | Vilmer Tyrén | Kalmar FF | 8 613 | 30,69",
+          "18 | Max Fenger | IFK Göteborg | 8 343 | 29,46",
+          "19 | Marius Söderbäck | Kalmar FF | 7 885 | 33,27",
+          "20 | Sebastian Clemmensen | IFK Göteborg | 6 120 | 30,24"
+        ]
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -490,10 +3033,99 @@
       "status": "finished",
       "startTimestamp": 1777154400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Kristian Lien"
+            },
+            "time": 9,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Nahir Besara"
+            },
+            "time": 64,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 26 APR 14:00",
+          "GLENN NYBERG, MAHBOD BEIGI, DANIEL YNG",
+          "3ARENA",
+          "OMGÅNG 5",
+          "26 775"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nHammarby",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "38%",
+            "label": "38%",
+            "away": ""
+          },
+          {
+            "home": "4",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 643",
+            "label": "Löpmeter (m)",
+            "away": "123 818"
+          },
+          {
+            "home": "1",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Paulos Abraham | Hammarby | 13 499 | 30,12",
+          "2 | Matias Siltanen | Djurgårdens IF | 13 034 | 30,22",
+          "3 | Oscar Johansson | Hammarby | 12 845 | 30,7",
+          "4 | Peter Langhoff | Djurgårdens IF | 12 500 | 28,69",
+          "5 | Hampus Skoglund | Hammarby | 12 468 | 30,29",
+          "6 | Markus Karlsson | Hammarby | 12 327 | 28,57",
+          "7 | Frederik Winther | Hammarby | 11 918 | 30,78",
+          "8 | Ibrahima Fofana | Hammarby | 11 764 | 30,79",
+          "9 | Piotr Johansson | Djurgårdens IF | 11 565 | 33,48",
+          "10 | Max Larsson | Djurgårdens IF | 11 274 | 29,65",
+          "11 | Miro Tenho | Djurgårdens IF | 11 044 | 29,66",
+          "12 | Nahir Besara | Hammarby | 10 906 | 28,18",
+          "13 | Victor Eriksson | Hammarby | 10 720 | 33,58",
+          "14 | Hampus Finndell | Djurgårdens IF | 10 064 | 30,54",
+          "15 | Kristian Lien | Djurgårdens IF | 9 446 | 29,62",
+          "16 | Jacob Une | Djurgårdens IF | 8 808 | 32,71",
+          "17 | Victor Lind | Hammarby | 8 790 | 30,86",
+          "18 | Montader Madjed | Hammarby | 8 467 | 27,97",
+          "19 | Bo Hegland | Djurgårdens IF | 8 216 | 30,03",
+          "20 | Patric Åslund | Djurgårdens IF | 8 202 | 31,96"
+        ]
+      }
     },
     {
       "home": "IFK Göteborg",
@@ -505,10 +3137,113 @@
       "status": "finished",
       "startTimestamp": 1777154400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Rockson Yeboah"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "David Kjær Kruse"
+            },
+            "time": 72,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Max Andersson"
+            },
+            "time": 63,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "William Milovanovic"
+            },
+            "time": 69,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 26 APR 16:30",
+          "FREDRIK KLITTE, MARCUS KLITTE, SIMON KRISTENSSON",
+          "GAMLA ULLEVI",
+          "OMGÅNG 5",
+          "18 084"
+        ],
+        "stats": [
+          {
+            "home": "IFK Göteborg\nTotalt\nGAIS",
+            "label": "IFK Göteborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "36.5%",
+            "label": "36.5%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "119 641",
+            "label": "Löpmeter (m)",
+            "away": "120 275"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 12 314 | 30,12",
+          "2 | William Milovanovic | GAIS | 12 059 | 30,18",
+          "3 | Adam Bergmark Wiberg | IFK Göteborg | 12 047 | 31,98",
+          "4 | Róbert Frosti Þorkelsson | GAIS | 12 046 | 32,18",
+          "5 | August Erlingmark | IFK Göteborg | 11 895 | 27,91",
+          "6 | Tobias Heintz | IFK Göteborg | 11 824 | 32,26",
+          "7 | Joackim Fagerjord | GAIS | 11 688 | 28,9",
+          "8 | August Wängberg | GAIS | 11 199 | 30,34",
+          "9 | Max Fenger | IFK Göteborg | 10 873 | 29",
+          "10 | Samuel Salter | GAIS | 10 781 | 31,55",
+          "11 | Alexander Jallow | IFK Göteborg | 10 631 | 32,48",
+          "12 | Jonas Bager | IFK Göteborg | 10 590 | 29,4",
+          "13 | Robin Frej | GAIS | 10 575 | 30,46",
+          "14 | Rockson Yeboah | IFK Göteborg | 10 443 | 32,43",
+          "15 | Rasmus Niklasson Petrovic | GAIS | 10 185 | 31,09",
+          "16 | Saidou Alioum Moubarak | IFK Göteborg | 10 069 | 32,54",
+          "17 | Felix Eriksson | IFK Göteborg | 9 671 | 30,7",
+          "18 | Andreas Hermansen | GAIS | 6 628 | 27,05",
+          "19 | Max Andersson | GAIS | 6 408 | 30,58",
+          "20 | Robin Wendin Thomasson | GAIS | 5 864 | 29,03"
+        ]
+      }
     },
     {
       "home": "IF Brommapojkarna",
@@ -520,10 +3255,79 @@
       "status": "finished",
       "startTimestamp": 1777154400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Oliver Berg"
+            },
+            "time": 7,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Philip Bonde"
+            },
+            "time": 3,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Philip Bonde"
+            },
+            "time": 58,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 26 APR 16:30",
+          "VICTOR WOLF, PER REHNLUND, HANA MOHAMMAD SALEH",
+          "GRIMSTA IP 1",
+          "OMGÅNG 5",
+          "1 631"
+        ],
+        "stats": [
+          {
+            "home": "IF Brommapojkarna\nTotalt\nVästerås SK",
+            "label": "IF Brommapojkarna",
+            "away": "Totalt"
+          },
+          {
+            "home": "54%",
+            "label": "54%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": []
+      }
     },
     {
       "home": "AIK",
@@ -536,9 +3340,70 @@
       "startTimestamp": 1777240800,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 27 APR 19:00",
+          "GRANIT MAQEDONCI, NIKLAS NYBERG, ROBIN WILDE",
+          "NATIONALARENAN, STRAWBERRY ARENA",
+          "OMGÅNG 5",
+          "30 492"
+        ],
+        "stats": [
+          {
+            "home": "AIK\nTotalt\nMalmö FF",
+            "label": "AIK",
+            "away": "Totalt"
+          },
+          {
+            "home": "62.5%",
+            "label": "62.5%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "10",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "120 814",
+            "label": "Löpmeter (m)",
+            "away": "119 759"
+          },
+          {
+            "home": "16",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Örgryte IS",
@@ -550,10 +3415,99 @@
       "status": "finished",
       "startTimestamp": 1777240800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Tobias Sana"
+            },
+            "time": 85,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Yiriyon Gideon Yaw"
+            },
+            "time": 68,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 27 APR 19:00",
+          "ADI AGANOVIC, SEBASTIAN ROBERTSSON, ANDREAS SVENSSON",
+          "GAMLA ULLEVI",
+          "OMGÅNG 5",
+          "4 928"
+        ],
+        "stats": [
+          {
+            "home": "Örgryte IS\nTotalt\nDegerfors IF",
+            "label": "Örgryte IS",
+            "away": "Totalt"
+          },
+          {
+            "home": "56.5%",
+            "label": "56.5%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "125 274",
+            "label": "Löpmeter (m)",
+            "away": "125 555"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "0"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Owen Parker-Price | Örgryte IS | 13 468 | 29,39",
+          "2 | Kazper Karlsson | Degerfors IF | 12 933 | 27,32",
+          "3 | Daniel Paulson | Örgryte IS | 12 711 | 29,67",
+          "4 | Marcus Rafferty | Degerfors IF | 12 561 | 28,4",
+          "5 | Yiriyon Gideon Yaw | Degerfors IF | 12 504 | 32,34",
+          "6 | William Hofvander | Örgryte IS | 12 335 | 32,2",
+          "7 | Dijan Vukojevic | Degerfors IF | 12 326 | 33,3",
+          "8 | Ludvig Fritzson | Degerfors IF | 11 510 | 31,01",
+          "9 | Samba Diatara | Degerfors IF | 11 105 | 30,11",
+          "10 | Tobias Sana | Örgryte IS | 11 076 | 30,86",
+          "11 | Christoffer Styffe | Örgryte IS | 11 028 | 28,91",
+          "12 | Nasiru Moro | Degerfors IF | 10 841 | 29,68",
+          "13 | Mikael Dyrestam | Örgryte IS | 10 826 | 29,7",
+          "14 | Michael Parker | Örgryte IS | 10 489 | 33,11",
+          "15 | Jerome Tibbling Ugwo | Örgryte IS | 10 352 | 33,36",
+          "16 | Anton Andreasson | Örgryte IS | 10 138 | 30,43",
+          "17 | Benjamin Laturnus | Örgryte IS | 10 031 | 29,22",
+          "18 | Sebastian Ohlsson | Degerfors IF | 9 168 | 27,04",
+          "19 | Elias Barsoum | Degerfors IF | 8 745 | 29,94",
+          "20 | Arman Taranis | Degerfors IF | 8 263 | 29,64"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -565,10 +3519,113 @@
       "status": "finished",
       "startTimestamp": 1777240800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Mikkel Rygaard Jensen"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Gustav Lindgren"
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Robbie Philip Thomas Ure"
+            },
+            "time": 40,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mohamed Soumah"
+            },
+            "time": 86,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 27 APR 19:00",
+          "MOHAMMED AL-HAKIM, MEHMET CULUM, FREDRIK KLYVER",
+          "NORDIC WELLNESS ARENA",
+          "OMGÅNG 5",
+          "3 504"
+        ],
+        "stats": [
+          {
+            "home": "BK Häcken\nTotalt\nIK Sirius",
+            "label": "BK Häcken",
+            "away": "Totalt"
+          },
+          {
+            "home": "46.5%",
+            "label": "46.5%",
+            "away": ""
+          },
+          {
+            "home": "5",
+            "label": "Avslut",
+            "away": "16"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "122 800",
+            "label": "Löpmeter (m)",
+            "away": "121 742"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "11"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Mikkel Rygaard | BK Häcken | 13 034 | 27,27",
+          "2 | Abdoulaye Doumbia | BK Häcken | 12 847 | 31,78",
+          "3 | Marcus Lindberg | IK Sirius | 12 656 | 29,16",
+          "4 | Julius Lindberg | BK Häcken | 12 146 | 31,84",
+          "5 | Melker Heier | IK Sirius | 11 856 | 32,41",
+          "6 | Amor Layouni | BK Häcken | 11 776 | 33,47",
+          "7 | Henrik Castegren | IK Sirius | 11 727 | 31,35",
+          "8 | Tobias Anker | IK Sirius | 11 534 | 32,82",
+          "9 | Robbie Ure | IK Sirius | 11 470 | 33,25",
+          "10 | Oscar Krusnell | IK Sirius | 11 313 | 32,91",
+          "11 | Harry Hilvenius | BK Häcken | 11 225 | 31,76",
+          "12 | Adam Lundkvist | BK Häcken | 11 037 | 33,89",
+          "13 | Filip Helander | BK Häcken | 10 942 | 30,66",
+          "14 | Mohamed Soumah | IK Sirius | 10 916 | 33,74",
+          "15 | Isak Bjerkebo | IK Sirius | 10 372 | 33,6",
+          "16 | Brice Wembangomo | BK Häcken | 10 186 | 32,29",
+          "17 | Gustav Lindgren | BK Häcken | 9 699 | 34,1",
+          "18 | Joakim Persson | IK Sirius | 9 160 | 34,02",
+          "19 | Matthias Nartey | IK Sirius | 8 429 | 31,33",
+          "20 | Adrian Svanbäck | BK Häcken | 7 933 | 32,03"
+        ]
+      }
     },
     {
       "home": "Mjällby AIF",
@@ -580,10 +3637,71 @@
       "status": "finished",
       "startTimestamp": 1777240800,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Jacob Bergström"
+            },
+            "time": 56,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Villiam Granath"
+            },
+            "time": 84,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 27 APR 19:00",
+          "RICHARD SUNDELL, ANDREAS SÖDERKVIST, ALEXANDER MILOVANOVIC",
+          "STRANDVALLEN A-PLAN",
+          "OMGÅNG 5",
+          "3 573"
+        ],
+        "stats": [
+          {
+            "home": "Mjällby AIF\nTotalt\nHalmstads BK",
+            "label": "Mjällby AIF",
+            "away": "Totalt"
+          },
+          {
+            "home": "60.5%",
+            "label": "60.5%",
+            "away": ""
+          },
+          {
+            "home": "14",
+            "label": "Avslut",
+            "away": "6"
+          },
+          {
+            "home": "8",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": []
+      }
     },
     {
       "home": "Kalmar FF",
@@ -595,10 +3713,56 @@
       "status": "finished",
       "startTimestamp": 1777240800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Charlie Rosenqvist"
+            },
+            "time": 13,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Anthony Olusanya"
+            },
+            "time": 57,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Frederik Dahl Ihler"
+            },
+            "time": 5,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 27 APR 19:00",
+          "ERIK MATTSSON, DANIEL GUSTAVSSON, ANTON SJÖBERG",
+          "GULDFÅGELN ARENA, KALMAR",
+          "OMGÅNG 5",
+          "4 134"
+        ],
+        "stats": [
+          {
+            "home": "Kalmar FF\nTotalt\nIF Elfsborg",
+            "label": "Kalmar FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "",
+            "label": "Hörnor",
+            "away": ""
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
@@ -610,10 +3774,72 @@
       "status": "finished",
       "startTimestamp": 1777672800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Arman Taranis"
+            },
+            "time": 71,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Silas Sinan Erhen Thorup Andersen"
+            },
+            "time": 19,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 2 MAJ 15:00",
+          "JOAKIM SARS, ROBIN WILDE, ALMIRA SPAHIC",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 6",
+          "4 243"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nBK Häcken",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "44%",
+            "label": "44%",
+            "away": ""
+          },
+          {
+            "home": "7",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": []
+      }
     },
     {
       "home": "IK Sirius",
@@ -625,10 +3851,100 @@
       "status": "finished",
       "startTimestamp": 1777672800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Victor Svensson"
+            },
+            "time": 64,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 74,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Odera Samuel Onuchukwu Adindu"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Charlie Rosenqvist"
+            },
+            "time": 38,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Rony Jansson"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 2 MAJ 15:00",
+          "RICHARD SUNDELL, MIKAEL HALLIN, ROBERT NYBERG",
+          "STUDENTERNAS",
+          "OMGÅNG 6",
+          "8 780"
+        ],
+        "stats": [
+          {
+            "home": "IK Sirius\nTotalt\nKalmar FF",
+            "label": "IK Sirius",
+            "away": "Totalt"
+          },
+          {
+            "home": "56.5%",
+            "label": "56.5%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "120 850",
+            "label": "Löpmeter (m)",
+            "away": "121 911"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Hammarby IF",
@@ -640,10 +3956,85 @@
       "status": "finished",
       "startTimestamp": 1777759200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Victor Stange Lind"
+            },
+            "time": 67,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Paulos Abraham"
+            },
+            "time": 73,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Montader Madjed"
+            },
+            "time": 86,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 3 MAJ 14:00",
+          "FREDRIK KLITTE, MARCUS KLITTE, ANDREAS SVENSSON",
+          "3ARENA",
+          "OMGÅNG 6",
+          "26 751"
+        ],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nVästerås SK",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "62.5%",
+            "label": "62.5%",
+            "away": ""
+          },
+          {
+            "home": "25",
+            "label": "Avslut",
+            "away": "3"
+          },
+          {
+            "home": "10",
+            "label": "Avslut på mål",
+            "away": "0"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 931",
+            "label": "Löpmeter (m)",
+            "away": "119 791"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "0"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Malmö FF",
@@ -655,10 +4046,100 @@
       "status": "finished",
       "startTimestamp": 1777759200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Taha Abdi Ali"
+            },
+            "time": 57,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Sead Haksabanovic"
+            },
+            "time": 81,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Jacob Bergström"
+            },
+            "time": 2,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Elliot Stroud"
+            },
+            "time": 49,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jacob Bergström"
+            },
+            "time": 70,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 3 MAJ 14:00",
+          "MOHAMMED AL-HAKIM, MEHMET CULUM, FREDRIK KLYVER",
+          "ELEDA STADION",
+          "OMGÅNG 6",
+          "19 905"
+        ],
+        "stats": [
+          {
+            "home": "Malmö FF\nTotalt\nMjällby AIF",
+            "label": "Malmö FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "52%",
+            "label": "52%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "8"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "117 187",
+            "label": "Löpmeter (m)",
+            "away": "125 440"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "GAIS",
@@ -670,10 +4151,92 @@
       "status": "finished",
       "startTimestamp": 1777759200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Max Andersson"
+            },
+            "time": 33,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Samuel Salter"
+            },
+            "time": 46,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Joackim Fagerjord"
+            },
+            "time": 52,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Oscar Pettersson"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 3 MAJ 16:30",
+          "ADAM LADEBÄCK, DANIEL YNG, SEBASTIAN ROBERTSSON",
+          "GAMLA ULLEVI",
+          "OMGÅNG 6",
+          "16 470"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nÖrgryte IS",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "48%",
+            "label": "48%",
+            "away": ""
+          },
+          {
+            "home": "14",
+            "label": "Avslut",
+            "away": "2"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "127 605",
+            "label": "Löpmeter (m)",
+            "away": "119 097"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IF Elfsborg",
@@ -685,10 +4248,79 @@
       "status": "finished",
       "startTimestamp": 1777759200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Ari Sigurpálsson"
+            },
+            "time": 8,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Zadok Yohanna"
+            },
+            "time": 9,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 3 MAJ 16:30",
+          "OSCAR JOHNSON, SIMON KRISTENSSON, DANIEL GUSTAVSSON",
+          "BORÅS ARENA",
+          "OMGÅNG 6",
+          "10 112"
+        ],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nAIK",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "37%",
+            "label": "37%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "124 086",
+            "label": "Löpmeter (m)",
+            "away": "119 190"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -700,10 +4332,106 @@
       "status": "finished",
       "startTimestamp": 1777845600,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Jeppe Møldrup Okkels"
+            },
+            "time": 15,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Patric Åslund"
+            },
+            "time": 31,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kristian Lien"
+            },
+            "time": 34,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Patric Åslund"
+            },
+            "time": 62,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Joel Asoro"
+            },
+            "time": 81,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Joel Asoro"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 4 MAJ 19:00",
+          "KRISTOFFER KARLSSON, NIKLAS NYBERG, ANTON SJÖBERG",
+          "3ARENA",
+          "OMGÅNG 6",
+          "20 415"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nIFK Göteborg",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "55%",
+            "label": "55%",
+            "away": ""
+          },
+          {
+            "home": "20",
+            "label": "Avslut",
+            "away": "10"
+          },
+          {
+            "home": "11",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "117 755",
+            "label": "Löpmeter (m)",
+            "away": "115 276"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "7"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Halmstads BK",
@@ -715,10 +4443,93 @@
       "status": "finished",
       "startTimestamp": 1777845600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Leo Cavallius"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Sion Oppong"
+            },
+            "time": 59,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kaare Brøckner Barslund"
+            },
+            "time": 69,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mads Kristian Hansen"
+            },
+            "time": 82,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 4 MAJ 19:00",
+          "ADI AGANOVIC, PER REHNLUND, JONAS DAHL",
+          "ÖRJANS VALL",
+          "OMGÅNG 6",
+          "3 305"
+        ],
+        "stats": [
+          {
+            "home": "Halmstads BK\nTotalt\nIF Brommapojkarna",
+            "label": "Halmstads BK",
+            "away": "Totalt"
+          },
+          {
+            "home": "54%",
+            "label": "54%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "12"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "1"
+          },
+          {
+            "home": "122 330",
+            "label": "Löpmeter (m)",
+            "away": "118 170"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IF Elfsborg",
@@ -730,10 +4541,78 @@
       "status": "finished",
       "startTimestamp": 1778191200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Leo Östman"
+            },
+            "time": 72,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Leo Östman"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "FRE 8 MAJ 19:00",
+          "GRANIT MAQEDONCI, NIKLAS NYBERG, ROBIN WILDE",
+          "BORÅS ARENA",
+          "OMGÅNG 7",
+          "6 487"
+        ],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nIF Brommapojkarna",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "59%",
+            "label": "59%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "122 153",
+            "label": "Löpmeter (m)",
+            "away": "120 916"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "8"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IFK Göteborg",
@@ -746,9 +4625,70 @@
       "startTimestamp": 1778277600,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Victor Eriksson"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 9 MAJ 15:00",
+          "VICTOR WOLF, PER REHNLUND, DANIEL GUSTAVSSON",
+          "GAMLA ULLEVI",
+          "OMGÅNG 7",
+          "16 281"
+        ],
+        "stats": [
+          {
+            "home": "IFK Göteborg\nTotalt\nHammarby",
+            "label": "IFK Göteborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "41.5%",
+            "label": "41.5%",
+            "away": ""
+          },
+          {
+            "home": "4",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "1",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 732",
+            "label": "Löpmeter (m)",
+            "away": "122 335"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
@@ -760,10 +4700,100 @@
       "status": "finished",
       "startTimestamp": 1778277600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Nasiru Moro"
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Jeppe Kjaer Jensen"
+            },
+            "time": 4,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Tom Pettersson"
+            },
+            "time": 30,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Abdoulie Manneh"
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Elliot Stroud"
+            },
+            "time": 84,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 9 MAJ 15:00",
+          "FREDRIK KLITTE, SIMON KRISTENSSON, ALEXANDER MILOVANOVIC",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 7",
+          "3 636"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nMjällby AIF",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "43%",
+            "label": "43%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "118 090",
+            "label": "Löpmeter (m)",
+            "away": "123 617"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Västerås SK",
@@ -776,9 +4806,70 @@
       "startTimestamp": 1778277600,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Róbert Frosti Þorkelsson"
+            },
+            "time": 56,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 9 MAJ 15:00",
+          "KRISTOFFER KARLSSON, PÄR LEEK, ABDELMASIH GERGESS",
+          "HITACHI ENERGY ARENA",
+          "OMGÅNG 7",
+          "6 863"
+        ],
+        "stats": [
+          {
+            "home": "Västerås SK\nTotalt\nGAIS",
+            "label": "Västerås SK",
+            "away": "Totalt"
+          },
+          {
+            "home": "52%",
+            "label": "52%",
+            "away": ""
+          },
+          {
+            "home": "4",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "116 570",
+            "label": "Löpmeter (m)",
+            "away": "122 200"
+          },
+          {
+            "home": "1",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "AIK",
@@ -790,10 +4881,100 @@
       "status": "finished",
       "startTimestamp": 1778364000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Kevin Filling"
+            },
+            "time": 21,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Dino Besirovic"
+            },
+            "time": 63,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Hampus Finndell"
+            },
+            "time": 10,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Miro Tenho"
+            },
+            "time": 16,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Mikael Marques de Pombal Vivar"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Bo Hegland"
+            },
+            "time": 85,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 10 MAJ 14:00",
+          "MOHAMMED AL-HAKIM, MEHMET CULUM, FREDRIK KLYVER",
+          "NATIONALARENAN, STRAWBERRY ARENA",
+          "OMGÅNG 7",
+          "46 278"
+        ],
+        "stats": [
+          {
+            "home": "AIK\nTotalt\nDjurgårdens IF",
+            "label": "AIK",
+            "away": "Totalt"
+          },
+          {
+            "home": "58.5%",
+            "label": "58.5%",
+            "away": ""
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "15"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "10"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "9"
+          }
+        ],
+        "players": []
+      }
     },
     {
       "home": "Kalmar FF",
@@ -805,10 +4986,98 @@
       "status": "finished",
       "startTimestamp": 1778364000,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Charles Sagoe Jr"
+            },
+            "time": 52,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Anthony Olusanya"
+            },
+            "time": 59,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 10 MAJ 14:00",
+          "OSCAR JOHNSON, ANDREAS SVENSSON, BENDIK BORGSTRÖM",
+          "GULDFÅGELN ARENA, KALMAR",
+          "OMGÅNG 7",
+          "4 280"
+        ],
+        "stats": [
+          {
+            "home": "Kalmar FF\nTotalt\nHalmstads BK",
+            "label": "Kalmar FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "61.5%",
+            "label": "61.5%",
+            "away": ""
+          },
+          {
+            "home": "15",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "124 448",
+            "label": "Löpmeter (m)",
+            "away": "124 018"
+          },
+          {
+            "home": "12",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Carl Gustafsson | Kalmar FF | 12 696 | 27,99",
+          "2 | Victor Larsson | Kalmar FF | 12 393 | 30,98",
+          "3 | Joel Allansson | Halmstads BK | 12 362 | 30,51",
+          "4 | Rocco Ascone | Halmstads BK | 12 198 | 31,09",
+          "5 | Charlie Rosenqvist | Kalmar FF | 12 147 | 31,73",
+          "6 | Oliver Kapsimalis | Halmstads BK | 12 083 | 31,7",
+          "7 | Anthony Olusanya | Kalmar FF | 12 062 | 30,86",
+          "8 | André Boman | Halmstads BK | 11 799 | 33,66",
+          "9 | Omar Faraj | Halmstads BK | 11 749 | 29,28",
+          "10 | Erko Tõugjas | Halmstads BK | 11 652 | 29,16",
+          "11 | Nassef Chourak | Kalmar FF | 11 350 | 28,96",
+          "12 | Rony Jansson | Kalmar FF | 11 334 | 33,57",
+          "13 | Pascal Gregor | Halmstads BK | 11 225 | 29,64",
+          "14 | Melker Hallberg | Kalmar FF | 11 205 | 27,79",
+          "15 | Gabriel Wallentin | Halmstads BK | 10 710 | 29,8",
+          "16 | Achraf Dari | Kalmar FF | 10 354 | 31,67",
+          "17 | Charles Sagoe Jr | Kalmar FF | 10 144 | 30,55",
+          "18 | Ludvig Arvidsson | Halmstads BK | 9 305 | 31,32",
+          "19 | Aleksander Damnjanovic Nilsson | Halmstads BK | 9 014 | 28,84",
+          "20 | Marius Söderbäck | Kalmar FF | 6 603 | 31,5"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -820,10 +5089,120 @@
       "status": "finished",
       "startTimestamp": 1778364000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Gustav Lindgren"
+            },
+            "time": 4,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jens Stryger Larsen"
+            },
+            "time": 20,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Gustav Lindgren"
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Gabriel Dal Toe Busanello"
+            },
+            "time": 24,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 40,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 10 MAJ 16:30",
+          "ADAM LADEBÄCK, DANIEL YNG, ALMIRA SPAHIC",
+          "NORDIC WELLNESS ARENA",
+          "OMGÅNG 7",
+          "6 163"
+        ],
+        "stats": [
+          {
+            "home": "BK Häcken\nTotalt\nMalmö FF",
+            "label": "BK Häcken",
+            "away": "Totalt"
+          },
+          {
+            "home": "42%",
+            "label": "42%",
+            "away": ""
+          },
+          {
+            "home": "12",
+            "label": "Avslut",
+            "away": "12"
+          },
+          {
+            "home": "8",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "125 758",
+            "label": "Löpmeter (m)",
+            "away": "122 456"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Abdoulaye Doumbia | BK Häcken | 13 570 | 31,21",
+          "2 | Silas Andersen | BK Häcken | 13 513 | 31,5",
+          "3 | Otto Rosengren | Malmö FF | 13 107 | 32,71",
+          "4 | Filip Helander | BK Häcken | 11 529 | 28,98",
+          "5 | Erik Botheim | Malmö FF | 11 386 | 31,22",
+          "6 | Colin Rösler | Malmö FF | 11 347 | 32,21",
+          "7 | Adam Lundkvist | BK Häcken | 11 220 | 33,29",
+          "8 | Andrej Đurić | Malmö FF | 11 215 | 32,93",
+          "9 | Gustav Lindgren | BK Häcken | 11 208 | 32,47",
+          "10 | Harry Hilvenius | BK Häcken | 11 138 | 30,55",
+          "11 | Brice Wembangomo | BK Häcken | 10 848 | 29,59",
+          "12 | Amor Layouni | BK Häcken | 10 801 | 34,06",
+          "13 | Sead Haksabanovic | Malmö FF | 10 789 | 32,4",
+          "14 | Mikkel Rygaard | BK Häcken | 10 726 | 28,52",
+          "15 | Adrian Skogmar | Malmö FF | 10 674 | 27,84",
+          "16 | Jens Stryger Larsen | Malmö FF | 10 409 | 32,15",
+          "17 | Gabriel Busanello | Malmö FF | 10 286 | 30,5",
+          "18 | Kenan Busuladzic | Malmö FF | 9 172 | 28,52",
+          "19 | Adrian Svanbäck | BK Häcken | 8 453 | 33,29",
+          "20 | Oscar Sjöstrand | Malmö FF | 7 256 | 31,23"
+        ]
+      }
     },
     {
       "home": "IK Sirius",
@@ -835,10 +5214,98 @@
       "status": "finished",
       "startTimestamp": 1778450400,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 39,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 73,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 11 MAJ 19:00",
+          "ERIK MATTSSON, ANDREAS SÖDERKVIST, JONAS DAHL",
+          "STUDENTERNAS",
+          "OMGÅNG 7",
+          "8 609"
+        ],
+        "stats": [
+          {
+            "home": "IK Sirius\nTotalt\nÖrgryte IS",
+            "label": "IK Sirius",
+            "away": "Totalt"
+          },
+          {
+            "home": "56%",
+            "label": "56%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 904",
+            "label": "Löpmeter (m)",
+            "away": "124 135"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Marcus Lindberg | IK Sirius | 13 145 | 30,31",
+          "2 | Melker Heier | IK Sirius | 11 966 | 29,16",
+          "3 | Daniel Paulson | Örgryte IS | 11 829 | 29,99",
+          "4 | Victor Ekström | IK Sirius | 11 774 | 29,51",
+          "5 | Charlie Vindehall | Örgryte IS | 11 764 | 27,89",
+          "6 | Victor Svensson | IK Sirius | 11 705 | 30,56",
+          "7 | Oscar Krusnell | IK Sirius | 11 663 | 29,49",
+          "8 | Robbie Ure | IK Sirius | 11 656 | 32,18",
+          "9 | Christoffer Styffe | Örgryte IS | 11 582 | 32,63",
+          "10 | Tobias Sana | Örgryte IS | 11 353 | 29,3",
+          "11 | Tobias Anker | IK Sirius | 11 118 | 28,17",
+          "12 | Mikael Dyrestam | Örgryte IS | 10 982 | 27,89",
+          "13 | Benjamin Laturnus | Örgryte IS | 10 801 | 28,95",
+          "14 | Jerome Tibbling Ugwo | Örgryte IS | 10 775 | 28,88",
+          "15 | Mohamed Soumah | IK Sirius | 10 507 | 29,21",
+          "16 | William Svensson | Örgryte IS | 9 784 | 28,72",
+          "17 | Isak Bjerkebo | IK Sirius | 9 586 | 34,19",
+          "18 | Sebastian Lagerlund | Örgryte IS | 9 139 | 33,32",
+          "19 | Owen Parker-Price | Örgryte IS | 8 998 | 28,4",
+          "20 | Neo Jönsson | IK Sirius | 7 413 | 32,37"
+        ]
+      }
     },
     {
       "home": "GAIS",
@@ -850,10 +5317,99 @@
       "status": "finished",
       "startTimestamp": 1778882400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "William Milovanovic"
+            },
+            "time": 12,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Erik Lindell"
+            },
+            "time": 82,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 16 MAJ 15:00",
+          "TESS OLOFSSON, NIKLAS NYBERG, ROBIN WILDE",
+          "GAMLA ULLEVI",
+          "OMGÅNG 8",
+          "8 829"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nDegerfors IF",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "46%",
+            "label": "46%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "4"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 100",
+            "label": "Löpmeter (m)",
+            "away": "121 112"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Oskar Ågren | GAIS | 12 830 | 31,95",
+          "2 | Róbert Frosti Þorkelsson | GAIS | 12 586 | 29,04",
+          "3 | Kazper Karlsson | Degerfors IF | 12 500 | 29",
+          "4 | Ludvig Fritzson | Degerfors IF | 12 045 | 28,68",
+          "5 | William Milovanovic | GAIS | 11 923 | 29,82",
+          "6 | Marcus Rafferty | Degerfors IF | 11 867 | 30,93",
+          "7 | August Wängberg | GAIS | 11 740 | 30,72",
+          "8 | Nahom Netabay | Degerfors IF | 11 678 | 31,68",
+          "9 | Matteo De Brienne | GAIS | 11 310 | 32,25",
+          "10 | Robin Frej | GAIS | 10 902 | 28,28",
+          "11 | Sebastian Ohlsson | Degerfors IF | 10 778 | 29,47",
+          "12 | Filip Beckman | GAIS | 10 573 | 29,88",
+          "13 | Daniel Sundgren | Degerfors IF | 10 340 | 28,81",
+          "14 | Juhani Pikkarainen | Degerfors IF | 10 304 | 29,43",
+          "15 | Yiriyon Gideon Yaw | Degerfors IF | 9 901 | 33,58",
+          "16 | Olle Leonardsson | Degerfors IF | 8 856 | 31,32",
+          "17 | Max Andersson | GAIS | 8 559 | 31",
+          "18 | Samuel Salter | GAIS | 7 966 | 28,9",
+          "19 | Oscar Pettersson | GAIS | 7 047 | 30,23",
+          "20 | Erik Lindell | Degerfors IF | 6 349 | 28,03"
+        ]
+      }
     },
     {
       "home": "Halmstads BK",
@@ -865,10 +5421,99 @@
       "status": "finished",
       "startTimestamp": 1778882400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Hussein Carneil"
+            },
+            "time": 24,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Arber Zeneli"
+            },
+            "time": 81,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 16 MAJ 15:00",
+          "RICHARD SUNDELL, DANIEL GUSTAVSSON, ANDREAS SVENSSON",
+          "ÖRJANS VALL",
+          "OMGÅNG 8",
+          "5 936"
+        ],
+        "stats": [
+          {
+            "home": "Halmstads BK\nTotalt\nIF Elfsborg",
+            "label": "Halmstads BK",
+            "away": "Totalt"
+          },
+          {
+            "home": "30.5%",
+            "label": "30.5%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "129 972",
+            "label": "Löpmeter (m)",
+            "away": "131 043"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "8"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Julius Magnusson | IF Elfsborg | 13 316 | 31,6",
+          "2 | Simon Olsson | IF Elfsborg | 13 081 | 28,82",
+          "3 | Rocco Ascone | Halmstads BK | 12 621 | 30,02",
+          "4 | Joel Allansson | Halmstads BK | 12 580 | 32,07",
+          "5 | Thomas Isherwood | IF Elfsborg | 12 565 | 30,35",
+          "6 | Omar Faraj | Halmstads BK | 12 118 | 29,3",
+          "7 | Erko Tõugjas | Halmstads BK | 11 866 | 33,65",
+          "8 | André Boman | Halmstads BK | 11 799 | 32,53",
+          "9 | Niklas Hult | IF Elfsborg | 11 780 | 32,31",
+          "10 | Pascal Gregor | Halmstads BK | 11 722 | 28,31",
+          "11 | Leo Östman | IF Elfsborg | 11 598 | 33,71",
+          "12 | Ludvig Arvidsson | Halmstads BK | 11 135 | 32,31",
+          "13 | Hussein Carneil | Halmstads BK | 10 880 | 30,45",
+          "14 | Mohammed Rufai | IF Elfsborg | 10 374 | 31,77",
+          "15 | Buhari Ibrahim | IF Elfsborg | 10 316 | 29,21",
+          "16 | Rami Kaib | Halmstads BK | 9 747 | 31,25",
+          "17 | Simon Hedlund | IF Elfsborg | 9 414 | 33,38",
+          "18 | Isak Pettersson | IF Elfsborg | 8 168 | 24,95",
+          "19 | Julius Beck | IF Elfsborg | 7 929 | 32,28",
+          "20 | Tim Rönning | Halmstads BK | 7 264 | 26,33"
+        ]
+      }
     },
     {
       "home": "Hammarby IF",
@@ -880,10 +5525,70 @@
       "status": "finished",
       "startTimestamp": 1778968800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Nahir Besara"
+            },
+            "time": 13,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nahir Besara"
+            },
+            "time": 29,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Nahir Besara"
+            },
+            "time": 44,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Victor Stange Lind"
+            },
+            "time": 73,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Kenan Busuladzic"
+            },
+            "time": 38,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 17 MAJ 14:00",
+          "OSCAR JOHNSON, SIMON KRISTENSSON, SEBASTIAN ROBERTSSON",
+          "3ARENA",
+          "OMGÅNG 8",
+          "25 793"
+        ],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nMalmö FF",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "",
+            "label": "Hörnor",
+            "away": ""
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "IF Brommapojkarna",
@@ -895,10 +5600,71 @@
       "status": "finished",
       "startTimestamp": 1778968800,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Sion Oppong"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 17 MAJ 14:00",
+          "ADAM LADEBÄCK, PÄR LEEK, JONAS DAHL",
+          "GRIMSTA IP 1",
+          "OMGÅNG 8",
+          "817"
+        ],
+        "stats": [
+          {
+            "home": "IF Brommapojkarna\nTotalt\nKalmar FF",
+            "label": "IF Brommapojkarna",
+            "away": "Totalt"
+          },
+          {
+            "home": "44.5%",
+            "label": "44.5%",
+            "away": ""
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "16"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "7"
+          },
+          {
+            "home": "4",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 607",
+            "label": "Löpmeter (m)",
+            "away": "128 746"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Mjällby AIF",
@@ -911,9 +5677,70 @@
       "startTimestamp": 1778968800,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Julius Lindberg"
+            },
+            "time": 75,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 17 MAJ 16:30",
+          "KRISTOFFER KARLSSON, MARCUS KLITTE, ABDELMASIH GERGESS",
+          "STRANDVALLEN A-PLAN",
+          "OMGÅNG 8",
+          "5 019"
+        ],
+        "stats": [
+          {
+            "home": "Mjällby AIF\nTotalt\nBK Häcken",
+            "label": "Mjällby AIF",
+            "away": "Totalt"
+          },
+          {
+            "home": "41.5%",
+            "label": "41.5%",
+            "away": ""
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "13"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "1",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "119 818",
+            "label": "Löpmeter (m)",
+            "away": "115 244"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Västerås SK",
@@ -925,10 +5752,79 @@
       "status": "finished",
       "startTimestamp": 1778968800,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Marcus Baggesen"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Áron Csongvai"
+            },
+            "time": 45,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 17 MAJ 16:30",
+          "ADI AGANOVIC, DANIEL YNG, ANTON SJÖBERG",
+          "HITACHI ENERGY ARENA",
+          "OMGÅNG 8",
+          "8 619"
+        ],
+        "stats": [
+          {
+            "home": "Västerås SK\nTotalt\nAIK",
+            "label": "Västerås SK",
+            "away": "Totalt"
+          },
+          {
+            "home": "55%",
+            "label": "55%",
+            "away": ""
+          },
+          {
+            "home": "10",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "4",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 418",
+            "label": "Löpmeter (m)",
+            "away": "120 074"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)"
+        ]
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -940,10 +5836,120 @@
       "status": "finished",
       "startTimestamp": 1779055200,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Mikael Anderson"
+            },
+            "time": 13,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kristian Lien"
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Marcus Pheiffer Lindberg"
+            },
+            "time": 38,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Philip Thomas Ure"
+            },
+            "time": 43,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Neo Jönsson"
+            },
+            "time": 57,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "MÅN 18 MAJ 19:00",
+          "VICTOR WOLF, MIKAEL HALLIN, ALEXANDER MILOVANOVIC",
+          "3ARENA",
+          "OMGÅNG 8",
+          "23 636"
+        ],
+        "stats": [
+          {
+            "home": "Djurgårdens IF\nTotalt\nIK Sirius",
+            "label": "Djurgårdens IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "62.5%",
+            "label": "62.5%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "9"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "118 773",
+            "label": "Löpmeter (m)",
+            "away": "116 842"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Matias Siltanen | Djurgårdens IF | 12 439 | 30",
+          "2 | Marcus Lindberg | IK Sirius | 12 430 | 28,43",
+          "3 | Robbie Ure | IK Sirius | 11 792 | 32,13",
+          "4 | Victor Ekström | IK Sirius | 11 093 | 29,19",
+          "5 | Piotr Johansson | Djurgårdens IF | 11 091 | 33,2",
+          "6 | Bo Hegland | Djurgårdens IF | 11 042 | 31,92",
+          "7 | Melker Heier | IK Sirius | 11 009 | 30,45",
+          "8 | Oscar Krusnell | IK Sirius | 10 993 | 31,28",
+          "9 | Tobias Anker | IK Sirius | 10 972 | 29,58",
+          "10 | Kristian Lien | Djurgårdens IF | 10 767 | 32,5",
+          "11 | Miro Tenho | Djurgårdens IF | 10 697 | 31,23",
+          "12 | Victor Svensson | IK Sirius | 10 422 | 32,28",
+          "13 | Mikael Marques | Djurgårdens IF | 10 397 | 32,27",
+          "14 | Mohamed Soumah | IK Sirius | 10 118 | 30,7",
+          "15 | Isak Bjerkebo | IK Sirius | 10 086 | 32,76",
+          "16 | Adam Ståhl | Djurgårdens IF | 9 114 | 33,13",
+          "17 | Neo Jönsson | IK Sirius | 8 826 | 31,46",
+          "18 | Jeppe Okkels | Djurgårdens IF | 8 340 | 31,16",
+          "19 | Hampus Finndell | Djurgårdens IF | 7 971 | 28,55",
+          "20 | Mikael Anderson | Djurgårdens IF | 7 378 | 30,29"
+        ]
+      }
     },
     {
       "home": "Örgryte IS",
@@ -955,10 +5961,88 @@
       "status": "finished",
       "startTimestamp": 1779141600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "William Hofvander"
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Daniel Paulson"
+            },
+            "time": 87,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "August Erlingmark"
+            },
+            "time": 21,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Benjamin Brantlind"
+            },
+            "time": 28,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Felix Eriksson"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "TIS 19 MAJ 15:00",
+          "GLENN NYBERG, MAHBOD BEIGI, ANDREAS SÖDERKVIST",
+          "GAMLA ULLEVI",
+          "OMGÅNG 8",
+          "17 119"
+        ],
+        "stats": [
+          {
+            "home": "Örgryte IS\nTotalt\nIFK Göteborg",
+            "label": "Örgryte IS",
+            "away": "Totalt"
+          },
+          {
+            "home": "6",
+            "label": "Avslut",
+            "away": "17"
+          },
+          {
+            "home": "2",
+            "label": "Avslut på mål",
+            "away": "9"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "6",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
+        "players": []
+      }
     },
     {
       "home": "Djurgårdens IF",
@@ -976,7 +6060,7 @@
               "name": "Mikael Anderson"
             },
             "time": 28,
-            "incidentClass": "yellow-card"
+            "incidentClass": "goal"
           }
         ],
         "away": [
@@ -985,20 +6069,20 @@
               "name": "Mads Kristian Hansen"
             },
             "time": 24,
-            "incidentClass": "yellow-card"
+            "incidentClass": "goal"
           },
           {
             "player": {
               "name": "Simon Strand"
             },
             "time": 63,
-            "incidentClass": "yellow-card"
+            "incidentClass": "goal"
           }
         ]
       },
       "detailedStats": {
         "info": [
-          "FRE 22 MAJ 17:00",
+          "FRE 22 MAJ 19:00",
           "ERIK MATTSSON, DANIEL GUSTAVSSON, ABDELMASIH GERGESS",
           "3ARENA",
           "OMGÅNG 9",
@@ -1074,12 +6158,12 @@
     {
       "home": "Kalmar FF",
       "away": "Degerfors IF",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 23 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529899/kalmar-ff-mot-degerfors-if",
-      "score": "",
+      "link": "https://allsvenskan.se/matcher/2026/6529899/kalmar-ff-mot-degerfors-if?live=true",
+      "score": "0 - 0",
       "status": "upcoming",
-      "startTimestamp": 1779454800,
+      "startTimestamp": 1779487200,
       "scorers": {
         "home": [],
         "away": []
@@ -1092,27 +6176,28 @@
           "OMGÅNG 9"
         ],
         "stats": [],
-        "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "10 | AIK | 8 | 2 | 3 | 3 | 10-12 | 9",
-          "11 | Degerfors IF | 8 | 2 | 3 | 3 | 9-12 | 9",
-          "12 | Västerås SK | 8 | 2 | 3 | 3 | 10-15 | 9",
-          "13 | Kalmar FF | 8 | 2 | 1 | 5 | 9-11 | 7",
-          "14 | IFK Göteborg | 8 | 1 | 3 | 4 | 7-17 | 6"
-        ]
+        "players": []
       }
     },
     {
       "home": "Halmstads BK",
       "away": "Örgryte IS",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 23 MAJ",
-      "link": "https://allsvenskan.se/matcher/2026/6529900/halmstads-bk-mot-orgryte-is",
-      "score": "",
+      "link": "https://allsvenskan.se/matcher/2026/6529900/halmstads-bk-mot-orgryte-is?live=true",
+      "score": "0 - 0",
       "status": "upcoming",
-      "startTimestamp": 1779454800,
+      "startTimestamp": 1779487200,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Rocco Ascone"
+            },
+            "time": 32,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
       "detailedStats": {
@@ -1123,13 +6208,7 @@
           "OMGÅNG 9"
         ],
         "stats": [],
-        "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "13 | Kalmar FF | 8 | 2 | 1 | 5 | 9-11 | 7",
-          "14 | IFK Göteborg | 8 | 1 | 3 | 4 | 7-17 | 6",
-          "15 | Örgryte IS | 8 | 1 | 2 | 5 | 8-21 | 5",
-          "16 | Halmstads BK | 8 | 0 | 3 | 5 | 5-15 | 3"
-        ]
+        "players": []
       }
     },
     {
@@ -1888,10 +6967,98 @@
       "status": "finished",
       "startTimestamp": 1779228000,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Rasmus Niklasson Petrovic"
+            },
+            "time": 26,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Samuel Salter"
+            },
+            "time": 81,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "ONS 20 MAJ 19:00",
+          "MOHAMMED AL-HAKIM, ROBIN WILDE, ALMIRA SPAHIC",
+          "GAMLA ULLEVI",
+          "OMGÅNG 15",
+          "10 153"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nHammarby",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "36.5%",
+            "label": "36.5%",
+            "away": ""
+          },
+          {
+            "home": "12",
+            "label": "Avslut",
+            "away": "13"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "2"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "1"
+          },
+          {
+            "home": "129 075",
+            "label": "Löpmeter (m)",
+            "away": "123 427"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Oscar Johansson | Hammarby | 13 176 | 30,3",
+          "2 | Markus Karlsson | Hammarby | 12 775 | 28,2",
+          "3 | William Milovanovic | GAIS | 12 641 | 30,03",
+          "4 | Matteo De Brienne | GAIS | 12 332 | 32,07",
+          "5 | August Wängberg | GAIS | 12 186 | 32,19",
+          "6 | Victor Lind | Hammarby | 12 108 | 31,78",
+          "7 | Oskar Ågren | GAIS | 12 049 | 28,63",
+          "8 | Róbert Frosti Þorkelsson | GAIS | 11 981 | 30,63",
+          "9 | Ibrahima Fofana | Hammarby | 11 621 | 31,02",
+          "10 | Anes Cardaklija | GAIS | 11 410 | 30,94",
+          "11 | Paulos Abraham | Hammarby | 11 237 | 29,56",
+          "12 | Victor Eriksson | Hammarby | 11 141 | 31,83",
+          "13 | Max Andersson | GAIS | 11 118 | 27,87",
+          "14 | Samuel Salter | GAIS | 10 614 | 31,25",
+          "15 | Joackim Fagerjord | GAIS | 10 437 | 29,07",
+          "16 | Rasmus Niklasson Petrovic | GAIS | 10 189 | 31,22",
+          "17 | Hampus Skoglund | Hammarby | 9 440 | 33,18",
+          "18 | Frederik Winther | Hammarby | 9 406 | 29,23",
+          "19 | Elohim Kabore | Hammarby | 8 949 | 28,44",
+          "20 | Montader Madjed | Hammarby | 6 555 | 30,49"
+        ]
+      }
     },
     {
       "home": "IF Elfsborg",
@@ -1909,7 +7076,7 @@
               "name": "Leo Östman"
             },
             "time": 7,
-            "incidentClass": "regular"
+            "incidentClass": "goal"
           }
         ],
         "away": [
@@ -1918,7 +7085,7 @@
               "name": "Jeppe Kjaer Jensen"
             },
             "time": 49,
-            "incidentClass": "regular"
+            "incidentClass": "goal"
           }
         ]
       },
@@ -3888,6 +9055,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-23T08:03:15.471Z",
+  "lastUpdated": "2026-05-23T13:37:41.970Z",
   "source": "https://allsvenskan.se/matcher"
 }

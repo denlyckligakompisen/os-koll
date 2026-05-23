@@ -18,7 +18,7 @@
   --border: 0.5px solid rgba(0, 0, 0, 0.08);
   --color-surface-subtle: rgba(0, 0, 0, 0.05);
   --color-highlight-sverige: rgba(254, 204, 0, 0.05);
-  --font-family: 'SF Compact Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   --drop-shadow-flag: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   --border-flag: 0.5px solid rgba(0, 0, 0, 0.08);
 }

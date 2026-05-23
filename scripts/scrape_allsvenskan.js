@@ -146,9 +146,9 @@ async function scrapeAllsvenskan() {
             today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
             console.log("Restricting details scraping to yesterday's matches only.");
         } else {
-            yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-            today = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Including tomorrow just to be safe if a match runs late into the night
-            console.log("Scraping details for yesterday, today, and tomorrow's matches.");
+            yesterday = new Date(2026, 3, 1); // TEMP: backfill from season start
+            today = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            console.log("Backfilling details for ALL matches since season start.");
         }
         yesterday.setHours(0,0,0,0);
         today.setHours(23,59,59,999);
@@ -177,7 +177,7 @@ async function scrapeAllsvenskan() {
             const matchDate = parseDate(date, nm.time);
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
             const inWindow = matchDate >= yesterday && matchDate <= today;
-            const hasDetails = existing && existing.status === 'finished' && existing.detailedStats !== null;
+            const hasDetails = false; // TEMP: force re-fetch all
 
             if (inWindow && nm.link && !hasDetails) {
                 console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
@@ -201,10 +201,11 @@ async function scrapeAllsvenskan() {
                                 const svgHtml = li.querySelector('svg')?.outerHTML || '';
                                 let incidentClass = 'goal';
                                 
-                                if (svgHtml.includes('#FFD600') || svgHtml.includes('#ffd600') || svgHtml.toLowerCase().includes('yellow')) {
-                                    incidentClass = 'yellow-card';
-                                } else if (svgHtml.includes('url(#paint') || svgHtml.includes('linearGradient')) {
+                                // Goal icon: ball SVG with linearGradient (check FIRST, ball also uses #FFD600)
+                                if (svgHtml.includes('linearGradient') || svgHtml.includes('url(#paint')) {
                                     incidentClass = 'goal';
+                                } else if (svgHtml.includes('#FFD600') || svgHtml.includes('#ffd600')) {
+                                    incidentClass = 'yellow-card';
                                 } else if (svgHtml.match(/fill="#(E[0-9A-F]|F[0-9A-F])[0-9A-F]{4}"/i) || svgHtml.toLowerCase().includes('red')) {
                                     incidentClass = 'red-card';
                                 }
