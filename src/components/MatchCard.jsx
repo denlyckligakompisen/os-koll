@@ -103,7 +103,6 @@ const TeamLogo = ({ logoUrl, teamName, size = 64, flags = [], onClick }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                fontWeight: '800',
                 fontSize: `${Math.round(size * 0.38)}px`,
                 letterSpacing: '0.02em',
                 boxShadow: 'var(--shadow-sm)',
@@ -282,7 +281,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '0.62rem',
-                fontWeight: '800',
                 lineHeight: 1
             }}>
                 {result}
@@ -339,7 +337,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             const cleanedTeam = cleanTeamNameForDisplay(teamName);
             return (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase' }}>{rank}</span>
+                    <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>{rank}</span>
                     {cleanedTeam}
                 </div>
             );
@@ -405,7 +403,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flags={homeFlags} 
                         />
 
-                        <div style={{ fontSize: '1.1rem', fontWeight: '500' }}>{renderTeamName(match.home)}</div>
+                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.home)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -432,7 +430,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                         {match.group ? (
-                            <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.group}
                             </div>
                         ) : null}
@@ -441,7 +439,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             disabled={!getBroadcasterUrl(match.broadcast)}
                             style={{
                                 fontSize: '1.4rem',
-                                fontWeight: '900',
                                 color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
                                 backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                                 padding: '8px 20px',
@@ -472,7 +469,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
 
                         {match.broadcast && (
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
                                 {match.broadcast}
                             </div>
                         )}
@@ -501,7 +498,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flags={awayFlags} 
                         />
 
-                        <div style={{ fontSize: '1.1rem', fontWeight: '500' }}>{renderTeamName(match.away)}</div>
+                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.away)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
@@ -604,7 +601,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}
                     >
                         {match.group && (
-                            <div style={{ fontSize: highlight ? '0.7rem' : '0.6rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px' }}>
+                            <div style={{ fontSize: highlight ? '0.7rem' : '0.6rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px' }}>
                                 {match.group}
                                 {match.isPreliminary && ' (prel.)'}
                             </div>
@@ -612,7 +609,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <span style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
                             color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
-                            fontWeight: '800',
                             flexShrink: 0,
                             backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
                             padding: highlight ? '4px 12px' : '2px 8px',
@@ -640,7 +636,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </span>
                         )}
                         {match.broadcast && (
-                            <div style={{ fontSize: highlight ? '0.85rem' : '0.75rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
+                            <div style={{ fontSize: highlight ? '0.85rem' : '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
                                 {match.broadcast}
                             </div>
                         )}

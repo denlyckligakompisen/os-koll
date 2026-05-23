@@ -167,7 +167,7 @@ const VMBracket = ({ filterCountry, onCountryClick }) => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
                 <div style={{ 
-                    fontSize: '0.65rem', fontWeight: '900', textAlign: 'center', color: 'var(--color-text-muted)',
+                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
                     textTransform: 'uppercase', letterSpacing: '0.1em', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>{title}</div>
                 <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '140px' }}>
@@ -233,7 +233,7 @@ const VMBracket = ({ filterCountry, onCountryClick }) => {
 
                 <div ref={el => matchRefs.current[finalId] = el} style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
                     <div style={{ 
-                        fontSize: '0.65rem', fontWeight: '900', textAlign: 'center', color: 'var(--color-text-muted)',
+                        fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
                         textTransform: 'uppercase', letterSpacing: '0.1em', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>FINAL</div>
                     <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 20px' }}>

@@ -24,12 +24,12 @@ const PageHeader = ({ title, subtitle, icon, logoSrc, style = {} }) => {
                         }}
                     />
                 ) : icon}
-                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-0.04em', color: 'var(--color-text)' }}>
+                <h2 style={{ margin: 0, fontSize: '1.8rem', letterSpacing: '-0.04em', color: 'var(--color-text)' }}>
                     {title}
                 </h2>
             </div>
             {subtitle && (
-                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', fontWeight: '500' }}>
+                <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', }}>
                     {subtitle}
                 </div>
             )}

@@ -17,7 +17,7 @@ const formatTmDate = (dateStr) => {
     const [d, m, y] = parts;
     const months = ['jan', 'feb', 'mars', 'apr', 'maj', 'juni', 'juli', 'aug', 'sep', 'okt', 'nov', 'dec'];
     const monthName = months[parseInt(m, 10) - 1];
-    return `${parseInt(d, 10)} ${monthName} ${y}`;
+    return `${monthName} ${y}`;
 };
 
 const MONTH_MAP = { 
@@ -932,7 +932,6 @@ const AllsvenskanKollen = () => {
                         }}
                         style={{ 
                             fontSize: '0.9rem', 
-                            fontWeight: 700, 
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
@@ -960,7 +959,6 @@ const AllsvenskanKollen = () => {
                         onClick={() => handleTeamClick(team)}
                         style={{ 
                             fontSize: '0.9rem', 
-                            fontWeight: 500,
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
@@ -1016,7 +1014,7 @@ const AllsvenskanKollen = () => {
                                         }}
                                     >
                                         {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008].map(yr => (
-                                            <option key={yr} value={yr} style={{ color: '#000', fontWeight: '600' }}>{yr}</option>
+                                            <option key={yr} value={yr} style={{ color: '#000', }}>{yr}</option>
                                         ))}
                                     </select>
                                     <div style={{
@@ -1042,7 +1040,7 @@ const AllsvenskanKollen = () => {
                                     {groupedMatches.length > 0 ? (
                                         groupedMatches.map((group, i) => (
                                             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
+                                                <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
                                                     {getRelativeDateLabel(group.date)}
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1116,7 +1114,7 @@ const AllsvenskanKollen = () => {
                                         }}
                                     >
                                         {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008].map(yr => (
-                                            <option key={yr} value={yr} style={{ color: '#000', fontWeight: '600' }}>{yr}</option>
+                                            <option key={yr} value={yr} style={{ color: '#000', }}>{yr}</option>
                                         ))}
                                     </select>
                                     <div style={{
@@ -1184,11 +1182,11 @@ const AllsvenskanKollen = () => {
                                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                         <thead>
                                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '18px' }}></th>
-                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
-                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
-                                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>P</th>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '18px' }}></th>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '30px' }}>M</th>
+                                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }}>+/-</th>
+                                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }}>P</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1224,7 +1222,6 @@ const AllsvenskanKollen = () => {
                                                                         display: 'flex', 
                                                                         alignItems: 'center', 
                                                                         justifyContent: 'center', 
-                                                                        fontWeight: '700', 
                                                                         fontSize: '0.85rem', 
                                                                         backgroundColor: 'transparent', 
                                                                         color: 'inherit' 
@@ -1237,7 +1234,7 @@ const AllsvenskanKollen = () => {
                                                                 padding: '11px 4px',
                                                                 borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
                                                             }}>
-                                                                <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                <span style={{ whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                                     {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
                                                                     <span>{cleanTeamNameForDisplay(team.team)}</span>
                                                                 </span>
@@ -1258,7 +1255,6 @@ const AllsvenskanKollen = () => {
                                                             <td style={{ 
                                                                 padding: '11px 4px', 
                                                                 textAlign: 'right', 
-                                                                fontWeight: '800',
                                                                 borderTopRightRadius: isFiltered ? '10px' : '0',
                                                                 borderBottomRightRadius: (isFiltered && (!team.form || team.form.length === 0)) ? '10px' : '0',
                                                                 borderTop: isSeparator ? '1px dashed rgba(0,0,0,0.15)' : 'none'
@@ -1360,7 +1356,6 @@ const AllsvenskanKollen = () => {
                                             padding: '6px 14px',
                                             borderRadius: '16px',
                                             fontSize: '0.8rem',
-                                            fontWeight: '600',
                                             cursor: 'pointer',
                                             transition: 'all 0.2s ease',
                                             backgroundColor: playerFilter === 'maraton' ? 'rgba(0,0,0,0.08)' : 'transparent',
@@ -1381,7 +1376,6 @@ const AllsvenskanKollen = () => {
                                                 padding: '6px 14px',
                                                 borderRadius: '16px',
                                                 fontSize: '0.8rem',
-                                                fontWeight: '600',
                                                 cursor: 'pointer',
                                                 transition: 'all 0.2s ease',
                                                 backgroundColor: playerFilter === 'mål' ? 'rgba(0,0,0,0.08)' : 'transparent',
@@ -1400,7 +1394,6 @@ const AllsvenskanKollen = () => {
                                                 padding: '6px 14px',
                                                 borderRadius: '16px',
                                                 fontSize: '0.8rem',
-                                                fontWeight: '600',
                                                 cursor: 'pointer',
                                                 transition: 'all 0.2s ease',
                                                 backgroundColor: playerFilter === 'assists' ? 'rgba(0,0,0,0.08)' : 'transparent',
@@ -1421,11 +1414,11 @@ const AllsvenskanKollen = () => {
                                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                             <thead>
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '35px' }}>SÄS</th>
-                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>M</th>
-                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>P</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}>#</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '35px' }}>SÄS</th>
+                                                    <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>M</th>
+                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>P</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1445,12 +1438,12 @@ const AllsvenskanKollen = () => {
                                                                 borderTopLeftRadius: isFiltered ? '10px' : '0',
                                                                 borderBottomLeftRadius: isFiltered ? '10px' : '0'
                                                             }}>
-                                                                <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
                                                                     {row.rank}
                                                                 </div>
                                                             </td>
                                                             <td style={{ padding: '11px 4px' }}>
-                                                                <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                                <span style={{ whiteSpace: 'normal', lineHeight: '1.2', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                                     {getTeamLogo(row.team) && <img src={getTeamLogo(row.team)} alt="" style={{ height: '26px', width: '26px', objectFit: 'contain' }} />}
                                                                     <span>{cleanTeamNameForDisplay(row.team)}</span>
                                                                 </span>
@@ -1460,7 +1453,6 @@ const AllsvenskanKollen = () => {
                                                             <td style={{ 
                                                                 padding: '11px 4px', 
                                                                 textAlign: 'right', 
-                                                                fontWeight: '800',
                                                                 borderTopRightRadius: isFiltered ? '10px' : '0',
                                                                 borderBottomRightRadius: isFiltered ? '10px' : '0'
                                                             }}>{row.points}</td>
@@ -1480,9 +1472,9 @@ const AllsvenskanKollen = () => {
                                             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                                 <thead>
                                                     <tr style={{ borderBottom: 'var(--border)' }}>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>SPELARE</th>
-                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>MÅL</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}>#</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>SPELARE</th>
+                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>MÅL</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1501,13 +1493,13 @@ const AllsvenskanKollen = () => {
                                                                     borderTopLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0'
                                                                 }}>
-                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
                                                                         {idx + 1}
                                                                     </div>
                                                                 </td>
                                                                 <td style={{ padding: '11px 4px' }}>
                                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                                        <span style={{ fontWeight: '600' }}>{scorer.player}</span>
+                                                                        <span style={{ }}>{scorer.player}</span>
                                                                         <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                                                             {getTeamLogo(scorer.team) && <img src={getTeamLogo(scorer.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
                                                                             {cleanTeamNameForDisplay(scorer.team)}
@@ -1517,7 +1509,6 @@ const AllsvenskanKollen = () => {
                                                                 <td style={{ 
                                                                     padding: '11px 4px', 
                                                                     textAlign: 'right', 
-                                                                    fontWeight: '800',
                                                                     fontSize: '1rem',
                                                                     borderTopRightRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
@@ -1543,9 +1534,9 @@ const AllsvenskanKollen = () => {
                                             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                                 <thead>
                                                     <tr style={{ borderBottom: 'var(--border)' }}>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
-                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>SPELARE</th>
-                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '45px' }}>ASSIST</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}>#</th>
+                                                        <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>SPELARE</th>
+                                                        <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>ASSIST</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1564,13 +1555,13 @@ const AllsvenskanKollen = () => {
                                                                     borderTopLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0'
                                                                 }}>
-                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                    <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
                                                                         {idx + 1}
                                                                     </div>
                                                                 </td>
                                                                 <td style={{ padding: '11px 4px' }}>
                                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                                        <span style={{ fontWeight: '600' }}>{item.player}</span>
+                                                                        <span style={{ }}>{item.player}</span>
                                                                         <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                                                             {getTeamLogo(item.team) && <img src={getTeamLogo(item.team)} alt="" style={{ height: '14px', width: '14px', objectFit: 'contain' }} />}
                                                                             {cleanTeamNameForDisplay(item.team)}
@@ -1580,7 +1571,6 @@ const AllsvenskanKollen = () => {
                                                                 <td style={{ 
                                                                     padding: '11px 4px', 
                                                                     textAlign: 'right', 
-                                                                    fontWeight: '800',
                                                                     fontSize: '1rem',
                                                                     borderTopRightRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
@@ -1613,11 +1603,7 @@ const AllsvenskanKollen = () => {
                                 </div>
                             ) : (
                                 <>
-                                    {squadsData.lastUpdated && (
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'right', padding: '0 4px' }}>
-                                            Uppdaterad: {new Date(squadsData.lastUpdated).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                        </div>
-                                    )}
+
                                     {Object.entries(squadsData.teams)
                                         .filter(([teamName]) => {
                                             if (!filterTeam) return true;
@@ -1645,11 +1631,11 @@ const AllsvenskanKollen = () => {
                                                             )}
                                                         </div>
                                                         <div style={{ flex: 1 }}>
-                                                            <div style={{ fontSize: '1.05rem', fontWeight: 800 }}>
+                                                            <div style={{ fontSize: '1.05rem', }}>
                                                                 <BoldSverige text={cleanTeamNameForDisplay(teamName)} />
                                                             </div>
                                                         </div>
-                                                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', backgroundColor: 'rgba(0,0,0,0.04)', padding: '4px 10px', borderRadius: '12px' }}>
+                                                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', backgroundColor: 'rgba(0,0,0,0.04)', padding: '4px 10px', borderRadius: '12px' }}>
                                                             {players.length} spelare
                                                         </div>
                                                     </div>
@@ -1658,18 +1644,19 @@ const AllsvenskanKollen = () => {
                                                             if (groupPlayers.length === 0) return null;
                                                             return (
                                                                 <div key={groupName} style={{ padding: '12px 16px', borderTop: '1px solid rgba(0,0,0,0.04)' }}>
-                                                                    <div style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em', marginBottom: '10px' }}>
+                                                                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em', marginBottom: '10px' }}>
                                                                         {groupName} ({groupPlayers.length})
                                                                     </div>
                                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                                                         {groupPlayers.map((p, idx) => (
                                                                             <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 10px', borderRadius: '8px', backgroundColor: 'rgba(0,0,0,0.02)' }}>
-                                                                                <div style={{ width: '24px', fontSize: '0.8rem', fontWeight: 800, color: p.number ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'center' }}>
+                                                                                <div style={{ width: '24px', fontSize: '0.8rem', color: p.number ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'center' }}>
                                                                                     {p.number || '-'}
                                                                                 </div>
                                                                                 <div style={{ flex: 1, minWidth: 0 }}>
-                                                                                    <div style={{ fontWeight: 600, fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                                    <div style={{ fontSize: '0.88rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                                                         <span>{p.name}</span>
+                                                                                        {p.age && <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>{p.age.match(/\((\d+)\)/) ? p.age.match(/\((\d+)\)/)[1] + ' år' : p.age}</span>}
                                                                                         {p.nationalities && p.nationalities.length > 0 && (
                                                                                             <span style={{ display: 'inline-flex', gap: '4px', flexShrink: 0 }}>
                                                                                                 {p.nationalities.map(nat => getFlagCode(nat.country)).filter(Boolean).map((code, idx) => (
@@ -1684,12 +1671,13 @@ const AllsvenskanKollen = () => {
                                                                                         )}
                                                                                     </div>
                                                                                     <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                                                                                        {p.age && <span>{p.age.match(/\((\d+)\)/) ? p.age.match(/\((\d+)\)/)[1] + ' år' : p.age}</span>}
-                                                                                        {p.joined && p.joined !== '-' && <span>• Anslöt {formatTmDate(p.joined)}</span>}
-                                                                                        {p.contract && p.contract !== '-' && <span>• Kontrakt till {formatTmDate(p.contract)}</span>}
+                                                                                        {[
+                                                                                            p.joined && p.joined !== '-' ? `Anslöt ${formatTmDate(p.joined)}` : null,
+                                                                                            p.contract && p.contract !== '-' ? `Kontrakt till ${formatTmDate(p.contract)}` : null
+                                                                                        ].filter(Boolean).join(' • ')}
                                                                                     </div>
                                                                                 </div>
-                                                                                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: p.value && p.value !== '-' ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'right' }}>
+                                                                                <div style={{ fontSize: '0.75rem', color: p.value && p.value !== '-' ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'right' }}>
                                                                                     {p.value}
                                                                                 </div>
                                                                             </div>

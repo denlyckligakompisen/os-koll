@@ -21,10 +21,10 @@ const Countdown = () => {
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', overflow: 'hidden' }}>
 
             <div style={{ textAlign: 'center' }}>
-                <div key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '3.5rem', fontWeight: '900', color: 'var(--color-text)', lineHeight: 1 }}>
+                <div key={timeLeft.days} className="animate-fade-in" style={{ fontSize: '3.5rem', color: 'var(--color-text)', lineHeight: 1 }}>
                     {timeLeft.days}
                 </div>
-                <div style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginTop: '4px' }}>
                     dagar kvar
                 </div>
             </div>

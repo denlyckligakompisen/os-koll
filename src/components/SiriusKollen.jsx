@@ -148,7 +148,6 @@ const SiriusKollen = () => {
                         }}
                         style={{ 
                             fontSize: '0.9rem', 
-                            fontWeight: 700, 
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
@@ -174,7 +173,6 @@ const SiriusKollen = () => {
                         onClick={() => handleTeamClick(team)}
                         style={{ 
                             fontSize: '0.9rem', 
-                            fontWeight: 500,
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
@@ -194,7 +192,7 @@ const SiriusKollen = () => {
                     
                     {activeTab === 'matcher' && (
                         <>
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                                 NÄSTA MATCH
                             </div>
                             <Card padding="28px" style={{ background: 'linear-gradient(135deg, #005DAA 0%, #003a6b 100%)', color: 'white', border: 'none', position: 'relative', overflow: 'hidden' }}>
@@ -202,22 +200,22 @@ const SiriusKollen = () => {
                                     <img src="https://upload.wikimedia.org/wikipedia/en/2/23/IK_Sirius_logo.png" alt="" style={{ height: '150px' }} />
                                 </div>
                                 <div style={{ position: 'relative', zIndex: 1 }}>
-                                    <div style={{ fontSize: '0.7rem', fontWeight: '800', opacity: 0.9, textTransform: 'uppercase', marginBottom: '16px', letterSpacing: '0.05em' }}>
+                                    <div style={{ fontSize: '0.7rem', opacity: 0.9, textTransform: 'uppercase', marginBottom: '16px', letterSpacing: '0.05em' }}>
                                         {filterTeam || 'Allsvenskan'}
                                     </div>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
                                         <div style={{ textAlign: 'center', flex: 1 }}>
-                                            <div style={{ fontSize: '1.25rem', fontWeight: '900' }}>{nextMatch.home}</div>
+                                            <div style={{ fontSize: '1.25rem', }}>{nextMatch.home}</div>
                                         </div>
                                         <div style={{ textAlign: 'center', minWidth: '100px' }}>
-                                            <div style={{ fontSize: '1.8rem', fontWeight: '900', letterSpacing: '-0.02em' }}>{nextMatch.time}</div>
-                                            <div style={{ fontSize: '0.75rem', fontWeight: '700', opacity: 0.8 }}>{nextMatch.date}</div>
+                                            <div style={{ fontSize: '1.8rem', letterSpacing: '-0.02em' }}>{nextMatch.time}</div>
+                                            <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>{nextMatch.date}</div>
                                         </div>
                                         <div style={{ textAlign: 'center', flex: 1 }}>
-                                            <div style={{ fontSize: '1.25rem', fontWeight: '900' }}>{nextMatch.away}</div>
+                                            <div style={{ fontSize: '1.25rem', }}>{nextMatch.away}</div>
                                         </div>
                                     </div>
-                                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '0.8rem', fontWeight: '600', opacity: 0.9 }}>
+                                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '0.8rem', opacity: 0.9 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                                             <MapPin size={14} /> {nextMatch.venue}
                                         </div>
@@ -225,7 +223,7 @@ const SiriusKollen = () => {
                                 </div>
                             </Card>
 
-                            <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                            <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                                 SENASTE MATCHER
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -242,17 +240,16 @@ const SiriusKollen = () => {
                                                     justifyContent: 'center',
                                                     backgroundColor: m.score === 'W' ? '#34c759' : m.score === 'L' ? '#ff3b30' : '#8e8e93',
                                                     color: 'white',
-                                                    fontWeight: '800',
                                                     fontSize: '0.75rem'
                                                 }}>
                                                     {m.score}
                                                 </div>
                                                 <div>
-                                                    <div style={{ fontWeight: '700', fontSize: '0.95rem' }}>{m.opponent}</div>
+                                                    <div style={{ fontSize: '0.95rem' }}>{m.opponent}</div>
                                                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{m.date}</div>
                                                 </div>
                                             </div>
-                                            <div style={{ fontWeight: '800', fontSize: '1.1rem' }}>{m.result}</div>
+                                            <div style={{ fontSize: '1.1rem' }}>{m.result}</div>
                                         </div>
                                     </Card>
                                 ))}

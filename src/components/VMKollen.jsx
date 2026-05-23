@@ -475,7 +475,7 @@ const VMKollen = () => {
             .map(t => t.name);
     }, [groupsData]);
 
-    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', fontWeight: '600' }}>Laddar...</div>;
+    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', }}>Laddar...</div>;
     if (!groupsData) return null;
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
@@ -485,7 +485,6 @@ const VMKollen = () => {
             <div key={groupName} style={{ marginBottom: '32px' }}>
                 <div style={{
                     fontSize: '0.8rem',
-                    fontWeight: '800',
                     textTransform: 'uppercase',
                     paddingLeft: '4px',
                     marginBottom: '12px',
@@ -501,11 +500,11 @@ const VMKollen = () => {
                         </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }} aria-label="Position">#</th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>P</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position">#</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', }}>P</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -530,7 +529,7 @@ const VMKollen = () => {
                                         borderTopLeftRadius: isFiltered ? '10px' : '0',
                                         borderBottomLeftRadius: isFiltered ? '10px' : '0'
                                     }}>
-                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
+                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
                                         </div>
                                     </td>
@@ -553,7 +552,7 @@ const VMKollen = () => {
                                             }}
                                         >
                                             <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                            <span style={{ fontWeight: '500', whiteSpace: 'normal', lineHeight: '1.2' }}>
+                                            <span style={{ whiteSpace: 'normal', lineHeight: '1.2' }}>
                                                 <BoldSverige text={team.name} />
                                             </span>
                                         </button>
@@ -563,7 +562,6 @@ const VMKollen = () => {
                                         <td style={{
                                             padding: '11px 4px',
                                             textAlign: 'right',
-                                            fontWeight: '800',
                                             borderTopRightRadius: isFiltered ? '10px' : '0',
                                             borderBottomRightRadius: isFiltered ? '10px' : '0'
                                         }}>{team.pts}</td>
@@ -613,7 +611,6 @@ const VMKollen = () => {
                         <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             <div style={{
                                 fontSize: '0.8rem',
-                                fontWeight: '800',
                                 textTransform: 'uppercase',
                                 paddingLeft: '4px',
                                 color: 'var(--color-text-muted)',
@@ -636,7 +633,7 @@ const VMKollen = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
                 {nextMatches.map((m, idx) => (
                     <div key={idx}>
-                        <div style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
+                        <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                             {getRelativeDateLabel(m.date).toUpperCase()}
                         </div>
                         <MatchCard 
@@ -759,7 +756,6 @@ const VMKollen = () => {
                                 }}
                                 style={{ 
                                     fontSize: '0.9rem', 
-                                    fontWeight: 700, 
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
@@ -792,7 +788,6 @@ const VMKollen = () => {
                             selected={filterCountry === country}
                             style={{ 
                                 fontSize: '0.9rem', 
-                                fontWeight: 500,
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '12px',
@@ -839,7 +834,6 @@ const VMKollen = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <div style={{
                                 fontSize: '0.95rem',
-                                fontWeight: '800',
                                 textTransform: 'uppercase',
                                 paddingLeft: '4px',
                                 marginBottom: '4px',
@@ -864,9 +858,9 @@ const VMKollen = () => {
                                             </caption>
                                             <thead>
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }} aria-label="Rank">#</th>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
-                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>POÄNG</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }} aria-label="Rank">#</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', }}>POÄNG</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -889,13 +883,12 @@ const VMKollen = () => {
                                                                     borderBottomLeftRadius: isSelected ? '12px' : '0'
                                                                 }}>
                                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontWeight: '700', fontSize: '0.85rem' }}>
+                                                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
                                                                             {r.rank}
                                                                         </div>
                                                                         {r.change !== 0 && (
                                                                             <span style={{ 
                                                                                 fontSize: '0.7rem', 
-                                                                                fontWeight: '800',
                                                                                 color: r.change > 0 ? '#34c759' : '#ff3b30',
                                                                                 backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
                                                                                 padding: '2px 5px',
@@ -930,13 +923,12 @@ const VMKollen = () => {
                                                                         onClick={() => isTournamentTeam && handleCountryClick(r.team)}
                                                                     >
                                                                         <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
-                                                                        <span style={{ fontWeight: '500' }}><BoldSverige text={r.team} /></span>
+                                                                        <span style={{ }}><BoldSverige text={r.team} /></span>
                                                                     </button>
                                                                 </td>
                                                             <td style={{ 
                                                                 padding: '11px 4px', 
                                                                 textAlign: 'right', 
-                                                                fontWeight: '800',
                                                                 borderTopRightRadius: isSelected ? '12px' : '0',
                                                                 borderBottomRightRadius: isSelected ? '12px' : '0'
                                                             }}>
