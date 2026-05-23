@@ -64,23 +64,23 @@ const SvenskaCupenBracket = ({ filterTeam, onTeamClick, getTeamLogo }) => {
             {
                 title: "Kvartsfinal",
                 matches: [
-                    { id: 1, home: "Mjällby AIF", away: "Malmö FF", homeScore: 4, awayScore: 0, winner: 'home' },
-                    { id: 2, home: "GAIS", away: "AIK", homeScore: 3, awayScore: 2, winner: 'home' },
-                    { id: 3, home: "Hammarby IF", away: "Djurgårdens IF", homeScore: 1, awayScore: 0, winner: 'home' },
-                    { id: 4, home: "IK Sirius", away: "IFK Göteborg", homeScore: 1, awayScore: 0, winner: 'home' }
+                    { id: 1, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
+                    { id: 2, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
+                    { id: 3, home: "TBD", away: "TBD", homeScore: null, awayScore: null },
+                    { id: 4, home: "TBD", away: "TBD", homeScore: null, awayScore: null }
                 ]
             },
             {
                 title: "Semifinal",
                 matches: [
-                    { id: 5, home: "Mjällby AIF", away: "GAIS", homeScore: 3, awayScore: 0, winner: 'home' },
-                    { id: 6, home: "Hammarby IF", away: "IK Sirius", homeScore: 3, awayScore: 3, winner: 'home', info: '7-5 e.str' }
+                    { id: 5, home: "Vinnare QF1", away: "Vinnare QF2", homeScore: null, awayScore: null },
+                    { id: 6, home: "Vinnare QF3", away: "Vinnare QF4", homeScore: null, awayScore: null }
                 ]
             },
             {
                 title: "Final",
                 matches: [
-                    { id: 7, home: "Hammarby IF", away: "Mjällby AIF", homeScore: null, awayScore: null, date: '14 maj' }
+                    { id: 7, home: "Vinnare SF1", away: "Vinnare SF2", homeScore: null, awayScore: null, date: 'TBD' }
                 ]
             }
         ]
