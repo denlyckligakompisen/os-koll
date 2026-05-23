@@ -16,6 +16,7 @@
     "scrape:allsvenskan-logos": "node scripts/scrape_allsvenskan_logos.js",
     "scrape:allsvenskan-table": "node scripts/scrape_allsvenskan_table.js",
     "scrape:allsvenskan-maraton": "node scripts/scrape_allsvenskan_maraton.js",
+    "scrape:live": "node scripts/live_scraper.js",
     "scrape:daily": "node scripts/daily_scheduler.js",
     "fetch:allsvenskan": "node scripts/fetch_allsvenskan_api.js",
     "fetch:allsvenskan-all": "node scripts/fetch_allsvenskan_api.js --all",

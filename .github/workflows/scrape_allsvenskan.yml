@@ -4,6 +4,9 @@ on:
     - cron: '0 2 * * *'     # Daily at 04:00 Swedish time
   workflow_dispatch:
 
+env:
+  TZ: Europe/Stockholm
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -21,7 +24,7 @@ jobs:
 
       # ── Allsvenskan.se Scrapers ──
       - name: Fetch Allsvenskan Matches (allsvenskan.se)
-        run: npm run scrape:allsvenskan
+        run: npm run scrape:allsvenskan -- --yesterday-only
         
       - name: Fetch Allsvenskan Table (allsvenskan.se)
         run: npm run scrape:allsvenskan-table

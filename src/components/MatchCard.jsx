@@ -367,31 +367,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
 
     if (variant === 'hero') {
-        let arena = null;
-        let roundStr = null;
-        if (match.detailedStats?.info?.length > 1) {
-            const info = match.detailedStats.info;
-            const roundIndex = info.findIndex(i => i.toLowerCase().includes('omgång'));
-            
-            if (roundIndex !== -1) {
-                roundStr = info[roundIndex];
-                if (roundIndex > 0) {
-                    const candidate = info[roundIndex - 1];
-                    // Make sure the candidate is not the date string (index 0) if referees are missing,
-                    // but wait, if roundIndex is 1, then arena is index 0? The date is always index 0.
-                    // If roundIndex is 1, arena and referees are missing.
-                    if (roundIndex > 1) {
-                        arena = candidate.split(',')[0].trim();
-                    }
-                }
-            } else if (info.length > 2) {
-                // Fallback if 'omgång' is missing for some reason
-                const candidate = info[2];
-                if (!candidate.includes('OMGÅNG')) {
-                    arena = candidate.split(',')[0].trim();
-                }
-            }
-        }
+
 
         return (
             <Card 
@@ -455,11 +431,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                        {(match.round || roundStr) ? (
-                            <div style={{ fontSize: '0.7rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>
-                                {match.round ? `Omgång ${match.round}` : roundStr}
-                            </div>
-                        ) : match.group ? (
+                        {match.group ? (
                             <div style={{ fontSize: '0.65rem', fontWeight: '800', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                 {match.group}
                             </div>
@@ -505,13 +477,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
 
-                        {arena && (
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
-                                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
-                                    {arena}
-                                </div>
-                            </div>
-                        )}
+
 
 
                     </div>

@@ -162,7 +162,6 @@ async function run() {
         const eventRes = await fetchApi(`/event/${match.id}`);
         if (eventRes && eventRes.event && eventRes.event.customId) {
           match.customId = eventRes.event.customId;
-          match.round = eventRes.event.roundInfo?.round;
         }
       } catch (err) {
         console.log(`  ⚠ Failed to fetch event details: ${err.message}`);

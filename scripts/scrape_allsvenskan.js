@@ -132,16 +132,32 @@ async function scrapeAllsvenskan() {
             }
         }
 
-        const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-        const today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
+        const yesterdayOnly = process.argv.includes('--yesterday-only') || process.env.GITHUB_ACTIONS === 'true';
+
+        let yesterday, today;
+        if (yesterdayOnly) {
+            yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            today = new Date(now.getTime() - 24 * 60 * 60 * 1000); // End of yesterday
+            console.log("Restricting details scraping to yesterday's matches only.");
+        } else {
+            yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            today = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Including tomorrow just to be safe if a match runs late into the night
+            console.log("Scraping details for yesterday, today, and tomorrow's matches.");
+        }
         yesterday.setHours(0,0,0,0);
         today.setHours(23,59,59,999);
 
         const mergedMatches = [];
         for (const nm of uniqueNewMatches) {
-            // Find existing
-            const existing = existingMatches.find(e => e.home === nm.home && e.away === nm.away && e.date === nm.date);
+            // Find existing match by link (most reliable) or by home+away
+            const existing = existingMatches.find(e => 
+                (nm.link && e.link === nm.link) || 
+                (e.home === nm.home && e.away === nm.away && e.date === nm.date)
+            );
             
+            // Preserve cached date if it exists (scraper date parsing from page is unreliable)
+            const date = existing?.date || nm.date;
+
             let scorers = { home: [], away: [] };
             if (existing && existing.scorers) {
                 scorers = existing.scorers;
@@ -152,11 +168,12 @@ async function scrapeAllsvenskan() {
                 detailedStats = existing.detailedStats;
             }
 
-            const matchDate = parseDate(nm.date, nm.time);
+            const matchDate = parseDate(date, nm.time);
             const startTimestamp = Math.floor(matchDate.getTime() / 1000);
             const inWindow = matchDate >= yesterday && matchDate <= today;
+            const hasDetails = existing && existing.status === 'finished' && existing.detailedStats !== null;
 
-            if (inWindow && nm.link) {
+            if (inWindow && nm.link && !hasDetails) {
                 console.log(`Fetching details for ${nm.home} - ${nm.away}...`);
                 try {
                     await page.goto(nm.link, { waitUntil: 'domcontentloaded', timeout: 15000 });
@@ -238,6 +255,7 @@ async function scrapeAllsvenskan() {
 
             mergedMatches.push({
                 ...nm,
+                date,
                 startTimestamp,
                 scorers,
                 detailedStats

@@ -297,7 +297,6 @@ async function fetchMatches(isDelta = false) {
       score, 
       status, 
       startTimestamp: event.startTimestamp,
-      round: event.roundInfo?.round,
       liveCurrentTime
     };
 

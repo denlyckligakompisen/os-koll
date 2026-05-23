@@ -211,7 +211,6 @@ async function fetchHistoricalMatches(year, seasonId) {
       score, 
       status, 
       startTimestamp: event.startTimestamp,
-      round: event.roundInfo?.round,
       liveCurrentTime: ''
     };
   }).filter(m => m.home && m.away);
