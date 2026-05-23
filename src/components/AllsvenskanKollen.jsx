@@ -1181,7 +1181,7 @@ const AllsvenskanKollen = () => {
                                 </div>
                             ) : (
                                 <Card style={{ marginBottom: '0' }}>
-                                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                         <thead>
                                             <tr style={{ borderBottom: 'var(--border)' }}>
                                                 <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
@@ -1424,7 +1424,7 @@ const AllsvenskanKollen = () => {
                             {statFilter === 'lag' && playerFilter === 'maraton' && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '4px' }}>
                                     <Card style={{ marginBottom: '0' }}>
-                                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                             <thead>
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
                                                     <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
@@ -1483,7 +1483,7 @@ const AllsvenskanKollen = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '4px' }}>
                                     <Card style={{ marginBottom: '0' }}>
                                         {topScorers.length > 0 ? (
-                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                                 <thead>
                                                     <tr style={{ borderBottom: 'var(--border)' }}>
                                                         <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
@@ -1546,7 +1546,7 @@ const AllsvenskanKollen = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '4px' }}>
                                     <Card style={{ marginBottom: '0' }}>
                                         {topAssists.length > 0 ? (
-                                            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                                 <thead>
                                                     <tr style={{ borderBottom: 'var(--border)' }}>
                                                         <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}>#</th>
