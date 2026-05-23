@@ -55,6 +55,9 @@ async function scrapeAllsvenskan() {
             
             rows.forEach(row => {
                 const text = row.innerText || '';
+                if (text.toLowerCase().includes('kval')) {
+                    return; // Skip playoff/kval matches
+                }
                 const teamEl = row.querySelector('.heading-lg-h5, .heading-h6, [class*="heading"]');
                 
                 let home = '', away = '', time = 'TBA', date = '', link = '', score = '', status = 'upcoming';
