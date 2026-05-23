@@ -1184,7 +1184,7 @@ const AllsvenskanKollen = () => {
                                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                         <thead>
                                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '36px' }}></th>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '18px' }}></th>
                                                 <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600' }}>LAG</th>
                                                 <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '30px' }}>M</th>
                                                 <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', fontWeight: '600', width: '40px' }}>+/-</th>
@@ -1215,11 +1215,11 @@ const AllsvenskanKollen = () => {
                                                                 <div style={{ 
                                                                     display: 'flex', 
                                                                     alignItems: 'center', 
-                                                                    gap: '4px',
-                                                                    paddingLeft: '4px'
+                                                                    gap: '0',
+                                                                    paddingLeft: '0'
                                                                 }}>
                                                                     <div style={{ 
-                                                                        width: '20px', 
+                                                                        width: '18px', 
                                                                         height: '28px', 
                                                                         display: 'flex', 
                                                                         alignItems: 'center', 
@@ -1267,7 +1267,7 @@ const AllsvenskanKollen = () => {
                                                         {team.form && team.form.length > 0 && (
                                                             <tr style={{ backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent' }}>
                                                                 <td colSpan="5" style={{ 
-                                                                    padding: '0 4px 10px 38px', 
+                                                                    padding: '0 4px 10px 22px', 
                                                                     borderTop: 'none',
                                                                     borderBottomLeftRadius: isFiltered ? '10px' : '0',
                                                                     borderBottomRightRadius: isFiltered ? '10px' : '0'
