@@ -329,9 +329,15 @@ const AllsvenskanKollen = () => {
 
     const maxPlayedRound = useMemo(() => {
         if (!matchesData?.matches) return 30;
-        const finishedMatches = matchesData.matches.filter(m => m.status === 'finished');
-        if (finishedMatches.length === 0) return 0;
-        return Math.max(...finishedMatches.map(m => m.round || 1));
+        const teamMatchesCount = {};
+        matchesData.matches.forEach(m => {
+            if (m.status === 'finished' && m.score) {
+                teamMatchesCount[m.home] = (teamMatchesCount[m.home] || 0) + 1;
+                teamMatchesCount[m.away] = (teamMatchesCount[m.away] || 0) + 1;
+            }
+        });
+        const max = Math.max(0, ...Object.values(teamMatchesCount));
+        return max || 30;
     }, [matchesData]);
 
     useEffect(() => {
@@ -381,11 +387,23 @@ const AllsvenskanKollen = () => {
             };
         });
 
-        const finishedMatches = matchesData.matches.filter(m => 
-            m.status === 'finished' && 
-            m.score && 
-            (m.round || 1) <= currentRoundSliderVal
-        );
+        const chronMatches = [...matchesData.matches]
+            .filter(m => m.status === 'finished' && m.score)
+            .sort((a, b) => a.startTimestamp - b.startTimestamp);
+
+        const teamMatchesCount = {};
+        teamList.forEach(t => teamMatchesCount[t] = 0);
+
+        const finishedMatches = [];
+        for (const m of chronMatches) {
+            const hCount = teamMatchesCount[m.home] || 0;
+            const aCount = teamMatchesCount[m.away] || 0;
+            if (hCount < currentRoundSliderVal && aCount < currentRoundSliderVal) {
+                finishedMatches.push(m);
+                teamMatchesCount[m.home] = hCount + 1;
+                teamMatchesCount[m.away] = aCount + 1;
+            }
+        }
 
         finishedMatches.forEach(m => {
             const scoreParts = m.score.split('-').map(s => parseInt(s.trim()));
@@ -476,11 +494,24 @@ const AllsvenskanKollen = () => {
             };
         });
 
-        const finishedMatchesPrev = matchesData.matches.filter(m => 
-            m.status === 'finished' && 
-            m.score && 
-            (m.round || 1) < currentRoundSliderVal
-        );
+        const chronMatches = [...matchesData.matches]
+            .filter(m => m.status === 'finished' && m.score)
+            .sort((a, b) => a.startTimestamp - b.startTimestamp);
+
+        const teamMatchesCount = {};
+        teamList.forEach(t => teamMatchesCount[t] = 0);
+
+        const finishedMatchesPrev = [];
+        for (const m of chronMatches) {
+            const hCount = teamMatchesCount[m.home] || 0;
+            const aCount = teamMatchesCount[m.away] || 0;
+            // Trends compare current round to previous round (currentRoundSliderVal - 1)
+            if (hCount < currentRoundSliderVal - 1 && aCount < currentRoundSliderVal - 1) {
+                finishedMatchesPrev.push(m);
+                teamMatchesCount[m.home] = hCount + 1;
+                teamMatchesCount[m.away] = aCount + 1;
+            }
+        }
 
         finishedMatchesPrev.forEach(m => {
             const scoreParts = m.score.split('-').map(s => parseInt(s.trim()));
