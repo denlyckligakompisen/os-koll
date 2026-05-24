@@ -988,13 +988,17 @@ const AllsvenskanKollen = () => {
     useEffect(() => {
         // Delay to allow for tab switching and DOM rendering
         const timer = setTimeout(() => {
-            if (activeTab === 'matcher' && nextMatchRef.current) {
-                nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (activeTab === 'matcher') {
+                if (nextMatchRef.current) {
+                    nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             }
         }, 150);
 
         return () => clearTimeout(timer);
-    }, [activeTab, loading, nextMatchDateString]);
+    }, [activeTab, loading, nextMatchDateString, filterTeam]);
 
     useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
 
@@ -1284,7 +1288,6 @@ const AllsvenskanKollen = () => {
                                                                     filterTeam={filterTeam}
                                                                     allMatches={matchesData?.matches}
                                                                     onTeamClick={setFilterTeam}
-                                                                    onClick={() => match.link && window.open(match.link, '_blank')}
                                                                 />
                                                             </div>
                                                         );

@@ -204,6 +204,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const computedScore = getComputedScore(computedStatus);
 
+    const displayTime = match.time === '00:00' ? 'TBA' : match.time;
+
     // Calculate Form
     const getTeamForm = (teamName) => {
         const cleanTeam = cleanTeamName(teamName);
@@ -315,7 +317,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const getBroadcasterUrl = (broadcast) => {
-        if (match.link) return match.link;
         if (!broadcast) return null;
         const b = broadcast.toUpperCase();
         if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
@@ -419,9 +420,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 gap: '8px'
                             }}
                         >
-                            {computedStatus === 'finished' ? (computedScore || match.time) : 
+                            {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             match.time}
+                             displayTime}
                         </button>
                         {computedStatus === 'live' && (
                             <div style={{
@@ -586,9 +587,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             gap: '4px',
                             transition: 'all 0.3s ease'
                         }}>
-                            {computedStatus === 'finished' ? (computedScore || match.time) : 
+                            {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             match.time}
+                             displayTime}
                         </span>
                         {computedStatus === 'live' && (
                             <span style={{
