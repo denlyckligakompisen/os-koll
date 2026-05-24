@@ -14,7 +14,10 @@ export const useSwipeNavigation = (activeTab, setActiveTab, subtabs) => {
         let isVerticalSwipe = false;
 
         const handleStart = (e) => {
-            if (e.target.closest('input[type="range"]') || e.target.closest('.custom-slider')) {
+            if (e.target.closest('input[type="range"]') || 
+                e.target.closest('.custom-slider') || 
+                e.target.closest('.bracket-scroll-container') || 
+                e.target.closest('.bracket-container')) {
                 startX = 0;
                 startY = 0;
                 return;
@@ -26,12 +29,14 @@ export const useSwipeNavigation = (activeTab, setActiveTab, subtabs) => {
         };
 
         const handleMove = (e) => {
-            if (e.target.closest('input[type="range"]') || e.target.closest('.custom-slider')) {
-                return;
-            }
             if (!startX || !startY) return;
 
-            if (e.target.closest('.bracket-container') || e.target.closest('[style*="overflow-x: auto"]') || e.target.closest('[style*="overflowX: auto"]')) {
+            if (e.target.closest('input[type="range"]') || 
+                e.target.closest('.custom-slider') || 
+                e.target.closest('.bracket-scroll-container') || 
+                e.target.closest('.bracket-container') || 
+                e.target.closest('[style*="overflow-x: auto"]') || 
+                e.target.closest('[style*="overflowX: auto"]')) {
                 return;
             }
 
