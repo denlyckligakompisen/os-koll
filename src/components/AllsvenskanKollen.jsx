@@ -1026,16 +1026,14 @@ const AllsvenskanKollen = () => {
                             cursor: 'pointer',
                             display: 'flex', 
                             alignItems: 'center', 
-                            gap: '6px',
+                            gap: '10px',
                             padding: '6px 8px',
                             borderRadius: '12px',
                             transition: 'background-color 0.2s',
-                            color: 'var(--color-text-muted)',
-                            fontWeight: '600'
                         }}
                     >
-                        <ArrowLeftRight size={18} />
-                        <span style={{ fontSize: '0.8rem', textTransform: 'uppercase' }}>VM</span>
+                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan Logo" style={{ height: '34px', objectFit: 'contain' }} />
+                        <ArrowLeftRight size={18} color="#aeafb4" />
                     </button>
                 </div>
                 
