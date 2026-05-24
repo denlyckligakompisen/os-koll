@@ -7,8 +7,7 @@ import BoldSverige from './BoldSverige';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
-import MuiMenu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { Drawer } from 'vaul';
 import { useSwipeNavigation } from '../utils/navigation';
 
 const formatTmDate = (dateStr) => {
@@ -86,7 +85,7 @@ const TEAM_COLORS = {
 const getHeaderStyle = (teamName) => {
     if (!teamName || !TEAM_COLORS[teamName]) {
         return {
-            bg: "#ffffff",
+            bg: "rgba(255, 255, 255, 0.85)",
             text: "#000000",
             inactiveText: "#636366",
             activeLine: "#000000"
@@ -95,7 +94,7 @@ const getHeaderStyle = (teamName) => {
     const colors = TEAM_COLORS[teamName];
     const isLightBg = ["BK Häcken", "IF Elfsborg", "Malmö FF", "Mjällby AIF"].includes(teamName);
     return {
-        bg: colors.bg,
+        bg: colors.bg + "e6", // 90% opacity to enable glassmorphism blur
         text: colors.label,
         inactiveText: isLightBg ? "rgba(0, 0, 0, 0.45)" : "rgba(255, 255, 255, 0.6)",
         activeLine: colors.text
@@ -152,6 +151,7 @@ const getRelativeDateLabel = (dateStr) => {
 };
 
 const AllsvenskanKollen = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('matcher');
     const [statFilter, setStatFilter] = useState('lag');
     const [playerFilter, setPlayerFilter] = useState('maraton');
@@ -1135,76 +1135,91 @@ const AllsvenskanKollen = () => {
             )}
 
 
-            <MuiMenu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                slotProps={{
-                    paper: {
-                        style: {
-                            maxHeight: 400,
-                            width: '280px',
-                            borderRadius: '16px',
-                            marginTop: '8px',
-                            boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-                            border: '0.5px solid rgba(0,0,0,0.08)',
-                            padding: '8px 0'
-                        }
-                    }
-                }}
-            >
-                {filterTeam && (
-                    <MenuItem 
-                        onClick={() => {
-                            setFilterTeam(null);
-                            handleMenuClose();
-                        }}
-                        style={{ 
-                            fontSize: '0.9rem', 
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '12px 16px',
-                            borderRadius: '8px',
-                            margin: '2px 8px',
-                            backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                            color: 'var(--color-text)',
-                            whiteSpace: 'normal',
-                            lineHeight: '1.2'
-                        }}
-                    >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            {getTeamLogo(filterTeam) && <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
-                            <span>{cleanTeamNameForDisplay(filterTeam)}</span>
+            <Drawer.Root open={Boolean(anchorEl)} onOpenChange={(open) => { if (!open) handleMenuClose(); }}>
+                <Drawer.Portal>
+                    <Drawer.Overlay style={{
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                        zIndex: 1100,
+                    }} />
+                    <Drawer.Content style={{
+                        backgroundColor: 'var(--color-bg)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: '24px 24px 0 0',
+                        marginTop: '24px',
+                        position: 'fixed',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 1200,
+                        outline: 'none',
+                        maxHeight: '85vh',
+                        boxShadow: '0 -10px 40px rgba(0,0,0,0.1)'
+                    }}>
+                        {/* Drag Handle */}
+                        <div style={{ padding: '16px', display: 'flex', justifyContent: 'center', backgroundColor: 'var(--color-bg)', borderRadius: '24px 24px 0 0' }}>
+                            <div style={{ width: '36px', height: '5px', backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: '9999px' }} />
                         </div>
-                        <X size={18} strokeWidth={2.5} />
-                    </MenuItem>
-                )}
-                {teams
-                    .filter(t => t !== filterTeam)
-                    .map((team) => (
-                    <MenuItem 
-                        key={team}
-                        onClick={() => handleTeamClick(team)}
-                        style={{ 
-                            fontSize: '0.9rem', 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '12px 16px',
-                            borderRadius: '8px',
-                            margin: '2px 8px',
-                            whiteSpace: 'normal',
-                            lineHeight: '1.2'
-                        }}
-                    >
-                        {getTeamLogo(team) && <img src={getTeamLogo(team)} alt="" style={{ height: '22px', width: '22px', objectFit: 'contain' }} />}
-                        <span>{cleanTeamNameForDisplay(team)}</span>
-                    </MenuItem>
-                ))}
-            </MuiMenu>
+                        
+                        <div style={{ padding: '0 16px 32px 16px', overflowY: 'auto' }}>
+                            <div style={{
+                                backgroundColor: 'var(--color-card-bg)',
+                                borderRadius: '16px',
+                                overflow: 'hidden'
+                            }}>
+                                {filterTeam && (
+                                    <div 
+                                        onClick={() => {
+                                            setFilterTeam(null);
+                                            handleMenuClose();
+                                        }}
+                                        style={{ 
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            padding: '16px',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                            color: 'var(--color-text)',
+                                            borderBottom: '1px solid rgba(0,0,0,0.05)',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            {getTeamLogo(filterTeam) && <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} />}
+                                            <span style={{ fontWeight: '500', fontSize: '1rem' }}>{cleanTeamNameForDisplay(filterTeam)}</span>
+                                        </div>
+                                        <X size={20} strokeWidth={2.5} />
+                                    </div>
+                                )}
+                                {teams
+                                    .filter(t => t !== filterTeam)
+                                    .map((team, idx, arr) => (
+                                    <div 
+                                        key={team}
+                                        onClick={() => {
+                                            handleTeamClick(team);
+                                        }}
+                                        style={{ 
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            padding: '16px',
+                                            borderBottom: idx < arr.length - 1 ? '1px solid rgba(0,0,0,0.05)' : 'none',
+                                            cursor: 'pointer',
+                                            backgroundColor: 'var(--color-card-bg)'
+                                        }}
+                                    >
+                                        {getTeamLogo(team) && <img src={getTeamLogo(team)} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} />}
+                                        <span style={{ fontWeight: '500', fontSize: '1rem' }}>{cleanTeamNameForDisplay(team)}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </Drawer.Content>
+                </Drawer.Portal>
+            </Drawer.Root>
 
 
 

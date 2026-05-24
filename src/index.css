@@ -10,8 +10,8 @@
   --color-primary: #007aff;
   --color-secondary: #5856d6;
   --color-accent: #ff9500;
-  --radius-lg: 18px;
-  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-md: 16px;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
@@ -34,37 +34,29 @@ body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.015em;
   /* iOS feels more compact */
-  overscroll-behavior-y: contain; /* Prevents pull-to-refresh on mobile browsers */
+  overscroll-behavior: none; /* Prevents pull-to-refresh and bounce completely */
+  user-select: none;
+  -webkit-user-select: none; /* Prevent text selection globally for native feel */
+}
+
+input, textarea, select {
+  user-select: auto;
+  -webkit-user-select: auto; /* Allow text selection only in input fields */
 }
 
 /* Native App Feel Locks */
-button, 
-a, 
-input, 
-select, 
-textarea,
-.segmented-button,
-.sverige-toggle,
-.header-logo,
-.scroll-to-top-btn,
-[role="button"] {
-  -webkit-tap-highlight-color: transparent; /* Disable the grey overlay on tap */
-}
-
-.nav-container,
-.segmented-control,
-.scroll-to-top-btn,
-.bracket-container,
-.header-logo,
-button,
-img {
-  user-select: none;
-  -webkit-user-select: none; /* Prevent selection highlights during swipes */
+* {
+  -webkit-tap-highlight-color: transparent; /* Disable the grey overlay on tap globally */
+  -webkit-touch-callout: none; /* Disable long press popup on links/images in iOS */
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  box-sizing: border-box;
 }
 
 /* Animations */
@@ -178,7 +170,9 @@ img {
   padding: env(safe-area-inset-top) 4px 0 4px;
   min-height: 64px;
   height: calc(64px + env(safe-area-inset-top));
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   margin: 0;
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);

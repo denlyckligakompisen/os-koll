@@ -42,7 +42,8 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.14.2",
-    "user-agent-array": "^2.0.1"
+    "user-agent-array": "^2.0.1",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
