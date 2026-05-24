@@ -252,7 +252,37 @@ const AllsvenskanKollen = () => {
                     // Squads data not available yet - ignore
                 }
 
+                // ---- LOCALSTORAGE CACHE ----
+                let liveCache = {};
+                try {
+                    const cacheStr = localStorage.getItem('allsvenskan_live_cache');
+                    if (cacheStr) {
+                        const parsedCache = JSON.parse(cacheStr);
+                        if (Date.now() - parsedCache.timestamp < 16 * 60 * 60 * 1000) {
+                            liveCache = parsedCache.liveData || {};
+                        } else {
+                            localStorage.removeItem('allsvenskan_live_cache');
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to parse live cache', e);
+                }
+
+                if (Object.keys(liveCache).length > 0 && matches?.matches) {
+                    matches.matches.forEach((m, idx) => {
+                        const cacheKey = `${m.home}-${m.away}`;
+                        if (liveCache[cacheKey]) {
+                            matches.matches[idx] = {
+                                ...matches.matches[idx],
+                                ...liveCache[cacheKey]
+                            };
+                        }
+                    });
+                }
+                // ---- END CACHE ----
+
                 // GraphQL Live Updates Integration
+                let cacheUpdated = false;
                 try {
                     const now = Date.now();
                     const isMatchWindowActive = matches.matches && matches.matches.some(m => {
@@ -274,10 +304,11 @@ const AllsvenskanKollen = () => {
                               homeTeamScore
                               visitingTeamScore
                               matchMinute
+                              matchMinuteWithStoppageTime
                             }
                           }
                         }`;
-                        const gqlRes = await fetch('https://gql.sportomedia.se/graphql', {
+                        const gqlRes = await fetch('/graphql', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ query: liveQuery })
@@ -297,7 +328,8 @@ const AllsvenskanKollen = () => {
                                     let homeScorers = [];
                                     let awayScorers = [];
                                     
-                                    if (liveMatch.status === 'ONGOING') {
+                                    // Fetch details for ONGOING matches, or FINISHED matches if the local data doesn't have scorers yet
+                                    if (liveMatch.status === 'ONGOING' || (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished')) {
                                         const detailsQuery = `
                                         query {
                                           match(id: ${liveMatch.id}, configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -305,13 +337,15 @@ const AllsvenskanKollen = () => {
                                               matchEvents {
                                                 type
                                                 gameTime
+                                                minuteWithStoppageTime
                                                 playerName
                                                 byHomeTeam
+                                                description
                                               }
                                             }
                                           }
                                         }`;
-                                        const detailsRes = await fetch('https://gql.sportomedia.se/graphql', {
+                                        const detailsRes = await fetch('/graphql', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({ query: detailsQuery })
@@ -330,26 +364,40 @@ const AllsvenskanKollen = () => {
                                                 else awayScorers.push(scorer);
                                             }
                                         });
-                                    }
-                                    
-                                    if (liveMatch.status === 'ONGOING') {
-                                        matches.matches[localMatchIndex] = {
-                                            ...matches.matches[localMatchIndex],
+                                        
+                                        const interestingEvents = events.filter(e => !['START', 'PERIOD_RESULT'].includes(e.type) && e.description);
+                                        const topEvents = interestingEvents.slice(0, 3);
+                                        
+                                        const updateData = {
                                             score: `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`,
-                                            status: 'live',
-                                            liveCurrentTime: String(liveMatch.matchMinute),
+                                            status: liveMatch.status === 'ONGOING' ? 'live' : 'finished',
+                                            liveCurrentTime: liveMatch.status === 'ONGOING' ? (liveMatch.matchMinuteWithStoppageTime || String(liveMatch.matchMinute)) : 'FT',
                                             scorers: {
                                                 home: homeScorers,
                                                 away: awayScorers
-                                            }
+                                            },
+                                            latestEvents: topEvents
                                         };
-                                    } else if (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished') {
-                                        matches.matches[localMatchIndex].score = `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`;
-                                        matches.matches[localMatchIndex].status = 'finished';
+                                        
+                                        matches.matches[localMatchIndex] = {
+                                            ...matches.matches[localMatchIndex],
+                                            ...updateData
+                                        };
+                                        
+                                        const cacheKey = `${matches.matches[localMatchIndex].home}-${matches.matches[localMatchIndex].away}`;
+                                        liveCache[cacheKey] = updateData;
+                                        cacheUpdated = true;
                                     }
                                 }
                             }
                         }
+                    }
+                    
+                    if (cacheUpdated && selectedSeason === 2026) {
+                        localStorage.setItem('allsvenskan_live_cache', JSON.stringify({
+                            timestamp: Date.now(),
+                            liveData: liveCache
+                        }));
                     }
                 } catch (liveErr) {
                     console.error("Failed to fetch live matches:", liveErr);

@@ -529,6 +529,29 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                     </div>
                 </div>
+
+                {/* Latest events for live matches */}
+                {match.latestEvents && match.latestEvents.length > 0 && (
+                    <div style={{
+                        marginTop: '16px',
+                        paddingTop: '12px',
+                        borderTop: '1px solid var(--border-subtle)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px',
+                        width: '100%'
+                    }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '500' }}>
+                            Senaste händelser
+                        </div>
+                        {match.latestEvents.map((ev, i) => (
+                            <div key={i} style={{ display: 'flex', gap: '8px', fontSize: '0.85rem' }}>
+                                <span style={{ color: 'var(--color-text-muted)', flexShrink: 0, minWidth: '40px' }}>{ev.minuteWithStoppageTime}</span>
+                                <span style={{ color: 'var(--color-text)' }}>{ev.description}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </Card>
         );
     }
@@ -743,6 +766,29 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
             </div>
+            
+            {/* Latest events for live matches */}
+            {match.latestEvents && match.latestEvents.length > 0 && (
+                <div style={{
+                    marginTop: '12px',
+                    paddingTop: '12px',
+                    borderTop: '1px solid var(--border-subtle)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    width: '100%'
+                }}>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '500' }}>
+                        Senaste händelser
+                    </div>
+                    {match.latestEvents.map((ev, i) => (
+                        <div key={i} style={{ display: 'flex', gap: '8px', fontSize: '0.8rem' }}>
+                            <span style={{ color: 'var(--color-text-muted)', flexShrink: 0, minWidth: '35px' }}>{ev.minuteWithStoppageTime}</span>
+                            <span style={{ color: 'var(--color-text)', lineHeight: '1.2' }}>{ev.description}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
         </Card>
     );
 
