@@ -9,8 +9,8 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight, ArrowUp } from 'lucide-react';
-import MuiMenu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import FilterDrawer from './common/FilterDrawer';
+import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
 
 
@@ -41,52 +41,7 @@ const MONTH_MAP = {
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
 const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
-const parseTournamentDate = (dateStr, timeStr, monthMap = MONTH_MAP) => {
-    if (!dateStr) return new Date();
-    const parts = dateStr.split(' ');
-    const day = parseInt(parts[0]);
-    const monthName = parts[1]?.toLowerCase();
-    const year = parseInt(parts[2]) || CURRENT_YEAR;
 
-    let hour = 0, minute = 0;
-    if (timeStr && timeStr.includes(':')) {
-        const [h, m] = timeStr.split(':').map(Number);
-        hour = h;
-        minute = m;
-    }
-
-    return new Date(year, monthMap[monthName] ?? 0, day, hour, minute);
-};
-
-const getRelativeDateLabel = (dateStr) => {
-    if (!dateStr) return '';
-    try {
-        const matchDate = parseTournamentDate(dateStr, "12:00", GROUP_MONTH_MAP);
-        const today = new Date();
-        const tomorrow = new Date();
-        tomorrow.setDate(today.getDate() + 1);
-        const yesterday = new Date();
-        yesterday.setDate(today.getDate() - 1);
-        
-        matchDate.setHours(0, 0, 0, 0);
-        today.setHours(0, 0, 0, 0);
-        tomorrow.setHours(0, 0, 0, 0);
-        yesterday.setHours(0, 0, 0, 0);
-        
-        if (matchDate.getTime() === today.getTime()) {
-            return "Idag";
-        }
-        if (matchDate.getTime() === tomorrow.getTime()) {
-            return "Imorgon";
-        }
-        if (matchDate.getTime() === yesterday.getTime()) {
-            return "Igår";
-        }
-    } catch {
-        // Fallback
-    }
-    return dateStr;
-};
 
 const COUNTRY_COLORS = {
     'Sverige': { bg: '#004B87', text: '#FFCD00', active: '#FFCD00' },
@@ -615,7 +570,7 @@ const VMKollen = () => {
                                 paddingLeft: '4px',
                                 color: 'var(--color-text-muted)',
                                 letterSpacing: '0.02em'
-                            }}>{getRelativeDateLabel(date)}</div>
+                            }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
                             {matches.map((m, i) => (
                                 <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} />
                             ))}
@@ -634,7 +589,7 @@ const VMKollen = () => {
                 {nextMatches.map((m, idx) => (
                     <div key={idx}>
                         <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                            {getRelativeDateLabel(m.date).toUpperCase()}
+                            {getRelativeDateLabel(m.date, GROUP_MONTH_MAP).toUpperCase()}
                         </div>
                         <MatchCard 
                             match={m} 
@@ -714,7 +669,10 @@ const VMKollen = () => {
 
                 <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
                     <button
-                        onClick={handleMenuClick}
+                        onClick={(e) => {
+                            e.currentTarget.blur();
+                            handleMenuClick(e);
+                        }}
                         className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
                         aria-label="Välj land att filtrera"
                         style={{ height: '100%' }}
@@ -727,82 +685,25 @@ const VMKollen = () => {
                     </button>
                 </div>
             </div>
-                <MuiMenu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
+                <FilterDrawer 
+                    isOpen={Boolean(anchorEl)}
                     onClose={handleMenuClose}
-                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                    slotProps={{
-                        paper: {
-                            style: {
-                                maxHeight: 400,
-                                width: '280px',
-                                borderRadius: '16px',
-                                marginTop: '8px',
-                                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-                                border: '0.5px solid rgba(0,0,0,0.08)',
-                                padding: '8px 0'
-                            }
-                        }
+                    items={allCountries.map(country => ({
+                        id: country,
+                        label: country,
+                        icon: <FlagBadge codes={getFlagCodes(country)} size={22} shadow={false} />
+                    }))}
+                    selectedItem={filterCountry ? {
+                        id: filterCountry,
+                        label: filterCountry,
+                        icon: <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
+                    } : null}
+                    onSelect={handleCountryClick}
+                    onClear={() => {
+                        setFilterCountry(null);
+                        handleMenuClose();
                     }}
-                >
-                    {filterCountry && (
-                        <>
-                            <MenuItem 
-                                onClick={() => {
-                                    setFilterCountry(null);
-                                    handleMenuClose();
-                                }}
-                                style={{ 
-                                    fontSize: '0.9rem', 
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    padding: '12px 16px',
-                                    borderRadius: '8px',
-                                    margin: '2px 8px',
-                                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                                    color: 'var(--color-text)',
-                                    whiteSpace: 'normal',
-                                    lineHeight: '1.2'
-                                }}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                    <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
-                                    <span style={{ flex: 1 }}>{filterCountry}</span>
-                                </div>
-                                <X size={18} strokeWidth={2.5} />
-                            </MenuItem>
-                        </>
-                    )}
-                    {allCountries
-                        .filter(c => c !== filterCountry)
-                        .map((country) => (
-                        <MenuItem 
-                            key={country}
-                            onClick={() => {
-                                handleCountryClick(country);
-                                handleMenuClose();
-                            }}
-                            selected={filterCountry === country}
-                            style={{ 
-                                fontSize: '0.9rem', 
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '12px',
-                                padding: '12px 16px',
-                                borderRadius: '8px',
-                                margin: '2px 8px',
-                                whiteSpace: 'normal',
-                                lineHeight: '1.2'
-                            }}
-                        >
-                            <FlagBadge codes={getFlagCodes(country)} size={22} shadow={false} />
-                            <span style={{ flex: 1 }}>{country}</span>
-                        </MenuItem>
-                    ))}
-                </MuiMenu>
+                />
 
 
 

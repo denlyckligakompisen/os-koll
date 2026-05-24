@@ -320,7 +320,21 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         if (!broadcast) return null;
         const b = broadcast.toUpperCase();
         if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
-        if (b.includes('TV4')) return 'https://www.tv4play.se/kategorier/fifa-fotbolls-vm-2026';
+        if (b.includes('TV4')) {
+            const slugify = (str) => {
+                if (!str) return '';
+                return str.toLowerCase()
+                    .replace(/å/g, 'a')
+                    .replace(/ä/g, 'a')
+                    .replace(/ö/g, 'o')
+                    .replace(/é/g, 'e')
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9\-]/g, '');
+            };
+            const home = slugify(match.home);
+            const away = slugify(match.away);
+            return `https://www.tv4play.se/program/e99c23f01724d859eba7/${home}-${away}`;
+        }
         return null;
     };
 
