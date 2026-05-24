@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
-import MatchCard, { cleanTeamNameForDisplay } from './MatchCard';
+import MatchCard from './MatchCard';
+import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import BoldSverige from './BoldSverige';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
@@ -167,8 +168,8 @@ const AllsvenskanKollen = () => {
     const maratonRefs = React.useRef({});
     const nextMatchRef = React.useRef(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
-    const navigate = useNavigate();
-    
+    const [error, setError] = useState(null);
+    const [liveError, setLiveError] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(2026);
     const [selectedStatTable, setSelectedStatTable] = useState('2026');
     const [currentRoundSliderVal, setCurrentRoundSliderVal] = useState(30);
@@ -366,7 +367,6 @@ const AllsvenskanKollen = () => {
                                         });
                                         
                                         const interestingEvents = events.filter(e => !['START', 'PERIOD_RESULT'].includes(e.type) && e.description);
-                                        const topEvents = interestingEvents.slice(0, 3);
                                         
                                         const updateData = {
                                             score: `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`,
@@ -375,8 +375,7 @@ const AllsvenskanKollen = () => {
                                             scorers: {
                                                 home: homeScorers,
                                                 away: awayScorers
-                                            },
-                                            latestEvents: topEvents
+                                            }
                                         };
                                         
                                         matches.matches[localMatchIndex] = {
@@ -399,8 +398,10 @@ const AllsvenskanKollen = () => {
                             liveData: liveCache
                         }));
                     }
+                    setLiveError(null);
                 } catch (liveErr) {
                     console.error("Failed to fetch live matches:", liveErr);
+                    setLiveError(liveErr.message || liveErr.toString());
                 }
 
                 setMatchesData(matches);
@@ -1025,14 +1026,16 @@ const AllsvenskanKollen = () => {
                             cursor: 'pointer',
                             display: 'flex', 
                             alignItems: 'center', 
-                            gap: '10px',
+                            gap: '6px',
                             padding: '6px 8px',
                             borderRadius: '12px',
                             transition: 'background-color 0.2s',
+                            color: 'var(--color-text-muted)',
+                            fontWeight: '600'
                         }}
                     >
-                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan Logo" style={{ height: '34px', objectFit: 'contain' }} />
-                        <ArrowLeftRight size={18} color="#aeafb4" />
+                        <ArrowLeftRight size={18} />
+                        <span style={{ fontSize: '0.8rem', textTransform: 'uppercase' }}>VM</span>
                     </button>
                 </div>
                 
@@ -1096,6 +1099,38 @@ const AllsvenskanKollen = () => {
                     </button>
                 </div>
             </div>
+            
+            {/* Global Error Message */}
+            {error && (
+                <div style={{
+                    padding: '16px',
+                    margin: '16px',
+                    backgroundColor: 'var(--color-danger)',
+                    color: 'white',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}>
+                    Error: {error}
+                </div>
+            )}
+            
+            {/* Live Data Error Message */}
+            {liveError && (
+                <div style={{
+                    padding: '16px',
+                    margin: '16px',
+                    backgroundColor: '#ff9800',
+                    color: 'white',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}>
+                    Kunde inte hämta live-data (CORS eller nätverksfel). Fel: {liveError}. Testa att starta om servern med (Ctrl+C sedan npm run dev) och uppdatera sidan!
+                </div>
+            )}
 
             <MuiMenu
                 anchorEl={anchorEl}

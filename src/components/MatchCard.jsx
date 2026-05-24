@@ -2,45 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from './common/Card';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
-export const cleanTeamNameForDisplay = (name) => {
-    if (!name) return '';
-    let cleaned = name.trim();
-    
-    // Explicit clean mapping for known teams
-    if (cleaned === 'Djurgårdens IF') return 'Djurgården';
-    if (cleaned === 'Hammarby IF') return 'Hammarby';
-    if (cleaned === 'Malmö FF') return 'Malmö';
-    if (cleaned === 'IK Sirius') return 'Sirius';
-    if (cleaned === 'BK Häcken') return 'Häcken';
-    if (cleaned === 'Halmstads BK') return 'Halmstad';
-    if (cleaned === 'Kalmar FF') return 'Kalmar';
-    if (cleaned === 'Mjällby AIF') return 'Mjällby';
-    if (cleaned === 'Västerås SK') return 'Västerås';
-    if (cleaned === 'IFK Göteborg') return 'Göteborg';
-    if (cleaned === 'IFK Norrköping') return 'Norrköping';
-    if (cleaned === 'IFK Värnamo') return 'Värnamo';
-    if (cleaned === 'IF Elfsborg') return 'Elfsborg';
-    if (cleaned === 'IF Brommapojkarna') return 'BP';
-    if (cleaned === 'Degerfors IF') return 'Degerfors';
-    if (cleaned === 'Örgryte IS') return 'Örgryte';
-    if (cleaned === 'Varbergs BoIS') return 'Varberg';
-    if (cleaned === 'Landskrona BoIS') return 'Landskrona';
-    if (cleaned === 'Trelleborgs FF') return 'Trelleborg';
-    if (cleaned === 'Gefle IF') return 'Gefle';
-    if (cleaned === 'IK Oddevold') return 'Oddevold';
-    if (cleaned === 'Östers IF') return 'Öster';
-    if (cleaned === 'Örebro SK') return 'Örebro';
-    if (cleaned === 'Helsingborgs IF') return 'Helsingborg';
-    if (cleaned === 'GIF Sundsvall') return 'Sundsvall';
-    
-    // Generic regex fallbacks
-    cleaned = cleaned.replace(/^IFK\s+/i, '');
-    cleaned = cleaned.replace(/^(BK|IK)\s+/i, '');
-    cleaned = cleaned.replace(/\s+(IF|FF|BK|BoIS|IS|FK|IK|AIF|SK)\b/gi, '');
-    
-    return cleaned;
-};
-
+import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 
 const TeamLogo = ({ logoUrl, teamName, size = 64, flags = [], onClick }) => {
     const [hasError, setHasError] = useState(false);
@@ -529,29 +491,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                     </div>
                 </div>
-
-                {/* Latest events for live matches */}
-                {match.latestEvents && match.latestEvents.length > 0 && (
-                    <div style={{
-                        marginTop: '16px',
-                        paddingTop: '12px',
-                        borderTop: '1px solid var(--border-subtle)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '6px',
-                        width: '100%'
-                    }}>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '500' }}>
-                            Senaste händelser
-                        </div>
-                        {match.latestEvents.map((ev, i) => (
-                            <div key={i} style={{ display: 'flex', gap: '8px', fontSize: '0.85rem' }}>
-                                <span style={{ color: 'var(--color-text-muted)', flexShrink: 0, minWidth: '40px' }}>{ev.minuteWithStoppageTime}</span>
-                                <span style={{ color: 'var(--color-text)' }}>{ev.description}</span>
-                            </div>
-                        ))}
-                    </div>
-                )}
             </Card>
         );
     }
@@ -766,29 +705,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
             </div>
-            
-            {/* Latest events for live matches */}
-            {match.latestEvents && match.latestEvents.length > 0 && (
-                <div style={{
-                    marginTop: '12px',
-                    paddingTop: '12px',
-                    borderTop: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '4px',
-                    width: '100%'
-                }}>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '500' }}>
-                        Senaste händelser
-                    </div>
-                    {match.latestEvents.map((ev, i) => (
-                        <div key={i} style={{ display: 'flex', gap: '8px', fontSize: '0.8rem' }}>
-                            <span style={{ color: 'var(--color-text-muted)', flexShrink: 0, minWidth: '35px' }}>{ev.minuteWithStoppageTime}</span>
-                            <span style={{ color: 'var(--color-text)', lineHeight: '1.2' }}>{ev.description}</span>
-                        </div>
-                    ))}
-                </div>
-            )}
         </Card>
     );
 
