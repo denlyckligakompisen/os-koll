@@ -254,7 +254,15 @@ const AllsvenskanKollen = () => {
 
                 // GraphQL Live Updates Integration
                 try {
-                    if (selectedSeason === 2026) {
+                    const now = Date.now();
+                    const isMatchWindowActive = matches.matches && matches.matches.some(m => {
+                        if (!m.startTimestamp) return false;
+                        const startMs = m.startTimestamp * 1000;
+                        // Active window: 30 minutes before kick-off until 3 hours after
+                        return now >= startMs - (30 * 60 * 1000) && now <= startMs + (3 * 60 * 60 * 1000);
+                    });
+
+                    if (selectedSeason === 2026 && isMatchWindowActive) {
                         const liveQuery = `
                         query {
                           matchesForLeague(configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -362,14 +370,22 @@ const AllsvenskanKollen = () => {
         fetchData();
 
         let intervalId;
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible' && selectedSeason === 2026) {
+                fetchData(true);
+            }
+        };
+
         if (selectedSeason === 2026) {
             intervalId = setInterval(() => {
                 fetchData(true);
             }, 60000);
+            document.addEventListener('visibilitychange', handleVisibilityChange);
         }
 
         return () => {
             if (intervalId) clearInterval(intervalId);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, [selectedSeason]);
 
