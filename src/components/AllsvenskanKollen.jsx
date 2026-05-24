@@ -252,6 +252,101 @@ const AllsvenskanKollen = () => {
                     // Squads data not available yet - ignore
                 }
 
+                // GraphQL Live Updates Integration
+                try {
+                    if (selectedSeason === 2026) {
+                        const liveQuery = `
+                        query {
+                          matchesForLeague(configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
+                            matches {
+                              id
+                              homeTeamName
+                              visitingTeamName
+                              status
+                              homeTeamScore
+                              visitingTeamScore
+                              matchMinute
+                            }
+                          }
+                        }`;
+                        const gqlRes = await fetch('https://gql.sportomedia.se/graphql', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ query: liveQuery })
+                        });
+                        const gqlData = await gqlRes.json();
+                        
+                        if (gqlData?.data?.matchesForLeague?.matches) {
+                            const liveMatches = gqlData.data.matchesForLeague.matches.filter(m => m.status === 'ONGOING' || m.status === 'FINISHED');
+                            
+                            for (const liveMatch of liveMatches) {
+                                const localMatchIndex = matches.matches.findIndex(m => 
+                                    (m.home.includes(liveMatch.homeTeamName) || liveMatch.homeTeamName.includes(m.home)) &&
+                                    (m.away.includes(liveMatch.visitingTeamName) || liveMatch.visitingTeamName.includes(m.away))
+                                );
+                                
+                                if (localMatchIndex !== -1) {
+                                    let homeScorers = [];
+                                    let awayScorers = [];
+                                    
+                                    if (liveMatch.status === 'ONGOING') {
+                                        const detailsQuery = `
+                                        query {
+                                          match(id: ${liveMatch.id}, configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
+                                            match {
+                                              matchEvents {
+                                                type
+                                                gameTime
+                                                playerName
+                                                byHomeTeam
+                                              }
+                                            }
+                                          }
+                                        }`;
+                                        const detailsRes = await fetch('https://gql.sportomedia.se/graphql', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ query: detailsQuery })
+                                        });
+                                        const detailsData = await detailsRes.json();
+                                        const events = detailsData?.data?.match?.match?.matchEvents || [];
+                                        
+                                        events.forEach(ev => {
+                                            if (ev.type === 'GOAL') {
+                                                const scorer = {
+                                                    player: { name: ev.playerName },
+                                                    time: Math.floor(ev.gameTime / 60),
+                                                    incidentClass: 'goal'
+                                                };
+                                                if (ev.byHomeTeam) homeScorers.push(scorer);
+                                                else awayScorers.push(scorer);
+                                            }
+                                        });
+                                    }
+                                    
+                                    if (liveMatch.status === 'ONGOING') {
+                                        matches.matches[localMatchIndex] = {
+                                            ...matches.matches[localMatchIndex],
+                                            score: `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`,
+                                            status: 'live',
+                                            liveCurrentTime: String(liveMatch.matchMinute),
+                                            scorers: {
+                                                home: homeScorers,
+                                                away: awayScorers
+                                            }
+                                        };
+                                    } else if (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished') {
+                                        matches.matches[localMatchIndex].score = `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`;
+                                        matches.matches[localMatchIndex].status = 'finished';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (liveErr) {
+                    console.error("Failed to fetch live matches:", liveErr);
+                }
+
                 setMatchesData(matches);
                 setLogosData(logos);
                 setTableData(table);
