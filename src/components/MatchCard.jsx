@@ -218,6 +218,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const getComputedStatus = () => {
         if (match.status === 'finished') return 'finished';
         if (match.status === 'postponed') return 'postponed';
+        if (match.status === 'live') return 'live';
 
         if (match.status === 'upcoming' && match.startTimestamp) {
             const startMs = match.startTimestamp * 1000;
@@ -445,8 +446,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             disabled={!getBroadcasterUrl(match.broadcast)}
                             style={{
                                 fontSize: '1.4rem',
-                                color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
-                                backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
+                                color: outcomeTextColor || 'var(--color-text)',
+                                backgroundColor: outcomeBg || 'var(--color-surface-subtle)',
                                 padding: '8px 20px',
                                 borderRadius: '12px',
                                 border: 'none',
@@ -456,7 +457,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 gap: '8px'
                             }}
                         >
-                            {computedStatus === 'live' && <span className="live-indicator-pulse" style={{ width: '10px', height: '10px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {computedStatus === 'finished' ? (computedScore || match.time) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              match.time}
@@ -465,12 +465,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             <div style={{
                                 fontSize: '0.85rem',
                                 fontWeight: '400',
-                                color: '#ff3b30',
+                                color: 'var(--color-text-muted)',
                                 marginTop: '4px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.04em'
                             }}>
-                                {match.liveCurrentTime || 'LIVE'}
+                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </div>
                         )}
 
@@ -614,9 +614,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                         <span style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
-                            color: outcomeTextColor || (computedStatus === 'live' ? '#ff3b30' : 'var(--color-text)'),
+                            color: outcomeTextColor || 'var(--color-text)',
                             flexShrink: 0,
-                            backgroundColor: outcomeBg || (computedStatus === 'live' ? 'rgba(255, 59, 48, 0.1)' : 'var(--color-surface-subtle)'),
+                            backgroundColor: outcomeBg || 'var(--color-surface-subtle)',
                             padding: highlight ? '4px 12px' : '2px 8px',
                             borderRadius: '6px',
                             display: 'flex',
@@ -624,7 +624,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             gap: '4px',
                             transition: 'all 0.3s ease'
                         }}>
-                            {computedStatus === 'live' && <span className="live-indicator-pulse" aria-hidden="true" style={{ width: highlight ? '8px' : '6px', height: highlight ? '8px' : '6px', backgroundColor: '#ff3b30', borderRadius: '50%' }} />}
                             {computedStatus === 'finished' ? (computedScore || match.time) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              match.time}
@@ -633,12 +632,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             <span style={{
                                 fontSize: highlight ? '0.75rem' : '0.68rem',
                                 fontWeight: '400',
-                                color: '#ff3b30',
+                                color: 'var(--color-text-muted)',
                                 marginTop: '2px',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.03em'
                             }}>
-                                {match.liveCurrentTime || 'LIVE'}
+                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </span>
                         )}
                         {match.broadcast && (
