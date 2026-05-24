@@ -1115,7 +1115,7 @@ const AllsvenskanKollen = () => {
             )}
             
             {/* Live Data Error Message */}
-            {liveError && (
+            {false && liveError && (
                 <div style={{
                     padding: '16px',
                     margin: '16px',
@@ -1129,6 +1129,7 @@ const AllsvenskanKollen = () => {
                     Kunde inte hämta live-data (CORS eller nätverksfel). Fel: {liveError}. Testa att starta om servern med (Ctrl+C sedan npm run dev) och uppdatera sidan!
                 </div>
             )}
+
 
             <MuiMenu
                 anchorEl={anchorEl}
