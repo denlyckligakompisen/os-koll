@@ -86,10 +86,10 @@ const TEAM_COLORS = {
 const getHeaderStyle = (teamName) => {
     if (!teamName || !TEAM_COLORS[teamName]) {
         return {
-            bg: "rgba(255, 255, 255, 0.85)",
-            text: "#000000",
-            inactiveText: "#636366",
-            activeLine: "#000000"
+            bg: "var(--color-glass-bg)",
+            text: "var(--color-text)",
+            inactiveText: "var(--color-text-muted)",
+            activeLine: "var(--color-text)"
         };
     }
     const colors = TEAM_COLORS[teamName];
@@ -1043,11 +1043,6 @@ const AllsvenskanKollen = () => {
                                     window.scrollTo({ top: 0 });
                                 }
                                 if (navigator.vibrate) navigator.vibrate(10);
-                            }}
-                            style={{
-                                color: activeTab === tab.id ? headerStyle.text : headerStyle.inactiveText,
-                                borderBottomColor: activeTab === tab.id ? headerStyle.activeLine : 'transparent',
-                                transition: 'all 0.3s ease'
                             }}
                         >
                             <tab.icon size={22} className="tab-icon" />

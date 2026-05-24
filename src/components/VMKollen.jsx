@@ -94,10 +94,10 @@ const COUNTRY_COLORS = {
 const getVMHeaderStyle = (countryName) => {
     if (!countryName) {
         return {
-            bg: '#ffffff',
-            text: '#000000',
-            inactiveText: '#636366',
-            activeLine: '#000000'
+            bg: 'var(--color-glass-bg)',
+            text: 'var(--color-text)',
+            inactiveText: 'var(--color-text-muted)',
+            activeLine: 'var(--color-text)'
         };
     }
     const colors = COUNTRY_COLORS[countryName] || { bg: '#1c1c1e', text: '#ffffff', active: '#34c759' };
@@ -655,11 +655,6 @@ const VMKollen = () => {
                                 setActiveTab(tab.id);
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
-                            style={{
-                                color: activeTab === tab.id ? headerStyle.text : headerStyle.inactiveText,
-                                borderBottomColor: activeTab === tab.id ? headerStyle.activeLine : 'transparent',
-                                transition: 'all 0.3s ease'
-                            }}
                         >
                             <tab.icon size={22} className="tab-icon" />
                             <span className="tab-label">{tab.label}</span>
@@ -761,7 +756,6 @@ const VMKollen = () => {
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
                                                     <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }} aria-label="Rank">#</th>
                                                     <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
-                                                    <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', }}>POÄNG</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -804,7 +798,11 @@ const VMKollen = () => {
                                                                         )}
                                                                     </div>
                                                                 </td>
-                                                                <td style={{ padding: '11px 4px' }}>
+                                                                <td style={{ 
+                                                                    padding: '11px 4px',
+                                                                    borderTopRightRadius: isSelected ? '12px' : '0',
+                                                                    borderBottomRightRadius: isSelected ? '12px' : '0'
+                                                                }}>
                                                                     <button
                                                                         aria-label={isTournamentTeam ? `Visa information om ${r.team}` : r.team}
                                                                         disabled={!isTournamentTeam}
@@ -827,15 +825,7 @@ const VMKollen = () => {
                                                                         <span style={{ }}><BoldSverige text={r.team} /></span>
                                                                     </button>
                                                                 </td>
-                                                            <td style={{ 
-                                                                padding: '11px 4px', 
-                                                                textAlign: 'right', 
-                                                                borderTopRightRadius: isSelected ? '12px' : '0',
-                                                                borderBottomRightRadius: isSelected ? '12px' : '0'
-                                                            }}>
-                                                                {r.points}
-                                                            </td>
-                                                        </tr>
+                                                            </tr>
                                                     );
                                                 })}
                                             </tbody>
