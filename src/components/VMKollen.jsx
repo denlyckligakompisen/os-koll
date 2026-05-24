@@ -8,6 +8,7 @@ import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
+import MatchCardSkeleton from './common/MatchCardSkeleton';
 import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight, ArrowUp } from 'lucide-react';
 import FilterDrawer from './common/FilterDrawer';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
@@ -144,6 +145,7 @@ const VMKollen = () => {
     const [filterCountry, setFilterCountry] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
     useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
@@ -243,8 +245,9 @@ const VMKollen = () => {
     useEffect(() => {
         const handleScroll = () => {
             setShowScrollTop(window.scrollY > 400);
+            setIsScrolled(window.scrollY > 10);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -430,7 +433,18 @@ const VMKollen = () => {
             .map(t => t.name);
     }, [groupsData]);
 
-    if (loading) return <div style={{ padding: '80px 40px', textAlign: 'center', color: 'var(--color-text-muted)', }}>Laddar...</div>;
+    if (loading) {
+        return (
+            <div className="app-container">
+                <div style={{ padding: '80px 16px', display: 'flex', flexDirection: 'column' }}>
+                    <MatchCardSkeleton />
+                    <MatchCardSkeleton />
+                    <MatchCardSkeleton />
+                    <MatchCardSkeleton />
+                </div>
+            </div>
+        );
+    }
     if (!groupsData) return null;
 
     const renderTable = (groupName, teams, displayName, idx = 0) => {
@@ -619,12 +633,14 @@ const VMKollen = () => {
 
 
             {/* Full-width Sticky Header */}
-            <div className="nav-container" style={{ 
-                backgroundColor: headerStyle.bg,
+            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
+                backgroundColor: isScrolled ? headerStyle.bg : (filterCountry ? headerStyle.bg : 'var(--color-bg)'),
                 color: headerStyle.text,
                 '--active-color': headerStyle.activeLine,
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: filterCountry ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+                boxShadow: (isScrolled && !filterCountry) ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
             }}>
                 <div
                     className="header-logo"

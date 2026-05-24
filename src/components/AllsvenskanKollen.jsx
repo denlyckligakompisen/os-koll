@@ -4,6 +4,7 @@ import Card from './common/Card';
 import MatchCard from './MatchCard';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import BoldSverige from './BoldSverige';
+import MatchCardSkeleton from './common/MatchCardSkeleton';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
@@ -137,6 +138,7 @@ const AllsvenskanKollen = () => {
     const [maratonData, setMaratonData] = useState(null);
     const [squadsData, setSquadsData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
     const tableRefs = React.useRef({});
     const maratonRefs = React.useRef({});
     const nextMatchRef = React.useRef(null);
@@ -171,8 +173,9 @@ const AllsvenskanKollen = () => {
     useEffect(() => {
         const handleScroll = () => {
             setShowScrollTop(window.scrollY > 400);
+            setIsScrolled(window.scrollY > 10);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -603,7 +606,7 @@ const AllsvenskanKollen = () => {
                     stats[homeTeam].played += 1;
                     stats[awayTeam].played += 1;
                     stats[homeTeam].goalsFor += homeGoals;
-                    stats[homeTeam].goalsAgainst += awayGoals;
+                    stats[awayTeam].goalsAgainst += awayGoals;
                     stats[awayTeam].goalsFor += awayGoals;
                     stats[awayTeam].goalsAgainst += homeGoals;
 
@@ -718,7 +721,7 @@ const AllsvenskanKollen = () => {
                     statsPrev[homeTeam].played += 1;
                     statsPrev[awayTeam].played += 1;
                     statsPrev[homeTeam].goalsFor += homeGoals;
-                    statsPrev[homeTeam].goalsAgainst += awayGoals;
+                    statsPrev[awayTeam].goalsAgainst += awayGoals;
                     statsPrev[awayTeam].goalsFor += awayGoals;
                     statsPrev[awayTeam].goalsAgainst += homeGoals;
 
@@ -988,12 +991,14 @@ const AllsvenskanKollen = () => {
                 <ArrowUp size={28} />
             </button>
 
-            <div className="nav-container" style={{ 
-                backgroundColor: headerStyle.bg,
+            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
+                backgroundColor: isScrolled ? headerStyle.bg : (filterTeam ? headerStyle.bg : 'var(--color-bg)'),
                 color: headerStyle.text,
                 '--active-color': headerStyle.activeLine,
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: filterTeam ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+                boxShadow: (isScrolled && !filterTeam) ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+                WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
             }}>
                 <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
                     <button
@@ -1184,8 +1189,10 @@ const AllsvenskanKollen = () => {
                                 </div>
                             </div>
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-                                    Laddar matcher...
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    <MatchCardSkeleton />
+                                    <MatchCardSkeleton />
+                                    <MatchCardSkeleton />
                                 </div>
                             ) : (
                                 <>
@@ -1325,9 +1332,13 @@ const AllsvenskanKollen = () => {
                             </div>
 
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-                                    Laddar tabell...
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    <MatchCardSkeleton />
+                                    <MatchCardSkeleton />
+                                    <MatchCardSkeleton />
                                 </div>
+                            ) : error ? (
+                                <div style={{ padding: '20px', textAlign: 'center' }}>{error}</div>
                             ) : (
                                 <Card style={{ marginBottom: '0' }}>
                                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
@@ -1680,8 +1691,9 @@ const AllsvenskanKollen = () => {
                     {activeTab === 'squads' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             {loading ? (
-                                <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-                                    Laddar trupper...
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    <MatchCardSkeleton />
+                                    <MatchCardSkeleton />
                                 </div>
                             ) : !squadsData?.teams ? (
                                 <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
