@@ -6389,101 +6389,245 @@
     {
       "home": "Hammarby IF",
       "away": "AIK",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529894/hammarby-mot-aik",
-      "score": "",
-      "status": "upcoming",
+      "score": "1 - 2",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1779624000,
+      "startTimestamp": 1779573600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Ibrahima Breze Fofana"
+            },
+            "time": 48,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Johan Hove"
+            },
+            "time": 58,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Bersant Celina"
+            },
+            "time": 84,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": {
         "info": [
           "SÖN 24 MAJ 14:00",
           "ADAM LADEBÄCK, DANIEL YNG, SEBASTIAN ROBERTSSON",
           "3ARENA",
-          "OMGÅNG 9"
+          "OMGÅNG 9",
+          "28 226"
         ],
-        "stats": [],
+        "stats": [
+          {
+            "home": "Hammarby\nTotalt\nAIK",
+            "label": "Hammarby",
+            "away": "Totalt"
+          },
+          {
+            "home": "52.5%",
+            "label": "52.5%",
+            "away": ""
+          },
+          {
+            "home": "14",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "5"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "120 679",
+            "label": "Löpmeter (m)",
+            "away": "120 678"
+          },
+          {
+            "home": "5",
+            "label": "Hörnor",
+            "away": "4"
+          }
+        ],
         "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "1 | IK Sirius | 8 | 7 | 1 | 0 | 22-9 | 22",
-          "2 | Hammarby | 9 | 5 | 2 | 2 | 21-8 | 17",
-          "3 | BK Häcken | 8 | 4 | 4 | 0 | 16-11 | 16",
-          "-",
-          "10 | Malmö FF | 8 | 3 | 1 | 4 | 13-15 | 10",
-          "11 | AIK | 8 | 2 | 3 | 3 | 10-12 | 9",
-          "12 | Degerfors IF | 9 | 2 | 3 | 4 | 10-14 | 9"
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Johan Hove | AIK | 12 995 | 29,6",
+          "2 | Paulos Abraham | Hammarby | 12 455 | 32,62",
+          "3 | Erik Hovden Flataker | AIK | 12 331 | 29,49",
+          "4 | Markus Karlsson | Hammarby | 12 166 | 30,63",
+          "5 | Frederik Winther | Hammarby | 11 782 | 29,72",
+          "6 | Mads Thychosen | AIK | 11 260 | 31,26",
+          "7 | Dino Besirovic | AIK | 11 197 | 31,92",
+          "8 | Áron Csongvai | AIK | 11 123 | 31,42",
+          "9 | Ibrahima Fofana | Hammarby | 10 998 | 31,62",
+          "10 | Stanley Wilson | AIK | 10 975 | 31,42",
+          "11 | Nahir Besara | Hammarby | 10 941 | 26,5",
+          "12 | Bersant Celina | AIK | 10 916 | 32,5",
+          "13 | Tesfaldet Tekie | Hammarby | 10 514 | 30,54",
+          "14 | Oscar Johansson | Hammarby | 10 513 | 33,6",
+          "15 | Yannick Geiger | AIK | 9 662 | 31,18",
+          "16 | Victor Eriksson | Hammarby | 9 589 | 29,39",
+          "17 | Kevin Filling | AIK | 8 817 | 32,6",
+          "18 | Noah Persson | Hammarby | 8 800 | 31,14",
+          "19 | Montader Madjed | Hammarby | 8 649 | 27,37",
+          "20 | Sotirios Papagiannopoulos | AIK | 7 386 | 29,68"
         ]
       }
     },
     {
       "home": "IK Sirius",
       "away": "GAIS",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529898/ik-sirius-mot-gais",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 1",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1779624000,
+      "startTimestamp": 1779573600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Isak Bjerkebo"
+            },
+            "time": 6,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Victor Ekström"
+            },
+            "time": 44,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Rasmus Niklasson Petrovic"
+            },
+            "time": 16,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": {
         "info": [
           "SÖN 24 MAJ 14:00",
           "KRISTOFFER KARLSSON, PER REHNLUND, PÄR LEEK",
           "STUDENTERNAS",
-          "OMGÅNG 9"
+          "OMGÅNG 9",
+          "9 008"
         ],
-        "stats": [],
+        "stats": [
+          {
+            "home": "IK Sirius\nTotalt\nGAIS",
+            "label": "IK Sirius",
+            "away": "Totalt"
+          },
+          {
+            "home": "44%",
+            "label": "44%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "1",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "112 735",
+            "label": "Löpmeter (m)",
+            "away": "118 211"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
         "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "1 | IK Sirius | 8 | 7 | 1 | 0 | 22-9 | 22",
-          "2 | Hammarby | 9 | 5 | 2 | 2 | 21-8 | 17",
-          "-",
-          "7 | Djurgården | 9 | 4 | 1 | 4 | 19-13 | 13",
-          "8 | GAIS | 9 | 3 | 3 | 3 | 12-9 | 12",
-          "9 | Kalmar FF | 9 | 3 | 1 | 5 | 11-12 | 10"
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Marcus Lindberg | IK Sirius | 12 049 | 30,36",
+          "2 | Rasmus Niklasson Petrovic | GAIS | 12 000 | 31,22",
+          "3 | Joackim Fagerjord | GAIS | 11 342 | 27,91",
+          "4 | August Wängberg | GAIS | 11 101 | 33,27",
+          "5 | Melker Heier | IK Sirius | 11 087 | 29,04",
+          "6 | Oscar Krusnell | IK Sirius | 11 031 | 32,75",
+          "7 | Victor Ekström | IK Sirius | 10 944 | 28,03",
+          "8 | Robin Frej | GAIS | 10 738 | 28,82",
+          "9 | Henrik Castegren | IK Sirius | 10 701 | 31,77",
+          "10 | Robbie Ure | IK Sirius | 10 241 | 31,71",
+          "11 | Róbert Frosti Þorkelsson | GAIS | 10 221 | 29,94",
+          "12 | Anes Cardaklija | GAIS | 10 192 | 27,56",
+          "13 | Samuel Salter | GAIS | 9 187 | 28,95",
+          "14 | Mohamed Soumah | IK Sirius | 8 863 | 29,07",
+          "15 | Max Andersson | GAIS | 8 766 | 29,21",
+          "16 | William Milovanovic | GAIS | 8 538 | 30,41",
+          "17 | Victor Svensson | IK Sirius | 8 372 | 31,17",
+          "18 | Isak Bjerkebo | IK Sirius | 7 840 | 29,73",
+          "19 | Neo Jönsson | IK Sirius | 7 711 | 32,69",
+          "20 | Filip Beckman | GAIS | 6 677 | 30,15"
         ]
       }
     },
     {
       "home": "Malmö FF",
       "away": "Västerås SK",
-      "time": "16:30",
+      "time": "TBA",
       "date": "SÖNDAG 24 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529896/malmo-ff-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 3",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1779633000,
+      "startTimestamp": 1779573600,
       "scorers": {
         "home": [],
         "away": []
       },
       "detailedStats": {
-        "info": [
-          "SÖN 24 MAJ 16:30",
-          "RICHARD SUNDELL, ANDREAS SVENSSON, ANTON SJÖBERG",
-          "ELEDA STADION",
-          "OMGÅNG 9"
-        ],
+        "info": [],
         "stats": [],
-        "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "9 | Kalmar FF | 9 | 3 | 1 | 5 | 11-12 | 10",
-          "10 | Malmö FF | 8 | 3 | 1 | 4 | 13-15 | 10",
-          "11 | AIK | 8 | 2 | 3 | 3 | 10-12 | 9",
-          "12 | Degerfors IF | 9 | 2 | 3 | 4 | 10-14 | 9",
-          "13 | Västerås SK | 8 | 2 | 3 | 3 | 10-15 | 9",
-          "14 | Halmstads BK | 9 | 1 | 3 | 5 | 7-15 | 6"
-        ]
+        "players": []
       }
     },
     {
@@ -9402,6 +9546,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-24T05:58:56.061Z",
+  "lastUpdated": "2026-05-25T06:24:43.042Z",
   "source": "https://allsvenskan.se/matcher"
 }

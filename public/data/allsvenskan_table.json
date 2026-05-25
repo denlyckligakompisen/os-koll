@@ -3,23 +3,23 @@
     {
       "rank": "1",
       "team": "IK Sirius",
-      "played": "8",
-      "won": "7",
+      "played": "9",
+      "won": "8",
       "drawn": "1",
       "lost": "0",
-      "goals": "22-9",
-      "gd": "13",
-      "points": "22"
+      "goals": "24-10",
+      "gd": "14",
+      "points": "25"
     },
     {
       "rank": "2",
       "team": "Hammarby IF",
-      "played": "9",
+      "played": "10",
       "won": "5",
       "drawn": "2",
-      "lost": "2",
-      "goals": "21-8",
-      "gd": "13",
+      "lost": "3",
+      "goals": "22-10",
+      "gd": "12",
       "points": "17"
     },
     {
@@ -80,16 +80,38 @@
     {
       "rank": "8",
       "team": "GAIS",
-      "played": "9",
+      "played": "10",
       "won": "3",
       "drawn": "3",
-      "lost": "3",
-      "goals": "12-9",
-      "gd": "3",
+      "lost": "4",
+      "goals": "13-11",
+      "gd": "2",
       "points": "12"
     },
     {
       "rank": "9",
+      "team": "AIK",
+      "played": "9",
+      "won": "3",
+      "drawn": "3",
+      "lost": "3",
+      "goals": "12-13",
+      "gd": "-1",
+      "points": "12"
+    },
+    {
+      "rank": "10",
+      "team": "Västerås SK",
+      "played": "9",
+      "won": "3",
+      "drawn": "3",
+      "lost": "3",
+      "goals": "13-17",
+      "gd": "-4",
+      "points": "12"
+    },
+    {
+      "rank": "11",
       "team": "Kalmar FF",
       "played": "9",
       "won": "3",
@@ -100,29 +122,18 @@
       "points": "10"
     },
     {
-      "rank": "10",
+      "rank": "12",
       "team": "Malmö FF",
-      "played": "8",
+      "played": "9",
       "won": "3",
       "drawn": "1",
-      "lost": "4",
-      "goals": "13-15",
-      "gd": "-2",
+      "lost": "5",
+      "goals": "15-18",
+      "gd": "-3",
       "points": "10"
     },
     {
-      "rank": "11",
-      "team": "AIK",
-      "played": "8",
-      "won": "2",
-      "drawn": "3",
-      "lost": "3",
-      "goals": "10-12",
-      "gd": "-2",
-      "points": "9"
-    },
-    {
-      "rank": "12",
+      "rank": "13",
       "team": "Degerfors IF",
       "played": "9",
       "won": "2",
@@ -130,17 +141,6 @@
       "lost": "4",
       "goals": "10-14",
       "gd": "-4",
-      "points": "9"
-    },
-    {
-      "rank": "13",
-      "team": "Västerås SK",
-      "played": "8",
-      "won": "2",
-      "drawn": "3",
-      "lost": "3",
-      "goals": "10-15",
-      "gd": "-5",
       "points": "9"
     },
     {
@@ -177,5 +177,5 @@
       "points": "5"
     }
   ],
-  "lastUpdated": "2026-05-24T05:59:02.424Z"
+  "lastUpdated": "2026-05-25T06:24:48.890Z"
 }
