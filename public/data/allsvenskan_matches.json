@@ -6633,66 +6633,210 @@
     {
       "home": "IFK Göteborg",
       "away": "Mjällby AIF",
-      "time": "19:00",
+      "time": "TBA",
       "date": "MÅNDAG 25 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529895/ifk-goteborg-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming",
+      "score": "1 - 1",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1779728400,
+      "startTimestamp": 1779660000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 58,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": {
         "info": [
           "MÅN 25 MAJ 19:00",
           "OSCAR JOHNSON, MARCUS KLITTE, NIKLAS NYBERG",
           "GAMLA ULLEVI",
-          "OMGÅNG 9"
+          "OMGÅNG 9",
+          "16 653"
         ],
-        "stats": [],
+        "stats": [
+          {
+            "home": "IFK Göteborg\nTotalt\nMjällby AIF",
+            "label": "IFK Göteborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "47.5%",
+            "label": "47.5%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "7",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "6",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 873",
+            "label": "Löpmeter (m)",
+            "away": "122 573"
+          },
+          {
+            "home": "2",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
         "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "4 | IF Elfsborg | 9 | 4 | 4 | 1 | 13-8 | 16",
-          "5 | Mjällby AIF | 9 | 4 | 2 | 3 | 13-10 | 14",
-          "6 | BP | 9 | 4 | 2 | 3 | 13-14 | 14",
-          "-",
-          "13 | Kalmar FF | 8 | 2 | 1 | 5 | 9-11 | 7",
-          "14 | IFK Göteborg | 8 | 1 | 3 | 4 | 7-17 | 6",
-          "15 | Örgryte IS | 8 | 1 | 2 | 5 | 8-21 | 5"
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 12 896 | 30,99",
+          "2 | Villiam Granath | Mjällby AIF | 12 451 | 31,5",
+          "3 | Tobias Heintz | IFK Göteborg | 12 295 | 27,04",
+          "4 | Ludwig Malachowski | Mjällby AIF | 12 187 | 30,02",
+          "5 | Jesper Gustavsson | Mjällby AIF | 12 161 | 28,62",
+          "6 | August Erlingmark | IFK Göteborg | 11 437 | 28,95",
+          "7 | Jacob Bergström | Mjällby AIF | 11 371 | 29,64",
+          "8 | Ludvig Tidstrand | Mjällby AIF | 11 198 | 33,04",
+          "9 | Axel Norén | Mjällby AIF | 11 180 | 30,49",
+          "10 | Jonas Bager | IFK Göteborg | 10 945 | 28,82",
+          "11 | Alexander Jallow | IFK Göteborg | 10 831 | 30,53",
+          "12 | Abdullah Iqbal | Mjällby AIF | 10 800 | 30,41",
+          "13 | Rockson Yeboah | IFK Göteborg | 10 312 | 34,08",
+          "14 | Filip Ottosson | IFK Göteborg | 10 167 | 30,59",
+          "15 | Jeppe Kjaer | Mjällby AIF | 9 953 | 32,22",
+          "16 | Benjamin Brantlind | IFK Göteborg | 9 666 | 31,28",
+          "17 | Adam Bergmark Wiberg | IFK Göteborg | 9 545 | 32,87",
+          "18 | Sebastian Clemmensen | IFK Göteborg | 8 776 | 32,55",
+          "19 | Olle Lindberg | Mjällby AIF | 7 570 | 31,31",
+          "20 | Ludvig Svanberg | Mjällby AIF | 6 543 | 31,6"
         ]
       }
     },
     {
       "home": "IF Elfsborg",
       "away": "BK Häcken",
-      "time": "19:00",
+      "time": "TBA",
       "date": "MÅNDAG 25 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529897/if-elfsborg-mot-bk-hacken",
-      "score": "",
-      "status": "upcoming",
+      "score": "1 - 1",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1779728400,
+      "startTimestamp": 1779660000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 67,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 42,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": {
         "info": [
           "MÅN 25 MAJ 19:00",
           "FREDRIK KLITTE, SIMON KRISTENSSON, JONAS DAHL",
           "BORÅS ARENA",
-          "OMGÅNG 9"
+          "OMGÅNG 9",
+          "7 152"
         ],
-        "stats": [],
+        "stats": [
+          {
+            "home": "IF Elfsborg\nTotalt\nBK Häcken",
+            "label": "IF Elfsborg",
+            "away": "Totalt"
+          },
+          {
+            "home": "35%",
+            "label": "35%",
+            "away": ""
+          },
+          {
+            "home": "8",
+            "label": "Avslut",
+            "away": "12"
+          },
+          {
+            "home": "5",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "124 469",
+            "label": "Löpmeter (m)",
+            "away": "119 683"
+          },
+          {
+            "home": "1",
+            "label": "Hörnor",
+            "away": "6"
+          }
+        ],
         "players": [
-          "TABELLEN | S | V | O | F | +/- | P",
-          "1 | IK Sirius | 8 | 7 | 1 | 0 | 22-9 | 22",
-          "2 | Hammarby | 9 | 5 | 2 | 2 | 21-8 | 17",
-          "3 | BK Häcken | 8 | 4 | 4 | 0 | 16-11 | 16",
-          "4 | IF Elfsborg | 9 | 4 | 4 | 1 | 13-8 | 16",
-          "5 | Mjällby AIF | 9 | 4 | 2 | 3 | 13-10 | 14"
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Silas Andersen | BK Häcken | 13 093 | 29,05",
+          "2 | Julius Magnusson | IF Elfsborg | 13 032 | 30,18",
+          "3 | Mikkel Rygaard | BK Häcken | 13 012 | 27,87",
+          "4 | Julius Lindberg | BK Häcken | 12 450 | 32,53",
+          "5 | Simon Olsson | IF Elfsborg | 12 104 | 28,02",
+          "6 | Momoh Ibrahim Kamara | IF Elfsborg | 11 697 | 33,65",
+          "7 | Thomas Isherwood | IF Elfsborg | 11 626 | 28,64",
+          "8 | Olle Samuelsson | BK Häcken | 11 506 | 32,38",
+          "9 | Gustav Lindgren | BK Häcken | 10 873 | 33,26",
+          "10 | Filip Helander | BK Häcken | 10 815 | 29,7",
+          "11 | Niklas Hult | IF Elfsborg | 10 759 | 32,24",
+          "12 | Sebastian Holmén | IF Elfsborg | 10 692 | 30,1",
+          "13 | Harry Hilvenius | BK Häcken | 10 564 | 26,33",
+          "14 | Brice Wembangomo | BK Häcken | 10 526 | 33,43",
+          "15 | Amor Layouni | BK Häcken | 9 929 | 33,23",
+          "16 | Leo Östman | IF Elfsborg | 9 491 | 30,69",
+          "17 | Julius Beck | IF Elfsborg | 9 214 | 29,57",
+          "18 | Adrian Svanbäck | BK Häcken | 8 467 | 33,52",
+          "19 | Arber Zeneli | IF Elfsborg | 7 778 | 32,98",
+          "20 | Mohammed Rufai | IF Elfsborg | 7 691 | 31,74"
         ]
       }
     },
@@ -9546,6 +9690,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-25T06:24:43.042Z",
+  "lastUpdated": "2026-05-26T06:03:39.827Z",
   "source": "https://allsvenskan.se/matcher"
 }
