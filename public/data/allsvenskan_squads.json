@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-26T06:04:55.214Z",
+  "lastUpdated": "2026-05-27T06:18:21.310Z",
   "source": "transfermarkt.com",
   "season": "2025/26",
   "teams": {
@@ -3819,7 +3819,7 @@
       {
         "name": "Villy Strindlund Larsen",
         "position": "Goalkeeper",
-        "number": null,
+        "number": "40",
         "age": "19/09/2007 (18)",
         "value": "-",
         "joined": "21/05/2026",
@@ -4597,7 +4597,7 @@
       {
         "name": "Simon Sjöholm",
         "position": "Right Winger",
-        "number": null,
+        "number": "31",
         "age": "10/04/2006 (20)",
         "value": "-",
         "joined": "26/02/2025",
@@ -5019,7 +5019,7 @@
         "age": "21/06/2009 (16)",
         "value": "-",
         "joined": "01/01/2026",
-        "contract": "-",
+        "contract": "31/12/2028",
         "nationalities": [
           {
             "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
