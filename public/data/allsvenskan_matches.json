@@ -6953,6 +6953,22 @@
       "detailedStats": null
     },
     {
+      "home": "Mjällby AIF",
+      "away": "Djurgårdens IF",
+      "time": "19:00",
+      "date": "TORSDAG 3 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529905/mjallby-aif-mot-djurgardens-if",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788454800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
       "home": "IK Sirius",
       "away": "Mjällby AIF",
       "time": "19:00",
@@ -8026,111 +8042,47 @@
       "detailedStats": null
     },
     {
-      "home": "AIK",
-      "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529965/aik-mot-mjallby-aif",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529966/hammarby-mot-gais",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529967/ifk-goteborg-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529968/orgryte-is-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Malmö FF",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529969/malmo-ff-mot-djurgardens-if",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "Degerfors IF",
-      "time": "00:00",
-      "date": "LÖRDAG 22 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529970/if-brommapojkarna-mot-degerfors-if",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
       "home": "IK Sirius",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 22 AUGUSTI",
       "link": "https://allsvenskan.se/matcher/2026/6529971/ik-sirius-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
+      "startTimestamp": 1787418000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Halmstads BK",
+      "time": "15:00",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529968/orgryte-is-mot-halmstads-bk",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1787403600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "IF Elfsborg",
+      "time": "14:00",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529967/ifk-goteborg-mot-if-elfsborg",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1787400000,
       "scorers": {
         "home": [],
         "away": []
@@ -8140,13 +8092,61 @@
     {
       "home": "Västerås SK",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "14:00",
       "date": "LÖRDAG 22 AUGUSTI",
       "link": "https://allsvenskan.se/matcher/2026/6529972/vasteras-sk-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787349600,
+      "startTimestamp": 1787400000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "GAIS",
+      "time": "16:30",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529966/hammarby-mot-gais",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1787409000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "Degerfors IF",
+      "time": "16:30",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529970/if-brommapojkarna-mot-degerfors-if",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1787409000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Djurgårdens IF",
+      "time": "19:00",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529969/malmo-ff-mot-djurgardens-if",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1787418000,
       "scorers": {
         "home": [],
         "away": []
@@ -8155,62 +8155,14 @@
     },
     {
       "home": "AIK",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "LÖRDAG 29 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529973/aik-mot-hammarby",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Djurgårdens IF",
       "away": "Mjällby AIF",
-      "time": "00:00",
-      "date": "LÖRDAG 29 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529974/djurgardens-if-mot-mjallby-aif",
+      "time": "19:00",
+      "date": "LÖRDAG 22 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529965/aik-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "LÖRDAG 29 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529975/ifk-goteborg-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "GAIS",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "LÖRDAG 29 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529976/gais-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
+      "startTimestamp": 1787418000,
       "scorers": {
         "home": [],
         "away": []
@@ -8220,13 +8172,13 @@
     {
       "home": "BK Häcken",
       "away": "Västerås SK",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 29 AUGUSTI",
       "link": "https://allsvenskan.se/matcher/2026/6529977/bk-hacken-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
+      "startTimestamp": 1788008400,
       "scorers": {
         "home": [],
         "away": []
@@ -8236,29 +8188,13 @@
     {
       "home": "IF Elfsborg",
       "away": "Degerfors IF",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 29 AUGUSTI",
       "link": "https://allsvenskan.se/matcher/2026/6529978/if-elfsborg-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IK Sirius",
-      "away": "Malmö FF",
-      "time": "00:00",
-      "date": "LÖRDAG 29 AUGUSTI",
-      "link": "https://allsvenskan.se/matcher/2026/6529979/ik-sirius-mot-malmo-ff",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
+      "startTimestamp": 1788008400,
       "scorers": {
         "home": [],
         "away": []
@@ -8268,13 +8204,93 @@
     {
       "home": "Halmstads BK",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "17:30",
       "date": "LÖRDAG 29 AUGUSTI",
       "link": "https://allsvenskan.se/matcher/2026/6529980/halmstads-bk-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1787954400,
+      "startTimestamp": 1788017400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "AIK",
+      "away": "Hammarby IF",
+      "time": "14:00",
+      "date": "LÖRDAG 29 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529973/aik-mot-hammarby",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788004800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Örgryte IS",
+      "time": "16:30",
+      "date": "LÖRDAG 29 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529975/ifk-goteborg-mot-orgryte-is",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788013800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "Mjällby AIF",
+      "time": "19:00",
+      "date": "LÖRDAG 29 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529974/djurgardens-if-mot-mjallby-aif",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788022800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "GAIS",
+      "away": "IF Brommapojkarna",
+      "time": "19:00",
+      "date": "LÖRDAG 29 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529976/gais-mot-if-brommapojkarna",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788022800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IK Sirius",
+      "away": "Malmö FF",
+      "time": "19:00",
+      "date": "LÖRDAG 29 AUGUSTI",
+      "link": "https://allsvenskan.se/matcher/2026/6529979/ik-sirius-mot-malmo-ff",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788022800,
       "scorers": {
         "home": [],
         "away": []
@@ -8284,77 +8300,13 @@
     {
       "home": "GAIS",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 5 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529981/gais-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "LÖRDAG 5 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529982/orgryte-is-mot-hammarby",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "IFK Göteborg",
-      "time": "00:00",
-      "date": "LÖRDAG 5 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529983/mjallby-aif-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Malmö FF",
-      "away": "AIK",
-      "time": "00:00",
-      "date": "LÖRDAG 5 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529984/malmo-ff-mot-aik",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IF Brommapojkarna",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "LÖRDAG 5 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529985/if-brommapojkarna-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
+      "startTimestamp": 1788613200,
       "scorers": {
         "home": [],
         "away": []
@@ -8364,13 +8316,13 @@
     {
       "home": "Degerfors IF",
       "away": "Halmstads BK",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 5 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529986/degerfors-if-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
+      "startTimestamp": 1788613200,
       "scorers": {
         "home": [],
         "away": []
@@ -8380,13 +8332,77 @@
     {
       "home": "Västerås SK",
       "away": "IK Sirius",
-      "time": "00:00",
+      "time": "17:30",
       "date": "LÖRDAG 5 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529987/vasteras-sk-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
+      "startTimestamp": 1788622200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "Hammarby IF",
+      "time": "14:00",
+      "date": "LÖRDAG 5 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529982/orgryte-is-mot-hammarby",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788609600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IF Brommapojkarna",
+      "away": "IF Elfsborg",
+      "time": "16:30",
+      "date": "LÖRDAG 5 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529985/if-brommapojkarna-mot-if-elfsborg",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788618600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Mjällby AIF",
+      "away": "IFK Göteborg",
+      "time": "19:00",
+      "date": "LÖRDAG 5 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529983/mjallby-aif-mot-ifk-goteborg",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788627600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Malmö FF",
+      "away": "AIK",
+      "time": "19:00",
+      "date": "LÖRDAG 5 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529984/malmo-ff-mot-aik",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1788627600,
       "scorers": {
         "home": [],
         "away": []
@@ -8396,77 +8412,13 @@
     {
       "home": "Kalmar FF",
       "away": "Djurgårdens IF",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 5 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529988/kalmar-ff-mot-djurgardens-if",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1788559200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "AIK",
-      "away": "Västerås SK",
-      "time": "00:00",
-      "date": "LÖRDAG 12 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529989/aik-mot-vasteras-sk",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "LÖRDAG 12 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529990/djurgardens-if-mot-gais",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Hammarby IF",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "LÖRDAG 12 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529991/hammarby-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "Halmstads BK",
-      "time": "00:00",
-      "date": "LÖRDAG 12 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529992/ifk-goteborg-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
+      "startTimestamp": 1788627600,
       "scorers": {
         "home": [],
         "away": []
@@ -8476,13 +8428,13 @@
     {
       "home": "BK Häcken",
       "away": "Mjällby AIF",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 12 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529993/bk-hacken-mot-mjallby-aif",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
+      "startTimestamp": 1789232400,
       "scorers": {
         "home": [],
         "away": []
@@ -8490,15 +8442,47 @@
       "detailedStats": null
     },
     {
-      "home": "Malmö FF",
-      "away": "Örgryte IS",
-      "time": "00:00",
+      "home": "AIK",
+      "away": "Västerås SK",
+      "time": "15:00",
       "date": "LÖRDAG 12 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529994/malmo-ff-mot-orgryte-is",
+      "link": "https://allsvenskan.se/matcher/2026/6529989/aik-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
+      "startTimestamp": 1789218000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "IFK Göteborg",
+      "away": "Halmstads BK",
+      "time": "17:30",
+      "date": "LÖRDAG 12 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529992/ifk-goteborg-mot-halmstads-bk",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789227000,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "IF Brommapojkarna",
+      "time": "14:00",
+      "date": "LÖRDAG 12 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529991/hammarby-mot-if-brommapojkarna",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789214400,
       "scorers": {
         "home": [],
         "away": []
@@ -8508,13 +8492,45 @@
     {
       "home": "IF Elfsborg",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "14:00",
       "date": "LÖRDAG 12 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529995/if-elfsborg-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
+      "startTimestamp": 1789214400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Malmö FF",
+      "away": "Örgryte IS",
+      "time": "16:30",
+      "date": "LÖRDAG 12 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529994/malmo-ff-mot-orgryte-is",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789223400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "GAIS",
+      "time": "19:00",
+      "date": "LÖRDAG 12 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529990/djurgardens-if-mot-gais",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789232400,
       "scorers": {
         "home": [],
         "away": []
@@ -8524,61 +8540,13 @@
     {
       "home": "IK Sirius",
       "away": "Degerfors IF",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 12 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6529996/ik-sirius-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789164000,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Djurgårdens IF",
-      "away": "IF Elfsborg",
-      "time": "00:00",
-      "date": "LÖRDAG 19 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529997/djurgardens-if-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Örgryte IS",
-      "away": "IK Sirius",
-      "time": "00:00",
-      "date": "LÖRDAG 19 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529998/orgryte-is-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Mjällby AIF",
-      "away": "GAIS",
-      "time": "00:00",
-      "date": "LÖRDAG 19 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6529999/mjallby-aif-mot-gais",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
+      "startTimestamp": 1789232400,
       "scorers": {
         "home": [],
         "away": []
@@ -8588,29 +8556,13 @@
     {
       "home": "IF Brommapojkarna",
       "away": "IFK Göteborg",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 19 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6530000/if-brommapojkarna-mot-ifk-goteborg",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "Degerfors IF",
-      "away": "Hammarby IF",
-      "time": "00:00",
-      "date": "LÖRDAG 19 SEPTEMBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530001/degerfors-if-mot-hammarby",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
+      "startTimestamp": 1789822800,
       "scorers": {
         "home": [],
         "away": []
@@ -8620,13 +8572,45 @@
     {
       "home": "Västerås SK",
       "away": "Malmö FF",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 19 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6530002/vasteras-sk-mot-malmo-ff",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
+      "startTimestamp": 1789822800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Örgryte IS",
+      "away": "IK Sirius",
+      "time": "17:30",
+      "date": "LÖRDAG 19 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529998/orgryte-is-mot-ik-sirius",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789831800,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Djurgårdens IF",
+      "away": "IF Elfsborg",
+      "time": "14:00",
+      "date": "LÖRDAG 19 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529997/djurgardens-if-mot-if-elfsborg",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1789819200,
       "scorers": {
         "home": [],
         "away": []
@@ -8636,13 +8620,13 @@
     {
       "home": "Kalmar FF",
       "away": "BK Häcken",
-      "time": "00:00",
+      "time": "14:00",
       "date": "LÖRDAG 19 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6530003/kalmar-ff-mot-bk-hacken",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
+      "startTimestamp": 1789819200,
       "scorers": {
         "home": [],
         "away": []
@@ -8652,13 +8636,13 @@
     {
       "home": "Halmstads BK",
       "away": "AIK",
-      "time": "00:00",
+      "time": "14:00",
       "date": "LÖRDAG 19 SEPTEMBER",
       "link": "https://allsvenskan.se/matcher/2026/6530004/halmstads-bk-mot-aik",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1789768800,
+      "startTimestamp": 1789819200,
       "scorers": {
         "home": [],
         "away": []
@@ -8666,15 +8650,15 @@
       "detailedStats": null
     },
     {
-      "home": "AIK",
-      "away": "IF Brommapojkarna",
-      "time": "00:00",
-      "date": "LÖRDAG 10 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530005/aik-mot-if-brommapojkarna",
+      "home": "Mjällby AIF",
+      "away": "GAIS",
+      "time": "16:30",
+      "date": "LÖRDAG 19 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6529999/mjallby-aif-mot-gais",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1789828200,
       "scorers": {
         "home": [],
         "away": []
@@ -8682,15 +8666,15 @@
       "detailedStats": null
     },
     {
-      "home": "Hammarby IF",
-      "away": "Djurgårdens IF",
-      "time": "00:00",
-      "date": "LÖRDAG 10 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530006/hammarby-mot-djurgardens-if",
+      "home": "Degerfors IF",
+      "away": "Hammarby IF",
+      "time": "16:30",
+      "date": "LÖRDAG 19 SEPTEMBER",
+      "link": "https://allsvenskan.se/matcher/2026/6530001/degerfors-if-mot-hammarby",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1789828200,
       "scorers": {
         "home": [],
         "away": []
@@ -8700,13 +8684,29 @@
     {
       "home": "IFK Göteborg",
       "away": "Västerås SK",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 10 OKTOBER",
       "link": "https://allsvenskan.se/matcher/2026/6530007/ifk-goteborg-mot-vasteras-sk",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1791651600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "AIK",
+      "away": "IF Brommapojkarna",
+      "time": "15:00",
+      "date": "LÖRDAG 10 OKTOBER",
+      "link": "https://allsvenskan.se/matcher/2026/6530005/aik-mot-if-brommapojkarna",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1791637200,
       "scorers": {
         "home": [],
         "away": []
@@ -8716,29 +8716,13 @@
     {
       "home": "GAIS",
       "away": "IK Sirius",
-      "time": "00:00",
+      "time": "15:00",
       "date": "LÖRDAG 10 OKTOBER",
       "link": "https://allsvenskan.se/matcher/2026/6530008/gais-mot-ik-sirius",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "BK Häcken",
-      "away": "Örgryte IS",
-      "time": "00:00",
-      "date": "LÖRDAG 10 OKTOBER",
-      "link": "https://allsvenskan.se/matcher/2026/6530009/bk-hacken-mot-orgryte-is",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1791637200,
       "scorers": {
         "home": [],
         "away": []
@@ -8748,13 +8732,45 @@
     {
       "home": "Mjällby AIF",
       "away": "Degerfors IF",
-      "time": "00:00",
+      "time": "17:30",
       "date": "LÖRDAG 10 OKTOBER",
       "link": "https://allsvenskan.se/matcher/2026/6530010/mjallby-aif-mot-degerfors-if",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1791646200,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "Hammarby IF",
+      "away": "Djurgårdens IF",
+      "time": "14:00",
+      "date": "LÖRDAG 10 OKTOBER",
+      "link": "https://allsvenskan.se/matcher/2026/6530006/hammarby-mot-djurgardens-if",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1791633600,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
+      "home": "BK Häcken",
+      "away": "Örgryte IS",
+      "time": "16:30",
+      "date": "LÖRDAG 10 OKTOBER",
+      "link": "https://allsvenskan.se/matcher/2026/6530009/bk-hacken-mot-orgryte-is",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1791642600,
       "scorers": {
         "home": [],
         "away": []
@@ -8764,13 +8780,13 @@
     {
       "home": "Malmö FF",
       "away": "Kalmar FF",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 10 OKTOBER",
       "link": "https://allsvenskan.se/matcher/2026/6530011/malmo-ff-mot-kalmar-ff",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1791651600,
       "scorers": {
         "home": [],
         "away": []
@@ -8780,13 +8796,13 @@
     {
       "home": "IF Elfsborg",
       "away": "Halmstads BK",
-      "time": "00:00",
+      "time": "19:00",
       "date": "LÖRDAG 10 OKTOBER",
       "link": "https://allsvenskan.se/matcher/2026/6530012/if-elfsborg-mot-halmstads-bk",
       "score": "",
       "status": "upcoming",
       "liveCurrentTime": null,
-      "startTimestamp": 1791583200,
+      "startTimestamp": 1791651600,
       "scorers": {
         "home": [],
         "away": []
@@ -9690,6 +9706,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-27T06:17:04.043Z",
+  "lastUpdated": "2026-05-28T06:08:01.606Z",
   "source": "https://allsvenskan.se/matcher"
 }
