@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-28T06:09:24.964Z",
+  "lastUpdated": "2026-05-29T06:11:33.523Z",
   "source": "transfermarkt.com",
   "season": "2025/26",
   "teams": {
@@ -2049,6 +2049,22 @@
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
       },
       {
+        "name": "Johan Hove",
+        "position": "Central Midfield",
+        "number": "8",
+        "age": "07/09/2000 (25)",
+        "value": "€2.00m",
+        "joined": "13/02/2025",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/125.png?lm=1520611569",
+            "country": "Norway"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
         "name": "Amel Mujanic",
         "position": "Central Midfield",
         "number": "7",
@@ -2164,22 +2180,6 @@
         "value": "€1.80m",
         "joined": "15/03/2024",
         "contract": "31/12/2027",
-        "nationalities": [
-          {
-            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/125.png?lm=1520611569",
-            "country": "Norway"
-          }
-        ],
-        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-      },
-      {
-        "name": "Johan Hove",
-        "position": "Attacking Midfield",
-        "number": "8",
-        "age": "07/09/2000 (25)",
-        "value": "€2.00m",
-        "joined": "13/02/2025",
-        "contract": "31/12/2028",
         "nationalities": [
           {
             "url": "https://tmssl.akamaized.net//images/flagge/verysmall/125.png?lm=1520611569",
