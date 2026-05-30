@@ -263,14 +263,7 @@ const AllsvenskanKollen = () => {
                 let cacheUpdated = false;
                 try {
                     const now = Date.now();
-                    const isMatchWindowActive = matches.matches && matches.matches.some(m => {
-                        if (!m.startTimestamp) return false;
-                        const startMs = m.startTimestamp * 1000;
-                        // Active window: 30 minutes before kick-off until 3 hours after
-                        return now >= startMs - (30 * 60 * 1000) && now <= startMs + (3 * 60 * 60 * 1000);
-                    });
-
-                    if (selectedSeason === 2026 && isMatchWindowActive) {
+                    if (selectedSeason === 2026) {
                         const liveQuery = `
                         query {
                           matchesForLeague(configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -286,7 +279,7 @@ const AllsvenskanKollen = () => {
                             }
                           }
                         }`;
-                        const gqlRes = await fetch('/graphql', {
+                        const gqlRes = await fetch('https://gql.sportomedia.se/graphql', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ query: liveQuery })
@@ -323,7 +316,7 @@ const AllsvenskanKollen = () => {
                                             }
                                           }
                                         }`;
-                                        const detailsRes = await fetch('/graphql', {
+                                        const detailsRes = await fetch('https://gql.sportomedia.se/graphql', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({ query: detailsQuery })
@@ -1096,7 +1089,7 @@ const AllsvenskanKollen = () => {
             )}
             
             {/* Live Data Error Message */}
-            {false && liveError && (
+            {liveError && (
                 <div style={{
                     padding: '16px',
                     margin: '16px',

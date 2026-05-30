@@ -3,13 +3,13 @@
     {
       "rank": "1",
       "team": "IK Sirius",
-      "played": "9",
-      "won": "8",
+      "played": "10",
+      "won": "9",
       "drawn": "1",
       "lost": "0",
-      "goals": "24-10",
-      "gd": "14",
-      "points": "25"
+      "goals": "27-10",
+      "gd": "17",
+      "points": "28"
     },
     {
       "rank": "2",
@@ -46,6 +46,17 @@
     },
     {
       "rank": "5",
+      "team": "GAIS",
+      "played": "11",
+      "won": "4",
+      "drawn": "3",
+      "lost": "4",
+      "goals": "16-11",
+      "gd": "5",
+      "points": "15"
+    },
+    {
+      "rank": "6",
       "team": "Mjällby AIF",
       "played": "10",
       "won": "4",
@@ -56,7 +67,7 @@
       "points": "15"
     },
     {
-      "rank": "6",
+      "rank": "7",
       "team": "IF Brommapojkarna",
       "played": "9",
       "won": "4",
@@ -67,7 +78,7 @@
       "points": "14"
     },
     {
-      "rank": "7",
+      "rank": "8",
       "team": "Djurgårdens IF",
       "played": "9",
       "won": "4",
@@ -78,26 +89,15 @@
       "points": "13"
     },
     {
-      "rank": "8",
-      "team": "GAIS",
-      "played": "10",
-      "won": "3",
-      "drawn": "3",
-      "lost": "4",
-      "goals": "13-11",
-      "gd": "2",
-      "points": "12"
-    },
-    {
       "rank": "9",
-      "team": "AIK",
-      "played": "9",
-      "won": "3",
-      "drawn": "3",
-      "lost": "3",
-      "goals": "12-13",
-      "gd": "-1",
-      "points": "12"
+      "team": "Malmö FF",
+      "played": "10",
+      "won": "4",
+      "drawn": "1",
+      "lost": "5",
+      "goals": "20-20",
+      "gd": "0",
+      "points": "13"
     },
     {
       "rank": "10",
@@ -112,24 +112,24 @@
     },
     {
       "rank": "11",
-      "team": "Kalmar FF",
-      "played": "9",
+      "team": "AIK",
+      "played": "10",
       "won": "3",
-      "drawn": "1",
-      "lost": "5",
-      "goals": "11-12",
-      "gd": "-1",
-      "points": "10"
+      "drawn": "3",
+      "lost": "4",
+      "goals": "12-16",
+      "gd": "-4",
+      "points": "12"
     },
     {
       "rank": "12",
-      "team": "Malmö FF",
-      "played": "9",
+      "team": "Kalmar FF",
+      "played": "10",
       "won": "3",
       "drawn": "1",
-      "lost": "5",
-      "goals": "15-18",
-      "gd": "-3",
+      "lost": "6",
+      "goals": "11-15",
+      "gd": "-4",
       "points": "10"
     },
     {
@@ -157,12 +157,12 @@
     {
       "rank": "15",
       "team": "Halmstads BK",
-      "played": "9",
+      "played": "10",
       "won": "1",
       "drawn": "3",
-      "lost": "5",
-      "goals": "7-15",
-      "gd": "-8",
+      "lost": "6",
+      "goals": "9-20",
+      "gd": "-11",
       "points": "6"
     },
     {
@@ -176,6 +176,5 @@
       "gd": "-15",
       "points": "6"
     }
-  ],
-  "lastUpdated": "2026-05-30T05:45:20.212Z"
+  ]
 }

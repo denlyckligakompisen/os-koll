@@ -6965,13 +6965,35 @@
       "time": "15:00",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529901/aik-mot-ik-sirius",
-      "score": "",
-      "status": "upcoming",
+      "score": "0 - 3",
+      "status": "finished",
       "liveCurrentTime": null,
       "startTimestamp": 1780146000,
       "scorers": {
         "home": [],
-        "away": []
+        "away": [
+          {
+            "player": {
+              "name": "Henrik Rönnlöf Castegren"
+            },
+            "time": 95,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Philip Thomas Ure"
+            },
+            "time": 36,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Robbie Philip Thomas Ure"
+            },
+            "time": 18,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": null
     },
@@ -6981,12 +7003,34 @@
       "time": "15:00",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529902/gais-mot-kalmar-ff",
-      "score": "",
-      "status": "upcoming",
+      "score": "3 - 0",
+      "status": "finished",
       "liveCurrentTime": null,
       "startTimestamp": 1780146000,
       "scorers": {
-        "home": [],
+        "home": [
+          {
+            "player": {
+              "name": "Anes Cardaklija"
+            },
+            "time": 83,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Melker Hallberg"
+            },
+            "time": 80,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Samuel Salter"
+            },
+            "time": 5,
+            "incidentClass": "goal"
+          }
+        ],
         "away": []
       },
       "detailedStats": null
@@ -6997,13 +7041,64 @@
       "time": "15:00",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529906/malmo-ff-mot-halmstads-bk",
-      "score": "",
-      "status": "upcoming",
+      "score": "5 - 2",
+      "status": "finished",
       "liveCurrentTime": null,
       "startTimestamp": 1780146000,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 67,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 61,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 59,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Kenan Busuladzic"
+            },
+            "time": 29,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Adrian Skogmar"
+            },
+            "time": 3,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Omar Faraj"
+            },
+            "time": 25,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Omar Faraj"
+            },
+            "time": 6,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": null
     },
