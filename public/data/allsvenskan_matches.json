@@ -6843,18 +6843,121 @@
     {
       "home": "Örgryte IS",
       "away": "IF Elfsborg",
-      "time": "19:00",
+      "time": "TBA",
       "date": "FREDAG 29 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529903/orgryte-is-mot-if-elfsborg",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 2",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780074000,
+      "startTimestamp": 1780005600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 70,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 77,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 67,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "FRE 29 MAJ 19:00",
+          "ERIK MATTSSON, MARCUS KLITTE, ABDELMASIH GERGESS",
+          "GAMLA ULLEVI",
+          "OMGÅNG 10",
+          "7 359"
+        ],
+        "stats": [
+          {
+            "home": "Örgryte IS\nTotalt\nIF Elfsborg",
+            "label": "Örgryte IS",
+            "away": "Totalt"
+          },
+          {
+            "home": "52%",
+            "label": "52%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "4"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "118 062",
+            "label": "Löpmeter (m)",
+            "away": "121 390"
+          },
+          {
+            "home": "4",
+            "label": "Hörnor",
+            "away": "2"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Julius Magnusson | IF Elfsborg | 12 185 | 31,18",
+          "2 | Daniel Paulson | Örgryte IS | 12 014 | 30,61",
+          "3 | Simon Olsson | IF Elfsborg | 11 978 | 28,47",
+          "4 | Thomas Isherwood | IF Elfsborg | 11 534 | 32,36",
+          "5 | Charlie Vindehall | Örgryte IS | 11 118 | 27,32",
+          "6 | Niklas Hult | IF Elfsborg | 11 094 | 31,08",
+          "7 | Mohammed Rufai | IF Elfsborg | 10 840 | 33,66",
+          "8 | Noah Christoffersson | Örgryte IS | 10 752 | 33,88",
+          "9 | Tobias Sana | Örgryte IS | 10 584 | 30,24",
+          "10 | Mikael Dyrestam | Örgryte IS | 10 536 | 25,81",
+          "11 | Sebastian Lagerlund | Örgryte IS | 10 479 | 31,56",
+          "12 | Julius Beck | IF Elfsborg | 9 602 | 32,6",
+          "13 | Rasmus Wikström | IF Elfsborg | 8 896 | 28,18",
+          "14 | Owen Parker-Price | Örgryte IS | 8 825 | 30,09",
+          "15 | Christoffer Styffe | Örgryte IS | 8 586 | 31,4",
+          "16 | Arber Zeneli | IF Elfsborg | 8 418 | 28,5",
+          "17 | Simon Hedlund | IF Elfsborg | 8 192 | 28,93",
+          "18 | Anton Andreasson | Örgryte IS | 8 142 | 31,77",
+          "19 | Leo Östman | IF Elfsborg | 7 948 | 29,02",
+          "20 | William Svensson | Örgryte IS | 7 471 | 32"
+        ]
+      }
     },
     {
       "home": "AIK",
@@ -9706,6 +9809,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-29T06:10:13.873Z",
+  "lastUpdated": "2026-05-30T05:45:15.055Z",
   "source": "https://allsvenskan.se/matcher"
 }
