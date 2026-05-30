@@ -2472,16 +2472,16 @@
         "home": [
           {
             "player": {
-              "name": "Frederik Dahl Ihler"
+              "name": "Självmål"
             },
-            "time": 25,
+            "time": 87,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": ""
+              "name": "Frederik Dahl Ihler"
             },
-            "time": 88,
+            "time": 24,
             "incidentClass": "goal"
           }
         ],
@@ -2490,7 +2490,7 @@
             "player": {
               "name": "Piotr Johansson"
             },
-            "time": 19,
+            "time": 18,
             "incidentClass": "goal"
           }
         ]
@@ -6621,8 +6621,45 @@
       "liveCurrentTime": null,
       "startTimestamp": 1779573600,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": "Erik Botheim"
+            },
+            "time": 73,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Adrian Skogmar"
+            },
+            "time": 14,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": "Mikkel Ladefoged"
+            },
+            "time": 90,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Herman Magnusson"
+            },
+            "time": 46,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": "Jens Magnusson"
+            },
+            "time": 35,
+            "incidentClass": "goal"
+          }
+        ]
       },
       "detailedStats": {
         "info": [],
@@ -6644,18 +6681,18 @@
         "home": [
           {
             "player": {
-              "name": ""
+              "name": "Sebastian Clemmensen"
             },
-            "time": 51,
+            "time": 50,
             "incidentClass": "goal"
           }
         ],
         "away": [
           {
             "player": {
-              "name": ""
+              "name": "Jacob Bergström"
             },
-            "time": 58,
+            "time": 57,
             "incidentClass": "goal"
           }
         ]
@@ -6749,18 +6786,18 @@
         "home": [
           {
             "player": {
-              "name": ""
+              "name": "Leo Östman"
             },
-            "time": 67,
+            "time": 66,
             "incidentClass": "goal"
           }
         ],
         "away": [
           {
             "player": {
-              "name": ""
+              "name": "Silas Sinan Erhen Thorup Andersen"
             },
-            "time": 42,
+            "time": 41,
             "incidentClass": "goal"
           }
         ]
@@ -6854,32 +6891,32 @@
         "home": [
           {
             "player": {
-              "name": ""
+              "name": "Noah Christoffersson"
             },
-            "time": 70,
+            "time": 76,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": ""
+              "name": "Noah Christoffersson"
             },
-            "time": 77,
+            "time": 69,
             "incidentClass": "goal"
           }
         ],
         "away": [
           {
             "player": {
-              "name": ""
+              "name": "Arber Zeneli"
             },
-            "time": 37,
+            "time": 66,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": ""
+              "name": "Arber Zeneli"
             },
-            "time": 67,
+            "time": 36,
             "incidentClass": "goal"
           }
         ]

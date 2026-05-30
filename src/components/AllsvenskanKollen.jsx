@@ -1013,16 +1013,12 @@ const AllsvenskanKollen = () => {
                     </button>
                 </div>
                 
-                <div className="segmented-control">
-                    <div className="segmented-pill" style={{
-                        left: 'var(--pill-padding)',
-                        width: `calc((100% - (var(--pill-padding) * 2)) / ${SUBTABS.length})`,
-                        transform: `translateX(${SUBTABS.findIndex(t => t.id === activeTab) * 100}%)`
-                    }} />
+                <nav className="web-nav-links" aria-label="Huvudmeny">
                     {SUBTABS.map(tab => (
                         <button 
                             key={tab.id}
-                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
+                            className={`web-nav-item ${activeTab === tab.id ? 'active' : ''}`}
+                            aria-current={activeTab === tab.id ? 'page' : undefined}
                             onClick={() => {
                                 if (tab.id === 'matcher' && activeTab === 'matcher') {
                                     if (nextMatchRef.current) {
@@ -1040,14 +1036,13 @@ const AllsvenskanKollen = () => {
                                     }
                                     window.scrollTo({ top: 0 });
                                 }
-                                if (navigator.vibrate) navigator.vibrate(10);
                             }}
                         >
-                            <tab.icon size={22} className="tab-icon" />
+                            <tab.icon size={20} className="tab-icon" />
                             <span className="tab-label">{tab.label}</span>
                         </button>
                     ))}
-                </div>
+                </nav>
 
                 <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
                     <button
