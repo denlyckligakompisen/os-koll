@@ -6999,145 +6999,364 @@
     {
       "home": "AIK",
       "away": "IK Sirius",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529901/aik-mot-ik-sirius",
       "score": "0 - 3",
       "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780146000,
+      "startTimestamp": 1780092000,
       "scorers": {
         "home": [],
         "away": [
           {
             "player": {
-              "name": "Henrik Rönnlöf Castegren"
+              "name": ""
             },
-            "time": 95,
+            "time": 19,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Robbie Philip Thomas Ure"
+              "name": ""
             },
-            "time": 36,
+            "time": 37,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Robbie Philip Thomas Ure"
+              "name": ""
             },
-            "time": 18,
+            "time": 90,
             "incidentClass": "goal"
           }
         ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 30 MAJ 15:00",
+          "FREDRIK KLITTE, SIMON KRISTENSSON, ALEXANDER MILOVANOVIC",
+          "NATIONALARENAN, STRAWBERRY ARENA",
+          "OMGÅNG 10",
+          "28 283"
+        ],
+        "stats": [
+          {
+            "home": "AIK\nTotalt\nIK Sirius",
+            "label": "AIK",
+            "away": "Totalt"
+          },
+          {
+            "home": "58.5%",
+            "label": "58.5%",
+            "away": ""
+          },
+          {
+            "home": "12",
+            "label": "Avslut",
+            "away": "7"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "3"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "113 647",
+            "label": "Löpmeter (m)",
+            "away": "115 279"
+          },
+          {
+            "home": "9",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Marcus Lindberg | IK Sirius | 12 334 | 29,39",
+          "2 | Johan Hove | AIK | 12 193 | 31,04",
+          "3 | Dino Besirovic | AIK | 11 484 | 29,29",
+          "4 | Henrik Castegren | IK Sirius | 10 855 | 29,7",
+          "5 | Melker Heier | IK Sirius | 10 841 | 32,7",
+          "6 | Áron Csongvai | AIK | 10 816 | 28,72",
+          "7 | Robbie Ure | IK Sirius | 10 799 | 31,62",
+          "8 | Mads Thychosen | AIK | 10 726 | 31,39",
+          "9 | Oscar Krusnell | IK Sirius | 10 659 | 33,78",
+          "10 | Victor Ekström | IK Sirius | 10 484 | 31,09",
+          "11 | Tobias Anker | IK Sirius | 9 500 | 31,06",
+          "12 | Bersant Celina | AIK | 9 181 | 32,43",
+          "13 | Sotirios Papagiannopoulos | AIK | 9 060 | 29,31",
+          "14 | Isak Bjerkebo | IK Sirius | 8 904 | 30,21",
+          "15 | Kevin Filling | AIK | 8 366 | 31,63",
+          "16 | Victor Svensson | IK Sirius | 7 817 | 29,94",
+          "17 | Erik Hovden Flataker | AIK | 7 117 | 29,88",
+          "18 | Neo Jönsson | IK Sirius | 7 038 | 32,12",
+          "19 | Yannick Geiger | AIK | 6 911 | 28,45",
+          "20 | Lukas Bergquist | AIK | 5 469 | 31,62"
+        ]
+      }
     },
     {
       "home": "GAIS",
       "away": "Kalmar FF",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529902/gais-mot-kalmar-ff",
       "score": "3 - 0",
       "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780146000,
+      "startTimestamp": 1780092000,
       "scorers": {
         "home": [
           {
             "player": {
-              "name": "Anes Cardaklija"
+              "name": ""
             },
-            "time": 83,
+            "time": 6,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Melker Hallberg"
+              "name": ""
             },
-            "time": 80,
+            "time": 81,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Samuel Salter"
+              "name": ""
             },
-            "time": 5,
+            "time": 84,
             "incidentClass": "goal"
           }
         ],
         "away": []
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 30 MAJ 15:00",
+          "ADI AGANOVIC, ANDREAS SVENSSON, ANTON SJÖBERG",
+          "GAMLA ULLEVI",
+          "OMGÅNG 10",
+          "8 125"
+        ],
+        "stats": [
+          {
+            "home": "GAIS\nTotalt\nKalmar FF",
+            "label": "GAIS",
+            "away": "Totalt"
+          },
+          {
+            "home": "53%",
+            "label": "53%",
+            "away": ""
+          },
+          {
+            "home": "12",
+            "label": "Avslut",
+            "away": "5"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "3"
+          },
+          {
+            "home": "2",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 419",
+            "label": "Löpmeter (m)",
+            "away": "121 114"
+          },
+          {
+            "home": "8",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Carl Gustafsson | Kalmar FF | 12 514 | 26,09",
+          "2 | Charlie Rosenqvist | Kalmar FF | 12 167 | 29,47",
+          "3 | Matteo De Brienne | GAIS | 12 153 | 29,58",
+          "4 | Rasmus Niklasson Petrovic | GAIS | 11 985 | 30,76",
+          "5 | Oskar Ågren | GAIS | 11 683 | 31,8",
+          "6 | William Milovanovic | GAIS | 11 593 | 30,3",
+          "7 | Anes Cardaklija | GAIS | 11 109 | 30,9",
+          "8 | Henry Sletsjøe | GAIS | 10 987 | 32,06",
+          "9 | Rony Jansson | Kalmar FF | 10 971 | 32,19",
+          "10 | Charles Sagoe Jr | Kalmar FF | 10 909 | 32,67",
+          "11 | Róbert Frosti Þorkelsson | GAIS | 10 739 | 31,44",
+          "12 | Robert Gojani | Kalmar FF | 10 630 | 27,11",
+          "13 | Melker Hallberg | Kalmar FF | 10 600 | 28,99",
+          "14 | Samuel Salter | GAIS | 9 343 | 28,93",
+          "15 | Victor Larsson | Kalmar FF | 9 090 | 27,55",
+          "16 | Lars Saetra | Kalmar FF | 9 022 | 27,67",
+          "17 | Max Andersson | GAIS | 8 711 | 31,65",
+          "18 | Robin Frej | GAIS | 8 681 | 27,73",
+          "19 | Marius Söderbäck | Kalmar FF | 8 430 | 31,32",
+          "20 | Nassef Chourak | Kalmar FF | 7 918 | 29,3"
+        ]
+      }
     },
     {
       "home": "Malmö FF",
       "away": "Halmstads BK",
-      "time": "15:00",
+      "time": "TBA",
       "date": "LÖRDAG 30 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529906/malmo-ff-mot-halmstads-bk",
       "score": "5 - 2",
       "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780146000,
+      "startTimestamp": 1780092000,
       "scorers": {
         "home": [
           {
             "player": {
-              "name": "Erik Botheim"
+              "name": ""
             },
-            "time": 67,
+            "time": 4,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Erik Botheim"
+              "name": ""
             },
-            "time": 61,
+            "time": 30,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Erik Botheim"
+              "name": ""
             },
-            "time": 59,
+            "time": 60,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Kenan Busuladzic"
+              "name": ""
             },
-            "time": 29,
+            "time": 62,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Adrian Skogmar"
+              "name": ""
             },
-            "time": 3,
+            "time": 68,
             "incidentClass": "goal"
           }
         ],
         "away": [
           {
             "player": {
-              "name": "Omar Faraj"
+              "name": ""
             },
-            "time": 25,
+            "time": 7,
             "incidentClass": "goal"
           },
           {
             "player": {
-              "name": "Omar Faraj"
+              "name": ""
             },
-            "time": 6,
+            "time": 26,
             "incidentClass": "goal"
           }
         ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "LÖR 30 MAJ 15:00",
+          "VICTOR WOLF, MIKAEL HALLIN, PER REHNLUND",
+          "ELEDA STADION",
+          "OMGÅNG 10",
+          "17 052"
+        ],
+        "stats": [
+          {
+            "home": "Malmö FF\nTotalt\nHalmstads BK",
+            "label": "Malmö FF",
+            "away": "Totalt"
+          },
+          {
+            "home": "63.5%",
+            "label": "63.5%",
+            "away": ""
+          },
+          {
+            "home": "11",
+            "label": "Avslut",
+            "away": "8"
+          },
+          {
+            "home": "9",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "1",
+            "label": "Gula kort",
+            "away": "0"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "112 056",
+            "label": "Löpmeter (m)",
+            "away": "117 680"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Kenan Busuladzic | Malmö FF | 12 551 | 30,35",
+          "2 | Joel Allansson | Halmstads BK | 11 873 | 31,65",
+          "3 | Otto Rosengren | Malmö FF | 11 744 | 28,54",
+          "4 | Rocco Ascone | Halmstads BK | 11 704 | 30,77",
+          "5 | Rami Kaib | Halmstads BK | 11 290 | 31,34",
+          "6 | Adrian Skogmar | Malmö FF | 11 207 | 31,28",
+          "7 | Pascal Gregor | Halmstads BK | 10 786 | 32,03",
+          "8 | Erko Tõugjas | Halmstads BK | 10 750 | 30,34",
+          "9 | Ludvig Arvidsson | Halmstads BK | 10 697 | 31,94",
+          "10 | André Boman | Halmstads BK | 10 480 | 31,89",
+          "11 | Jens Stryger Larsen | Malmö FF | 10 106 | 32,12",
+          "12 | Andrej Đurić | Malmö FF | 10 013 | 31,23",
+          "13 | Gabriel Busanello | Malmö FF | 9 979 | 31,09",
+          "14 | Sead Haksabanovic | Malmö FF | 9 894 | 33,22",
+          "15 | Erik Botheim | Malmö FF | 9 509 | 28,73",
+          "16 | Bleon Kurtulus | Malmö FF | 9 447 | 27,66",
+          "17 | Oscar Sjöstrand | Malmö FF | 9 001 | 33,26",
+          "18 | Hussein Carneil | Halmstads BK | 8 995 | 29,87",
+          "19 | Marvin Illary | Halmstads BK | 8 559 | 31,46",
+          "20 | Omar Faraj | Halmstads BK | 8 429 | 31,17"
+        ]
+      }
     },
     {
       "home": "BK Häcken",
@@ -9941,6 +10160,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-30T05:45:15.055Z",
+  "lastUpdated": "2026-05-31T06:14:52.730Z",
   "source": "https://allsvenskan.se/matcher"
 }
