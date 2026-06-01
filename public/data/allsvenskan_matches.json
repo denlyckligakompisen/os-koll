@@ -7361,50 +7361,401 @@
     {
       "home": "BK Häcken",
       "away": "Hammarby IF",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 31 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529904/bk-hacken-mot-hammarby",
-      "score": "",
-      "status": "upcoming",
+      "score": "3 - 2",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780228800,
+      "startTimestamp": 1780178400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 48,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 55,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 79,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 9,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 39,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 31 MAJ 14:00",
+          "TESS OLOFSSON, ROBIN WILDE, PÄR LEEK",
+          "NORDIC WELLNESS ARENA",
+          "OMGÅNG 10",
+          "6 316"
+        ],
+        "stats": [
+          {
+            "home": "BK Häcken\nTotalt\nHammarby",
+            "label": "BK Häcken",
+            "away": "Totalt"
+          },
+          {
+            "home": "44%",
+            "label": "44%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "15"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "7"
+          },
+          {
+            "home": "3",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "121 286",
+            "label": "Löpmeter (m)",
+            "away": "122 736"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "8"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Silas Andersen | BK Häcken | 12 734 | 30,96",
+          "2 | Abdoulaye Doumbia | BK Häcken | 12 728 | 30,28",
+          "3 | Markus Karlsson | Hammarby | 12 502 | 33,03",
+          "4 | Julius Lindberg | BK Häcken | 12 247 | 31,96",
+          "5 | Paulos Abraham | Hammarby | 12 193 | 32,74",
+          "6 | Noah Persson | Hammarby | 12 098 | 33,62",
+          "7 | Hampus Skoglund | Hammarby | 11 819 | 32,15",
+          "8 | Victor Lind | Hammarby | 11 712 | 30,66",
+          "9 | Frederik Winther | Hammarby | 11 604 | 31,41",
+          "10 | Harry Hilvenius | BK Häcken | 11 031 | 29,82",
+          "11 | Olle Samuelsson | BK Häcken | 11 026 | 32,79",
+          "12 | Adam Lundkvist | BK Häcken | 10 972 | 29,86",
+          "13 | Victor Eriksson | Hammarby | 10 833 | 30,93",
+          "14 | Nahir Besara | Hammarby | 10 744 | 26,69",
+          "15 | Gustav Lindgren | BK Häcken | 10 463 | 32,64",
+          "16 | Brice Wembangomo | BK Häcken | 10 347 | 29,83",
+          "17 | Mikkel Rygaard | BK Häcken | 9 384 | 29,5",
+          "18 | Amor Layouni | BK Häcken | 9 113 | 34,06",
+          "19 | Tesfaldet Tekie | Hammarby | 8 445 | 28,78",
+          "20 | Montader Madjed | Hammarby | 8 291 | 31,15"
+        ]
+      }
     },
     {
       "home": "Degerfors IF",
       "away": "IF Brommapojkarna",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 31 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529907/degerfors-if-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming",
+      "score": "2 - 2",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780228800,
+      "startTimestamp": 1780178400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 55,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 63,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 2,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 51,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 31 MAJ 14:00",
+          "MOHAMMED AL-HAKIM, SEBASTIAN ROBERTSSON, BENDIK BORGSTRÖM",
+          "STORA VALLA A-PLAN",
+          "OMGÅNG 10",
+          "3 002"
+        ],
+        "stats": [
+          {
+            "home": "Degerfors IF\nTotalt\nIF Brommapojkarna",
+            "label": "Degerfors IF",
+            "away": "Totalt"
+          },
+          {
+            "home": "44%",
+            "label": "44%",
+            "away": ""
+          },
+          {
+            "home": "9",
+            "label": "Avslut",
+            "away": "11"
+          },
+          {
+            "home": "3",
+            "label": "Avslut på mål",
+            "away": "8"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "1"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 174",
+            "label": "Löpmeter (m)",
+            "away": "120 267"
+          },
+          {
+            "home": "3",
+            "label": "Hörnor",
+            "away": "5"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | Kaare Barslund | IF Brommapojkarna | 12 547 | 30,28",
+          "2 | Kazper Karlsson | Degerfors IF | 12 485 | 26,52",
+          "3 | Simon Strand | IF Brommapojkarna | 12 044 | 29,99",
+          "4 | Rasmus Örqvist | IF Brommapojkarna | 11 932 | 32,15",
+          "5 | Oliver Berg | IF Brommapojkarna | 11 900 | 33,18",
+          "6 | Ludvig Fritzson | Degerfors IF | 11 797 | 31,94",
+          "7 | Nahom Netabay | Degerfors IF | 11 672 | 31,23",
+          "8 | Mads Kristian Hansen | IF Brommapojkarna | 11 466 | 30,46",
+          "9 | Marcus Rafferty | Degerfors IF | 11 329 | 31,67",
+          "10 | Sebastian Ohlsson | Degerfors IF | 11 302 | 28,9",
+          "11 | Oliver Zandén | IF Brommapojkarna | 10 769 | 31,11",
+          "12 | Andreas Troelsen | IF Brommapojkarna | 10 729 | 28,08",
+          "13 | Juhani Pikkarainen | Degerfors IF | 10 703 | 31,02",
+          "14 | Elias Barsoum | Degerfors IF | 10 545 | 33,06",
+          "15 | Jordan Simpson | IF Brommapojkarna | 10 318 | 30,61",
+          "16 | Sion Oppong | IF Brommapojkarna | 10 246 | 33,1",
+          "17 | Lukas Björklund | IF Brommapojkarna | 8 699 | 29,55",
+          "18 | Arman Taranis | Degerfors IF | 8 171 | 30,16",
+          "19 | Erik Lindell | Degerfors IF | 8 039 | 29,82",
+          "20 | Dijan Vukojevic | Degerfors IF | 6 910 | 28,26"
+        ]
+      }
     },
     {
       "home": "Västerås SK",
       "away": "IFK Göteborg",
-      "time": "14:00",
+      "time": "TBA",
       "date": "SÖNDAG 31 MAJ",
       "link": "https://allsvenskan.se/matcher/2026/6529908/vasteras-sk-mot-ifk-goteborg",
-      "score": "",
-      "status": "upcoming",
+      "score": "4 - 5",
+      "status": "finished",
       "liveCurrentTime": null,
-      "startTimestamp": 1780228800,
+      "startTimestamp": 1780178400,
       "scorers": {
-        "home": [],
-        "away": []
+        "home": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 27,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 30,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 53,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 66,
+            "incidentClass": "goal"
+          }
+        ],
+        "away": [
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 1,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 8,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 9,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 37,
+            "incidentClass": "goal"
+          },
+          {
+            "player": {
+              "name": ""
+            },
+            "time": 79,
+            "incidentClass": "goal"
+          }
+        ]
       },
-      "detailedStats": null
+      "detailedStats": {
+        "info": [
+          "SÖN 31 MAJ 14:00",
+          "GRANIT MAQEDONCI, DANIEL YNG, ALMIRA SPAHIC",
+          "HITACHI ENERGY ARENA",
+          "OMGÅNG 10",
+          "7 656"
+        ],
+        "stats": [
+          {
+            "home": "Västerås SK\nTotalt\nIFK Göteborg",
+            "label": "Västerås SK",
+            "away": "Totalt"
+          },
+          {
+            "home": "59%",
+            "label": "59%",
+            "away": ""
+          },
+          {
+            "home": "13",
+            "label": "Avslut",
+            "away": "9"
+          },
+          {
+            "home": "6",
+            "label": "Avslut på mål",
+            "away": "6"
+          },
+          {
+            "home": "0",
+            "label": "Gula kort",
+            "away": "2"
+          },
+          {
+            "home": "0",
+            "label": "Röda kort",
+            "away": "0"
+          },
+          {
+            "home": "123 130",
+            "label": "Löpmeter (m)",
+            "away": "122 853"
+          },
+          {
+            "home": "7",
+            "label": "Hörnor",
+            "away": "3"
+          }
+        ],
+        "players": [
+          "RANKING | SPELARE | LAG | LÖPDISTANS (M) | MAXHASTIGHET (KM/H)",
+          "1 | David Kruse | IFK Göteborg | 12 456 | 32,55",
+          "2 | Mamadou Diagne | Västerås SK | 12 301 | 30,21",
+          "3 | Adam Bergmark Wiberg | IFK Göteborg | 11 943 | 33,48",
+          "4 | Philip Bonde | Västerås SK | 11 832 | 32,79",
+          "5 | Simon Gefvert | Västerås SK | 11 399 | 30,84",
+          "6 | Herman Magnusson | Västerås SK | 11 173 | 32,3",
+          "7 | Noah Tolf | IFK Göteborg | 11 066 | 31,85",
+          "8 | Tobias Heintz | IFK Göteborg | 10 895 | 29,53",
+          "9 | Jonas Bager | IFK Göteborg | 10 704 | 28,59",
+          "10 | Jens Magnusson | Västerås SK | 10 700 | 33,97",
+          "11 | Mattias Hellisdal | Västerås SK | 10 491 | 26,96",
+          "12 | Filip Ottosson | IFK Göteborg | 10 290 | 29,98",
+          "13 | Rockson Yeboah | IFK Göteborg | 9 985 | 30,4",
+          "14 | Kolbeinn Thordarson | IFK Göteborg | 9 850 | 29,67",
+          "15 | Karl Gunnarsson | Västerås SK | 9 538 | 32,13",
+          "16 | Victor Wernersson | Västerås SK | 9 320 | 33,72",
+          "17 | Marcus Baggesen | Västerås SK | 7 930 | 30,54",
+          "18 | Benjamin Brantlind | IFK Göteborg | 7 800 | 30,46",
+          "19 | Sebastian Clemmensen | IFK Göteborg | 7 793 | 32,6",
+          "20 | Elis Jäger | Västerås SK | 6 393 | 24,11"
+        ]
+      }
     },
     {
       "home": "Mjällby AIF",
@@ -10160,6 +10511,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-05-31T06:14:52.730Z",
+  "lastUpdated": "2026-06-01T06:52:00.222Z",
   "source": "https://allsvenskan.se/matcher"
 }
