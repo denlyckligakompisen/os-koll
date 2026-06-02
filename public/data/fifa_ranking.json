@@ -57,7 +57,7 @@
     {
       "rank": "10",
       "team": "Tyskland",
-      "points": "1730.37",
+      "points": "1731.30",
       "change": 0
     },
     {
@@ -75,7 +75,7 @@
     {
       "rank": "13",
       "team": "Colombia",
-      "points": "1693.09",
+      "points": "1695.99",
       "change": 0
     },
     {
@@ -129,20 +129,20 @@
     {
       "rank": "22",
       "team": "Turkiet",
-      "points": "1599.04",
+      "points": "1601.99",
       "change": 0
     },
     {
       "rank": "23",
-      "team": "Ecuador",
-      "points": "1596.48",
-      "change": 0
+      "team": "Österrike",
+      "points": "1597.40",
+      "change": 1
     },
     {
       "rank": "24",
-      "team": "Österrike",
-      "points": "1593.45",
-      "change": 0
+      "team": "Ecuador",
+      "points": "1596.48",
+      "change": -1
     },
     {
       "rank": "25",
@@ -177,13 +177,13 @@
     {
       "rank": "30",
       "team": "Kanada",
-      "points": "1556.48",
+      "points": "1560.62",
       "change": 0
     },
     {
       "rank": "31",
       "team": "Norge",
-      "points": "1550.94",
+      "points": "1555.60",
       "change": 0
     },
     {
@@ -225,7 +225,7 @@
     {
       "rank": "38",
       "team": "Sverige",
-      "points": "1514.77",
+      "points": "1510.11",
       "change": 0
     },
     {
@@ -260,15 +260,15 @@
     },
     {
       "rank": "44",
-      "team": "Tunisien",
-      "points": "1483.05",
-      "change": 0
+      "team": "Kamerun",
+      "points": "1481.24",
+      "change": 1
     },
     {
       "rank": "45",
-      "team": "Kamerun",
-      "points": "1481.24",
-      "change": 0
+      "team": "Tunisien",
+      "points": "1479.10",
+      "change": -1
     },
     {
       "rank": "46",
@@ -285,7 +285,7 @@
     {
       "rank": "48",
       "team": "Slovakien",
-      "points": "1473.94",
+      "points": "1475.28",
       "change": 0
     },
     {
@@ -297,20 +297,20 @@
     {
       "rank": "50",
       "team": "Uzbekistan",
-      "points": "1465.34",
+      "points": "1461.21",
       "change": 0
     },
     {
       "rank": "51",
-      "team": "Costa Rica",
-      "points": "1459.90",
-      "change": 0
+      "team": "Mali",
+      "points": "1459.13",
+      "change": 1
     },
     {
       "rank": "52",
-      "team": "Mali",
-      "points": "1459.13",
-      "change": 0
+      "team": "Costa Rica",
+      "points": "1457.00",
+      "change": -1
     },
     {
       "rank": "53",
@@ -398,21 +398,21 @@
     },
     {
       "rank": "67",
-      "team": "Nordmakedonien",
-      "points": "1372.11",
-      "change": 0
+      "team": "Förenade Arabemiraten",
+      "points": "1370.47",
+      "change": 1
     },
     {
       "rank": "68",
-      "team": "Förenade Arabemiraten",
-      "points": "1370.47",
-      "change": 0
+      "team": "Kap Verde",
+      "points": "1369.29",
+      "change": 1
     },
     {
       "rank": "69",
-      "team": "Kap Verde",
-      "points": "1369.29",
-      "change": 0
+      "team": "Nordmakedonien",
+      "points": "1369.16",
+      "change": -2
     },
     {
       "rank": "70",
@@ -435,7 +435,7 @@
     {
       "rank": "73",
       "team": "Finland",
-      "points": "1346.41",
+      "points": "1345.48",
       "change": 0
     },
     {
@@ -476,15 +476,15 @@
     },
     {
       "rank": "80",
-      "team": "Guinea",
-      "points": "1300.01",
-      "change": 0
+      "team": "Montenegro",
+      "points": "1300.36",
+      "change": 1
     },
     {
       "rank": "81",
-      "team": "Montenegro",
-      "points": "1295.52",
-      "change": 0
+      "team": "Guinea",
+      "points": "1300.01",
+      "change": -1
     },
     {
       "rank": "82",
@@ -513,7 +513,7 @@
     {
       "rank": "86",
       "team": "Bulgarien",
-      "points": "1278.90",
+      "points": "1274.06",
       "change": 0
     },
     {
@@ -962,15 +962,15 @@
     },
     {
       "rank": "161",
-      "team": "Malta",
-      "points": "987.73",
-      "change": 0
+      "team": "Antigua och Barbuda",
+      "points": "986.58",
+      "change": 1
     },
     {
       "rank": "162",
-      "team": "Antigua och Barbuda",
-      "points": "986.58",
-      "change": 0
+      "team": "Malta",
+      "points": "986.39",
+      "change": -1
     },
     {
       "rank": "163",
@@ -992,27 +992,27 @@
     },
     {
       "rank": "166",
-      "team": "Bermuda",
-      "points": "976.87",
-      "change": 0
+      "team": "Afghanistan",
+      "points": "977.57",
+      "change": 3
     },
     {
       "rank": "167",
-      "team": "Saint Lucia",
-      "points": "976.71",
-      "change": 0
+      "team": "Bermuda",
+      "points": "976.87",
+      "change": -1
     },
     {
       "rank": "168",
-      "team": "Papua Nya Guinea",
-      "points": "974.90",
-      "change": 0
+      "team": "Saint Lucia",
+      "points": "976.71",
+      "change": -1
     },
     {
       "rank": "169",
-      "team": "Afghanistan",
-      "points": "972.75",
-      "change": 0
+      "team": "Papua Nya Guinea",
+      "points": "974.90",
+      "change": -1
     },
     {
       "rank": "170",
@@ -1029,7 +1029,7 @@
     {
       "rank": "172",
       "team": "Maldiverna",
-      "points": "954.93",
+      "points": "950.10",
       "change": 0
     },
     {
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": "01 April 2026",
-  "nextUpdate": "11 June 2026 (10 days)",
-  "lastUpdated": "2026-06-01T04:16:26.358Z",
+  "nextUpdate": "11 June 2026 (9 days)",
+  "lastUpdated": "2026-06-02T04:09:41.810Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
