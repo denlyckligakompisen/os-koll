@@ -45,13 +45,13 @@
     {
       "rank": "8",
       "team": "Marocko",
-      "points": "1755.87",
+      "points": "1756.94",
       "change": 0
     },
     {
       "rank": "9",
       "team": "Belgien",
-      "points": "1734.71",
+      "points": "1739.55",
       "change": 0
     },
     {
@@ -63,7 +63,7 @@
     {
       "rank": "11",
       "team": "Kroatien",
-      "points": "1717.07",
+      "points": "1712.24",
       "change": 0
     },
     {
@@ -212,15 +212,15 @@
     },
     {
       "rank": "36",
-      "team": "Wales",
-      "points": "1524.29",
-      "change": 1
+      "team": "Ryssland",
+      "points": "1523.28",
+      "change": 0
     },
     {
       "rank": "37",
-      "team": "Ryssland",
-      "points": "1523.28",
-      "change": -1
+      "team": "Wales",
+      "points": "1522.64",
+      "change": 0
     },
     {
       "rank": "38",
@@ -333,7 +333,7 @@
     {
       "rank": "56",
       "team": "Rumänien",
-      "points": "1451.16",
+      "points": "1450.20",
       "change": 0
     },
     {
@@ -429,20 +429,20 @@
     {
       "rank": "72",
       "team": "Georgien",
-      "points": "1350.18",
+      "points": "1351.14",
       "change": 0
     },
     {
       "rank": "73",
-      "team": "Finland",
-      "points": "1345.48",
-      "change": 0
+      "team": "Ghana",
+      "points": "1346.88",
+      "change": 1
     },
     {
       "rank": "74",
-      "team": "Ghana",
-      "points": "1345.23",
-      "change": 0
+      "team": "Finland",
+      "points": "1345.48",
+      "change": -1
     },
     {
       "rank": "75",
@@ -488,15 +488,15 @@
     },
     {
       "rank": "82",
-      "team": "Curaçao",
-      "points": "1293.08",
-      "change": 0
+      "team": "Haiti",
+      "points": "1296.61",
+      "change": 1
     },
     {
       "rank": "83",
-      "team": "Haiti",
-      "points": "1291.71",
-      "change": 0
+      "team": "Curaçao",
+      "points": "1293.08",
+      "change": -1
     },
     {
       "rank": "84",
@@ -507,7 +507,7 @@
     {
       "rank": "85",
       "team": "Nya Zeeland",
-      "points": "1281.57",
+      "points": "1276.66",
       "change": 0
     },
     {
@@ -621,7 +621,7 @@
     {
       "rank": "104",
       "team": "Madagaskar",
-      "points": "1203.76",
+      "points": "1202.69",
       "change": 0
     },
     {
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": "01 April 2026",
-  "nextUpdate": "11 June 2026 (9 days)",
-  "lastUpdated": "2026-06-02T04:09:41.810Z",
+  "nextUpdate": "11 June 2026 (8 days)",
+  "lastUpdated": "2026-06-03T04:19:34.104Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
