@@ -586,7 +586,7 @@ const VMKollen = () => {
                                 letterSpacing: '0.02em'
                             }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
                             {matches.map((m, i) => (
-                                <MatchCard key={i} match={m} idx={i} variant="hero" onCountryClick={handleCountryClick} allMatches={combinedMatches} />
+                                <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} />
                             ))}
                         </div>
                     );

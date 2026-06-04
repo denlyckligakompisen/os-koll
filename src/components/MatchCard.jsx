@@ -355,11 +355,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const getBroadcasterUrl = (broadcast) => {
+        if (match.link) return match.link;
+
         if (!broadcast) return null;
         const b = broadcast.toUpperCase();
         const slugify = (str) => {
             if (!str) return '';
-            // Extract the real team name if it contains a newline (e.g. "1A\nMexiko")
             const name = str.includes('\n') ? str.split('\n').pop() : str;
             return name.toLowerCase()
                 .replace(/å/g, 'a')
@@ -372,12 +373,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 .replace(/[^a-z0-9\-]/g, '');
         };
         if (b.includes('SVT')) {
-            const home = slugify(match.home);
-            const away = slugify(match.away);
-            if (home && away) {
-                return `https://www.svtplay.se/fifa-fotbolls-vm-2026/${home}-${away}`;
-            }
-            return 'https://www.svtplay.se/fifa-fotbolls-vm-2026';
+            return 'https://www.svtplay.se/kategori/fotbolls-vm?tab=schedule';
         }
         if (b.includes('TV4')) {
             const home = slugify(match.home);
