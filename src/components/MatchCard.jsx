@@ -172,6 +172,44 @@ const cleanTeamName = (n) => {
     return n.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim();
 };
 
+const BroadcasterLogo = ({ name, size = 'default' }) => {
+    if (!name) return null;
+    const b = name.toUpperCase().trim();
+    const isLarge = size === 'large';
+    const height = isLarge ? 18 : 14;
+
+    if (b.includes('SVT')) {
+        return (
+            <svg viewBox="0 0 120 40" height={height} aria-label="SVT" style={{ display: 'block' }}>
+                <rect width="120" height="40" rx="6" fill="#1B6E1F" />
+                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="'Inter', Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">SVT</text>
+            </svg>
+        );
+    }
+
+    if (b.includes('TV4')) {
+        return (
+            <svg viewBox="0 0 120 40" height={height} aria-label="TV4" style={{ display: 'block' }}>
+                <rect width="120" height="40" rx="6" fill="#E3000B" />
+                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="'Inter', Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">TV4</text>
+            </svg>
+        );
+    }
+
+    if (b.includes('MAX')) {
+        return (
+            <img src="/max_logo.svg" alt="Max" style={{ height: `${height}px`, objectFit: 'contain', display: 'block' }} />
+        );
+    }
+
+    // Fallback: plain text for unknown broadcasters
+    return (
+        <span style={{ fontSize: isLarge ? '0.8rem' : '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>
+            {name}
+        </span>
+    );
+};
+
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
@@ -319,18 +357,29 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const getBroadcasterUrl = (broadcast) => {
         if (!broadcast) return null;
         const b = broadcast.toUpperCase();
-        if (b.includes('SVT')) return 'https://www.svtplay.se/kategori/fotbolls-vm';
+        const slugify = (str) => {
+            if (!str) return '';
+            // Extract the real team name if it contains a newline (e.g. "1A\nMexiko")
+            const name = str.includes('\n') ? str.split('\n').pop() : str;
+            return name.toLowerCase()
+                .replace(/å/g, 'a')
+                .replace(/ä/g, 'a')
+                .replace(/ö/g, 'o')
+                .replace(/é/g, 'e')
+                .replace(/ü/g, 'u')
+                .replace(/ç/g, 'c')
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9\-]/g, '');
+        };
+        if (b.includes('SVT')) {
+            const home = slugify(match.home);
+            const away = slugify(match.away);
+            if (home && away) {
+                return `https://www.svtplay.se/fifa-fotbolls-vm-2026/${home}-${away}`;
+            }
+            return 'https://www.svtplay.se/fifa-fotbolls-vm-2026';
+        }
         if (b.includes('TV4')) {
-            const slugify = (str) => {
-                if (!str) return '';
-                return str.toLowerCase()
-                    .replace(/å/g, 'a')
-                    .replace(/ä/g, 'a')
-                    .replace(/ö/g, 'o')
-                    .replace(/é/g, 'e')
-                    .replace(/\s+/g, '-')
-                    .replace(/[^a-z0-9\-]/g, '');
-            };
             const home = slugify(match.home);
             const away = slugify(match.away);
             return `https://www.tv4play.se/program/e99c23f01724d859eba7/${home}-${away}`;
@@ -452,8 +501,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
 
                         {match.broadcast && (
-                            <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '4px' }}>
-                                {match.broadcast}
+                            <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
+                                <BroadcasterLogo name={match.broadcast} size="large" />
                             </div>
                         )}
 
@@ -618,8 +667,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </span>
                         )}
                         {match.broadcast && (
-                            <div style={{ fontSize: highlight ? '0.85rem' : '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: '2px' }}>
-                                {match.broadcast}
+                            <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
+                                <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
                             </div>
                         )}
                     </button>
