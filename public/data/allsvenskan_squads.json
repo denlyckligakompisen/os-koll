@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-06T05:53:22.182Z",
+  "lastUpdated": "2026-06-07T06:22:30.111Z",
   "source": "transfermarkt.com",
   "season": "2025/26",
   "teams": {
@@ -2490,7 +2490,7 @@
         "name": "Charlie Pavey",
         "position": "Right-Back",
         "number": "12",
-        "age": "07/06/2008 (17)",
+        "age": "07/06/2008 (18)",
         "value": "€400k",
         "joined": "29/01/2025",
         "contract": "31/12/2027",
@@ -4883,7 +4883,7 @@
         "age": "18/03/2000 (26)",
         "value": "€1.00m",
         "joined": "05/07/2019",
-        "contract": "30/06/2026",
+        "contract": "31/12/2027",
         "nationalities": [
           {
             "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
@@ -6832,7 +6832,7 @@
         "name": "Gideon Yiriyon",
         "position": "Attacking Midfield",
         "number": "13",
-        "age": "07/06/2007 (18)",
+        "age": "07/06/2007 (19)",
         "value": "€250k",
         "joined": "29/01/2026",
         "contract": "30/06/2026",
