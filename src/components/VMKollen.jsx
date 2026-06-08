@@ -17,12 +17,6 @@ import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
 
 
 
-const SUBTABS = [
-    { id: 'matcher', label: 'Matcher', icon: Calendar },
-    { id: 'gruppspel', label: 'Grupper', icon: List },
-    { id: 'slutspel', label: 'Slutspel', icon: Trophy },
-    { id: 'statistik', label: 'Statistik', icon: BarChart3 }
-];
 
 const CURRENT_YEAR = 2026;
 const MONTH_MAP = { 
@@ -146,9 +140,9 @@ const VMKollen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [expandedMatchGroup, setExpandedMatchGroup] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
-    useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
 
     // Auto-scroll in stats sub-tabs
@@ -229,6 +223,24 @@ const VMKollen = () => {
             fetchData('fifa_ranking.json').catch(() => null)
         ])
             .then(([gData, mData, kData, rData]) => {
+                if (gData?.groups && rData?.rankings) {
+                    gData.groups.forEach(group => {
+                        group.teams.forEach((team, index) => {
+                            if (typeof team === 'object') {
+                                const rankObj = rData.rankings.find(r => r.team === team.name);
+                                team.ranking = rankObj ? rankObj.rank : null;
+                            } else {
+                                const rankObj = rData.rankings.find(r => r.team === team);
+                                group.teams[index] = {
+                                    name: team,
+                                    ranking: rankObj ? rankObj.rank : null,
+                                    played: 0, gd: 0, pts: 0
+                                };
+                            }
+                        });
+                    });
+                }
+                
                 setGroupsData(gData);
                 setMatchesData(mData);
                 setKnockoutData(kData);
@@ -447,7 +459,7 @@ const VMKollen = () => {
     }
     if (!groupsData) return null;
 
-    const renderTable = (groupName, teams, displayName, idx = 0) => {
+    const renderTable = (groupName, teams, displayName, idx = 0, highlightTeams = []) => {
         const sortedTeams = sortTeams(teams);
 
         return (
@@ -483,20 +495,21 @@ const VMKollen = () => {
                                 const rank = tidx + 1;
                                 const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
                                 const isFiltered = filterCountry && team.name.includes(filterCountry);
+                                const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
 
                                 return (
                                     <tr
                                         key={team.name}
                                         ref={el => tableRefs.current[team.name] = el}
                                         style={{
-                                            backgroundColor: isFiltered ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                            backgroundColor: isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
                                             transition: 'background-color 0.2s ease'
                                         }}
                                     >
                                     <td style={{ 
                                         padding: '8px 4px',
-                                        borderTopLeftRadius: isFiltered ? '10px' : '0',
-                                        borderBottomLeftRadius: isFiltered ? '10px' : '0'
+                                        borderTopLeftRadius: isHighlighted ? '10px' : '0',
+                                        borderBottomLeftRadius: isHighlighted ? '10px' : '0'
                                     }}>
                                         <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
                                             {rank}
@@ -531,8 +544,8 @@ const VMKollen = () => {
                                         <td style={{
                                             padding: '11px 4px',
                                             textAlign: 'right',
-                                            borderTopRightRadius: isFiltered ? '10px' : '0',
-                                            borderBottomRightRadius: isFiltered ? '10px' : '0'
+                                            borderTopRightRadius: isHighlighted ? '10px' : '0',
+                                            borderBottomRightRadius: isHighlighted ? '10px' : '0'
                                         }}>{team.pts}</td>
                                     </tr>
                                 );
@@ -565,6 +578,28 @@ const VMKollen = () => {
         return `${day} ${monthSwe}`;
     };
 
+    const getTeamRank = (teamName) => {
+        if (!rankingData?.rankings) return 999;
+        const rankObj = rankingData.rankings.find(r => r.team === teamName);
+        return rankObj ? parseInt(rankObj.rank, 10) : 999;
+    };
+
+    const handleGroupToggle = (groupName) => {
+        setExpandedMatchGroup(prev => prev === groupName ? null : groupName);
+    };
+
+    const renderInlineGroupTable = (groupName, homeTeam, awayTeam) => {
+        if (!groupsData?.groups || expandedMatchGroup !== groupName) return null;
+        const group = groupsData.groups.find(g => g.name === groupName);
+        if (!group) return null;
+        const highlightTeams = [homeTeam, awayTeam].filter(Boolean).map(n => n.includes('\n') ? n.split('\n')[1] : n);
+        return (
+            <div style={{ marginTop: '4px', marginBottom: '8px', transition: 'all 0.3s ease' }}>
+                {renderTable(group.name, group.teams, null, 0, highlightTeams)}
+            </div>
+        );
+    };
+
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
@@ -576,6 +611,17 @@ const VMKollen = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {sortedDates.map((date) => {
                     const matches = groupedMatches[date];
+                    
+                    let bestMatchIdx = -1;
+                    let lowestRankSum = Infinity;
+                    matches.forEach((m, idx) => {
+                        const sum = getTeamRank(m.realHome || m.home) + getTeamRank(m.realAway || m.away);
+                        if (sum < lowestRankSum) {
+                            lowestRankSum = sum;
+                            bestMatchIdx = idx;
+                        }
+                    });
+
                     return (
                         <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             <div style={{
@@ -585,9 +631,40 @@ const VMKollen = () => {
                                 color: 'var(--color-text-muted)',
                                 letterSpacing: '0.02em'
                             }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
-                            {matches.map((m, i) => (
-                                <MatchCard key={i} match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} />
-                            ))}
+                            {matches.map((m, i) => {
+                                const isBest = i === bestMatchIdx && lowestRankSum < 1998;
+                                const matchKey = `${m.home}-${m.away}-${m.date}`;
+                                return (
+                                    <div key={i}>
+                                        <div style={isBest ? {
+                                            borderRadius: '16px',
+                                            boxShadow: '0 0 0 2px #FFD700',
+                                            position: 'relative'
+                                        } : {}}>
+                                            {isBest && (
+                                                <div style={{
+                                                    position: 'absolute',
+                                                    top: '-8px',
+                                                    right: '12px',
+                                                    background: '#FFD700',
+                                                    color: '#000',
+                                                    fontSize: '0.65rem',
+                                                    fontWeight: 'bold',
+                                                    padding: '2px 8px',
+                                                    borderRadius: '8px',
+                                                    zIndex: 10,
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.05em'
+                                                }}>
+                                                    Dagens match
+                                                </div>
+                                            )}
+                                            <MatchCard match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={handleGroupToggle} onCardClick={handleGroupToggle} />
+                                        </div>
+                                        {m.group && renderInlineGroupTable(m.group, m.realHome || m.home, m.realAway || m.away)}
+                                    </div>
+                                );
+                            })}
                         </div>
                     );
                 })}
@@ -610,7 +687,12 @@ const VMKollen = () => {
                             variant="hero" 
                             onCountryClick={handleCountryClick} 
                             allMatches={combinedMatches}
+                            homeRank={getTeamRank(m.realHome || m.home)}
+                            awayRank={getTeamRank(m.realAway || m.away)}
+                            onGroupClick={handleGroupToggle}
+                            onCardClick={handleGroupToggle}
                         />
+                        {m.group && renderInlineGroupTable(m.group, m.realHome || m.home, m.realAway || m.away)}
                     </div>
                 ))}
             </div>
@@ -634,11 +716,11 @@ const VMKollen = () => {
 
             {/* Full-width Sticky Header */}
             <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
-                backgroundColor: isScrolled ? headerStyle.bg : (filterCountry ? headerStyle.bg : 'var(--color-bg)'),
-                color: headerStyle.text,
-                '--active-color': headerStyle.activeLine,
+                backgroundColor: 'var(--color-bg)',
+                color: 'var(--color-text)',
+                '--active-color': 'var(--color-primary)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: (isScrolled && !filterCountry) ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                boxShadow: isScrolled ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
                 backdropFilter: isScrolled ? 'blur(20px)' : 'none',
                 WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
             }}>
@@ -647,72 +729,22 @@ const VMKollen = () => {
                     style={{
                         background: 'none',
                         border: 'none',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
                     }}
                     onClick={() => navigate('/allsvenskan')}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <img src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" alt="VM 2026" style={{ height: '32px' }} />
-                        <ArrowLeftRight size={18} color="#aeafb4" />
+                        <span style={{ fontSize: '1.2rem', fontWeight: '800', letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>2026 FIFA World Cup</span>
                     </div>
                 </div>
 
-                <nav className="web-nav-links" aria-label="Huvudmeny">
-                    {SUBTABS.map(tab => (
-                        <button
-                            key={tab.id}
-                            className={`web-nav-item ${activeTab === tab.id ? 'active' : ''}`}
-                            aria-current={activeTab === tab.id ? 'page' : undefined}
-                            onClick={() => {
-                                setActiveTab(tab.id);
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }}
-                        >
-                            <tab.icon size={20} className="tab-icon" />
-                            <span className="tab-label">{tab.label}</span>
-                        </button>
-                    ))}
-                </nav>
 
-                <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
-                    <button
-                        onClick={(e) => {
-                            e.currentTarget.blur();
-                            handleMenuClick(e);
-                        }}
-                        className={`sverige-toggle ${filterCountry ? 'active' : ''}`}
-                        aria-label="Välj land att filtrera"
-                        style={{ height: '100%' }}
-                    >
-                        {filterCountry ? (
-                            <FlagBadge codes={getFlagCodes(filterCountry)} size={24} shadow={false} />
-                        ) : (
-                            <Globe size={24} color="#8e8e93" strokeWidth={1.5} />
-                        )}
-                    </button>
-                </div>
+                {/* Filter removed as per user request */}
             </div>
-                <FilterDrawer 
-                    isOpen={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                    items={allCountries.map(country => ({
-                        id: country,
-                        label: country,
-                        icon: <FlagBadge codes={getFlagCodes(country)} size={22} shadow={false} />
-                    }))}
-                    selectedItem={filterCountry ? {
-                        id: filterCountry,
-                        label: filterCountry,
-                        icon: <FlagBadge codes={getFlagCodes(filterCountry)} size={22} shadow={false} />
-                    } : null}
-                    onSelect={handleCountryClick}
-                    onClear={() => {
-                        setFilterCountry(null);
-                        handleMenuClose();
-                    }}
-                />
-
-
 
             {/* Centered Content Container */}
             <div style={{ 

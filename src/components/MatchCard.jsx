@@ -210,7 +210,7 @@ const BroadcasterLogo = ({ name, size = 'default' }) => {
     );
 };
 
-const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
@@ -339,19 +339,23 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         }
     };
 
-    const renderTeamName = (name) => {
+    const renderTeamName = (name, align = 'center', rankVal) => {
         if (!name) return null;
+        let topText = null;
+        let mainName = cleanTeamNameForDisplay(name);
         if (name.includes('\n')) {
-            const [rank, teamName] = name.split('\n');
-            const cleanedTeam = cleanTeamNameForDisplay(teamName);
-            return (
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>{rank}</span>
-                    {cleanedTeam}
-                </div>
-            );
+            const parts = name.split('\n');
+            topText = parts[0];
+            mainName = cleanTeamNameForDisplay(parts[1]);
         }
-        return cleanTeamNameForDisplay(name);
+        
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center' }}>
+                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>{topText}</span>}
+                <span>{mainName}</span>
+                {rankVal && rankVal !== 999 && <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginTop: '2px' }}>Rank: {rankVal}</span>}
+            </div>
+        );
     };
 
     const getBroadcasterUrl = (broadcast) => {
@@ -400,7 +404,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <Card 
                 key={idx} 
                 padding="28px"
-                className={props.onClick ? "clickable-card" : ""}
+                className="clickable-card"
                 style={{
                     backgroundColor: 'var(--color-card-bg)',
                     border: 'var(--border)',
@@ -408,21 +412,20 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '12px',
+                    cursor: 'pointer',
                     ...props.style
                 }}
-                onClick={props.onClick}
+                onClick={() => onCardClick && onCardClick(match.group)}
             >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', width: '100%' }}>
                     <div
-                        onClick={(e) => handleTeamClick(e, match.home)}
                         style={{ 
                             flex: 1, 
                             textAlign: 'center', 
                             display: 'flex', 
                             flexDirection: 'column', 
                             alignItems: 'center', 
-                            gap: '12px',
-                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                            gap: '12px'
                         }}
                     >
                         <TeamLogo 
@@ -430,9 +433,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             teamName={match.home} 
                             size={64} 
                             flags={homeFlags} 
+                            onClick={(e) => handleTeamClick(e, match.home)}
                         />
 
-                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.home)}</div>
+                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.home, 'center', homeRank)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -459,7 +463,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                         {match.group ? (
-                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            <div 
+                                onClick={(e) => { e.stopPropagation(); onGroupClick && onGroupClick(match.group); }}
+                                style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: onGroupClick ? 'pointer' : 'default' }}
+                            >
                                 {match.group}
                             </div>
                         ) : null}
@@ -483,21 +490,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              displayTime}
                         </button>
-                        {computedStatus === 'live' && (
-                            <div style={{
-                                fontSize: '0.85rem',
-                                fontWeight: '400',
-                                color: 'var(--color-text-muted)',
-                                marginTop: '4px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.04em'
-                            }}>
-                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
-                            </div>
-                        )}
-
                         {match.broadcast && (
-                            <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
+                            <div 
+                                onClick={handleBroadcastClick}
+                                style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
+                            >
                                 <BroadcasterLogo name={match.broadcast} size="large" />
                             </div>
                         )}
@@ -508,15 +505,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     <div
-                        onClick={(e) => handleTeamClick(e, match.away)}
                         style={{ 
                             flex: 1, 
                             textAlign: 'center', 
                             display: 'flex', 
                             flexDirection: 'column', 
                             alignItems: 'center', 
-                            gap: '12px',
-                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                            gap: '12px'
                         }}
                     >
                         <TeamLogo 
@@ -524,9 +519,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             teamName={match.away} 
                             size={64} 
                             flags={awayFlags} 
+                            onClick={(e) => handleTeamClick(e, match.away)}
                         />
 
-                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.away)}</div>
+                        <div style={{ fontSize: '1.1rem', }}>{renderTeamName(match.away, 'center', awayRank)}</div>
 
                         {/* Form badges under team name */}
                         {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
@@ -559,7 +555,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         <Card 
             key={idx} 
             padding={highlight ? "20px 14px" : "12px 14px"} 
-            className={props.onClick ? "clickable-card" : ""}
+            className="clickable-card"
             style={{
                 border: 'var(--border)', 
                 boxShadow: 'none', 
@@ -567,20 +563,20 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 display: 'flex', 
                 flexDirection: 'column',
                 gap: '8px', 
-                cursor: props.onClick ? 'pointer' : 'default',
+                cursor: 'pointer',
                 transform: highlight ? 'scale(1.02)' : 'none',
                 zIndex: highlight ? 2 : 1,
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
                 ...props.style
             }} 
-            onClick={props.onClick}
+            onClick={() => onCardClick && onCardClick(match.group)}
         >
             <div style={{ display: 'flex', width: '100%', alignItems: computedStatus === 'upcoming' ? 'center' : 'flex-start', gap: highlight ? '20px' : '12px' }}>
             <TeamLogo 
                 logoUrl={homeLogo} 
                 teamName={match.home} 
-                size={highlight ? 64 : 32} 
+                size={highlight ? 64 : 42} 
                 flags={homeFlags} 
                 onClick={(e) => handleTeamClick(e, match.home)}
             />
@@ -595,8 +591,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     textAlign: 'center',
                     transition: 'all 0.3s ease'
                 }}>
-                    <span
-                        onClick={(e) => handleTeamClick(e, match.home)}
+                    <div
                         style={{
                             flex: 1,
                             textAlign: 'right',
@@ -604,11 +599,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
                             fontWeight: '400',
-                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                            display: 'flex',
+                            justifyContent: 'flex-end'
                         }}
                     >
-                        {renderTeamName(match.home)}
-                    </span>
+                        {renderTeamName(match.home, 'right', homeRank)}
+                    </div>
                     <button
                         onClick={handleBroadcastClick}
                         aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
@@ -629,7 +625,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}
                     >
                         {match.group && (
-                            <div style={{ fontSize: highlight ? '0.7rem' : '0.6rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px' }}>
+                            <div 
+                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onGroupClick && onGroupClick(match.group); }}
+                                style={{ fontSize: highlight ? '0.7rem' : '0.6rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px', cursor: onGroupClick ? 'pointer' : 'default' }}
+                            >
                                 {match.group}
                                 {match.isPreliminary && ' (prel.)'}
                             </div>
@@ -668,8 +667,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
                     </button>
-                    <span
-                        onClick={(e) => handleTeamClick(e, match.away)}
+                    <div
                         style={{
                             flex: 1,
                             textAlign: 'left',
@@ -677,11 +675,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             lineHeight: '1.2',
                             wordBreak: 'break-word',
                             fontWeight: '400',
-                            cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                            display: 'flex',
+                            justifyContent: 'flex-start'
                         }}
                     >
-                        {renderTeamName(match.away)}
-                    </span>
+                        {renderTeamName(match.away, 'left', awayRank)}
+                    </div>
                 </div>
                 {match.scorers && (match.scorers.home?.length > 0 || match.scorers.away?.length > 0) && (() => {
                     const sortedHome = getSortedScorers(match.scorers.home);
@@ -760,7 +759,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <TeamLogo 
                 logoUrl={awayLogo} 
                 teamName={match.away} 
-                size={highlight ? 64 : 32} 
+                size={highlight ? 64 : 42} 
                 flags={awayFlags} 
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
