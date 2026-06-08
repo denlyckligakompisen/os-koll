@@ -19,7 +19,7 @@ import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
 
 
 const CURRENT_YEAR = 2026;
-const MONTH_MAP = { 
+const MONTH_MAP = {
     'jan': 0, 'januari': 0,
     'feb': 1, 'februari': 1,
     'mar': 2, 'mars': 2,
@@ -240,7 +240,7 @@ const VMKollen = () => {
                         });
                     });
                 }
-                
+
                 setGroupsData(gData);
                 setMatchesData(mData);
                 setKnockoutData(kData);
@@ -448,8 +448,12 @@ const VMKollen = () => {
         if (!group) return null;
         const highlightTeams = [homeTeam, awayTeam].filter(Boolean).map(n => n.includes('\n') ? n.split('\n')[1] : n);
         return (
-            <div style={{ marginTop: '4px', marginBottom: '8px', transition: 'all 0.3s ease' }}>
-                {renderTable(group.name, group.teams, null, 0, highlightTeams)}
+            <div style={{
+                marginTop: '4px',
+                marginBottom: '8px',
+                animation: 'slideOutFromUnder 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            }}>
+                {renderTable(group.name, group.teams, null, 0, highlightTeams, true)}
             </div>
         );
     };
@@ -495,11 +499,11 @@ const VMKollen = () => {
     }
     if (!groupsData) return null;
 
-    const renderTable = (groupName, teams, displayName, idx = 0, highlightTeams = []) => {
+    const renderTable = (groupName, teams, displayName, idx = 0, highlightTeams = [], isInline = false) => {
         const sortedTeams = sortTeams(teams);
 
         return (
-            <div key={groupName} style={{ marginBottom: '32px' }}>
+            <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
                 <div style={{
                     fontSize: '0.8rem',
                     textTransform: 'uppercase',
@@ -510,18 +514,25 @@ const VMKollen = () => {
                 }}>
                     <BoldSverige text={displayName || groupName} />
                 </div>
-                <Card style={{ marginBottom: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                <Card
+                    padding={isInline ? "4px 8px" : "24px"}
+                    style={{
+                        marginBottom: '0',
+                        backgroundColor: isInline ? 'transparent' : 'var(--color-card-bg)',
+                        boxShadow: isInline ? 'none' : 'var(--shadow-sm)'
+                    }}
+                >
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.8rem' : '0.9rem' }}>
                         <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
                             Tabell för {displayName || groupName}
                         </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position">#</th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: '8px 4px', color: 'var(--color-text-muted)', }}>P</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position">#</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>P</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -542,44 +553,45 @@ const VMKollen = () => {
                                             transition: 'background-color 0.2s ease'
                                         }}
                                     >
-                                    <td style={{ 
-                                        padding: '8px 4px',
-                                        borderTopLeftRadius: isHighlighted ? '10px' : '0',
-                                        borderBottomLeftRadius: isHighlighted ? '10px' : '0'
-                                    }}>
-                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
-                                            {rank}
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '11px 4px' }}>
-                                        <button 
-                                            onClick={() => handleCountryClick(team.name)}
-                                            aria-label={`Visa information om ${team.name}`}
-                                            style={{ 
-                                                display: 'flex', 
-                                                alignItems: 'center', 
-                                                gap: '8px', 
-                                                cursor: 'pointer',
-                                                background: 'none',
-                                                border: 'none',
-                                                padding: 0,
-                                                font: 'inherit',
-                                                color: 'inherit',
-                                                width: '100%',
-                                                textAlign: 'left'
-                                            }}
-                                        >
-                                            <FlagBadge codes={flagCodes} name={team.name} size={26} />
-                                            <span style={{ whiteSpace: 'normal', lineHeight: '1.2' }}>
-                                                <BoldSverige text={team.name} />
-                                            </span>
-                                        </button>
-                                    </td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center' }}>{team.played}</td>
-                                        <td style={{ padding: '11px 4px', textAlign: 'center', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
                                         <td style={{
-                                            padding: '11px 4px',
+                                            padding: isInline ? '6px 2px' : '8px 4px',
+                                            borderTopLeftRadius: isHighlighted ? '10px' : '0',
+                                            borderBottomLeftRadius: isHighlighted ? '10px' : '0'
+                                        }}>
+                                            <div style={{ width: isInline ? '22px' : '28px', height: isInline ? '22px' : '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: isInline ? '0.75rem' : '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
+                                                {rank}
+                                            </div>
+                                        </td>
+                                        <td style={{ padding: isInline ? '6px 2px' : '11px 4px' }}>
+                                            <button
+                                                onClick={() => handleCountryClick(team.name)}
+                                                aria-label={`Visa information om ${team.name}`}
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '8px',
+                                                    cursor: 'pointer',
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    padding: 0,
+                                                    font: 'inherit',
+                                                    color: 'inherit',
+                                                    width: '100%',
+                                                    textAlign: 'left'
+                                                }}
+                                            >
+                                                <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 20 : 26} />
+                                                <span style={{ whiteSpace: 'normal', lineHeight: '1.2', fontWeight: isFiltered ? 600 : 'normal' }}>
+                                                    <BoldSverige text={team.name} />
+                                                </span>
+                                            </button>
+                                        </td>
+                                        <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px' }}>{team.played}</td>
+                                        <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                        <td style={{
+                                            padding: isInline ? '6px 2px' : '8px 4px',
                                             textAlign: 'right',
+                                            fontWeight: 'bold',
                                             borderTopRightRadius: isHighlighted ? '10px' : '0',
                                             borderBottomRightRadius: isHighlighted ? '10px' : '0'
                                         }}>{team.pts}</td>
@@ -597,10 +609,10 @@ const VMKollen = () => {
         if (!dateStr) return '';
         const match = dateStr.match(/^(\d{1,2})\s+([A-Za-z]+).*?(\(\d+\s+days\))?$/);
         if (!match) return dateStr;
-        
+
         const day = parseInt(match[1]);
         const monthEng = match[2].toLowerCase();
-        
+
         const engToSwe = {
             'january': 'januari', 'february': 'februari', 'march': 'mars', 'april': 'april',
             'may': 'maj', 'june': 'juni', 'july': 'juli', 'august': 'augusti',
@@ -609,7 +621,7 @@ const VMKollen = () => {
             'jun': 'juni', 'jul': 'juli', 'aug': 'augusti', 'sep': 'september',
             'oct': 'oktober', 'nov': 'november', 'dec': 'december'
         };
-        
+
         const monthSwe = engToSwe[monthEng] || monthEng;
         return `${day} ${monthSwe}`;
     };
@@ -664,7 +676,7 @@ const VMKollen = () => {
                                                     Dagens match
                                                 </div>
                                             )}
-                                            <MatchCard match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                            <MatchCard match={m} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                         </div>
                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away)}
                                     </div>
@@ -687,10 +699,11 @@ const VMKollen = () => {
                         <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
                             {getRelativeDateLabel(m.date, GROUP_MONTH_MAP).toUpperCase()}
                         </div>
-                        <MatchCard 
-                            match={m} 
-                            variant="hero" 
-                            onCountryClick={handleCountryClick} 
+                        <MatchCard
+                            match={m}
+                            variant="hero"
+                            filterTeam={filterCountry}
+                            onCountryClick={handleCountryClick}
                             allMatches={combinedMatches}
                             homeRank={getTeamRank(m.realHome || m.home)}
                             awayRank={getTeamRank(m.realAway || m.away)}
@@ -720,7 +733,7 @@ const VMKollen = () => {
 
 
             {/* Full-width Sticky Header */}
-            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
+            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{
                 backgroundColor: 'var(--color-glass-bg)',
                 color: 'var(--color-text)',
                 '--active-color': 'var(--color-primary)',
@@ -752,10 +765,10 @@ const VMKollen = () => {
             </div>
 
             {/* Centered Content Container */}
-            <div style={{ 
-                maxWidth: activeTab === 'slutspel' ? '100%' : '600px', 
-                margin: '32px auto 0 auto', 
-                padding: activeTab === 'slutspel' ? '0' : '0 10px' 
+            <div style={{
+                maxWidth: activeTab === 'slutspel' ? '100%' : '600px',
+                margin: '32px auto 0 auto',
+                padding: activeTab === 'slutspel' ? '0' : '0 10px'
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
@@ -770,9 +783,9 @@ const VMKollen = () => {
                         </>
                     )}
                     {activeTab === 'slutspel' && (
-                        <VMBracket 
-                            filterCountry={filterCountry} 
-                            onCountryClick={handleCountryClick} 
+                        <VMBracket
+                            filterCountry={filterCountry}
+                            onCountryClick={handleCountryClick}
                         />
                     )}
                     {activeTab === 'statistik' && (
@@ -790,97 +803,97 @@ const VMKollen = () => {
 
                             {/* Ranking Sub-page */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                    {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '8px' }}>
-                                            {rankingData.lastUpdate && <div>Senast uppdaterad: {formatSwedishDate(rankingData.lastUpdate)}</div>}
-                                            {rankingData.nextUpdate && <div>Nästa uppdatering: {formatSwedishDate(rankingData.nextUpdate)}</div>}
-                                        </div>
-                                    )}
-                                    <Card style={{ marginBottom: '0' }}>
-                                        <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
-                                            <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
-                                                FIFA:s världsranking
-                                            </caption>
-                                            <thead>
-                                                <tr style={{ borderBottom: 'var(--border)' }}>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }} aria-label="Rank">#</th>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                    {rankingData?.rankings?.map((r, i) => {
-                                                        const isTournamentTeam = tournamentTeams.has(r.team);
-                                                        const isSelected = filterCountry && r.team.includes(filterCountry);
-                                                        return (
-                                                            <tr
-                                                                key={i}
-                                                                ref={el => rankingRefs.current[r.team] = el}
+                                {(rankingData?.lastUpdate || rankingData?.nextUpdate) && (
+                                    <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textAlign: 'left', paddingLeft: '4px', display: 'flex', flexDirection: 'column', gap: '2px', marginBottom: '8px' }}>
+                                        {rankingData.lastUpdate && <div>Senast uppdaterad: {formatSwedishDate(rankingData.lastUpdate)}</div>}
+                                        {rankingData.nextUpdate && <div>Nästa uppdatering: {formatSwedishDate(rankingData.nextUpdate)}</div>}
+                                    </div>
+                                )}
+                                <Card style={{ marginBottom: '0' }}>
+                                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.9rem' }}>
+                                        <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
+                                            FIFA:s världsranking
+                                        </caption>
+                                        <thead>
+                                            <tr style={{ borderBottom: 'var(--border)' }}>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '40px' }} aria-label="Rank">#</th>
+                                                <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {rankingData?.rankings?.map((r, i) => {
+                                                const isTournamentTeam = tournamentTeams.has(r.team);
+                                                const isSelected = filterCountry && r.team.includes(filterCountry);
+                                                return (
+                                                    <tr
+                                                        key={i}
+                                                        ref={el => rankingRefs.current[r.team] = el}
+                                                        style={{
+                                                            backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                            opacity: isTournamentTeam ? 1 : 0.6,
+                                                            transition: 'all 0.2s ease'
+                                                        }}
+                                                    >
+                                                        <td style={{
+                                                            padding: '8px 4px',
+                                                            borderTopLeftRadius: isSelected ? '12px' : '0',
+                                                            borderBottomLeftRadius: isSelected ? '12px' : '0'
+                                                        }}>
+                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
+                                                                    {r.rank}
+                                                                </div>
+                                                                {r.change !== 0 && (
+                                                                    <span style={{
+                                                                        fontSize: '0.7rem',
+                                                                        color: r.change > 0 ? '#34c759' : '#ff3b30',
+                                                                        backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
+                                                                        padding: '2px 5px',
+                                                                        borderRadius: '4px',
+                                                                        display: 'inline-flex',
+                                                                        alignItems: 'center',
+                                                                        gap: '1px'
+                                                                    }}>
+                                                                        {r.change > 0 ? <ChevronUp size={12} strokeWidth={3} /> : <ChevronDown size={12} strokeWidth={3} />}
+                                                                        {Math.abs(r.change)}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </td>
+                                                        <td style={{
+                                                            padding: '11px 4px',
+                                                            borderTopRightRadius: isSelected ? '12px' : '0',
+                                                            borderBottomRightRadius: isSelected ? '12px' : '0'
+                                                        }}>
+                                                            <button
+                                                                aria-label={isTournamentTeam ? `Visa information om ${r.team}` : r.team}
+                                                                disabled={!isTournamentTeam}
                                                                 style={{
-                                                                    backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                                                    opacity: isTournamentTeam ? 1 : 0.6,
-                                                                    transition: 'all 0.2s ease'
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    gap: '8px',
+                                                                    cursor: isTournamentTeam ? 'pointer' : 'default',
+                                                                    background: 'none',
+                                                                    border: 'none',
+                                                                    padding: 0,
+                                                                    font: 'inherit',
+                                                                    color: 'inherit',
+                                                                    width: '100%',
+                                                                    textAlign: 'left'
                                                                 }}
+                                                                onClick={() => isTournamentTeam && handleCountryClick(r.team)}
                                                             >
-                                                                <td style={{ 
-                                                                    padding: '8px 4px',
-                                                                    borderTopLeftRadius: isSelected ? '12px' : '0',
-                                                                    borderBottomLeftRadius: isSelected ? '12px' : '0'
-                                                                }}>
-                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                                                        <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.85rem' }}>
-                                                                            {r.rank}
-                                                                        </div>
-                                                                        {r.change !== 0 && (
-                                                                            <span style={{ 
-                                                                                fontSize: '0.7rem', 
-                                                                                color: r.change > 0 ? '#34c759' : '#ff3b30',
-                                                                                backgroundColor: r.change > 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)',
-                                                                                padding: '2px 5px',
-                                                                                borderRadius: '4px',
-                                                                                display: 'inline-flex',
-                                                                                alignItems: 'center',
-                                                                                gap: '1px'
-                                                                            }}>
-                                                                                {r.change > 0 ? <ChevronUp size={12} strokeWidth={3} /> : <ChevronDown size={12} strokeWidth={3} />}
-                                                                                {Math.abs(r.change)}
-                                                                            </span>
-                                                                        )}
-                                                                    </div>
-                                                                </td>
-                                                                <td style={{ 
-                                                                    padding: '11px 4px',
-                                                                    borderTopRightRadius: isSelected ? '12px' : '0',
-                                                                    borderBottomRightRadius: isSelected ? '12px' : '0'
-                                                                }}>
-                                                                    <button
-                                                                        aria-label={isTournamentTeam ? `Visa information om ${r.team}` : r.team}
-                                                                        disabled={!isTournamentTeam}
-                                                                        style={{ 
-                                                                            display: 'flex', 
-                                                                            alignItems: 'center', 
-                                                                            gap: '8px', 
-                                                                            cursor: isTournamentTeam ? 'pointer' : 'default',
-                                                                            background: 'none',
-                                                                            border: 'none',
-                                                                            padding: 0,
-                                                                            font: 'inherit',
-                                                                            color: 'inherit',
-                                                                            width: '100%',
-                                                                            textAlign: 'left'
-                                                                        }}
-                                                                        onClick={() => isTournamentTeam && handleCountryClick(r.team)}
-                                                                    >
-                                                                        <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
-                                                                        <span style={{ }}><BoldSverige text={r.team} /></span>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </Card>
-                                </div>
+                                                                <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
+                                                                <span style={{ fontWeight: isSelected ? 600 : 'normal' }}><BoldSverige text={r.team} /></span>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </Card>
+                            </div>
                         </div>
                     )}
 

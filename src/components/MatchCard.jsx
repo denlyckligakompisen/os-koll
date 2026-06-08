@@ -242,7 +242,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const computedScore = getComputedScore(computedStatus);
 
-    const displayTime = match.time === '00:00' ? 'TBA' : match.time;
+    const displayTime = match.time || 'TBA';
 
     // Calculate Form
     const getTeamForm = (teamName) => {
@@ -349,10 +349,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             mainName = cleanTeamNameForDisplay(parts[1]);
         }
         
+        const isFiltered = filterTeam && (mainName.includes(filterTeam) || (topText && topText.includes(filterTeam)));
+        
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center' }}>
-                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>{topText}</span>}
-                <span>{mainName}</span>
+                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: isFiltered ? 600 : 'normal' }}>{topText}</span>}
+                <span style={{ fontWeight: isFiltered ? 600 : 'normal' }}>{mainName}</span>
             </div>
         );
     };
@@ -568,7 +570,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <TeamLogo 
                 logoUrl={homeLogo} 
                 teamName={match.home} 
-                size={highlight ? 64 : 42} 
+                size={highlight ? 76 : 52} 
                 flags={homeFlags} 
                 onClick={(e) => handleTeamClick(e, match.home)}
             />
@@ -743,7 +745,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <TeamLogo 
                 logoUrl={awayLogo} 
                 teamName={match.away} 
-                size={highlight ? 64 : 42} 
+                size={highlight ? 76 : 52} 
                 flags={awayFlags} 
                 onClick={(e) => handleTeamClick(e, match.away)}
             />

@@ -38,9 +38,9 @@
       "home": "Kanada",
       "away": "Bosnien och Hercegovina",
       "venue": "Toronto",
-      "broadcast": "",
+      "broadcast": "SVT",
       "group": "Grupp B",
-      "link": "",
+      "link": "https://www.svtplay.se/video/8orrqWp/fifa-fotbolls-vm-2026/kanada-bosnien-och-hercegovina",
       "status": "upcoming",
       "score": "",
       "startTimestamp": 1781290800
@@ -263,9 +263,9 @@
       "home": "Irak",
       "away": "Norge",
       "venue": "Foxborough",
-      "broadcast": "",
+      "broadcast": "TV4",
       "group": "Grupp I",
-      "link": "",
+      "link": "https://www.tv4play.se/program/4945c29e0be423dad095/irak-norge",
       "status": "upcoming",
       "score": "",
       "startTimestamp": 1781647200
