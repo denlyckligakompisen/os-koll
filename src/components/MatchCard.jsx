@@ -353,7 +353,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center' }}>
                 {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>{topText}</span>}
                 <span>{mainName}</span>
-                {rankVal && rankVal !== 999 && <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginTop: '2px' }}>Rank: {rankVal}</span>}
             </div>
         );
     };
@@ -462,14 +461,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                        {match.group ? (
-                            <div 
-                                onClick={(e) => { e.stopPropagation(); onGroupClick && onGroupClick(); }}
-                                style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: onGroupClick ? 'pointer' : 'default' }}
-                            >
-                                {match.group}
-                            </div>
-                        ) : null}
+                        
                         <button
                             onClick={handleBroadcastClick}
                             disabled={!getBroadcasterUrl(match.broadcast)}
@@ -624,15 +616,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             color: 'inherit'
                         }}
                     >
-                        {match.group && (
-                            <div 
-                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onGroupClick && onGroupClick(); }}
-                                style={{ fontSize: highlight ? '0.7rem' : '0.6rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px', cursor: onGroupClick ? 'pointer' : 'default' }}
-                            >
-                                {match.group}
-                                {match.isPreliminary && ' (prel.)'}
-                            </div>
-                        )}
+                        
                         <span style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
                             color: outcomeTextColor || 'var(--color-text)',
