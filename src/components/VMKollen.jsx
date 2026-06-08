@@ -420,11 +420,7 @@ const VMKollen = () => {
 
             if (filterCountry && !isFilterCountryMatch) return acc;
 
-            // Skip the matches shown in the "Next Match" cards
-            const isHighlighted = nextMatches.some(nm =>
-                nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time
-            );
-            if (isHighlighted) return acc;
+            // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
@@ -458,19 +454,6 @@ const VMKollen = () => {
         );
     };
 
-    const globalBestMatchesByDate = React.useMemo(() => {
-        if (!combinedMatches || combinedMatches.length === 0) return {};
-        const best = {};
-        combinedMatches.forEach(m => {
-            const sum = getTeamRank(m.realHome || m.home) + getTeamRank(m.realAway || m.away);
-            if (sum < 1998) {
-                if (!best[m.date] || sum < best[m.date].sum) {
-                    best[m.date] = { key: `${m.home}-${m.away}-${m.date}`, sum };
-                }
-            }
-        });
-        return best;
-    }, [combinedMatches, rankingData]);
 
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -634,85 +617,122 @@ const VMKollen = () => {
             return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
         });
 
-        return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {sortedDates.map((date) => {
-                    const matches = groupedMatches[date];
+        const ROUND_NAMES = {
+            "1/16-final": "Sextondelsfinaler",
+            "1/8-final": "Åttondelsfinaler",
+            "Kvartsfinal": "Kvartsfinaler",
+            "Semifinal": "Semifinaler",
+            "Bronsmatch": "Bronsmatch",
+            "Final": "Final"
+        };
 
+        const roundsData = [];
+        let currentRound = null;
+        let currentRoundDates = [];
+
+        sortedDates.forEach((date) => {
+            const matches = groupedMatches[date];
+            const firstMatch = matches[0];
+            let roundKey = "Gruppspel";
+
+            if (firstMatch.isKnockout && firstMatch.roundName) {
+                roundKey = firstMatch.roundName;
+            }
+
+            if (roundKey !== currentRound) {
+                if (currentRound !== null) {
+                    roundsData.push({ roundKey: currentRound, dates: currentRoundDates });
+                }
+                currentRound = roundKey;
+                currentRoundDates = [date];
+            } else {
+                currentRoundDates.push(date);
+            }
+        });
+        
+        if (currentRound !== null) {
+            roundsData.push({ roundKey: currentRound, dates: currentRoundDates });
+        }
+
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                {roundsData.map((roundObj) => {
+                    const roundHeader = roundObj.roundKey === "Gruppspel" ? "Gruppspel" : (ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey);
                     return (
-                        <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{
-                                fontSize: '0.8rem',
-                                textTransform: 'uppercase',
-                                paddingLeft: '4px',
-                                color: 'var(--color-text-muted)',
-                                letterSpacing: '0.02em'
-                            }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
-                            {matches.map((m, i) => {
-                                const matchKey = `${m.home}-${m.away}-${m.date}`;
-                                const isBest = globalBestMatchesByDate[date]?.key === matchKey;
+                        <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                            <h2 style={{
+                                position: 'sticky',
+                                top: '63px',
+                                zIndex: 20,
+                                backgroundColor: 'var(--color-bg)',
+                                marginTop: '8px',
+                                marginBottom: '-16px',
+                                padding: '8px 4px',
+                                fontSize: '1.4rem',
+                                fontWeight: '800',
+                                color: 'var(--color-text)',
+                                boxShadow: '0 4px 10px var(--color-bg)'
+                            }}>{roundHeader}</h2>
+                            
+                            {roundObj.dates.map((date) => {
+                                const matches = groupedMatches[date];
                                 return (
-                                    <div key={i}>
-                                        <div style={isBest ? {
-                                            borderRadius: '16px',
-                                            boxShadow: '0 0 0 2px #FFD700',
-                                            position: 'relative'
-                                        } : {}}>
-                                            {isBest && (
-                                                <div style={{
-                                                    position: 'absolute',
-                                                    top: '-8px',
-                                                    right: '12px',
-                                                    background: '#FFD700',
-                                                    color: '#000',
-                                                    fontSize: '0.65rem',
-                                                    fontWeight: 'bold',
-                                                    padding: '2px 8px',
-                                                    borderRadius: '8px',
-                                                    zIndex: 10,
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '0.05em'
-                                                }}>
-                                                    Dagens match
-                                                </div>
-                                            )}
-                                            <MatchCard match={m} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                    <React.Fragment key={date}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                            <div style={{
+                                                fontSize: '0.8rem',
+                                                textTransform: 'uppercase',
+                                                paddingLeft: '4px',
+                                                color: 'var(--color-text-muted)',
+                                                letterSpacing: '0.02em',
+                                                marginTop: '8px'
+                                            }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
+                                            {matches.map((m, i) => {
+                                                const matchKey = `${m.home}-${m.away}-${m.date}`;
+                                                const isHero = nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
+                                                
+                                                const homeRankVal = getTeamRank(m.realHome || m.home);
+                                                const awayRankVal = getTeamRank(m.realAway || m.away);
+                                                const isTopMatch = (homeRankVal + awayRankVal) <= 30;
+
+                                                return (
+                                                    <React.Fragment key={i}>
+                                                        <div style={isTopMatch && !isHero ? {
+                                                            borderRadius: '16px',
+                                                            boxShadow: '0 0 0 2px #FFD700',
+                                                            position: 'relative'
+                                                        } : {}}>
+                                                            {isTopMatch && !isHero && (
+                                                                <div style={{
+                                                                    position: 'absolute',
+                                                                    top: '-8px',
+                                                                    right: '12px',
+                                                                    background: '#FFD700',
+                                                                    color: '#000',
+                                                                    fontSize: '0.65rem',
+                                                                    fontWeight: 'bold',
+                                                                    padding: '2px 8px',
+                                                                    borderRadius: '8px',
+                                                                    zIndex: 10,
+                                                                    textTransform: 'uppercase',
+                                                                    letterSpacing: '0.05em'
+                                                                }}>
+                                                                    Toppmatch
+                                                                </div>
+                                                            )}
+                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                                        </div>
+                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away)}
+                                                    </React.Fragment>
+                                                );
+                                            })}
                                         </div>
-                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away)}
-                                    </div>
+                                    </React.Fragment>
                                 );
                             })}
                         </div>
                     );
                 })}
-            </div>
-        );
-    };
-
-    const renderNextMatches = () => {
-        if (nextMatches.length === 0) return null;
-
-        return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
-                {nextMatches.map((m, idx) => (
-                    <div key={idx}>
-                        <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', marginBottom: '12px', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>
-                            {getRelativeDateLabel(m.date, GROUP_MONTH_MAP).toUpperCase()}
-                        </div>
-                        <MatchCard
-                            match={m}
-                            variant="hero"
-                            filterTeam={filterCountry}
-                            onCountryClick={handleCountryClick}
-                            allMatches={combinedMatches}
-                            homeRank={getTeamRank(m.realHome || m.home)}
-                            awayRank={getTeamRank(m.realAway || m.away)}
-                            onGroupClick={() => handleCardClick(`${m.home}-${m.away}-${m.date}`)}
-                            onCardClick={() => handleCardClick(`${m.home}-${m.away}-${m.date}`)}
-                        />
-                        {m.group && renderInlineGroupTable(`${m.home}-${m.away}-${m.date}`, m.group, m.realHome || m.home, m.realAway || m.away)}
-                    </div>
-                ))}
             </div>
         );
     };
@@ -773,7 +793,6 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
-                            {renderNextMatches()}
                             {renderAllMatches()}
                         </>
                     )}
