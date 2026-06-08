@@ -694,21 +694,38 @@ const VMKollen = () => {
                                                 const homeRankVal = getTeamRank(m.realHome || m.home);
                                                 const awayRankVal = getTeamRank(m.realAway || m.away);
                                                 const isTopMatch = (homeRankVal + awayRankVal) <= 30;
+                                                const isBottomMatch = (homeRankVal + awayRankVal) >= 100;
+
+                                                let cardBorder = '';
+                                                let badgeBg = '';
+                                                let badgeText = '';
+                                                let badgeColor = '#000';
+
+                                                if (isTopMatch && !isHero) {
+                                                    cardBorder = '0 0 0 2px #FFD700';
+                                                    badgeBg = '#FFD700';
+                                                    badgeText = 'Toppmatch';
+                                                } else if (isBottomMatch && !isHero) {
+                                                    cardBorder = '0 0 0 2px #9e9e9e';
+                                                    badgeBg = '#9e9e9e';
+                                                    badgeText = 'Bottenmatch';
+                                                    badgeColor = '#fff';
+                                                }
 
                                                 return (
                                                     <React.Fragment key={i}>
-                                                        <div style={isTopMatch && !isHero ? {
+                                                        <div style={cardBorder ? {
                                                             borderRadius: '16px',
-                                                            boxShadow: '0 0 0 2px #FFD700',
+                                                            boxShadow: cardBorder,
                                                             position: 'relative'
                                                         } : {}}>
-                                                            {isTopMatch && !isHero && (
+                                                            {badgeText && (
                                                                 <div style={{
                                                                     position: 'absolute',
                                                                     top: '-8px',
                                                                     right: '12px',
-                                                                    background: '#FFD700',
-                                                                    color: '#000',
+                                                                    background: badgeBg,
+                                                                    color: badgeColor,
                                                                     fontSize: '0.65rem',
                                                                     fontWeight: 'bold',
                                                                     padding: '2px 8px',
@@ -717,7 +734,7 @@ const VMKollen = () => {
                                                                     textTransform: 'uppercase',
                                                                     letterSpacing: '0.05em'
                                                                 }}>
-                                                                    Toppmatch
+                                                                    {badgeText}
                                                                 </div>
                                                             )}
                                                             <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />

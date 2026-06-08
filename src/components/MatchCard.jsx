@@ -352,9 +352,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         const isFiltered = filterTeam && (mainName.includes(filterTeam) || (topText && topText.includes(filterTeam)));
         
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align }}>
                 {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: isFiltered ? 600 : 'normal' }}>{topText}</span>}
-                <span style={{ fontWeight: isFiltered ? 600 : 'normal' }}>{mainName}</span>
+                <span style={{ 
+                    fontWeight: isFiltered ? 600 : 'normal',
+                    hyphens: 'auto',
+                    WebkitHyphens: 'auto',
+                    wordBreak: 'break-word',
+                    textWrap: 'balance',
+                    maxWidth: '100%'
+                }}>{mainName}</span>
             </div>
         );
     };
