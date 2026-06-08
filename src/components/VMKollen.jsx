@@ -792,8 +792,21 @@ const VMKollen = () => {
                     onClick={() => navigate('/allsvenskan')}
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" alt="VM 2026" style={{ height: '32px' }} />
-                        <span style={{ fontSize: '1.2rem', fontWeight: '800', letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>2026 FIFA World Cup</span>
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
+                            alt="VM 2026" 
+                            style={{ 
+                                height: isScrolled ? '24px' : '32px',
+                                transition: 'height 0.3s ease'
+                            }} 
+                        />
+                        <span style={{ 
+                            fontSize: isScrolled ? '1rem' : '1.2rem', 
+                            fontWeight: '800', 
+                            letterSpacing: '-0.02em', 
+                            whiteSpace: 'nowrap',
+                            transition: 'font-size 0.3s ease'
+                        }}>2026 FIFA World Cup</span>
                     </div>
                 </div>
 
