@@ -140,7 +140,7 @@ const VMKollen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [expandedMatchGroup, setExpandedMatchGroup] = useState(null);
+    const [expandedMatchId, setExpandedMatchId] = useState(null);
     const rankingRefs = React.useRef({});
     const tableRefs = React.useRef({});
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
@@ -432,6 +432,42 @@ const VMKollen = () => {
         }, {});
     }, [combinedMatches, filterCountry, nextMatches, filteredCountryStatus]);
 
+    const getTeamRank = (teamName) => {
+        if (!rankingData?.rankings) return 999;
+        const rankObj = rankingData.rankings.find(r => r.team === teamName);
+        return rankObj ? parseInt(rankObj.rank, 10) : 999;
+    };
+
+    const handleCardClick = (matchId) => {
+        setExpandedMatchId(prev => prev === matchId ? null : matchId);
+    };
+
+    const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam) => {
+        if (!groupsData?.groups || expandedMatchId !== matchId) return null;
+        const group = groupsData.groups.find(g => g.name === groupName);
+        if (!group) return null;
+        const highlightTeams = [homeTeam, awayTeam].filter(Boolean).map(n => n.includes('\n') ? n.split('\n')[1] : n);
+        return (
+            <div style={{ marginTop: '4px', marginBottom: '8px', transition: 'all 0.3s ease' }}>
+                {renderTable(group.name, group.teams, null, 0, highlightTeams)}
+            </div>
+        );
+    };
+
+    const globalBestMatchesByDate = React.useMemo(() => {
+        if (!combinedMatches || combinedMatches.length === 0) return {};
+        const best = {};
+        combinedMatches.forEach(m => {
+            const sum = getTeamRank(m.realHome || m.home) + getTeamRank(m.realAway || m.away);
+            if (sum < 1998) {
+                if (!best[m.date] || sum < best[m.date].sum) {
+                    best[m.date] = { key: `${m.home}-${m.away}-${m.date}`, sum };
+                }
+            }
+        });
+        return best;
+    }, [combinedMatches, rankingData]);
+
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
         const thirdPlacedTeams = groupsData.groups.map(group => {
@@ -578,27 +614,6 @@ const VMKollen = () => {
         return `${day} ${monthSwe}`;
     };
 
-    const getTeamRank = (teamName) => {
-        if (!rankingData?.rankings) return 999;
-        const rankObj = rankingData.rankings.find(r => r.team === teamName);
-        return rankObj ? parseInt(rankObj.rank, 10) : 999;
-    };
-
-    const handleGroupToggle = (groupName) => {
-        setExpandedMatchGroup(prev => prev === groupName ? null : groupName);
-    };
-
-    const renderInlineGroupTable = (groupName, homeTeam, awayTeam) => {
-        if (!groupsData?.groups || expandedMatchGroup !== groupName) return null;
-        const group = groupsData.groups.find(g => g.name === groupName);
-        if (!group) return null;
-        const highlightTeams = [homeTeam, awayTeam].filter(Boolean).map(n => n.includes('\n') ? n.split('\n')[1] : n);
-        return (
-            <div style={{ marginTop: '4px', marginBottom: '8px', transition: 'all 0.3s ease' }}>
-                {renderTable(group.name, group.teams, null, 0, highlightTeams)}
-            </div>
-        );
-    };
 
     const renderAllMatches = () => {
         if (!matchesData) return null;
@@ -611,16 +626,6 @@ const VMKollen = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 {sortedDates.map((date) => {
                     const matches = groupedMatches[date];
-                    
-                    let bestMatchIdx = -1;
-                    let lowestRankSum = Infinity;
-                    matches.forEach((m, idx) => {
-                        const sum = getTeamRank(m.realHome || m.home) + getTeamRank(m.realAway || m.away);
-                        if (sum < lowestRankSum) {
-                            lowestRankSum = sum;
-                            bestMatchIdx = idx;
-                        }
-                    });
 
                     return (
                         <div key={date} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -632,8 +637,8 @@ const VMKollen = () => {
                                 letterSpacing: '0.02em'
                             }}>{getRelativeDateLabel(date, GROUP_MONTH_MAP)}</div>
                             {matches.map((m, i) => {
-                                const isBest = i === bestMatchIdx && lowestRankSum < 1998;
                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
+                                const isBest = globalBestMatchesByDate[date]?.key === matchKey;
                                 return (
                                     <div key={i}>
                                         <div style={isBest ? {
@@ -659,9 +664,9 @@ const VMKollen = () => {
                                                     Dagens match
                                                 </div>
                                             )}
-                                            <MatchCard match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={handleGroupToggle} onCardClick={handleGroupToggle} />
+                                            <MatchCard match={m} idx={i} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                         </div>
-                                        {m.group && renderInlineGroupTable(m.group, m.realHome || m.home, m.realAway || m.away)}
+                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away)}
                                     </div>
                                 );
                             })}
@@ -689,10 +694,10 @@ const VMKollen = () => {
                             allMatches={combinedMatches}
                             homeRank={getTeamRank(m.realHome || m.home)}
                             awayRank={getTeamRank(m.realAway || m.away)}
-                            onGroupClick={handleGroupToggle}
-                            onCardClick={handleGroupToggle}
+                            onGroupClick={() => handleCardClick(`${m.home}-${m.away}-${m.date}`)}
+                            onCardClick={() => handleCardClick(`${m.home}-${m.away}-${m.date}`)}
                         />
-                        {m.group && renderInlineGroupTable(m.group, m.realHome || m.home, m.realAway || m.away)}
+                        {m.group && renderInlineGroupTable(`${m.home}-${m.away}-${m.date}`, m.group, m.realHome || m.home, m.realAway || m.away)}
                     </div>
                 ))}
             </div>
@@ -716,13 +721,13 @@ const VMKollen = () => {
 
             {/* Full-width Sticky Header */}
             <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
-                backgroundColor: 'var(--color-bg)',
+                backgroundColor: 'var(--color-glass-bg)',
                 color: 'var(--color-text)',
                 '--active-color': 'var(--color-primary)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
                 boxShadow: isScrolled ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
-                backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-                WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)'
             }}>
                 <div
                     className="header-logo"

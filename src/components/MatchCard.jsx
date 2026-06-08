@@ -415,7 +415,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     cursor: 'pointer',
                     ...props.style
                 }}
-                onClick={() => onCardClick && onCardClick(match.group)}
+                onClick={() => onCardClick && onCardClick()}
             >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', width: '100%' }}>
                     <div
@@ -464,7 +464,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                         {match.group ? (
                             <div 
-                                onClick={(e) => { e.stopPropagation(); onGroupClick && onGroupClick(match.group); }}
+                                onClick={(e) => { e.stopPropagation(); onGroupClick && onGroupClick(); }}
                                 style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: onGroupClick ? 'pointer' : 'default' }}
                             >
                                 {match.group}
@@ -570,7 +570,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 position: 'relative',
                 ...props.style
             }} 
-            onClick={() => onCardClick && onCardClick(match.group)}
+            onClick={() => onCardClick && onCardClick()}
         >
             <div style={{ display: 'flex', width: '100%', alignItems: computedStatus === 'upcoming' ? 'center' : 'flex-start', gap: highlight ? '20px' : '12px' }}>
             <TeamLogo 
@@ -626,7 +626,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     >
                         {match.group && (
                             <div 
-                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onGroupClick && onGroupClick(match.group); }}
+                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); onGroupClick && onGroupClick(); }}
                                 style={{ fontSize: highlight ? '0.7rem' : '0.6rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.02em', marginBottom: '2px', cursor: onGroupClick ? 'pointer' : 'default' }}
                             >
                                 {match.group}
