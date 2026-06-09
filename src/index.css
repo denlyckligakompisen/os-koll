@@ -533,3 +533,54 @@ select:focus-visible {
     transform-origin: top;
   }
 }
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotateAngle {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+@keyframes badgeFlare {
+  0%, 8%, 20%, 100% {
+    box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  14% {
+    box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.8);
+    filter: brightness(1.3);
+    transform: scale(1.05);
+  }
+}
+
+.topmatch-badge {
+  animation: badgeFlare 2.5s linear infinite;
+  transform-origin: center;
+}
+
+.gold-frame-animated {
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 0 0 2px #FFD700;
+}
+
+.gold-frame-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: conic-gradient(from var(--angle), transparent 0%, transparent 80%, rgba(255, 255, 255, 1) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 2px;
+  animation: rotateAngle 2.5s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}

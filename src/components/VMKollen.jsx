@@ -696,17 +696,22 @@ const VMKollen = () => {
                                                 const isTopMatch = (homeRankVal + awayRankVal) <= 30;
                                                 const isBottomMatch = (homeRankVal + awayRankVal) >= 100;
 
-                                                let cardBorder = '';
+                                                let cardClass = '';
+                                                let cardStyle = {};
                                                 let badgeBg = '';
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
                                                 if (isTopMatch && !isHero) {
-                                                    cardBorder = '0 0 0 2px #FFD700';
-                                                    badgeBg = '#FFD700';
+                                                    cardClass = 'gold-frame-animated';
+                                                    badgeBg = 'linear-gradient(135deg, #FFD700, #FDB931)';
                                                     badgeText = 'Toppmatch';
                                                 } else if (isBottomMatch && !isHero) {
-                                                    cardBorder = '0 0 0 2px #9e9e9e';
+                                                    cardStyle = {
+                                                        borderRadius: '16px',
+                                                        boxShadow: '0 0 0 2px #9e9e9e',
+                                                        position: 'relative'
+                                                    };
                                                     badgeBg = '#9e9e9e';
                                                     badgeText = 'Bottenmatch';
                                                     badgeColor = '#fff';
@@ -714,13 +719,9 @@ const VMKollen = () => {
 
                                                 return (
                                                     <React.Fragment key={i}>
-                                                        <div style={cardBorder ? {
-                                                            borderRadius: '16px',
-                                                            boxShadow: cardBorder,
-                                                            position: 'relative'
-                                                        } : {}}>
+                                                        <div className={cardClass} style={cardStyle}>
                                                             {badgeText && (
-                                                                <div style={{
+                                                                <div className={isTopMatch && !isHero ? 'topmatch-badge' : ''} style={{
                                                                     position: 'absolute',
                                                                     top: '-8px',
                                                                     right: '12px',
