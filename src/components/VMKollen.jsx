@@ -141,7 +141,56 @@ const VMKollen = () => {
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [expandedMatchId, setExpandedMatchId] = useState(null);
+    const [countdownText, setCountdownText] = useState('');
     const rankingRefs = React.useRef({});
+    
+    useEffect(() => {
+        const wcStartMs = 1781204400 * 1000;
+        
+        const updateCountdown = () => {
+            const now = Date.now();
+            let diff = wcStartMs - now;
+            let isSwedenNext = false;
+            
+            if (diff <= 0) {
+                if (!matchesData || !matchesData.matches) {
+                    setCountdownText('');
+                    return;
+                }
+                
+                const upcomingSwedenMatches = matchesData.matches.filter(m => 
+                    (m.home === 'Sverige' || m.away === 'Sverige') && 
+                    m.startTimestamp && 
+                    (m.startTimestamp * 1000) > now
+                ).sort((a, b) => a.startTimestamp - b.startTimestamp);
+                
+                if (upcomingSwedenMatches.length > 0) {
+                    diff = (upcomingSwedenMatches[0].startTimestamp * 1000) - now;
+                    isSwedenNext = true;
+                } else {
+                    setCountdownText('');
+                    return;
+                }
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            
+            let timeStr = days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : `${hours}h ${minutes}m ${seconds}s`;
+            
+            if (isSwedenNext) {
+                setCountdownText(`${timeStr} till Sveriges match`);
+            } else {
+                setCountdownText(timeStr);
+            }
+        };
+        
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+        return () => clearInterval(interval);
+    }, [matchesData]);
     const tableRefs = React.useRef({});
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
 
@@ -792,28 +841,46 @@ const VMKollen = () => {
                     }}
                     onClick={() => navigate('/allsvenskan')}
                 >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <img 
-                            src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
-                            alt="VM 2026" 
-                            style={{ 
-                                height: isScrolled ? '24px' : '32px',
-                                transition: 'height 0.3s ease'
-                            }} 
-                        />
-                        <span style={{ 
-                            fontSize: isScrolled ? '1rem' : '1.2rem', 
-                            fontWeight: '800', 
-                            letterSpacing: '-0.02em', 
-                            whiteSpace: 'nowrap',
-                            transition: 'font-size 0.3s ease'
-                        }}>2026 FIFA World Cup</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
+                                alt="VM 2026" 
+                                style={{ 
+                                    height: isScrolled ? '24px' : '32px',
+                                    transition: 'height 0.3s ease'
+                                }} 
+                            />
+                            <span style={{ 
+                                fontSize: isScrolled ? '1rem' : '1.2rem', 
+                                fontWeight: '800', 
+                                letterSpacing: '-0.02em', 
+                                whiteSpace: 'nowrap',
+                                transition: 'font-size 0.3s ease'
+                            }}>2026 FIFA World Cup</span>
+                        </div>
                     </div>
                 </div>
 
 
                 {/* Filter removed as per user request */}
             </div>
+
+            {countdownText && (
+                <div style={{ 
+                    textAlign: 'center',
+                    fontSize: '0.75rem', 
+                    color: 'var(--color-text-muted)', 
+                    marginTop: '16px',
+                    marginBottom: '-16px',
+                    fontVariantNumeric: 'tabular-nums',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600
+                }}>
+                    {countdownText}
+                </div>
+            )}
 
             {/* Centered Content Container */}
             <div style={{
