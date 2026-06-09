@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-08T06:40:51.240Z",
+  "lastUpdated": "2026-06-09T06:07:53.011Z",
   "source": "transfermarkt.com",
   "season": "2025/26",
   "teams": {
@@ -469,22 +469,6 @@
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
       },
       {
-        "name": "Oscar Sjöstrand",
-        "position": "Left Winger",
-        "number": null,
-        "age": "08/11/2004 (21)",
-        "value": "€1.00m",
-        "joined": "25/03/2026",
-        "contract": "31/12/2030",
-        "nationalities": [
-          {
-            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
-            "country": "Sweden"
-          }
-        ],
-        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-      },
-      {
         "name": "Stefano Vecchia",
         "position": "Left Winger",
         "number": "21",
@@ -500,6 +484,22 @@
           {
             "url": "https://tmssl.akamaized.net//images/flagge/verysmall/75.png?lm=1520611569",
             "country": "Italy"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Oscar Sjöstrand",
+        "position": "Left Winger",
+        "number": "24",
+        "age": "08/11/2004 (21)",
+        "value": "€1.00m",
+        "joined": "25/03/2026",
+        "contract": "31/12/2030",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
           }
         ],
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -934,7 +934,7 @@
         "name": "Oliver Jordan Hagen",
         "position": "Right Winger",
         "number": "15",
-        "age": "09/06/2006 (19)",
+        "age": "09/06/2006 (20)",
         "value": "€500k",
         "joined": "19/03/2026",
         "contract": "-",
@@ -1396,7 +1396,7 @@
         "name": "Christ Wawa",
         "position": "Right Winger",
         "number": "27",
-        "age": "09/06/2007 (18)",
+        "age": "09/06/2007 (19)",
         "value": "-",
         "joined": "12/08/2025",
         "contract": "30/06/2030",
@@ -5526,7 +5526,7 @@
         "name": "Mikkel Ladefoged",
         "position": "Centre-Forward",
         "number": "9",
-        "age": "09/06/2003 (22)",
+        "age": "09/06/2003 (23)",
         "value": "€500k",
         "joined": "29/01/2025",
         "contract": "31/12/2028",
@@ -5937,6 +5937,26 @@
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
       },
       {
+        "name": "Sion Oppong",
+        "position": "Left Winger",
+        "number": "33",
+        "age": "25/09/2007 (18)",
+        "value": "-",
+        "joined": "29/01/2025",
+        "contract": "-",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/54.png?lm=1520611569",
+            "country": "Ghana"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
         "name": "Mads Hansen",
         "position": "Right Winger",
         "number": "9",
@@ -6056,26 +6076,6 @@
           {
             "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
             "country": "Sweden"
-          }
-        ],
-        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-      },
-      {
-        "name": "Sion Oppong",
-        "position": "Striker",
-        "number": "33",
-        "age": "25/09/2007 (18)",
-        "value": "-",
-        "joined": "29/01/2025",
-        "contract": "-",
-        "nationalities": [
-          {
-            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
-            "country": "Sweden"
-          },
-          {
-            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/54.png?lm=1520611569",
-            "country": "Ghana"
           }
         ],
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -7222,7 +7222,7 @@
         "name": "Marlon Ebietomere",
         "position": "Left Winger",
         "number": "29",
-        "age": "09/06/2009 (16)",
+        "age": "09/06/2009 (17)",
         "value": "€50k",
         "joined": "29/01/2026",
         "contract": "31/12/2028",
