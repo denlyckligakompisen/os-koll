@@ -145,45 +145,33 @@ const VMKollen = () => {
     const rankingRefs = React.useRef({});
     
     useEffect(() => {
-        const wcStartMs = 1781204400 * 1000;
-        
         const updateCountdown = () => {
             const now = Date.now();
-            let diff = wcStartMs - now;
-            let isSwedenNext = false;
             
-            if (diff <= 0) {
-                if (!matchesData || !matchesData.matches) {
-                    setCountdownText('');
-                    return;
-                }
-                
-                const upcomingSwedenMatches = matchesData.matches.filter(m => 
-                    (m.home === 'Sverige' || m.away === 'Sverige') && 
-                    m.startTimestamp && 
-                    (m.startTimestamp * 1000) > now
-                ).sort((a, b) => a.startTimestamp - b.startTimestamp);
-                
-                if (upcomingSwedenMatches.length > 0) {
-                    diff = (upcomingSwedenMatches[0].startTimestamp * 1000) - now;
-                    isSwedenNext = true;
-                } else {
-                    setCountdownText('');
-                    return;
-                }
+            if (!matchesData || !matchesData.matches) {
+                setCountdownText('');
+                return;
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            const upcomingSwedenMatches = matchesData.matches.filter(m => 
+                (m.home === 'Sverige' || m.away === 'Sverige') && 
+                m.startTimestamp && 
+                (m.startTimestamp * 1000) > now
+            ).sort((a, b) => a.startTimestamp - b.startTimestamp);
             
-            let timeStr = days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : `${hours}h ${minutes}m ${seconds}s`;
-            
-            if (isSwedenNext) {
-                setCountdownText(`${timeStr} till Sveriges match`);
-            } else {
+            if (upcomingSwedenMatches.length > 0) {
+                const diff = (upcomingSwedenMatches[0].startTimestamp * 1000) - now;
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+                
+                let timeStr = days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : `${hours}h ${minutes}m ${seconds}s`;
+                
                 setCountdownText(timeStr);
+            } else {
+                setCountdownText('');
             }
         };
         
@@ -755,15 +743,6 @@ const VMKollen = () => {
                                                     cardClass = 'gold-frame-animated';
                                                     badgeBg = 'linear-gradient(135deg, #FFD700, #FDB931)';
                                                     badgeText = 'Toppmatch';
-                                                } else if (isBottomMatch && !isHero) {
-                                                    cardStyle = {
-                                                        borderRadius: '16px',
-                                                        boxShadow: '0 0 0 2px #9e9e9e',
-                                                        position: 'relative'
-                                                    };
-                                                    badgeBg = '#9e9e9e';
-                                                    badgeText = 'Bottenmatch';
-                                                    badgeColor = '#fff';
                                                 }
 
                                                 return (
@@ -869,8 +848,6 @@ const VMKollen = () => {
             {countdownText && (
                 <div style={{ 
                     textAlign: 'center',
-                    fontSize: '0.75rem', 
-                    color: 'var(--color-text-muted)', 
                     marginTop: '16px',
                     marginBottom: '-16px',
                     fontVariantNumeric: 'tabular-nums',
@@ -878,7 +855,12 @@ const VMKollen = () => {
                     textTransform: 'uppercase',
                     fontWeight: 600
                 }}>
-                    {countdownText}
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
+                        Sverige spelar om
+                    </div>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--color-text)' }}>
+                        {countdownText}
+                    </div>
                 </div>
             )}
 
