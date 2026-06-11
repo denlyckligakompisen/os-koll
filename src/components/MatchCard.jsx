@@ -492,6 +492,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              displayTime}
                         </button>
+                        {computedStatus === 'live' && (
+                            <span style={{
+                                fontSize: '0.85rem',
+                                fontWeight: '500',
+                                color: 'var(--color-text-muted)',
+                                marginTop: '4px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em'
+                            }}>
+                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
+                            </span>
+                        )}
                         {match.broadcast && (
                             <div 
                                 onClick={handleBroadcastClick}
