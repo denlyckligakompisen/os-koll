@@ -643,58 +643,71 @@ const VMKollen = () => {
                                 const isFiltered = filterCountry && team.name.includes(filterCountry);
                                 const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
 
+                                const thirdPlaceTeam = sortedTeams[2];
+                                const thirdPlaceTeamName = thirdPlaceTeam ? (typeof thirdPlaceTeam === 'string' ? thirdPlaceTeam : thirdPlaceTeam.name) : null;
+                                const thirdPlaceQualifies = thirdPlaceTeamName ? qualifiedThirds.includes(thirdPlaceTeamName) : false;
+                                const isLastQualifier = (rank === 2 && !thirdPlaceQualifies) || (rank === 3 && isQualifiedThird);
+
                                 return (
-                                    <tr
-                                        key={team.name}
-                                        ref={el => tableRefs.current[team.name] = el}
-                                        style={{
-                                            backgroundColor: isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                                            transition: 'background-color 0.2s ease'
-                                        }}
-                                    >
-                                        <td style={{
-                                            padding: isInline ? '6px 2px' : '8px 4px',
-                                            borderTopLeftRadius: isHighlighted ? '10px' : '0',
-                                            borderBottomLeftRadius: isHighlighted ? '10px' : '0'
-                                        }}>
-                                            <div style={{ width: isInline ? '22px' : '28px', height: isInline ? '22px' : '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: isInline ? '0.75rem' : '0.85rem', backgroundColor: (rank <= 2 || isQualifiedThird) ? 'rgba(52, 199, 89, 0.15)' : 'transparent', color: (rank <= 2 || isQualifiedThird) ? '#34c759' : 'inherit' }}>
-                                                {rank}
-                                            </div>
-                                        </td>
-                                        <td style={{ padding: isInline ? '6px 2px' : '11px 4px' }}>
-                                            <button
-                                                onClick={() => handleCountryClick(team.name)}
-                                                aria-label={`Visa information om ${team.name}`}
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '8px',
-                                                    cursor: 'pointer',
-                                                    background: 'none',
-                                                    border: 'none',
-                                                    padding: 0,
-                                                    font: 'inherit',
-                                                    color: 'inherit',
-                                                    width: '100%',
-                                                    textAlign: 'left'
-                                                }}
-                                            >
-                                                <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 20 : 26} />
-                                                <span style={{ whiteSpace: 'normal', lineHeight: '1.2', fontWeight: isFiltered ? 600 : 'normal' }}>
-                                                    <BoldSverige text={team.name} />
-                                                </span>
-                                            </button>
-                                        </td>
-                                        <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px' }}>{team.played}</td>
-                                        <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
-                                        <td style={{
-                                            padding: isInline ? '6px 2px' : '8px 4px',
-                                            textAlign: 'right',
-                                            fontWeight: 'bold',
-                                            borderTopRightRadius: isHighlighted ? '10px' : '0',
-                                            borderBottomRightRadius: isHighlighted ? '10px' : '0'
-                                        }}>{team.pts}</td>
-                                    </tr>
+                                    <React.Fragment key={team.name}>
+                                        <tr
+                                            ref={el => tableRefs.current[team.name] = el}
+                                            style={{
+                                                backgroundColor: isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                transition: 'background-color 0.2s ease'
+                                            }}
+                                        >
+                                            <td style={{
+                                                padding: isInline ? '6px 2px' : '8px 4px',
+                                                borderTopLeftRadius: isHighlighted ? '10px' : '0',
+                                                borderBottomLeftRadius: isHighlighted ? '10px' : '0'
+                                            }}>
+                                                <div style={{ width: isInline ? '22px' : '28px', height: isInline ? '22px' : '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: isInline ? '0.75rem' : '0.85rem', backgroundColor: 'transparent', color: 'inherit' }}>
+                                                    {rank}
+                                                </div>
+                                            </td>
+                                            <td style={{ padding: isInline ? '6px 2px' : '11px 4px' }}>
+                                                <button
+                                                    onClick={() => handleCountryClick(team.name)}
+                                                    aria-label={`Visa information om ${team.name}`}
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '8px',
+                                                        cursor: 'pointer',
+                                                        background: 'none',
+                                                        border: 'none',
+                                                        padding: 0,
+                                                        font: 'inherit',
+                                                        color: 'inherit',
+                                                        width: '100%',
+                                                        textAlign: 'left'
+                                                    }}
+                                                >
+                                                    <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 20 : 26} />
+                                                    <span style={{ whiteSpace: 'normal', lineHeight: '1.2', fontWeight: isFiltered ? 600 : 'normal' }}>
+                                                        <BoldSverige text={team.name} />
+                                                    </span>
+                                                </button>
+                                            </td>
+                                            <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px' }}>{team.played}</td>
+                                            <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                            <td style={{
+                                                padding: isInline ? '6px 2px' : '8px 4px',
+                                                textAlign: 'right',
+                                                fontWeight: 'bold',
+                                                borderTopRightRadius: isHighlighted ? '10px' : '0',
+                                                borderBottomRightRadius: isHighlighted ? '10px' : '0'
+                                            }}>{team.pts}</td>
+                                        </tr>
+                                        {isLastQualifier && (
+                                            <tr>
+                                                <td colSpan="5" style={{ padding: 0 }}>
+                                                    <div style={{ borderTop: '2px solid var(--color-text-muted)', opacity: 0.4, margin: '4px 0' }} />
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
                                 );
                             })}
                         </tbody>
@@ -776,19 +789,21 @@ const VMKollen = () => {
                     const roundHeader = roundObj.roundKey === "Gruppspel" ? "Gruppspel" : (ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey);
                     return (
                         <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            <h2 style={{
-                                position: 'sticky',
-                                top: '63px',
-                                zIndex: 20,
-                                backgroundColor: 'var(--color-bg)',
-                                marginTop: '8px',
-                                marginBottom: '-16px',
-                                padding: '8px 4px',
-                                fontSize: '1.4rem',
-                                fontWeight: '800',
-                                color: 'var(--color-text)',
-                                boxShadow: '0 4px 10px var(--color-bg)'
-                            }}>{roundHeader}</h2>
+                            {roundHeader !== "Gruppspel" && (
+                                <h2 style={{
+                                    position: 'sticky',
+                                    top: '63px',
+                                    zIndex: 20,
+                                    backgroundColor: 'var(--color-bg)',
+                                    marginTop: '8px',
+                                    marginBottom: '-16px',
+                                    padding: '8px 4px',
+                                    fontSize: '1.4rem',
+                                    fontWeight: '800',
+                                    color: 'var(--color-text)',
+                                    boxShadow: '0 4px 10px var(--color-bg)'
+                                }}>{roundHeader}</h2>
+                            )}
                             
                             {roundObj.dates.map((date) => {
                                 const matches = groupedMatches[date];
