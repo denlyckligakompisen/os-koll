@@ -918,41 +918,41 @@ const VMKollen = () => {
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)'
             }}>
-                <div
-                    className="header-logo"
-                    style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        position: 'relative'
-                    }}
-                    onClick={() => navigate('/allsvenskan')}
-                >
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <img 
-                                src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
-                                alt="VM 2026" 
-                                style={{ 
-                                    height: isScrolled ? '24px' : '32px',
-                                    transition: 'height 0.3s ease'
-                                }} 
-                            />
-                            <span style={{ 
-                                fontSize: isScrolled ? '1rem' : '1.2rem', 
-                                fontWeight: '800', 
-                                letterSpacing: '-0.02em', 
-                                whiteSpace: 'nowrap',
-                                transition: 'font-size 0.3s ease'
-                            }}>2026 FIFA World Cup</span>
+                <div style={{ maxWidth: '600px', width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                    <div
+                        className="header-logo"
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                        onClick={() => navigate('/allsvenskan')}
+                    >
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img 
+                                    src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
+                                    alt="VM 2026" 
+                                    style={{ 
+                                        height: isScrolled ? '24px' : '32px',
+                                        transition: 'height 0.3s ease'
+                                    }} 
+                                />
+                                <span style={{ 
+                                    fontSize: isScrolled ? '1rem' : '1.2rem', 
+                                    fontWeight: '800', 
+                                    letterSpacing: '-0.02em', 
+                                    whiteSpace: 'nowrap',
+                                    transition: 'font-size 0.3s ease'
+                                }}>2026 FIFA World Cup</span>
+                            </div>
                         </div>
                     </div>
                     {filterCountry && (
                         <div 
-                            style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setFilterCountry(null);
