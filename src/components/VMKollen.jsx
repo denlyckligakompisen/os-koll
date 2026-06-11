@@ -920,7 +920,7 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                    <div
+                    <button
                         className="header-logo"
                         style={{
                             background: 'none',
@@ -928,36 +928,41 @@ const VMKollen = () => {
                             cursor: 'pointer',
                             display: 'flex',
                             justifyContent: 'center',
+                            padding: 0
                         }}
                         onClick={() => navigate('/allsvenskan')}
+                        aria-label="Gå till Allsvenskan"
                     >
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 <img 
                                     src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
-                                    alt="VM 2026" 
+                                    alt="" 
+                                    aria-hidden="true"
                                     style={{ 
                                         height: isScrolled ? '24px' : '32px',
                                         transition: 'height 0.3s ease'
                                     }} 
                                 />
-                                <span style={{ 
+                                <h1 style={{ 
                                     fontSize: isScrolled ? '1rem' : '1.2rem', 
                                     fontWeight: '800', 
                                     letterSpacing: '-0.02em', 
                                     whiteSpace: 'nowrap',
-                                    transition: 'font-size 0.3s ease'
-                                }}>2026 FIFA World Cup</span>
+                                    transition: 'font-size 0.3s ease',
+                                    margin: 0
+                                }}>2026 FIFA World Cup</h1>
                             </div>
                         </div>
-                    </div>
+                    </button>
                     {filterCountry && (
-                        <div 
-                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                        <button 
+                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setFilterCountry(null);
                             }}
+                            aria-label="Rensa filter"
                             title="Rensa filter"
                         >
                             <div style={{ position: 'relative' }}>
@@ -976,10 +981,10 @@ const VMKollen = () => {
                                     justifyContent: 'center',
                                     boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
                                 }}>
-                                    <X size={10} strokeWidth={3} />
+                                    <X size={10} strokeWidth={3} aria-hidden="true" />
                                 </div>
                             </div>
-                        </div>
+                        </button>
                     )}
                 </div>
 

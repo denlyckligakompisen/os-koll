@@ -469,6 +469,15 @@ const AllsvenskanKollen = () => {
                 return m.home.includes(cleanFilter) || m.away.includes(cleanFilter) || 
                        m.home.includes(filterTeam) || m.away.includes(filterTeam);
             });
+        } else {
+            const now = new Date();
+            now.setHours(0,0,0,0);
+            result = result.filter(m => {
+                if (m.status !== 'finished') return true;
+                const md = parseMatchDate(m.date, m.time);
+                md.setHours(0,0,0,0);
+                return md.getTime() === now.getTime(); // Keep today's finished matches
+            });
         }
         
         // Sort matches chronologically
@@ -1004,6 +1013,7 @@ const AllsvenskanKollen = () => {
                 <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
                     <button
                         onClick={() => navigate('/vm')}
+                        aria-label="Växla till VM 2026"
                         style={{ 
                             background: 'none', 
                             border: 'none', 
@@ -1016,8 +1026,8 @@ const AllsvenskanKollen = () => {
                             transition: 'background-color 0.2s',
                         }}
                     >
-                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan Logo" style={{ height: '34px', objectFit: 'contain' }} />
-                        <ArrowLeftRight size={18} color="#aeafb4" />
+                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan" style={{ height: '34px', objectFit: 'contain' }} />
+                        <ArrowLeftRight size={18} color="#aeafb4" aria-hidden="true" />
                     </button>
                 </div>
                 
@@ -1063,7 +1073,7 @@ const AllsvenskanKollen = () => {
                             }
                         }}
                         className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
-                        aria-label="Välj lag att filtrera"
+                        aria-label={filterTeam ? 'Rensa filter' : 'Välj lag att filtrera'}
                         style={{ 
                             height: '100%',
                             display: 'flex',
@@ -1087,11 +1097,11 @@ const AllsvenskanKollen = () => {
                                     justifyContent: 'center',
                                     boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
                                 }}>
-                                    <X size={10} strokeWidth={3} />
+                                    <X size={10} strokeWidth={3} aria-hidden="true" />
                                 </div>
                             </div>
                         ) : (
-                            <Filter size={24} color={headerStyle.inactiveText} strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} />
+                            <Filter size={24} color={headerStyle.inactiveText} strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
                         )}
                     </button>
                 </div>

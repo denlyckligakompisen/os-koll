@@ -176,11 +176,22 @@ async function scrapeMatches() {
                             const time = item.querySelector('[class*="MatchTime"], .match-time')?.innerText || "TBA";
                             const groupText = item.querySelector('[class*="GroupName"], .group-name')?.innerText || "";
                             
+                            // Try to extract score
+                            const scoreEl = item.querySelector('[class*="Score"], .score, .match-score');
+                            let score = "";
+                            let status = "upcoming";
+                            if (scoreEl && scoreEl.innerText.includes('-')) {
+                                score = scoreEl.innerText.trim();
+                                status = "finished"; // Assume finished if score exists for now
+                            }
+
                             if (teamNames.length >= 2) {
                                 results.push({
                                     home: teamNames[0],
                                     away: teamNames[1],
                                     time: time.match(/\d{2}:\d{2}/)?.[0] || time,
+                                    score: score,
+                                    status: status,
                                     date: dateText.trim(),
                                     group: groupText.trim()
                                 });
@@ -192,11 +203,21 @@ async function scrapeMatches() {
                         const teamNames = Array.from(item.querySelectorAll('[class*="TeamName"], .team-name')).map(el => el.innerText.trim());
                         const time = item.innerText.match(/\d{2}:\d{2}/)?.[0] || "TBA";
                         
+                        const scoreEl = item.querySelector('[class*="Score"], .score, .match-score');
+                        let score = "";
+                        let status = "upcoming";
+                        if (scoreEl && scoreEl.innerText.includes('-')) {
+                            score = scoreEl.innerText.trim();
+                            status = "finished";
+                        }
+
                         if (teamNames.length >= 2) {
                             results.push({
                                 home: teamNames[0],
                                 away: teamNames[1],
                                 time,
+                                score: score,
+                                status: status,
                                 date: "",
                                 group: ""
                             });
