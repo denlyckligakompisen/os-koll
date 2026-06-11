@@ -504,7 +504,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </span>
                         )}
-                        {match.broadcast && (
+                        {match.broadcast && computedStatus !== 'live' && (
                             <div 
                                 onClick={handleBroadcastClick}
                                 style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
@@ -669,7 +669,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </span>
                         )}
-                        {match.broadcast && (
+                        {match.broadcast && computedStatus !== 'live' && (
                             <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                 <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
                             </div>
