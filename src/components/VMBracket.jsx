@@ -77,9 +77,10 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
     );
 };
 
-const VMBracket = ({ filterCountry, onCountryClick }) => {
+const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
     const [bracketData, setBracketData] = useState(null);
-    const [groupsData, setGroupsData] = useState(null);
+    const [fetchedGroupsData, setFetchedGroupsData] = useState(null);
+    const groupsData = liveGroupsData || fetchedGroupsData;
     const matchRefs = useRef({});
     const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
@@ -90,7 +91,7 @@ const VMBracket = ({ filterCountry, onCountryClick }) => {
         ])
         .then(([bData, gData]) => {
             setBracketData(bData);
-            setGroupsData(gData);
+            setFetchedGroupsData(gData);
         })
         .catch(console.error);
     }, []);

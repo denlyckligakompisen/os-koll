@@ -627,8 +627,8 @@ const VMKollen = () => {
                         </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position">#</th>
-                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position"></th>
+                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>LAND</th>
                                 <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>M</th>
                                 <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>+/-</th>
                                 <th scope="col" style={{ textAlign: 'right', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>P</th>
@@ -961,6 +961,7 @@ const VMKollen = () => {
                         <VMBracket
                             filterCountry={filterCountry}
                             onCountryClick={handleCountryClick}
+                            liveGroupsData={groupsData}
                         />
                     )}
                     {activeTab === 'statistik' && (
