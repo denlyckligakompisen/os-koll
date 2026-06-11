@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getTeamLogo } from '../utils/assets';
 import PageHeader from './common/PageHeader';
@@ -13,6 +13,7 @@ import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, Ar
 import FilterDrawer from './common/FilterDrawer';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
+import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
 
 
 
@@ -130,7 +131,7 @@ const sortTeams = (teams) => {
 
 const VMKollen = () => {
     const navigate = useNavigate();
-    const [groupsData, setGroupsData] = useState(null);
+    const [initialGroupsData, setInitialGroupsData] = useState(null);
     const [matchesData, setMatchesData] = useState(null);
     const [knockoutData, setKnockoutData] = useState(null);
     const [rankingData, setRankingData] = useState(null);
@@ -140,45 +141,71 @@ const VMKollen = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [expandedMatchId, setExpandedMatchId] = useState(null);
-    const [countdownText, setCountdownText] = useState('');
-    const rankingRefs = React.useRef({});
     
-    useEffect(() => {
-        const updateCountdown = () => {
-            const now = Date.now();
-            
-            if (!matchesData || !matchesData.matches) {
-                setCountdownText('');
-                return;
+    const groupsData = useMemo(() => {
+        if (!initialGroupsData || !matchesData?.matches) return initialGroupsData;
+        
+        // Deep copy to avoid mutating state
+        const newGroupsData = JSON.parse(JSON.stringify(initialGroupsData));
+        
+        // Reset stats
+        newGroupsData.groups.forEach(g => {
+            g.teams.forEach((t, i) => {
+                if (typeof t === 'string') {
+                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0 };
+                } else {
+                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0;
+                }
+            });
+        });
+        
+        const cleanTeam = (name) => name ? name.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim() : '';
+
+        const findTeam = (name) => {
+            const cName = cleanTeam(name);
+            for (const g of newGroupsData.groups) {
+                const team = g.teams.find(t => cleanTeam(t.name) === cName);
+                if (team) return team;
             }
-            
-            const upcomingSwedenMatches = matchesData.matches.filter(m => 
-                (m.home === 'Sverige' || m.away === 'Sverige') && 
-                m.startTimestamp && 
-                (m.startTimestamp * 1000) > now
-            ).sort((a, b) => a.startTimestamp - b.startTimestamp);
-            
-            if (upcomingSwedenMatches.length > 0) {
-                const diff = (upcomingSwedenMatches[0].startTimestamp * 1000) - now;
-                
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / 1000 / 60) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
-                
-                let timeStr = days > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : `${hours}h ${minutes}m ${seconds}s`;
-                
-                setCountdownText(timeStr);
-            } else {
-                setCountdownText('');
-            }
+            return null;
         };
         
-        updateCountdown();
-        const interval = setInterval(updateCountdown, 1000);
-        return () => clearInterval(interval);
-    }, [matchesData]);
+        matchesData.matches.forEach(m => {
+            if ((m.status === 'finished' || m.status === 'live') && m.score && m.score.includes('-')) {
+                const parts = m.score.split('-');
+                const homeScore = parseInt(parts[0].trim(), 10);
+                const awayScore = parseInt(parts[1].trim(), 10);
+                
+                if (isNaN(homeScore) || isNaN(awayScore)) return;
+                
+                const homeTeam = findTeam(m.home);
+                const awayTeam = findTeam(m.away);
+                
+                if (homeTeam) {
+                    homeTeam.played += 1;
+                    homeTeam.gf = (homeTeam.gf || 0) + homeScore;
+                    homeTeam.ga = (homeTeam.ga || 0) + awayScore;
+                    homeTeam.gd = homeTeam.gf - homeTeam.ga;
+                    if (homeScore > awayScore) homeTeam.pts += 3;
+                    else if (homeScore === awayScore) homeTeam.pts += 1;
+                }
+                
+                if (awayTeam) {
+                    awayTeam.played += 1;
+                    awayTeam.gf = (awayTeam.gf || 0) + awayScore;
+                    awayTeam.ga = (awayTeam.ga || 0) + homeScore;
+                    awayTeam.gd = awayTeam.gf - awayTeam.ga;
+                    if (awayScore > homeScore) awayTeam.pts += 3;
+                    else if (homeScore === awayScore) awayTeam.pts += 1;
+                }
+            }
+        });
+        
+        return newGroupsData;
+    }, [initialGroupsData, matchesData]);
+    const [expandedMatchId, setExpandedMatchId] = useState(null);
+    const rankingRefs = React.useRef({});
+    
     const tableRefs = React.useRef({});
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
 
@@ -278,7 +305,7 @@ const VMKollen = () => {
                     });
                 }
 
-                setGroupsData(gData);
+                setInitialGroupsData(gData);
                 setMatchesData(mData);
                 setKnockoutData(kData);
                 setRankingData(rData);
@@ -290,6 +317,57 @@ const VMKollen = () => {
             });
 
     }, []);
+
+    // FIFA Live API polling
+    const liveTimerRef = useRef(null);
+    const matchesDataRef = useRef(matchesData);
+    matchesDataRef.current = matchesData;
+
+    const pollFifaLive = useCallback(async () => {
+        const currentMatches = matchesDataRef.current;
+        if (!currentMatches?.matches) return;
+
+        const liveData = await fetchFifaLiveMatches();
+        if (!liveData) return;
+
+        const updatedMatches = mergeLiveData(currentMatches.matches, liveData);
+
+        // Only update state if something actually changed
+        const hasChanges = updatedMatches.some((m, i) => {
+            const orig = currentMatches.matches[i];
+            return m.status !== orig.status || m.score !== orig.score || m.liveCurrentTime !== orig.liveCurrentTime;
+        });
+
+        if (hasChanges) {
+            setMatchesData(prev => ({
+                ...prev,
+                matches: updatedMatches
+            }));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!matchesData?.matches) return;
+
+        // Initial fetch
+        pollFifaLive();
+
+        const scheduleNextPoll = () => {
+            const isActive = hasActiveMatches(matchesDataRef.current?.matches);
+            const interval = isActive ? 30_000 : 300_000; // 30s or 5min
+
+            liveTimerRef.current = setTimeout(async () => {
+                await pollFifaLive();
+                scheduleNextPoll();
+            }, interval);
+        };
+
+        scheduleNextPoll();
+
+        return () => {
+            if (liveTimerRef.current) clearTimeout(liveTimerRef.current);
+        };
+    }, [matchesData?.matches?.length, pollFifaLive]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -845,24 +923,6 @@ const VMKollen = () => {
                 {/* Filter removed as per user request */}
             </div>
 
-            {countdownText && (
-                <div style={{ 
-                    textAlign: 'center',
-                    marginTop: '16px',
-                    marginBottom: '-16px',
-                    fontVariantNumeric: 'tabular-nums',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
-                    fontWeight: 600
-                }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
-                        Sverige spelar om
-                    </div>
-                    <div style={{ fontSize: '0.9rem', color: 'var(--color-text)' }}>
-                        {countdownText}
-                    </div>
-                </div>
-            )}
 
             {/* Centered Content Container */}
             <div style={{
