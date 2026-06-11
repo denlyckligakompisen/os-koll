@@ -474,6 +474,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <button
                             onClick={handleBroadcastClick}
                             disabled={!getBroadcasterUrl(match.broadcast)}
+                            className={computedStatus === 'live' ? 'live-indicator-pulse' : ''}
                             style={{
                                 fontSize: '1.4rem',
                                 color: outcomeTextColor || 'var(--color-text)',
@@ -626,7 +627,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}
                     >
                         
-                        <span style={{
+                        <span 
+                            className={computedStatus === 'live' ? 'live-indicator-pulse' : ''}
+                            style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
                             color: outcomeTextColor || 'var(--color-text)',
                             flexShrink: 0,

@@ -553,8 +553,9 @@ const VMKollen = () => {
         setExpandedMatchId(prev => prev === matchId ? null : matchId);
     };
 
-    const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam) => {
-        if (!groupsData?.groups || expandedMatchId !== matchId) return null;
+    const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam, isLive) => {
+        if (!groupsData?.groups) return null;
+        if (expandedMatchId !== matchId && !isLive) return null;
         const group = groupsData.groups.find(g => g.name === groupName);
         if (!group) return null;
         const highlightTeams = [homeTeam, awayTeam].filter(Boolean).map(n => n.includes('\n') ? n.split('\n')[1] : n);
@@ -846,7 +847,7 @@ const VMKollen = () => {
                                                             )}
                                                             <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
-                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away)}
+                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, m.status === 'live')}
                                                     </React.Fragment>
                                                 );
                                             })}
