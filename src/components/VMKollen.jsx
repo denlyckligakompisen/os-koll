@@ -495,7 +495,7 @@ const VMKollen = () => {
     const nextMatches = React.useMemo(() => {
         if (combinedMatches.length === 0) return [];
 
-        let pool = combinedMatches;
+        let pool = combinedMatches.filter(m => m.status !== 'finished');
         if (filterCountry) {
             pool = pool.filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry));
         }
@@ -534,6 +534,9 @@ const VMKollen = () => {
             ) : true;
 
             if (filterCountry && !isFilterCountryMatch) return acc;
+            
+            // Dölj avslutade matcher om inget landfilter är aktivt
+            if (!filterCountry && m.status === 'finished') return acc;
 
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
