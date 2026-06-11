@@ -221,6 +221,7 @@ export function hasActiveMatches(matches) {
     
     return matches.some(m => {
         if (m.status === 'live') return true;
+        if (m.status === 'finished') return false; // Do not poll frequently if match is already finished
         if (m.startTimestamp) {
             const startMs = m.startTimestamp * 1000;
             const diff = startMs - now;
