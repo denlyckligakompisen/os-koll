@@ -916,9 +916,10 @@ const VMKollen = () => {
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
                 boxShadow: isScrolled ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
                 backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)'
+                WebkitBackdropFilter: 'blur(20px)',
+                justifyContent: 'center'
             }}>
-                <div style={{ maxWidth: '600px', width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
                     <div
                         className="header-logo"
                         style={{
