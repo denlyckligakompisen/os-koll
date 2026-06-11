@@ -617,24 +617,24 @@ const VMKollen = () => {
                     <BoldSverige text={displayName || groupName} />
                 </div>
                 <Card
-                    padding={isInline ? "4px 8px" : "24px"}
+                    padding="4px 8px"
                     style={{
                         marginBottom: '0',
-                        backgroundColor: isInline ? 'transparent' : 'var(--color-card-bg)',
-                        boxShadow: isInline ? 'none' : 'var(--shadow-sm)'
+                        backgroundColor: '#ffffff',
+                        boxShadow: 'none'
                     }}
                 >
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.8rem' : '0.9rem' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.8rem' }}>
                         <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
                             Tabell för {displayName || groupName}
                         </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position"></th>
-                                <th scope="col" style={{ textAlign: 'left', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>LAND</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: isInline ? '4px 2px' : '8px 4px', color: 'var(--color-text-muted)', }}>P</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position"></th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', }}>LAND</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', }}>P</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -661,15 +661,15 @@ const VMKollen = () => {
                                             }}
                                         >
                                             <td style={{
-                                                padding: isInline ? '6px 2px' : '8px 4px',
+                                                padding: '6px 2px',
                                                 borderTopLeftRadius: isHighlighted ? '10px' : '0',
                                                 borderBottomLeftRadius: isHighlighted ? '10px' : '0'
                                             }}>
-                                                <div style={{ width: isInline ? '22px' : '28px', height: isInline ? '22px' : '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: isInline ? '0.75rem' : '0.85rem', backgroundColor: 'transparent', color: 'inherit' }}>
+                                                <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.75rem', backgroundColor: 'transparent', color: 'inherit' }}>
                                                     {rank}
                                                 </div>
                                             </td>
-                                            <td style={{ padding: isInline ? '6px 2px' : '11px 4px' }}>
+                                            <td style={{ padding: '6px 2px' }}>
                                                 <button
                                                     onClick={() => handleCountryClick(team.name)}
                                                     aria-label={`Visa information om ${team.name}`}
@@ -687,16 +687,16 @@ const VMKollen = () => {
                                                         textAlign: 'left'
                                                     }}
                                                 >
-                                                    <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 20 : 26} />
+                                                    <FlagBadge codes={flagCodes} name={team.name} size={20} />
                                                     <span style={{ whiteSpace: 'normal', lineHeight: '1.2', fontWeight: isFiltered ? 600 : 'normal' }}>
                                                         <BoldSverige text={team.name} />
                                                     </span>
                                                 </button>
                                             </td>
-                                            <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px' }}>{team.played}</td>
-                                            <td style={{ textAlign: 'center', padding: isInline ? '6px 2px' : '8px 4px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
+                                            <td style={{ textAlign: 'center', padding: '6px 2px' }}>{team.played}</td>
+                                            <td style={{ textAlign: 'center', padding: '6px 2px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
                                             <td style={{
-                                                padding: isInline ? '6px 2px' : '8px 4px',
+                                                padding: '6px 2px',
                                                 textAlign: 'right',
                                                 fontWeight: 'bold',
                                                 borderTopRightRadius: isHighlighted ? '10px' : '0',
@@ -972,6 +972,14 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
+                            {(() => {
+                                if (!filterCountry || !groupsData?.groups) return null;
+                                const group = groupsData.groups.find(g =>
+                                    g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
+                                );
+                                if (!group) return null;
+                                return renderTable(group.name, group.teams, null, 0, [filterCountry]);
+                            })()}
                             {renderAllMatches()}
                         </>
                     )}
