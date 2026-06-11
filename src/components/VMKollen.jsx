@@ -259,9 +259,10 @@ const VMKollen = () => {
     };
 
     const handleCountryClick = (country) => {
+        if (filterCountry) return;
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
-        setFilterCountry(prev => prev === cleanName ? null : cleanName);
+        setFilterCountry(cleanName);
     };
 
     useEffect(() => {
@@ -349,15 +350,20 @@ const VMKollen = () => {
     useEffect(() => {
         if (!matchesData?.matches) return;
 
-        // Initial fetch
-        pollFifaLive();
+        // Initial fetch only if active
+        if (hasActiveMatches(matchesData.matches)) {
+            pollFifaLive();
+        }
 
         const scheduleNextPoll = () => {
             const isActive = hasActiveMatches(matchesDataRef.current?.matches);
             const interval = isActive ? 30_000 : 300_000; // 30s or 5min
 
             liveTimerRef.current = setTimeout(async () => {
-                await pollFifaLive();
+                const currentlyActive = hasActiveMatches(matchesDataRef.current?.matches);
+                if (currentlyActive) {
+                    await pollFifaLive();
+                }
                 scheduleNextPoll();
             }, interval);
         };

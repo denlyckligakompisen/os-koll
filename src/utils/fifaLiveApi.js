@@ -225,8 +225,8 @@ export function hasActiveMatches(matches) {
         if (m.startTimestamp) {
             const startMs = m.startTimestamp * 1000;
             const diff = startMs - now;
-            // Match is about to start or has started but status not yet updated
-            if (diff >= -150 * 60 * 1000 && diff <= FIFTEEN_MIN) return true;
+            // Match has started (diff <= 0) but not older than 3 hours (-180 minutes)
+            if (diff >= -180 * 60 * 1000 && diff <= 0) return true;
         }
         return false;
     });

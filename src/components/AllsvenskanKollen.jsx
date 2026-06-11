@@ -263,7 +263,14 @@ const AllsvenskanKollen = () => {
                 let cacheUpdated = false;
                 try {
                     const now = Date.now();
-                    if (selectedSeason === 2026) {
+                    
+                    const isMatchWindowActive = matches?.matches?.some(m => {
+                        if (!m.startTimestamp) return false;
+                        const startMs = m.startTimestamp * 1000;
+                        return now >= startMs && now <= startMs + (3 * 60 * 60 * 1000);
+                    });
+
+                    if (selectedSeason === 2026 && isMatchWindowActive) {
                         const liveQuery = `
                         query {
                           matchesForLeague(configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -418,6 +425,7 @@ const AllsvenskanKollen = () => {
     const handleNavMenuClose = () => setNavAnchorEl(null);
 
     const handleTeamClick = (teamName) => {
+        if (filterTeam) return;
         if (!teamName) return;
         
         // Find exact match first
@@ -431,7 +439,7 @@ const AllsvenskanKollen = () => {
         }
 
         if (matchedTeam) {
-            setFilterTeam(prev => prev === matchedTeam ? null : matchedTeam);
+            setFilterTeam(matchedTeam);
         }
         handleMenuClose();
     };
@@ -1048,7 +1056,11 @@ const AllsvenskanKollen = () => {
                     <button
                         onClick={(e) => {
                             e.currentTarget.blur();
-                            handleMenuClick(e);
+                            if (filterTeam) {
+                                setFilterTeam(null);
+                            } else {
+                                handleMenuClick(e);
+                            }
                         }}
                         className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
                         aria-label="Välj lag att filtrera"
