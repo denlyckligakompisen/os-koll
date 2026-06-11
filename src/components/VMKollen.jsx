@@ -867,7 +867,7 @@ const VMKollen = () => {
                                                                     {badgeText}
                                                                 </div>
                                                             )}
-                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} allMatches={combinedMatches} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
                                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, m.status === 'live')}
                                                     </React.Fragment>
@@ -917,7 +917,8 @@ const VMKollen = () => {
                         cursor: 'pointer',
                         width: '100%',
                         display: 'flex',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        position: 'relative'
                     }}
                     onClick={() => navigate('/allsvenskan')}
                 >
@@ -940,6 +941,18 @@ const VMKollen = () => {
                             }}>2026 FIFA World Cup</span>
                         </div>
                     </div>
+                    {filterCountry && (
+                        <div 
+                            style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setFilterCountry(null);
+                            }}
+                            title="Rensa filter"
+                        >
+                            <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
+                        </div>
+                    )}
                 </div>
 
 
