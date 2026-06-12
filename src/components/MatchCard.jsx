@@ -640,7 +640,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 }}
                 onClick={() => onCardClick && onCardClick()}
             >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', width: '100%' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', width: '100%' }}>
                     <div
                         style={{ 
                             flex: 1, 
@@ -674,7 +674,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <button
                             onClick={handleBroadcastClick}
                             disabled={!getBroadcasterUrl(match.broadcast)}
-                            className={computedStatus === 'live' ? 'live-indicator-pulse' : ''}
+                            className={(!filterTeam && computedStatus === 'live') ? 'live-indicator-pulse' : ''}
                             style={{
                                 fontSize: '1.4rem',
                                 color: outcomeTextColor || 'var(--color-text)',
@@ -690,9 +690,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (timeLeftStr || displayTime)}
+                             (filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </button>
-                        {computedStatus === 'live' && (
+                        {!filterTeam && computedStatus === 'live' && (
                             <span style={{
                                 fontSize: '0.85rem',
                                 fontWeight: '500',
@@ -704,7 +704,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </span>
                         )}
-                        {match.broadcast && computedStatus !== 'live' && (
+                        {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                             <div 
                                 onClick={handleBroadcastClick}
                                 style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
@@ -822,7 +822,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             }} 
             onClick={() => onCardClick && onCardClick()}
         >
-            <div style={{ display: 'flex', width: '100%', alignItems: computedStatus === 'upcoming' ? 'center' : 'flex-start', gap: highlight ? '20px' : '12px' }}>
+            <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: highlight ? '20px' : '12px' }}>
             <TeamLogo 
                 logoUrl={homeLogo} 
                 teamName={match.home} 
@@ -876,7 +876,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     >
                         
                         <span 
-                            className={computedStatus === 'live' ? 'live-indicator-pulse' : ''}
+                            className={(!filterTeam && computedStatus === 'live') ? 'live-indicator-pulse' : ''}
                             style={{
                             fontSize: highlight ? '1rem' : '0.8rem',
                             color: outcomeTextColor || 'var(--color-text)',
@@ -891,9 +891,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}>
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (timeLeftStr || displayTime)}
+                             (filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </span>
-                        {computedStatus === 'live' && (
+                        {!filterTeam && computedStatus === 'live' && (
                             <span style={{
                                 fontSize: highlight ? '0.75rem' : '0.68rem',
                                 fontWeight: '400',
@@ -905,7 +905,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
                             </span>
                         )}
-                        {match.broadcast && computedStatus !== 'live' && (
+                        {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                             <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                 <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
                             </div>
