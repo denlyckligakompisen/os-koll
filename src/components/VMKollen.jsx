@@ -571,11 +571,13 @@ const VMKollen = () => {
     };
 
     const handleCardClick = (matchId) => {
+        if (filterCountry) return;
         setExpandedMatchId(prev => prev === matchId ? null : matchId);
     };
 
     const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam, isLive) => {
         if (!groupsData?.groups) return null;
+        if (filterCountry) return null;
         if (expandedMatchId !== matchId && !isLive) return null;
         const group = groupsData.groups.find(g => g.name === groupName);
         if (!group) return null;
