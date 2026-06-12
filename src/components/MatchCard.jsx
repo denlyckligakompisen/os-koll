@@ -247,7 +247,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const computedStatus = getComputedStatus();
 
     useEffect(() => {
-        if (variant !== 'hero' || computedStatus !== 'upcoming') return;
+        if (variant !== 'hero' || computedStatus !== 'upcoming') {
+            setTimeLeftStr(null);
+            return;
+        }
         
         const updateTimer = () => {
             const matchDateLocal = parseMatchDateLocal(match.date, match.time);

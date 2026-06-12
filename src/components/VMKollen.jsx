@@ -847,6 +847,7 @@ const VMKollen = () => {
                                                 const awayRankVal = getTeamRank(m.realAway || m.away);
                                                 const isTopMatch = (homeRankVal + awayRankVal) <= 30;
                                                 const isBottomMatch = (homeRankVal + awayRankVal) >= 100;
+                                                const isSwedenMatch = (m.realHome || m.home) === 'Sverige' || (m.realAway || m.away) === 'Sverige';
 
                                                 let cardClass = '';
                                                 let cardStyle = {};
@@ -854,7 +855,12 @@ const VMKollen = () => {
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
-                                                if (isTopMatch && !isHero) {
+                                                if (isSwedenMatch && !isHero) {
+                                                    cardClass = 'sweden-frame-animated';
+                                                    badgeBg = 'linear-gradient(135deg, #005293, #006AA7)';
+                                                    badgeColor = '#FECB00';
+                                                    badgeText = 'Sverige spelar';
+                                                } else if (isTopMatch && !isHero) {
                                                     cardClass = 'gold-frame-animated';
                                                     badgeBg = 'linear-gradient(135deg, #FFD700, #FDB931)';
                                                     badgeText = 'Toppmatch';
@@ -864,7 +870,7 @@ const VMKollen = () => {
                                                     <React.Fragment key={i}>
                                                         <div className={cardClass} style={cardStyle}>
                                                             {badgeText && (
-                                                                <div className={isTopMatch && !isHero ? 'topmatch-badge' : ''} style={{
+                                                                <div className={(isTopMatch && !isHero) ? 'topmatch-badge' : ((isSwedenMatch && !isHero) ? 'sweden-badge' : '')} style={{
                                                                     position: 'absolute',
                                                                     top: '-8px',
                                                                     right: '12px',
@@ -962,40 +968,43 @@ const VMKollen = () => {
                         </div>
                     </button>
                     {filterCountry && (
-                        <button
-                            type="button"
-                            style={{ 
-                                position: 'absolute', 
-                                right: '10px', 
-                                top: '50%', 
-                                transform: 'translateY(-50%)', 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'center',
-                                cursor: 'pointer', 
-                                background: 'transparent', 
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: isScrolled ? '36px' : '44px',
-                                height: isScrolled ? '36px' : '44px',
-                                padding: 0,
-                                transition: 'all 0.3s ease',
-                                zIndex: 10,
-                                WebkitTapHighlightColor: 'transparent'
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setFilterCountry(null);
-                                localStorage.removeItem('os-koll-filter');
-                            }}
-                            aria-label="Rensa filter"
-                            title="Rensa filter"
-                        >
-                            <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
-                            </div>
-                        </button>
+                        <div style={{
+                            position: 'absolute', 
+                            right: '10px', 
+                            top: '50%', 
+                            transform: 'translateY(-50%)',
+                            zIndex: 10,
+                        }}>
+                            <button
+                                type="button"
+                                style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center',
+                                    cursor: 'pointer', 
+                                    background: 'transparent', 
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: isScrolled ? '36px' : '44px',
+                                    height: isScrolled ? '36px' : '44px',
+                                    padding: 0,
+                                    transition: 'all 0.3s ease',
+                                    WebkitTapHighlightColor: 'transparent'
+                                }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setFilterCountry(null);
+                                    localStorage.removeItem('os-koll-filter');
+                                }}
+                                aria-label="Rensa filter"
+                                title="Rensa filter"
+                            >
+                                <div style={{ pointerEvents: 'none', display: 'flex' }}>
+                                    <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
+                                </div>
+                            </button>
+                        </div>
                     )}
                 </div>
 

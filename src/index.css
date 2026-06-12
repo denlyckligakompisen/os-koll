@@ -585,6 +585,46 @@ select:focus-visible {
   z-index: 5;
 }
 
+@keyframes swedenBadgeFlare {
+  0%, 8%, 20%, 100% {
+    box-shadow: 0 0 0 rgba(254, 203, 0, 0);
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  14% {
+    box-shadow: 0 0 20px 8px rgba(254, 203, 0, 0.8);
+    filter: brightness(1.1);
+    transform: scale(1.05);
+  }
+}
+
+.sweden-badge {
+  animation: swedenBadgeFlare 2.5s linear infinite;
+  transform-origin: center;
+}
+
+.sweden-frame-animated {
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 0 0 2px #005293;
+}
+
+.sweden-frame-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: conic-gradient(from var(--angle), transparent 0%, transparent 80%, #fecb00 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 2px;
+  animation: rotateAngle 2.5s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
