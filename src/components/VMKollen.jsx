@@ -256,8 +256,10 @@ const VMKollen = () => {
         if (!tournamentTeams.has(cleanName)) return;
         if (filterCountry === cleanName) {
             setFilterCountry(null);
+            localStorage.removeItem('os-koll-filter');
         } else {
             setFilterCountry(cleanName);
+            localStorage.setItem('os-koll-filter', cleanName);
         }
     };
 
@@ -959,16 +961,39 @@ const VMKollen = () => {
                         </div>
                     </button>
                     {filterCountry && (
-                        <button 
-                            style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
+                        <button
+                            type="button"
+                            style={{ 
+                                position: 'absolute', 
+                                right: '10px', 
+                                top: '50%', 
+                                transform: 'translateY(-50%)', 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                cursor: 'pointer', 
+                                background: 'transparent', 
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: isScrolled ? '36px' : '44px',
+                                height: isScrolled ? '36px' : '44px',
+                                padding: 0,
+                                transition: 'all 0.3s ease',
+                                zIndex: 10,
+                                WebkitTapHighlightColor: 'transparent'
+                            }}
                             onClick={(e) => {
+                                e.preventDefault();
                                 e.stopPropagation();
                                 setFilterCountry(null);
+                                localStorage.removeItem('os-koll-filter');
                             }}
                             aria-label="Rensa filter"
                             title="Rensa filter"
                         >
-                            <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
+                            <div style={{ pointerEvents: 'none', display: 'flex' }}>
+                                <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
+                            </div>
                         </button>
                     )}
                 </div>
