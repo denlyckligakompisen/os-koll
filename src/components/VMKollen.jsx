@@ -356,6 +356,14 @@ const VMKollen = () => {
         // Always fetch once on load to catch matches finished since last JSON push
         pollFifaLive();
 
+        // Re-fetch when user returns to the tab/app
+        const handleVisibility = () => {
+            if (document.visibilityState === 'visible') {
+                pollFifaLive();
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibility);
+
         const scheduleNextPoll = () => {
             const isActive = hasActiveMatches(matchesDataRef.current?.matches);
             const interval = isActive ? 30_000 : 300_000; // 30s or 5min
@@ -373,6 +381,7 @@ const VMKollen = () => {
 
         return () => {
             if (liveTimerRef.current) clearTimeout(liveTimerRef.current);
+            document.removeEventListener('visibilitychange', handleVisibility);
         };
     }, [matchesData?.matches?.length, pollFifaLive]);
 
