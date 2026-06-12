@@ -282,6 +282,121 @@ const LineupsSection = ({ match }) => {
     );
 };
 
+const EventsTimeline = ({ match }) => {
+    const parseMinute = (minStr) => {
+        if (!minStr) return 0;
+        const base = parseInt(String(minStr).split('+')[0]);
+        const extra = parseInt(String(minStr).split('+')[1] || '0');
+        return isNaN(base) ? 0 : base + (extra / 100);
+    };
+
+    let events = [];
+
+    if (match.scorers?.home) {
+        match.scorers.home.forEach(g => events.push({
+            type: g.incidentClass || 'goal',
+            side: 'home',
+            player: g.player?.name || g.player,
+            minuteStr: g.minute || g.time,
+            minute: parseMinute(g.minute || g.time)
+        }));
+    }
+    if (match.scorers?.away) {
+        match.scorers.away.forEach(g => events.push({
+            type: g.incidentClass || 'goal',
+            side: 'away',
+            player: g.player?.name || g.player,
+            minuteStr: g.minute || g.time,
+            minute: parseMinute(g.minute || g.time)
+        }));
+    }
+    if (match.bookings) {
+        match.bookings.filter(b => b.card === 'yellow').forEach(b => events.push({
+            type: 'yellow-card',
+            side: b.side,
+            player: b.player?.name || b.player,
+            minuteStr: b.minute,
+            minute: parseMinute(b.minute)
+        }));
+    }
+    if (match.substitutions) {
+        match.substitutions.forEach(s => events.push({
+            type: 'substitution',
+            side: s.side,
+            playerOff: s.playerOff,
+            playerOn: s.playerOn,
+            minuteStr: s.minute,
+            minute: parseMinute(s.minute)
+        }));
+    }
+
+    events.sort((a, b) => b.minute - a.minute);
+
+    if (events.length === 0) return null;
+
+    const renderEventIcon = (type) => {
+        if (type === 'goal' || type === 'penalty-goal') return <span style={{ fontSize: '0.8rem' }}>⚽</span>;
+        if (type === 'red-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#e53935', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Rött kort" />;
+        if (type === 'yellow-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />;
+        return null;
+    };
+
+    const renderEventContent = (event) => {
+        if (event.type === 'substitution') {
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.65rem', alignItems: event.side === 'home' ? 'flex-end' : 'flex-start' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        {event.side === 'away' && <span style={{ color: '#34c759', fontSize: '0.55rem' }}>▲</span>}
+                        <span>{getLastName(event.playerOn)}</span>
+                        {event.side === 'home' && <span style={{ color: '#34c759', fontSize: '0.55rem' }}>▲</span>}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>
+                        {event.side === 'away' && <span style={{ color: '#ff3b30', fontSize: '0.55rem' }}>▼</span>}
+                        <span>{getLastName(event.playerOff)}</span>
+                        {event.side === 'home' && <span style={{ color: '#ff3b30', fontSize: '0.55rem' }}>▼</span>}
+                    </div>
+                </div>
+            );
+        }
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', justifyContent: event.side === 'home' ? 'flex-end' : 'flex-start' }}>
+                {event.side === 'away' && renderEventIcon(event.type)}
+                <span>{getLastName(event.player)}</span>
+                {event.type === 'penalty-goal' && <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>(str)</span>}
+                {event.side === 'home' && renderEventIcon(event.type)}
+            </div>
+        );
+    };
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '8px 0 12px 0', width: '100%' }}>
+            {events.map((e, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                    <div style={{ flex: 1, textAlign: 'right', paddingRight: '8px', minWidth: 0 }}>
+                        {e.side === 'home' && renderEventContent(e)}
+                    </div>
+                    <div style={{ 
+                        width: '32px', 
+                        textAlign: 'center', 
+                        fontSize: '0.7rem', 
+                        color: 'var(--color-text-muted)', 
+                        fontWeight: 'bold',
+                        backgroundColor: 'var(--color-bg)',
+                        borderRadius: '4px',
+                        padding: '2px 0',
+                        flexShrink: 0
+                    }}>
+                        {e.minuteStr}'
+                    </div>
+                    <div style={{ flex: 1, textAlign: 'left', paddingLeft: '8px', minWidth: 0 }}>
+                        {e.side === 'away' && renderEventContent(e)}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
@@ -552,21 +667,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {homeForm.map((f, i) => renderFormBadge(f, i))}
                             </div>
                         )}
-
-                        {match.scorers?.home?.length > 0 && getSortedScorers(match.scorers.home).length > 0 && (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                                {getSortedScorers(match.scorers.home).map((s, i) => (
-                                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        {s.incidentClass === 'red-card' && (
-                                            <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '2px' }} title="Rött kort" />
-                                        )}
-                                        <span>{getLastName(s.player?.name || s.player)} {s.minute || s.time}'{s.suffix || ''}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-
                     </div>
 
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
@@ -644,21 +744,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {awayForm.map((f, i) => renderFormBadge(f, i))}
                             </div>
                         )}
-
-                        {match.scorers?.away?.length > 0 && getSortedScorers(match.scorers.away).length > 0 && (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                                {getSortedScorers(match.scorers.away).map((s, i) => (
-                                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        <span>{getLastName(s.player?.name || s.player)} {s.minute || s.time}'{s.suffix || ''}</span>
-                                        {s.incidentClass === 'red-card' && (
-                                            <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '2px' }} title="Rött kort" />
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-
                     </div>
                 </div>
                 {/* Live match events: yellow cards, substitutions, match info */}
@@ -669,34 +754,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         paddingTop: '10px',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '8px',
                         width: '100%'
                     }}>
-                        {/* Yellow Cards */}
-                        {match.bookings?.filter(b => b.card === 'yellow').length > 0 && (
-                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                {match.bookings.filter(b => b.card === 'yellow').map((b, i) => (
-                                    <div key={`yc-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                                        <div style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', flexShrink: 0, border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />
-                                        <span>{getLastName(b.player?.name)} {b.minute}'</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                        {/* Substitutions */}
-                        {match.substitutions?.length > 0 && (
-                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                {match.substitutions.map((s, i) => (
-                                    <div key={`sub-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-                                        <span style={{ color: '#ff3b30', fontSize: '0.6rem', lineHeight: 1 }}>▼</span>
-                                        <span>{getLastName(s.playerOff)}</span>
-                                        <span style={{ color: '#34c759', fontSize: '0.6rem', lineHeight: 1 }}>▲</span>
-                                        <span>{getLastName(s.playerOn)}</span>
-                                        <span style={{ opacity: 0.5 }}>{s.minute}'</span>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        <EventsTimeline match={match} />
                         {/* Match info footer */}
                         {(match.tactics?.home || match.stadium || match.referee) && (
                             <div style={{ 
@@ -866,78 +926,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {renderTeamName(match.away, 'left', awayRank)}
                     </div>
                 </div>
-                {match.scorers && (match.scorers.home?.length > 0 || match.scorers.away?.length > 0) && (() => {
-                    const sortedHome = getSortedScorers(match.scorers.home);
-                    const sortedAway = getSortedScorers(match.scorers.away);
-                    const rowCount = Math.max(sortedHome.length, sortedAway.length);
-                    const rows = Array.from({ length: rowCount });
-                    
-                    return (
-                        <div style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            fontSize: '0.72rem', 
-                            color: 'var(--color-text-muted)', 
-                            marginTop: '6px',
-                            lineHeight: '1.4',
-                            transition: 'all 0.3s ease',
-                            width: '100%'
-                        }}>
-                            {rows.map((_, i) => {
-                                const homeScorer = sortedHome[i];
-                                const awayScorer = sortedAway[i];
-                                return (
-                                    <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
-                                        {/* Left: Home scorer */}
-                                        <div style={{ 
-                                            flex: 1, 
-                                            textAlign: 'right', 
-                                            paddingRight: '8px',
-                                            display: 'flex',
-                                            justifyContent: 'flex-end',
-                                            alignItems: 'center',
-                                            gap: '4px'
-                                        }}>
-                                            {homeScorer ? (
-                                                <>
-                                                    {homeScorer.incidentClass === 'red-card' && (
-                                                        <div style={{ width: '6px', height: '9px', backgroundColor: '#e53935', borderRadius: '1px' }} title="Rött kort" />
-                                                    )}
-                                                    <span>{getLastName(homeScorer.player?.name || homeScorer.player)} {homeScorer.minute || homeScorer.time}'{homeScorer.suffix || ''}</span>
-                                                </>
-                                            ) : ''}
-                                        </div>
-
-                                        {/* Middle: Spacer */}
-                                        <div style={{ 
-                                            minWidth: highlight ? '90px' : '70px', 
-                                            flexShrink: 0
-                                        }} />
-
-                                        {/* Right: Away scorer */}
-                                        <div style={{ 
-                                            flex: 1, 
-                                            textAlign: 'left', 
-                                            paddingLeft: '8px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '4px'
-                                        }}>
-                                            {awayScorer ? (
-                                                <>
-                                                    <span>{getLastName(awayScorer.player?.name || awayScorer.player)} {awayScorer.minute || awayScorer.time}'{awayScorer.suffix || ''}</span>
-                                                    {awayScorer.incidentClass === 'red-card' && (
-                                                        <div style={{ width: '6px', height: '9px', backgroundColor: '#e53935', borderRadius: '1px' }} title="Rött kort" />
-                                                    )}
-                                                </>
-                                            ) : ''}
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    );
-                })()}
 
             </div>
             <TeamLogo 
@@ -955,34 +943,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     marginTop: '6px',
                     paddingTop: '8px',
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: '5px'
+                    flexDirection: 'column'
                 }}>
-                    {/* Yellow Cards */}
-                    {match.bookings?.filter(b => b.card === 'yellow').length > 0 && (
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {match.bookings.filter(b => b.card === 'yellow').map((b, i) => (
-                                <div key={`yc-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
-                                    <div style={{ width: '7px', height: '10px', backgroundColor: '#ffd600', borderRadius: '1px', flexShrink: 0, border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />
-                                    <span>{getLastName(b.player?.name)} {b.minute}'</span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    {/* Substitutions */}
-                    {match.substitutions?.length > 0 && (
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {match.substitutions.map((s, i) => (
-                                <div key={`sub-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '2px', fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>
-                                    <span style={{ color: '#ff3b30', fontSize: '0.55rem', lineHeight: 1 }}>▼</span>
-                                    <span>{getLastName(s.playerOff)}</span>
-                                    <span style={{ color: '#34c759', fontSize: '0.55rem', lineHeight: 1 }}>▲</span>
-                                    <span>{getLastName(s.playerOn)}</span>
-                                    <span style={{ opacity: 0.5 }}>{s.minute}'</span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                    <EventsTimeline match={match} />
                     {/* Match info footer */}
                     {(match.tactics?.home || match.stadium || match.referee) && (
                         <div style={{ 
