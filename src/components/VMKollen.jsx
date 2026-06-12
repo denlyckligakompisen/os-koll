@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTeamLogo } from '../utils/assets';
-import PageHeader from './common/PageHeader';
+
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
@@ -9,10 +8,9 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { Calendar, List, BarChart3, Trophy, ChevronUp, ChevronDown, X, Globe, ArrowLeftRight, ArrowUp } from 'lucide-react';
-import FilterDrawer from './common/FilterDrawer';
+import { ChevronUp, ChevronDown, ArrowUp } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
-import { useSwipeNavigation, getHeaderStyle } from '../utils/navigation';
+
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
 
 
@@ -138,7 +136,7 @@ const VMKollen = () => {
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
     const [filterCountry, setFilterCountry] = useState(null);
-    const [anchorEl, setAnchorEl] = useState(null);
+
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     
@@ -238,8 +236,7 @@ const VMKollen = () => {
         return sorted;
     }, [groupsData]);
 
-    const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
-    const handleMenuClose = () => setAnchorEl(null);
+
 
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
@@ -252,11 +249,7 @@ const VMKollen = () => {
 
 
 
-    const handleReset = () => {
-        setFilterCountry(null);
-        setActiveTab('matcher');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+
 
     const handleCountryClick = (country) => {
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
