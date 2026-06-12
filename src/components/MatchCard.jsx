@@ -439,9 +439,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 const h = Math.floor(totalSecs / 3600);
                 const m = Math.floor((totalSecs % 3600) / 60);
                 const s = totalSecs % 60;
-                setTimeLeftStr(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
+                if (h > 0) {
+                    setTimeLeftStr(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
+                } else {
+                    setTimeLeftStr(`${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
+                }
             } else {
-                setTimeLeftStr(null);
+                setTimeLeftStr('00:00');
             }
         };
         
@@ -692,7 +696,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </button>
-                        {!filterTeam && computedStatus === 'live' && (
+                        {computedStatus === 'live' && (
                             <span style={{
                                 fontSize: '0.85rem',
                                 fontWeight: '500',
@@ -893,7 +897,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </span>
-                        {!filterTeam && computedStatus === 'live' && (
+                        {computedStatus === 'live' && (
                             <span style={{
                                 fontSize: highlight ? '0.75rem' : '0.68rem',
                                 fontWeight: '400',
