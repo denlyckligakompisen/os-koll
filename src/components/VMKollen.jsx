@@ -259,10 +259,13 @@ const VMKollen = () => {
     };
 
     const handleCountryClick = (country) => {
-        if (filterCountry) return;
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
-        setFilterCountry(cleanName);
+        if (filterCountry === cleanName) {
+            setFilterCountry(null);
+        } else {
+            setFilterCountry(cleanName);
+        }
     };
 
     useEffect(() => {
@@ -350,10 +353,8 @@ const VMKollen = () => {
     useEffect(() => {
         if (!matchesData?.matches) return;
 
-        // Initial fetch only if active
-        if (hasActiveMatches(matchesData.matches)) {
-            pollFifaLive();
-        }
+        // Always fetch once on load to catch matches finished since last JSON push
+        pollFifaLive();
 
         const scheduleNextPoll = () => {
             const isActive = hasActiveMatches(matchesDataRef.current?.matches);
@@ -965,25 +966,7 @@ const VMKollen = () => {
                             aria-label="Rensa filter"
                             title="Rensa filter"
                         >
-                            <div style={{ position: 'relative' }}>
-                                <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '-6px',
-                                    left: '-6px',
-                                    backgroundColor: 'rgba(0,0,0,0.8)',
-                                    color: 'white',
-                                    borderRadius: '50%',
-                                    width: '16px',
-                                    height: '16px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                                }}>
-                                    <X size={10} strokeWidth={3} aria-hidden="true" />
-                                </div>
-                            </div>
+                            <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
                         </button>
                     )}
                 </div>
