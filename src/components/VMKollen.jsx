@@ -835,7 +835,8 @@ const VMKollen = () => {
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {(() => {
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
-                                                const hideHeader = relativeLabel.toLowerCase() === 'idag' && matches.some(m => m.status === 'live');
+                                                const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
+                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => m.status === 'live')) || (!filterCountry && hasHero);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -851,6 +852,10 @@ const VMKollen = () => {
                                             {matches.map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
                                                 const isHero = nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
+                                                
+                                                const hasHero = matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
+                                                const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
+                                                const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
                                                 
                                                 const homeRankVal = getTeamRank(m.realHome || m.home);
                                                 const awayRankVal = getTeamRank(m.realAway || m.away);
@@ -877,6 +882,16 @@ const VMKollen = () => {
 
                                                 return (
                                                     <React.Fragment key={i}>
+                                                        {!filterCountry && isFirstNonHero && (
+                                                            <div style={{
+                                                                fontSize: '0.8rem',
+                                                                textTransform: 'uppercase',
+                                                                paddingLeft: '4px',
+                                                                color: 'var(--color-text-muted)',
+                                                                letterSpacing: '0.02em',
+                                                                marginTop: '8px'
+                                                            }}>{relativeLabel}</div>
+                                                        )}
                                                         <div className={cardClass} style={cardStyle}>
                                                             {badgeText && (
                                                                 <div className={(isTopMatch && !isHero) ? 'topmatch-badge' : ((isSwedenMatch && !isHero) ? 'sweden-badge' : '')} style={{
