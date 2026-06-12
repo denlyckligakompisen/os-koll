@@ -334,7 +334,14 @@ const VMKollen = () => {
         // Only update state if something actually changed
         const hasChanges = updatedMatches.some((m, i) => {
             const orig = currentMatches.matches[i];
-            return m.status !== orig.status || m.score !== orig.score || m.liveCurrentTime !== orig.liveCurrentTime;
+            return m.status !== orig.status ||
+                m.score !== orig.score ||
+                m.liveCurrentTime !== orig.liveCurrentTime ||
+                (m.scorers?.home?.length || 0) !== (orig.scorers?.home?.length || 0) ||
+                (m.scorers?.away?.length || 0) !== (orig.scorers?.away?.length || 0) ||
+                (m.bookings?.length || 0) !== (orig.bookings?.length || 0) ||
+                (m.substitutions?.length || 0) !== (orig.substitutions?.length || 0) ||
+                (m.startingXI?.home?.length || 0) !== (orig.startingXI?.home?.length || 0);
         });
 
         if (hasChanges) {

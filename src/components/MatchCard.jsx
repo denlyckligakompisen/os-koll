@@ -219,11 +219,75 @@ const BroadcasterLogo = ({ name, size = 'default' }) => {
     );
 };
 
+const LineupsSection = ({ match }) => {
+    if (!match.startingXI?.home?.length && !match.startingXI?.away?.length) return null;
+
+    const renderPlayer = (p, isHome) => (
+        <div key={p.number} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', marginBottom: '4px', flexDirection: isHome ? 'row' : 'row-reverse' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', width: '16px', textAlign: 'center', backgroundColor: 'rgba(128,128,128,0.1)', borderRadius: '3px', padding: '1px' }}>{p.number}</span>
+            <span style={{ color: 'var(--color-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {p.name} {p.captain ? <span style={{ color: '#ffd600', fontSize: '0.7rem' }}>©</span> : ''}
+            </span>
+        </div>
+    );
+
+    return (
+        <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)', textAlign: 'center', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Laguppställningar
+            </div>
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+                {/* Home Team */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '8px' }}>{cleanTeamName(match.home)}</div>
+                    {match.coaches?.home && (
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                            Tränare: {match.coaches.home}
+                        </div>
+                    )}
+                    <div style={{ marginBottom: '12px' }}>
+                        {match.startingXI?.home?.map(p => renderPlayer(p, true))}
+                    </div>
+                    {match.subs?.home?.length > 0 && (
+                        <div>
+                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Avbytare</div>
+                            {match.subs.home.map(p => renderPlayer(p, true))}
+                        </div>
+                    )}
+                </div>
+
+                <div style={{ width: '1px', backgroundColor: 'rgba(128,128,128,0.1)' }} />
+
+                {/* Away Team */}
+                <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '8px' }}>{cleanTeamName(match.away)}</div>
+                    {match.coaches?.away && (
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                            Tränare: {match.coaches.away}
+                        </div>
+                    )}
+                    <div style={{ marginBottom: '12px' }}>
+                        {match.startingXI?.away?.map(p => renderPlayer(p, false))}
+                    </div>
+                    {match.subs?.away?.length > 0 && (
+                        <div>
+                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Avbytare</div>
+                            {match.subs.away.map(p => renderPlayer(p, false))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
     const [timeLeftStr, setTimeLeftStr] = useState(null);
+    const [showLineups, setShowLineups] = useState(false);
 
 
     const getComputedStatus = () => {
@@ -597,6 +661,82 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                     </div>
                 </div>
+                {/* Live match events: yellow cards, substitutions, match info */}
+                {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
+                    <div style={{ 
+                        borderTop: '1px solid rgba(128,128,128,0.12)',
+                        marginTop: '8px',
+                        paddingTop: '10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px',
+                        width: '100%'
+                    }}>
+                        {/* Yellow Cards */}
+                        {match.bookings?.filter(b => b.card === 'yellow').length > 0 && (
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                                {match.bookings.filter(b => b.card === 'yellow').map((b, i) => (
+                                    <div key={`yc-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
+                                        <div style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', flexShrink: 0, border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />
+                                        <span>{getLastName(b.player?.name)} {b.minute}'</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        {/* Substitutions */}
+                        {match.substitutions?.length > 0 && (
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                                {match.substitutions.map((s, i) => (
+                                    <div key={`sub-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                                        <span style={{ color: '#ff3b30', fontSize: '0.6rem', lineHeight: 1 }}>▼</span>
+                                        <span>{getLastName(s.playerOff)}</span>
+                                        <span style={{ color: '#34c759', fontSize: '0.6rem', lineHeight: 1 }}>▲</span>
+                                        <span>{getLastName(s.playerOn)}</span>
+                                        <span style={{ opacity: 0.5 }}>{s.minute}'</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        {/* Match info footer */}
+                        {(match.tactics?.home || match.stadium || match.referee) && (
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'center',
+                                gap: '6px', 
+                                fontSize: '0.72rem', 
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.6,
+                                flexWrap: 'wrap',
+                                marginTop: '2px'
+                            }}>
+                                {match.tactics?.home && match.tactics?.away && (
+                                    <span>{match.tactics.home} vs {match.tactics.away}</span>
+                                )}
+                                {match.tactics?.home && match.stadium && <span style={{ opacity: 0.5 }}>•</span>}
+                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                                {(match.stadium || match.tactics?.home) && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
+                                {match.referee && <span>{match.referee}</span>}
+                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                    <React.Fragment>
+                                        <span style={{ opacity: 0.5 }}>•</span>
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                            style={{
+                                                background: 'none', border: 'none', padding: 0, 
+                                                color: 'var(--color-primary)', fontSize: 'inherit',
+                                                cursor: 'pointer', textDecoration: 'underline'
+                                            }}
+                                        >
+                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            </div>
+                        )}
+                        {showLineups && <LineupsSection match={match} />}
+                    </div>
+                )}
             </Card>
         );
     }
@@ -808,6 +948,80 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
             </div>
+            {/* Live match events: yellow cards, substitutions, match info */}
+            {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
+                <div style={{ 
+                    borderTop: '1px solid rgba(128,128,128,0.08)',
+                    marginTop: '6px',
+                    paddingTop: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '5px'
+                }}>
+                    {/* Yellow Cards */}
+                    {match.bookings?.filter(b => b.card === 'yellow').length > 0 && (
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {match.bookings.filter(b => b.card === 'yellow').map((b, i) => (
+                                <div key={`yc-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
+                                    <div style={{ width: '7px', height: '10px', backgroundColor: '#ffd600', borderRadius: '1px', flexShrink: 0, border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />
+                                    <span>{getLastName(b.player?.name)} {b.minute}'</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {/* Substitutions */}
+                    {match.substitutions?.length > 0 && (
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {match.substitutions.map((s, i) => (
+                                <div key={`sub-${i}`} style={{ display: 'flex', alignItems: 'center', gap: '2px', fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>
+                                    <span style={{ color: '#ff3b30', fontSize: '0.55rem', lineHeight: 1 }}>▼</span>
+                                    <span>{getLastName(s.playerOff)}</span>
+                                    <span style={{ color: '#34c759', fontSize: '0.55rem', lineHeight: 1 }}>▲</span>
+                                    <span>{getLastName(s.playerOn)}</span>
+                                    <span style={{ opacity: 0.5 }}>{s.minute}'</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {/* Match info footer */}
+                    {(match.tactics?.home || match.stadium || match.referee) && (
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            gap: '6px', 
+                            fontSize: '0.65rem', 
+                            color: 'var(--color-text-muted)',
+                            opacity: 0.5,
+                            flexWrap: 'wrap'
+                        }}>
+                            {match.tactics?.home && match.tactics?.away && (
+                                <span>{match.tactics.home} vs {match.tactics.away}</span>
+                            )}
+                            {match.tactics?.home && match.stadium && <span>•</span>}
+                            {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                            {(match.stadium || match.tactics?.home) && match.referee && <span>•</span>}
+                            {match.referee && <span>{match.referee}</span>}
+                            {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                <React.Fragment>
+                                    <span>•</span>
+                                    <button 
+                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                        style={{
+                                            background: 'none', border: 'none', padding: 0, 
+                                            color: 'inherit', fontSize: 'inherit', opacity: 0.8,
+                                            cursor: 'pointer', textDecoration: 'underline'
+                                        }}
+                                    >
+                                        {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                    </button>
+                                </React.Fragment>
+                            )}
+                        </div>
+                    )}
+                    {showLineups && <LineupsSection match={match} />}
+                </div>
+            )}
         </Card>
     );
 
