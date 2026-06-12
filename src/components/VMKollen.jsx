@@ -955,7 +955,8 @@ const VMKollen = () => {
                                     letterSpacing: '-0.02em', 
                                     whiteSpace: 'nowrap',
                                     transition: 'font-size 0.3s ease',
-                                    margin: 0
+                                    margin: 0,
+                                    color: '#000'
                                 }}>2026 FIFA World Cup</h1>
                             </div>
                         </div>

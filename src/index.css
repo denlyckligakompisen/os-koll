@@ -584,3 +584,12 @@ select:focus-visible {
   pointer-events: none;
   z-index: 5;
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blink-colon {
+  animation: blink 1s step-end infinite;
+}

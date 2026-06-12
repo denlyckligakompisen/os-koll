@@ -151,11 +151,20 @@ const MONTH_MAP_LOCAL = {
 const parseMatchDateLocal = (dateStr, timeStr) => {
     if (!dateStr) return new Date();
     const parts = dateStr.split(' ');
-    if (parts.length < 3) return new Date();
     
-    const day = parseInt(parts[1]);
-    const monthName = parts[2]?.toLowerCase();
-    const year = parseInt(parts[3]) || 2026;
+    let day, monthName, year;
+
+    if (parts.length === 2) {
+        day = parseInt(parts[0]);
+        monthName = parts[1]?.toLowerCase();
+        year = 2026;
+    } else if (parts.length >= 3) {
+        day = parseInt(parts[1]);
+        monthName = parts[2]?.toLowerCase();
+        year = parseInt(parts[3]) || 2026;
+    } else {
+        return new Date();
+    }
 
     let hour = 0, minute = 0;
     if (timeStr && timeStr.includes(':')) {
@@ -214,6 +223,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
+    const [timeLeftStr, setTimeLeftStr] = useState(null);
+
 
     const getComputedStatus = () => {
         if (match.status === 'finished') return 'finished';
@@ -234,6 +245,28 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const computedStatus = getComputedStatus();
+
+    useEffect(() => {
+        if (variant !== 'hero' || computedStatus !== 'upcoming') return;
+        
+        const updateTimer = () => {
+            const matchDateLocal = parseMatchDateLocal(match.date, match.time);
+            const diff = matchDateLocal.getTime() - Date.now();
+            if (diff > 0) {
+                const totalSecs = Math.floor(diff / 1000);
+                const h = Math.floor(totalSecs / 3600);
+                const m = Math.floor((totalSecs % 3600) / 60);
+                const s = totalSecs % 60;
+                setTimeLeftStr(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
+            } else {
+                setTimeLeftStr(null);
+            }
+        };
+        
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
+        return () => clearInterval(interval);
+    }, [variant, computedStatus, match.date, match.time]);
 
     const getComputedScore = (status) => {
         if (match.score) return match.score;
@@ -490,7 +523,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             displayTime}
+                             (timeLeftStr || displayTime)}
                         </button>
                         {computedStatus === 'live' && (
                             <span style={{
@@ -655,7 +688,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}>
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             displayTime}
+                             (timeLeftStr || displayTime)}
                         </span>
                         {computedStatus === 'live' && (
                             <span style={{
