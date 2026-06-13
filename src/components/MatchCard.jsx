@@ -330,25 +330,58 @@ const EventsTimeline = ({ match, progress }) => {
         }));
     }
     if (match.substitutions) {
-        match.substitutions.forEach(s => events.push({
-            type: 'substitution',
-            side: s.side,
-            playerOff: s.playerOff,
-            playerOn: s.playerOn,
-            minuteStr: s.minute,
-            minute: parseMinute(s.minute)
-        }));
+        const subsMap = {};
+        match.substitutions.forEach(s => {
+            const min = parseMinute(s.minute);
+            const key = `${s.side}-${min}`;
+            if (!subsMap[key]) {
+                subsMap[key] = {
+                    type: 'substitution',
+                    side: s.side,
+                    minuteStr: s.minute,
+                    minute: min,
+                    count: 0
+                };
+            }
+            subsMap[key].count += 1;
+        });
+        Object.values(subsMap).forEach(sEvent => events.push(sEvent));
     }
 
     events.sort((a, b) => a.minute - b.minute); // Left to right
 
     if (events.length === 0) return null;
 
-    const renderEventIcon = (type) => {
-        if (type === 'goal' || type === 'penalty-goal') return <span style={{ fontSize: '0.85rem', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>⚽</span>;
-        if (type === 'red-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#e53935', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
-        if (type === 'yellow-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#ffd600', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
-        if (type === 'substitution') return <span style={{ fontSize: '0.75rem', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>🔄</span>;
+    const renderEventIcon = (e) => {
+        if (e.type === 'goal' || e.type === 'penalty-goal') return <span style={{ fontSize: '0.85rem', filter: 'grayscale(100%) drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>⚽</span>;
+        if (e.type === 'red-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#e53935', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
+        if (e.type === 'yellow-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#ffd600', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
+        if (e.type === 'substitution') return (
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+                <span style={{ fontSize: '0.75rem', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>🔄</span>
+                {e.count > 1 && (
+                    <div style={{
+                        position: 'absolute',
+                        top: '-4px',
+                        right: '-6px',
+                        backgroundColor: 'var(--color-primary)',
+                        color: 'white',
+                        fontSize: '0.55rem',
+                        fontWeight: 'bold',
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                        lineHeight: 1
+                    }}>
+                        {e.count}
+                    </div>
+                )}
+            </div>
+        );
         return null;
     };
 
@@ -427,7 +460,7 @@ const EventsTimeline = ({ match, progress }) => {
                         zIndex: e.type === 'goal' ? 10 : 5 // Goals on top of cards
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            {renderEventIcon(e.type)}
+                            {renderEventIcon(e)}
                         </div>
                         <div style={{ 
                             fontSize: '0.6rem', 
@@ -437,7 +470,11 @@ const EventsTimeline = ({ match, progress }) => {
                             fontWeight: e.type === 'goal' ? 'bold' : 'normal',
                             textAlign: 'center'
                         }}>
-                            {getLastName(e.player)}<br/>
+                            {e.type !== 'yellow-card' && e.type !== 'red-card' && e.player && (
+                                <React.Fragment>
+                                    {getLastName(e.player)}<br/>
+                                </React.Fragment>
+                            )}
                             <span style={{ color: 'var(--color-text-muted)', fontSize: '0.55rem', fontWeight: 'normal' }}>{e.minuteStr}'</span>
                         </div>
                     </div>
@@ -944,30 +981,51 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {(match.stadium || match.referee || match.startingXI) && (
                             <div style={{ 
                                 display: 'flex', 
-                                justifyContent: 'center', 
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '6px', 
-                                fontSize: '0.72rem', 
-                                color: 'var(--color-text-muted)',
-                                opacity: 0.6,
-                                flexWrap: 'wrap',
+                                gap: '4px',
                                 marginTop: '4px'
                             }}>
-                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                                {match.stadium && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
-                                {match.referee && <span>{match.referee}</span>}
-                                {(match.stadium || match.referee) && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span style={{ opacity: 0.5 }}>•</span>}
-                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                        style={{
-                                            background: 'none', border: 'none', padding: 0, 
-                                            color: 'var(--color-primary)', fontSize: 'inherit',
-                                            cursor: 'pointer', textDecoration: 'underline'
-                                        }}
-                                    >
-                                        {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                    </button>
+                                {match.stadium && (
+                                    <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', opacity: 0.6 }}>
+                                        {match.stadium}{match.city ? `, ${match.city}` : ''}
+                                    </div>
+                                )}
+                                {(match.referee || match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                    <div style={{ 
+                                        display: 'flex', 
+                                        justifyContent: 'center', 
+                                        alignItems: 'center',
+                                        gap: '6px', 
+                                        fontSize: '0.72rem', 
+                                        color: 'var(--color-text-muted)',
+                                        opacity: 0.6,
+                                        flexWrap: 'wrap'
+                                    }}>
+                                        {match.referee && (
+                                            <span style={{ display: 'flex', alignItems: 'center' }}>
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', opacity: 0.8 }}>
+                                                    <circle cx="10" cy="14" r="6" />
+                                                    <path d="M14 10h6v4h-6" />
+                                                    <circle cx="10" cy="14" r="1.5" fill="currentColor" />
+                                                </svg>
+                                                {match.referee}
+                                            </span>
+                                        )}
+                                        {match.referee && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span style={{ opacity: 0.5 }}>•</span>}
+                                        {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                                style={{
+                                                    background: 'none', border: 'none', padding: 0, 
+                                                    color: 'var(--color-primary)', fontSize: 'inherit',
+                                                    cursor: 'pointer', textDecoration: 'underline'
+                                                }}
+                                            >
+                                                {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                            </button>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         )}
@@ -1119,30 +1177,51 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     {(match.stadium || match.referee || match.startingXI) && (
                         <div style={{ 
                             display: 'flex', 
-                            justifyContent: 'center', 
+                            flexDirection: 'column',
                             alignItems: 'center',
-                            gap: '6px', 
-                            fontSize: '0.65rem', 
-                            color: 'var(--color-text-muted)',
-                            opacity: 0.5,
-                            flexWrap: 'wrap',
+                            gap: '4px',
                             marginTop: '12px'
                         }}>
-                            {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                            {match.stadium && match.referee && <span>•</span>}
-                            {match.referee && <span>{match.referee}</span>}
-                            {(match.stadium || match.referee) && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span>•</span>}
-                            {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                <button 
-                                    onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                    style={{
-                                        background: 'none', border: 'none', padding: 0, 
-                                        color: 'inherit', fontSize: 'inherit', opacity: 0.8,
-                                        cursor: 'pointer', textDecoration: 'underline'
-                                    }}
-                                >
-                                    {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                </button>
+                            {match.stadium && (
+                                <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', opacity: 0.5 }}>
+                                    {match.stadium}{match.city ? `, ${match.city}` : ''}
+                                </div>
+                            )}
+                            {(match.referee || match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                <div style={{ 
+                                    display: 'flex', 
+                                    justifyContent: 'center', 
+                                    alignItems: 'center',
+                                    gap: '6px', 
+                                    fontSize: '0.65rem', 
+                                    color: 'var(--color-text-muted)',
+                                    opacity: 0.5,
+                                    flexWrap: 'wrap'
+                                }}>
+                                    {match.referee && (
+                                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', opacity: 0.8 }}>
+                                                <circle cx="10" cy="14" r="6" />
+                                                <path d="M14 10h6v4h-6" />
+                                                <circle cx="10" cy="14" r="1.5" fill="currentColor" />
+                                            </svg>
+                                            {match.referee}
+                                        </span>
+                                    )}
+                                    {match.referee && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span>•</span>}
+                                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                            style={{
+                                                background: 'none', border: 'none', padding: 0, 
+                                                color: 'inherit', fontSize: 'inherit', opacity: 0.8,
+                                                cursor: 'pointer', textDecoration: 'underline'
+                                            }}
+                                        >
+                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                        </button>
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
