@@ -217,6 +217,7 @@ async function fetchFifaLiveNow() {
             const awaySubs = match.AwayTeam?.Players?.filter(p => p.Status === 2)?.map(extractPlayer) || [];
 
             enrichedMap.set(key, {
+                period: match.Period,
                 scorers: {
                     home: [...homeGoals, ...homeRedCards],
                     away: [...awayGoals, ...awayRedCards],
@@ -326,6 +327,7 @@ export async function fetchFifaLiveMatches() {
                 homeScore,
                 awayScore,
                 matchTime: matchTime || '',
+                period: match.Period,
                 fifaTimestamp,
                 fifaMatchId: match.IdMatch,
                 // Enriched data from /live/football/now
@@ -379,6 +381,7 @@ export function mergeLiveData(localMatches, liveData) {
             status: live.status,
             score: live.score || match.score,
             liveCurrentTime: live.matchTime || undefined,
+            period: live.period,
             _fifaMatchId: live.fifaMatchId,
         };
         

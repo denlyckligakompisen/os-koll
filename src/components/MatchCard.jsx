@@ -219,17 +219,165 @@ const BroadcasterLogo = ({ name, size = 'default' }) => {
     );
 };
 
+const getPlayerEvents = (match, p, isHome) => {
+    const events = [];
+    if (!match || !p) return events;
+    const sideStr = isHome ? 'home' : 'away';
+
+    const teamScorers = match.scorers?.[sideStr] || [];
+    const goals = teamScorers.filter(g => g.player?.name === p.name && (g.incidentClass === 'goal' || g.incidentClass === 'penalty-goal'));
+    goals.forEach(() => events.push('⚽'));
+
+    const teamBookings = match.bookings?.filter(b => b.side === sideStr) || [];
+    const cards = teamBookings.filter(b => b.player?.name === p.name);
+    cards.forEach(c => {
+        if (c.card === 'yellow') events.push('🟨');
+        if (c.card === 'red') events.push('🟥');
+    });
+
+    const teamSubs = match.substitutions?.filter(s => s.side === sideStr) || [];
+    if (teamSubs.find(s => s.playerOff === p.name)) events.push('⬇️');
+    if (teamSubs.find(s => s.playerOn === p.name)) events.push('⬆️');
+
+    return events;
+};
+
+const PitchLineup = ({ match }) => {
+    const groupPlayers = (players) => {
+        const groups = { 0: [], 1: [], 2: [], 3: [] };
+        if (!players) return groups;
+        players.forEach(p => {
+            const pos = p.position !== undefined ? p.position : 0;
+            if (groups[pos]) groups[pos].push(p);
+            else groups[0].push(p);
+        });
+        return groups;
+    };
+
+    const homeGroups = groupPlayers(match.startingXI?.home);
+    const awayGroups = groupPlayers(match.startingXI?.away);
+
+    const renderPlayerNode = (p, isHome) => {
+        const hasPhoto = p.photo && p.photo.trim() !== '';
+        const initials = p.name ? p.name.substring(0, 1).toUpperCase() : '?';
+        const events = getPlayerEvents(match, p, isHome);
+        return (
+            <div key={p.number || p.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '20%', flexShrink: 0, position: 'relative' }}>
+                <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                    {events.length > 0 && (
+                        <div style={{ position: 'absolute', top: '-6px', left: '-12px', zIndex: 4, display: 'flex', gap: '2px', fontSize: '0.55rem', backgroundColor: 'rgba(0,0,0,0.6)', padding: '1px 3px', borderRadius: '4px', whiteSpace: 'nowrap' }}>
+                            {events.map((e, i) => <span key={i}>{e}</span>)}
+                        </div>
+                    )}
+                    <div style={{
+                        width: '100%', height: '100%', borderRadius: '50%',
+                        backgroundColor: isHome ? 'var(--color-primary)' : 'var(--color-surface-subtle)',
+                        color: isHome ? 'white' : 'var(--color-text)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: '0.8rem', fontWeight: 'bold', border: '2px solid rgba(255,255,255,0.8)',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                        overflow: 'hidden'
+                    }}>
+                        {hasPhoto && (
+                            <img 
+                                src={p.photo} 
+                                alt={p.name} 
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                                onError={(e) => {
+                                    e.target.style.display = 'none';
+                                    if (e.target.nextElementSibling) {
+                                        e.target.nextElementSibling.style.display = 'block';
+                                    }
+                                }}
+                            />
+                        )}
+                        <span style={{ display: hasPhoto ? 'none' : 'block' }}>
+                            {p.number || initials}
+                        </span>
+                    </div>
+
+                    {p.captain && (
+                        <div style={{ position: 'absolute', top: '-4px', right: '-8px', zIndex: 2, backgroundColor: '#ffd600', color: '#000', borderRadius: '3px', fontSize: '0.55rem', padding: '1px 3px', fontWeight: 'bold', border: '1px solid rgba(0,0,0,0.2)' }}>C</div>
+                    )}
+                </div>
+
+                <div style={{
+                    fontSize: '0.6rem', color: 'white', marginTop: '4px',
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.9), 0px 0px 4px rgba(0,0,0,0.9)',
+                    textAlign: 'center', width: '60px',
+                    whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                    fontWeight: 'bold', zIndex: 2
+                }}>
+                    {getLastName(p.name)}
+                </div>
+            </div>
+        );
+    };
+
+    const renderRow = (players, isHome) => {
+        if (!players || players.length === 0) return null;
+        return (
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%', margin: '4px 0' }}>
+                {players.map(p => renderPlayerNode(p, isHome))}
+            </div>
+        );
+    };
+
+    return (
+        <div style={{
+            position: 'relative', width: '100%', maxWidth: '400px', margin: '16px auto',
+            backgroundColor: '#2e7d32',
+            borderRadius: '8px', overflow: 'hidden', padding: '16px 0',
+            border: '2px solid rgba(255,255,255,0.5)',
+            display: 'flex', flexDirection: 'column',
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.05) 40px, rgba(255,255,255,0.05) 80px)'
+        }}>
+            {/* CSS Pitch Lines */}
+            <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '2px', backgroundColor: 'rgba(255,255,255,0.4)', transform: 'translateY(-50%)' }} />
+            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '80px', height: '80px', border: '2px solid rgba(255,255,255,0.4)', borderRadius: '50%', transform: 'translate(-50%, -50%)' }} />
+            <div style={{ position: 'absolute', top: '-2px', left: '20%', width: '60%', height: '15%', border: '2px solid rgba(255,255,255,0.4)' }} />
+            <div style={{ position: 'absolute', bottom: '-2px', left: '20%', width: '60%', height: '15%', border: '2px solid rgba(255,255,255,0.4)' }} />
+            <div style={{ position: 'absolute', top: '-2px', left: '35%', width: '30%', height: '6%', border: '2px solid rgba(255,255,255,0.4)' }} />
+            <div style={{ position: 'absolute', bottom: '-2px', left: '35%', width: '30%', height: '6%', border: '2px solid rgba(255,255,255,0.4)' }} />
+            
+            {/* Home Team (Top to Bottom: GK=0, DEF=1, MID=2, FWD=3) */}
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, zIndex: 1, paddingBottom: '20px', justifyContent: 'space-between' }}>
+                {renderRow(homeGroups[0], true)}
+                {renderRow(homeGroups[1], true)}
+                {renderRow(homeGroups[2], true)}
+                {renderRow(homeGroups[3], true)}
+            </div>
+
+            {/* Away Team (Bottom to Top: FWD=3, MID=2, DEF=1, GK=0) */}
+            <div style={{ display: 'flex', flexDirection: 'column-reverse', flex: 1, zIndex: 1, paddingTop: '20px', justifyContent: 'space-between' }}>
+                {renderRow(awayGroups[0], false)}
+                {renderRow(awayGroups[1], false)}
+                {renderRow(awayGroups[2], false)}
+                {renderRow(awayGroups[3], false)}
+            </div>
+        </div>
+    );
+};
+
 const LineupsSection = ({ match }) => {
     if (!match.startingXI?.home?.length && !match.startingXI?.away?.length) return null;
 
-    const renderPlayer = (p, isHome) => (
-        <div key={p.number} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', marginBottom: '4px', flexDirection: isHome ? 'row' : 'row-reverse' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', width: '16px', textAlign: 'center', backgroundColor: 'rgba(128,128,128,0.1)', borderRadius: '3px', padding: '1px' }}>{p.number}</span>
-            <span style={{ color: 'var(--color-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {p.name} {p.captain ? <span style={{ color: '#ffd600', fontSize: '0.7rem' }}>©</span> : ''}
-            </span>
-        </div>
-    );
+    const renderSub = (p, isHome) => {
+        const events = getPlayerEvents(match, p, isHome);
+        return (
+            <div key={p.number || p.name} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', marginBottom: '4px', flexDirection: isHome ? 'row' : 'row-reverse' }}>
+                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', width: '16px', textAlign: 'center', backgroundColor: 'rgba(128,128,128,0.1)', borderRadius: '3px', padding: '1px', flexShrink: 0 }}>{p.number}</span>
+                <span style={{ color: 'var(--color-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {p.name}
+                </span>
+                {events.length > 0 && (
+                    <div style={{ display: 'flex', gap: '2px', fontSize: '0.65rem', flexShrink: 0 }}>
+                        {events.map((e, i) => <span key={i}>{e}</span>)}
+                    </div>
+                )}
+            </div>
+        );
+    };
 
     return (
         <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)' }}>
@@ -237,53 +385,36 @@ const LineupsSection = ({ match }) => {
                 Laguppställningar
             </div>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
-                {/* Home Team */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
+                <div style={{ flex: 1, textAlign: 'left' }}>
+                    {match.coaches?.home && <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>Tränare: {match.coaches.home}</div>}
+                </div>
+                <div style={{ flex: 1, textAlign: 'right' }}>
+                    {match.coaches?.away && <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>Tränare: {match.coaches.away}</div>}
+                </div>
+            </div>
+
+            <PitchLineup match={match} />
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginTop: '16px' }}>
+                {/* Home Subs */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '4px' }}>{cleanTeamName(match.home)}</div>
-                    {match.coaches?.home && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
-                            Tränare: {match.coaches.home}
-                        </div>
-                    )}
-                    {match.tactics?.home && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
-                            {match.tactics.home}
-                        </div>
-                    )}
-                    <div style={{ marginBottom: '12px' }}>
-                        {match.startingXI?.home?.map(p => renderPlayer(p, true))}
-                    </div>
                     {match.subs?.home?.length > 0 && (
                         <div>
                             <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Avbytare</div>
-                            {match.subs.home.map(p => renderPlayer(p, true))}
+                            {match.subs.home.map(p => renderSub(p, true))}
                         </div>
                     )}
                 </div>
 
                 <div style={{ width: '1px', backgroundColor: 'rgba(128,128,128,0.1)' }} />
 
-                {/* Away Team */}
+                {/* Away Subs */}
                 <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '4px' }}>{cleanTeamName(match.away)}</div>
-                    {match.coaches?.away && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
-                            Tränare: {match.coaches.away}
-                        </div>
-                    )}
-                    {match.tactics?.away && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
-                            {match.tactics.away}
-                        </div>
-                    )}
-                    <div style={{ marginBottom: '12px' }}>
-                        {match.startingXI?.away?.map(p => renderPlayer(p, false))}
-                    </div>
                     {match.subs?.away?.length > 0 && (
                         <div>
                             <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>Avbytare</div>
-                            {match.subs.away.map(p => renderPlayer(p, false))}
+                            {match.subs.away.map(p => renderSub(p, false))}
                         </div>
                     )}
                 </div>
@@ -292,7 +423,7 @@ const LineupsSection = ({ match }) => {
     );
 };
 
-const formatLiveTime = (timeStr) => {
+const formatLiveTime = (timeStr, period) => {
     if (!timeStr) return 'LIVE';
     const str = String(timeStr).trim();
     if (str === 'HT' || str === 'Halvtid' || str === 'FT' || str === 'Fulltid') return str;
@@ -304,6 +435,9 @@ const formatLiveTime = (timeStr) => {
     const cleanStr = str.replace(/'/g, '');
     const min = parseInt(cleanStr, 10);
     if (!isNaN(min)) {
+        if (period === 3 && min >= 45) {
+            return `45+${min - 45 + 1}'`;
+        }
         return `${min + 1}'`;
     }
 
@@ -434,7 +568,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                             whiteSpace: 'nowrap',
                             zIndex: 21
                         }}>
-                            {formatLiveTime(match.liveCurrentTime)}
+                            {formatLiveTime(match.liveCurrentTime, match.period)}
                         </div>
                     </div>
                 </div>
