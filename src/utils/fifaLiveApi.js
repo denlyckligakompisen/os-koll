@@ -361,11 +361,15 @@ export function mergeLiveData(localMatches, liveData) {
         
         if (!live) return match;
         
-        // Only update if there's meaningful live data
-        const hasLiveScore = live.status === 'live' || live.status === 'finished';
-        
-        if (!hasLiveScore && live.status === 'upcoming') {
-            return match; // Nothing to update
+        // Ignore upcoming matches
+        if (live.status === 'upcoming') {
+            return match;
+        }
+
+        // If the match is finished, only update it if our local data isn't already up to date
+        // This prevents the app from constantly "updating" matches that have already ended.
+        if (live.status === 'finished' && match.status === 'finished' && match.score === live.score) {
+            return match;
         }
         
         updatedCount++;

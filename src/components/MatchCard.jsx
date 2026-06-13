@@ -292,6 +292,24 @@ const LineupsSection = ({ match }) => {
     );
 };
 
+const formatLiveTime = (timeStr) => {
+    if (!timeStr) return 'LIVE';
+    const str = String(timeStr).trim();
+    if (str === 'HT' || str === 'Halvtid' || str === 'FT' || str === 'Fulltid') return str;
+
+    if (str.includes('+')) {
+        return str.endsWith("'") ? str : `${str}'`;
+    }
+
+    const cleanStr = str.replace(/'/g, '');
+    const min = parseInt(cleanStr, 10);
+    if (!isNaN(min)) {
+        return `${min + 1}'`;
+    }
+
+    return str;
+};
+
 const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const parseMinute = (minStr) => {
         if (!minStr) return 0;
@@ -416,7 +434,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                             whiteSpace: 'nowrap',
                             zIndex: 21
                         }}>
-                            {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
+                            {formatLiveTime(match.liveCurrentTime)}
                         </div>
                     </div>
                 </div>
@@ -610,6 +628,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000;
     };
     const isSoon = getIsSoon();
+
+    const getIsOverdue = () => {
+        if (computedStatus !== 'upcoming') return false;
+        const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
+        return Date.now() >= startMs;
+    };
+    const isOverdue = getIsOverdue();
 
     const getLiveProgress = () => {
         if (computedStatus === 'finished') return 100;
@@ -899,7 +924,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                             (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                         </button>
 
                         {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
@@ -1111,7 +1136,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                             (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                         </span>
 
                         {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
