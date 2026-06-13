@@ -254,18 +254,8 @@ const VMKollen = () => {
     const filterRef = useRef(null);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (filterRef.current && !filterRef.current.contains(event.target)) {
-                setIsFilterOpen(false);
-            }
-        };
-        if (isFilterOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isFilterOpen]);
+        // Dropdown removed, no outside click listener needed.
+    }, []);
 
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -1204,7 +1194,7 @@ const VMKollen = () => {
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setIsFilterOpen(!isFilterOpen);
+                                setFilterCountries([]);
                             }}
                             aria-label="Filtrera länder"
                             title="Filtrera länder"
@@ -1240,57 +1230,7 @@ const VMKollen = () => {
                             )}
                         </button>
                         
-                        {isFilterOpen && (
-                            <>
-                                <div 
-                                    style={{ position: 'fixed', inset: 0, zIndex: -1 }} 
-                                    onClick={() => setIsFilterOpen(false)}
-                                />
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '120%',
-                                    right: 0,
-                                    backgroundColor: 'var(--color-bg)',
-                                    border: '1px solid var(--border-color, rgba(0,0,0,0.1))',
-                                    borderRadius: '16px',
-                                    padding: '12px',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '8px',
-                                    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-                                    maxHeight: '400px',
-                                    overflowY: 'auto',
-                                    minWidth: '220px'
-                                }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
-                                        <span style={{ fontWeight: '600', fontSize: '0.9rem' }}>Välj länder</span>
-                                        {filterCountries.length > 0 && (
-                                            <button 
-                                                onClick={() => setFilterCountries([])}
-                                                style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '0.8rem', cursor: 'pointer', padding: 0 }}
-                                            >
-                                                Rensa alla
-                                            </button>
-                                        )}
-                                    </div>
-                                    {allCountries.map(c => {
-                                        const isSelected = filterCountries.includes(c);
-                                        return (
-                                            <label key={c} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '6px 4px', borderRadius: '8px', backgroundColor: isSelected ? 'rgba(0,0,0,0.05)' : 'transparent', transition: 'background-color 0.2s' }}>
-                                                <input 
-                                                    type="checkbox" 
-                                                    checked={isSelected}
-                                                    onChange={() => handleCountryClick(c)}
-                                                    style={{ cursor: 'pointer', width: '16px', height: '16px', accentColor: 'var(--color-primary)' }}
-                                                />
-                                                <FlagBadge codes={getFlagCodes(c)} name={c} size={20} />
-                                                <span style={{ fontSize: '0.9rem' }}>{c}</span>
-                                            </label>
-                                        );
-                                    })}
-                                </div>
-                            </>
-                        )}
+
                     </div>
                     )}
                 </div>
