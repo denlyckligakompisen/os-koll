@@ -292,7 +292,7 @@ const LineupsSection = ({ match }) => {
     );
 };
 
-const EventsTimeline = ({ match, progress }) => {
+const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const parseMinute = (minStr) => {
         if (!minStr) return 0;
         const base = parseInt(String(minStr).split('+')[0]);
@@ -329,28 +329,11 @@ const EventsTimeline = ({ match, progress }) => {
             minute: parseMinute(b.minute)
         }));
     }
-    if (match.substitutions) {
-        const subsMap = {};
-        match.substitutions.forEach(s => {
-            const min = parseMinute(s.minute);
-            const key = `${s.side}-${min}`;
-            if (!subsMap[key]) {
-                subsMap[key] = {
-                    type: 'substitution',
-                    side: s.side,
-                    minuteStr: s.minute,
-                    minute: min,
-                    count: 0
-                };
-            }
-            subsMap[key].count += 1;
-        });
-        Object.values(subsMap).forEach(sEvent => events.push(sEvent));
-    }
+    // Substitutions disabled
 
     events.sort((a, b) => a.minute - b.minute); // Left to right
 
-    if (events.length === 0) return null;
+    if (events.length === 0 && !showEmptyTimeline) return null;
 
     const renderEventIcon = (e) => {
         if (e.type === 'goal' || e.type === 'penalty-goal') return <span style={{ fontSize: '0.85rem', filter: 'grayscale(100%) drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>⚽</span>;
@@ -537,17 +520,7 @@ const AllEventsList = ({ match }) => {
         });
     }
     
-    // Substitutions
-    if (match.substitutions) {
-        match.substitutions.forEach(s => events.push({
-            type: 'substitution',
-            side: s.side,
-            playerOff: s.playerOff,
-            playerOn: s.playerOn,
-            minuteStr: s.minute,
-            minute: parseMinute(s.minute)
-        }));
-    }
+    // Substitutions disabled
 
     events.sort((a, b) => b.minute - a.minute);
 
@@ -607,7 +580,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
 
     const getComputedStatus = () => {
-        if (match.status === 'finished') return 'finished';
+        if (match.status === 'finished') {
+            const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
+            if (Date.now() <= startMs + 140 * 60 * 1000) return 'live';
+            return 'finished';
+        }
         if (match.status === 'postponed') return 'postponed';
         if (match.status === 'live') return 'live';
 
@@ -625,6 +602,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const computedStatus = getComputedStatus();
+
+    const getIsSoon = () => {
+        if (computedStatus !== 'upcoming') return false;
+        const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
+        const timeUntilStart = startMs - Date.now();
+        return timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000;
+    };
+    const isSoon = getIsSoon();
 
     const getLiveProgress = () => {
         if (computedStatus === 'finished') return 100;
@@ -964,19 +949,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
                 </div>
-                {/* Live match events: yellow cards, substitutions, match info */}
-                {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
+                {/* Live match events: yellow cards, match info */}
+                {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
                     <div style={{ 
                         marginTop: '8px',
                         display: 'flex',
                         flexDirection: 'column',
                         width: '100%'
                     }}>
-                        <EventsTimeline match={match} progress={liveProgressPercent} />
+                        <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
                     </div>
                 )}
                 {/* Match info footer moved outside expander since expander is removed */}
-                {(computedStatus === 'live' || computedStatus === 'finished') && (match.stadium || match.referee || match.startingXI) && (
+                {(computedStatus === 'live' || isSoon || computedStatus === 'finished') && (match.stadium || match.referee || match.startingXI) && (
                     <div style={{ marginTop: '0px', paddingTop: '0px' }}>
                         {(match.stadium || match.referee || match.startingXI) && (
                             <div style={{ 
@@ -1165,14 +1150,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 onClick={(e) => handleTeamClick(e, match.away)}
             />
             </div>
-            {/* Live match events: yellow cards, substitutions, match info */}
-            {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
+            {/* Live match events: yellow cards, match info */}
+            {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
                 <div style={{ 
                         marginTop: '6px',
                     display: 'flex',
                     flexDirection: 'column'
                 }}>
-                    <EventsTimeline match={match} progress={liveProgressPercent} />
+                    <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
                     {/* Match info footer */}
                     {(match.stadium || match.referee || match.startingXI) && (
                         <div style={{ 

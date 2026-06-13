@@ -270,7 +270,7 @@ const VMKollen = () => {
     const handleCountryClick = (country) => {
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
-        setFilterCountries(prev => prev.includes(cleanName) ? prev.filter(c => c !== cleanName) : [...prev, cleanName]);
+        setFilterCountries(prev => prev.includes(cleanName) ? [] : [cleanName]);
     };
 
     useEffect(() => {
@@ -539,7 +539,12 @@ const VMKollen = () => {
     const nextMatches = React.useMemo(() => {
         if (combinedMatches.length === 0) return [];
 
-        let pool = combinedMatches.filter(m => m.status !== 'finished');
+        let pool = combinedMatches.filter(m => {
+            if (m.status !== 'finished') return true;
+            const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+            const hideAfterMs = startMs + (140 * 60 * 1000); // 125 min match + 15 min delay
+            return Date.now() <= hideAfterMs;
+        });
         if (filterCountries.length > 0) {
             pool = pool.filter(m => filterCountries.some(fc => m.home.includes(fc) || m.away.includes(fc)));
         }
@@ -580,8 +585,14 @@ const VMKollen = () => {
 
             if (filterCountries.length > 0 && !isFilterCountryMatch) return acc;
             
-            // Dölj avslutade matcher om inget landfilter är aktivt
-            if (filterCountries.length === 0 && m.status === 'finished') return acc;
+            // Dölj avslutade matcher om inget landfilter är aktivt (vänta 15 minuter efter slut = 140 minuter från start)
+            if (filterCountries.length === 0 && m.status === 'finished') {
+                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                const hideAfterMs = startMs + (140 * 60 * 1000); // 125 min match + 15 min delay
+                if (Date.now() > hideAfterMs) {
+                    return acc;
+                }
+            }
 
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
@@ -792,6 +803,19 @@ const VMKollen = () => {
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
+        const isMatchLiveOrRecentlyFinishedOrSoon = (m) => {
+            if (m.status === 'live') return true;
+            const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+            if (m.status === 'finished') {
+                if (Date.now() <= startMs + 140 * 60 * 1000) return true;
+            } else if (m.status === 'upcoming') {
+                const timeUntilStart = startMs - Date.now();
+                if (timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000) return true;
+            }
+            return false;
+        };
+
+
         const sortedDates = Object.keys(groupedMatches).sort((a, b) => {
             return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
         });
@@ -863,7 +887,7 @@ const VMKollen = () => {
                                             {(() => {
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
-                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => m.status === 'live')) || (filterCountries.length === 0 && hasHero);
+                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -896,15 +920,18 @@ const VMKollen = () => {
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
-                                                if (isSwedenMatch && !isHero && filterCountries.length === 0) {
+                                                const showSwedenBadge = isSwedenMatch && (!isHero || m.status === 'upcoming') && filterCountries.length === 0;
+                                                const showTopMatchBadge = isTopMatch && (!isHero || m.status === 'upcoming');
+
+                                                if (showSwedenBadge) {
                                                     cardClass = 'sweden-frame-animated';
                                                     badgeBg = 'linear-gradient(135deg, #005293, #006AA7)';
                                                     badgeColor = '#FECB00';
                                                     badgeText = 'Sverige spelar';
-                                                } else if (isTopMatch && !isHero) {
+                                                } else if (showTopMatchBadge) {
                                                     cardClass = 'gold-frame-animated';
                                                     badgeBg = 'linear-gradient(135deg, #FFD700, #FDB931)';
-                                                    badgeText = 'Toppmatch';
+                                                    badgeText = 'Supermatch';
                                                 }
 
                                                 return (
@@ -921,7 +948,7 @@ const VMKollen = () => {
                                                         )}
                                                         <div className={cardClass} style={cardStyle}>
                                                             {badgeText && (
-                                                                <div className={(isTopMatch && !isHero) ? 'topmatch-badge' : ((isSwedenMatch && !isHero) ? 'sweden-badge' : '')} style={{
+                                                                <div className={showTopMatchBadge ? 'topmatch-badge' : (showSwedenBadge ? 'sweden-badge' : '')} style={{
                                                                     position: 'absolute',
                                                                     top: '-8px',
                                                                     right: '12px',
@@ -940,7 +967,7 @@ const VMKollen = () => {
                                                             )}
                                                             <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
-                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, m.status === 'live')}
+                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m))}
                                                     </React.Fragment>
                                                 );
                                             })}
@@ -1018,8 +1045,9 @@ const VMKollen = () => {
                             </div>
                         </div>
                     </button>
-                    <div 
-                        ref={filterRef}
+                    {filterCountries.length > 0 && (
+                        <div 
+                            ref={filterRef}
                         style={{
                         position: 'absolute', 
                         right: '10px', 
@@ -1135,6 +1163,7 @@ const VMKollen = () => {
                             </>
                         )}
                     </div>
+                    )}
                 </div>
 
 
