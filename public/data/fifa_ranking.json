@@ -86,21 +86,21 @@
     },
     {
       "rank": "15",
-      "team": "Senegal",
-      "points": "1684.07",
-      "change": 0
+      "team": "USA",
+      "points": "1688.53",
+      "change": 2
     },
     {
       "rank": "16",
-      "team": "Uruguay",
-      "points": "1673.07",
-      "change": 0
+      "team": "Senegal",
+      "points": "1684.07",
+      "change": -1
     },
     {
       "rank": "17",
-      "team": "USA",
-      "points": "1671.23",
-      "change": 0
+      "team": "Uruguay",
+      "points": "1673.07",
+      "change": -1
     },
     {
       "rank": "18",
@@ -176,15 +176,15 @@
     },
     {
       "rank": "30",
-      "team": "Kanada",
-      "points": "1559.48",
-      "change": 0
+      "team": "Norge",
+      "points": "1557.44",
+      "change": 1
     },
     {
       "rank": "31",
-      "team": "Norge",
-      "points": "1557.44",
-      "change": 0
+      "team": "Kanada",
+      "points": "1551.50",
+      "change": -1
     },
     {
       "rank": "32",
@@ -236,21 +236,21 @@
     },
     {
       "rank": "40",
-      "team": "Paraguay",
-      "points": "1505.35",
-      "change": 1
+      "team": "Skottland",
+      "points": "1503.34",
+      "change": 2
     },
     {
       "rank": "41",
-      "team": "Skottland",
-      "points": "1503.34",
-      "change": 1
+      "team": "Serbien",
+      "points": "1502.13",
+      "change": 2
     },
     {
       "rank": "42",
-      "team": "Serbien",
-      "points": "1502.13",
-      "change": 1
+      "team": "Paraguay",
+      "points": "1488.05",
+      "change": -1
     },
     {
       "rank": "43",
@@ -374,15 +374,15 @@
     },
     {
       "rank": "63",
-      "team": "Jordanien",
-      "points": "1387.74",
-      "change": 0
+      "team": "Bosnien och Hercegovina",
+      "points": "1395.19",
+      "change": 1
     },
     {
       "rank": "64",
-      "team": "Bosnien och Hercegovina",
-      "points": "1387.22",
-      "change": 0
+      "team": "Jordanien",
+      "points": "1387.74",
+      "change": -1
     },
     {
       "rank": "65",
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": null,
-  "nextUpdate": "20 July 2026 (38 days)",
-  "lastUpdated": "2026-06-12T04:11:09.172Z",
+  "nextUpdate": "20 July 2026 (37 days)",
+  "lastUpdated": "2026-06-13T03:58:49.787Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
