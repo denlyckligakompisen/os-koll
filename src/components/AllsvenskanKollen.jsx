@@ -267,7 +267,8 @@ const AllsvenskanKollen = () => {
                     const isMatchWindowActive = matches?.matches?.some(m => {
                         if (!m.startTimestamp) return false;
                         const startMs = m.startTimestamp * 1000;
-                        return now >= startMs && now <= startMs + (3 * 60 * 60 * 1000);
+                        // Matchstart - 15 minuter upp till Matchslut (ca 120 min) + 15 minuter = 135 minuter
+                        return now >= startMs - (15 * 60 * 1000) && now <= startMs + (135 * 60 * 1000);
                     });
 
                     if (selectedSeason === 2026 && isMatchWindowActive) {

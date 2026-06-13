@@ -240,10 +240,15 @@ const LineupsSection = ({ match }) => {
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
                 {/* Home Team */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '8px' }}>{cleanTeamName(match.home)}</div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '4px' }}>{cleanTeamName(match.home)}</div>
                     {match.coaches?.home && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
                             Tränare: {match.coaches.home}
+                        </div>
+                    )}
+                    {match.tactics?.home && (
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                            {match.tactics.home}
                         </div>
                     )}
                     <div style={{ marginBottom: '12px' }}>
@@ -261,10 +266,15 @@ const LineupsSection = ({ match }) => {
 
                 {/* Away Team */}
                 <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '8px' }}>{cleanTeamName(match.away)}</div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '4px' }}>{cleanTeamName(match.away)}</div>
                     {match.coaches?.away && (
-                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '4px' }}>
                             Tränare: {match.coaches.away}
+                        </div>
+                    )}
+                    {match.tactics?.away && (
+                        <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px dashed rgba(128,128,128,0.2)' }}>
+                            {match.tactics.away}
                         </div>
                     )}
                     <div style={{ marginBottom: '12px' }}>
@@ -282,7 +292,7 @@ const LineupsSection = ({ match }) => {
     );
 };
 
-const EventsTimeline = ({ match }) => {
+const EventsTimeline = ({ match, progress }) => {
     const parseMinute = (minStr) => {
         if (!minStr) return 0;
         const base = parseInt(String(minStr).split('+')[0]);
@@ -330,69 +340,109 @@ const EventsTimeline = ({ match }) => {
         }));
     }
 
-    events.sort((a, b) => b.minute - a.minute);
+    events.sort((a, b) => a.minute - b.minute); // Left to right
 
     if (events.length === 0) return null;
 
     const renderEventIcon = (type) => {
-        if (type === 'goal' || type === 'penalty-goal') return <span style={{ fontSize: '0.8rem' }}>⚽</span>;
-        if (type === 'red-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#e53935', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Rött kort" />;
-        if (type === 'yellow-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />;
+        if (type === 'goal' || type === 'penalty-goal') return <span style={{ fontSize: '0.85rem', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>⚽</span>;
+        if (type === 'red-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#e53935', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
+        if (type === 'yellow-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#ffd600', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
+        if (type === 'substitution') return <span style={{ fontSize: '0.75rem', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }}>🔄</span>;
         return null;
     };
 
-    const renderEventContent = (event) => {
-        if (event.type === 'substitution') {
-            return (
-                <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.65rem', alignItems: event.side === 'home' ? 'flex-end' : 'flex-start' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        {event.side === 'away' && <span style={{ color: '#34c759', fontSize: '0.55rem' }}>▲</span>}
-                        <span>{getLastName(event.playerOn)}</span>
-                        {event.side === 'home' && <span style={{ color: '#34c759', fontSize: '0.55rem' }}>▲</span>}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-text-muted)' }}>
-                        {event.side === 'away' && <span style={{ color: '#ff3b30', fontSize: '0.55rem' }}>▼</span>}
-                        <span>{getLastName(event.playerOff)}</span>
-                        {event.side === 'home' && <span style={{ color: '#ff3b30', fontSize: '0.55rem' }}>▼</span>}
-                    </div>
-                </div>
-            );
-        }
-        return (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', justifyContent: event.side === 'home' ? 'flex-end' : 'flex-start' }}>
-                {event.side === 'away' && renderEventIcon(event.type)}
-                <span>{getLastName(event.player)}</span>
-                {event.type === 'penalty-goal' && <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)' }}>(str)</span>}
-                {event.side === 'home' && renderEventIcon(event.type)}
-            </div>
-        );
-    };
+    const maxMin = Math.max(90, ...events.map(ev => ev.minute));
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '8px 0 12px 0', width: '100%' }}>
-            {events.map((e, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                    <div style={{ flex: 1, textAlign: 'right', paddingRight: '8px', minWidth: 0 }}>
-                        {e.side === 'home' && renderEventContent(e)}
-                    </div>
-                    <div style={{ 
-                        width: '32px', 
-                        textAlign: 'center', 
-                        fontSize: '0.7rem', 
-                        color: 'var(--color-text-muted)', 
-                        fontWeight: 'bold',
-                        backgroundColor: 'var(--color-bg)',
-                        borderRadius: '4px',
-                        padding: '2px 0',
-                        flexShrink: 0
-                    }}>
-                        {e.minuteStr}'
-                    </div>
-                    <div style={{ flex: 1, textAlign: 'left', paddingLeft: '8px', minWidth: 0 }}>
-                        {e.side === 'away' && renderEventContent(e)}
+        <div style={{ position: 'relative', width: '100%', height: '80px', margin: '16px 0', display: 'flex', alignItems: 'center' }}>
+            {/* The horizontal line */}
+            <div style={{ position: 'absolute', top: '50%', left: '2%', right: '2%', height: '3px', background: `linear-gradient(to right, var(--color-primary) ${progress || 0}%, var(--color-surface-subtle) ${progress || 0}%)`, transform: 'translateY(-50%)', borderRadius: '2px' }} />
+            
+            {/* Half time marker */}
+            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '3px', height: '10px', backgroundColor: 'var(--color-surface-subtle)', transform: 'translate(-50%, -50%)', borderRadius: '1px' }} />
+
+            {/* Live Progress Dot */}
+            {match.status === 'live' && progress !== undefined && (
+                <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: `${2 + (progress * 0.96)}%`,
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 20
+                }}>
+                    <div style={{ position: 'relative' }}>
+                        {/* The blue dot exactly in the center */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '10px',
+                            height: '10px',
+                            backgroundColor: '#007aff',
+                            borderRadius: '50%',
+                            boxShadow: '0 0 0 2px var(--color-card-bg), 0 0 4px rgba(0,0,0,0.5)'
+                        }} />
+                        {/* The minute text above the dot */}
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '10px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            fontSize: '0.65rem',
+                            fontWeight: 'bold',
+                            color: '#007aff',
+                            backgroundColor: 'var(--color-card-bg)',
+                            padding: '2px 6px',
+                            borderRadius: '4px',
+                            border: '1px solid rgba(0, 122, 255, 0.3)',
+                            whiteSpace: 'nowrap',
+                            zIndex: 21
+                        }}>
+                            {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
+                        </div>
                     </div>
                 </div>
-            ))}
+            )}
+
+            {events.map((e, i) => {
+                // Determine horizontal position (2% to 98% range, matching line width of 96%)
+                const pct = 2 + (e.minute / maxMin) * 96;
+                const isHome = e.side === 'home';
+
+                return (
+                    <div key={i} style={{ 
+                        position: 'absolute', 
+                        left: `${pct}%`, 
+                        // If home, anchor to bottom of the top half. If away, anchor to top of the bottom half.
+                        bottom: isHome ? '50%' : 'auto',
+                        top: isHome ? 'auto' : '50%',
+                        transform: 'translate(-50%, 0)',
+                        display: 'flex',
+                        flexDirection: isHome ? 'column-reverse' : 'column',
+                        alignItems: 'center',
+                        gap: '4px',
+                        padding: isHome ? '0 0 6px 0' : '6px 0 0 0',
+                        zIndex: e.type === 'goal' ? 10 : 5 // Goals on top of cards
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            {renderEventIcon(e.type)}
+                        </div>
+                        <div style={{ 
+                            fontSize: '0.6rem', 
+                            color: 'var(--color-text)', 
+                            whiteSpace: 'nowrap', 
+                            textShadow: '0 0 3px var(--color-card-bg), 0 0 3px var(--color-card-bg)',
+                            fontWeight: e.type === 'goal' ? 'bold' : 'normal',
+                            textAlign: 'center'
+                        }}>
+                            {getLastName(e.player)}<br/>
+                            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.55rem', fontWeight: 'normal' }}>{e.minuteStr}'</span>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 };
@@ -539,6 +589,21 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const computedStatus = getComputedStatus();
 
+    const getLiveProgress = () => {
+        if (computedStatus === 'finished') return 100;
+        if (computedStatus !== 'live') return 0;
+        const timeStr = match.liveCurrentTime;
+        if (!timeStr) return 0;
+        if (timeStr === 'HT' || timeStr === 'Halvtid') return 50; // 50%
+        if (timeStr === 'FT' || timeStr === 'Fulltid') return 100; // 100%
+        const base = parseInt(String(timeStr).split('+')[0]);
+        if (isNaN(base)) return 0;
+        let percentage = Math.min(base / 90, 1.0);
+        return percentage * 100;
+    };
+
+    const liveProgressPercent = getLiveProgress();
+
     useEffect(() => {
         if (variant !== 'hero' || computedStatus !== 'upcoming') {
             setTimeLeftStr(null);
@@ -658,6 +723,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             }
         }
     }
+
+    const bgVal = outcomeBg || 'var(--color-surface-subtle)';
+    const badgeStyle = {
+        backgroundColor: bgVal,
+        border: 'none'
+    };
 
     const handleTeamClick = (e, name) => {
         if (!onTeamClick && !onCountryClick) return;
@@ -792,36 +863,23 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <button
                             onClick={handleBroadcastClick}
                             disabled={!getBroadcasterUrl(match.broadcast)}
-                            className={(!filterTeam && computedStatus === 'live') ? 'live-indicator-pulse' : ''}
                             style={{
                                 fontSize: '1.4rem',
                                 color: outcomeTextColor || 'var(--color-text)',
-                                backgroundColor: outcomeBg || 'var(--color-surface-subtle)',
                                 padding: '8px 20px',
                                 borderRadius: '12px',
-                                border: 'none',
                                 cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '8px'
+                                gap: '8px',
+                                ...badgeStyle
                             }}
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </button>
-                        {computedStatus === 'live' && (
-                            <span style={{
-                                fontSize: '0.85rem',
-                                fontWeight: '500',
-                                color: 'var(--color-text-muted)',
-                                marginTop: '4px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em'
-                            }}>
-                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
-                            </span>
-                        )}
+
                         {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                             <div 
                                 onClick={handleBroadcastClick}
@@ -872,61 +930,48 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 {/* Live match events: yellow cards, substitutions, match info */}
                 {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
                     <div style={{ 
-                        borderTop: '1px solid rgba(128,128,128,0.12)',
                         marginTop: '8px',
-                        paddingTop: '10px',
                         display: 'flex',
                         flexDirection: 'column',
                         width: '100%'
                     }}>
-                        <EventsTimeline match={match} />
+                        <EventsTimeline match={match} progress={liveProgressPercent} />
                     </div>
                 )}
-                {(computedStatus === 'live' || computedStatus === 'finished') && (
-                    <div style={{ marginTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)', paddingTop: '12px' }}>
-                        <details>
-                            <summary style={{ fontSize: '0.75rem', cursor: 'pointer', color: 'var(--color-primary)', outline: 'none', fontWeight: '500' }}>Visa mer (Alla matchhändelser)</summary>
-                            <AllEventsList match={match} />
-                            
-                            {/* Match info footer */}
-                            {(match.tactics?.home || match.stadium || match.referee) && (
-                                <div style={{ 
-                                    display: 'flex', 
-                                    justifyContent: 'center', 
-                                    alignItems: 'center',
-                                    gap: '6px', 
-                                    fontSize: '0.72rem', 
-                                    color: 'var(--color-text-muted)',
-                                    opacity: 0.6,
-                                    flexWrap: 'wrap',
-                                    marginTop: '12px'
-                                }}>
-                                    {match.tactics?.home && match.tactics?.away && (
-                                        <span>{match.tactics.home} vs {match.tactics.away}</span>
-                                    )}
-                                    {match.tactics?.home && match.stadium && <span style={{ opacity: 0.5 }}>•</span>}
-                                    {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                                    {(match.stadium || match.tactics?.home) && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
-                                    {match.referee && <span>{match.referee}</span>}
-                                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                        <React.Fragment>
-                                            <span style={{ opacity: 0.5 }}>•</span>
-                                            <button 
-                                                onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                                style={{
-                                                    background: 'none', border: 'none', padding: 0, 
-                                                    color: 'var(--color-primary)', fontSize: 'inherit',
-                                                    cursor: 'pointer', textDecoration: 'underline'
-                                                }}
-                                            >
-                                                {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                            </button>
-                                        </React.Fragment>
-                                    )}
-                                </div>
-                            )}
-                            {showLineups && <LineupsSection match={match} />}
-                        </details>
+                {/* Match info footer moved outside expander since expander is removed */}
+                {(computedStatus === 'live' || computedStatus === 'finished') && (match.stadium || match.referee || match.startingXI) && (
+                    <div style={{ marginTop: '0px', paddingTop: '0px' }}>
+                        {(match.stadium || match.referee || match.startingXI) && (
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'center',
+                                gap: '6px', 
+                                fontSize: '0.72rem', 
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.6,
+                                flexWrap: 'wrap',
+                                marginTop: '4px'
+                            }}>
+                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                                {match.stadium && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
+                                {match.referee && <span>{match.referee}</span>}
+                                {(match.stadium || match.referee) && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span style={{ opacity: 0.5 }}>•</span>}
+                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                    <button 
+                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                        style={{
+                                            background: 'none', border: 'none', padding: 0, 
+                                            color: 'var(--color-primary)', fontSize: 'inherit',
+                                            cursor: 'pointer', textDecoration: 'underline'
+                                        }}
+                                    >
+                                        {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                        {showLineups && <LineupsSection match={match} />}
                     </div>
                 )}
             </Card>
@@ -1008,35 +1053,24 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     >
                         
                         <span 
-                            className={(!filterTeam && computedStatus === 'live') ? 'live-indicator-pulse' : ''}
                             style={{
-                            fontSize: highlight ? '1rem' : '0.8rem',
-                            color: outcomeTextColor || 'var(--color-text)',
-                            flexShrink: 0,
-                            backgroundColor: outcomeBg || 'var(--color-surface-subtle)',
-                            padding: highlight ? '4px 12px' : '2px 8px',
-                            borderRadius: '6px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            transition: 'all 0.3s ease'
-                        }}>
+                                fontSize: highlight ? '1rem' : '0.8rem',
+                                color: outcomeTextColor || 'var(--color-text)',
+                                flexShrink: 0,
+                                padding: highlight ? '4px 12px' : '2px 8px',
+                                borderRadius: '6px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                transition: 'all 0.3s ease',
+                                ...badgeStyle
+                            }}
+                        >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
                              (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </span>
-                        {computedStatus === 'live' && (
-                            <span style={{
-                                fontSize: highlight ? '0.75rem' : '0.68rem',
-                                fontWeight: '400',
-                                color: 'var(--color-text-muted)',
-                                marginTop: '2px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.03em'
-                            }}>
-                                {match.liveCurrentTime ? (isNaN(match.liveCurrentTime) ? match.liveCurrentTime : `${match.liveCurrentTime}'`) : 'LIVE'}
-                            </span>
-                        )}
+
                         {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                             <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                 <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
@@ -1076,60 +1110,43 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             {/* Live match events: yellow cards, substitutions, match info */}
             {(computedStatus === 'live' || computedStatus === 'finished') && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.tactics || match.stadium || match.referee) && (
                 <div style={{ 
-                    borderTop: '1px solid rgba(128,128,128,0.08)',
-                    marginTop: '6px',
-                    paddingTop: '8px',
+                        marginTop: '6px',
                     display: 'flex',
                     flexDirection: 'column'
                 }}>
-                    <EventsTimeline match={match} />
-                </div>
-            )}
-            {(computedStatus === 'live' || computedStatus === 'finished') && (
-                <div style={{ marginTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)', paddingTop: '12px' }}>
-                    <details>
-                        <summary style={{ fontSize: '0.75rem', cursor: 'pointer', color: 'var(--color-primary)', outline: 'none', fontWeight: '500' }}>Visa mer (Alla matchhändelser)</summary>
-                        <AllEventsList match={match} />
-                        
-                        {/* Match info footer */}
-                        {(match.tactics?.home || match.stadium || match.referee) && (
-                            <div style={{ 
-                                display: 'flex', 
-                                justifyContent: 'center', 
-                                alignItems: 'center',
-                                gap: '6px', 
-                                fontSize: '0.65rem', 
-                                color: 'var(--color-text-muted)',
-                                opacity: 0.5,
-                                flexWrap: 'wrap',
-                                marginTop: '12px'
-                            }}>
-                                {match.tactics?.home && match.tactics?.away && (
-                                    <span>{match.tactics.home} vs {match.tactics.away}</span>
-                                )}
-                                {match.tactics?.home && match.stadium && <span>•</span>}
-                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                                {(match.stadium || match.tactics?.home) && match.referee && <span>•</span>}
-                                {match.referee && <span>{match.referee}</span>}
-                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                    <React.Fragment>
-                                        <span>•</span>
-                                        <button 
-                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                            style={{
-                                                background: 'none', border: 'none', padding: 0, 
-                                                color: 'inherit', fontSize: 'inherit', opacity: 0.8,
-                                                cursor: 'pointer', textDecoration: 'underline'
-                                            }}
-                                        >
-                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                        </button>
-                                    </React.Fragment>
-                                )}
-                            </div>
-                        )}
-                        {showLineups && <LineupsSection match={match} />}
-                    </details>
+                    <EventsTimeline match={match} progress={liveProgressPercent} />
+                    {/* Match info footer */}
+                    {(match.stadium || match.referee || match.startingXI) && (
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            gap: '6px', 
+                            fontSize: '0.65rem', 
+                            color: 'var(--color-text-muted)',
+                            opacity: 0.5,
+                            flexWrap: 'wrap',
+                            marginTop: '12px'
+                        }}>
+                            {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                            {match.stadium && match.referee && <span>•</span>}
+                            {match.referee && <span>{match.referee}</span>}
+                            {(match.stadium || match.referee) && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span>•</span>}
+                            {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                <button 
+                                    onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                    style={{
+                                        background: 'none', border: 'none', padding: 0, 
+                                        color: 'inherit', fontSize: 'inherit', opacity: 0.8,
+                                        cursor: 'pointer', textDecoration: 'underline'
+                                    }}
+                                >
+                                    {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                </button>
+                            )}
+                        </div>
+                    )}
+                    {showLineups && <LineupsSection match={match} />}
                 </div>
             )}
         </Card>
