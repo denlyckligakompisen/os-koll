@@ -236,8 +236,22 @@ const getPlayerEvents = (match, p, isHome) => {
     });
 
     const teamSubs = match.substitutions?.filter(s => s.side === sideStr) || [];
-    if (teamSubs.find(s => s.playerOff === p.name)) events.push('⬇️');
-    if (teamSubs.find(s => s.playerOn === p.name)) events.push('⬆️');
+    if (teamSubs.find(s => s.playerOff === p.name)) {
+        events.push(
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4444" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0px 1px 1px rgba(0,0,0,0.8))', marginTop: '2px' }}>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        );
+    }
+    if (teamSubs.find(s => s.playerOn === p.name)) {
+        events.push(
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ce14c" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0px 1px 1px rgba(0,0,0,0.8))', marginTop: '2px' }}>
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        );
+    }
 
     return events;
 };
@@ -265,7 +279,7 @@ const PitchLineup = ({ match }) => {
             <div key={p.number || p.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '20%', flexShrink: 0, position: 'relative' }}>
                 <div style={{ position: 'relative', width: '32px', height: '32px' }}>
                     {events.length > 0 && (
-                        <div style={{ position: 'absolute', top: '-6px', left: '-12px', zIndex: 4, display: 'flex', gap: '2px', fontSize: '0.8rem', backgroundColor: 'rgba(0,0,0,0.6)', padding: '1px 3px', borderRadius: '4px', whiteSpace: 'nowrap' }}>
+                        <div style={{ position: 'absolute', top: '-6px', left: '-12px', zIndex: 4, display: 'flex', gap: '2px', fontSize: '0.8rem', whiteSpace: 'nowrap', filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.8))' }}>
                             {events.map((e, i) => <span key={i}>{e}</span>)}
                         </div>
                     )}
@@ -282,7 +296,13 @@ const PitchLineup = ({ match }) => {
                             <img
                                 src={p.photo}
                                 alt={p.name}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
+                                style={{ 
+                                    width: '100%', 
+                                    height: '100%', 
+                                    objectFit: 'cover', 
+                                    objectPosition: 'top',
+                                    transform: 'scale(4.0) translateY(30%)'
+                                }}
                                 onError={(e) => {
                                     e.target.style.display = 'none';
                                     if (e.target.nextElementSibling) {
@@ -302,11 +322,11 @@ const PitchLineup = ({ match }) => {
                 </div>
 
                 <div style={{
-                    fontSize: '0.85rem', color: 'white', marginTop: '4px',
+                    fontSize: '0.75rem', color: 'white', marginTop: '4px',
                     textShadow: '1px 1px 2px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.9), 0px 0px 4px rgba(0,0,0,0.9)',
-                    textAlign: 'center', width: '60px',
+                    textAlign: 'center', width: '90px',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                    fontWeight: 'bold', zIndex: 2
+                    fontWeight: 'bold', zIndex: 2, letterSpacing: '-0.02em'
                 }}>
                     {getLastName(p.name)}
                 </div>
@@ -381,10 +401,6 @@ const LineupsSection = ({ match }) => {
 
     return (
         <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)' }}>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', textAlign: 'center', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Laguppställningar
-            </div>
-
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
                 <div style={{ flex: 1, textAlign: 'left' }}>
                     {match.coaches?.home && <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Tränare: {match.coaches.home}</div>}
@@ -579,16 +595,15 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                 }}>
                     <div style={{ position: 'relative' }}>
                         {/* The blue dot exactly in the center */}
-                        <div style={{
+                        <div className="live-indicator-pulse" style={{
                             position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
+                            top: '-5px',
+                            left: '-5px',
                             width: '10px',
                             height: '10px',
-                            backgroundColor: '#007aff',
+                            backgroundColor: 'var(--color-primary)',
                             borderRadius: '50%',
-                            boxShadow: '0 0 0 2px var(--color-card-bg), 0 0 4px rgba(0,0,0,0.5)'
+                            boxShadow: '0 0 0 2px var(--color-card-bg)'
                         }} />
                         {/* The minute text above the dot */}
                         <div style={{
@@ -1073,6 +1088,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 }}
                 onClick={() => onCardClick && onCardClick()}
             >
+                {match.group && (
+                    <div style={{
+                        textAlign: 'center',
+                        fontSize: '0.75rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text-muted)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        marginBottom: '-4px'
+                    }}>
+                        {match.group}
+                    </div>
+                )}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', width: '100%' }}>
                     <div
                         style={{
@@ -1251,6 +1279,20 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             }}
             onClick={() => onCardClick && onCardClick()}
         >
+            {match.group && (
+                <div style={{
+                    textAlign: 'center',
+                    fontSize: '0.65rem',
+                    fontWeight: '600',
+                    color: 'var(--color-text-muted)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    marginBottom: '-4px',
+                    marginTop: '-4px'
+                }}>
+                    {match.group}
+                </div>
+            )}
             <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: highlight ? '20px' : '12px' }}>
                 <TeamLogo
                     logoUrl={homeLogo}

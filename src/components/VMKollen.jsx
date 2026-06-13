@@ -982,21 +982,6 @@ const VMKollen = () => {
                     const roundHeader = roundObj.roundKey === "Gruppspel" ? "Gruppspel" : (ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey);
                     return (
                         <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            {roundHeader !== "Gruppspel" && (
-                                <h2 style={{
-                                    position: 'sticky',
-                                    top: '63px',
-                                    zIndex: 20,
-                                    backgroundColor: 'var(--color-bg)',
-                                    marginTop: '8px',
-                                    marginBottom: '-16px',
-                                    padding: '8px 4px',
-                                    fontSize: '1.4rem',
-                                    fontWeight: '800',
-                                    color: 'var(--color-text)',
-                                    boxShadow: '0 4px 10px var(--color-bg)'
-                                }}>{roundHeader}</h2>
-                            )}
                             
                             {roundObj.dates.map((date) => {
                                 const matches = groupedMatches[date];
@@ -1039,8 +1024,8 @@ const VMKollen = () => {
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
-                                                const showSwedenBadge = isSwedenMatch && (!isHero || m.status === 'upcoming') && filterCountries.length === 0;
-                                                const showTopMatchBadge = isTopMatch && (!isHero || m.status === 'upcoming');
+                                                const showSwedenBadge = isSwedenMatch && filterCountries.length === 0;
+                                                const showTopMatchBadge = isTopMatch;
 
                                                 if (showSwedenBadge) {
                                                     cardClass = 'sweden-frame-animated';
