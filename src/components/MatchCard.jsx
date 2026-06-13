@@ -424,6 +424,8 @@ const LineupsSection = ({ match }) => {
 };
 
 const formatLiveTime = (timeStr, period) => {
+    if (period === 4) return 'Halvtid';
+    
     if (!timeStr) return 'LIVE';
     const str = String(timeStr).trim();
     if (str === 'HT' || str === 'Halvtid' || str === 'FT' || str === 'Fulltid') return str;
@@ -598,19 +600,34 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                             {renderEventIcon(e)}
                         </div>
                         <div style={{ 
-                            fontSize: '0.6rem', 
-                            color: 'var(--color-text)', 
-                            whiteSpace: 'nowrap', 
-                            textShadow: '0 0 3px var(--color-card-bg), 0 0 3px var(--color-card-bg)',
-                            fontWeight: e.type === 'goal' ? 'bold' : 'normal',
-                            textAlign: 'center'
+                            position: 'relative',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
                         }}>
+                            <span style={{ 
+                                color: 'var(--color-text-muted)', 
+                                fontSize: '0.55rem', 
+                                fontWeight: 'normal',
+                                textShadow: '0 0 3px var(--color-card-bg)'
+                            }}>
+                                {e.minuteStr}'
+                            </span>
                             {e.type !== 'yellow-card' && e.type !== 'red-card' && e.player && (
-                                <React.Fragment>
-                                    {getLastName(e.player)}<br/>
-                                </React.Fragment>
+                                <div style={{ 
+                                    position: 'absolute', 
+                                    [isHome ? 'bottom' : 'top']: '100%',
+                                    [isHome ? 'marginBottom' : 'marginTop']: '2px',
+                                    fontSize: '0.6rem', 
+                                    color: 'var(--color-text)', 
+                                    whiteSpace: 'nowrap', 
+                                    textShadow: '0 0 3px var(--color-card-bg), 0 0 3px var(--color-card-bg)',
+                                    fontWeight: 'normal',
+                                    textAlign: 'center'
+                                }}>
+                                    {getLastName(e.player)}
+                                </div>
                             )}
-                            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.55rem', fontWeight: 'normal' }}>{e.minuteStr}'</span>
                         </div>
                     </div>
                 );
@@ -771,9 +788,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const isOverdue = getIsOverdue();
 
     const getLiveProgress = () => {
-        if (computedStatus === 'finished') return 100;
         if (computedStatus !== 'live') return 0;
         const timeStr = match.liveCurrentTime;
+        if (match.period === 4) return 50; // 50%
         if (!timeStr) return 0;
         if (timeStr === 'HT' || timeStr === 'Halvtid') return 50; // 50%
         if (timeStr === 'FT' || timeStr === 'Fulltid') return 100; // 100%
@@ -1120,59 +1137,37 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
                 )}
                 {/* Match info footer moved outside expander since expander is removed */}
-                {(computedStatus === 'live' || isSoon || computedStatus === 'finished') && (match.stadium || match.referee || match.startingXI) && (
+                {(computedStatus === 'live' || isSoon || computedStatus === 'finished') && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
                     <div style={{ marginTop: '0px', paddingTop: '0px' }}>
-                        {(match.stadium || match.referee || match.startingXI) && (
+                        <div style={{ 
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: '4px',
+                            marginTop: '4px'
+                        }}>
                             <div style={{ 
                                 display: 'flex', 
-                                flexDirection: 'column',
+                                justifyContent: 'center', 
                                 alignItems: 'center',
-                                gap: '4px',
-                                marginTop: '4px'
+                                gap: '6px', 
+                                fontSize: '0.72rem', 
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.6,
+                                flexWrap: 'wrap'
                             }}>
-                                {match.stadium && (
-                                    <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', opacity: 0.6 }}>
-                                        {match.stadium}{match.city ? `, ${match.city}` : ''}
-                                    </div>
-                                )}
-                                {(match.referee || match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                    <div style={{ 
-                                        display: 'flex', 
-                                        justifyContent: 'center', 
-                                        alignItems: 'center',
-                                        gap: '6px', 
-                                        fontSize: '0.72rem', 
-                                        color: 'var(--color-text-muted)',
-                                        opacity: 0.6,
-                                        flexWrap: 'wrap'
-                                    }}>
-                                        {match.referee && (
-                                            <span style={{ display: 'flex', alignItems: 'center' }}>
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', opacity: 0.8 }}>
-                                                    <circle cx="10" cy="14" r="6" />
-                                                    <path d="M14 10h6v4h-6" />
-                                                    <circle cx="10" cy="14" r="1.5" fill="currentColor" />
-                                                </svg>
-                                                {match.referee}
-                                            </span>
-                                        )}
-                                        {match.referee && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span style={{ opacity: 0.5 }}>•</span>}
-                                        {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                            <button 
-                                                onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                                style={{
-                                                    background: 'none', border: 'none', padding: 0, 
-                                                    color: 'var(--color-primary)', fontSize: 'inherit',
-                                                    cursor: 'pointer', textDecoration: 'underline'
-                                                }}
-                                            >
-                                                {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                            </button>
-                                        )}
-                                    </div>
-                                )}
+                                <button 
+                                    onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                    style={{
+                                        background: 'none', border: 'none', padding: 0, 
+                                        color: 'var(--color-primary)', fontSize: 'inherit',
+                                        cursor: 'pointer', textDecoration: 'underline'
+                                    }}
+                                >
+                                    {showLineups ? 'Dölj laguppställningar' : 'Visa laguppställningar'}
+                                </button>
                             </div>
-                        )}
+                        </div>
                         {showLineups && <LineupsSection match={match} />}
                     </div>
                 )}
@@ -1318,7 +1313,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 }}>
                     <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
                     {/* Match info footer */}
-                    {(match.stadium || match.referee || match.startingXI) && (
+                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
                         <div style={{ 
                             display: 'flex', 
                             flexDirection: 'column',
@@ -1326,47 +1321,27 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             gap: '4px',
                             marginTop: '12px'
                         }}>
-                            {match.stadium && (
-                                <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', opacity: 0.5 }}>
-                                    {match.stadium}{match.city ? `, ${match.city}` : ''}
-                                </div>
-                            )}
-                            {(match.referee || match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                <div style={{ 
-                                    display: 'flex', 
-                                    justifyContent: 'center', 
-                                    alignItems: 'center',
-                                    gap: '6px', 
-                                    fontSize: '0.65rem', 
-                                    color: 'var(--color-text-muted)',
-                                    opacity: 0.5,
-                                    flexWrap: 'wrap'
-                                }}>
-                                    {match.referee && (
-                                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px', opacity: 0.8 }}>
-                                                <circle cx="10" cy="14" r="6" />
-                                                <path d="M14 10h6v4h-6" />
-                                                <circle cx="10" cy="14" r="1.5" fill="currentColor" />
-                                            </svg>
-                                            {match.referee}
-                                        </span>
-                                    )}
-                                    {match.referee && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && <span>•</span>}
-                                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                        <button 
-                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                            style={{
-                                                background: 'none', border: 'none', padding: 0, 
-                                                color: 'inherit', fontSize: 'inherit', opacity: 0.8,
-                                                cursor: 'pointer', textDecoration: 'underline'
-                                            }}
-                                        >
-                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                        </button>
-                                    )}
-                                </div>
-                            )}
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'center',
+                                gap: '6px', 
+                                fontSize: '0.65rem', 
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.5,
+                                flexWrap: 'wrap'
+                            }}>
+                                <button 
+                                    onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                    style={{
+                                        background: 'none', border: 'none', padding: 0, 
+                                        color: 'inherit', fontSize: 'inherit', opacity: 0.8,
+                                        cursor: 'pointer', textDecoration: 'underline'
+                                    }}
+                                >
+                                    {showLineups ? 'Dölj laguppställningar' : 'Visa laguppställningar'}
+                                </button>
+                            </div>
                         </div>
                     )}
                     {showLineups && <LineupsSection match={match} />}
