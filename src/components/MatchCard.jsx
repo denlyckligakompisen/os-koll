@@ -397,6 +397,120 @@ const EventsTimeline = ({ match }) => {
     );
 };
 
+const AllEventsList = ({ match }) => {
+    const parseMinute = (minStr) => {
+        if (!minStr) return 0;
+        const base = parseInt(String(minStr).split('+')[0]);
+        const extra = parseInt(String(minStr).split('+')[1] || '0');
+        return isNaN(base) ? 0 : base + (extra / 100);
+    };
+
+    let events = [];
+
+    // Goals & Red cards (from scorers)
+    if (match.scorers?.home) {
+        match.scorers.home.forEach(g => events.push({
+            type: g.incidentClass || 'goal',
+            side: 'home',
+            player: g.player?.name || g.player,
+            minuteStr: g.minute || g.time,
+            minute: parseMinute(g.minute || g.time)
+        }));
+    }
+    if (match.scorers?.away) {
+        match.scorers.away.forEach(g => events.push({
+            type: g.incidentClass || 'goal',
+            side: 'away',
+            player: g.player?.name || g.player,
+            minuteStr: g.minute || g.time,
+            minute: parseMinute(g.minute || g.time)
+        }));
+    }
+    
+    // All Bookings (Yellow & Red)
+    // To avoid duplicating red cards that might be in scorers, we filter them if they already exist at the exact same minute
+    if (match.bookings) {
+        match.bookings.forEach(b => {
+            const isRed = b.card === 'red';
+            const bMin = parseMinute(b.minute);
+            
+            if (isRed) {
+                // Check if already in events (from scorers)
+                const exists = events.some(e => e.type === 'red-card' && e.minute === bMin && e.side === b.side);
+                if (exists) return; // Skip duplicate
+            }
+            
+            events.push({
+                type: isRed ? 'red-card' : 'yellow-card',
+                side: b.side,
+                player: b.player?.name || b.player,
+                minuteStr: b.minute,
+                minute: bMin
+            });
+        });
+    }
+    
+    // Substitutions
+    if (match.substitutions) {
+        match.substitutions.forEach(s => events.push({
+            type: 'substitution',
+            side: s.side,
+            playerOff: s.playerOff,
+            playerOn: s.playerOn,
+            minuteStr: s.minute,
+            minute: parseMinute(s.minute)
+        }));
+    }
+
+    events.sort((a, b) => b.minute - a.minute);
+
+    if (events.length === 0) return <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '8px', padding: '8px', backgroundColor: 'var(--color-bg)', borderRadius: '4px' }}>Inga händelser att visa.</div>;
+
+    const renderEventIcon = (type) => {
+        if (type === 'goal' || type === 'penalty-goal') return <span style={{ fontSize: '0.8rem' }}>⚽</span>;
+        if (type === 'red-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#e53935', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Rött kort" />;
+        if (type === 'yellow-card') return <div style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />;
+        return null;
+    };
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px', padding: '12px', backgroundColor: 'rgba(128,128,128,0.05)', borderRadius: '8px' }}>
+            {events.map((e, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.75rem' }}>
+                    <div style={{ 
+                        minWidth: '36px', 
+                        textAlign: 'right', 
+                        fontWeight: '600', 
+                        color: 'var(--color-text-muted)',
+                        fontVariantNumeric: 'tabular-nums'
+                    }}>
+                        {e.minuteStr}'
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, color: 'var(--color-text)' }}>
+                        {renderEventIcon(e.type)}
+                        {e.type === 'substitution' ? (
+                            <span>
+                                <strong style={{ color: 'var(--color-text)' }}>{getLastName(e.playerOn)}</strong> in, <span style={{ color: 'var(--color-text-muted)' }}>{getLastName(e.playerOff)} ut</span>
+                            </span>
+                        ) : (
+                            <span>
+                                <strong>{getLastName(e.player)}</strong>
+                                {e.type === 'penalty-goal' && <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', marginLeft: '4px' }}>(Straffmål)</span>}
+                                {e.type === 'goal' && <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', marginLeft: '4px' }}>(Mål)</span>}
+                                {e.type === 'yellow-card' && <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', marginLeft: '4px' }}>(Gult kort)</span>}
+                                {e.type === 'red-card' && <span style={{ color: 'var(--color-text-muted)', fontSize: '0.65rem', marginLeft: '4px' }}>(Rött kort)</span>}
+                            </span>
+                        )}
+                    </div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        {cleanTeamName(e.side === 'home' ? match.home : match.away)}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
@@ -766,44 +880,53 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         width: '100%'
                     }}>
                         <EventsTimeline match={match} />
-                        {/* Match info footer */}
-                        {(match.tactics?.home || match.stadium || match.referee) && (
-                            <div style={{ 
-                                display: 'flex', 
-                                justifyContent: 'center', 
-                                alignItems: 'center',
-                                gap: '6px', 
-                                fontSize: '0.72rem', 
-                                color: 'var(--color-text-muted)',
-                                opacity: 0.6,
-                                flexWrap: 'wrap',
-                                marginTop: '2px'
-                            }}>
-                                {match.tactics?.home && match.tactics?.away && (
-                                    <span>{match.tactics.home} vs {match.tactics.away}</span>
-                                )}
-                                {match.tactics?.home && match.stadium && <span style={{ opacity: 0.5 }}>•</span>}
-                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                                {(match.stadium || match.tactics?.home) && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
-                                {match.referee && <span>{match.referee}</span>}
-                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                    <React.Fragment>
-                                        <span style={{ opacity: 0.5 }}>•</span>
-                                        <button 
-                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                            style={{
-                                                background: 'none', border: 'none', padding: 0, 
-                                                color: 'var(--color-primary)', fontSize: 'inherit',
-                                                cursor: 'pointer', textDecoration: 'underline'
-                                            }}
-                                        >
-                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                        </button>
-                                    </React.Fragment>
-                                )}
-                            </div>
-                        )}
-                        {showLineups && <LineupsSection match={match} />}
+                    </div>
+                )}
+                {(computedStatus === 'live' || computedStatus === 'finished') && (
+                    <div style={{ marginTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)', paddingTop: '12px' }}>
+                        <details>
+                            <summary style={{ fontSize: '0.75rem', cursor: 'pointer', color: 'var(--color-primary)', outline: 'none', fontWeight: '500' }}>Visa mer (Alla matchhändelser)</summary>
+                            <AllEventsList match={match} />
+                            
+                            {/* Match info footer */}
+                            {(match.tactics?.home || match.stadium || match.referee) && (
+                                <div style={{ 
+                                    display: 'flex', 
+                                    justifyContent: 'center', 
+                                    alignItems: 'center',
+                                    gap: '6px', 
+                                    fontSize: '0.72rem', 
+                                    color: 'var(--color-text-muted)',
+                                    opacity: 0.6,
+                                    flexWrap: 'wrap',
+                                    marginTop: '12px'
+                                }}>
+                                    {match.tactics?.home && match.tactics?.away && (
+                                        <span>{match.tactics.home} vs {match.tactics.away}</span>
+                                    )}
+                                    {match.tactics?.home && match.stadium && <span style={{ opacity: 0.5 }}>•</span>}
+                                    {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                                    {(match.stadium || match.tactics?.home) && match.referee && <span style={{ opacity: 0.5 }}>•</span>}
+                                    {match.referee && <span>{match.referee}</span>}
+                                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                        <React.Fragment>
+                                            <span style={{ opacity: 0.5 }}>•</span>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                                style={{
+                                                    background: 'none', border: 'none', padding: 0, 
+                                                    color: 'var(--color-primary)', fontSize: 'inherit',
+                                                    cursor: 'pointer', textDecoration: 'underline'
+                                                }}
+                                            >
+                                                {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                            </button>
+                                        </React.Fragment>
+                                    )}
+                                </div>
+                            )}
+                            {showLineups && <LineupsSection match={match} />}
+                        </details>
                     </div>
                 )}
             </Card>
@@ -960,43 +1083,53 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     flexDirection: 'column'
                 }}>
                     <EventsTimeline match={match} />
-                    {/* Match info footer */}
-                    {(match.tactics?.home || match.stadium || match.referee) && (
-                        <div style={{ 
-                            display: 'flex', 
-                            justifyContent: 'center', 
-                            alignItems: 'center',
-                            gap: '6px', 
-                            fontSize: '0.65rem', 
-                            color: 'var(--color-text-muted)',
-                            opacity: 0.5,
-                            flexWrap: 'wrap'
-                        }}>
-                            {match.tactics?.home && match.tactics?.away && (
-                                <span>{match.tactics.home} vs {match.tactics.away}</span>
-                            )}
-                            {match.tactics?.home && match.stadium && <span>•</span>}
-                            {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
-                            {(match.stadium || match.tactics?.home) && match.referee && <span>•</span>}
-                            {match.referee && <span>{match.referee}</span>}
-                            {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                                <React.Fragment>
-                                    <span>•</span>
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                        style={{
-                                            background: 'none', border: 'none', padding: 0, 
-                                            color: 'inherit', fontSize: 'inherit', opacity: 0.8,
-                                            cursor: 'pointer', textDecoration: 'underline'
-                                        }}
-                                    >
-                                        {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
-                                    </button>
-                                </React.Fragment>
-                            )}
-                        </div>
-                    )}
-                    {showLineups && <LineupsSection match={match} />}
+                </div>
+            )}
+            {(computedStatus === 'live' || computedStatus === 'finished') && (
+                <div style={{ marginTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)', paddingTop: '12px' }}>
+                    <details>
+                        <summary style={{ fontSize: '0.75rem', cursor: 'pointer', color: 'var(--color-primary)', outline: 'none', fontWeight: '500' }}>Visa mer (Alla matchhändelser)</summary>
+                        <AllEventsList match={match} />
+                        
+                        {/* Match info footer */}
+                        {(match.tactics?.home || match.stadium || match.referee) && (
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'center', 
+                                alignItems: 'center',
+                                gap: '6px', 
+                                fontSize: '0.65rem', 
+                                color: 'var(--color-text-muted)',
+                                opacity: 0.5,
+                                flexWrap: 'wrap',
+                                marginTop: '12px'
+                            }}>
+                                {match.tactics?.home && match.tactics?.away && (
+                                    <span>{match.tactics.home} vs {match.tactics.away}</span>
+                                )}
+                                {match.tactics?.home && match.stadium && <span>•</span>}
+                                {match.stadium && <span>{match.stadium}{match.city ? `, ${match.city}` : ''}</span>}
+                                {(match.stadium || match.tactics?.home) && match.referee && <span>•</span>}
+                                {match.referee && <span>{match.referee}</span>}
+                                {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                                    <React.Fragment>
+                                        <span>•</span>
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                            style={{
+                                                background: 'none', border: 'none', padding: 0, 
+                                                color: 'inherit', fontSize: 'inherit', opacity: 0.8,
+                                                cursor: 'pointer', textDecoration: 'underline'
+                                            }}
+                                        >
+                                            {showLineups ? 'Dölj uppställning' : 'Visa uppställning'}
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            </div>
+                        )}
+                        {showLineups && <LineupsSection match={match} />}
+                    </details>
                 </div>
             )}
         </Card>
