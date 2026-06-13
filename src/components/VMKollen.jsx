@@ -119,12 +119,126 @@ const TEAM_ABBR = {
 
 const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
 
-const sortTeams = (teams) => {
+const sortTeamsSimple = (teams) => {
     return [...teams].sort((a, b) => {
-        const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0 } : a;
-        const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0 } : b;
-        return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamA.name.localeCompare(teamB.name, 'sv');
+        const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0, gf: 0, fairPlay: 0 } : a;
+        const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0, gf: 0, fairPlay: 0 } : b;
+        return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamB.gf - teamA.gf || teamB.fairPlay - teamA.fairPlay || teamA.name.localeCompare(teamB.name, 'sv');
     });
+};
+
+const sortGroupTeams = (teams, groupMatches, rankingData) => {
+    const getRank = (teamName) => {
+        if (!rankingData?.rankings) return 999;
+        const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
+        return index !== -1 ? index : 999;
+    };
+
+    const sortSubset = (subsetTeams, subsetMatches) => {
+        if (subsetTeams.length <= 1) return subsetTeams;
+
+        const miniStats = {};
+        subsetTeams.forEach(t => miniStats[t.name] = { pts: 0, gd: 0, gf: 0 });
+
+        subsetMatches.forEach(m => {
+            if ((m.status === 'finished' || m.status === 'live') && m.score && m.score.includes('-')) {
+                const parts = m.score.split('-');
+                const homeScore = parseInt(parts[0].trim(), 10);
+                const awayScore = parseInt(parts[1].trim(), 10);
+                if (isNaN(homeScore) || isNaN(awayScore)) return;
+
+                if (miniStats[m.home] && miniStats[m.away]) {
+                    miniStats[m.home].gf += homeScore;
+                    miniStats[m.home].ga = (miniStats[m.home].ga || 0) + awayScore;
+                    miniStats[m.home].gd = miniStats[m.home].gf - miniStats[m.home].ga;
+
+                    miniStats[m.away].gf += awayScore;
+                    miniStats[m.away].ga = (miniStats[m.away].ga || 0) + homeScore;
+                    miniStats[m.away].gd = miniStats[m.away].gf - miniStats[m.away].ga;
+
+                    if (homeScore > awayScore) miniStats[m.home].pts += 3;
+                    else if (homeScore === awayScore) {
+                        miniStats[m.home].pts += 1;
+                        miniStats[m.away].pts += 1;
+                    } else miniStats[m.away].pts += 3;
+                }
+            }
+        });
+
+        subsetTeams.sort((a, b) => {
+            const stA = miniStats[a.name];
+            const stB = miniStats[b.name];
+            return stB.pts - stA.pts || stB.gd - stA.gd || stB.gf - stA.gf;
+        });
+
+        const clusters = [];
+        let currentCluster = [];
+        let lastSig = null;
+
+        subsetTeams.forEach(t => {
+            const st = miniStats[t.name];
+            const sig = `${st.pts}_${st.gd}_${st.gf}`;
+            if (sig !== lastSig) {
+                if (currentCluster.length > 0) clusters.push(currentCluster);
+                currentCluster = [t];
+                lastSig = sig;
+            } else {
+                currentCluster.push(t);
+            }
+        });
+        if (currentCluster.length > 0) clusters.push(currentCluster);
+
+        if (clusters.length === 1 && clusters[0].length === subsetTeams.length) {
+            return clusters[0].sort((a, b) => {
+                if (b.gd !== a.gd) return b.gd - a.gd;
+                if (b.gf !== a.gf) return b.gf - a.gf;
+                if (b.fairPlay !== a.fairPlay) return b.fairPlay - a.fairPlay;
+                return getRank(a.name) - getRank(b.name);
+            });
+        }
+
+        const resolved = [];
+        clusters.forEach(cluster => {
+            if (cluster.length === 1) {
+                resolved.push(cluster[0]);
+            } else {
+                const clusterNames = new Set(cluster.map(t => t.name));
+                const subMatches = subsetMatches.filter(m => clusterNames.has(m.home) && clusterNames.has(m.away));
+                resolved.push(...sortSubset(cluster, subMatches));
+            }
+        });
+
+        return resolved;
+    };
+
+    const sortedTeams = [...teams].sort((a, b) => b.pts - a.pts);
+    const pointClusters = [];
+    let currentPtCluster = [];
+    let lastPts = null;
+    
+    sortedTeams.forEach(t => {
+        if (t.pts !== lastPts) {
+            if (currentPtCluster.length > 0) pointClusters.push(currentPtCluster);
+            currentPtCluster = [t];
+            lastPts = t.pts;
+        } else {
+            currentPtCluster.push(t);
+        }
+    });
+    if (currentPtCluster.length > 0) pointClusters.push(currentPtCluster);
+
+    const finalRanking = [];
+    pointClusters.forEach(cluster => {
+        if (cluster.length === 1) {
+            finalRanking.push(cluster[0]);
+        } else {
+            const clusterNames = new Set(cluster.map(t => t.name));
+            const clusterMatches = groupMatches.filter(m => clusterNames.has(m.home) && clusterNames.has(m.away));
+            finalRanking.push(...sortSubset(cluster, clusterMatches));
+        }
+    });
+
+    return finalRanking;
 };
 
 const VMKollen = () => {
@@ -166,9 +280,9 @@ const VMKollen = () => {
         newGroupsData.groups.forEach(g => {
             g.teams.forEach((t, i) => {
                 if (typeof t === 'string') {
-                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0 };
+                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0, fairPlay: 0 };
                 } else {
-                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0;
+                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0; t.fairPlay = 0;
                 }
             });
         });
@@ -212,11 +326,27 @@ const VMKollen = () => {
                     if (awayScore > homeScore) awayTeam.pts += 3;
                     else if (homeScore === awayScore) awayTeam.pts += 1;
                 }
+
+                if (m.bookings) {
+                    m.bookings.forEach(b => {
+                        const team = b.side === 'home' ? homeTeam : awayTeam;
+                        if (team) {
+                            if (b.card === 'red') team.fairPlay -= 4;
+                            else if (b.card === 'yellow') team.fairPlay -= 1;
+                        }
+                    });
+                }
             }
+        });
+
+        // Finally, sort the teams in each group using the full tie-breaker rules
+        newGroupsData.groups.forEach(g => {
+            const groupMatches = matchesData.matches.filter(m => g.teams.some(t => t.name === m.home) && g.teams.some(t => t.name === m.away));
+            g.teams = sortGroupTeams(g.teams, groupMatches, rankingData);
         });
         
         return newGroupsData;
-    }, [initialGroupsData, matchesData]);
+    }, [initialGroupsData, matchesData, rankingData]);
     const [expandedMatchId, setExpandedMatchId] = useState(null);
     const rankingRefs = React.useRef({});
     
@@ -452,7 +582,7 @@ const VMKollen = () => {
             if (!group) return null;
 
             const groupChar = group.name.split(' ')[1];
-            const sorted = sortTeams(group.teams);
+            const sorted = group.teams;
             const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(fc)) + 1;
 
             return { groupChar, rank, country: fc };
@@ -471,7 +601,7 @@ const VMKollen = () => {
 
             const group = groupsData.groups[groupIdx];
             if (group) {
-                const sorted = sortTeams(group.teams);
+                const sorted = group.teams;
                 const team = sorted[rank - 1];
                 if (team) {
                     return {
@@ -495,7 +625,7 @@ const VMKollen = () => {
                 const idx = char.toUpperCase().charCodeAt(0) - 65;
                 const group = groupsData.groups[idx];
                 if (group) {
-                    const sorted = sortTeams(group.teams);
+                    const sorted = group.teams;
                     const team = sorted[rank - 1];
                     return team ? getAbbr(team.name) : char;
                 }
@@ -635,12 +765,11 @@ const VMKollen = () => {
     const qualifiedThirds = React.useMemo(() => {
         if (!groupsData?.groups) return [];
         const thirdPlacedTeams = groupsData.groups.map(group => {
-            const sorted = sortTeams(group.teams);
-            return sorted[2];
+            return group.teams[2]; // Already sorted by sortGroupTeams
         });
         return thirdPlacedTeams
             .filter(Boolean)
-            .sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'))
+            .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.fairPlay - a.fairPlay || a.name.localeCompare(b.name, 'sv'))
             .slice(0, 8)
             .map(t => t.name);
     }, [groupsData]);
@@ -660,7 +789,7 @@ const VMKollen = () => {
     if (!groupsData) return null;
 
     const renderTable = (groupName, teams, displayName, idx = 0, highlightTeams = [], isInline = false) => {
-        const sortedTeams = sortTeams(teams);
+        const sortedTeams = teams; // Already sorted by sortGroupTeams
 
         return (
             <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
