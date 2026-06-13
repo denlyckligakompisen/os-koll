@@ -8,7 +8,7 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
@@ -135,7 +135,23 @@ const VMKollen = () => {
     const [rankingData, setRankingData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
     const [loading, setLoading] = useState(true);
-    const [filterCountry, setFilterCountry] = useState(null);
+    const [filterCountries, setFilterCountries] = useState([]);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const filterRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setIsFilterOpen(false);
+            }
+        };
+        if (isFilterOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isFilterOpen]);
 
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -205,21 +221,21 @@ const VMKollen = () => {
     const rankingRefs = React.useRef({});
     
     const tableRefs = React.useRef({});
-    const headerStyle = useMemo(() => getVMHeaderStyle(filterCountry), [filterCountry]);
+    const headerStyle = useMemo(() => getVMHeaderStyle(filterCountries.length === 1 ? filterCountries[0] : null), [filterCountries]);
 
     // Auto-scroll in stats sub-tabs
     useEffect(() => {
-        if (!filterCountry) return;
+        if (filterCountries.length === 0) return;
 
         setTimeout(() => {
             if (rankingData?.rankings) {
-                const target = rankingData.rankings.find(r => r.team.includes(filterCountry));
+                const target = rankingData.rankings.find(r => filterCountries.some(fc => r.team.includes(fc)));
                 if (target && rankingRefs.current[target.team]) {
                     rankingRefs.current[target.team].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
         }, 100);
-    }, [filterCountry, rankingData]);
+    }, [filterCountries, rankingData]);
 
     const allCountries = useMemo(() => {
         if (!groupsData?.groups) return [];
@@ -254,18 +270,20 @@ const VMKollen = () => {
     const handleCountryClick = (country) => {
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
-        if (filterCountry === cleanName) {
-            setFilterCountry(null);
-            localStorage.removeItem('os-koll-filter');
-        } else {
-            setFilterCountry(cleanName);
-            localStorage.setItem('os-koll-filter', cleanName);
-        }
+        setFilterCountries(prev => prev.includes(cleanName) ? prev.filter(c => c !== cleanName) : [...prev, cleanName]);
     };
 
     useEffect(() => {
         const saved = localStorage.getItem('os-koll-filter');
-        if (saved) setFilterCountry(saved);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) setFilterCountries(parsed);
+                else setFilterCountries([saved]);
+            } catch {
+                setFilterCountries([saved]);
+            }
+        }
 
         const fetchData = async (file) => {
             try {
@@ -401,37 +419,45 @@ const VMKollen = () => {
     };
 
     useEffect(() => {
-        if (filterCountry) localStorage.setItem('os-koll-filter', filterCountry);
+        if (filterCountries.length > 0) localStorage.setItem('os-koll-filter', JSON.stringify(filterCountries));
         else localStorage.removeItem('os-koll-filter');
-    }, [filterCountry]);
+    }, [filterCountries]);
 
     useEffect(() => {
-        if (activeTab === 'statistik' && filterCountry && rankingRefs.current[filterCountry]) {
-            setTimeout(() => {
-                rankingRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-        } else if (activeTab === 'gruppspel' && filterCountry && tableRefs.current[filterCountry]) {
-            setTimeout(() => {
-                tableRefs.current[filterCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+        if (activeTab === 'statistik' && filterCountries.length > 0) {
+            const firstCountry = filterCountries[0];
+            if (rankingRefs.current[firstCountry]) {
+                setTimeout(() => {
+                    rankingRefs.current[firstCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        } else if (activeTab === 'gruppspel' && filterCountries.length > 0) {
+            const firstCountry = filterCountries[0];
+            if (tableRefs.current[firstCountry]) {
+                setTimeout(() => {
+                    tableRefs.current[firstCountry].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, [activeTab, filterCountry]);
+    }, [activeTab, filterCountries]);
 
-    const filteredCountryStatus = React.useMemo(() => {
-        if (!groupsData?.groups || !filterCountry) return { groupChar: null, rank: null };
-        const group = groupsData.groups.find(g =>
-            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
-        );
-        if (!group) return { groupChar: null, rank: null };
+    const filteredCountryStatusList = React.useMemo(() => {
+        if (!groupsData?.groups || filterCountries.length === 0) return [];
+        return filterCountries.map(fc => {
+            const group = groupsData.groups.find(g =>
+                g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
+            );
+            if (!group) return null;
 
-        const groupChar = group.name.split(' ')[1];
-        const sorted = sortTeams(group.teams);
-        const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(filterCountry)) + 1;
+            const groupChar = group.name.split(' ')[1];
+            const sorted = sortTeams(group.teams);
+            const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(fc)) + 1;
 
-        return { groupChar, rank };
-    }, [groupsData, filterCountry]);
+            return { groupChar, rank, country: fc };
+        }).filter(Boolean);
+    }, [groupsData, filterCountries]);
 
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
@@ -514,8 +540,8 @@ const VMKollen = () => {
         if (combinedMatches.length === 0) return [];
 
         let pool = combinedMatches.filter(m => m.status !== 'finished');
-        if (filterCountry) {
-            pool = pool.filter(m => m.home.includes(filterCountry) || m.away.includes(filterCountry));
+        if (filterCountries.length > 0) {
+            pool = pool.filter(m => filterCountries.some(fc => m.home.includes(fc) || m.away.includes(fc)));
         }
 
         if (pool.length === 0) return [];
@@ -529,32 +555,33 @@ const VMKollen = () => {
         const earliestTime = sorted[0].fullDate;
 
         return withDates.filter(m => m.fullDate === earliestTime);
-    }, [matchesData, filterCountry]);
+    }, [matchesData, filterCountries]);
 
     const groupedMatches = React.useMemo(() => {
         if (combinedMatches.length === 0) return {};
         return combinedMatches.reduce((acc, m) => {
-            const isCountryPlaceholder = (label) => {
-                if (!label || !filteredCountryStatus.groupChar || !filteredCountryStatus.rank) return false;
-                const target = `${filteredCountryStatus.rank}${filteredCountryStatus.groupChar}`;
+            const isCountryPlaceholder = (label, status) => {
+                if (!label || !status.groupChar || !status.rank) return false;
+                const target = `${status.rank}${status.groupChar}`;
                 if (label.includes(target)) return true;
-                if (filteredCountryStatus.rank === 3 && label.startsWith('3') && label.includes(filteredCountryStatus.groupChar)) return true;
+                if (status.rank === 3 && label.startsWith('3') && label.includes(status.groupChar)) return true;
                 return false;
             };
 
-            const isFilterCountryMatch = filterCountry ? (
-                (m.home?.includes(filterCountry)) ||
-                (m.away?.includes(filterCountry)) ||
-                (m.realHome?.includes(filterCountry)) ||
-                (m.realAway?.includes(filterCountry)) ||
-                isCountryPlaceholder(m.home) ||
-                isCountryPlaceholder(m.away)
-            ) : true;
+            const isFilterCountryMatch = filterCountries.length > 0 ? filterCountries.some(fc => {
+                const status = filteredCountryStatusList.find(s => s.country === fc);
+                return (m.home?.includes(fc)) ||
+                (m.away?.includes(fc)) ||
+                (m.realHome?.includes(fc)) ||
+                (m.realAway?.includes(fc)) ||
+                (status && isCountryPlaceholder(m.home, status)) ||
+                (status && isCountryPlaceholder(m.away, status));
+            }) : true;
 
-            if (filterCountry && !isFilterCountryMatch) return acc;
+            if (filterCountries.length > 0 && !isFilterCountryMatch) return acc;
             
             // Dölj avslutade matcher om inget landfilter är aktivt
-            if (!filterCountry && m.status === 'finished') return acc;
+            if (filterCountries.length === 0 && m.status === 'finished') return acc;
 
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
@@ -562,7 +589,7 @@ const VMKollen = () => {
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [combinedMatches, filterCountry, nextMatches, filteredCountryStatus]);
+    }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList]);
 
     const getTeamRank = (teamName) => {
         if (!rankingData?.rankings) return 999;
@@ -571,13 +598,13 @@ const VMKollen = () => {
     };
 
     const handleCardClick = (matchId) => {
-        if (filterCountry) return;
+        if (filterCountries.length > 0) return;
         setExpandedMatchId(prev => prev === matchId ? null : matchId);
     };
 
     const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam, isLive) => {
         if (!groupsData?.groups) return null;
-        if (filterCountry) return null;
+        if (filterCountries.length > 0) return null;
         if (expandedMatchId !== matchId && !isLive) return null;
         const group = groupsData.groups.find(g => g.name === groupName);
         if (!group) return null;
@@ -663,7 +690,7 @@ const VMKollen = () => {
                                 const flagCodes = getFlagCodes(team.name);
                                 const rank = tidx + 1;
                                 const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
-                                const isFiltered = filterCountry && team.name.includes(filterCountry);
+                                const isFiltered = filterCountries.length > 0 && filterCountries.some(fc => team.name.includes(fc));
                                 const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
 
                                 const thirdPlaceTeam = sortedTeams[2];
@@ -708,7 +735,7 @@ const VMKollen = () => {
                                                     }}
                                                 >
                                                     <FlagBadge codes={flagCodes} name={team.name} size={20} />
-                                                    <span style={{ whiteSpace: 'normal', lineHeight: '1.2', fontWeight: isFiltered ? 600 : 'normal' }}>
+                                                    <span style={{ whiteSpace: 'normal', lineHeight: '1.2' }}>
                                                         <BoldSverige text={team.name} />
                                                     </span>
                                                 </button>
@@ -836,7 +863,7 @@ const VMKollen = () => {
                                             {(() => {
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
-                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => m.status === 'live')) || (!filterCountry && hasHero);
+                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => m.status === 'live')) || (filterCountries.length === 0 && hasHero);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -869,7 +896,7 @@ const VMKollen = () => {
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
-                                                if (isSwedenMatch && !isHero) {
+                                                if (isSwedenMatch && !isHero && filterCountries.length === 0) {
                                                     cardClass = 'sweden-frame-animated';
                                                     badgeBg = 'linear-gradient(135deg, #005293, #006AA7)';
                                                     badgeColor = '#FECB00';
@@ -882,7 +909,7 @@ const VMKollen = () => {
 
                                                 return (
                                                     <React.Fragment key={i}>
-                                                        {!filterCountry && isFirstNonHero && (
+                                                        {filterCountries.length === 0 && isFirstNonHero && (
                                                             <div style={{
                                                                 fontSize: '0.8rem',
                                                                 textTransform: 'uppercase',
@@ -911,7 +938,7 @@ const VMKollen = () => {
                                                                     {badgeText}
                                                                 </div>
                                                             )}
-                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountry} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
                                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, m.status === 'live')}
                                                     </React.Fragment>
@@ -991,45 +1018,123 @@ const VMKollen = () => {
                             </div>
                         </div>
                     </button>
-                    {filterCountry && (
-                        <div style={{
-                            position: 'absolute', 
-                            right: '10px', 
-                            top: '50%', 
-                            transform: 'translateY(-50%)',
-                            zIndex: 10,
-                        }}>
-                            <button
-                                type="button"
-                                style={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center',
-                                    cursor: 'pointer', 
-                                    background: 'transparent', 
-                                    border: 'none',
-                                    borderRadius: '50%',
-                                    width: isScrolled ? '36px' : '44px',
-                                    height: isScrolled ? '36px' : '44px',
-                                    padding: 0,
-                                    transition: 'all 0.3s ease',
-                                    WebkitTapHighlightColor: 'transparent'
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setFilterCountry(null);
-                                    localStorage.removeItem('os-koll-filter');
-                                }}
-                                aria-label="Rensa filter"
-                                title="Rensa filter"
-                            >
+                    <div 
+                        ref={filterRef}
+                        style={{
+                        position: 'absolute', 
+                        right: '10px', 
+                        top: '50%', 
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                    }}>
+                        <button
+                            type="button"
+                            style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                cursor: 'pointer', 
+                                background: 'transparent', 
+                                color: 'inherit',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: isScrolled ? '36px' : '44px',
+                                height: isScrolled ? '36px' : '44px',
+                                padding: 0,
+                                transition: 'all 0.3s ease',
+                                WebkitTapHighlightColor: 'transparent'
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setIsFilterOpen(!isFilterOpen);
+                            }}
+                            aria-label="Filtrera länder"
+                            title="Filtrera länder"
+                        >
+                            {filterCountries.length === 1 ? (
                                 <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                    <FlagBadge codes={getFlagCodes(filterCountry)} name={filterCountry} size={isScrolled ? 20 : 26} />
+                                    <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={isScrolled ? 20 : 26} />
                                 </div>
-                            </button>
-                        </div>
-                    )}
+                            ) : filterCountries.length > 1 ? (
+                                <div style={{ position: 'relative', display: 'flex' }}>
+                                    <Filter size={isScrolled ? 20 : 24} />
+                                    <span style={{
+                                        position: 'absolute',
+                                        top: '-4px',
+                                        right: '-8px',
+                                        backgroundColor: 'var(--color-primary)',
+                                        color: '#fff',
+                                        fontSize: '0.65rem',
+                                        fontWeight: 'bold',
+                                        width: '16px',
+                                        height: '16px',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        boxShadow: '0 0 0 2px var(--color-bg)'
+                                    }}>
+                                        {filterCountries.length}
+                                    </span>
+                                </div>
+                            ) : (
+                                <Filter size={isScrolled ? 20 : 24} />
+                            )}
+                        </button>
+                        
+                        {isFilterOpen && (
+                            <>
+                                <div 
+                                    style={{ position: 'fixed', inset: 0, zIndex: -1 }} 
+                                    onClick={() => setIsFilterOpen(false)}
+                                />
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '120%',
+                                    right: 0,
+                                    backgroundColor: 'var(--color-bg)',
+                                    border: '1px solid var(--border-color, rgba(0,0,0,0.1))',
+                                    borderRadius: '16px',
+                                    padding: '12px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '8px',
+                                    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                                    maxHeight: '400px',
+                                    overflowY: 'auto',
+                                    minWidth: '220px'
+                                }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
+                                        <span style={{ fontWeight: '600', fontSize: '0.9rem' }}>Välj länder</span>
+                                        {filterCountries.length > 0 && (
+                                            <button 
+                                                onClick={() => setFilterCountries([])}
+                                                style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '0.8rem', cursor: 'pointer', padding: 0 }}
+                                            >
+                                                Rensa alla
+                                            </button>
+                                        )}
+                                    </div>
+                                    {allCountries.map(c => {
+                                        const isSelected = filterCountries.includes(c);
+                                        return (
+                                            <label key={c} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '6px 4px', borderRadius: '8px', backgroundColor: isSelected ? 'rgba(0,0,0,0.05)' : 'transparent', transition: 'background-color 0.2s' }}>
+                                                <input 
+                                                    type="checkbox" 
+                                                    checked={isSelected}
+                                                    onChange={() => handleCountryClick(c)}
+                                                    style={{ cursor: 'pointer', width: '16px', height: '16px', accentColor: 'var(--color-primary)' }}
+                                                />
+                                                <FlagBadge codes={getFlagCodes(c)} name={c} size={20} />
+                                                <span style={{ fontSize: '0.9rem' }}>{c}</span>
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </>
+                        )}
+                    </div>
                 </div>
 
 
@@ -1047,12 +1152,17 @@ const VMKollen = () => {
                     {activeTab === 'matcher' && (
                         <>
                             {(() => {
-                                if (!filterCountry || !groupsData?.groups) return null;
-                                const group = groupsData.groups.find(g =>
-                                    g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(filterCountry))
-                                );
-                                if (!group) return null;
-                                return renderTable(group.name, group.teams, null, 0, [filterCountry]);
+                                if (filterCountries.length === 0 || !groupsData?.groups) return null;
+                                // We can show tables for all filtered countries' groups, uniquely
+                                const renderedGroupNames = new Set();
+                                return filterCountries.map(fc => {
+                                    const group = groupsData.groups.find(g =>
+                                        g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
+                                    );
+                                    if (!group || renderedGroupNames.has(group.name)) return null;
+                                    renderedGroupNames.add(group.name);
+                                    return renderTable(group.name, group.teams, null, 0, filterCountries);
+                                }).filter(Boolean);
                             })()}
                             {renderAllMatches()}
                         </>
@@ -1064,7 +1174,7 @@ const VMKollen = () => {
                     )}
                     {activeTab === 'slutspel' && (
                         <VMBracket
-                            filterCountry={filterCountry}
+                            filterCountry={filterCountries.length > 0 ? filterCountries[0] : null}
                             onCountryClick={handleCountryClick}
                             liveGroupsData={groupsData}
                         />
@@ -1104,7 +1214,7 @@ const VMKollen = () => {
                                         <tbody>
                                             {rankingData?.rankings?.map((r, i) => {
                                                 const isTournamentTeam = tournamentTeams.has(r.team);
-                                                const isSelected = filterCountry && r.team.includes(filterCountry);
+                                                const isSelected = filterCountries.some(fc => r.team.includes(fc));
                                                 return (
                                                     <tr
                                                         key={i}
@@ -1165,7 +1275,7 @@ const VMKollen = () => {
                                                                 onClick={() => isTournamentTeam && handleCountryClick(r.team)}
                                                             >
                                                                 <FlagBadge codes={getFlagCodes(r.team)} name={r.team} size={26} />
-                                                                <span style={{ fontWeight: isSelected ? 600 : 'normal' }}><BoldSverige text={r.team} /></span>
+                                                                <span style={{ fontWeight: 'normal' }}><BoldSverige text={r.team} /></span>
                                                             </button>
                                                         </td>
                                                     </tr>

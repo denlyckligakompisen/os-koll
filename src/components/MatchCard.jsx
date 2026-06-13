@@ -397,7 +397,7 @@ const EventsTimeline = ({ match }) => {
     );
 };
 
-const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = getFlagCodes(match.home);
     const awayFlags = getFlagCodes(match.away);
 
@@ -572,9 +572,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align }}>
-                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: isFiltered ? 600 : 'normal' }}>{topText}</span>}
+                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 'normal' }}>{topText}</span>}
                 <span style={{ 
-                    fontWeight: isFiltered ? 600 : 'normal',
+                    fontWeight: 'normal',
                     hyphens: 'auto',
                     WebkitHyphens: 'auto',
                     wordBreak: 'break-word',
@@ -694,7 +694,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         >
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                             (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </button>
                         {computedStatus === 'live' && (
                             <span style={{
@@ -714,6 +714,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
                             >
                                 <BroadcasterLogo name={match.broadcast} size="large" />
+                            </div>
+                        )}
+                        {!match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
+                                <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 }}>TBA</span>
                             </div>
                         )}
 
@@ -895,7 +900,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         }}>
                             {computedStatus === 'finished' ? (computedScore || displayTime) : 
                              computedStatus === 'live' ? (computedScore || 'LIVE') : 
-                             (filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                             (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                         </span>
                         {computedStatus === 'live' && (
                             <span style={{
@@ -912,6 +917,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                             <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                 <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
+                            </div>
+                        )}
+                        {!match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
+                                <span style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 }}>TBA</span>
                             </div>
                         )}
                     </button>
