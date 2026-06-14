@@ -333,7 +333,7 @@ const PitchLineup = ({ match }) => {
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
                     fontWeight: 'bold', zIndex: 2, letterSpacing: '-0.02em'
                 }}>
-                    {getLastName(p.name)}
+                    {p.number ? `${p.number}. ` : ''}{getLastName(p.name)}
                 </div>
             </div>
         );
