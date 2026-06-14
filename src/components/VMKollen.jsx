@@ -8,7 +8,7 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
@@ -1274,6 +1274,7 @@ const VMKollen = () => {
                                     ))}
                                 </div>
                             </div>
+                            
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely

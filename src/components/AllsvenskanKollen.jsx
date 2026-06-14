@@ -127,6 +127,7 @@ const parseMatchDate = (dateStr, timeStr) => {
 const AllsvenskanKollen = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('matcher');
+    const [matchStatusFilter, setMatchStatusFilter] = useState('upcoming');
     const [statFilter, setStatFilter] = useState('lag');
     const [playerFilter, setPlayerFilter] = useState('maraton');
     const [filterTeam, setFilterTeam] = useState(null);
@@ -470,7 +471,9 @@ const AllsvenskanKollen = () => {
                 return m.home.includes(cleanFilter) || m.away.includes(cleanFilter) || 
                        m.home.includes(filterTeam) || m.away.includes(filterTeam);
             });
-        } else {
+        }
+        
+        if (matchStatusFilter === 'upcoming') {
             const now = new Date();
             now.setHours(0,0,0,0);
             result = result.filter(m => {
@@ -479,13 +482,15 @@ const AllsvenskanKollen = () => {
                 md.setHours(0,0,0,0);
                 return md.getTime() === now.getTime(); // Keep today's finished matches
             });
+        } else if (matchStatusFilter === 'played') {
+            result = result.filter(m => m.status === 'finished');
         }
         
         // Sort matches chronologically
         return [...result].sort((a, b) => {
             return parseMatchDate(a.date, a.time) - parseMatchDate(b.date, b.time);
         });
-    }, [matchesData, filterTeam]);
+    }, [matchesData, filterTeam, matchStatusFilter]);
 
     const nextMatchDateString = useMemo(() => {
         if (filteredMatches.length === 0) return null;
@@ -515,15 +520,24 @@ const AllsvenskanKollen = () => {
             if (!groups[match.date]) groups[match.date] = [];
             groups[match.date].push(match);
         });
-        const list = Object.entries(groups).map(([date, matches]) => ({ date, matches }));
+        let list = Object.entries(groups).map(([date, matches]) => ({ date, matches }));
         
         // Sort grouped dates chronologically
-        return list.sort((a, b) => {
+        list.sort((a, b) => {
             if (a.matches.length === 0) return 1;
             if (b.matches.length === 0) return -1;
             return parseMatchDate(a.matches[0].date, a.matches[0].time) - parseMatchDate(b.matches[0].date, b.matches[0].time);
         });
-    }, [filteredMatches]);
+
+        if (matchStatusFilter === 'played') {
+            list.reverse();
+            list.forEach(group => {
+                group.matches.reverse();
+            });
+        }
+
+        return list;
+    }, [filteredMatches, matchStatusFilter]);
 
 
     const maxPlayedRound = useMemo(() => {
@@ -1225,12 +1239,38 @@ const AllsvenskanKollen = () => {
                                 </div>
                             ) : (
                                 <>
+                                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                                        <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px' }}>
+                                            {['upcoming', 'played'].map(filter => (
+                                                <button
+                                                    key={filter}
+                                                    onClick={() => setMatchStatusFilter(filter)}
+                                                    style={{
+                                                        padding: '6px 16px',
+                                                        borderRadius: '20px',
+                                                        border: 'none',
+                                                        background: matchStatusFilter === filter ? 'var(--color-primary)' : 'transparent',
+                                                        color: matchStatusFilter === filter ? '#fff' : 'var(--color-text)',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '0.8rem',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s ease',
+                                                        whiteSpace: 'nowrap'
+                                                    }}
+                                                >
+                                                    {filter === 'upcoming' ? 'Kommande' : 'Spelade'}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                     {groupedMatches.length > 0 ? (
                                         groupedMatches.map((group, i) => (
                                             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
-                                                    {getRelativeDateLabel(group.date)}
-                                                </div>
+                                                {matchStatusFilter !== 'played' && (
+                                                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
+                                                        {getRelativeDateLabel(group.date)}
+                                                    </div>
+                                                )}
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                     {group.matches.map((match, j) => {
                                                         const isNext = nextMatchDateString && match.date === nextMatchDateString;
@@ -1245,6 +1285,7 @@ const AllsvenskanKollen = () => {
                                                                     filterTeam={filterTeam}
                                                                     allMatches={matchesData?.matches}
                                                                     onTeamClick={setFilterTeam}
+                                                                    hideBroadcast={true}
                                                                 />
                                                             </div>
                                                         );

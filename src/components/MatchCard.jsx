@@ -3,6 +3,7 @@ import Card from './common/Card';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
+import { Play } from 'lucide-react';
 
 const TeamLogo = ({ logoUrl, teamName, size = 64, flags = [], onClick }) => {
     const [hasError, setHasError] = useState(false);
@@ -1026,6 +1027,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const getBroadcasterUrl = (broadcast) => {
+        if (props.hideBroadcast) return null;
         if (match.link) return match.link;
 
         if (!broadcast) return null;
@@ -1064,9 +1066,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     };
 
     const handleCardKeyDown = (e) => {
-        if (onCardClick && (e.key === 'Enter' || e.key === ' ')) {
+        if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            onCardClick();
+            if (computedStatus === 'finished' && !props.hideBroadcast) {
+                window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
+            } else if (onCardClick) {
+                onCardClick();
+            }
         }
     };
 
@@ -1074,9 +1080,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return (
             <div 
                 className={`match-card ${highlight ? 'highlight' : ''}`} 
-                onClick={() => onCardClick && onCardClick()}
-                role={onCardClick ? "button" : undefined}
-                tabIndex={onCardClick ? 0 : undefined}
+                onClick={(e) => {
+                    if (computedStatus === 'finished' && !props.hideBroadcast) {
+                        window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
+                    } else if (onCardClick) {
+                        onCardClick();
+                    }
+                }}
+                role={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? "button" : undefined}
+                tabIndex={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? 0 : undefined}
                 onKeyDown={handleCardKeyDown}
                 aria-label={`Match: ${match.home} mot ${match.away}, status: ${computedStatus === 'upcoming' ? 'Kommande' : computedStatus === 'live' ? 'Pågår' : 'Avslutad'}`}
             >
@@ -1157,7 +1169,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                             </button>
 
-                            {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div
                                     onClick={handleBroadcastClick}
                                     style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
@@ -1165,10 +1177,31 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     <BroadcasterLogo name={match.broadcast} size="large" />
                                 </div>
                             )}
-                            {!match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
                                     <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
                                 </div>
+                            )}
+                            {computedStatus === 'finished' && !props.hideBroadcast && (
+                                <a
+                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="Se höjdpunkter på SVT Play"
+                                    style={{
+                                        marginTop: '6px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'var(--color-text-muted)',
+                                        transition: 'color 0.2s',
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+                                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                                >
+                                    <Play size={28} fill="currentColor" />
+                                </a>
                             )}
                         </div>
 
@@ -1266,9 +1299,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 borderLeft: computedStatus === 'live' ? '4px solid var(--color-primary)' : 'none',
                 opacity: computedStatus === 'finished' ? 0.85 : 1
             }}
-            onClick={() => onCardClick && onCardClick()}
-            role={onCardClick ? "button" : undefined}
-            tabIndex={onCardClick ? 0 : undefined}
+            onClick={(e) => {
+                if (computedStatus === 'finished' && !props.hideBroadcast) {
+                    window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
+                } else if (onCardClick) {
+                    onCardClick();
+                }
+            }}
+            role={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? "button" : undefined}
+            tabIndex={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? 0 : undefined}
             onKeyDown={handleCardKeyDown}
             aria-label={`Match: ${match.home} mot ${match.away}, status: ${computedStatus === 'upcoming' ? 'Kommande' : computedStatus === 'live' ? 'Pågår' : 'Avslutad'}`}
         >
@@ -1377,15 +1416,36 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                             </span>
 
-                            {match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                     <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
                                 </div>
                             )}
-                            {!match.broadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                            {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
                                     <span style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
                                 </div>
+                            )}
+                            {computedStatus === 'finished' && !props.hideBroadcast && (
+                                <a
+                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="Se höjdpunkter på SVT Play"
+                                    style={{
+                                        marginTop: '4px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'var(--color-text-muted)',
+                                        transition: 'color 0.2s',
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+                                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                                >
+                                    <Play size={highlight ? 22 : 18} fill="currentColor" />
+                                </a>
                             )}
                         </button>
                         <div
