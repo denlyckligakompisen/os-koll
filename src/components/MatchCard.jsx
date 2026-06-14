@@ -1272,7 +1272,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
                                         onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
                                     >
-                                        {showLineups ? 'Dölj laguppställningar' : 'Visa laguppställningar'}
+                                        {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
                                         <span style={{ fontSize: '0.7rem' }}>{showLineups ? '▲' : '▼'}</span>
                                     </button>
                                 </div>
@@ -1508,7 +1508,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
                                     onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
                                 >
-                                    {showLineups ? 'Dölj laguppställningar' : 'Visa laguppställningar'}
+                                    {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
                                     <span style={{ fontSize: '0.65rem' }}>{showLineups ? '▲' : '▼'}</span>
                                 </button>
                             </div>

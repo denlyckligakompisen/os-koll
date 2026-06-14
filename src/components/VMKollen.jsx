@@ -8,7 +8,7 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
@@ -1165,75 +1165,98 @@ const VMKollen = () => {
                             </div>
                         </div>
                     </button>
-                    {filterCountries.length > 0 && (
-                        <div 
-                            ref={filterRef}
-                        style={{
-                        position: 'absolute', 
-                        right: '10px', 
-                        top: '50%', 
+                    <div style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
                         transform: 'translateY(-50%)',
                         zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
                     }}>
                         <button
-                            type="button"
-                            style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'center',
-                                cursor: 'pointer', 
-                                background: 'transparent', 
-                                color: 'inherit',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: isScrolled ? '36px' : '44px',
-                                height: isScrolled ? '36px' : '44px',
-                                padding: 0,
-                                transition: 'all 0.3s ease',
-                                WebkitTapHighlightColor: 'transparent'
-                            }}
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setFilterCountries([]);
+                                setMatchStatusFilter(prev => prev === 'played' ? 'upcoming' : 'played');
                             }}
-                            aria-label="Filtrera länder"
-                            title="Filtrera länder"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '4px',
+                                color: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'var(--color-text-muted)'
+                            }}
+                            title={matchStatusFilter === 'played' ? "Göm spelade matcher" : "Visa spelade matcher"}
+                            aria-label={matchStatusFilter === 'played' ? "Göm spelade matcher" : "Visa spelade matcher"}
                         >
-                            {filterCountries.length === 1 ? (
-                                <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                    <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={isScrolled ? 20 : 26} />
-                                </div>
-                            ) : filterCountries.length > 1 ? (
-                                <div style={{ position: 'relative', display: 'flex' }}>
-                                    <Filter size={isScrolled ? 20 : 24} />
-                                    <span style={{
-                                        position: 'absolute',
-                                        top: '-4px',
-                                        right: '-8px',
-                                        backgroundColor: 'var(--color-primary)',
-                                        color: '#fff',
-                                        fontSize: '0.65rem',
-                                        fontWeight: 'bold',
-                                        width: '16px',
-                                        height: '16px',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        boxShadow: '0 0 0 2px var(--color-bg)'
-                                    }}>
-                                        {filterCountries.length}
-                                    </span>
-                                </div>
-                            ) : (
-                                <Filter size={isScrolled ? 20 : 24} />
-                            )}
+                            <History size={isScrolled ? 20 : 24} />
                         </button>
                         
-
+                        {filterCountries.length > 0 && (
+                            <div ref={filterRef} style={{ display: 'flex' }}>
+                                <button
+                                    type="button"
+                                    style={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center',
+                                        cursor: 'pointer', 
+                                        background: 'transparent', 
+                                        color: 'inherit',
+                                        border: 'none',
+                                        borderRadius: '50%',
+                                        width: isScrolled ? '36px' : '44px',
+                                        height: isScrolled ? '36px' : '44px',
+                                        padding: 0,
+                                        transition: 'all 0.3s ease',
+                                        WebkitTapHighlightColor: 'transparent'
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setFilterCountries([]);
+                                    }}
+                                    aria-label="Filtrera länder"
+                                    title="Filtrera länder"
+                                >
+                                    {filterCountries.length === 1 ? (
+                                        <div style={{ pointerEvents: 'none', display: 'flex' }}>
+                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={isScrolled ? 20 : 26} />
+                                        </div>
+                                    ) : filterCountries.length > 1 ? (
+                                        <div style={{ position: 'relative', display: 'flex' }}>
+                                            <Filter size={isScrolled ? 20 : 24} />
+                                            <span style={{
+                                                position: 'absolute',
+                                                top: '-4px',
+                                                right: '-8px',
+                                                backgroundColor: 'var(--color-primary)',
+                                                color: '#fff',
+                                                fontSize: '0.65rem',
+                                                fontWeight: 'bold',
+                                                width: '16px',
+                                                height: '16px',
+                                                borderRadius: '50%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                boxShadow: '0 0 0 2px var(--color-bg)'
+                                            }}>
+                                                {filterCountries.length}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <Filter size={isScrolled ? 20 : 24} />
+                                    )}
+                                </button>
+                            </div>
+                        )}
                     </div>
-                    )}
                 </div>
 
 
@@ -1250,30 +1273,7 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
-                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
-                                <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px' }}>
-                                    {['upcoming', 'played'].map(filter => (
-                                        <button
-                                            key={filter}
-                                            onClick={() => setMatchStatusFilter(filter)}
-                                            style={{
-                                                padding: '6px 16px',
-                                                borderRadius: '20px',
-                                                border: 'none',
-                                                background: matchStatusFilter === filter ? 'var(--color-primary)' : 'transparent',
-                                                color: matchStatusFilter === filter ? '#fff' : 'var(--color-text)',
-                                                fontWeight: 'bold',
-                                                fontSize: '0.8rem',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.2s ease',
-                                                whiteSpace: 'nowrap'
-                                            }}
-                                        >
-                                            {filter === 'upcoming' ? 'Kommande' : 'Spelade'}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                            {/* Removed Upcoming/Played buttons as per request */}
                             
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
