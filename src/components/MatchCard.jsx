@@ -406,14 +406,7 @@ const LineupsSection = ({ match }) => {
 
     return (
         <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(128,128,128,0.1)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginBottom: '8px' }}>
-                <div style={{ flex: 1, textAlign: 'left' }}>
-                    {match.coaches?.home && <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Tränare: {match.coaches.home}</div>}
-                </div>
-                <div style={{ flex: 1, textAlign: 'right' }}>
-                    {match.coaches?.away && <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Tränare: {match.coaches.away}</div>}
-                </div>
-            </div>
+
 
             <PitchLineup match={match} />
 
