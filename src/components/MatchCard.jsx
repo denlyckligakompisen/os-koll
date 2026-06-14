@@ -460,6 +460,9 @@ const formatLiveTime = (timeStr, period) => {
         if (period === 3 && min >= 45) {
             return `45+${min - 45 + 1}'`;
         }
+        if (period === 5 && min >= 90) {
+            return `90+${min - 90 + 1}'`;
+        }
         return `${min + 1}'`;
     }
 
