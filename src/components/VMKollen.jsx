@@ -785,6 +785,7 @@ const VMKollen = () => {
 
         return (
             <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
+                {/* 
                 <div style={{
                     fontSize: '0.8rem',
                     textTransform: 'uppercase',
@@ -794,7 +795,8 @@ const VMKollen = () => {
                     letterSpacing: '0.05em'
                 }}>
                     <BoldSverige text={displayName || groupName} />
-                </div>
+                </div> 
+                */}
                 <Card
                     padding="4px 8px"
                     style={{
@@ -810,7 +812,7 @@ const VMKollen = () => {
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
                                 <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position"></th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', }}>LAND</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', }} aria-label="Land"></th>
                                 <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>M</th>
                                 <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>+/-</th>
                                 <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', }}>P</th>
