@@ -33,13 +33,13 @@
     {
       "rank": "6",
       "team": "Brasilien",
-      "points": "1765.86",
+      "points": "1765.34",
       "change": 0
     },
     {
       "rank": "7",
       "team": "Marocko",
-      "points": "1755.10",
+      "points": "1755.62",
       "change": 0
     },
     {
@@ -111,7 +111,7 @@
     {
       "rank": "19",
       "team": "Schweiz",
-      "points": "1650.06",
+      "points": "1640.92",
       "change": 0
     },
     {
@@ -135,7 +135,7 @@
     {
       "rank": "23",
       "team": "Turkiet",
-      "points": "1605.73",
+      "points": "1604.47",
       "change": -1
     },
     {
@@ -159,7 +159,7 @@
     {
       "rank": "27",
       "team": "Australien",
-      "points": "1579.34",
+      "points": "1580.61",
       "change": 0
     },
     {
@@ -218,27 +218,27 @@
     },
     {
       "rank": "37",
-      "team": "Wales",
-      "points": "1516.95",
-      "change": 0
+      "team": "Skottland",
+      "points": "1518.77",
+      "change": 5
     },
     {
       "rank": "38",
-      "team": "Sverige",
-      "points": "1509.79",
-      "change": 0
+      "team": "Wales",
+      "points": "1516.95",
+      "change": -1
     },
     {
       "rank": "39",
-      "team": "Ungern",
-      "points": "1506.39",
-      "change": 0
+      "team": "Sverige",
+      "points": "1509.79",
+      "change": -1
     },
     {
       "rank": "40",
-      "team": "Skottland",
-      "points": "1503.34",
-      "change": 2
+      "team": "Ungern",
+      "points": "1506.39",
+      "change": -1
     },
     {
       "rank": "41",
@@ -296,45 +296,45 @@
     },
     {
       "rank": "50",
-      "team": "Uzbekistan",
-      "points": "1458.73",
-      "change": 0
+      "team": "Qatar",
+      "points": "1459.45",
+      "change": 6
     },
     {
       "rank": "51",
-      "team": "Chile",
-      "points": "1458.20",
-      "change": 0
+      "team": "Uzbekistan",
+      "points": "1458.73",
+      "change": -1
     },
     {
       "rank": "52",
-      "team": "Peru",
-      "points": "1457.69",
-      "change": 0
+      "team": "Chile",
+      "points": "1458.20",
+      "change": -1
     },
     {
       "rank": "53",
-      "team": "Costa Rica",
-      "points": "1456.03",
-      "change": 0
+      "team": "Peru",
+      "points": "1457.69",
+      "change": -1
     },
     {
       "rank": "54",
-      "team": "Rumänien",
-      "points": "1455.89",
-      "change": 0
+      "team": "Costa Rica",
+      "points": "1456.03",
+      "change": -1
     },
     {
       "rank": "55",
-      "team": "Mali",
-      "points": "1455.59",
-      "change": 0
+      "team": "Rumänien",
+      "points": "1455.89",
+      "change": -1
     },
     {
       "rank": "56",
-      "team": "Qatar",
-      "points": "1450.31",
-      "change": 0
+      "team": "Mali",
+      "points": "1455.59",
+      "change": -1
     },
     {
       "rank": "57",
@@ -494,15 +494,15 @@
     },
     {
       "rank": "83",
-      "team": "Haiti",
-      "points": "1293.10",
-      "change": 0
+      "team": "Syrien",
+      "points": "1283.05",
+      "change": 1
     },
     {
       "rank": "84",
-      "team": "Syrien",
-      "points": "1283.05",
-      "change": 0
+      "team": "Haiti",
+      "points": "1277.67",
+      "change": -1
     },
     {
       "rank": "85",
@@ -1267,8 +1267,8 @@
       "change": 0
     }
   ],
-  "lastUpdate": null,
-  "nextUpdate": "20 July 2026 (37 days)",
-  "lastUpdated": "2026-06-13T03:58:49.787Z",
+  "lastUpdate": "11 June 2026",
+  "nextUpdate": "20 July 2026 (36 days)",
+  "lastUpdated": "2026-06-14T04:17:34.905Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
