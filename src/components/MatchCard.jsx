@@ -872,7 +872,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 const m = Math.floor((totalSecs % 3600) / 60);
                 const s = totalSecs % 60;
                 if (h > 0) {
-                    setTimeLeftStr(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
+                    setTimeLeftStr(null);
                 } else {
                     setTimeLeftStr(`${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
                 }

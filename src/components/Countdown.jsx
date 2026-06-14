@@ -8,7 +8,7 @@ const FIRST_MATCH_DATE = new Date('2026-06-11T21:00:00+02:00');
 const Countdown = ({ firstMatch }) => {
     const getTimeLeft = () => {
         const diff = FIRST_MATCH_DATE - new Date();
-        if (diff <= 0) return null;
+        if (diff <= 0 || diff > 60 * 60 * 1000) return null;
         return {
             days: Math.floor(diff / (1000 * 60 * 60 * 24)),
             hours: Math.floor((diff / (1000 * 60 * 60)) % 24),

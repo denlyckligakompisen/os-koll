@@ -248,6 +248,7 @@ const VMKollen = () => {
     const [knockoutData, setKnockoutData] = useState(null);
     const [rankingData, setRankingData] = useState(null);
     const [activeTab, setActiveTab] = useState('matcher');
+    const [matchStatusFilter, setMatchStatusFilter] = useState('upcoming');
     const [loading, setLoading] = useState(true);
     const [filterCountries, setFilterCountries] = useState([]);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -705,8 +706,7 @@ const VMKollen = () => {
 
             if (filterCountries.length > 0 && !isFilterCountryMatch) return acc;
             
-            // Dölj avslutade matcher om inget landfilter är aktivt (vänta 15 minuter efter slut = 140 minuter från start)
-            if (filterCountries.length === 0 && m.status === 'finished') {
+            if (matchStatusFilter === 'upcoming' && m.status === 'finished') {
                 const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                 const hideAfterMs = startMs + (140 * 60 * 1000); // 125 min match + 15 min delay
                 if (Date.now() > hideAfterMs) {
@@ -714,13 +714,15 @@ const VMKollen = () => {
                 }
             }
 
+            if (matchStatusFilter === 'played' && m.status !== 'finished') return acc;
+
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
             if (!acc[m.date]) acc[m.date] = [];
             acc[m.date].push(m);
             return acc;
         }, {});
-    }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList]);
+    }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList, matchStatusFilter]);
 
     const getTeamRank = (teamName) => {
         if (!rankingData?.rankings) return 999;
@@ -935,9 +937,13 @@ const VMKollen = () => {
         };
 
 
-        const sortedDates = Object.keys(groupedMatches).sort((a, b) => {
+        let sortedDates = Object.keys(groupedMatches).sort((a, b) => {
             return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
         });
+
+        if (matchStatusFilter === 'played') {
+            sortedDates.reverse();
+        }
 
         const ROUND_NAMES = {
             "1/16-final": "Sextondelsfinaler",
@@ -991,7 +997,12 @@ const VMKollen = () => {
                                             {(() => {
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
-                                                const hideHeader = (relativeLabel.toLowerCase() === 'idag' && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero);
+                                                const isCountdownOrLive = matches.some(m => {
+                                                    if (m.status === 'live' || m.status === 'finished') return true;
+                                                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                                                    return (startMs - Date.now()) <= 60 * 60 * 1000;
+                                                });
+                                                const hideHeader = matchStatusFilter === 'played' || (relativeLabel.toLowerCase() === 'idag' && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -1004,7 +1015,7 @@ const VMKollen = () => {
                                                     }}>{relativeLabel}</div>
                                                 );
                                             })()}
-                                            {matches.map((m, i) => {
+                                            {(matchStatusFilter === 'played' ? [...matches].reverse() : matches).map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
                                                 const isHero = nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
                                                 
@@ -1038,9 +1049,14 @@ const VMKollen = () => {
                                                     badgeText = 'Supermatch';
                                                 }
 
+                                                const isCountdownOrLive2 = matches.some(mx => {
+                                                    if (mx.status === 'live' || mx.status === 'finished') return true;
+                                                    const startMs = mx.startTimestamp ? mx.startTimestamp * 1000 : parseTournamentDate(mx.date, mx.time, GROUP_MONTH_MAP).getTime();
+                                                    return (startMs - Date.now()) <= 60 * 60 * 1000;
+                                                });
                                                 return (
                                                     <React.Fragment key={i}>
-                                                        {filterCountries.length === 0 && isFirstNonHero && (
+                                                        {filterCountries.length === 0 && isFirstNonHero && isCountdownOrLive2 && (
                                                             <div style={{
                                                                 fontSize: '0.8rem',
                                                                 textTransform: 'uppercase',
@@ -1234,6 +1250,30 @@ const VMKollen = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {activeTab === 'matcher' && (
                         <>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                                <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px' }}>
+                                    {['upcoming', 'played'].map(filter => (
+                                        <button
+                                            key={filter}
+                                            onClick={() => setMatchStatusFilter(filter)}
+                                            style={{
+                                                padding: '6px 16px',
+                                                borderRadius: '20px',
+                                                border: 'none',
+                                                background: matchStatusFilter === filter ? 'var(--color-primary)' : 'transparent',
+                                                color: matchStatusFilter === filter ? '#fff' : 'var(--color-text)',
+                                                fontWeight: 'bold',
+                                                fontSize: '0.8rem',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.2s ease',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {filter === 'upcoming' ? 'Kommande' : 'Spelade'}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely
