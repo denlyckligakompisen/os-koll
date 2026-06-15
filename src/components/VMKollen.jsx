@@ -8,7 +8,7 @@ import VMBracket from './VMBracket';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
@@ -731,8 +731,7 @@ const VMKollen = () => {
     };
 
     const handleCardClick = (matchId) => {
-        if (filterCountries.length > 0) return;
-        setExpandedMatchId(prev => prev === matchId ? null : matchId);
+        // Tabellen visas inte längre vid klick
     };
 
     const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam, isLive) => {
@@ -1004,7 +1003,7 @@ const VMKollen = () => {
                                                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                                                     return (startMs - Date.now()) <= 60 * 60 * 1000;
                                                 });
-                                                const hideHeader = matchStatusFilter === 'played' || (relativeLabel.toLowerCase() === 'idag' && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
+                                                const hideHeader = (['idag', 'i kväll', 'i natt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -1131,45 +1130,84 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                    <button
-                        className="header-logo"
-                        style={{
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            padding: 0
-                        }}
-                        onClick={() => navigate('/allsvenskan')}
-                        aria-label="Gå till Allsvenskan"
-                    >
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                <img 
-                                    src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
-                                    alt="" 
-                                    aria-hidden="true"
-                                    style={{ 
-                                        height: isScrolled ? '24px' : '32px',
-                                        transition: 'height 0.3s ease'
-                                    }} 
-                                />
-                                <h1 style={{ 
-                                    fontSize: isScrolled ? '1rem' : '1.2rem', 
-                                    fontWeight: '800', 
-                                    letterSpacing: '-0.02em', 
-                                    whiteSpace: 'nowrap',
-                                    transition: 'font-size 0.3s ease',
-                                    margin: 0,
-                                    color: '#000'
-                                }}>2026 FIFA World Cup</h1>
-                            </div>
-                        </div>
-                    </button>
                     <div style={{
                         position: 'absolute',
-                        right: '10px',
+                        left: '0',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}>
+                        <button
+                            className="header-logo"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                padding: '8px'
+                            }}
+                            onClick={() => navigate('/allsvenskan')}
+                            aria-label="Gå till Allsvenskan"
+                        >
+                            <img 
+                                src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
+                                alt="" 
+                                aria-hidden="true"
+                                style={{ 
+                                    height: isScrolled ? '24px' : '32px',
+                                    transition: 'height 0.3s ease'
+                                }} 
+                            />
+                        </button>
+                    </div>
+
+                    <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px', margin: '0 auto' }}>
+                        {[
+                            { id: 'upcoming', label: 'Matcher' },
+                            { id: 'gruppspel', label: 'Grupper' },
+                            { id: 'slutspel', label: 'Slutspel' }
+                        ].map(item => {
+                            const isActive = (item.id === 'upcoming' && activeTab === 'matcher') ||
+                                             (item.id === 'gruppspel' && activeTab === 'gruppspel') ||
+                                             (item.id === 'slutspel' && activeTab === 'slutspel');
+                            
+                            return (
+                                <button
+                                    key={item.id}
+                                    onClick={() => {
+                                        if (item.id === 'upcoming') {
+                                            setActiveTab('matcher');
+                                        } else if (item.id === 'gruppspel') {
+                                            setActiveTab('gruppspel');
+                                        } else if (item.id === 'slutspel') {
+                                            setActiveTab('slutspel');
+                                        }
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    style={{
+                                        padding: isScrolled ? '4px 12px' : '6px 16px',
+                                        borderRadius: '20px',
+                                        border: 'none',
+                                        background: isActive ? 'var(--color-primary)' : 'transparent',
+                                        color: isActive ? '#fff' : 'var(--color-text)',
+                                        fontWeight: 'bold',
+                                        fontSize: isScrolled ? '0.75rem' : '0.8rem',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s ease',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+                                    {item.label}
+                                </button>
+                            );
+                        })}
+                    </div>
+                    <div style={{
+                        position: 'absolute',
+                        right: '0',
                         top: '50%',
                         transform: 'translateY(-50%)',
                         zIndex: 10,
@@ -1177,27 +1215,6 @@ const VMKollen = () => {
                         alignItems: 'center',
                         gap: '8px'
                     }}>
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setMatchStatusFilter(prev => prev === 'played' ? 'upcoming' : 'played');
-                            }}
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                padding: '4px',
-                                color: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'var(--color-text-muted)'
-                            }}
-                            title={matchStatusFilter === 'played' ? "Göm spelade matcher" : "Visa spelade matcher"}
-                            aria-label={matchStatusFilter === 'played' ? "Göm spelade matcher" : "Visa spelade matcher"}
-                        >
-                            <History size={isScrolled ? 20 : 24} />
-                        </button>
                         
                         {filterCountries.length > 0 && (
                             <div ref={filterRef} style={{ display: 'flex' }}>
