@@ -284,7 +284,6 @@ const AllsvenskanKollen = () => {
                               homeTeamScore
                               visitingTeamScore
                               matchMinute
-                              matchMinuteWithStoppageTime
                             }
                           }
                         }`;
@@ -296,7 +295,7 @@ const AllsvenskanKollen = () => {
                         const gqlData = await gqlRes.json();
                         
                         if (gqlData?.data?.matchesForLeague?.matches) {
-                            const liveMatches = gqlData.data.matchesForLeague.matches.filter(m => m.status === 'ONGOING' || m.status === 'FINISHED');
+                            const liveMatches = gqlData.data.matchesForLeague.matches.filter(m => m.status === 'ONGOING' || m.status === 'FINISHED' || m.status === 'HALF_TIME' || m.status === 'HALFTIME');
                             
                             for (const liveMatch of liveMatches) {
                                 const localMatchIndex = matches.matches.findIndex(m => 
@@ -310,7 +309,7 @@ const AllsvenskanKollen = () => {
                                     let bookings = [];
                                     
                                     // Fetch details for ONGOING matches, or FINISHED matches if the local data doesn't have scorers yet
-                                    if (liveMatch.status === 'ONGOING' || (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished')) {
+                                    if (liveMatch.status === 'ONGOING' || liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME' || (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished')) {
                                         const detailsQuery = `
                                         query {
                                           match(id: ${liveMatch.id}, configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -358,8 +357,8 @@ const AllsvenskanKollen = () => {
                                         
                                         const updateData = {
                                             score: `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`,
-                                            status: liveMatch.status === 'ONGOING' ? 'live' : 'finished',
-                                            liveCurrentTime: liveMatch.status === 'ONGOING' ? (liveMatch.matchMinuteWithStoppageTime || String(liveMatch.matchMinute)) : 'FT',
+                                            status: (liveMatch.status === 'ONGOING' || liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME') ? 'live' : 'finished',
+                                            liveCurrentTime: (liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME') ? 'HT' : (liveMatch.status === 'ONGOING' ? String(liveMatch.matchMinute) : 'FT'),
                                             scorers: {
                                                 home: homeScorers,
                                                 away: awayScorers
