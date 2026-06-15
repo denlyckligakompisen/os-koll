@@ -452,10 +452,10 @@ const formatLiveTime = (timeStr, period) => {
     const cleanStr = str.replace(/'/g, '');
     const min = parseInt(cleanStr, 10);
     if (!isNaN(min)) {
-        if (period === 3 && min >= 45) {
+        if ((period === 3 || period === 1) && min >= 45) {
             return `45+${min - 45 + 1}'`;
         }
-        if (period === 5 && min >= 90) {
+        if ((period === 5 || period === 2) && min >= 90) {
             return `90+${min - 90 + 1}'`;
         }
         return `${min + 1}'`;
@@ -798,8 +798,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const getComputedStatus = () => {
         if (match.status === 'finished') {
-            const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
-            if (Date.now() <= startMs + 140 * 60 * 1000) return 'live';
             return 'finished';
         }
         if (match.status === 'postponed') return 'postponed';
@@ -1093,7 +1091,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         ...props.style
                     }}
                 >
-                    {match.group && (
+                    {match.group && !match.group.toLowerCase().includes('grupp') && (
                         <div style={{
                             textAlign: 'center',
                             fontSize: '0.75rem',
@@ -1155,8 +1153,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     computedStatus === 'live' ? (computedScore || 'LIVE') :
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                             </div>
-                            {computedStatus === 'live' && match.liveCurrentTime && (
-                                <div style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 'bold', animation: 'live-indicator-pulse 2s infinite', marginTop: '-4px' }}>
+                            {computedStatus === 'live' && match.liveCurrentTime && formatLiveTime(match.liveCurrentTime, match.period) !== 'SLUT' && (
+                                <div style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 'bold', marginTop: '-4px' }}>
                                     {formatLiveTime(match.liveCurrentTime, match.period)}
                                 </div>
                             )}
@@ -1348,7 +1346,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     ...props.style
                 }}
             >
-                {match.group && (
+                {match.group && !match.group.toLowerCase().includes('grupp') && (
                     <div style={{
                         textAlign: 'center',
                         fontSize: '0.65rem',
@@ -1433,8 +1431,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         computedStatus === 'live' ? (computedScore || 'LIVE') :
                                             (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                                 </span>
-                                {computedStatus === 'live' && match.liveCurrentTime && (
-                                    <div style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: '#000000', fontWeight: 'bold', animation: 'live-indicator-pulse 2s infinite', marginTop: '2px' }}>
+                                {computedStatus === 'live' && match.liveCurrentTime && formatLiveTime(match.liveCurrentTime, match.period) !== 'SLUT' && (
+                                    <div style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: '#000000', fontWeight: 'bold', marginTop: '2px' }}>
                                         {formatLiveTime(match.liveCurrentTime, match.period)}
                                     </div>
                                 )}

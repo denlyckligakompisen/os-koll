@@ -115,7 +115,8 @@ function buildPlayerMap(team) {
  */
 async function fetchFifaLiveNow() {
     try {
-        const url = `${FIFA_API_BASE}/live/football/now`;
+        // Byter från /now till /recent för att även få med detaljer (mål, kort etc) för matcher som precis har slutat
+        const url = `${FIFA_API_BASE}/live/football/recent`;
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -280,11 +281,8 @@ export async function fetchFifaLiveMatches() {
             return null;
         }
         
-        // Check if any matches are currently live
-        const hasLiveMatches = data.Results.some(m => m.MatchStatus === 3);
-        
-        // Fetch enriched data in parallel if live matches exist
-        const enrichedData = hasLiveMatches ? await fetchFifaLiveNow() : null;
+        // Fetch enriched data in parallel (now uses /recent to include finished matches)
+        const enrichedData = await fetchFifaLiveNow();
         
         // Build a map for easy lookup
         const liveData = new Map();
