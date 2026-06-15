@@ -951,14 +951,17 @@ const VMKollen = () => {
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
-        const isMatchLiveOrRecentlyFinishedOrSoon = (m) => {
+        const isMatchLiveOrRecentlyFinishedOrSoon = (m, isHeroMatch = false) => {
             if (m.status === 'live') return true;
             const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
             if (m.status === 'finished') {
                 if (Date.now() <= startMs + 140 * 60 * 1000) return true;
             } else if (m.status === 'upcoming') {
                 const timeUntilStart = startMs - Date.now();
-                if (timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000) return true;
+                if (timeUntilStart > 0) {
+                    if (isHeroMatch && timeUntilStart <= 60 * 60 * 1000) return true;
+                    if (!isHeroMatch && timeUntilStart <= 30 * 60 * 1000) return true;
+                }
             }
             return false;
         };
@@ -1114,7 +1117,7 @@ const VMKollen = () => {
                                                             )}
                                                             <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
-                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m))}
+                                                        {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m, isHero))}
                                                     </React.Fragment>
                                                 );
                                             })}
