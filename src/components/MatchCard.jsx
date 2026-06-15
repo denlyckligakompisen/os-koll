@@ -581,7 +581,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '80px', margin: '16px 0', display: 'flex', alignItems: 'center', paddingLeft: '16px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '44px', margin: '4px 0', display: 'flex', alignItems: 'center', paddingLeft: '16px' }}>
             {/* Team flags on the left */}
             <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 5 }}>
                 <div style={{ position: 'absolute', bottom: '6px', left: 0 }} title={match.home}>
