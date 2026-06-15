@@ -45,20 +45,20 @@
     {
       "rank": "8",
       "team": "Nederländerna",
-      "points": "1753.57",
+      "points": "1749.20",
       "change": 0
     },
     {
       "rank": "9",
-      "team": "Belgien",
-      "points": "1742.24",
-      "change": 0
+      "team": "Tyskland",
+      "points": "1743.54",
+      "change": 1
     },
     {
       "rank": "10",
-      "team": "Tyskland",
-      "points": "1735.77",
-      "change": 0
+      "team": "Belgien",
+      "points": "1742.24",
+      "change": -1
     },
     {
       "rank": "11",
@@ -105,7 +105,7 @@
     {
       "rank": "18",
       "team": "Japan",
-      "points": "1661.58",
+      "points": "1665.94",
       "change": 0
     },
     {
@@ -134,69 +134,69 @@
     },
     {
       "rank": "23",
-      "team": "Turkiet",
-      "points": "1604.47",
-      "change": -1
+      "team": "Australien",
+      "points": "1605.61",
+      "change": 4
     },
     {
       "rank": "24",
-      "team": "Ecuador",
-      "points": "1598.52",
-      "change": -1
+      "team": "Österrike",
+      "points": "1597.40",
+      "change": 0
     },
     {
       "rank": "25",
-      "team": "Österrike",
-      "points": "1597.40",
-      "change": -1
-    },
-    {
-      "rank": "26",
       "team": "Nigeria",
       "points": "1585.02",
-      "change": 0
-    },
-    {
-      "rank": "27",
-      "team": "Australien",
-      "points": "1580.61",
-      "change": 0
-    },
-    {
-      "rank": "28",
-      "team": "Algeriet",
-      "points": "1571.03",
-      "change": 0
-    },
-    {
-      "rank": "29",
-      "team": "Egypten",
-      "points": "1562.37",
-      "change": 0
-    },
-    {
-      "rank": "30",
-      "team": "Norge",
-      "points": "1557.44",
       "change": 1
     },
     {
-      "rank": "31",
-      "team": "Kanada",
-      "points": "1551.50",
+      "rank": "26",
+      "team": "Turkiet",
+      "points": "1579.47",
+      "change": -4
+    },
+    {
+      "rank": "27",
+      "team": "Algeriet",
+      "points": "1571.03",
+      "change": 1
+    },
+    {
+      "rank": "28",
+      "team": "Ecuador",
+      "points": "1570.76",
+      "change": -5
+    },
+    {
+      "rank": "29",
+      "team": "Elfenbenskusten",
+      "points": "1568.62",
+      "change": 4
+    },
+    {
+      "rank": "30",
+      "team": "Egypten",
+      "points": "1562.37",
       "change": -1
     },
     {
-      "rank": "32",
-      "team": "Ukraina",
-      "points": "1549.29",
+      "rank": "31",
+      "team": "Norge",
+      "points": "1557.44",
       "change": 0
     },
     {
+      "rank": "32",
+      "team": "Kanada",
+      "points": "1551.50",
+      "change": -2
+    },
+    {
       "rank": "33",
-      "team": "Elfenbenskusten",
-      "points": "1540.87",
-      "change": 0
+      "team": "Ukraina",
+      "points": "1549.29",
+      "change": -1
     },
     {
       "rank": "34",
@@ -206,33 +206,33 @@
     },
     {
       "rank": "35",
-      "team": "Ryssland",
-      "points": "1529.60",
-      "change": 0
+      "team": "Sverige",
+      "points": "1533.19",
+      "change": 3
     },
     {
       "rank": "36",
-      "team": "Polen",
-      "points": "1526.18",
-      "change": 0
+      "team": "Ryssland",
+      "points": "1529.60",
+      "change": -1
     },
     {
       "rank": "37",
-      "team": "Skottland",
-      "points": "1518.77",
-      "change": 5
+      "team": "Polen",
+      "points": "1526.18",
+      "change": -1
     },
     {
       "rank": "38",
-      "team": "Wales",
-      "points": "1516.95",
-      "change": -1
+      "team": "Skottland",
+      "points": "1518.77",
+      "change": 4
     },
     {
       "rank": "39",
-      "team": "Sverige",
-      "points": "1509.79",
-      "change": -1
+      "team": "Wales",
+      "points": "1516.95",
+      "change": -2
     },
     {
       "rank": "40",
@@ -266,75 +266,75 @@
     },
     {
       "rank": "45",
-      "team": "Tunisien",
-      "points": "1476.41",
-      "change": 0
+      "team": "DR Kongo",
+      "points": "1474.43",
+      "change": 1
     },
     {
       "rank": "46",
-      "team": "DR Kongo",
-      "points": "1474.43",
-      "change": 0
+      "team": "Slovakien",
+      "points": "1473.66",
+      "change": 1
     },
     {
       "rank": "47",
-      "team": "Slovakien",
-      "points": "1473.66",
-      "change": 0
+      "team": "Grekland",
+      "points": "1473.19",
+      "change": 1
     },
     {
       "rank": "48",
-      "team": "Grekland",
-      "points": "1473.19",
-      "change": 0
+      "team": "Venezuela",
+      "points": "1469.18",
+      "change": 1
     },
     {
       "rank": "49",
-      "team": "Venezuela",
-      "points": "1469.18",
-      "change": 0
+      "team": "Qatar",
+      "points": "1459.45",
+      "change": 7
     },
     {
       "rank": "50",
-      "team": "Qatar",
-      "points": "1459.45",
-      "change": 6
+      "team": "Uzbekistan",
+      "points": "1458.73",
+      "change": 0
     },
     {
       "rank": "51",
-      "team": "Uzbekistan",
-      "points": "1458.73",
-      "change": -1
+      "team": "Chile",
+      "points": "1458.20",
+      "change": 0
     },
     {
       "rank": "52",
-      "team": "Chile",
-      "points": "1458.20",
-      "change": -1
+      "team": "Peru",
+      "points": "1457.69",
+      "change": 0
     },
     {
       "rank": "53",
-      "team": "Peru",
-      "points": "1457.69",
-      "change": -1
+      "team": "Costa Rica",
+      "points": "1456.03",
+      "change": 0
     },
     {
       "rank": "54",
-      "team": "Costa Rica",
-      "points": "1456.03",
-      "change": -1
+      "team": "Rumänien",
+      "points": "1455.89",
+      "change": 0
     },
     {
       "rank": "55",
-      "team": "Rumänien",
-      "points": "1455.89",
-      "change": -1
+      "team": "Mali",
+      "points": "1455.59",
+      "change": 0
     },
     {
       "rank": "56",
-      "team": "Mali",
-      "points": "1455.59",
-      "change": -1
+      "team": "Tunisien",
+      "points": "1453.00",
+      "change": -11
     },
     {
       "rank": "57",
@@ -489,7 +489,7 @@
     {
       "rank": "82",
       "team": "Curaçao",
-      "points": "1294.77",
+      "points": "1287.00",
       "change": 0
     },
     {
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": "11 June 2026",
-  "nextUpdate": "20 July 2026 (36 days)",
-  "lastUpdated": "2026-06-14T04:17:34.905Z",
+  "nextUpdate": "20 July 2026 (35 days)",
+  "lastUpdated": "2026-06-15T04:28:34.366Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
