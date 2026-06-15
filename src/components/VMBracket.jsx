@@ -82,6 +82,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
     const [fetchedGroupsData, setFetchedGroupsData] = useState(null);
     const groupsData = liveGroupsData || fetchedGroupsData;
     const matchRefs = useRef({});
+    const scrollContainerRef = useRef(null);
     const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
     useEffect(() => {
@@ -95,6 +96,16 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         })
         .catch(console.error);
     }, []);
+
+    useEffect(() => {
+        if (bracketData && scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            // Timeout to allow rendering of children first
+            setTimeout(() => {
+                container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+            }, 10);
+        }
+    }, [bracketData]);
 
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
@@ -204,13 +215,20 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         const numMatches = ids.length;
         const slotsPerMatch = 8 / numMatches;
         
+        const firstCardTop = (slotsPerMatch / 2) * ROW_HEIGHT;
+        
         return (
             <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                <div style={{ 
-                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
-                    textTransform: 'uppercase', letterSpacing: '0.1em', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                }}>{title}</div>
                 <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '140px' }}>
+                    <div style={{ 
+                        position: 'absolute',
+                        top: `${firstCardTop - 40}px`,
+                        left: '0',
+                        width: '100%',
+                        fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
+                        textTransform: 'uppercase', letterSpacing: '0.1em',
+                        transform: 'translateY(-100%)'
+                    }}>{title}</div>
                     {ids.map((id, idx) => {
                         const match = getMatchById(id);
                         const topPos = (idx * slotsPerMatch + slotsPerMatch / 2) * ROW_HEIGHT;
@@ -237,6 +255,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
 
     return (
         <div 
+            ref={scrollContainerRef}
             className="bracket-scroll-container"
             style={{ 
                 width: '100%', 
@@ -263,7 +282,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 }
             `}</style>
             <div style={{ 
-                display: 'flex', alignItems: 'flex-start', gap: `${COLUMN_SPACING}px`, minWidth: 'max-content',
+                display: 'flex', alignItems: 'flex-start', gap: `${COLUMN_SPACING}px`, width: 'max-content',
                 margin: '0 auto', padding: '0 40px'
             }}>
                 {renderColumn(leftR32, "1/16-final")}
@@ -272,18 +291,31 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 {renderColumn(leftSF, "Semifinal")}
 
                 <div ref={el => matchRefs.current[finalId] = el} style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                    <div style={{ 
-                        fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
-                        textTransform: 'uppercase', letterSpacing: '0.1em', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                    }}>FINAL</div>
                     <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '180px' }}>
-                        <div style={{ position: 'absolute', top: '50%', left: '20px', transform: 'translateY(-50%)' }}>
-                            <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
+                        
+                        <div style={{ 
+                            position: 'absolute', top: '50%', left: '20px', transform: 'translateY(-50%)', 
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', width: '100%' 
+                        }}>
+                            
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%' }}>
+                                <div style={{ 
+                                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
+                                    textTransform: 'uppercase', letterSpacing: '0.1em'
+                                }}>FINAL</div>
+                                <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
+                            </div>
+
+                            <div ref={el => matchRefs.current[103] = el} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%' }}>
+                                <div style={{ 
+                                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)', 
+                                    textTransform: 'uppercase', letterSpacing: '0.1em' 
+                                }}>Bronsmatch</div>
+                                <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
+                            </div>
+
                         </div>
-                        <div ref={el => matchRefs.current[103] = el} style={{ position: 'absolute', top: 'calc(50% + 60px)', left: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Bronsmatch</div>
-                            <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
-                        </div>
+                        
                     </div>
                 </div>
 

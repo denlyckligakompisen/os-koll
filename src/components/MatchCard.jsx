@@ -301,10 +301,10 @@ const PitchLineup = ({ match }) => {
                             <img
                                 src={p.photo}
                                 alt={p.name}
-                                style={{ 
-                                    width: '100%', 
-                                    height: '100%', 
-                                    objectFit: 'cover', 
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
                                     objectPosition: 'top',
                                     transform: 'scale(4.0) translateY(30%)'
                                 }}
@@ -1071,8 +1071,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     if (variant === 'hero') {
         return (
-            <div 
-                className={`match-card ${highlight ? 'highlight' : ''}`} 
+            <div
+                className={`match-card ${highlight ? 'highlight' : ''}`}
                 onClick={(e) => {
                     if (computedStatus === 'finished' && !props.hideBroadcast) {
                         window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
@@ -1178,24 +1178,24 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         transition: 'background 0.2s',
                                         opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6
                                     }}
-                                    onMouseOver={(e) => { if(getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.08)' }}
-                                    onMouseOut={(e) => { if(getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'var(--color-surface-subtle)' }}
+                                    onMouseOver={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.08)' }}
+                                    onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'var(--color-surface-subtle)' }}
                                     title={`Se på ${match.broadcast}`}
                                 >
                                     <Play size={14} fill="currentColor" color="var(--color-text-muted)" />
                                     <span style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--color-text-muted)' }}>
-                                        {computedStatus === 'live' ? 'Se live på ' : 'Sänds på '}
+                                        {computedStatus === 'live' ? 'Se live på ' : 'Se live på '}
                                     </span>
                                     <BroadcasterLogo name={match.broadcast} size="small" />
                                 </button>
                             )}
-                            
+
                             {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
                                     <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
                                 </div>
                             )}
-                            
+
                             {computedStatus === 'finished' && !props.hideBroadcast && (
                                 <a
                                     href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
@@ -1311,8 +1311,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const content = (
         <div
-            className={`match-card list ${highlight ? 'highlight' : ''}`} 
-            style={{ 
+            className={`match-card list ${highlight ? 'highlight' : ''}`}
+            style={{
                 borderLeft: computedStatus === 'live' ? '4px solid var(--color-primary)' : 'none',
                 opacity: computedStatus === 'finished' ? 0.85 : 1
             }}
@@ -1347,201 +1347,201 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     ...props.style
                 }}
             >
-            {match.group && (
-                <div style={{
-                    textAlign: 'center',
-                    fontSize: '0.65rem',
-                    fontWeight: '600',
-                    color: 'var(--color-text-muted)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    marginBottom: '-4px',
-                    marginTop: '-4px'
-                }}>
-                    {match.group}
-                </div>
-            )}
-            <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: highlight ? '20px' : '12px' }}>
-                <TeamLogo
-                    logoUrl={homeLogo}
-                    teamName={match.home}
-                    size={highlight ? 76 : 52}
-                    flags={homeFlags}
-                    onClick={(e) => handleTeamClick(e, match.home)}
-                />
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
+                {match.group && (
                     <div style={{
-                        fontSize: highlight ? '1.05rem' : '0.9rem',
-                        color: 'var(--color-text)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: highlight ? '12px' : '8px',
                         textAlign: 'center',
-                        transition: 'all 0.3s ease'
+                        fontSize: '0.65rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text-muted)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        marginBottom: '-4px',
+                        marginTop: '-4px'
                     }}>
-                        <div
-                            style={{
-                                flex: 1,
-                                textAlign: 'right',
-                                whiteSpace: 'normal',
-                                lineHeight: '1.2',
-                                wordBreak: 'break-word',
-                                fontWeight: '400',
-                                display: 'flex',
-                                justifyContent: 'flex-end'
-                            }}
-                        >
-                            {renderTeamName(match.home, 'right', homeRank)}
+                        {match.group}
+                    </div>
+                )}
+                <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: highlight ? '20px' : '12px' }}>
+                    <TeamLogo
+                        logoUrl={homeLogo}
+                        teamName={match.home}
+                        size={highlight ? 76 : 52}
+                        flags={homeFlags}
+                        onClick={(e) => handleTeamClick(e, match.home)}
+                    />
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
+                        <div style={{
+                            fontSize: highlight ? '1.05rem' : '0.9rem',
+                            color: 'var(--color-text)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: highlight ? '12px' : '8px',
+                            textAlign: 'center',
+                            transition: 'all 0.3s ease'
+                        }}>
+                            <div
+                                style={{
+                                    flex: 1,
+                                    textAlign: 'right',
+                                    whiteSpace: 'normal',
+                                    lineHeight: '1.2',
+                                    wordBreak: 'break-word',
+                                    fontWeight: '400',
+                                    display: 'flex',
+                                    justifyContent: 'flex-end'
+                                }}
+                            >
+                                {renderTeamName(match.home, 'right', homeRank)}
+                            </div>
+                            <button
+                                onClick={handleBroadcastClick}
+                                aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
+                                disabled={!getBroadcasterUrl(match.broadcast)}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    minWidth: highlight ? '90px' : '70px',
+                                    flexShrink: 0,
+                                    cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                    background: 'none',
+                                    border: 'none',
+                                    padding: 0,
+                                    font: 'inherit',
+                                    color: 'inherit'
+                                }}
+                            >
+
+                                <span
+                                    style={{
+                                        fontSize: highlight ? '1rem' : '0.8rem',
+                                        color: outcomeTextColor || 'var(--color-text)',
+                                        flexShrink: 0,
+                                        padding: highlight ? '4px 12px' : '2px 8px',
+                                        borderRadius: '6px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '4px',
+                                        transition: 'all 0.3s ease',
+                                        ...badgeStyle
+                                    }}
+                                >
+                                    {computedStatus === 'finished' ? (computedScore || displayTime) :
+                                        computedStatus === 'live' ? (computedScore || 'LIVE') :
+                                            (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
+                                </span>
+
+                                {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                                    <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
+                                        <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
+                                    </div>
+                                )}
+                                {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                                    <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
+                                        <span style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
+                                    </div>
+                                )}
+                                {computedStatus === 'finished' && !props.hideBroadcast && (
+                                    <a
+                                        href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        title="Se höjdpunkter på SVT Play"
+                                        style={{
+                                            marginTop: '4px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'var(--color-text-muted)',
+                                            transition: 'color 0.2s',
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+                                        onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                                    >
+                                        <Play size={highlight ? 22 : 18} fill="currentColor" />
+                                    </a>
+                                )}
+                            </button>
+                            <div
+                                style={{
+                                    flex: 1,
+                                    textAlign: 'left',
+                                    whiteSpace: 'normal',
+                                    lineHeight: '1.2',
+                                    wordBreak: 'break-word',
+                                    fontWeight: '400',
+                                    display: 'flex',
+                                    justifyContent: 'flex-start'
+                                }}
+                            >
+                                {renderTeamName(match.away, 'left', awayRank)}
+                            </div>
                         </div>
-                        <button
-                            onClick={handleBroadcastClick}
-                            aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
-                            disabled={!getBroadcasterUrl(match.broadcast)}
-                            style={{
+
+                    </div>
+                    <TeamLogo
+                        logoUrl={awayLogo}
+                        teamName={match.away}
+                        size={highlight ? 76 : 52}
+                        flags={awayFlags}
+                        onClick={(e) => handleTeamClick(e, match.away)}
+                    />
+                </div>
+                {/* Live match events: yellow cards, match info */}
+                {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
+                    <div style={{
+                        marginTop: '6px',
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                        <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
+                        {/* Match info footer */}
+                        {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
+                            <div style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 gap: '4px',
-                                minWidth: highlight ? '90px' : '70px',
-                                flexShrink: 0,
-                                cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
-                                background: 'none',
-                                border: 'none',
-                                padding: 0,
-                                font: 'inherit',
-                                color: 'inherit'
-                            }}
-                        >
-
-                            <span
-                                style={{
-                                    fontSize: highlight ? '1rem' : '0.8rem',
-                                    color: outcomeTextColor || 'var(--color-text)',
-                                    flexShrink: 0,
-                                    padding: highlight ? '4px 12px' : '2px 8px',
-                                    borderRadius: '6px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '4px',
-                                    transition: 'all 0.3s ease',
-                                    ...badgeStyle
-                                }}
-                            >
-                                {computedStatus === 'finished' ? (computedScore || displayTime) :
-                                    computedStatus === 'live' ? (computedScore || 'LIVE') :
-                                        (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
-                            </span>
-
-                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                                <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
-                                    <BroadcasterLogo name={match.broadcast} size={highlight ? 'large' : 'default'} />
-                                </div>
-                            )}
-                            {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                                <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
-                                    <span style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
-                                </div>
-                            )}
-                            {computedStatus === 'finished' && !props.hideBroadcast && (
-                                <a
-                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    title="Se höjdpunkter på SVT Play"
-                                    style={{
-                                        marginTop: '4px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'var(--color-text-muted)',
-                                        transition: 'color 0.2s',
-                                    }}
-                                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
-                                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
-                                >
-                                    <Play size={highlight ? 22 : 18} fill="currentColor" />
-                                </a>
-                            )}
-                        </button>
-                        <div
-                            style={{
-                                flex: 1,
-                                textAlign: 'left',
-                                whiteSpace: 'normal',
-                                lineHeight: '1.2',
-                                wordBreak: 'break-word',
-                                fontWeight: '400',
-                                display: 'flex',
-                                justifyContent: 'flex-start'
-                            }}
-                        >
-                            {renderTeamName(match.away, 'left', awayRank)}
-                        </div>
-                    </div>
-
-                </div>
-                <TeamLogo
-                    logoUrl={awayLogo}
-                    teamName={match.away}
-                    size={highlight ? 76 : 52}
-                    flags={awayFlags}
-                    onClick={(e) => handleTeamClick(e, match.away)}
-                />
-            </div>
-            {/* Live match events: yellow cards, match info */}
-            {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
-                <div style={{
-                    marginTop: '6px',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}>
-                    <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
-                    {/* Match info footer */}
-                    {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: '4px',
-                            marginTop: '12px'
-                        }}>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                marginTop: '4px'
+                                marginTop: '12px'
                             }}>
-                                <button
-                                    onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                    style={{
-                                        background: 'rgba(128, 128, 128, 0.1)',
-                                        border: '1px solid rgba(128, 128, 128, 0.2)',
-                                        padding: '4px 14px',
-                                        borderRadius: '20px',
-                                        color: 'var(--color-text)',
-                                        fontSize: '0.75rem',
-                                        fontWeight: '500',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '6px',
-                                        transition: 'background 0.2s ease'
-                                    }}
-                                    onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
-                                    onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
-                                >
-                                    {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
-                                    <span style={{ fontSize: '0.65rem' }}>{showLineups ? '▲' : '▼'}</span>
-                                </button>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginTop: '4px'
+                                }}>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                        style={{
+                                            background: 'rgba(128, 128, 128, 0.1)',
+                                            border: '1px solid rgba(128, 128, 128, 0.2)',
+                                            padding: '4px 14px',
+                                            borderRadius: '20px',
+                                            color: 'var(--color-text)',
+                                            fontSize: '0.75rem',
+                                            fontWeight: '500',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px',
+                                            transition: 'background 0.2s ease'
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
+                                        onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
+                                    >
+                                        {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
+                                        <span style={{ fontSize: '0.65rem' }}>{showLineups ? '▲' : '▼'}</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    {showLineups && <LineupsSection match={match} />}
-                </div>
-            )}
-        </Card>
+                        )}
+                        {showLineups && <LineupsSection match={match} />}
+                    </div>
+                )}
+            </Card>
         </div>
     );
 
