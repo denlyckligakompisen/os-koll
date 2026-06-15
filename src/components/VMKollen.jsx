@@ -1047,9 +1047,9 @@ const VMKollen = () => {
                                             })()}
                                             {(matchStatusFilter === 'played' ? [...matches].reverse() : matches).map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
-                                                const isHero = nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
+                                                const isHero = filterCountries.length === 0 && nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
 
-                                                const hasHero = matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
+                                                const hasHero = filterCountries.length === 0 && matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
 

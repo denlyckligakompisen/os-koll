@@ -123,40 +123,10 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         }
 
         if (label.includes('/')) {
-            const parts = label.split('/');
-            const groupChars = [];
-            const rank = parseInt(parts[0][0]);
-            groupChars.push(parts[0][1]);
-            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
-
-            const abbrs = groupChars.map(char => {
-                const idx = char.toUpperCase().charCodeAt(0) - 65;
-                const group = groupsData.groups[idx];
-                if (group) {
-                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
-                    const team = sorted[rank - 1];
-                    return team ? getAbbr(team.name) : char;
-                }
-                return char;
-            });
-
-            const flagCodes = groupChars.map(char => {
-                const idx = char.toUpperCase().charCodeAt(0) - 65;
-                const group = groupsData.groups[idx];
-                if (group) {
-                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
-                    const team = sorted[rank - 1];
-                    if (team && team.name) {
-                        return getFlagCode(team.name);
-                    }
-                }
-                return null;
-            }).filter(Boolean);
-
             return {
-                name: `${label}\n${abbrs.join('/')}`,
+                name: label,
                 isPlaceholder: true,
-                flagCodes: flagCodes.length > 1 ? flagCodes : undefined
+                flagCodes: []
             };
         }
 

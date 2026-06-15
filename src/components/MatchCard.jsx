@@ -1329,7 +1329,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         >
             <Card
                 key={idx}
-                padding={highlight ? "20px 14px" : "12px 14px"}
+                padding={highlight ? "20px 14px 10px 14px" : "12px 14px 8px 14px"}
                 className="clickable-card"
                 style={{
                     border: 'var(--border)',
