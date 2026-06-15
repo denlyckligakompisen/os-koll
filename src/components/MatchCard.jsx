@@ -442,7 +442,8 @@ const formatLiveTime = (timeStr, period) => {
 
     if (!timeStr) return 'LIVE';
     const str = String(timeStr).trim();
-    if (str === 'HT' || str === 'Halvtid' || str === 'FT' || str === 'Fulltid') return str;
+    if (str === 'HT' || str === 'Halvtid') return 'Halvtid';
+    if (str === 'FT' || str === 'Fulltid' || str === 'Finished') return 'SLUT';
 
     if (str.includes('+')) {
         return str.endsWith("'") ? str : `${str}'`;
