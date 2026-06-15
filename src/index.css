@@ -421,6 +421,14 @@ a:active,
   transition: background-color 0.05s ease, transform 0.05s cubic-bezier(0, 0, 0.2, 1) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .clickable-card:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+    z-index: 10;
+  }
+}
+
 /* =============================================
    Accessibility Focus States
    ============================================= */
