@@ -115,8 +115,8 @@ function buildPlayerMap(team) {
  */
 async function fetchFifaLiveNow() {
     try {
-        // Byter från /now till /recent för att även få med detaljer (mål, kort etc) för matcher som precis har slutat
-        const url = `${FIFA_API_BASE}/live/football/recent`;
+        // Using /now instead of /recent to fix API errors
+        const url = `${FIFA_API_BASE}/live/football/now`;
         const response = await fetch(url);
 
         if (!response.ok) {

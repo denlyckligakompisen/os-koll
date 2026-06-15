@@ -94,15 +94,24 @@ const getLastName = (name) => {
         }
     }
     const parts = name.trim().split(/\s+/);
-    if (parts.length <= 1) return name;
+    let lastName = parts.length <= 1 ? name : parts[parts.length - 1];
 
-    // Check if the last part is a common suffix like "Jr.", "Sr.", "III", "II"
-    const lastPart = parts[parts.length - 1];
-    const lowerLast = lastPart.toLowerCase().replace(/\./g, '');
-    if ((lowerLast === 'jr' || lowerLast === 'sr' || lowerLast === 'ii' || lowerLast === 'iii') && parts.length > 2) {
-        return parts[parts.length - 2] + ' ' + lastPart;
+    if (parts.length > 2) {
+        const lowerLast = lastName.toLowerCase().replace(/\./g, '');
+        if (lowerLast === 'jr' || lowerLast === 'sr' || lowerLast === 'ii' || lowerLast === 'iii') {
+            lastName = parts[parts.length - 2] + ' ' + lastName;
+        }
     }
-    return lastPart;
+
+    // Convert to title case if the name is all uppercase
+    if (lastName === lastName.toUpperCase() && lastName.match(/[A-ZÅÄÖ]/)) {
+        lastName = lastName.split(/[- ]/).map(part => {
+            if (!part) return part;
+            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        }).join(lastName.includes('-') ? '-' : ' ');
+    }
+
+    return lastName;
 };
 
 const getSortedScorers = (scorersList) => {
