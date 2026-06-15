@@ -1141,18 +1141,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
 
-                            <button
-                                onClick={handleBroadcastClick}
-                                disabled={!getBroadcasterUrl(match.broadcast)}
+                            <div
                                 style={{
                                     fontSize: '2rem',
                                     fontWeight: 'bold',
                                     color: outcomeTextColor || 'var(--color-text)',
                                     padding: '8px 20px',
                                     borderRadius: '12px',
-                                    cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
                                     display: 'flex',
                                     alignItems: 'center',
+                                    justifyContent: 'center',
                                     gap: '8px',
                                     ...badgeStyle
                                 }}
@@ -1160,21 +1158,44 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {computedStatus === 'finished' ? (computedScore || displayTime) :
                                     computedStatus === 'live' ? (computedScore || 'LIVE') :
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
-                            </button>
+                            </div>
 
-                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                                <div
+                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'finished' && (
+                                <button
                                     onClick={handleBroadcastClick}
-                                    style={{ marginTop: '4px', display: 'flex', justifyContent: 'center', cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default' }}
+                                    disabled={!getBroadcasterUrl(match.broadcast)}
+                                    style={{
+                                        marginTop: '4px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '6px',
+                                        padding: '6px 12px',
+                                        backgroundColor: 'var(--color-surface-subtle)',
+                                        border: 'none',
+                                        borderRadius: '20px',
+                                        cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                        transition: 'background 0.2s',
+                                        opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6
+                                    }}
+                                    onMouseOver={(e) => { if(getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.08)' }}
+                                    onMouseOut={(e) => { if(getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'var(--color-surface-subtle)' }}
+                                    title={`Se på ${match.broadcast}`}
                                 >
-                                    <BroadcasterLogo name={match.broadcast} size="large" />
-                                </div>
+                                    <Play size={14} fill="currentColor" color="var(--color-text-muted)" />
+                                    <span style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--color-text-muted)' }}>
+                                        {computedStatus === 'live' ? 'Se live på ' : 'Sänds på '}
+                                    </span>
+                                    <BroadcasterLogo name={match.broadcast} size="small" />
+                                </button>
                             )}
+                            
                             {!match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <div style={{ marginTop: '4px', display: 'flex', justifyContent: 'center' }}>
                                     <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TBA</span>
                                 </div>
                             )}
+                            
                             {computedStatus === 'finished' && !props.hideBroadcast && (
                                 <a
                                     href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
@@ -1187,13 +1208,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
+                                        gap: '6px',
                                         color: 'var(--color-text-muted)',
+                                        textDecoration: 'none',
                                         transition: 'color 0.2s',
                                     }}
                                     onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
                                     onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
                                 >
-                                    <Play size={28} fill="currentColor" />
+                                    <Play size={20} fill="currentColor" />
+                                    <span style={{ fontSize: '0.8rem', fontWeight: '500' }}>Höjdpunkter</span>
                                 </a>
                             )}
                         </div>
