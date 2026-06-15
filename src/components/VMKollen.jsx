@@ -802,35 +802,45 @@ const VMKollen = () => {
 
         return (
             <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
-                <div style={{
-                    fontSize: '0.8rem',
-                    textTransform: 'uppercase',
-                    paddingLeft: '4px',
-                    marginBottom: '12px',
-                    color: 'var(--color-text-muted)',
-                    letterSpacing: '0.05em'
-                }}>
-                    <BoldSverige text={displayName || groupName} />
-                </div>
+                {!isInline && (
+                    <div style={{
+                        fontSize: '0.8rem',
+                        textTransform: 'uppercase',
+                        paddingLeft: '4px',
+                        marginBottom: '12px',
+                        color: 'var(--color-text-muted)',
+                        letterSpacing: '0.05em'
+                    }}>
+                        <BoldSverige text={displayName || groupName} />
+                    </div>
+                )}
                 <Card
-                    padding="4px 8px"
+                    padding={isInline ? "24px 6px 6px 6px" : "4px 8px"}
                     style={{
                         marginBottom: '0',
-                        backgroundColor: '#ffffff',
-                        boxShadow: 'none'
+                        marginTop: isInline ? '-20px' : '0',
+                        backgroundColor: isInline ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
+                        boxShadow: isInline ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                        borderTopLeftRadius: isInline ? '0' : undefined,
+                        borderTopRightRadius: isInline ? '0' : undefined,
+                        borderTop: isInline ? 'none' : undefined,
+                        position: 'relative',
+                        zIndex: 1,
+                        width: isInline ? 'calc(100% - 32px)' : '100%',
+                        margin: isInline ? '-20px auto 0 auto' : '0'
                     }}
                 >
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.8rem' }}>
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.7rem' : '0.8rem' }}>
                         <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
                             Tabell för {displayName || groupName}
                         </caption>
                         <thead>
                             <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: '36px' }} aria-label="Position"></th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', }} aria-label="Land"></th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', }}>P</th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: isInline ? '28px' : '36px' }} aria-label="Position"></th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }} aria-label="Land"></th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)' }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)' }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)' }}>P</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1083,7 +1093,7 @@ const VMKollen = () => {
                                                                 marginTop: '8px'
                                                             }}>{relativeLabel}</div>
                                                         )}
-                                                        <div className={cardClass} style={cardStyle}>
+                                                        <div className={cardClass} style={{ ...cardStyle, position: 'relative', zIndex: 10 }}>
                                                             {badgeText && (
                                                                 <div className={showTopMatchBadge ? 'topmatch-badge' : (showSwedenBadge ? 'sweden-badge' : '')} style={{
                                                                     position: 'absolute',

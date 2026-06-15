@@ -577,13 +577,26 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     applySpacing(homeEvents);
     applySpacing(awayEvents);
 
-    return (
-        <div style={{ position: 'relative', width: '100%', height: '80px', margin: '16px 0', display: 'flex', alignItems: 'center' }}>
-            {/* The horizontal line */}
-            <div style={{ position: 'absolute', top: '50%', left: '2%', right: '2%', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${progress || 0}%, rgba(128,128,128,0.15) ${progress || 0}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+    const homeFlags = match.homeFlags || getFlagCodes(match.home);
+    const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
-            {/* Half time marker */}
-            <div style={{ position: 'absolute', top: '50%', left: '50%', width: '3px', height: '10px', backgroundColor: 'var(--color-surface-subtle)', transform: 'translate(-50%, -50%)', borderRadius: '1px' }} />
+    return (
+        <div style={{ position: 'relative', width: '100%', height: '80px', margin: '16px 0', display: 'flex', alignItems: 'center', paddingLeft: '16px' }}>
+            {/* Team flags on the left */}
+            <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 5 }}>
+                <div style={{ position: 'absolute', bottom: '6px', left: 0 }} title={match.home}>
+                    {homeFlags?.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={14} />}
+                </div>
+                <div style={{ position: 'absolute', top: '6px', left: 0 }} title={match.away}>
+                    {awayFlags?.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={14} />}
+                </div>
+            </div>
+
+            {/* First half line */}
+            <div style={{ position: 'absolute', top: '50%', left: '24px', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+
+            {/* Second half line */}
+            <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 
             {/* Live Progress Dot */}
             {match.status === 'live' && progress !== undefined && (
@@ -606,24 +619,6 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                             borderRadius: '50%',
                             boxShadow: '0 0 0 2px var(--color-card-bg)'
                         }} />
-                        {/* The minute text above the dot */}
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '10px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            fontSize: '0.8rem',
-                            fontWeight: 'bold',
-                            color: '#007aff',
-                            backgroundColor: 'var(--color-card-bg)',
-                            padding: '2px 6px',
-                            borderRadius: '4px',
-                            border: '1px solid rgba(0, 122, 255, 0.3)',
-                            whiteSpace: 'nowrap',
-                            zIndex: 21
-                        }}>
-                            {formatLiveTime(match.liveCurrentTime, match.period)}
-                        </div>
                     </div>
                 </div>
             )}
@@ -1159,8 +1154,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     computedStatus === 'live' ? (computedScore || 'LIVE') :
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                             </div>
+                            {computedStatus === 'live' && match.liveCurrentTime && (
+                                <div style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 'bold', animation: 'live-indicator-pulse 2s infinite', marginTop: '-4px' }}>
+                                    {formatLiveTime(match.liveCurrentTime, match.period)}
+                                </div>
+                            )}
 
-                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'finished' && (
+                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                 <button
                                     onClick={handleBroadcastClick}
                                     disabled={!getBroadcasterUrl(match.broadcast)}
@@ -1432,6 +1432,11 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         computedStatus === 'live' ? (computedScore || 'LIVE') :
                                             (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                                 </span>
+                                {computedStatus === 'live' && match.liveCurrentTime && (
+                                    <div style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: '#000000', fontWeight: 'bold', animation: 'live-indicator-pulse 2s infinite', marginTop: '2px' }}>
+                                        {formatLiveTime(match.liveCurrentTime, match.period)}
+                                    </div>
+                                )}
 
                                 {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
                                     <div style={{ marginTop: '2px', display: 'flex', justifyContent: 'center' }}>
