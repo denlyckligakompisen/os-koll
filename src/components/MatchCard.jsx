@@ -1112,7 +1112,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '12px'
+                                gap: '6px'
                             }}
                         >
                             <TeamLogo
@@ -1139,14 +1139,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 style={{
                                     fontSize: '2rem',
                                     fontWeight: 'bold',
-                                    color: outcomeTextColor || 'var(--color-text)',
-                                    padding: '8px 20px',
-                                    borderRadius: '12px',
+                                    color: outcomeTextColor || '#2c2c2e',
+                                    fontVariantNumeric: 'tabular-nums',
+                                    padding: outcomeBg ? '8px 20px' : '0 10px',
+                                    borderRadius: outcomeBg ? '12px' : '0',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     gap: '8px',
-                                    ...badgeStyle
+                                    backgroundColor: outcomeBg || 'transparent',
+                                    border: 'none'
                                 }}
                             >
                                 {computedStatus === 'finished' ? (computedScore || displayTime) :
@@ -1228,7 +1230,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '12px'
+                                gap: '6px'
                             }}
                         >
                             <TeamLogo

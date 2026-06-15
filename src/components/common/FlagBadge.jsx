@@ -65,22 +65,37 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
                 {codes && codes.map((code, idx) => {
                     const imgSize = codes.length > 1 ? Math.floor(size * 0.65) : size;
                     return (
-                        <img 
-                            key={idx} 
-                            src={flagUrl(code)} 
-                            alt="" 
-                            aria-hidden="true"
-                            style={{ 
-                                width: `${imgSize}px`, 
-                                height: `${imgSize}px`, 
-                                borderRadius: '50%', 
-                                objectFit: 'cover', 
-                                border: shadow ? 'var(--border-flag)' : 'none',
-                                filter: shadow ? 'var(--drop-shadow-flag)' : 'none',
-                                transition: 'transform 0.3s ease',
-                                flexShrink: 0
-                            }} 
-                        />
+                        <div key={idx} style={{ 
+                            position: 'relative', 
+                            width: `${imgSize}px`, 
+                            height: `${imgSize}px`, 
+                            flexShrink: 0,
+                            filter: shadow ? 'var(--drop-shadow-flag)' : 'none'
+                        }}>
+                            <img 
+                                src={flagUrl(code)} 
+                                alt="" 
+                                aria-hidden="true"
+                                style={{ 
+                                    width: '100%', 
+                                    height: '100%', 
+                                    borderRadius: '50%', 
+                                    objectFit: 'cover', 
+                                    border: shadow ? 'var(--border-flag)' : 'none',
+                                    transition: 'transform 0.3s ease',
+                                    display: 'block'
+                                }} 
+                            />
+                            {shadow && (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0, left: 0, right: 0, bottom: 0,
+                                    borderRadius: '50%',
+                                    boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.08)',
+                                    pointerEvents: 'none'
+                                }} />
+                            )}
+                        </div>
                     );
                 })}
             </div>
