@@ -815,7 +815,7 @@ const VMKollen = () => {
                     </div>
                 )}
                 <Card
-                    padding={isInline ? "34px 6px 6px 6px" : "4px 8px"}
+                    padding={isInline ? "16px 12px 16px 12px" : "4px 8px"}
                     style={{
                         marginBottom: '0',
                         marginTop: isInline ? '-32px' : '0',
