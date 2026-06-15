@@ -794,8 +794,8 @@ const AllEventsList = ({ match }) => {
 };
 
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
-    const homeFlags = getFlagCodes(match.home);
-    const awayFlags = getFlagCodes(match.away);
+    const homeFlags = match.homeFlags || getFlagCodes(match.home);
+    const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
     const [timeLeftStr, setTimeLeftStr] = useState(null);
     const [showLineups, setShowLineups] = useState(false);

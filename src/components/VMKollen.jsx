@@ -5,7 +5,7 @@ import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import VMBracket from './VMBracket';
-import { getFlagCodes } from '../utils/flags';
+import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
 import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy } from 'lucide-react';
@@ -623,9 +623,23 @@ const VMKollen = () => {
                 return char;
             });
 
+            const flagCodes = groupChars.map(char => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = group.teams;
+                    const team = sorted[rank - 1];
+                    if (team && team.name) {
+                        return getFlagCode(team.name);
+                    }
+                }
+                return null;
+            }).filter(Boolean);
+
             return {
-                name: `${label}\n(${abbrs.join('/')})`,
-                isPlaceholder: true
+                name: `${label}\n${abbrs.join('/')}`,
+                isPlaceholder: true,
+                flagCodes: flagCodes.length > 1 ? flagCodes : undefined
             };
         }
 
@@ -644,6 +658,8 @@ const VMKollen = () => {
                         ...m,
                         home: homeInfo.name,
                         away: awayInfo.name,
+                        homeFlags: homeInfo.flagCodes,
+                        awayFlags: awayInfo.flagCodes,
                         realHome: homeInfo.realName || m.home,
                         realAway: awayInfo.realName || m.away,
                         isKnockout: true,
@@ -706,15 +722,17 @@ const VMKollen = () => {
 
             if (filterCountries.length > 0 && !isFilterCountryMatch) return acc;
             
-            if (matchStatusFilter === 'upcoming' && m.status === 'finished') {
-                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
-                const hideAfterMs = startMs + (140 * 60 * 1000); // 125 min match + 15 min delay
-                if (Date.now() > hideAfterMs) {
-                    return acc;
+            if (filterCountries.length === 0) {
+                if (matchStatusFilter === 'upcoming' && m.status === 'finished') {
+                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                    const hideAfterMs = startMs + (140 * 60 * 1000); // 125 min match + 15 min delay
+                    if (Date.now() > hideAfterMs) {
+                        return acc;
+                    }
                 }
-            }
 
-            if (matchStatusFilter === 'played' && m.status !== 'finished') return acc;
+                if (matchStatusFilter === 'played' && m.status !== 'finished') return acc;
+            }
 
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
@@ -784,7 +802,6 @@ const VMKollen = () => {
 
         return (
             <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
-                {/* 
                 <div style={{
                     fontSize: '0.8rem',
                     textTransform: 'uppercase',
@@ -794,8 +811,7 @@ const VMKollen = () => {
                     letterSpacing: '0.05em'
                 }}>
                     <BoldSverige text={displayName || groupName} />
-                </div> 
-                */}
+                </div>
                 <Card
                     padding="4px 8px"
                     style={{
@@ -1110,7 +1126,7 @@ const VMKollen = () => {
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
             <button
-                className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
+                className={`scroll-to-top-btn ${showScrollTop && activeTab !== 'gruppspel' ? 'visible' : ''}`}
                 onClick={scrollToTop}
                 aria-label="Scrolla till toppen"
             >
@@ -1157,7 +1173,7 @@ const VMKollen = () => {
                                 alt="" 
                                 aria-hidden="true"
                                 style={{ 
-                                    height: isScrolled ? '24px' : '32px',
+                                    height: '32px',
                                     transition: 'height 0.3s ease'
                                 }} 
                             />
@@ -1188,13 +1204,13 @@ const VMKollen = () => {
                                         window.scrollTo({ top: 0, behavior: 'smooth' });
                                     }}
                                     style={{
-                                        padding: isScrolled ? '4px 12px' : '6px 16px',
+                                        padding: '6px 16px',
                                         borderRadius: '20px',
                                         border: 'none',
                                         background: isActive ? 'var(--color-primary)' : 'transparent',
                                         color: isActive ? '#fff' : 'var(--color-text)',
                                         fontWeight: 'bold',
-                                        fontSize: isScrolled ? '0.75rem' : '0.8rem',
+                                        fontSize: '0.8rem',
                                         cursor: 'pointer',
                                         transition: 'all 0.2s ease',
                                         whiteSpace: 'nowrap'
@@ -1229,8 +1245,8 @@ const VMKollen = () => {
                                         color: 'inherit',
                                         border: 'none',
                                         borderRadius: '50%',
-                                        width: isScrolled ? '36px' : '44px',
-                                        height: isScrolled ? '36px' : '44px',
+                                        width: '44px',
+                                        height: '44px',
                                         padding: 0,
                                         transition: 'all 0.3s ease',
                                         WebkitTapHighlightColor: 'transparent'
@@ -1245,11 +1261,11 @@ const VMKollen = () => {
                                 >
                                     {filterCountries.length === 1 ? (
                                         <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={isScrolled ? 20 : 26} />
+                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={26} />
                                         </div>
                                     ) : filterCountries.length > 1 ? (
                                         <div style={{ position: 'relative', display: 'flex' }}>
-                                            <Filter size={isScrolled ? 20 : 24} />
+                                            <Filter size={24} />
                                             <span style={{
                                                 position: 'absolute',
                                                 top: '-4px',
@@ -1270,7 +1286,7 @@ const VMKollen = () => {
                                             </span>
                                         </div>
                                     ) : (
-                                        <Filter size={isScrolled ? 20 : 24} />
+                                        <Filter size={24} />
                                     )}
                                 </button>
                             </div>

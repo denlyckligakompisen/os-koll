@@ -19,37 +19,73 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
         );
     }
 
-    const badgeContent = (
-        <div 
-            style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: (codes && codes.length > 1) ? '1px' : '0',
-            }}
-        >
-            {codes && codes.map((code, idx) => {
-                const imgSize = codes.length > 1 ? Math.floor(size * 0.65) : size;
-                return (
+    let badgeContent;
+    
+    if (codes && codes.length > 1) {
+        const displayCodes = codes.slice(0, 4);
+        badgeContent = (
+            <div style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: '50%',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gridTemplateRows: '1fr 1fr',
+                border: shadow ? 'var(--border-flag)' : 'none',
+                boxShadow: shadow ? 'var(--drop-shadow-flag)' : 'none',
+                flexShrink: 0,
+                backgroundColor: 'var(--color-bg)'
+            }}>
+                {displayCodes.map((code, idx) => (
                     <img 
-                        key={idx} 
-                        src={flagUrl(code)} 
-                        alt="" 
+                        key={idx}
+                        src={flagUrl(code)}
+                        alt=""
                         aria-hidden="true"
-                        style={{ 
-                            width: `${imgSize}px`, 
-                            height: `${imgSize}px`, 
-                            borderRadius: '50%', 
-                            objectFit: 'cover', 
-                            border: shadow ? 'var(--border-flag)' : 'none',
-                            filter: shadow ? 'var(--drop-shadow-flag)' : 'none',
-                            transition: 'transform 0.3s ease',
-                            flexShrink: 0
-                        }} 
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            gridColumn: displayCodes.length === 3 && idx === 2 ? '1 / span 2' : 'auto'
+                        }}
                     />
-                );
-            })}
-        </div>
-    );
+                ))}
+            </div>
+        );
+    } else {
+        badgeContent = (
+            <div 
+                style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: (codes && codes.length > 1) ? '1px' : '0',
+                }}
+            >
+                {codes && codes.map((code, idx) => {
+                    const imgSize = codes.length > 1 ? Math.floor(size * 0.65) : size;
+                    return (
+                        <img 
+                            key={idx} 
+                            src={flagUrl(code)} 
+                            alt="" 
+                            aria-hidden="true"
+                            style={{ 
+                                width: `${imgSize}px`, 
+                                height: `${imgSize}px`, 
+                                borderRadius: '50%', 
+                                objectFit: 'cover', 
+                                border: shadow ? 'var(--border-flag)' : 'none',
+                                filter: shadow ? 'var(--drop-shadow-flag)' : 'none',
+                                transition: 'transform 0.3s ease',
+                                flexShrink: 0
+                            }} 
+                        />
+                    );
+                })}
+            </div>
+        );
+    }
 
     if (onClick) {
         return (

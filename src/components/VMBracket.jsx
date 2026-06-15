@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getFlagCodes } from '../utils/flags';
+import { getFlagCodes, getFlagCode } from '../utils/flags';
 import Card from './common/Card';
 import FlagBadge from './common/FlagBadge';
 import BoldSverige from './BoldSverige';
@@ -50,7 +50,7 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
                     transition: 'all 0.2s ease', minWidth: 0, flex: 1
                 }}
             >
-                <FlagBadge codes={getFlagCodes(name)} name={name} size={20} />
+                <FlagBadge codes={info.flagCodes || getFlagCodes(name)} name={name} size={20} />
                 <span style={{ 
                     fontSize: '0.75rem', fontWeight: '400',
                     color: info.isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
@@ -110,6 +110,45 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 if (team) return { name: `${team.name} (${label})`, realName: team.name, isPlaceholder: false };
             }
         }
+
+        if (label.includes('/')) {
+            const parts = label.split('/');
+            const groupChars = [];
+            const rank = parseInt(parts[0][0]);
+            groupChars.push(parts[0][1]);
+            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
+
+            const abbrs = groupChars.map(char => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    return team ? getAbbr(team.name) : char;
+                }
+                return char;
+            });
+
+            const flagCodes = groupChars.map(char => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    if (team && team.name) {
+                        return getFlagCode(team.name);
+                    }
+                }
+                return null;
+            }).filter(Boolean);
+
+            return {
+                name: `${label}\n${abbrs.join('/')}`,
+                isPlaceholder: true,
+                flagCodes: flagCodes.length > 1 ? flagCodes : undefined
+            };
+        }
+
         return { name: label, isPlaceholder: true };
     };
 
@@ -237,9 +276,13 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                         fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
                         textTransform: 'uppercase', letterSpacing: '0.1em', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>FINAL</div>
-                    <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 20px' }}>
-                        <div>
+                    <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '180px' }}>
+                        <div style={{ position: 'absolute', top: '50%', left: '20px', transform: 'translateY(-50%)' }}>
                             <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
+                        </div>
+                        <div ref={el => matchRefs.current[103] = el} style={{ position: 'absolute', top: 'calc(50% + 60px)', left: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Bronsmatch</div>
+                            <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
                         </div>
                     </div>
                 </div>
