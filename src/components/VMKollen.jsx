@@ -215,7 +215,7 @@ const sortGroupTeams = (teams, groupMatches, rankingData) => {
     const pointClusters = [];
     let currentPtCluster = [];
     let lastPts = null;
-    
+
     sortedTeams.forEach(t => {
         if (t.pts !== lastPts) {
             if (currentPtCluster.length > 0) pointClusters.push(currentPtCluster);
@@ -260,13 +260,13 @@ const VMKollen = () => {
 
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    
+
     const groupsData = useMemo(() => {
         if (!initialGroupsData || !matchesData?.matches) return initialGroupsData;
-        
+
         // Deep copy to avoid mutating state
         const newGroupsData = JSON.parse(JSON.stringify(initialGroupsData));
-        
+
         // Reset stats
         newGroupsData.groups.forEach(g => {
             g.teams.forEach((t, i) => {
@@ -277,7 +277,7 @@ const VMKollen = () => {
                 }
             });
         });
-        
+
         const cleanTeam = (name) => name ? name.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim() : '';
 
         const findTeam = (name) => {
@@ -288,18 +288,18 @@ const VMKollen = () => {
             }
             return null;
         };
-        
+
         matchesData.matches.forEach(m => {
             if ((m.status === 'finished' || m.status === 'live') && m.score && m.score.includes('-')) {
                 const parts = m.score.split('-');
                 const homeScore = parseInt(parts[0].trim(), 10);
                 const awayScore = parseInt(parts[1].trim(), 10);
-                
+
                 if (isNaN(homeScore) || isNaN(awayScore)) return;
-                
+
                 const homeTeam = findTeam(m.home);
                 const awayTeam = findTeam(m.away);
-                
+
                 if (homeTeam) {
                     homeTeam.played += 1;
                     homeTeam.gf = (homeTeam.gf || 0) + homeScore;
@@ -308,7 +308,7 @@ const VMKollen = () => {
                     if (homeScore > awayScore) homeTeam.pts += 3;
                     else if (homeScore === awayScore) homeTeam.pts += 1;
                 }
-                
+
                 if (awayTeam) {
                     awayTeam.played += 1;
                     awayTeam.gf = (awayTeam.gf || 0) + awayScore;
@@ -335,12 +335,12 @@ const VMKollen = () => {
             const groupMatches = matchesData.matches.filter(m => g.teams.some(t => t.name === m.home) && g.teams.some(t => t.name === m.away));
             g.teams = sortGroupTeams(g.teams, groupMatches, rankingData);
         });
-        
+
         return newGroupsData;
     }, [initialGroupsData, matchesData, rankingData]);
     const [expandedMatchId, setExpandedMatchId] = useState(null);
     const rankingRefs = React.useRef({});
-    
+
     const tableRefs = React.useRef({});
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountries.length === 1 ? filterCountries[0] : null), [filterCountries]);
 
@@ -713,15 +713,15 @@ const VMKollen = () => {
             const isFilterCountryMatch = filterCountries.length > 0 ? filterCountries.some(fc => {
                 const status = filteredCountryStatusList.find(s => s.country === fc);
                 return (m.home?.includes(fc)) ||
-                (m.away?.includes(fc)) ||
-                (m.realHome?.includes(fc)) ||
-                (m.realAway?.includes(fc)) ||
-                (status && isCountryPlaceholder(m.home, status)) ||
-                (status && isCountryPlaceholder(m.away, status));
+                    (m.away?.includes(fc)) ||
+                    (m.realHome?.includes(fc)) ||
+                    (m.realAway?.includes(fc)) ||
+                    (status && isCountryPlaceholder(m.home, status)) ||
+                    (status && isCountryPlaceholder(m.away, status));
             }) : true;
 
             if (filterCountries.length > 0 && !isFilterCountryMatch) return acc;
-            
+
             if (filterCountries.length === 0) {
                 if (matchStatusFilter === 'upcoming' && m.status === 'finished') {
                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
@@ -815,10 +815,10 @@ const VMKollen = () => {
                     </div>
                 )}
                 <Card
-                    padding={isInline ? "24px 6px 6px 6px" : "4px 8px"}
+                    padding={isInline ? "34px 6px 6px 6px" : "4px 8px"}
                     style={{
                         marginBottom: '0',
-                        marginTop: isInline ? '-20px' : '0',
+                        marginTop: isInline ? '-32px' : '0',
                         backgroundColor: isInline ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
                         boxShadow: isInline ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
                         borderTopLeftRadius: isInline ? '0' : undefined,
@@ -827,7 +827,7 @@ const VMKollen = () => {
                         position: 'relative',
                         zIndex: 1,
                         width: isInline ? 'calc(100% - 32px)' : '100%',
-                        margin: isInline ? '-20px auto 0 auto' : '0'
+                        margin: isInline ? '-32px auto 0 auto' : '0'
                     }}
                 >
                     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.7rem' : '0.8rem' }}>
@@ -1004,7 +1004,7 @@ const VMKollen = () => {
                 currentRoundDates.push(date);
             }
         });
-        
+
         if (currentRound !== null) {
             roundsData.push({ roundKey: currentRound, dates: currentRoundDates });
         }
@@ -1015,7 +1015,7 @@ const VMKollen = () => {
                     const roundHeader = roundObj.roundKey === "Gruppspel" ? "Gruppspel" : (ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey);
                     return (
                         <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            
+
                             {roundObj.dates.map((date) => {
                                 const matches = groupedMatches[date];
                                 return (
@@ -1045,11 +1045,11 @@ const VMKollen = () => {
                                             {(matchStatusFilter === 'played' ? [...matches].reverse() : matches).map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
                                                 const isHero = nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
-                                                
+
                                                 const hasHero = matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
-                                                
+
                                                 const homeRankVal = getTeamRank(m.realHome || m.home);
                                                 const awayRankVal = getTeamRank(m.realAway || m.away);
                                                 const isTopMatch = (homeRankVal + awayRankVal) <= 30;
@@ -1178,14 +1178,14 @@ const VMKollen = () => {
                             onClick={() => navigate('/allsvenskan')}
                             aria-label="Gå till Allsvenskan"
                         >
-                            <img 
-                                src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg" 
-                                alt="" 
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/en/1/17/2026_FIFA_World_Cup_emblem.svg"
+                                alt=""
                                 aria-hidden="true"
-                                style={{ 
+                                style={{
                                     height: '32px',
                                     transition: 'height 0.3s ease'
-                                }} 
+                                }}
                             />
                         </button>
                     </div>
@@ -1197,9 +1197,9 @@ const VMKollen = () => {
                             { id: 'slutspel', label: 'Slutspel' }
                         ].map(item => {
                             const isActive = (item.id === 'upcoming' && activeTab === 'matcher') ||
-                                             (item.id === 'gruppspel' && activeTab === 'gruppspel') ||
-                                             (item.id === 'slutspel' && activeTab === 'slutspel');
-                            
+                                (item.id === 'gruppspel' && activeTab === 'gruppspel') ||
+                                (item.id === 'slutspel' && activeTab === 'slutspel');
+
                             return (
                                 <button
                                     key={item.id}
@@ -1241,17 +1241,17 @@ const VMKollen = () => {
                         alignItems: 'center',
                         gap: '8px'
                     }}>
-                        
+
                         {filterCountries.length > 0 && (
                             <div ref={filterRef} style={{ display: 'flex' }}>
                                 <button
                                     type="button"
-                                    style={{ 
-                                        display: 'flex', 
-                                        alignItems: 'center', 
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
                                         justifyContent: 'center',
-                                        cursor: 'pointer', 
-                                        background: 'transparent', 
+                                        cursor: 'pointer',
+                                        background: 'transparent',
                                         color: 'inherit',
                                         border: 'none',
                                         borderRadius: '50%',
@@ -1319,7 +1319,7 @@ const VMKollen = () => {
                     {activeTab === 'matcher' && (
                         <>
                             {/* Removed Upcoming/Played buttons as per request */}
-                            
+
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely
