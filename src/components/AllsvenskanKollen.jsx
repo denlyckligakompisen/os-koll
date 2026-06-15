@@ -307,6 +307,7 @@ const AllsvenskanKollen = () => {
                                 if (localMatchIndex !== -1) {
                                     let homeScorers = [];
                                     let awayScorers = [];
+                                    let bookings = [];
                                     
                                     // Fetch details for ONGOING matches, or FINISHED matches if the local data doesn't have scorers yet
                                     if (liveMatch.status === 'ONGOING' || (liveMatch.status === 'FINISHED' && matches.matches[localMatchIndex].status !== 'finished')) {
@@ -338,10 +339,18 @@ const AllsvenskanKollen = () => {
                                                 const scorer = {
                                                     player: { name: ev.playerName },
                                                     time: Math.floor(ev.gameTime / 60),
+                                                    minute: ev.minuteWithStoppageTime || String(Math.floor(ev.gameTime / 60)),
                                                     incidentClass: 'goal'
                                                 };
                                                 if (ev.byHomeTeam) homeScorers.push(scorer);
                                                 else awayScorers.push(scorer);
+                                            } else if (ev.type === 'YELLOW_CARD' || ev.type === 'RED_CARD') {
+                                                bookings.push({
+                                                    player: { name: ev.playerName },
+                                                    minute: ev.minuteWithStoppageTime || String(Math.floor(ev.gameTime / 60)),
+                                                    side: ev.byHomeTeam ? 'home' : 'away',
+                                                    card: ev.type === 'YELLOW_CARD' ? 'yellow' : 'red'
+                                                });
                                             }
                                         });
                                         
@@ -354,7 +363,8 @@ const AllsvenskanKollen = () => {
                                             scorers: {
                                                 home: homeScorers,
                                                 away: awayScorers
-                                            }
+                                            },
+                                            bookings: bookings
                                         };
                                         
                                         matches.matches[localMatchIndex] = {

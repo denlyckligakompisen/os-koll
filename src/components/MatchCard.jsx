@@ -493,13 +493,17 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
         }));
     }
     if (match.bookings) {
-        match.bookings.filter(b => b.card === 'yellow').forEach(b => events.push({
-            type: 'yellow-card',
-            side: b.side,
-            player: b.player?.name || b.player,
-            minuteStr: b.minute,
-            minute: parseMinute(b.minute)
-        }));
+        match.bookings.forEach(b => {
+            if (b.card === 'yellow' || b.card === 'red') {
+                events.push({
+                    type: b.card === 'yellow' ? 'yellow-card' : 'red-card',
+                    side: b.side,
+                    player: b.player?.name || b.player,
+                    minuteStr: b.minute,
+                    minute: parseMinute(b.minute)
+                });
+            }
+        });
     }
     // Substitutions disabled
 
@@ -599,30 +603,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
             {/* Second half line */}
             <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 
-            {/* Live Progress Dot */}
-            {match.status === 'live' && progress !== undefined && (
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: `${2 + (progress * 0.96)}%`,
-                    transform: 'translate(-50%, -50%)',
-                    zIndex: 20
-                }}>
-                    <div style={{ position: 'relative' }}>
-                        {/* The blue dot exactly in the center */}
-                        <div className="live-indicator-pulse" style={{
-                            position: 'absolute',
-                            top: '-5px',
-                            left: '-5px',
-                            width: '10px',
-                            height: '10px',
-                            backgroundColor: 'var(--color-primary)',
-                            borderRadius: '50%',
-                            boxShadow: '0 0 0 2px var(--color-card-bg)'
-                        }} />
-                    </div>
-                </div>
-            )}
+            {/* Live Progress Dot removed per user request */}
 
             {events.map((e, i) => {
                 const pct = e.pct;
