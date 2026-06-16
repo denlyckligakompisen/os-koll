@@ -1197,7 +1197,6 @@ const VMKollen = () => {
                     <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px', margin: '0 auto' }}>
                         {[
                             { id: 'upcoming', label: 'Matcher' },
-                            { id: 'gruppspel', label: 'Grupper' },
                             { id: 'slutspel', label: 'Slutspel' }
                         ].map(item => {
                             const isActive = (item.id === 'upcoming' && activeTab === 'matcher') ||
