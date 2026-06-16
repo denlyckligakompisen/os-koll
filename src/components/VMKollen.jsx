@@ -952,6 +952,7 @@ const VMKollen = () => {
         if (!matchesData) return null;
 
         const isMatchLiveOrRecentlyFinishedOrSoon = (m, isHeroMatch = false) => {
+            if (isHeroMatch) return true;
             if (m.status === 'live') return true;
             const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
             if (m.status === 'finished') {
