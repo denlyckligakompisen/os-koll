@@ -736,8 +736,17 @@ const VMKollen = () => {
 
             // We no longer skip nextMatches here because they are rendered inline with variant="hero"
 
-            if (!acc[m.date]) acc[m.date] = [];
-            acc[m.date].push(m);
+            let groupKey = m.date;
+            const label = getRelativeDateLabel(m.date, GROUP_MONTH_MAP);
+            if (label === 'Imorgon' && m.time) {
+                const hour = parseInt(m.time.split(':')[0], 10);
+                if (hour >= 0 && hour <= 6) {
+                    groupKey = m.date + '_night';
+                }
+            }
+
+            if (!acc[groupKey]) acc[groupKey] = [];
+            acc[groupKey].push(m);
             return acc;
         }, {});
     }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList, matchStatusFilter]);
@@ -969,7 +978,13 @@ const VMKollen = () => {
 
 
         let sortedDates = Object.keys(groupedMatches).sort((a, b) => {
-            return parseTournamentDate(a, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(b, '00:00', GROUP_MONTH_MAP);
+            const dateA = a.replace('_night', '');
+            const dateB = b.replace('_night', '');
+            const diff = parseTournamentDate(dateA, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(dateB, '00:00', GROUP_MONTH_MAP);
+            if (diff !== 0) return diff;
+            if (a.includes('_night') && !b.includes('_night')) return -1;
+            if (!a.includes('_night') && b.includes('_night')) return 1;
+            return 0;
         });
 
         if (matchStatusFilter === 'played') {
@@ -1026,14 +1041,17 @@ const VMKollen = () => {
                                     <React.Fragment key={date}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {(() => {
-                                                const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
+                                                let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
+                                                if (date.includes('_night') && relativeLabel === 'Imorgon') {
+                                                    relativeLabel = 'Inatt';
+                                                }
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
                                                 const isCountdownOrLive = matches.some(m => {
                                                     if (m.status === 'live' || m.status === 'finished') return true;
                                                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                                                     return (startMs - Date.now()) <= 60 * 60 * 1000;
                                                 });
-                                                const hideHeader = (['idag', 'i kväll', 'i natt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
+                                                const hideHeader = (['idag', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -1052,7 +1070,10 @@ const VMKollen = () => {
 
                                                 const hasHero = filterCountries.length === 0 && matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
-                                                const relativeLabel = getRelativeDateLabel(date, GROUP_MONTH_MAP);
+                                                let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
+                                                if (date.includes('_night') && relativeLabel === 'Imorgon') {
+                                                    relativeLabel = 'Inatt';
+                                                }
 
                                                 const homeRankVal = getTeamRank(m.realHome || m.home);
                                                 const awayRankVal = getTeamRank(m.realAway || m.away);

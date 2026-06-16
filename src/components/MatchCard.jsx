@@ -12,7 +12,7 @@ import EventsTimeline from './MatchCard/EventsTimeline';
 import LineupsSection from './MatchCard/LineupsSection';
 import { parseMatchDateLocal, cleanTeamName, formatLiveTime } from './MatchCard/utils.jsx';
 
-const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, ...props }) => {
     const homeFlags = match.homeFlags || getFlagCodes(match.home);
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
@@ -28,6 +28,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
         if (match.status === 'upcoming' && match.startTimestamp) {
             const startMs = match.startTimestamp * 1000;
+            // eslint-disable-next-line react-hooks/purity
             const now = Date.now();
             if (now >= startMs) {
                 const durationMs = 125 * 60 * 1000; // 125 mins
@@ -44,6 +45,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const getIsSoon = () => {
         if (computedStatus !== 'upcoming') return false;
         const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
+        // eslint-disable-next-line react-hooks/purity
         const timeUntilStart = startMs - Date.now();
         return timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000;
     };
@@ -52,6 +54,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const getIsOverdue = () => {
         if (computedStatus !== 'upcoming') return false;
         const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
+        // eslint-disable-next-line react-hooks/purity
         return Date.now() >= startMs;
     };
     const isOverdue = getIsOverdue();
@@ -100,12 +103,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return () => clearInterval(interval);
     }, [variant, computedStatus, match.date, match.time]);
 
-    const getComputedScore = (status) => {
+    const getComputedScore = () => {
         if (match.score) return match.score;
         return '';
     };
 
-    const computedScore = getComputedScore(computedStatus);
+    const computedScore = getComputedScore();
 
     const displayTime = match.time || 'TBA';
 
@@ -209,7 +212,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         }
     };
 
-    const renderTeamName = (name, align = 'center', rankVal) => {
+    const renderTeamName = (name, align = 'center') => {
         if (!name) return null;
         let topText = null;
         let mainName = cleanTeamNameForDisplay(name);
@@ -219,7 +222,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             mainName = cleanTeamNameForDisplay(parts[1]);
         }
 
-        const isFiltered = filterTeam && (mainName.includes(filterTeam) || (topText && topText.includes(filterTeam)));
+
 
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align }}>
@@ -253,7 +256,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 .replace(/ü/g, 'u')
                 .replace(/ç/g, 'c')
                 .replace(/\s+/g, '-')
-                .replace(/[^a-z0-9\-]/g, '');
+                .replace(/[^a-z0-9-]/g, '');
         };
         if (b.includes('SVT')) {
             return 'https://www.svtplay.se/kategori/fotbolls-vm?tab=schedule';
@@ -290,7 +293,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return (
             <div
                 className={`match-card ${highlight ? 'highlight' : ''}`}
-                onClick={(e) => {
+                onClick={() => {
                     if (computedStatus === 'finished' && !props.hideBroadcast) {
                         window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
                     } else if (onCardClick) {
@@ -541,7 +544,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 borderLeft: computedStatus === 'live' ? '4px solid var(--color-primary)' : 'none',
                 opacity: computedStatus === 'finished' ? 0.85 : 1
             }}
-            onClick={(e) => {
+            onClick={() => {
                 if (computedStatus === 'finished' && !props.hideBroadcast) {
                     window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
                 } else if (onCardClick) {
