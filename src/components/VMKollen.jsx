@@ -1181,15 +1181,7 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '0',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        zIndex: 10,
-                        display: 'flex',
-                        alignItems: 'center'
-                    }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
                             className="header-logo"
                             style={{
@@ -1197,7 +1189,8 @@ const VMKollen = () => {
                                 border: 'none',
                                 cursor: 'pointer',
                                 display: 'flex',
-                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '12px',
                                 padding: '8px'
                             }}
                             onClick={() => navigate('/allsvenskan')}
@@ -1212,48 +1205,16 @@ const VMKollen = () => {
                                     transition: 'height 0.3s ease'
                                 }}
                             />
+                            <span style={{
+                                fontWeight: 'bold',
+                                fontSize: '1.2rem',
+                                color: 'var(--color-text)',
+                                letterSpacing: '0.02em',
+                                fontFamily: 'inherit'
+                            }}>
+                                2026 FIFA World Cup
+                            </span>
                         </button>
-                    </div>
-
-                    <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px', margin: '0 auto' }}>
-                        {[
-                            { id: 'upcoming', label: 'Matcher' },
-                            { id: 'slutspel', label: 'Slutspel' }
-                        ].map(item => {
-                            const isActive = (item.id === 'upcoming' && activeTab === 'matcher') ||
-                                (item.id === 'gruppspel' && activeTab === 'gruppspel') ||
-                                (item.id === 'slutspel' && activeTab === 'slutspel');
-
-                            return (
-                                <button
-                                    key={item.id}
-                                    onClick={() => {
-                                        if (item.id === 'upcoming') {
-                                            setActiveTab('matcher');
-                                        } else if (item.id === 'gruppspel') {
-                                            setActiveTab('gruppspel');
-                                        } else if (item.id === 'slutspel') {
-                                            setActiveTab('slutspel');
-                                        }
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                    }}
-                                    style={{
-                                        padding: '6px 16px',
-                                        borderRadius: '20px',
-                                        border: 'none',
-                                        background: isActive ? 'var(--color-primary)' : 'transparent',
-                                        color: isActive ? '#fff' : 'var(--color-text)',
-                                        fontWeight: 'bold',
-                                        fontSize: '0.8rem',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                        whiteSpace: 'nowrap'
-                                    }}
-                                >
-                                    {item.label}
-                                </button>
-                            );
-                        })}
                     </div>
                     <div style={{
                         position: 'absolute',
