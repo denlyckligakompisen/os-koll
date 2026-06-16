@@ -65,10 +65,10 @@ const AllEventsList = ({ match }) => {
         if (type === 'red-card') return <div aria-hidden="true" style={{ width: '8px', height: '11px', backgroundColor: '#e53935', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Rött kort" />;
         if (type === 'yellow-card') return <div aria-hidden="true" style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />;
         if (type === 'substitution') return (
-            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.1))' }}>
-                <path d="M 3 6 L 14 6 L 14 2 L 22 8 L 14 14 L 14 10 L 3 10 Z" fill="#34c759" />
-                <path d="M 21 18 L 10 18 L 10 22 L 2 16 L 10 10 L 10 14 L 21 14 Z" fill="#ff3b30" />
-            </svg>
+            <div aria-hidden="true" style={{ display: 'inline-flex', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '-1px' }}>
+                <span style={{ color: '#34c759', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.1))' }}>▲</span>
+                <span style={{ color: '#ff3b30', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.1))' }}>▼</span>
+            </div>
         );
         return null;
     };

@@ -75,7 +75,7 @@ const PitchLineup = ({ match }) => {
                     fontWeight: '500', zIndex: 2, letterSpacing: '-0.02em',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
                 }}>
-                    {p.number ? `${p.number}. ` : ''}{getLastName(p.name)}
+                    {p.number ? `${p.number} ` : ''}{getLastName(p.name)}
                 </div>
             </div>
         );

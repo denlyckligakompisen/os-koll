@@ -3,7 +3,7 @@ import path from 'path';
 import { chromium } from 'playwright';
 import { translateTeam } from './constants.js';
 
-const RANKING_URL = 'https://inside.fifa.com/fifa-world-ranking/men';
+const RANKING_URL = 'https://inside.fifa.com/fifa-world-ranking/men?dateId=FRS_Male_Football_20260401';
 const OUTPUT_FILE = path.join(process.cwd(), 'public/data/fifa_ranking.json');
 
 async function scrapeRanking() {
