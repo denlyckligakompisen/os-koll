@@ -62,7 +62,7 @@ const PitchLineup = ({ match }) => {
                     </div>
 
                     {p.captain && (
-                        <div style={{ position: 'absolute', top: '-4px', right: '-8px', zIndex: 2, backgroundColor: '#ffd600', color: '#000', borderRadius: '3px', fontSize: '0.8rem', padding: '1px 3px', fontWeight: 'bold', border: '1px solid rgba(0,0,0,0.2)' }}>C</div>
+                        <div style={{ position: 'absolute', top: '-4px', right: '-8px', zIndex: 2, backgroundColor: 'white', color: '#000', borderRadius: '3px', fontSize: '0.8rem', padding: '1px 3px', fontWeight: 'bold', border: '1px solid rgba(0,0,0,0.2)' }}>C</div>
                     )}
                 </div>
 

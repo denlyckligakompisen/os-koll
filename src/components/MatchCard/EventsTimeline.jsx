@@ -51,11 +51,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
 
     const renderEventIcon = (e) => {
         if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (
-            <svg width="14" height="14" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>
-                <circle cx="12" cy="12" r="10.5" fill="#fff" stroke="#000" strokeWidth="1.5" />
-                <path d="M12 7 L16 10 L14.5 15 L9.5 15 L8 10 Z" fill="#000" />
-                <path d="M12 7 L12 1.5 M16 10 L21.5 8 M14.5 15 L17.5 20.5 M9.5 15 L6.5 20.5 M8 10 L2.5 8" stroke="#000" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <span style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>⚽</span>
         );
         if (e.type === 'red-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#e53935', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
         if (e.type === 'yellow-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#ffd600', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
@@ -149,7 +145,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                         display: 'flex',
                         flexDirection: isHome ? 'column-reverse' : 'column',
                         alignItems: 'center',
-                        gap: '4px',
+                        gap: '1px',
                         padding: isHome ? '0 0 6px 0' : '6px 0 0 0',
                         zIndex: e.type === 'goal' ? 10 : 5
                     }}>
@@ -167,8 +163,8 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                                 <div style={{
                                     position: 'absolute',
                                     [isHome ? 'bottom' : 'top']: '100%',
-                                    [isHome ? 'marginBottom' : 'marginTop']: '2px',
-                                    fontSize: '0.85rem',
+                                    [isHome ? 'marginBottom' : 'marginTop']: '0px',
+                                    fontSize: '0.75rem',
                                     color: 'var(--color-text)',
                                     whiteSpace: 'nowrap',
                                     textShadow: '0 0 3px var(--color-card-bg), 0 0 3px var(--color-card-bg)',

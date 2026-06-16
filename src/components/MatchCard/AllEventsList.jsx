@@ -56,11 +56,7 @@ const AllEventsList = ({ match }) => {
 
     const renderEventIcon = (type) => {
         if (type === 'goal' || type === 'penalty-goal') return (
-            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.1))' }}>
-                <circle cx="12" cy="12" r="10.5" fill="#fff" stroke="#000" strokeWidth="1.5" />
-                <path d="M12 7 L16 10 L14.5 15 L9.5 15 L8 10 Z" fill="#000" />
-                <path d="M12 7 L12 1.5 M16 10 L21.5 8 M14.5 15 L17.5 20.5 M9.5 15 L6.5 20.5 M8 10 L2.5 8" stroke="#000" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            <span aria-hidden="true" style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.1))' }}>⚽</span>
         );
         if (type === 'red-card') return <div aria-hidden="true" style={{ width: '8px', height: '11px', backgroundColor: '#e53935', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Rött kort" />;
         if (type === 'yellow-card') return <div aria-hidden="true" style={{ width: '8px', height: '11px', backgroundColor: '#ffd600', borderRadius: '1.5px', display: 'inline-block', border: '0.5px solid rgba(0,0,0,0.15)' }} title="Gult kort" />;

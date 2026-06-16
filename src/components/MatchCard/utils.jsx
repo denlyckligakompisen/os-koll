@@ -15,7 +15,7 @@ export const getLastName = (name) => {
     });
 
     const parts = formattedName.trim().split(/\s+/);
-    if (parts.length <= 1) return formattedName;
+    if (parts.length <= 1) return formattedName.trim();
 
     let lastNameParts = [parts[parts.length - 1]];
     let i = parts.length - 2;
@@ -125,7 +125,7 @@ export const getPlayerEvents = (match, p, isHome) => {
 
     const teamScorers = match.scorers?.[sideStr] || [];
     const goals = teamScorers.filter(g => g.player?.name === p.name && (g.incidentClass === 'goal' || g.incidentClass === 'penalty-goal'));
-    goals.forEach(() => events.push('⚽'));
+    goals.forEach(() => events.push(<span style={{ filter: 'grayscale(100%)' }}>⚽</span>));
 
     const teamBookings = match.bookings?.filter(b => b.side === sideStr) || [];
     const cards = teamBookings.filter(b => b.player?.name === p.name);
