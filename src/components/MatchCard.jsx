@@ -184,14 +184,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
             <div
                 className={`match-card ${highlight ? 'highlight' : ''}`}
                 onClick={() => {
-                    if (computedStatus === 'finished' && !props.hideBroadcast) {
-                        window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
-                    } else if (onCardClick) {
+                    if (onCardClick) {
                         onCardClick();
                     }
                 }}
-                role={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? "button" : undefined}
-                tabIndex={onCardClick || (computedStatus === 'finished' && !props.hideBroadcast) ? 0 : undefined}
+                role={onCardClick ? "button" : undefined}
+                tabIndex={onCardClick ? 0 : undefined}
                 onKeyDown={handleCardKeyDown}
                 aria-label={`Match: ${match.home} mot ${match.away}, status: ${computedStatus === 'upcoming' ? 'Kommande' : computedStatus === 'live' ? 'Pågår' : 'Avslutad'}`}
             >
@@ -314,30 +312,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
 
-                            {computedStatus === 'finished' && !props.hideBroadcast && (
-                                <a
-                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    title="Se höjdpunkter på SVT Play"
-                                    style={{
-                                        marginTop: '6px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '6px',
-                                        color: 'var(--color-text-muted)',
-                                        textDecoration: 'none',
-                                        transition: 'color 0.2s',
-                                    }}
-                                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
-                                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
-                                >
-                                    <Play size={20} fill="currentColor" />
-                                    <span style={{ fontSize: '0.8rem', fontWeight: '500' }}>Höjdpunkter</span>
-                                </a>
-                            )}
+
                         </div>
 
                         <div

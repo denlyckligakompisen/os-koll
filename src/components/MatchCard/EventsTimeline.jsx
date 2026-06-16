@@ -50,7 +50,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     if (events.length === 0 && !showEmptyTimeline) return null;
 
     const renderEventIcon = (e) => {
-        if (e.type === 'goal' || e.type === 'penalty-goal') return (
+        if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (
             <svg width="14" height="14" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>
                 <circle cx="12" cy="12" r="10.5" fill="#fff" stroke="#000" strokeWidth="1.5" />
                 <path d="M12 7 L16 10 L14.5 15 L9.5 15 L8 10 Z" fill="#000" />
@@ -177,7 +177,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                                     fontWeight: 'normal',
                                     textAlign: 'center'
                                 }}>
-                                    {getLastName(e.player)}
+                                    {getLastName(e.player)}{e.type === 'own-goal' ? ' (självmål)' : ''}
                                 </div>
                             )}
                         </div>

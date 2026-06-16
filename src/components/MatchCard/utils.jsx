@@ -8,25 +8,37 @@ export const getLastName = (name) => {
             return '';
         }
     }
-    const parts = name.trim().split(/\s+/);
-    let lastName = parts.length <= 1 ? name : parts[parts.length - 1];
 
-    if (parts.length > 2) {
-        const lowerLast = lastName.toLowerCase().replace(/\./g, '');
-        if (lowerLast === 'jr' || lowerLast === 'sr' || lowerLast === 'ii' || lowerLast === 'iii') {
-            lastName = parts[parts.length - 2] + ' ' + lastName;
+    // Convert fully uppercase words to title case
+    let formattedName = name.replace(/\b([A-ZÅÄÖ])([A-ZÅÄÖ]+)\b/g, (match, p1, p2) => {
+        return p1 + p2.toLowerCase();
+    });
+
+    const parts = formattedName.trim().split(/\s+/);
+    if (parts.length <= 1) return formattedName;
+
+    let lastNameParts = [parts[parts.length - 1]];
+    let i = parts.length - 2;
+
+    const lowerLast = lastNameParts[0].toLowerCase().replace(/\./g, '');
+    if (['jr', 'sr', 'ii', 'iii'].includes(lowerLast) && i >= 0) {
+        lastNameParts.unshift(parts[i]);
+        i--;
+    }
+
+    const prefixes = ['van', 'de', 'di', 'da', 'dos', 'del', 'della', 'el', 'al', 'von', 'ten', 'ter', 'la', 'le', 'du', 'des', 'mac', 'mc', 'bin', 'ibn', 'der', 'den', 'das', 'do'];
+
+    while (i >= 0) {
+        const p = parts[i].toLowerCase();
+        if (prefixes.includes(p)) {
+            lastNameParts.unshift(parts[i]);
+            i--;
+        } else {
+            break;
         }
     }
 
-    // Convert to title case if the name is all uppercase
-    if (lastName === lastName.toUpperCase() && lastName.match(/[A-ZÅÄÖ]/)) {
-        lastName = lastName.split(/[- ]/).map(part => {
-            if (!part) return part;
-            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-        }).join(lastName.includes('-') ? '-' : ' ');
-    }
-
-    return lastName;
+    return lastNameParts.join(' ');
 };
 
 export const getSortedScorers = (scorersList) => {
@@ -156,7 +168,10 @@ export const formatLiveTime = (timeStr, period) => {
     if (str === 'FT' || str === 'Fulltid' || str === 'Finished') return 'SLUT';
 
     if (str.includes('+')) {
-        return str.endsWith("'") ? str : `${str}'`;
+        const parts = str.split('+');
+        const base = parts[0].replace(/'/g, '');
+        const extra = parts[1].replace(/'/g, '');
+        return `${base}+${extra}'`;
     }
 
     const cleanStr = str.replace(/'/g, '');
