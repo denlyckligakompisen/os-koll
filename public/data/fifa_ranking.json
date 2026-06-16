@@ -8,15 +8,15 @@
     },
     {
       "rank": "2",
-      "team": "Spanien",
-      "points": "1874.71",
-      "change": 0
+      "team": "Frankrike",
+      "points": "1870.70",
+      "change": 1
     },
     {
       "rank": "3",
-      "team": "Frankrike",
-      "points": "1870.70",
-      "change": 0
+      "team": "Spanien",
+      "points": "1856.03",
+      "change": -1
     },
     {
       "rank": "4",
@@ -57,7 +57,7 @@
     {
       "rank": "10",
       "team": "Belgien",
-      "points": "1742.24",
+      "points": "1733.93",
       "change": -1
     },
     {
@@ -98,15 +98,15 @@
     },
     {
       "rank": "17",
-      "team": "Uruguay",
-      "points": "1673.07",
-      "change": -1
+      "team": "Japan",
+      "points": "1665.94",
+      "change": 1
     },
     {
       "rank": "18",
-      "team": "Japan",
-      "points": "1665.94",
-      "change": 0
+      "team": "Uruguay",
+      "points": "1661.95",
+      "change": -2
     },
     {
       "rank": "19",
@@ -116,27 +116,27 @@
     },
     {
       "rank": "20",
-      "team": "Iran",
-      "points": "1619.58",
-      "change": 0
+      "team": "Danmark",
+      "points": "1619.47",
+      "change": 1
     },
     {
       "rank": "21",
-      "team": "Danmark",
-      "points": "1619.47",
-      "change": 0
+      "team": "Sydkorea",
+      "points": "1612.55",
+      "change": 4
     },
     {
       "rank": "22",
-      "team": "Sydkorea",
-      "points": "1612.55",
-      "change": 3
+      "team": "Australien",
+      "points": "1605.61",
+      "change": 5
     },
     {
       "rank": "23",
-      "team": "Australien",
-      "points": "1605.61",
-      "change": 4
+      "team": "Iran",
+      "points": "1605.12",
+      "change": -3
     },
     {
       "rank": "24",
@@ -170,15 +170,15 @@
     },
     {
       "rank": "29",
-      "team": "Elfenbenskusten",
-      "points": "1568.62",
-      "change": 4
+      "team": "Egypten",
+      "points": "1570.67",
+      "change": 0
     },
     {
       "rank": "30",
-      "team": "Egypten",
-      "points": "1562.37",
-      "change": -1
+      "team": "Elfenbenskusten",
+      "points": "1568.62",
+      "change": 3
     },
     {
       "rank": "31",
@@ -357,7 +357,7 @@
     {
       "rank": "60",
       "team": "Saudiarabien",
-      "points": "1423.88",
+      "points": "1435.00",
       "change": 1
     },
     {
@@ -380,27 +380,27 @@
     },
     {
       "rank": "64",
-      "team": "Jordanien",
-      "points": "1387.74",
-      "change": -1
+      "team": "Kap Verde",
+      "points": "1389.79",
+      "change": 3
     },
     {
       "rank": "65",
-      "team": "Honduras",
-      "points": "1378.97",
-      "change": 0
+      "team": "Jordanien",
+      "points": "1387.74",
+      "change": -2
     },
     {
       "rank": "66",
-      "team": "Albanien",
-      "points": "1376.03",
-      "change": 0
+      "team": "Honduras",
+      "points": "1378.97",
+      "change": -1
     },
     {
       "rank": "67",
-      "team": "Kap Verde",
-      "points": "1371.11",
-      "change": 0
+      "team": "Albanien",
+      "points": "1376.03",
+      "change": -1
     },
     {
       "rank": "68",
@@ -488,27 +488,27 @@
     },
     {
       "rank": "82",
-      "team": "Curaçao",
-      "points": "1287.00",
-      "change": 0
+      "team": "Nya Zeeland",
+      "points": "1290.04",
+      "change": 3
     },
     {
       "rank": "83",
-      "team": "Syrien",
-      "points": "1283.05",
-      "change": 1
-    },
-    {
-      "rank": "84",
-      "team": "Haiti",
-      "points": "1277.67",
+      "team": "Curaçao",
+      "points": "1287.00",
       "change": -1
     },
     {
-      "rank": "85",
-      "team": "Nya Zeeland",
-      "points": "1275.58",
+      "rank": "84",
+      "team": "Syrien",
+      "points": "1283.05",
       "change": 0
+    },
+    {
+      "rank": "85",
+      "team": "Haiti",
+      "points": "1277.67",
+      "change": -2
     },
     {
       "rank": "86",
@@ -1268,7 +1268,7 @@
     }
   ],
   "lastUpdate": "11 June 2026",
-  "nextUpdate": "20 July 2026 (35 days)",
-  "lastUpdated": "2026-06-15T04:28:34.366Z",
+  "nextUpdate": "20 July 2026 (34 days)",
+  "lastUpdated": "2026-06-16T04:24:43.161Z",
   "source": "https://inside.fifa.com/fifa-world-ranking/men"
 }
