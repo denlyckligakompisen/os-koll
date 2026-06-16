@@ -1285,7 +1285,7 @@ const VMKollen = () => {
                                 >
                                     {filterCountries.length === 1 ? (
                                         <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={26} />
+                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={24} />
                                         </div>
                                     ) : filterCountries.length > 1 ? (
                                         <div style={{ position: 'relative', display: 'flex' }}>

@@ -498,7 +498,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {renderTeamName(match.home, 'right', homeRank)}
                             </div>
                             <button
-                                onClick={handleBroadcastClick}
+                                onClick={computedStatus === 'finished' ? undefined : handleBroadcastClick}
                                 aria-label={match.broadcast ? `Gå till sändning på ${match.broadcast}` : 'Matchinformation'}
                                 disabled={!getBroadcasterUrl(match.broadcast)}
                                 style={{
@@ -508,7 +508,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     gap: '4px',
                                     minWidth: highlight ? '90px' : '70px',
                                     flexShrink: 0,
-                                    cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                    cursor: (computedStatus !== 'finished' && getBroadcasterUrl(match.broadcast)) ? 'pointer' : 'default',
                                     background: 'none',
                                     border: 'none',
                                     padding: 0,
