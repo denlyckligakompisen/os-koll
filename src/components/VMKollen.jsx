@@ -1183,7 +1183,7 @@ const VMKollen = () => {
         >
             {(() => {
                 const hasPlayoff = combinedMatches.some(m => m.isKnockout);
-                const isVisible = showScrollTop || hasPlayoff;
+                const isVisible = (showScrollTop || hasPlayoff) && filterCountries.length === 0;
                 
                 return (
                     <button
