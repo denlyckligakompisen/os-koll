@@ -10,7 +10,7 @@ import TeamLogo from './MatchCard/TeamLogo';
 import BroadcasterLogo from './MatchCard/BroadcasterLogo';
 import EventsTimeline from './MatchCard/EventsTimeline';
 import LineupsSection from './MatchCard/LineupsSection';
-import { parseMatchDateLocal, cleanTeamName, formatLiveTime } from './MatchCard/utils';
+import { parseMatchDateLocal, cleanTeamName, formatLiveTime } from './MatchCard/utils.jsx';
 
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onGroupClick, onCardClick, ...props }) => {
     const homeFlags = match.homeFlags || getFlagCodes(match.home);

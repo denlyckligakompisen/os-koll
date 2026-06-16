@@ -1,7 +1,7 @@
 import React from 'react';
 import FlagBadge from '../common/FlagBadge';
 import { getFlagCodes } from '../../utils/flags';
-import { getLastName } from './utils';
+import { getLastName } from './utils.jsx';
 
 const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const parseMinute = (minStr) => {

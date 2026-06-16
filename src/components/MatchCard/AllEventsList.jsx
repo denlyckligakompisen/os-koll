@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLastName, cleanTeamName } from './utils';
+import { getLastName, cleanTeamName } from './utils.jsx';
 
 const AllEventsList = ({ match }) => {
     const parseMinute = (minStr) => {

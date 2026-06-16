@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLastName, getPlayerEvents } from './utils';
+import { getLastName, getPlayerEvents } from './utils.jsx';
 
 const PitchLineup = ({ match }) => {
     const groupPlayers = (players) => {

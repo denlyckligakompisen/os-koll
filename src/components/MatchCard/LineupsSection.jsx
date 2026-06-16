@@ -1,6 +1,6 @@
 import React from 'react';
 import PitchLineup from './PitchLineup';
-import { getPlayerEvents } from './utils';
+import { getPlayerEvents } from './utils.jsx';
 
 const LineupsSection = ({ match }) => {
     if (!match.startingXI?.home?.length && !match.startingXI?.away?.length) return null;
