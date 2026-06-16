@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from './common/Card';
 import { getFlagCodes } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
@@ -10,98 +10,18 @@ import TeamLogo from './MatchCard/TeamLogo';
 import BroadcasterLogo from './MatchCard/BroadcasterLogo';
 import EventsTimeline from './MatchCard/EventsTimeline';
 import LineupsSection from './MatchCard/LineupsSection';
-import { parseMatchDateLocal, cleanTeamName, formatLiveTime } from './MatchCard/utils.jsx';
+import { formatLiveTime } from './MatchCard/utils.jsx';
+import { useMatchStatus } from '../hooks/useMatchStatus';
+import { useTeamForm } from '../hooks/useTeamForm';
 
 const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, ...props }) => {
     const homeFlags = match.homeFlags || getFlagCodes(match.home);
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
-    const [timeLeftStr, setTimeLeftStr] = useState(null);
     const [showLineups, setShowLineups] = useState(false);
-
-    const getComputedStatus = () => {
-        if (match.status === 'finished') {
-            return 'finished';
-        }
-        if (match.status === 'postponed') return 'postponed';
-        if (match.status === 'live') return 'live';
-
-        if (match.status === 'upcoming' && match.startTimestamp) {
-            const startMs = match.startTimestamp * 1000;
-            // eslint-disable-next-line react-hooks/purity
-            const now = Date.now();
-            if (now >= startMs) {
-                const durationMs = 125 * 60 * 1000; // 125 mins
-                if (now >= startMs + durationMs) {
-                    return 'finished';
-                }
-            }
-        }
-        return 'upcoming';
-    };
-
-    const computedStatus = getComputedStatus();
-
-    const getIsSoon = () => {
-        if (computedStatus !== 'upcoming') return false;
-        const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
-        // eslint-disable-next-line react-hooks/purity
-        const timeUntilStart = startMs - Date.now();
-        return timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000;
-    };
-    const isSoon = getIsSoon();
-
-    const getIsOverdue = () => {
-        if (computedStatus !== 'upcoming') return false;
-        const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
-        // eslint-disable-next-line react-hooks/purity
-        return Date.now() >= startMs;
-    };
-    const isOverdue = getIsOverdue();
-
-    const getLiveProgress = () => {
-        if (computedStatus !== 'live') return 0;
-        const timeStr = match.liveCurrentTime;
-        if (match.period === 4) return 50; // 50%
-        if (!timeStr) return 0;
-        if (timeStr === 'HT' || timeStr === 'Halvtid') return 50; // 50%
-        if (timeStr === 'FT' || timeStr === 'Fulltid') return 100; // 100%
-        const base = parseInt(String(timeStr).split('+')[0]);
-        if (isNaN(base)) return 0;
-        let percentage = Math.min(base / 90, 1.0);
-        return percentage * 100;
-    };
-
-    const liveProgressPercent = getLiveProgress();
-
-    useEffect(() => {
-        if (variant !== 'hero' || computedStatus !== 'upcoming') {
-            setTimeLeftStr(null);
-            return;
-        }
-
-        const updateTimer = () => {
-            const matchDateLocal = parseMatchDateLocal(match.date, match.time);
-            const diff = matchDateLocal.getTime() - Date.now();
-            if (diff > 0) {
-                const totalSecs = Math.floor(diff / 1000);
-                const h = Math.floor(totalSecs / 3600);
-                const m = Math.floor((totalSecs % 3600) / 60);
-                const s = totalSecs % 60;
-                if (h > 0) {
-                    setTimeLeftStr(null);
-                } else {
-                    setTimeLeftStr(`${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`);
-                }
-            } else {
-                setTimeLeftStr('00:00');
-            }
-        };
-
-        updateTimer();
-        const interval = setInterval(updateTimer, 1000);
-        return () => clearInterval(interval);
-    }, [variant, computedStatus, match.date, match.time]);
+    
+    const { computedStatus, isSoon, isOverdue, liveProgressPercent, timeLeftStr } = useMatchStatus(match, variant);
+    const { homeForm, awayForm } = useTeamForm(match, allMatches);
 
     const getComputedScore = () => {
         if (match.score) return match.score;
@@ -111,36 +31,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const computedScore = getComputedScore();
 
     const displayTime = match.time || 'TBA';
-
-    // Calculate Form
-    const getTeamForm = (teamName) => {
-        const cleanTeam = cleanTeamName(teamName);
-        const teamFinished = (allMatches || [])
-            .filter(m => m.status === 'finished' && m.score)
-            .filter(m => cleanTeamName(m.home) === cleanTeam || cleanTeamName(m.away) === cleanTeam);
-
-        const sorted = [...teamFinished].sort((a, b) => {
-            return parseMatchDateLocal(b.date, b.time) - parseMatchDateLocal(a.date, a.time);
-        });
-
-        const last5 = sorted.slice(0, 5).reverse();
-
-        return last5.map(m => {
-            const parts = m.score.split('-').map(s => parseInt(s.trim()));
-            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
-                const homeScore = parts[0];
-                const awayScore = parts[1];
-                const isHome = cleanTeamName(m.home) === cleanTeam;
-                if (homeScore === awayScore) return 'O'; // Draw
-                if ((isHome && homeScore > awayScore) || (!isHome && awayScore > homeScore)) return 'V'; // Win
-                return 'F'; // Loss
-            }
-            return null;
-        }).filter(Boolean);
-    };
-
-    const homeForm = getTeamForm(match.home);
-    const awayForm = getTeamForm(match.away).reverse();
 
     const renderFormBadge = (result, key) => {
         let bg = '#8e8e93';
