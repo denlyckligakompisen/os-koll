@@ -10,8 +10,8 @@ export const getLastName = (name) => {
     }
 
     // Convert fully uppercase words to title case
-    let formattedName = name.replace(/\b([A-ZÅÄÖ])([A-ZÅÄÖ]+)\b/g, (match, p1, p2) => {
-        return p1 + p2.toLowerCase();
+    let formattedName = name.replace(/\p{Lu}\p{Lu}+/gu, (match) => {
+        return match.charAt(0) + match.slice(1).toLowerCase();
     });
 
     const parts = formattedName.trim().split(/\s+/);
@@ -137,22 +137,12 @@ export const getPlayerEvents = (match, p, isHome) => {
     const teamSubs = match.substitutions?.filter(s => s.side === sideStr) || [];
     if (teamSubs.find(s => s.playerOff === p.name)) {
         events.push(
-            <div aria-hidden="true" style={{ backgroundColor: 'rgba(255,255,255,0.85)', borderRadius: '50%', padding: '1px', display: 'flex' }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#e53935" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <polyline points="19 12 12 19 5 12"></polyline>
-                </svg>
-            </div>
+            <span aria-hidden="true" style={{ color: '#ff3b30', fontSize: '0.8rem', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.8))' }}>▼</span>
         );
     }
     if (teamSubs.find(s => s.playerOn === p.name)) {
         events.push(
-            <div aria-hidden="true" style={{ backgroundColor: 'rgba(255,255,255,0.85)', borderRadius: '50%', padding: '1px', display: 'flex' }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="19" x2="12" y2="5"></line>
-                    <polyline points="5 12 12 5 19 12"></polyline>
-                </svg>
-            </div>
+            <span aria-hidden="true" style={{ color: '#34c759', fontSize: '0.8rem', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.8))' }}>▲</span>
         );
     }
 
