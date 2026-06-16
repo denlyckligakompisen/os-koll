@@ -25,6 +25,17 @@
   --drop-shadow-flag: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   --border-flag: 1px solid rgba(0, 0, 0, 0.1);
   
+  /* Spacing Tokens */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 40px;
+  --spacing-4xl: 48px;
+  --spacing-5xl: 64px;
+  
   /* Segmented Control */
   --segmented-bg: rgba(118, 118, 128, 0.12);
   --segmented-pill-bg: #ffffff;
@@ -190,8 +201,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  min-height: 64px;
+  padding: 0 var(--spacing-lg);
+  min-height: var(--spacing-5xl);
   background-color: var(--color-glass-bg);
   border-bottom: 1px solid var(--border-color, rgba(0,0,0,0.05));
   margin: 0;
@@ -201,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 .header-logo {
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 var(--spacing-md);
   text-decoration: none;
   justify-self: start;
 }
@@ -216,32 +227,32 @@ h1, h2, h3, h4, h5, h6 {
    ============================================= */
 .web-nav-links {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   align-items: center;
   height: 100%;
 }
 
 @media (min-width: 600px) {
   .web-nav-links {
-    gap: 24px;
+    gap: var(--spacing-xl);
   }
 }
 
 .web-nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   background: none;
   border: none;
   color: var(--color-text-muted);
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0 var(--spacing-xs);
   height: 100%;
   position: relative;
   transition: color 0.2s ease;
-  min-height: 64px;
+  min-height: var(--spacing-5xl);
 }
 
 .web-nav-item:hover {
