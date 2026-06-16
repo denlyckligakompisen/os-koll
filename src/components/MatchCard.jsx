@@ -22,6 +22,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     
     const { computedStatus, isSoon, isOverdue, liveProgressPercent, timeLeftStr } = useMatchStatus(match, variant);
     const { homeForm, awayForm } = useTeamForm(match, allMatches);
+    const isCompactHero = highlight && computedStatus === 'finished';
 
     const getComputedScore = () => {
         if (match.score) return match.score;
@@ -468,13 +469,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <TeamLogo
                         logoUrl={homeLogo}
                         teamName={match.home}
-                        size={highlight ? 20 : 52}
+                        size={isCompactHero ? 16 : (highlight ? 80 : 48)}
                         flags={homeFlags}
                         onClick={(e) => handleTeamClick(e, match.home)}
                     />
                     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, justifyContent: 'center' }}>
                         <div style={{
-                            fontSize: highlight ? '0.75rem' : '0.9rem',
+                            fontSize: isCompactHero ? '0.75rem' : (highlight ? '1.05rem' : '0.9rem'),
                             color: 'var(--color-text)',
                             display: 'flex',
                             alignItems: 'center',
@@ -519,7 +520,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                                 <span
                                     style={{
-                                        fontSize: highlight ? '0.75rem' : '0.8rem',
+                                        fontSize: isCompactHero ? '0.75rem' : (highlight ? '1rem' : '0.8rem'),
                                         color: outcomeTextColor || 'var(--color-text)',
                                         flexShrink: 0,
                                         padding: highlight ? '4px 12px' : '2px 8px',
@@ -570,7 +571,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
                                         onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
                                     >
-                                        <Play size={highlight ? 14 : 18} fill="currentColor" />
+                                        <Play size={isCompactHero ? 14 : (highlight ? 22 : 18)} fill="currentColor" />
                                     </a>
                                 )}
                             </button>
@@ -594,7 +595,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <TeamLogo
                         logoUrl={awayLogo}
                         teamName={match.away}
-                        size={highlight ? 20 : 52}
+                        size={isCompactHero ? 16 : (highlight ? 80 : 48)}
                         flags={awayFlags}
                         onClick={(e) => handleTeamClick(e, match.away)}
                     />

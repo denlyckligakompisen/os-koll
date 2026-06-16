@@ -922,7 +922,7 @@ const VMKollen = () => {
                                                         textAlign: 'left'
                                                     }}
                                                 >
-                                                    <FlagBadge codes={flagCodes} name={team.name} size={20} />
+                                                    <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 16 : 20} />
                                                     <span style={{ whiteSpace: 'normal', lineHeight: '1.2' }}>
                                                         <BoldSverige text={team.name} />
                                                     </span>
