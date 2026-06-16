@@ -133,7 +133,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                 </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '50%', left: '24px', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, #3b82f6 ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+            <div style={{ position: 'absolute', top: '50%', left: '24px', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 
             <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 

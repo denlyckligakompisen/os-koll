@@ -394,7 +394,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     </button>
                                 </div>
                             </div>
-                            {showLineups && <LineupsSection match={match} />}
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateRows: showLineups ? '1fr' : '0fr',
+                                transition: 'grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
+                                opacity: showLineups ? 1 : 0
+                            }}>
+                                <div style={{ overflow: 'hidden' }}>
+                                    <LineupsSection match={match} />
+                                </div>
+                            </div>
                         </div>
                     )}
                 </Card>
@@ -636,7 +645,16 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             </div>
                         )}
-                        {showLineups && <LineupsSection match={match} />}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateRows: showLineups ? '1fr' : '0fr',
+                            transition: 'grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
+                            opacity: showLineups ? 1 : 0
+                        }}>
+                            <div style={{ overflow: 'hidden' }}>
+                                <LineupsSection match={match} />
+                            </div>
+                        </div>
                     </div>
                 )}
             </Card>
