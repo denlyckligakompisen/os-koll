@@ -271,8 +271,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                             </div>
                             {computedStatus === 'live' && match.liveCurrentTime && formatLiveTime(match.liveCurrentTime, match.period) !== 'SLUT' && (
-                                <div style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 'bold', marginTop: '-4px' }}>
-                                    {formatLiveTime(match.liveCurrentTime, match.period)}
+                                <div style={{ fontSize: '0.9rem', color: '#000000', fontWeight: 'bold', marginTop: '-4px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <span>{formatLiveTime(match.liveCurrentTime, match.period)}</span>
+                                    <div className="live-timer-line" />
                                 </div>
                             )}
 
@@ -535,8 +536,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                             (isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}
                                 </span>
                                 {computedStatus === 'live' && match.liveCurrentTime && formatLiveTime(match.liveCurrentTime, match.period) !== 'SLUT' && (
-                                    <div style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: '#000000', fontWeight: 'bold', marginTop: '2px' }}>
-                                        {formatLiveTime(match.liveCurrentTime, match.period)}
+                                    <div style={{ fontSize: highlight ? '0.75rem' : '0.65rem', color: '#000000', fontWeight: 'bold', marginTop: '2px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                                        <span>{formatLiveTime(match.liveCurrentTime, match.period)}</span>
+                                        <div className="live-timer-line" style={{ width: '40px' }} />
                                     </div>
                                 )}
 

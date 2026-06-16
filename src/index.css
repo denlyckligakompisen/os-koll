@@ -180,6 +180,33 @@ h1, h2, h3, h4, h5, h6 {
   animation: pulse 2s infinite;
 }
 
+@keyframes sweep-line {
+  0% { transform: translateX(-150%); }
+  100% { transform: translateX(250%); }
+}
+
+.live-timer-line {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.live-timer-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  animation: sweep-line 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 /* =============================================
    Glassmorphism Utility
    ============================================= */
@@ -590,22 +617,6 @@ select:focus-visible {
   box-shadow: 0 0 0 2px #FFD700;
 }
 
-.gold-frame-animated::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 18px;
-  background: conic-gradient(from var(--angle), transparent 0%, transparent 80%, rgba(255, 255, 255, 1) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  padding: 2px;
-  animation: rotateAngle 2.5s linear infinite;
-  pointer-events: none;
-  z-index: 5;
-  transform: translateZ(0);
-}
 
 @keyframes swedenBadgeFlare {
   0%, 8%, 20%, 100% {
@@ -633,22 +644,6 @@ select:focus-visible {
   box-shadow: 0 0 0 2px #005293;
 }
 
-.sweden-frame-animated::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 18px;
-  background: conic-gradient(from var(--angle), transparent 0%, transparent 80%, #fecb00 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  padding: 2px;
-  animation: rotateAngle 2.5s linear infinite;
-  pointer-events: none;
-  z-index: 5;
-  transform: translateZ(0);
-}
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
