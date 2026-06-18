@@ -123,10 +123,65 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         }
 
         if (label.includes('/')) {
+            const parts = label.split('/');
+            const groupChars = [];
+            const rank = parseInt(parts[0][0]);
+            groupChars.push(parts[0][1]);
+            for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
+
+            const top8ThirdsNames = new Set();
+            if (groupsData?.groups) {
+                const thirds = groupsData.groups.map(g => {
+                    const sorted = [...g.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    return sorted[2];
+                }).filter(Boolean);
+                thirds.sort((a, b) => (b.pts - a.pts) || (b.gd - a.gd) || (a.name.localeCompare(b.name, 'sv')));
+                thirds.slice(0, 8).forEach(t => top8ThirdsNames.add(t.name));
+            }
+
+            const validIndices = [];
+            groupChars.forEach((char, i) => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    if (team && top8ThirdsNames.has(team.name)) {
+                        validIndices.push(i);
+                    }
+                }
+            });
+
+            const indicesToUse = (rank === 3 && validIndices.length > 0) ? validIndices : groupChars.map((_, i) => i);
+
+            const abbrs = indicesToUse.map(i => {
+                const char = groupChars[i];
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    return team ? getAbbr(team.name) : char;
+                }
+                return char;
+            });
+
+            const flagCodes = indicesToUse.map(i => {
+                const char = groupChars[i];
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+                    const team = sorted[rank - 1];
+                    if (team && team.name) return getFlagCode(team.name);
+                }
+                return null;
+            }).filter(Boolean);
+
             return {
-                name: label,
+                name: `${label}\n${abbrs.join('/')}`,
                 isPlaceholder: true,
-                flagCodes: []
+                flagCodes: flagCodes.length > 0 ? flagCodes : undefined
             };
         }
 

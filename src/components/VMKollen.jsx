@@ -618,7 +618,37 @@ const VMKollen = () => {
             groupChars.push(parts[0][1]);
             for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
 
-            const abbrs = groupChars.map(char => {
+            const top8ThirdsNames = new Set();
+            if (groupsData?.groups) {
+                const getRank = (teamName) => {
+                    if (!rankingData?.rankings) return 999;
+                    const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
+                    return index !== -1 ? index : 999;
+                };
+                const thirds = groupsData.groups.map(g => g.teams[2]).filter(Boolean);
+                thirds.sort((a, b) => {
+                    return (b.pts - a.pts) || (b.gd - a.gd) || (b.gf - a.gf) || (b.fairPlay - a.fairPlay) || (getRank(a.name) - getRank(b.name));
+                });
+                thirds.slice(0, 8).forEach(t => top8ThirdsNames.add(t.name));
+            }
+
+            const validIndices = [];
+            groupChars.forEach((char, i) => {
+                const idx = char.toUpperCase().charCodeAt(0) - 65;
+                const group = groupsData.groups[idx];
+                if (group) {
+                    const team = group.teams[rank - 1];
+                    if (team && top8ThirdsNames.has(team.name)) {
+                        validIndices.push(i);
+                    }
+                }
+            });
+
+            // If none are in top 8 (fallback) or if rank is not 3, just use all
+            const indicesToUse = (rank === 3 && validIndices.length > 0) ? validIndices : groupChars.map((_, i) => i);
+
+            const abbrs = indicesToUse.map(i => {
+                const char = groupChars[i];
                 const idx = char.toUpperCase().charCodeAt(0) - 65;
                 const group = groupsData.groups[idx];
                 if (group) {
@@ -629,7 +659,8 @@ const VMKollen = () => {
                 return char;
             });
 
-            const flagCodes = groupChars.map(char => {
+            const flagCodes = indicesToUse.map(i => {
+                const char = groupChars[i];
                 const idx = char.toUpperCase().charCodeAt(0) - 65;
                 const group = groupsData.groups[idx];
                 if (group) {
@@ -645,7 +676,7 @@ const VMKollen = () => {
             return {
                 name: `${label}\n${abbrs.join('/')}`,
                 isPlaceholder: true,
-                flagCodes: flagCodes.length > 1 ? flagCodes : undefined
+                flagCodes: flagCodes.length > 0 ? flagCodes : undefined
             };
         }
 
