@@ -46,8 +46,15 @@ async function scrapeChannels() {
             for (const match of data.matches) {
                 if (match.broadcast) continue; // Already has a broadcast channel
                 
-                const homeLower = match.home.toLowerCase();
-                const awayLower = match.away.toLowerCase();
+                const normalize = (name) => {
+                    let n = name.toLowerCase();
+                    if (n.includes('bosnien')) return 'bosnien';
+                    if (n.includes('kongo')) return 'kongo';
+                    return n;
+                };
+                
+                const homeLower = normalize(match.home);
+                const awayLower = normalize(match.away);
 
                 // Check SVT
                 const svtLink = svtMatches.find(l => l.text.toLowerCase().includes(homeLower) && l.text.toLowerCase().includes(awayLower));

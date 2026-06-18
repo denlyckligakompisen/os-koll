@@ -890,6 +890,7 @@ const VMKollen = () => {
                                     if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
                                     else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
                                     else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
+                                    else if (gRank === 3) rowBgColor = 'rgba(255, 204, 0, 0.1)';
                                 }
 
                                 const thirdPlaceTeam = sortedTeams[2];
@@ -1199,9 +1200,13 @@ const VMKollen = () => {
                 <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(52, 199, 89, 0.2)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
                 <span style={{ fontSize: '0.85rem' }}><strong>Grupptvåor</strong> (vidare till slutspel)</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
                 <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(255, 204, 0, 0.2)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
                 <span style={{ fontSize: '0.85rem' }}><strong>8 bästa grupptreorna</strong> (vidare till slutspel)</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(255, 204, 0, 0.1)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
+                <span style={{ fontSize: '0.85rem' }}><strong>Övriga grupptreor</strong> (utslagna)</span>
             </div>
         </div>
     );
