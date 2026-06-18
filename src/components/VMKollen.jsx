@@ -7,7 +7,7 @@ import MatchCard from './MatchCard';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy, Menu } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy, Menu, List } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
@@ -258,6 +258,7 @@ const VMKollen = () => {
 
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [showAllTeamsModal, setShowAllTeamsModal] = useState(false);
 
     const groupsData = useMemo(() => {
         if (!initialGroupsData || !matchesData?.matches) return initialGroupsData;
@@ -850,13 +851,13 @@ const VMKollen = () => {
                         marginTop: isInline ? '-32px' : '0',
                         backgroundColor: isInline ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
                         boxShadow: isInline ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
-                        borderTopLeftRadius: isInline ? '0' : undefined,
-                        borderTopRightRadius: isInline ? '0' : undefined,
+                        borderRadius: isInline ? '0 0 16px 16px' : '16px',
                         borderTop: isInline ? 'none' : undefined,
                         position: 'relative',
                         zIndex: 1,
                         width: isInline ? 'calc(100% - 32px)' : '100%',
-                        margin: isInline ? '-32px auto 0 auto' : '0'
+                        margin: isInline ? '-32px auto 0 auto' : '0',
+                        overflow: 'hidden'
                     }}
                 >
                     <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.7rem' : '0.8rem' }}>
@@ -877,28 +878,38 @@ const VMKollen = () => {
                                 const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
                                 const flagCodes = getFlagCodes(team.name);
                                 const rank = tidx + 1;
-                                const isQualifiedThird = rank === 3 && qualifiedThirds.includes(team.name);
                                 const isFiltered = filterCountries.length > 0 && filterCountries.some(fc => team.name.includes(fc));
                                 const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
+
+                                let rowBgColor = isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent';
+                                const gRank = team.groupRank || (groupName === 'Alla Lag' ? null : rank);
+                                
+                                const isQualifiedThird = gRank === 3 && qualifiedThirds.includes(team.name);
+
+                                if (groupName === 'Alla Lag') {
+                                    if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
+                                    else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
+                                    else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
+                                }
 
                                 const thirdPlaceTeam = sortedTeams[2];
                                 const thirdPlaceTeamName = thirdPlaceTeam ? (typeof thirdPlaceTeam === 'string' ? thirdPlaceTeam : thirdPlaceTeam.name) : null;
                                 const thirdPlaceQualifies = thirdPlaceTeamName ? qualifiedThirds.includes(thirdPlaceTeamName) : false;
-                                const isLastQualifier = (rank === 2 && !thirdPlaceQualifies) || (rank === 3 && isQualifiedThird);
+                                const isLastQualifier = groupName !== 'Alla Lag' && ((rank === 2 && !thirdPlaceQualifies) || (rank === 3 && isQualifiedThird));
 
                                 return (
                                     <React.Fragment key={team.name}>
                                         <tr
                                             ref={el => tableRefs.current[team.name] = el}
                                             style={{
-                                                backgroundColor: isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
+                                                backgroundColor: rowBgColor,
                                                 transition: 'background-color 0.2s ease'
                                             }}
                                         >
                                             <td style={{
                                                 padding: '6px 2px',
-                                                borderTopLeftRadius: isHighlighted ? '10px' : '0',
-                                                borderBottomLeftRadius: isHighlighted ? '10px' : '0'
+                                                borderTopLeftRadius: rowBgColor !== 'transparent' ? '10px' : '0',
+                                                borderBottomLeftRadius: rowBgColor !== 'transparent' ? '10px' : '0'
                                             }}>
                                                 <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.75rem', backgroundColor: 'transparent', color: 'inherit' }}>
                                                     {rank}
@@ -934,8 +945,8 @@ const VMKollen = () => {
                                                 padding: '6px 2px',
                                                 textAlign: 'right',
                                                 fontWeight: 'bold',
-                                                borderTopRightRadius: isHighlighted ? '10px' : '0',
-                                                borderBottomRightRadius: isHighlighted ? '10px' : '0'
+                                                borderTopRightRadius: rowBgColor !== 'transparent' ? '10px' : '0',
+                                                borderBottomRightRadius: rowBgColor !== 'transparent' ? '10px' : '0'
                                             }}>{team.pts}</td>
                                         </tr>
                                         {isLastQualifier && (
@@ -1177,21 +1188,38 @@ const VMKollen = () => {
 
 
 
+    const renderColorLegend = () => (
+        <div style={{ marginTop: '16px', marginBottom: '32px', padding: '16px', backgroundColor: 'var(--color-card-bg)', borderRadius: '16px', border: 'var(--border)', boxShadow: 'var(--shadow-sm)' }}>
+            <h3 style={{ marginTop: 0, marginBottom: '16px', fontSize: '1rem', fontWeight: 'bold' }}>Färgförklaring</h3>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+                <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(52, 199, 89, 0.3)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
+                <span style={{ fontSize: '0.85rem' }}><strong>Gruppettor</strong> (vidare till slutspel)</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+                <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(52, 199, 89, 0.2)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
+                <span style={{ fontSize: '0.85rem' }}><strong>Grupptvåor</strong> (vidare till slutspel)</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: '16px', height: '16px', backgroundColor: 'rgba(255, 204, 0, 0.2)', borderRadius: '4px', marginRight: '12px', flexShrink: 0 }}></div>
+                <span style={{ fontSize: '0.85rem' }}><strong>8 bästa grupptreorna</strong> (vidare till slutspel)</span>
+            </div>
+        </div>
+    );
+
     return (
         <div
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
             {(() => {
-                const hasPlayoff = combinedMatches.some(m => m.isKnockout);
-                const isVisible = (showScrollTop || hasPlayoff) && filterCountries.length === 0;
+                const isVisible = filterCountries.length === 0;
                 
                 return (
                     <button
                         className={`scroll-to-top-btn ${isVisible ? 'visible' : ''}`}
-                        onClick={showScrollTop ? scrollToTop : scrollToPlayoff}
-                        aria-label={showScrollTop ? "Scrolla till toppen" : "Scrolla till slutspel"}
+                        onClick={() => setShowAllTeamsModal(true)}
+                        aria-label="Visa alla lag"
                     >
-                        {showScrollTop ? <ArrowUp size={28} /> : <Trophy size={24} />}
+                        <List size={28} />
                     </button>
                 );
             })()}
@@ -1336,7 +1364,7 @@ const VMKollen = () => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely
                                 const renderedGroupNames = new Set();
-                                return filterCountries.map(fc => {
+                                const renderedTables = filterCountries.map(fc => {
                                     const group = groupsData.groups.find(g =>
                                         g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
                                     );
@@ -1344,10 +1372,52 @@ const VMKollen = () => {
                                     renderedGroupNames.add(group.name);
                                     return renderTable(group.name, group.teams, null, 0, filterCountries);
                                 }).filter(Boolean);
+                                
+                                return renderedTables;
                             })()}
                             {renderAllMatches()}
                 </div>
             </div>
+
+            {showAllTeamsModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'var(--color-bg)',
+                    zIndex: 9999,
+                    overflowY: 'auto',
+                    padding: '24px 16px'
+                }}>
+                    <div style={{ maxWidth: '600px', margin: '0 auto', position: 'relative', paddingTop: '20px' }}>
+                        <button
+                            onClick={() => setShowAllTeamsModal(false)}
+                            style={{
+                                position: 'absolute',
+                                top: '-10px',
+                                right: '0px',
+                                background: 'var(--color-surface)',
+                                border: '1px solid var(--border)',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                zIndex: 10
+                            }}
+                            aria-label="Stäng"
+                        >
+                            <X size={24} color="var(--color-text)" />
+                        </button>
+                        
+                        {groupsData?.groups && (
+                            renderTable("Alla Lag", sortTeamsSimple(groupsData.groups.flatMap(g => g.teams.map((t, i) => typeof t === 'string' ? {name: t, groupRank: i + 1} : {...t, groupRank: i + 1}))), null, 0, [])
+                        )}
+                        {renderColorLegend()}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
