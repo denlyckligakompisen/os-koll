@@ -12,7 +12,7 @@ export const formatMatchDisplayDate = (dateStr, referenceDate = new Date()) => {
     const diffTime = d2.getTime() - d1.getTime();
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return 'Idag';
+    if (diffDays === 0) return 'Ikväll';
     if (diffDays === 1) return 'Imorgon';
 
     if (diffDays > 1 && diffDays < 8) {
@@ -84,7 +84,7 @@ export const getRelativeDateLabel = (dateStr, monthMap = MONTH_MAP, currentYear 
         tomorrow.setHours(0, 0, 0, 0);
         yesterday.setHours(0, 0, 0, 0);
         
-        if (matchDate.getTime() === today.getTime()) return "Idag";
+        if (matchDate.getTime() === today.getTime()) return "Ikväll";
         if (matchDate.getTime() === tomorrow.getTime()) return "Imorgon";
         if (matchDate.getTime() === yesterday.getTime()) return "Igår";
 

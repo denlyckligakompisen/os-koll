@@ -586,6 +586,23 @@ const VMKollen = () => {
         }).filter(Boolean);
     }, [groupsData, filterCountries]);
 
+    const top8ThirdsNames = React.useMemo(() => {
+        const top8 = new Set();
+        if (groupsData?.groups) {
+            const getRank = (teamName) => {
+                if (!rankingData?.rankings) return 999;
+                const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
+                return index !== -1 ? index : 999;
+            };
+            const thirds = groupsData.groups.map(g => g.teams[2]).filter(Boolean);
+            thirds.sort((a, b) => {
+                return (b.pts - a.pts) || (b.gd - a.gd) || (b.gf - a.gf) || (b.fairPlay - a.fairPlay) || (getRank(a.name) - getRank(b.name));
+            });
+            thirds.slice(0, 8).forEach(t => top8.add(t.name));
+        }
+        return top8;
+    }, [groupsData, rankingData]);
+
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
 
@@ -617,20 +634,6 @@ const VMKollen = () => {
             const rank = parseInt(parts[0][0]);
             groupChars.push(parts[0][1]);
             for (let i = 1; i < parts.length; i++) groupChars.push(parts[i]);
-
-            const top8ThirdsNames = new Set();
-            if (groupsData?.groups) {
-                const getRank = (teamName) => {
-                    if (!rankingData?.rankings) return 999;
-                    const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
-                    return index !== -1 ? index : 999;
-                };
-                const thirds = groupsData.groups.map(g => g.teams[2]).filter(Boolean);
-                thirds.sort((a, b) => {
-                    return (b.pts - a.pts) || (b.gd - a.gd) || (b.gf - a.gf) || (b.fairPlay - a.fairPlay) || (getRank(a.name) - getRank(b.name));
-                });
-                thirds.slice(0, 8).forEach(t => top8ThirdsNames.add(t.name));
-            }
 
             const validIndices = [];
             groupChars.forEach((char, i) => {
@@ -758,7 +761,9 @@ const VMKollen = () => {
                 if (!label || !status.groupChar || !status.rank) return false;
                 const target = `${status.rank}${status.groupChar}`;
                 if (label.includes(target)) return true;
-                if (status.rank === 3 && label.startsWith('3') && label.includes(status.groupChar)) return true;
+                if (status.rank === 3 && label.startsWith('3') && label.includes(status.groupChar)) {
+                    return top8ThirdsNames.has(status.country);
+                }
                 return false;
             };
 
@@ -1115,7 +1120,7 @@ const VMKollen = () => {
                                                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                                                     return (startMs - Date.now()) <= 60 * 60 * 1000;
                                                 });
-                                                const hideHeader = (['idag', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
+                                                const hideHeader = (['ikväll', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
