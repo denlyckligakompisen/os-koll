@@ -316,7 +316,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                      (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
                                     {computedStatus === 'live' && (
                                         <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
-                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' ? (String(match.period) === '4' ? 'Halvtid' : match.period) : ''}
+                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' && String(match.period) !== '4' ? match.period : ''}
                                         </div>
                                     )}
                                 </div>

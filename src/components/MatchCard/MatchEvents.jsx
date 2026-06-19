@@ -58,12 +58,14 @@ const MatchEvents = ({ match }) => {
         return null;
     };
 
+    const hasSecondHalfStarted = String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || allEvents.some(e => e.minute > 45 && e.type !== 'halftime');
+
     const renderTimelineEvent = (event) => {
         if (event.type === 'halftime') {
             return (
                 <div key="halftime" style={{ display: 'flex', width: '100%', marginBottom: '8px', position: 'relative', justifyContent: 'center' }}>
                     {/* The continuous line */}
-                    <div style={{ position: 'absolute', top: '-16px', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
+                    <div style={{ position: 'absolute', top: hasSecondHalfStarted ? '-16px' : '0', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
                     <div style={{ 
                         background: 'var(--color-card-bg)',
                         padding: '4px 0',
