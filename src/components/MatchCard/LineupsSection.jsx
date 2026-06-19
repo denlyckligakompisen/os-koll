@@ -34,9 +34,11 @@ const LineupsSection = ({ match }) => {
     // Sort descending (latest event first)
     allEvents.sort((a, b) => b.minute - a.minute);
 
-    const extraTime = allEvents.filter(e => e.minute > 90);
-    const secondHalf = allEvents.filter(e => e.minute > 45 && e.minute <= 90);
-    const firstHalf = allEvents.filter(e => e.minute <= 45);
+    const getBaseMinute = (minStr) => parseInt(String(minStr).split('+')[0] || '0');
+    
+    const extraTime = allEvents.filter(e => getBaseMinute(e.minuteStr) > 90);
+    const secondHalf = allEvents.filter(e => getBaseMinute(e.minuteStr) > 45 && getBaseMinute(e.minuteStr) <= 90);
+    const firstHalf = allEvents.filter(e => getBaseMinute(e.minuteStr) <= 45);
 
     const renderEventIcon = (type) => {
         if (type === 'goal' || type === 'penalty-goal' || type === 'own-goal') return <span style={{ filter: 'grayscale(100%)', fontSize: '0.8rem' }}>⚽</span>;
