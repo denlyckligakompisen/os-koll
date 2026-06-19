@@ -117,19 +117,11 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '44px', margin: '4px 0', display: 'flex', alignItems: 'center', paddingLeft: '16px' }}>
-            <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 5 }}>
-                <div style={{ position: 'absolute', bottom: '6px', left: 0 }} title={match.home}>
-                    {homeFlags?.length > 0 && <FlagBadge codes={homeFlags} name={match.home} size={14} />}
-                </div>
-                <div style={{ position: 'absolute', top: '6px', left: 0 }} title={match.away}>
-                    {awayFlags?.length > 0 && <FlagBadge codes={awayFlags} name={match.away} size={14} />}
-                </div>
-            </div>
+        <div style={{ position: 'relative', width: '100%', height: '44px', margin: '4px 0', display: 'flex', alignItems: 'center' }}>
 
-            <div style={{ position: 'absolute', top: '50%', left: '24px', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+            <div style={{ position: 'absolute', top: '50%', left: '2%', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, #34c759 ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 
-            <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, var(--color-primary) ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+            <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, #34c759 ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
 
             {events.map((e, i) => {
                 const pct = e.pct;
@@ -159,21 +151,6 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                             alignItems: 'center'
                         }}>
                             <span className="sr-only">Minut {e.minuteStr}: </span>
-                            {e.type !== 'yellow-card' && e.type !== 'red-card' && e.player && (
-                                <div style={{
-                                    position: 'absolute',
-                                    [isHome ? 'bottom' : 'top']: '100%',
-                                    [isHome ? 'marginBottom' : 'marginTop']: '0px',
-                                    fontSize: '0.75rem',
-                                    color: 'var(--color-text)',
-                                    whiteSpace: 'nowrap',
-                                    textShadow: '0 0 3px var(--color-card-bg), 0 0 3px var(--color-card-bg)',
-                                    fontWeight: 'normal',
-                                    textAlign: 'center'
-                                }}>
-                                    {getLastName(e.player)}{e.type === 'own-goal' ? ' (självmål)' : ''}
-                                </div>
-                            )}
                         </div>
                     </div>
                 );
