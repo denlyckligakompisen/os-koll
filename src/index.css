@@ -46,6 +46,46 @@
 }
 
 /* =============================================
+   Segmented Control Styles
+   ============================================= */
+.segmented-control {
+  display: flex;
+  background-color: var(--segmented-bg, rgba(118, 118, 128, 0.12));
+  padding: 4px;
+  border-radius: 24px;
+  position: relative;
+  width: fit-content;
+}
+
+.segmented-button {
+  background: transparent;
+  border: 2px solid transparent;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.segmented-button.active {
+  background-color: var(--active-color, var(--color-primary));
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.segmented-button:hover:not(.active) {
+  opacity: 0.8;
+}
+
+/* =============================================
    Base & Reset
    ============================================= */
 *, *::before, *::after {

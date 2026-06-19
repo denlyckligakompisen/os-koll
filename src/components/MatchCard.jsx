@@ -275,7 +275,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flexShrink: 0,
                             boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
                         }}>
-                            {/* Score */}
+                            {/* Score or Time */}
                             {computedStatus !== 'upcoming' ? (
                                 <div style={{ fontSize: '2.5rem', fontWeight: 'bold', display: 'flex', gap: '12px', alignItems: 'center', lineHeight: 1 }}>
                                     <span>{heroHomeScore}</span>
@@ -284,28 +284,55 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             ) : (
                                 <div style={{ fontSize: '1.8rem', fontWeight: 'bold', lineHeight: 1 }}>
-                                    vs
+                                    {isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                                 </div>
                             )}
                             
-                            {/* Time */}
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontWeight: '600',
-                                fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
-                                marginTop: '12px'
-                            }}>
-                                <span>{computedStatus === 'finished' ? 'FT' :
-                                 computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) :
-                                 isOverdue ? '00:00' :
-                                 (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                                {computedStatus === 'live' && (
-                                    <div className="live-timer-line" style={{ width: '100%', height: '3px', borderRadius: '1.5px', marginTop: '6px' }} />
-                                )}
-                            </div>
+                            {/* Status text (only for finished/live) */}
+                            {computedStatus !== 'upcoming' && (
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontWeight: '600',
+                                    fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
+                                    marginTop: '12px'
+                                }}>
+                                    <span>{computedStatus === 'finished' ? 'FT' :
+                                     (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
+                                    {computedStatus === 'live' && (
+                                        <div className="live-timer-line" style={{ width: '100%', height: '3px', borderRadius: '1.5px', marginTop: '6px' }} />
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Broadcast Channel under time (for upcoming) */}
+                            {computedStatus === 'upcoming' && match.broadcast && !props.hideBroadcast && (
+                                <div style={{ marginTop: '12px' }}>
+                                    <button
+                                        onClick={handleBroadcastClick}
+                                        disabled={!getBroadcasterUrl(match.broadcast)}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '6px',
+                                            padding: '4px',
+                                            backgroundColor: 'transparent',
+                                            border: 'none',
+                                            cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                            transition: 'opacity 0.2s, transform 0.2s',
+                                            opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6
+                                        }}
+                                        onMouseOver={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1.05)' }}
+                                        onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1)' }}
+                                        title={`Se på ${match.broadcast}`}
+                                    >
+                                        <BroadcasterLogo name={match.broadcast} size="small" />
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* Away Team */}
@@ -336,32 +363,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         
                         {/* Broadcast/Highlights (Absolutely Positioned) */}
                         <div style={{ position: 'absolute', top: '-12px', right: '-12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-                            {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                                <button
-                                    onClick={handleBroadcastClick}
-                                    disabled={!getBroadcasterUrl(match.broadcast)}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '6px',
-                                        padding: '6px 12px',
-                                        backgroundColor: 'var(--color-surface-subtle)',
-                                        border: 'none',
-                                        borderRadius: '20px',
-                                        cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
-                                        transition: 'background 0.2s',
-                                        opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6,
-                                        boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
-                                    }}
-                                    onMouseOver={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.08)' }}
-                                    onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.backgroundColor = 'var(--color-surface-subtle)' }}
-                                    title={`Se på ${match.broadcast}`}
-                                >
-                                    <Play size={14} fill="currentColor" color="var(--color-text-muted)" />
-                                    <BroadcasterLogo name={match.broadcast} size="small" />
-                                </button>
-                            )}
                             {computedStatus === 'finished' && !props.hideBroadcast && (
                                 <a
                                     href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}

@@ -9,6 +9,8 @@ import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
 import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy, Menu, List } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
+import HistoryIcon from '@mui/icons-material/History';
+import EventIcon from '@mui/icons-material/Event';
 
 import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
 
@@ -1045,7 +1047,25 @@ const VMKollen = () => {
         };
 
 
-        let sortedDates = Object.keys(groupedMatches).sort((a, b) => {
+        let localGroupedMatches = {};
+        Object.keys(groupedMatches).forEach(date => {
+            const filtered = groupedMatches[date].filter(m => {
+                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                const hideAfterMs = startMs + (140 * 60 * 1000);
+                const isPlayed = m.status === 'finished' && Date.now() > hideAfterMs;
+                
+                if (matchStatusFilter === 'played') {
+                    return isPlayed;
+                } else {
+                    return !isPlayed;
+                }
+            });
+            if (filtered.length > 0) {
+                localGroupedMatches[date] = filtered;
+            }
+        });
+
+        let sortedDates = Object.keys(localGroupedMatches).sort((a, b) => {
             const dateA = a.replace('_night', '');
             const dateB = b.replace('_night', '');
             const diff = parseTournamentDate(dateA, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(dateB, '00:00', GROUP_MONTH_MAP);
@@ -1073,7 +1093,7 @@ const VMKollen = () => {
         let currentRoundDates = [];
 
         sortedDates.forEach((date) => {
-            const matches = groupedMatches[date];
+            const matches = localGroupedMatches[date];
             const firstMatch = matches[0];
             let roundKey = "Gruppspel";
 
@@ -1106,7 +1126,7 @@ const VMKollen = () => {
                         <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
                             {roundObj.dates.map((date) => {
-                                const matches = groupedMatches[date];
+                                const matches = localGroupedMatches[date];
                                 return (
                                     <React.Fragment key={date}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1419,29 +1439,23 @@ const VMKollen = () => {
                                 });
 
                                 return (
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                                        <button
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '12px' }}>
+                                        <button 
+                                            className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
                                             onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
+                                            title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
                                             style={{
-                                                background: 'rgba(128, 128, 128, 0.1)',
-                                                border: '1px solid rgba(128, 128, 128, 0.2)',
-                                                padding: '6px 16px',
-                                                borderRadius: '20px',
-                                                color: 'var(--color-text)',
-                                                fontSize: '0.8rem',
-                                                fontWeight: '500',
-                                                cursor: 'pointer',
+                                                backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                                borderRadius: '50%',
+                                                padding: '8px',
+                                                width: '36px',
+                                                height: '36px',
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                gap: '6px',
-                                                transition: 'background 0.2s ease',
-                                                alignSelf: 'center'
+                                                justifyContent: 'center'
                                             }}
-                                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
-                                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
                                         >
-                                            {matchStatusFilter === 'played' ? 'Dölj spelade matcher' : 'Spelade matcher'}
-                                            <span style={{ fontSize: '0.7rem' }}>{matchStatusFilter === 'played' ? '▲' : '▼'}</span>
+                                            <HistoryIcon fontSize="small" />
                                         </button>
                                     </div>
                                 );
