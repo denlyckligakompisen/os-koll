@@ -29,6 +29,19 @@ const MatchEvents = ({ match }) => {
 
     if (allEvents.length === 0) return null;
 
+    // Check if match has reached or passed halftime
+    const isPastFirstHalf = String(match.period) === '4' || String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || allEvents.some(e => e.minute > 45);
+    
+    if (isPastFirstHalf) {
+        allEvents.push({ 
+            side: 'center', 
+            player: 'Halvtid', 
+            minuteStr: 'HT', 
+            minute: 45.5, 
+            type: 'halftime' 
+        });
+    }
+
     // Sort descending (latest event first)
     allEvents.sort((a, b) => b.minute - a.minute);
 
@@ -46,6 +59,34 @@ const MatchEvents = ({ match }) => {
     };
 
     const renderTimelineEvent = (event) => {
+        if (event.type === 'halftime') {
+            return (
+                <div key="halftime" style={{ display: 'flex', width: '100%', marginBottom: '8px', position: 'relative', justifyContent: 'center' }}>
+                    {/* The continuous line */}
+                    <div style={{ position: 'absolute', top: '-16px', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
+                    <div style={{ 
+                        background: 'var(--color-card-bg)',
+                        padding: '4px 0',
+                        zIndex: 1,
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}>
+                        <div style={{
+                            background: 'rgba(128, 128, 128, 0.1)',
+                            border: '1px solid rgba(128, 128, 128, 0.2)',
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            color: 'var(--color-text)',
+                            fontSize: '0.75rem',
+                            fontWeight: '600'
+                        }}>
+                            Halvtid
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         const isHome = event.side === 'home';
         const suffix = event.type === 'own-goal' ? ' (sm)' : event.type === 'penalty-goal' ? ' (s)' : '';
 
