@@ -245,9 +245,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 fontWeight: '500',
                                 fontSize: '1.25rem',
                                 color: 'var(--color-text)',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
+                                wordBreak: 'break-word',
+                                hyphens: 'auto',
                                 cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                 textAlign: 'center',
                                 width: '100%'
@@ -316,7 +315,14 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                      (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
                                     {computedStatus === 'live' && (
                                         <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
-                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' && String(match.period) !== '4' ? match.period : ''}
+                                            {(() => {
+                                                const p = String(match.period);
+                                                if (p === '1') return '1:a halvlek';
+                                                if (p === '2' || p === '5') return '2:a halvlek';
+                                                if (p === '4') return ''; // Halvtid
+                                                if (p === 'Finished') return '';
+                                                return ''; // Hide unknown raw numbers
+                                            })()}
                                         </div>
                                     )}
                                 </div>
@@ -359,9 +365,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 fontWeight: '500',
                                 fontSize: '1.25rem',
                                 color: 'var(--color-text)',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
+                                wordBreak: 'break-word',
+                                hyphens: 'auto',
                                 cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                 textAlign: 'center',
                                 width: '100%'
@@ -515,7 +520,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     ...props.style
                 }}
             >
-                {match.group && !match.group.toLowerCase().includes('grupp') && (
+                {match.group && !match.group.toLowerCase().includes('grupp') && !isFiltered && (
                     <div style={{
                         fontSize: '0.65rem',
                         fontWeight: '600',
@@ -555,7 +560,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 <span>{computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : 
                                  isOverdue ? '00:00' : 
                                  (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                                {computedStatus === 'live' && (
+                                {computedStatus === 'live' && !isFiltered && (
                                     <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
                                 )}
                             </div>
@@ -594,10 +599,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 fontWeight: '400', 
                                 fontSize: '1rem', 
                                 color: 'var(--color-text)',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                                wordBreak: 'break-word',
+                                hyphens: 'auto',
+                                cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
+                                lineHeight: '1.2'
                             }}>
                                 {cleanTeamNameForDisplay(match.home)}
                             </span>
@@ -615,10 +620,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 fontWeight: '400', 
                                 fontSize: '1rem', 
                                 color: 'var(--color-text)',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default'
+                                wordBreak: 'break-word',
+                                hyphens: 'auto',
+                                cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
+                                lineHeight: '1.2'
                             }}>
                                 {cleanTeamNameForDisplay(match.away)}
                             </span>
@@ -627,7 +632,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     
                     {/* Far Right: Broadcast/Highlights (optional) */}
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
-                        {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
+                        {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && !isFiltered && (
                             <div
                                 role="button"
                                 tabIndex={0}
@@ -655,7 +660,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 <BroadcasterLogo name={match.broadcast} customHeight="0.85rem" transparentMode={true} />
                             </div>
                         )}
-                        {computedStatus === 'finished' && !props.hideBroadcast && (
+                        {computedStatus === 'finished' && !props.hideBroadcast && !isFiltered && (
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, minHeight: '44px', padding: '0 12px', backgroundColor: 'transparent' }}>
                                 <a
                                     href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
@@ -680,7 +685,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 </div>
 
                 {/* Live match events: yellow cards, match info */}
-                {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
+                {!isFiltered && (computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
                     <div style={{
                         marginTop: '6px',
                         display: 'flex',

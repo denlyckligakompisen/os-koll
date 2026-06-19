@@ -390,9 +390,10 @@ const VMKollen = () => {
 
 
     const handleCountryClick = (country) => {
+        if (matchStatusFilter === 'played') return;
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
-        setFilterCountries(prev => prev.includes(cleanName) ? [] : [cleanName]);
+        setFilterCountries([cleanName]);
     };
 
     const fetchAllData = useCallback(async () => {
@@ -1343,49 +1344,6 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                    <div style={{
-                        position: 'absolute',
-                        left: '10px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        zIndex: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
-                        {(() => {
-                            if (!matchesData) return null;
-                            const combinedMatches = Object.values(matchesData).flat();
-                            const playedList = combinedMatches.filter(m => {
-                                if (m.status !== 'finished') return false;
-                                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
-                                const hideAfterMs = startMs + (140 * 60 * 1000);
-                                return Date.now() > hideAfterMs;
-                            });
-                            
-                            if (playedList.length === 0 && matchStatusFilter !== 'played') return null;
-
-                            return (
-                                <button 
-                                    className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
-                                    onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
-                                    title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
-                                    style={{
-                                        backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                        borderRadius: '50%',
-                                        padding: '8px',
-                                        width: '36px',
-                                        height: '36px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
-                                >
-                                    <HistoryIcon fontSize="small" />
-                                </button>
-                            );
-                        })()}
-                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
                             className="header-logo"
@@ -1433,7 +1391,7 @@ const VMKollen = () => {
                         gap: '8px'
                     }}>
 
-                        {filterCountries.length > 0 && (
+                        {filterCountries.length > 0 ? (
                             <div ref={filterRef} style={{ display: 'flex' }}>
                                 <button
                                     type="button"
@@ -1457,8 +1415,8 @@ const VMKollen = () => {
                                         e.stopPropagation();
                                         setFilterCountries([]);
                                     }}
-                                    aria-label="Filtrera länder"
-                                    title="Filtrera länder"
+                                    aria-label="Rensa filter"
+                                    title="Rensa filter"
                                 >
                                     {filterCountries.length === 1 ? (
                                         <div style={{ pointerEvents: 'none', display: 'flex' }}>
@@ -1491,6 +1449,40 @@ const VMKollen = () => {
                                     )}
                                 </button>
                             </div>
+                        ) : (
+                            (() => {
+                                if (!matchesData) return null;
+                                const combinedMatches = Object.values(matchesData).flat();
+                                const playedList = combinedMatches.filter(m => {
+                                    if (m.status !== 'finished') return false;
+                                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                                    const hideAfterMs = startMs + (140 * 60 * 1000);
+                                    return Date.now() > hideAfterMs;
+                                });
+                                
+                                if (playedList.length === 0 && matchStatusFilter !== 'played') return null;
+
+                                return (
+                                    <button 
+                                        className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
+                                        onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
+                                        title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
+                                        style={{
+                                            backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                            borderRadius: '50%',
+                                            padding: '8px',
+                                            width: '36px',
+                                            height: '36px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'all 0.2s ease'
+                                        }}
+                                    >
+                                        <HistoryIcon fontSize="small" />
+                                    </button>
+                                );
+                            })()
                         )}
                     </div>
                 </div>
