@@ -68,12 +68,10 @@ const PitchLineup = ({ match }) => {
 
                 <div style={{
                     fontSize: '0.75rem', color: 'white', marginTop: '4px',
-                    background: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)',
-                    padding: '2px 8px', borderRadius: '12px',
                     textAlign: 'center', maxWidth: '90px',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                    fontWeight: '500', zIndex: 2, letterSpacing: '-0.02em',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    fontWeight: '600', zIndex: 2, letterSpacing: '-0.02em',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.8), 0 0 2px rgba(0,0,0,0.5)'
                 }}>
                     {p.number ? `${p.number} ` : ''}{getLastName(p.name)}
                 </div>

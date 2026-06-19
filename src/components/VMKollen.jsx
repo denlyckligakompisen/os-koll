@@ -1049,20 +1049,39 @@ const VMKollen = () => {
 
         let localGroupedMatches = {};
         Object.keys(groupedMatches).forEach(date => {
-            const filtered = groupedMatches[date].filter(m => {
+            groupedMatches[date].forEach(m => {
                 const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                 const hideAfterMs = startMs + (140 * 60 * 1000);
                 const isPlayed = m.status === 'finished' && Date.now() > hideAfterMs;
                 
-                if (matchStatusFilter === 'played') {
-                    return isPlayed;
-                } else {
-                    return !isPlayed;
+                const keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
+                if (keep) {
+                    const matchHour = new Date(startMs).getHours();
+                    let targetDate = date;
+                    
+                    const relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
+                    const rlLower = relativeLabel.toLowerCase();
+                    const currentHour = new Date().getHours();
+                    let willBeInatt = false;
+                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
+                        willBeInatt = true;
+                    } else if (rlLower === 'imorgon' && currentHour >= 12) {
+                        willBeInatt = true;
+                    }
+                    
+                    if (matchHour < 7 || date.includes('_night')) {
+                        if (willBeInatt) {
+                            targetDate = date.replace('_night', '') + '_night';
+                        } else {
+                            targetDate = date.replace('_night', '');
+                        }
+                    }
+                    if (!localGroupedMatches[targetDate]) {
+                        localGroupedMatches[targetDate] = [];
+                    }
+                    localGroupedMatches[targetDate].push(m);
                 }
             });
-            if (filtered.length > 0) {
-                localGroupedMatches[date] = filtered;
-            }
         });
 
         let sortedDates = Object.keys(localGroupedMatches).sort((a, b) => {
@@ -1132,11 +1151,17 @@ const VMKollen = () => {
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {(() => {
                                                 let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
-                                                if (date.includes('_night') && relativeLabel === 'Imorgon') {
-                                                    relativeLabel = 'Inatt';
-                                                }
                                                 if (matchStatusFilter === 'played' && ['ikväll', 'i kväll'].includes(relativeLabel.toLowerCase())) {
                                                     relativeLabel = 'Idag';
+                                                }
+                                                const currentHour = new Date().getHours();
+                                                if (date.includes('_night')) {
+                                                    const rlLower = relativeLabel.toLowerCase();
+                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
+                                                        relativeLabel = 'Inatt';
+                                                    } else if (rlLower === 'imorgon' && currentHour >= 12) {
+                                                        relativeLabel = 'Inatt';
+                                                    }
                                                 }
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
                                                 const isCountdownOrLive = matches.some(m => {
@@ -1171,8 +1196,17 @@ const VMKollen = () => {
                                                 const hasHero = filterCountries.length === 0 && matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
-                                                if (date.includes('_night') && relativeLabel === 'Imorgon') {
-                                                    relativeLabel = 'Inatt';
+                                                if (matchStatusFilter === 'played' && ['ikväll', 'i kväll'].includes(relativeLabel.toLowerCase())) {
+                                                    relativeLabel = 'Idag';
+                                                }
+                                                const currentHour = new Date().getHours();
+                                                if (date.includes('_night')) {
+                                                    const rlLower = relativeLabel.toLowerCase();
+                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
+                                                        relativeLabel = 'Inatt';
+                                                    } else if (rlLower === 'imorgon' && currentHour >= 12) {
+                                                        relativeLabel = 'Inatt';
+                                                    }
                                                 }
 
                                                 const homeRankVal = getTeamRank(m.realHome || m.home);

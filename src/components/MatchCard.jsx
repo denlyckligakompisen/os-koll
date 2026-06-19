@@ -9,6 +9,7 @@ import { Play } from 'lucide-react';
 import TeamLogo from './MatchCard/TeamLogo';
 import BroadcasterLogo from './MatchCard/BroadcasterLogo';
 import EventsTimeline from './MatchCard/EventsTimeline';
+import MatchEvents from './MatchCard/MatchEvents';
 import LineupsSection from './MatchCard/LineupsSection';
 import { formatLiveTime } from './MatchCard/utils.jsx';
 import { useMatchStatus } from '../hooks/useMatchStatus';
@@ -315,7 +316,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                      (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
                                     {computedStatus === 'live' && (
                                         <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
-                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' ? match.period : ''}
+                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' ? (String(match.period) === '4' ? 'Halvtid' : match.period) : ''}
                                         </div>
                                     )}
                                 </div>
@@ -403,26 +404,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         </div>
                     </div>
 
-                    {/* Live match events: yellow cards, match info */}
-                    {(computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
-                        <div style={{
-                            marginTop: '8px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%'
-                        }}>
-                            <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
-                        </div>
-                    )}
+
                     {/* Match info footer */}
                     {(computedStatus === 'live' || isSoon || computedStatus === 'finished') && (match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
                         <div style={{ marginTop: '0px', paddingTop: '0px' }}>
+                            <MatchEvents match={match} />
+                            
                             <div style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 gap: '4px',
-                                marginTop: '4px'
+                                marginTop: '0px'
                             }}>
                                 <div style={{
                                     display: 'flex',
@@ -694,57 +687,60 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         flexDirection: 'column',
                         padding: '0 12px 12px 12px'
                     }}>
-                        <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
+
                         {/* Match info footer */}
                         {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: '4px',
-                                marginTop: '12px'
-                            }}>
+                            <div style={{ marginTop: '0px', paddingTop: '0px' }}>
+                                <MatchEvents match={match} />
                                 <div style={{
                                     display: 'flex',
-                                    justifyContent: 'center',
+                                    flexDirection: 'column',
                                     alignItems: 'center',
-                                    marginTop: '4px'
+                                    gap: '4px',
+                                    marginTop: '0px'
                                 }}>
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
-                                        style={{
-                                            background: 'rgba(128, 128, 128, 0.1)',
-                                            border: '1px solid rgba(128, 128, 128, 0.2)',
-                                            padding: '4px 14px',
-                                            borderRadius: '20px',
-                                            color: 'var(--color-text)',
-                                            fontSize: '0.75rem',
-                                            fontWeight: '500',
-                                            cursor: 'pointer',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '6px',
-                                            transition: 'background 0.2s ease'
-                                        }}
-                                        onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
-                                        onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
-                                    >
-                                        {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
-                                        <span style={{ fontSize: '0.65rem' }}>{showLineups ? '▲' : '▼'}</span>
-                                    </button>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginTop: '8px'
+                                    }}>
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
+                                            style={{
+                                                background: 'rgba(128, 128, 128, 0.1)',
+                                                border: '1px solid rgba(128, 128, 128, 0.2)',
+                                                padding: '4px 14px',
+                                                borderRadius: '20px',
+                                                color: 'var(--color-text)',
+                                                fontSize: '0.75rem',
+                                                fontWeight: '500',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                transition: 'background 0.2s ease'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
+                                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
+                                        >
+                                            {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
+                                            <span style={{ fontSize: '0.65rem' }}>{showLineups ? '▲' : '▼'}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateRows: showLineups ? '1fr' : '0fr',
+                                    transition: 'grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
+                                    opacity: showLineups ? 1 : 0
+                                }}>
+                                    <div style={{ overflow: 'hidden' }}>
+                                        <LineupsSection match={match} />
+                                    </div>
                                 </div>
                             </div>
                         )}
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateRows: showLineups ? '1fr' : '0fr',
-                            transition: 'grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
-                            opacity: showLineups ? 1 : 0
-                        }}>
-                            <div style={{ overflow: 'hidden' }}>
-                                <LineupsSection match={match} />
-                            </div>
-                        </div>
                     </div>
                 )}
             </Card>
