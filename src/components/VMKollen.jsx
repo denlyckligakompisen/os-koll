@@ -819,6 +819,7 @@ const VMKollen = () => {
     };
 
     const renderInlineGroupTable = (matchId, groupName, homeTeam, awayTeam, isLive) => {
+        if (matchStatusFilter === 'played') return null;
         if (!groupsData?.groups) return null;
         if (filterCountries.length > 0) return null;
         if (!isLive) return null;
@@ -1133,7 +1134,11 @@ const VMKollen = () => {
                                                     }}>{relativeLabel}</div>
                                                 );
                                             })()}
-                                            {(matchStatusFilter === 'played' ? [...matches].reverse() : matches).map((m, i) => {
+                                            {(matchStatusFilter === 'played' ? [...matches].sort((a, b) => {
+                                                const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                return timeB - timeA;
+                                            }) : matches).map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
                                                 const isHero = filterCountries.length === 0 && nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
 
@@ -1399,7 +1404,48 @@ const VMKollen = () => {
                 padding: '0 10px'
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            {/* Removed Upcoming/Played buttons as per request */}
+                            {(() => {
+                                const playedList = combinedMatches.filter(m => {
+                                    if (m.status !== 'finished') return false;
+                                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                                    const hideAfterMs = startMs + (140 * 60 * 1000);
+                                    return Date.now() > hideAfterMs;
+                                });
+                                
+                                if (playedList.length === 0) return null;
+
+                                const sortedPlayed = [...playedList].sort((a, b) => {
+                                    return parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP) - parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP);
+                                });
+
+                                return (
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+                                        <button
+                                            onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
+                                            style={{
+                                                background: 'rgba(128, 128, 128, 0.1)',
+                                                border: '1px solid rgba(128, 128, 128, 0.2)',
+                                                padding: '6px 16px',
+                                                borderRadius: '20px',
+                                                color: 'var(--color-text)',
+                                                fontSize: '0.8rem',
+                                                fontWeight: '500',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '6px',
+                                                transition: 'background 0.2s ease',
+                                                alignSelf: 'center'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
+                                            onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
+                                        >
+                                            {matchStatusFilter === 'played' ? 'Dölj spelade matcher' : 'Spelade matcher'}
+                                            <span style={{ fontSize: '0.7rem' }}>{matchStatusFilter === 'played' ? '▲' : '▼'}</span>
+                                        </button>
+                                    </div>
+                                );
+                            })()}
 
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
