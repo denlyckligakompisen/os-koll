@@ -718,3 +718,19 @@ select:focus-visible {
     white-space: nowrap;
     border-width: 0;
 }
+
+/* Responsive Team Names */
+.team-name-desktop {
+    display: inline;
+}
+.team-name-mobile {
+    display: none;
+}
+@media (max-width: 600px) {
+    .team-name-desktop {
+        display: none;
+    }
+    .team-name-mobile {
+        display: inline;
+    }
+}

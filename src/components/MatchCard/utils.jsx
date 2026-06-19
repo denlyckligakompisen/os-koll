@@ -1,4 +1,5 @@
 import React from 'react';
+import { cleanTeamNameForDisplay } from '../../utils/teamUtils';
 
 export const getLastName = (name) => {
     if (!name || typeof name !== 'string') {
@@ -177,4 +178,26 @@ export const formatLiveTime = (timeStr, period) => {
     }
 
     return str;
+};
+
+const TEAM_ABBR = {
+    'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
+    'Bosnien och Hercegovina': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
+    'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
+    'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
+    'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
+    'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
+    'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
+    'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
+    'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
+    'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
+    'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
+};
+
+export const getTeamAbbr = (name) => {
+    if (!name) return '';
+    const cleanName = cleanTeamNameForDisplay(name);
+    if (TEAM_ABBR[cleanName]) return TEAM_ABBR[cleanName];
+    // Fallback: first 3 letters capitalized
+    return cleanName.substring(0, 3).toUpperCase();
 };

@@ -11,7 +11,7 @@ import BroadcasterLogo from './MatchCard/BroadcasterLogo';
 import EventsTimeline from './MatchCard/EventsTimeline';
 import MatchEvents from './MatchCard/MatchEvents';
 import LineupsSection from './MatchCard/LineupsSection';
-import { formatLiveTime } from './MatchCard/utils.jsx';
+import { formatLiveTime, getTeamAbbr } from './MatchCard/utils.jsx';
 import { useMatchStatus } from '../hooks/useMatchStatus';
 import { useTeamForm } from '../hooks/useTeamForm';
 
@@ -251,7 +251,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 textAlign: 'center',
                                 width: '100%'
                             }}>
-                                {cleanTeamNameForDisplay(match.home)}
+                                <span className="team-name-desktop">{cleanTeamNameForDisplay(match.home)}</span>
+                                <span className="team-name-mobile">{getTeamAbbr(match.home)}</span>
                             </span>
                             {/* Form badges */}
                             {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -371,7 +372,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 textAlign: 'center',
                                 width: '100%'
                             }}>
-                                {cleanTeamNameForDisplay(match.away)}
+                                <span className="team-name-desktop">{cleanTeamNameForDisplay(match.away)}</span>
+                                <span className="team-name-mobile">{getTeamAbbr(match.away)}</span>
                             </span>
                             {/* Form badges */}
                             {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
