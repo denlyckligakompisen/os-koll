@@ -464,6 +464,15 @@ const VMKollen = () => {
         }
 
         fetchAllData();
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                fetchAllData();
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
     }, [fetchAllData]);
 
     // FIFA Live API polling

@@ -115,7 +115,7 @@ const MatchEvents = ({ match }) => {
                                 {event.type === 'substitution' && typeof event.player === 'object' ? (
                                     <>
                                         <span>{getLastName(event.player.in)} <span style={{ color: '#34c759', fontSize: '0.75rem' }}>▲</span></span>
-                                        <span style={{ color: 'var(--color-text-muted)' }}>{getLastName(event.player.out)} <span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span></span>
+                                        <span>{getLastName(event.player.out)} <span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span></span>
                                     </>
                                 ) : (
                                     <>{event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}</>
@@ -153,7 +153,7 @@ const MatchEvents = ({ match }) => {
                                 {event.type === 'substitution' && typeof event.player === 'object' ? (
                                     <>
                                         <span><span style={{ color: '#34c759', fontSize: '0.75rem' }}>▲</span> {getLastName(event.player.in)}</span>
-                                        <span style={{ color: 'var(--color-text-muted)' }}><span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span> {getLastName(event.player.out)}</span>
+                                        <span><span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span> {getLastName(event.player.out)}</span>
                                     </>
                                 ) : (
                                     <>{event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}</>
