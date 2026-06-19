@@ -1223,7 +1223,7 @@ const VMKollen = () => {
                                                                 <div className={showTopMatchBadge ? 'topmatch-badge' : (showSwedenBadge ? 'sweden-badge' : '')} style={{
                                                                     position: 'absolute',
                                                                     top: '-8px',
-                                                                    right: '12px',
+                                                                    left: '12px',
                                                                     background: badgeBg,
                                                                     color: badgeColor,
                                                                     fontSize: '0.65rem',

@@ -269,17 +269,28 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             justifyContent: 'center',
                             borderRadius: '16px',
                             padding: '16px 24px',
-                            backgroundColor: computedStatus === 'live' ? '#34c759' : (computedStatus === 'finished' ? '#2c2c2e' : 'var(--color-surface-subtle)'),
-                            color: (computedStatus === 'live' || computedStatus === 'finished') ? '#ffffff' : 'var(--color-text)',
+                            backgroundColor: computedStatus === 'live' ? 'transparent' : (computedStatus === 'finished' ? 'var(--color-surface-subtle)' : 'var(--color-surface-subtle)'),
+                            color: 'var(--color-text)',
                             minWidth: '120px',
                             flexShrink: 0,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                            boxShadow: computedStatus === 'live' ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
                         }}>
                             {/* Score or Time */}
                             {computedStatus !== 'upcoming' ? (
-                                <div style={{ fontSize: '2.5rem', fontWeight: 'bold', display: 'flex', gap: '12px', alignItems: 'center', lineHeight: 1 }}>
+                                <div style={{ 
+                                    fontSize: '2.5rem', 
+                                    fontWeight: 'bold', 
+                                    display: 'flex', 
+                                    gap: '12px', 
+                                    alignItems: 'center', 
+                                    lineHeight: 1,
+                                    backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
+                                    color: computedStatus === 'live' ? '#ffffff' : 'inherit',
+                                    padding: computedStatus === 'live' ? '8px 16px' : '0',
+                                    borderRadius: computedStatus === 'live' ? '12px' : '0'
+                                }}>
                                     <span>{heroHomeScore}</span>
-                                    <span>-</span>
+                                    <span style={{ opacity: computedStatus === 'live' ? 1 : 0.5 }}>-</span>
                                     <span>{heroAwayScore}</span>
                                 </div>
                             ) : (
@@ -297,12 +308,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     justifyContent: 'center',
                                     fontWeight: '600',
                                     fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
-                                    marginTop: '12px'
+                                    marginTop: '12px',
+                                    color: 'var(--color-text)'
                                 }}>
                                     <span>{computedStatus === 'finished' ? '' :
                                      (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
                                     {computedStatus === 'live' && (
-                                        <div className="live-timer-line" style={{ width: '100%', height: '3px', borderRadius: '1.5px', marginTop: '6px' }} />
+                                        <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
+                                            {match.period && match.period !== 'Finished' && String(match.period) !== '3' ? match.period : ''}
+                                        </div>
                                     )}
                                 </div>
                             )}
@@ -491,7 +505,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         >
             <Card
                 key={idx}
-                padding={highlight ? "16px" : "12px"}
+                padding="0px"
                 className="clickable-card"
                 style={{
                     border: 'var(--border)',
@@ -499,12 +513,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     backgroundColor: 'var(--color-card-bg)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '8px',
                     cursor: 'pointer',
                     transform: highlight ? 'scale(1.02)' : 'none',
                     zIndex: highlight ? 2 : 1,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     position: 'relative',
+                    overflow: 'hidden',
                     ...props.style
                 }}
             >
@@ -515,23 +529,21 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         color: 'var(--color-text-muted)',
                         textTransform: 'uppercase',
                         letterSpacing: '0.05em',
-                        marginBottom: '4px'
+                        padding: '12px 12px 0 12px'
                     }}>
                         {match.group}
                     </div>
                 )}
-                <div style={{ display: 'flex', width: '100%', alignItems: 'stretch', gap: '12px' }}>
+                <div style={{ display: 'flex', width: '100%', alignItems: 'stretch' }}>
                     
                     {/* Left Block: Time and Score */}
                     <div style={{
-                        display: 'flex',
+                        display: computedStatus === 'finished' ? 'none' : 'flex',
                         flexDirection: 'row',
-                        borderRadius: '6px',
-                        overflow: 'hidden',
-                        width: computedStatus === 'finished' ? '44px' : '80px',
+                        width: '80px',
                         flexShrink: 0,
-                        backgroundColor: computedStatus === 'live' ? '#34c759' : 'var(--color-surface-subtle)',
-                        minHeight: computedStatus === 'finished' ? '44px' : '60px'
+                        backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
+                        minHeight: '60px'
                     }}>
                         {/* Time side */}
                         {computedStatus !== 'finished' && (
@@ -555,30 +567,33 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 )}
                             </div>
                         )}
-                        {/* Score side */}
-                        {computedStatus !== 'upcoming' && (
+                        {/* Score side (only for live matches) */}
+                        {computedStatus === 'live' && (
                             <div style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: computedStatus === 'finished' ? '100%' : '32px',
-                                backgroundColor: computedStatus === 'finished' ? 'transparent' : 'rgba(0,0,0,0.15)',
-                                color: computedStatus === 'finished' ? 'var(--color-text)' : '#ffffff',
+                                width: '32px',
+                                backgroundColor: 'rgba(0,0,0,0.15)',
+                                color: '#ffffff',
                                 fontWeight: 'bold',
                                 fontSize: '1.1rem',
-                                padding: '4px 0'
+                                padding: '12px 0',
+                                gap: '6px'
                             }}>
-                                <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{homeScore}</span>
-                                <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{awayScore}</span>
+                                <span style={{ display: 'flex', alignItems: 'center', height: '20px' }}>{homeScore}</span>
+                                <span style={{ display: 'flex', alignItems: 'center', height: '20px' }}>{awayScore}</span>
                             </div>
                         )}
                     </div>
 
-                    {/* Right Block: Teams */}
-                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: computedStatus === 'finished' ? '24px' : '12px' }}>
                         {/* Home */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            {computedStatus === 'finished' && (
+                                <span style={{ width: '20px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'center' }}>{homeScore}</span>
+                            )}
                             <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                             <span 
                                 onClick={(e) => handleTeamClick(e, match.home)}
@@ -596,7 +611,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         </div>
 
                         {/* Away */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            {computedStatus === 'finished' && (
+                                <span style={{ width: '20px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'center' }}>{awayScore}</span>
+                            )}
                             <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                             <span 
                                 onClick={(e) => handleTeamClick(e, match.away)}
@@ -615,18 +633,24 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
                     
                     {/* Far Right: Broadcast/Highlights (optional) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '4px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
                         {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                            <button
-                                onClick={handleBroadcastClick}
-                                disabled={!getBroadcasterUrl(match.broadcast)}
+                            <div
+                                role="button"
+                                tabIndex={0}
+                                onClick={!getBroadcasterUrl(match.broadcast) ? undefined : handleBroadcastClick}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    padding: '4px',
-                                    backgroundColor: 'transparent',
-                                    border: 'none',
+                                    padding: '0 12px',
+                                    margin: 0,
+                                    width: '100%',
+                                    flex: 1,
+                                    backgroundColor: (match.broadcast.toUpperCase().includes('SVT')) ? '#00C800' :
+                                                     (match.broadcast.toUpperCase().includes('TV4')) ? '#E3000B' :
+                                                     'transparent',
+                                    minHeight: '60px',
                                     cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
                                     transition: 'opacity 0.2s, transform 0.2s',
                                     opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6
@@ -635,27 +659,29 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1)' }}
                                 title={`Se på ${match.broadcast}`}
                             >
-                                <BroadcasterLogo name={match.broadcast} size="small" />
-                            </button>
+                                <BroadcasterLogo name={match.broadcast} customHeight="0.85rem" transparentMode={true} />
+                            </div>
                         )}
                         {computedStatus === 'finished' && !props.hideBroadcast && (
-                            <a
-                                href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                title="Se höjdpunkter på SVT Play"
-                                style={{
-                                    color: '#00C800',
-                                    transition: 'color 0.2s, transform 0.2s',
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                }}
-                                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                            >
-                                <Play size={18} fill="currentColor" />
-                            </a>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, minHeight: '44px', padding: '0 12px', backgroundColor: 'transparent' }}>
+                                <a
+                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="Se höjdpunkter på SVT Play"
+                                    style={{
+                                        color: '#00C800',
+                                        transition: 'color 0.2s, transform 0.2s',
+                                        display: 'flex',
+                                        alignItems: 'center'
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                >
+                                    <Play size={18} fill="currentColor" />
+                                </a>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -665,7 +691,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{
                         marginTop: '6px',
                         display: 'flex',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+                        padding: '0 12px 12px 12px'
                     }}>
                         <EventsTimeline match={match} progress={liveProgressPercent} showEmptyTimeline={match.status === 'live'} />
                         {/* Match info footer */}
