@@ -111,32 +111,40 @@ const MatchEvents = ({ match }) => {
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', paddingRight: '12px', textAlign: 'right' }}>
                     {isHome && (
                         <>
-                            <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
-                                {event.type === 'substitution' && typeof event.player === 'object' ? (
-                                    <>
-                                        <span>{getLastName(event.player.in)} <span style={{ color: '#34c759', fontSize: '0.75rem' }}>▲</span></span>
-                                        <span>{getLastName(event.player.out)} <span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span></span>
-                                    </>
-                                ) : (
-                                    <>{event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}</>
-                                )}
-                            </span>
-                            {event.type !== 'substitution' && (
-                                <div style={{ marginLeft: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '16px' }}>{renderEventIcon(event.type)}</div>
+                            {event.type === 'substitution' && typeof event.player === 'object' ? (
+                                <>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.in)}</span>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.out)}</span>
+                                    </div>
+                                    <div style={{ marginLeft: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '16px', gap: '2px' }}>
+                                        <span style={{ color: '#34c759', fontSize: '0.75rem', lineHeight: 1 }}>▲</span>
+                                        <span style={{ color: '#ff3b30', fontSize: '0.75rem', lineHeight: 1 }}>▼</span>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>
+                                        {event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}
+                                    </span>
+                                    {event.type !== 'substitution' && (
+                                        <div style={{ marginLeft: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '16px' }}>{renderEventIcon(event.type)}</div>
+                                    )}
+                                </>
                             )}
                         </>
                     )}
                 </div>
 
                 {/* Center line + minute */}
-                <div style={{ width: '28px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+                <div style={{ width: '28px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                     {/* The continuous line */}
                     <div style={{ position: 'absolute', top: '-16px', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
                     
                     {/* The minute bubble */}
                     <div style={{ 
                         width: '24px', height: '24px', borderRadius: '50%', backgroundColor: 'var(--color-card-bg)', border: '2px solid rgba(128,128,128,0.2)', 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 'bold', color: 'var(--color-text-muted)', zIndex: 1, marginTop: '2px'
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem', fontWeight: 'bold', color: 'var(--color-text-muted)', zIndex: 1
                     }}>
                         {event.minuteStr}
                     </div>
@@ -146,19 +154,27 @@ const MatchEvents = ({ match }) => {
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '12px', textAlign: 'left' }}>
                     {!isHome && (
                         <>
-                            {event.type !== 'substitution' && (
-                                <div style={{ marginRight: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '16px' }}>{renderEventIcon(event.type)}</div>
+                            {event.type === 'substitution' && typeof event.player === 'object' ? (
+                                <>
+                                    <div style={{ marginRight: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '16px', gap: '2px' }}>
+                                        <span style={{ color: '#34c759', fontSize: '0.75rem', lineHeight: 1 }}>▲</span>
+                                        <span style={{ color: '#ff3b30', fontSize: '0.75rem', lineHeight: 1 }}>▼</span>
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.in)}</span>
+                                        <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.out)}</span>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {event.type !== 'substitution' && (
+                                        <div style={{ marginRight: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '16px' }}>{renderEventIcon(event.type)}</div>
+                                    )}
+                                    <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>
+                                        {event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}
+                                    </span>
+                                </>
                             )}
-                            <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
-                                {event.type === 'substitution' && typeof event.player === 'object' ? (
-                                    <>
-                                        <span><span style={{ color: '#34c759', fontSize: '0.75rem' }}>▲</span> {getLastName(event.player.in)}</span>
-                                        <span><span style={{ color: '#ff3b30', fontSize: '0.75rem' }}>▼</span> {getLastName(event.player.out)}</span>
-                                    </>
-                                ) : (
-                                    <>{event.type === 'substitution' ? event.player : getLastName(event.player)}{suffix}</>
-                                )}
-                            </span>
                         </>
                     )}
                 </div>
