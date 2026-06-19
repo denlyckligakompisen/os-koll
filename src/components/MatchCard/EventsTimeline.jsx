@@ -44,6 +44,25 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
             }
         });
     }
+    
+    if (match.substitutions) {
+        const subsByMin = {};
+        match.substitutions.forEach(s => {
+            const min = parseMinute(s.minute);
+            const key = `${s.side}-${min}`;
+            if (!subsByMin[key]) {
+                subsByMin[key] = {
+                    type: 'substitution',
+                    side: s.side,
+                    minuteStr: s.minute,
+                    minute: min,
+                    count: 0
+                };
+            }
+            subsByMin[key].count++;
+        });
+        events.push(...Object.values(subsByMin));
+    }
 
     events.sort((a, b) => a.minute - b.minute);
 

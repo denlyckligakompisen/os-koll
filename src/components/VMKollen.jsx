@@ -1055,7 +1055,20 @@ const VMKollen = () => {
                 const hideAfterMs = startMs + (140 * 60 * 1000);
                 const isPlayed = m.status === 'finished' && Date.now() > hideAfterMs;
                 
-                const keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
+                let keep;
+                if (filterCountries.length > 0) {
+                    const cleanTeamName = (name) => name ? name.replace(' U21', '').replace(' U23', '').trim() : '';
+                    keep = filterCountries.some(c => {
+                        const cleanC = cleanTeamName(c);
+                        return cleanTeamName(m.home) === cleanC || 
+                               cleanTeamName(m.away) === cleanC ||
+                               cleanTeamName(m.realHome) === cleanC ||
+                               cleanTeamName(m.realAway) === cleanC;
+                    });
+                } else {
+                    keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
+                }
+
                 if (keep) {
                     const matchHour = new Date(startMs).getHours();
                     let targetDate = date;
@@ -1171,7 +1184,7 @@ const VMKollen = () => {
                                                     return (startMs - Date.now()) <= 60 * 60 * 1000;
                                                 });
                                                 let hideHeader = (['ikväll', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
-                                                if (matchStatusFilter === 'played') {
+                                                if (matchStatusFilter === 'played' || filterCountries.length > 0) {
                                                     hideHeader = false;
                                                 }
                                                 if (hideHeader) return null;
@@ -1222,7 +1235,7 @@ const VMKollen = () => {
                                                 let badgeText = '';
                                                 let badgeColor = '#000';
 
-                                                const showSwedenBadge = isSwedenMatch && filterCountries.length === 0;
+                                                const showSwedenBadge = isSwedenMatch;
                                                 const showTopMatchBadge = isTopMatch;
 
                                                 if (showSwedenBadge) {

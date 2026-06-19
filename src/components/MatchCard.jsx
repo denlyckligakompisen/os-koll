@@ -492,9 +492,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 opacity: computedStatus === 'finished' ? 0.85 : 1
             }}
             onClick={() => {
-                if (computedStatus === 'finished' && !props.hideBroadcast) {
-                    window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`, '_blank', 'noopener,noreferrer');
-                } else if (onCardClick) {
+                if (onCardClick) {
                     onCardClick();
                 }
             }}
@@ -522,7 +520,22 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     ...props.style
                 }}
             >
-                {match.group && !match.group.toLowerCase().includes('grupp') && !isFiltered && (
+                {computedStatus === 'finished' && !props.hideBroadcast && (
+                    <a 
+                        href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Se höjdpunkter på SVT Play"
+                        style={{
+                            position: 'absolute',
+                            top: 0, left: 0, right: 0, bottom: 0,
+                            zIndex: 2
+                        }}
+                    >
+                        <span className="sr-only">Se höjdpunkter på SVT Play</span>
+                    </a>
+                )}
+                {match.group && !match.group.toLowerCase().includes('grupp') && (
                     <div style={{
                         fontSize: '0.65rem',
                         fontWeight: '600',
@@ -715,6 +728,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         <button
                                             onClick={(e) => { e.stopPropagation(); setShowLineups(!showLineups); }}
                                             style={{
+                                                position: 'relative',
+                                                zIndex: 10,
                                                 background: 'rgba(128, 128, 128, 0.1)',
                                                 border: '1px solid rgba(128, 128, 128, 0.2)',
                                                 padding: '4px 14px',
