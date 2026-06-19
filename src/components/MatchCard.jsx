@@ -299,7 +299,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
                                     marginTop: '12px'
                                 }}>
-                                    <span>{computedStatus === 'finished' ? 'FT' :
+                                    <span>{computedStatus === 'finished' ? '' :
                                      (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
                                     {computedStatus === 'live' && (
                                         <div className="live-timer-line" style={{ width: '100%', height: '3px', borderRadius: '1.5px', marginTop: '6px' }} />
@@ -371,8 +371,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     onClick={(e) => e.stopPropagation()}
                                     title="Se höjdpunkter på SVT Play"
                                     style={{
-                                        color: 'var(--color-text-muted)',
-                                        transition: 'color 0.2s',
+                                        color: '#00C800',
+                                        transition: 'color 0.2s, transform 0.2s',
                                         display: 'flex',
                                         alignItems: 'center',
                                         backgroundColor: 'var(--color-surface)',
@@ -380,8 +380,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         borderRadius: '50%',
                                         boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
                                     }}
-                                    onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
-                                    onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 >
                                     <Play size={22} fill="currentColor" />
                                 </a>
@@ -528,32 +528,33 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         flexDirection: 'row',
                         borderRadius: '6px',
                         overflow: 'hidden',
-                        width: '80px',
+                        width: computedStatus === 'finished' ? '44px' : '80px',
                         flexShrink: 0,
-                        backgroundColor: computedStatus === 'live' ? '#34c759' : (computedStatus === 'finished' ? '#2c2c2e' : 'var(--color-surface-subtle)'),
+                        backgroundColor: computedStatus === 'live' ? '#34c759' : 'var(--color-surface-subtle)',
                         minHeight: '60px'
                     }}>
                         {/* Time side */}
-                        <div style={{
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '4px',
-                            color: (computedStatus === 'live' || computedStatus === 'finished') ? '#ffffff' : 'var(--color-text)',
-                            fontWeight: '600',
-                            fontSize: computedStatus === 'live' ? '1rem' : '0.85rem',
-                            gap: '3px'
-                        }}>
-                            <span>{computedStatus === 'finished' ? 'FT' : 
-                             computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : 
-                             isOverdue ? '00:00' : 
-                             (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                            {computedStatus === 'live' && (
-                                <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
-                            )}
-                        </div>
+                        {computedStatus !== 'finished' && (
+                            <div style={{
+                                flex: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '4px',
+                                color: computedStatus === 'live' ? '#ffffff' : 'var(--color-text)',
+                                fontWeight: '600',
+                                fontSize: computedStatus === 'live' ? '1rem' : '0.85rem',
+                                gap: '3px'
+                            }}>
+                                <span>{computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : 
+                                 isOverdue ? '00:00' : 
+                                 (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
+                                {computedStatus === 'live' && (
+                                    <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
+                                )}
+                            </div>
+                        )}
                         {/* Score side */}
                         {computedStatus !== 'upcoming' && (
                             <div style={{
@@ -561,9 +562,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: '32px',
-                                backgroundColor: 'rgba(0,0,0,0.15)',
-                                color: '#ffffff',
+                                width: computedStatus === 'finished' ? '100%' : '32px',
+                                backgroundColor: computedStatus === 'finished' ? 'transparent' : 'rgba(0,0,0,0.15)',
+                                color: computedStatus === 'finished' ? 'var(--color-text)' : '#ffffff',
                                 fontWeight: 'bold',
                                 fontSize: '1.1rem',
                                 padding: '4px 0'
@@ -626,13 +627,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 onClick={(e) => e.stopPropagation()}
                                 title="Se höjdpunkter på SVT Play"
                                 style={{
-                                    color: 'var(--color-text-muted)',
-                                    transition: 'color 0.2s',
+                                    color: '#00C800',
+                                    transition: 'color 0.2s, transform 0.2s',
                                     display: 'flex',
                                     alignItems: 'center'
                                 }}
-                                onMouseOver={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
-                                onMouseOut={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
                                 <Play size={18} fill="currentColor" />
                             </a>

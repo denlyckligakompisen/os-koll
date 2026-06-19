@@ -1135,13 +1135,19 @@ const VMKollen = () => {
                                                 if (date.includes('_night') && relativeLabel === 'Imorgon') {
                                                     relativeLabel = 'Inatt';
                                                 }
+                                                if (matchStatusFilter === 'played' && ['ikväll', 'i kväll'].includes(relativeLabel.toLowerCase())) {
+                                                    relativeLabel = 'Idag';
+                                                }
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
                                                 const isCountdownOrLive = matches.some(m => {
                                                     if (m.status === 'live' || m.status === 'finished') return true;
                                                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
                                                     return (startMs - Date.now()) <= 60 * 60 * 1000;
                                                 });
-                                                const hideHeader = (['ikväll', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
+                                                let hideHeader = (['ikväll', 'i kväll', 'inatt'].includes(relativeLabel.toLowerCase()) && matches.some(m => isMatchLiveOrRecentlyFinishedOrSoon(m))) || (filterCountries.length === 0 && hasHero && isCountdownOrLive);
+                                                if (matchStatusFilter === 'played') {
+                                                    hideHeader = false;
+                                                }
                                                 if (hideHeader) return null;
                                                 return (
                                                     <div style={{
@@ -1303,6 +1309,49 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                    <div style={{
+                        position: 'absolute',
+                        left: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        {(() => {
+                            if (!matchesData) return null;
+                            const combinedMatches = Object.values(matchesData).flat();
+                            const playedList = combinedMatches.filter(m => {
+                                if (m.status !== 'finished') return false;
+                                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                                const hideAfterMs = startMs + (140 * 60 * 1000);
+                                return Date.now() > hideAfterMs;
+                            });
+                            
+                            if (playedList.length === 0 && matchStatusFilter !== 'played') return null;
+
+                            return (
+                                <button 
+                                    className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
+                                    onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
+                                    title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
+                                    style={{
+                                        backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                        borderRadius: '50%',
+                                        padding: '8px',
+                                        width: '36px',
+                                        height: '36px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <HistoryIcon fontSize="small" />
+                                </button>
+                            );
+                        })()}
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
                             className="header-logo"
@@ -1424,43 +1473,6 @@ const VMKollen = () => {
                 padding: '0 10px'
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            {(() => {
-                                const playedList = combinedMatches.filter(m => {
-                                    if (m.status !== 'finished') return false;
-                                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
-                                    const hideAfterMs = startMs + (140 * 60 * 1000);
-                                    return Date.now() > hideAfterMs;
-                                });
-                                
-                                if (playedList.length === 0) return null;
-
-                                const sortedPlayed = [...playedList].sort((a, b) => {
-                                    return parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP) - parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP);
-                                });
-
-                                return (
-                                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '12px' }}>
-                                        <button 
-                                            className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
-                                            onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
-                                            title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
-                                            style={{
-                                                backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                                borderRadius: '50%',
-                                                padding: '8px',
-                                                width: '36px',
-                                                height: '36px',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center'
-                                            }}
-                                        >
-                                            <HistoryIcon fontSize="small" />
-                                        </button>
-                                    </div>
-                                );
-                            })()}
-
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely
