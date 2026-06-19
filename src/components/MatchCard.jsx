@@ -263,32 +263,26 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                  computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) :
                                  isOverdue ? '00:00' :
                                  (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                                {computedStatus === 'live' && (
-                                    <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
-                                )}
+
                             </div>
                             {/* Score side */}
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '40px',
-                                backgroundColor: 'rgba(0,0,0,0.15)',
-                                color: (computedStatus === 'live' || computedStatus === 'finished') ? '#ffffff' : 'var(--color-text)',
-                                fontWeight: 'bold',
-                                fontSize: '1.4rem',
-                                padding: '6px 0'
-                            }}>
-                                {computedStatus === 'upcoming' ? (
-                                    <span style={{ opacity: 0.5 }}>-</span>
-                                ) : (
-                                    <>
-                                        <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{heroHomeScore}</span>
-                                        <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{heroAwayScore}</span>
-                                    </>
-                                )}
-                            </div>
+                            {computedStatus !== 'upcoming' && (
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: '40px',
+                                    backgroundColor: 'rgba(0,0,0,0.15)',
+                                    color: '#ffffff',
+                                    fontWeight: 'bold',
+                                    fontSize: '1.4rem',
+                                    padding: '6px 0'
+                                }}>
+                                    <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{heroHomeScore}</span>
+                                    <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{heroAwayScore}</span>
+                                </div>
+                            )}
                         </div>
 
                         {/* Right Block: Teams */}
@@ -546,32 +540,26 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                              computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : 
                              isOverdue ? '00:00' : 
                              (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                            {computedStatus === 'live' && (
-                                <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
-                            )}
+
                         </div>
                         {/* Score side */}
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '32px',
-                            backgroundColor: 'rgba(0,0,0,0.15)',
-                            color: (computedStatus === 'live' || computedStatus === 'finished') ? '#ffffff' : 'var(--color-text)',
-                            fontWeight: 'bold',
-                            fontSize: '1.1rem',
-                            padding: '4px 0'
-                        }}>
-                            {computedStatus === 'upcoming' ? (
-                                <span style={{ opacity: 0.5 }}>-</span>
-                            ) : (
-                                <>
-                                    <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{homeScore}</span>
-                                    <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{awayScore}</span>
-                                </>
-                            )}
-                        </div>
+                        {computedStatus !== 'upcoming' && (
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '32px',
+                                backgroundColor: 'rgba(0,0,0,0.15)',
+                                color: '#ffffff',
+                                fontWeight: 'bold',
+                                fontSize: '1.1rem',
+                                padding: '4px 0'
+                            }}>
+                                <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{homeScore}</span>
+                                <span style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{awayScore}</span>
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Block: Teams */}
