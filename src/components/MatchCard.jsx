@@ -531,7 +531,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         width: computedStatus === 'finished' ? '44px' : '80px',
                         flexShrink: 0,
                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'var(--color-surface-subtle)',
-                        minHeight: '60px'
+                        minHeight: computedStatus === 'finished' ? '44px' : '60px'
                     }}>
                         {/* Time side */}
                         {computedStatus !== 'finished' && (
@@ -617,7 +617,26 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     {/* Far Right: Broadcast/Highlights (optional) */}
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end', gap: '4px' }}>
                         {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && (
-                            <BroadcasterLogo name={match.broadcast} size="small" />
+                            <button
+                                onClick={handleBroadcastClick}
+                                disabled={!getBroadcasterUrl(match.broadcast)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '4px',
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    cursor: getBroadcasterUrl(match.broadcast) ? 'pointer' : 'default',
+                                    transition: 'opacity 0.2s, transform 0.2s',
+                                    opacity: getBroadcasterUrl(match.broadcast) ? 1 : 0.6
+                                }}
+                                onMouseOver={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1.05)' }}
+                                onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1)' }}
+                                title={`Se på ${match.broadcast}`}
+                            >
+                                <BroadcasterLogo name={match.broadcast} size="small" />
+                            </button>
                         )}
                         {computedStatus === 'finished' && !props.hideBroadcast && (
                             <a
