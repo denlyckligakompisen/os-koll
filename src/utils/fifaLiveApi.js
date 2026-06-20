@@ -181,7 +181,7 @@ async function fetchFifaLiveNow() {
             ].map(s => ({
                 playerOff: s.PlayerOffName?.[0]?.Description || allPlayers.get(s.IdPlayerOff) || '',
                 playerOn: s.PlayerOnName?.[0]?.Description || allPlayers.get(s.IdPlayerOn) || '',
-                minute: s.Minute?.replace("'", '') || '',
+                minute: s.Minute?.replace("'", '') || (s.Period === 4 ? '46' : ''),
                 side: s._side,
             }));
 
