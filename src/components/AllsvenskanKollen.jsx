@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
+import MatchGroupList from './common/MatchGroupList';
+import SharedMatchTable from './common/SharedMatchTable';
+import TeamLogo from './MatchCard/TeamLogo';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import BoldSverige from './BoldSverige';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
@@ -771,75 +774,29 @@ const AllsvenskanKollen = () => {
         
         if (teamsToShow.length === 0) return null;
 
-        teamsToShow.sort((a, b) => parseInt(a.rank) - parseInt(b.rank));
+        const mappedTeams = teamsToShow.map(team => {
+            const isHighlighted = cleanName(team.team) === homeClean || cleanName(team.team) === awayClean;
+            return {
+                rank: team.rank,
+                teamName: team.team,
+                logoUrl: getTeamLogo(team.team),
+                played: team.played,
+                won: team.won,
+                drawn: team.drawn,
+                lost: team.lost,
+                gd: team.gd,
+                points: team.points,
+                rowBgColor: 'rgba(0, 0, 0, 0.05)',
+                isHighlighted,
+                displayName: cleanTeamNameForDisplay(team.team)
+            };
+        });
 
         return (
-            <div style={{
-                marginTop: '4px',
-                marginBottom: '8px',
-                animation: 'slideOutFromUnder 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-            }}>
-                <Card
-                    padding="32px 12px 16px 12px"
-                    style={{
-                        marginBottom: '0',
-                        marginTop: '-32px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                        borderRadius: '0 0 16px 16px',
-                        borderTop: 'none',
-                        position: 'relative',
-                        zIndex: 1,
-                        width: 'calc(100% - 32px)',
-                        margin: '-32px auto 0 auto',
-                        overflow: 'hidden'
-                    }}
-                >
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.7rem' }}>
-                        <thead>
-                            <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: '28px' }}></th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }}></th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px' }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '32px' }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px' }}>P</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {teamsToShow.map((team, idx) => (
-                                <tr key={idx} style={{ 
-                                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                                    transition: 'background-color 0.2s ease'
-                                }}>
-                                    <td style={{ 
-                                        padding: '6px 2px', 
-                                        width: '24px', 
-                                        textAlign: 'center', 
-                                        color: 'var(--color-text-muted)',
-                                        borderTopLeftRadius: '10px',
-                                        borderBottomLeftRadius: '10px'
-                                    }}>{team.rank}</td>
-                                    <td style={{ padding: '6px 2px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '20px', width: '20px', objectFit: 'contain' }} />}
-                                            <span style={{ fontWeight: '400' }}>{cleanTeamNameForDisplay(team.team)}</span>
-                                        </div>
-                                    </td>
-                                    <td style={{ padding: '6px 2px', textAlign: 'center', color: 'var(--color-text-muted)' }}>{team.played}</td>
-                                    <td style={{ padding: '6px 2px', textAlign: 'center', color: (!team.gd.startsWith('-') && team.gd !== '0') ? '#34c759' : (team.gd.startsWith('-') ? '#ff3b30' : 'var(--color-text-muted)') }}>{(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}</td>
-                                    <td style={{ 
-                                        padding: '6px 2px', 
-                                        textAlign: 'right', 
-                                        fontWeight: '600',
-                                        borderTopRightRadius: '10px',
-                                        borderBottomRightRadius: '10px'
-                                    }}>{team.points}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </Card>
-            </div>
+            <SharedMatchTable 
+                teams={mappedTeams} 
+                isInline={true} 
+            />
         );
     };
 
@@ -1018,12 +975,12 @@ const AllsvenskanKollen = () => {
                 items={teams.map(team => ({
                     id: team,
                     label: cleanTeamNameForDisplay(team),
-                    icon: getTeamLogo(team) ? <img src={getTeamLogo(team)} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} /> : <div style={{width: 28, height: 28}}></div>
+                    icon: <TeamLogo logoUrl={getTeamLogo(team)} teamName={team} size={28} />
                 }))}
                 selectedItem={filterTeam ? {
                     id: filterTeam,
                     label: cleanTeamNameForDisplay(filterTeam),
-                    icon: getTeamLogo(filterTeam) ? <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '28px', width: '28px', objectFit: 'contain' }} /> : <div style={{width: 28, height: 28}}></div>
+                    icon: <TeamLogo logoUrl={getTeamLogo(filterTeam)} teamName={filterTeam} size={28} />
                 } : null}
                 onSelect={handleTeamClick}
                 onClear={() => {
@@ -1119,41 +1076,29 @@ const AllsvenskanKollen = () => {
                             ) : (
                                 <>
 
-                                    {groupedMatches.length > 0 ? (
-                                        groupedMatches.map((group, i) => (
-                                            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.06em' }}>
-                                                        {getRelativeDateLabel(group.date).replace('Ikväll', 'Idag')}
-                                                    </div>
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                    {group.matches.map((match, j) => {
-                                                        const isNext = nextMatchDateString && match.date === nextMatchDateString;
-                                                        return (
-                                                            <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
-                                                                <MatchCard 
-                                                                    match={match} 
-                                                                    idx={j} 
-                                                                    variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
-                                                                    homeLogo={getTeamLogo(match.home)}
-                                                                    awayLogo={getTeamLogo(match.away)}
-                                                                    filterTeam={filterTeam}
-                                                                    allMatches={matchesData?.matches}
-                                                                    onTeamClick={setFilterTeam}
-                                                                    hideBroadcast={true}
-                                                                    hideEventsForPlayed={true}
-                                                                />
-                                                                {(isNext && match.status !== 'finished') && renderInlineMatchTable(match.home, match.away)}
-                                                            </div>
-                                                        );
-                                                    })}
+                                    <MatchGroupList 
+                                        groupedMatches={groupedMatches}
+                                        renderMatch={(match, j) => {
+                                            const isNext = nextMatchDateString && match.date === nextMatchDateString;
+                                            return (
+                                                <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
+                                                    <MatchCard 
+                                                        match={match} 
+                                                        idx={j} 
+                                                        variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
+                                                        homeLogo={getTeamLogo(match.home)}
+                                                        awayLogo={getTeamLogo(match.away)}
+                                                        filterTeam={filterTeam}
+                                                        allMatches={matchesData?.matches}
+                                                        onTeamClick={setFilterTeam}
+                                                        hideBroadcast={true}
+                                                        hideEventsForPlayed={true}
+                                                    />
+                                                    {(isNext && match.status !== 'finished') && renderInlineMatchTable(match.home, match.away)}
                                                 </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div style={{ textAlign: 'center', padding: '40px', color: 'var(--color-text-muted)' }}>
-                                            Inga matcher hittades.
-                                        </div>
-                                    )}
+                                            );
+                                        }}
+                                    />
                                 </>
                             )}
                         </>

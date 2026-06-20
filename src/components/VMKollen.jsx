@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
+import DateHeader from './common/DateHeader';
+import EmptyState from './common/EmptyState';
+import SharedMatchTable from './common/SharedMatchTable';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
@@ -272,9 +275,9 @@ const VMKollen = () => {
         newGroupsData.groups.forEach(g => {
             g.teams.forEach((t, i) => {
                 if (typeof t === 'string') {
-                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0, fairPlay: 0 };
+                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0, fairPlay: 0, won: 0, drawn: 0, lost: 0 };
                 } else {
-                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0; t.fairPlay = 0;
+                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0; t.fairPlay = 0; t.won = 0; t.drawn = 0; t.lost = 0;
                 }
             });
         });
@@ -306,8 +309,9 @@ const VMKollen = () => {
                     homeTeam.gf = (homeTeam.gf || 0) + homeScore;
                     homeTeam.ga = (homeTeam.ga || 0) + awayScore;
                     homeTeam.gd = homeTeam.gf - homeTeam.ga;
-                    if (homeScore > awayScore) homeTeam.pts += 3;
-                    else if (homeScore === awayScore) homeTeam.pts += 1;
+                    if (homeScore > awayScore) { homeTeam.pts += 3; homeTeam.won += 1; }
+                    else if (homeScore === awayScore) { homeTeam.pts += 1; homeTeam.drawn += 1; }
+                    else { homeTeam.lost += 1; }
                 }
 
                 if (awayTeam) {
@@ -315,8 +319,9 @@ const VMKollen = () => {
                     awayTeam.gf = (awayTeam.gf || 0) + awayScore;
                     awayTeam.ga = (awayTeam.ga || 0) + homeScore;
                     awayTeam.gd = awayTeam.gf - awayTeam.ga;
-                    if (awayScore > homeScore) awayTeam.pts += 3;
-                    else if (homeScore === awayScore) awayTeam.pts += 1;
+                    if (awayScore > homeScore) { awayTeam.pts += 3; awayTeam.won += 1; }
+                    else if (awayScore === homeScore) { awayTeam.pts += 1; awayTeam.drawn += 1; }
+                    else { awayTeam.lost += 1; }
                 }
 
                 if (m.bookings) {
@@ -879,140 +884,52 @@ const VMKollen = () => {
     const renderTable = (groupName, teams, displayName, idx = 0, highlightTeams = [], isInline = false) => {
         const sortedTeams = teams; // Already sorted by sortGroupTeams
 
+        const mappedTeams = sortedTeams.map((teamData, tidx) => {
+            const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0, won: 0, drawn: 0, lost: 0 } : teamData;
+            const flagCodes = getFlagCodes(team.name);
+            const rank = tidx + 1;
+            const isFiltered = filterCountries.length > 0 && filterCountries.some(fc => team.name.includes(fc));
+            const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
+
+            let rowBgColor = isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent';
+            const gRank = team.groupRank || (groupName === 'Alla Lag' ? null : rank);
+            const isQualifiedThird = gRank === 3 && qualifiedThirds.includes(team.name);
+
+            if (groupName === 'Alla Lag') {
+                if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
+                else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
+                else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
+                else if (gRank === 3) rowBgColor = 'rgba(255, 204, 0, 0.1)';
+            }
+
+            const thirdPlaceTeam = sortedTeams[2];
+            const thirdPlaceTeamName = thirdPlaceTeam ? (typeof thirdPlaceTeam === 'string' ? thirdPlaceTeam : thirdPlaceTeam.name) : null;
+            const thirdPlaceQualifies = thirdPlaceTeamName ? qualifiedThirds.includes(thirdPlaceTeamName) : false;
+            const isLastQualifier = groupName !== 'Alla Lag' && ((rank === 2 && !thirdPlaceQualifies) || (rank === 3 && isQualifiedThird));
+
+            return {
+                rank,
+                teamName: team.name,
+                flags: flagCodes,
+                played: team.played || 0,
+                won: team.won || 0,
+                drawn: team.drawn || 0,
+                lost: team.lost || 0,
+                gd: team.gd || 0,
+                points: team.pts || 0,
+                rowBgColor,
+                isHighlighted,
+                bottomDivider: isLastQualifier
+            };
+        });
+
         return (
-            <div key={groupName} style={{ marginBottom: isInline ? '8px' : '32px' }}>
-                {!isInline && (
-                    <div style={{
-                        fontSize: '0.8rem',
-                        textTransform: 'uppercase',
-                        paddingLeft: '4px',
-                        marginBottom: '12px',
-                        color: 'var(--color-text-muted)',
-                        letterSpacing: '0.05em'
-                    }}>
-                        <BoldSverige text={displayName || groupName} />
-                    </div>
-                )}
-                <Card
-                    padding={isInline ? "16px 12px 16px 12px" : "4px 8px"}
-                    style={{
-                        marginBottom: '0',
-                        marginTop: isInline ? '-32px' : '0',
-                        backgroundColor: isInline ? 'rgba(255, 255, 255, 0.8)' : '#ffffff',
-                        boxShadow: isInline ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
-                        borderRadius: isInline ? '0 0 16px 16px' : '16px',
-                        borderTop: isInline ? 'none' : undefined,
-                        position: 'relative',
-                        zIndex: 1,
-                        width: isInline ? 'calc(100% - 32px)' : '100%',
-                        margin: isInline ? '-32px auto 0 auto' : '0',
-                        overflow: 'hidden'
-                    }}
-                >
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: isInline ? '0.7rem' : '0.8rem' }}>
-                        <caption style={{ position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', border: '0' }}>
-                            Tabell för {displayName || groupName}
-                        </caption>
-                        <thead>
-                            <tr style={{ borderBottom: 'var(--border)' }}>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: isInline ? '28px' : '36px' }} aria-label="Position"></th>
-                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }} aria-label="Land"></th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)' }}>M</th>
-                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)' }}>+/-</th>
-                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)' }}>P</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sortedTeams.map((teamData, tidx) => {
-                                const team = typeof teamData === 'string' ? { name: teamData, played: 0, gd: 0, pts: 0 } : teamData;
-                                const flagCodes = getFlagCodes(team.name);
-                                const rank = tidx + 1;
-                                const isFiltered = filterCountries.length > 0 && filterCountries.some(fc => team.name.includes(fc));
-                                const isHighlighted = highlightTeams.some(ht => team.name.includes(ht)) || isFiltered;
-
-                                let rowBgColor = isHighlighted ? 'rgba(0, 0, 0, 0.05)' : 'transparent';
-                                const gRank = team.groupRank || (groupName === 'Alla Lag' ? null : rank);
-                                
-                                const isQualifiedThird = gRank === 3 && qualifiedThirds.includes(team.name);
-
-                                if (groupName === 'Alla Lag') {
-                                    if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
-                                    else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
-                                    else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
-                                    else if (gRank === 3) rowBgColor = 'rgba(255, 204, 0, 0.1)';
-                                }
-
-                                const thirdPlaceTeam = sortedTeams[2];
-                                const thirdPlaceTeamName = thirdPlaceTeam ? (typeof thirdPlaceTeam === 'string' ? thirdPlaceTeam : thirdPlaceTeam.name) : null;
-                                const thirdPlaceQualifies = thirdPlaceTeamName ? qualifiedThirds.includes(thirdPlaceTeamName) : false;
-                                const isLastQualifier = groupName !== 'Alla Lag' && ((rank === 2 && !thirdPlaceQualifies) || (rank === 3 && isQualifiedThird));
-
-                                return (
-                                    <React.Fragment key={team.name}>
-                                        <tr
-                                            ref={el => tableRefs.current[team.name] = el}
-                                            style={{
-                                                backgroundColor: rowBgColor,
-                                                transition: 'background-color 0.2s ease'
-                                            }}
-                                        >
-                                            <td style={{
-                                                padding: '6px 2px',
-                                                borderTopLeftRadius: rowBgColor !== 'transparent' ? '10px' : '0',
-                                                borderBottomLeftRadius: rowBgColor !== 'transparent' ? '10px' : '0'
-                                            }}>
-                                                <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.75rem', backgroundColor: 'transparent', color: 'inherit' }}>
-                                                    {rank}
-                                                </div>
-                                            </td>
-                                            <td style={{ padding: '6px 2px' }}>
-                                                <button
-                                                    onClick={() => handleCountryClick(team.name)}
-                                                    aria-label={`Visa information om ${team.name}`}
-                                                    style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: '8px',
-                                                        cursor: 'pointer',
-                                                        background: 'none',
-                                                        border: 'none',
-                                                        padding: 0,
-                                                        font: 'inherit',
-                                                        color: 'inherit',
-                                                        width: '100%',
-                                                        textAlign: 'left'
-                                                    }}
-                                                >
-                                                    <FlagBadge codes={flagCodes} name={team.name} size={isInline ? 16 : 20} />
-                                                    <span style={{ whiteSpace: 'normal', lineHeight: '1.2' }}>
-                                                        <BoldSverige text={team.name} />
-                                                    </span>
-                                                </button>
-                                            </td>
-                                            <td style={{ textAlign: 'center', padding: '6px 2px' }}>{team.played}</td>
-                                            <td style={{ textAlign: 'center', padding: '6px 2px', color: team.gd > 0 ? '#34c759' : team.gd < 0 ? '#ff3b30' : 'inherit' }}>{team.gd > 0 ? `+${team.gd}` : team.gd}</td>
-                                            <td style={{
-                                                padding: '6px 2px',
-                                                textAlign: 'right',
-                                                fontWeight: 'bold',
-                                                borderTopRightRadius: rowBgColor !== 'transparent' ? '10px' : '0',
-                                                borderBottomRightRadius: rowBgColor !== 'transparent' ? '10px' : '0'
-                                            }}>{team.pts}</td>
-                                        </tr>
-                                        {isLastQualifier && (
-                                            <tr>
-                                                <td colSpan="5" style={{ padding: 0 }}>
-                                                    <div style={{ borderTop: '2px solid var(--color-text-muted)', opacity: 0.4, margin: '4px 0' }} />
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </React.Fragment>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </Card>
-            </div>
+            <SharedMatchTable 
+                title={displayName || groupName} 
+                teams={mappedTeams} 
+                isInline={isInline} 
+                onTeamClick={handleCountryClick} 
+            />
         );
     };
 
@@ -1160,6 +1077,10 @@ const VMKollen = () => {
 
         const firstPlayoffIndex = roundsData.findIndex(r => r.roundKey !== "Gruppspel");
 
+        if (roundsData.length === 0) {
+            return <EmptyState />;
+        }
+
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                 {roundsData.map((roundObj, index) => {
@@ -1202,14 +1123,9 @@ const VMKollen = () => {
                                                 }
                                                 if (hideHeader) return null;
                                                 return (
-                                                    <div style={{
-                                                        fontSize: '0.8rem',
-                                                        textTransform: 'uppercase',
-                                                        paddingLeft: '4px',
-                                                        color: 'var(--color-text-muted)',
-                                                        letterSpacing: '0.06em',
-                                                        marginTop: '8px'
-                                                    }}>{relativeLabel}</div>
+                                                    <div style={{ marginTop: '8px' }}>
+                                                        <DateHeader labelOverride={relativeLabel} />
+                                                    </div>
                                                 );
                                             })()}
                                             {(matchStatusFilter === 'played' ? [...matches].sort((a, b) => {
