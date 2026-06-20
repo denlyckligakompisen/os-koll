@@ -1174,16 +1174,20 @@ const VMKollen = () => {
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             {(() => {
                                                 let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
-                                                if (matchStatusFilter === 'played' && ['ikväll', 'i kväll'].includes(relativeLabel.toLowerCase())) {
-                                                    relativeLabel = 'Idag';
-                                                }
-                                                const currentHour = new Date().getHours();
-                                                if (date.includes('_night')) {
+                                                if (matchStatusFilter === 'played') {
                                                     const rlLower = relativeLabel.toLowerCase();
-                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
-                                                        relativeLabel = 'Inatt';
-                                                    } else if (rlLower === 'imorgon' && currentHour >= 12) {
-                                                        relativeLabel = 'Inatt';
+                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'imorgon') {
+                                                        relativeLabel = 'Idag';
+                                                    }
+                                                } else {
+                                                    const currentHour = new Date().getHours();
+                                                    if (date.includes('_night')) {
+                                                        const rlLower = relativeLabel.toLowerCase();
+                                                        if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
+                                                            relativeLabel = 'Inatt';
+                                                        } else if (rlLower === 'imorgon' && currentHour >= 12) {
+                                                            relativeLabel = 'Inatt';
+                                                        }
                                                     }
                                                 }
                                                 const hasHero = matches.some(m => nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time));
@@ -1219,16 +1223,20 @@ const VMKollen = () => {
                                                 const hasHero = filterCountries.length === 0 && matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
-                                                if (matchStatusFilter === 'played' && ['ikväll', 'i kväll'].includes(relativeLabel.toLowerCase())) {
-                                                    relativeLabel = 'Idag';
-                                                }
-                                                const currentHour = new Date().getHours();
-                                                if (date.includes('_night')) {
+                                                if (matchStatusFilter === 'played') {
                                                     const rlLower = relativeLabel.toLowerCase();
-                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
-                                                        relativeLabel = 'Inatt';
-                                                    } else if (rlLower === 'imorgon' && currentHour >= 12) {
-                                                        relativeLabel = 'Inatt';
+                                                    if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'imorgon') {
+                                                        relativeLabel = 'Idag';
+                                                    }
+                                                } else {
+                                                    const currentHour = new Date().getHours();
+                                                    if (date.includes('_night')) {
+                                                        const rlLower = relativeLabel.toLowerCase();
+                                                        if (rlLower === 'ikväll' || rlLower === 'i kväll' || rlLower === 'idag') {
+                                                            relativeLabel = 'Inatt';
+                                                        } else if (rlLower === 'imorgon' && currentHour >= 12) {
+                                                            relativeLabel = 'Inatt';
+                                                        }
                                                     }
                                                 }
 
