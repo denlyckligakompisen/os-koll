@@ -279,7 +279,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             {/* Score or Time */}
                             {computedStatus !== 'upcoming' ? (
                                 <div style={{
-                                    fontSize: '2.5rem',
+                                    fontSize: 'clamp(2rem, 5vw, 3rem)',
                                     fontWeight: 'bold',
                                     display: 'flex',
                                     gap: '12px',
@@ -295,7 +295,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     <span>{heroAwayScore}</span>
                                 </div>
                             ) : (
-                                <div style={{ fontSize: '1.8rem', fontWeight: 'bold', lineHeight: 1 }}>
+                                <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 'bold', lineHeight: 1 }}>
                                     {isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                                 </div>
                             )}
@@ -591,7 +591,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 backgroundColor: 'rgba(0,0,0,0.15)',
                                 color: '#ffffff',
                                 fontWeight: 'bold',
-                                fontSize: '1.1rem',
+                                fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
                                 padding: '12px 0',
                                 gap: '6px'
                             }}>

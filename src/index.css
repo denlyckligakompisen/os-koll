@@ -5,8 +5,8 @@
    ============================================= */
 :root {
   --color-bg: #f2f2f7;
-  --color-card-bg: #ffffff;
-  --color-card-bg-elevated: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  --color-card-bg: rgba(255, 255, 255, 0.75);
+  --color-card-bg-elevated: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%);
   --color-text: #000000;
   --color-text-muted: #4a4a4a;
   --color-primary: #00529C;
@@ -25,16 +25,16 @@
   --drop-shadow-flag: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   --border-flag: 1px solid rgba(0, 0, 0, 0.1);
   
-  /* Spacing Tokens */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  --spacing-2xl: 32px;
-  --spacing-3xl: 40px;
-  --spacing-4xl: 48px;
-  --spacing-5xl: 64px;
+  /* Spacing Tokens (Fluid) */
+  --spacing-xs: clamp(4px, 0.5vw + 2px, 6px);
+  --spacing-sm: clamp(6px, 1vw + 4px, 10px);
+  --spacing-md: clamp(10px, 1.5vw + 6px, 14px);
+  --spacing-lg: clamp(14px, 2vw + 8px, 20px);
+  --spacing-xl: clamp(20px, 3vw + 12px, 28px);
+  --spacing-2xl: clamp(28px, 4vw + 16px, 36px);
+  --spacing-3xl: clamp(36px, 5vw + 20px, 44px);
+  --spacing-4xl: clamp(44px, 6vw + 24px, 56px);
+  --spacing-5xl: clamp(56px, 8vw + 32px, 72px);
   
   /* Segmented Control */
   --segmented-bg: rgba(118, 118, 128, 0.12);
@@ -44,6 +44,7 @@
   /* Glass Elements */
   --color-glass-bg: rgba(255, 255, 255, 0.85);
 }
+
 
 /* =============================================
    Segmented Control Styles
@@ -171,6 +172,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .premium-card-hover {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .premium-card-hover:hover {
@@ -493,6 +496,8 @@ a,
 .scroll-to-top-btn,
 .clickable-card {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 button:active,
