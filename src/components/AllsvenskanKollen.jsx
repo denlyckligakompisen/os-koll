@@ -9,6 +9,7 @@ import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
 import FilterDrawer from './common/FilterDrawer';
+import HistoryIcon from '@mui/icons-material/History';
 import { getRelativeDateLabel } from '../utils/dateUtils';
 import { useSwipeNavigation } from '../utils/navigation';
 import { useAllsvenskanData } from '../hooks/useAllsvenskanData';
@@ -753,6 +754,94 @@ const AllsvenskanKollen = () => {
             .sort((a, b) => b.goals - a.goals);
     }, [matchesData]);
 
+    const renderInlineMatchTable = (homeTeam, awayTeam) => {
+        if (!computedTableData || computedTableData.length === 0) return null;
+        
+        const cleanName = (n) => {
+            if (!n) return '';
+            return n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
+        };
+        const homeClean = cleanName(homeTeam);
+        const awayClean = cleanName(awayTeam);
+        
+        const teamsToShow = computedTableData.filter(t => 
+            cleanName(t.team).includes(homeClean) || homeClean.includes(cleanName(t.team)) ||
+            cleanName(t.team).includes(awayClean) || awayClean.includes(cleanName(t.team))
+        );
+        
+        if (teamsToShow.length === 0) return null;
+
+        teamsToShow.sort((a, b) => parseInt(a.rank) - parseInt(b.rank));
+
+        return (
+            <div style={{
+                marginTop: '4px',
+                marginBottom: '8px',
+                animation: 'slideOutFromUnder 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            }}>
+                <Card
+                    padding="32px 12px 16px 12px"
+                    style={{
+                        marginBottom: '0',
+                        marginTop: '-32px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                        borderRadius: '0 0 16px 16px',
+                        borderTop: 'none',
+                        position: 'relative',
+                        zIndex: 1,
+                        width: 'calc(100% - 32px)',
+                        margin: '-32px auto 0 auto',
+                        overflow: 'hidden'
+                    }}
+                >
+                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 2px', fontSize: '0.7rem' }}>
+                        <thead>
+                            <tr style={{ borderBottom: 'var(--border)' }}>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: '28px' }}></th>
+                                <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }}></th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px' }}>M</th>
+                                <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '32px' }}>+/-</th>
+                                <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px' }}>P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {teamsToShow.map((team, idx) => (
+                                <tr key={idx} style={{ 
+                                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                    transition: 'background-color 0.2s ease'
+                                }}>
+                                    <td style={{ 
+                                        padding: '6px 2px', 
+                                        width: '24px', 
+                                        textAlign: 'center', 
+                                        color: 'var(--color-text-muted)',
+                                        borderTopLeftRadius: '10px',
+                                        borderBottomLeftRadius: '10px'
+                                    }}>{team.rank}</td>
+                                    <td style={{ padding: '6px 2px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            {getTeamLogo(team.team) && <img src={getTeamLogo(team.team)} alt="" style={{ height: '20px', width: '20px', objectFit: 'contain' }} />}
+                                            <span style={{ fontWeight: '400' }}>{cleanTeamNameForDisplay(team.team)}</span>
+                                        </div>
+                                    </td>
+                                    <td style={{ padding: '6px 2px', textAlign: 'center', color: 'var(--color-text-muted)' }}>{team.played}</td>
+                                    <td style={{ padding: '6px 2px', textAlign: 'center', color: (!team.gd.startsWith('-') && team.gd !== '0') ? '#34c759' : (team.gd.startsWith('-') ? '#ff3b30' : 'var(--color-text-muted)') }}>{(!team.gd.startsWith('-') && team.gd !== '0') ? `+${team.gd}` : team.gd}</td>
+                                    <td style={{ 
+                                        padding: '6px 2px', 
+                                        textAlign: 'right', 
+                                        fontWeight: '600',
+                                        borderTopRightRadius: '10px',
+                                        borderBottomRightRadius: '10px'
+                                    }}>{team.points}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </Card>
+            </div>
+        );
+    };
 
 
     useEffect(() => {
@@ -955,7 +1044,7 @@ const AllsvenskanKollen = () => {
                     
                     {activeTab === 'matcher' && (
                         <>
-                            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '4px', marginBottom: '16px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '4px', paddingRight: '8px', marginBottom: '16px' }}>
                                 <div style={{ position: 'relative', width: '100px', flexShrink: 0 }}>
                                     <select
                                         value={selectedSeason}
@@ -998,6 +1087,28 @@ const AllsvenskanKollen = () => {
                                         <ChevronDown size={14} strokeWidth={2.5} />
                                     </div>
                                 </div>
+
+                                <button 
+                                    className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
+                                    onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
+                                    title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
+                                    style={{
+                                        backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                        borderRadius: '50%',
+                                        padding: '8px',
+                                        width: '36px',
+                                        height: '36px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'all 0.2s ease',
+                                        color: matchStatusFilter === 'played' ? 'white' : 'var(--color-text)',
+                                        border: 'none',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <HistoryIcon fontSize="small" />
+                                </button>
                             </div>
                             {loading ? (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1007,38 +1118,13 @@ const AllsvenskanKollen = () => {
                                 </div>
                             ) : (
                                 <>
-                                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
-                                        <div style={{ display: 'flex', background: 'rgba(128, 128, 128, 0.1)', borderRadius: '24px', padding: '4px' }}>
-                                            {['upcoming', 'played'].map(filter => (
-                                                <button
-                                                    key={filter}
-                                                    onClick={() => setMatchStatusFilter(filter)}
-                                                    style={{
-                                                        padding: '6px 16px',
-                                                        borderRadius: '20px',
-                                                        border: 'none',
-                                                        background: matchStatusFilter === filter ? 'var(--color-primary)' : 'transparent',
-                                                        color: matchStatusFilter === filter ? '#fff' : 'var(--color-text)',
-                                                        fontWeight: 'bold',
-                                                        fontSize: '0.8rem',
-                                                        cursor: 'pointer',
-                                                        transition: 'all 0.2s ease',
-                                                        whiteSpace: 'nowrap'
-                                                    }}
-                                                >
-                                                    {filter === 'upcoming' ? 'Kommande' : 'Spelade'}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
+
                                     {groupedMatches.length > 0 ? (
                                         groupedMatches.map((group, i) => (
                                             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                {matchStatusFilter !== 'played' && (
                                                     <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.06em' }}>
-                                                        {getRelativeDateLabel(group.date)}
+                                                        {getRelativeDateLabel(group.date).replace('Ikväll', 'Idag')}
                                                     </div>
-                                                )}
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                     {group.matches.map((match, j) => {
                                                         const isNext = nextMatchDateString && match.date === nextMatchDateString;
@@ -1054,7 +1140,9 @@ const AllsvenskanKollen = () => {
                                                                     allMatches={matchesData?.matches}
                                                                     onTeamClick={setFilterTeam}
                                                                     hideBroadcast={true}
+                                                                    hideEventsForPlayed={true}
                                                                 />
+                                                                {(isNext && match.status !== 'finished') && renderInlineMatchTable(match.home, match.away)}
                                                             </div>
                                                         );
                                                     })}

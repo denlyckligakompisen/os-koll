@@ -218,6 +218,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
                         display: 'flex',
                         flexDirection: 'column',
+                        position: 'relative',
+                        zIndex: 2,
                         gap: '16px',
                         ...props.style
                     }}
@@ -676,7 +678,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 </div>
 
                 {/* Live match events: yellow cards, match info */}
-                {!isFiltered && (computedStatus === 'live' || isSoon || (computedStatus === 'finished' && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
+                {!isFiltered && (computedStatus === 'live' || isSoon || (computedStatus === 'finished' && !props.hideEventsForPlayed && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
                     <div style={{
                         marginTop: '6px',
                         display: 'flex',
