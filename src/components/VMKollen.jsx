@@ -1347,19 +1347,7 @@ const VMKollen = () => {
         <div
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
-            {(() => {
-                const isVisible = filterCountries.length === 0;
-                
-                return (
-                    <button
-                        className={`scroll-to-top-btn ${isVisible ? 'visible' : ''}`}
-                        onClick={() => setShowAllTeamsModal(true)}
-                        aria-label="Visa alla lag"
-                    >
-                        <List size={28} />
-                    </button>
-                );
-            })()}
+
 
 
             {/* Full-width Sticky Header */}
@@ -1548,45 +1536,7 @@ const VMKollen = () => {
                 </div>
             </div>
 
-            {showAllTeamsModal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'var(--color-bg)',
-                    zIndex: 9999,
-                    overflowY: 'auto',
-                    padding: '24px 16px'
-                }}>
-                    <div style={{ maxWidth: '600px', margin: '0 auto', position: 'relative', paddingTop: '20px' }}>
-                        <button
-                            onClick={() => setShowAllTeamsModal(false)}
-                            style={{
-                                position: 'absolute',
-                                top: '-10px',
-                                right: '0px',
-                                background: 'var(--color-surface)',
-                                border: '1px solid var(--border)',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                zIndex: 10
-                            }}
-                            aria-label="Stäng"
-                        >
-                            <X size={24} color="var(--color-text)" />
-                        </button>
-                        
-                        {groupsData?.groups && (
-                            renderTable("Alla Lag", sortTeamsSimple(groupsData.groups.flatMap(g => g.teams.map((t, i) => typeof t === 'string' ? {name: t, groupRank: i + 1} : {...t, groupRank: i + 1}))), null, 0, [])
-                        )}
-                        {renderColorLegend()}
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };
