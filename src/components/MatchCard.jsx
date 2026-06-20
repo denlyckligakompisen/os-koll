@@ -291,7 +291,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     borderRadius: computedStatus === 'live' ? '12px' : '0'
                                 }}>
                                     <span>{heroHomeScore}</span>
-                                    <span style={{ opacity: computedStatus === 'live' ? 1 : 0.5 }}>-</span>
+                                    <span>-</span>
                                     <span>{heroAwayScore}</span>
                                 </div>
                             ) : (
@@ -383,32 +383,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             )}
                         </div>
 
-                        {/* Broadcast/Highlights (Absolutely Positioned) */}
-                        <div style={{ position: 'absolute', top: '-12px', right: '-12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-                            {computedStatus === 'finished' && !props.hideBroadcast && (
-                                <a
-                                    href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    title="Se höjdpunkter på SVT Play"
-                                    style={{
-                                        color: '#00C800',
-                                        transition: 'color 0.2s, transform 0.2s',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        backgroundColor: 'var(--color-surface)',
-                                        padding: '8px',
-                                        borderRadius: '50%',
-                                        boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                                    }}
-                                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                >
-                                    <Play size={22} fill="currentColor" />
-                                </a>
-                            )}
-                        </div>
+
+
                     </div>
 
 

@@ -16,6 +16,16 @@ const MatchEvents = ({ match }) => {
         return isNaN(base) ? 0 : base + (extra / 100);
     };
 
+    const formatMinute = (minStr) => {
+        if (!minStr || minStr === 'HT') return minStr;
+        const s = String(minStr).replace(/'/g, '');
+        if (s.includes('+')) {
+            const [base, extra] = s.split('+');
+            return `${base}'+${extra}'`;
+        }
+        return `${s}'`;
+    };
+
     let allEvents = [];
     if (match.scorers?.home) match.scorers.home.forEach(g => allEvents.push({ side: 'home', player: g.player?.name || g.player, minuteStr: g.minute || g.time, minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
     if (match.scorers?.away) match.scorers.away.forEach(g => allEvents.push({ side: 'away', player: g.player?.name || g.player, minuteStr: g.minute || g.time, minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
@@ -72,12 +82,12 @@ const MatchEvents = ({ match }) => {
 
     const hasSecondHalfStarted = String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || allEvents.some(e => e.minute > 45 && e.type !== 'halftime');
 
-    const renderTimelineEvent = (event) => {
+    const renderTimelineEvent = (event, idx) => {
         if (event.type === 'halftime') {
             return (
                 <div key="halftime" style={{ display: 'flex', width: '100%', marginBottom: '8px', position: 'relative', justifyContent: 'center' }}>
                     {/* The continuous line */}
-                    <div style={{ position: 'absolute', top: hasSecondHalfStarted ? '-16px' : '0', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
+                    <div style={{ position: 'absolute', top: idx === 0 ? '50%' : (hasSecondHalfStarted ? '-16px' : '0'), bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
                     <div style={{ 
                         background: 'var(--color-card-bg)',
                         padding: '4px 0',
@@ -88,11 +98,11 @@ const MatchEvents = ({ match }) => {
                         <div style={{
                             background: 'rgba(128, 128, 128, 0.1)',
                             border: '1px solid rgba(128, 128, 128, 0.2)',
-                            padding: '4px 12px',
+                            padding: '4px 14px',
                             borderRadius: '20px',
                             color: 'var(--color-text)',
                             fontSize: '0.75rem',
-                            fontWeight: '600'
+                            fontWeight: '500'
                         }}>
                             Halvtid
                         </div>
@@ -139,7 +149,7 @@ const MatchEvents = ({ match }) => {
                 {/* Center line + minute */}
                 <div style={{ width: '28px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                     {/* The continuous line */}
-                    <div style={{ position: 'absolute', top: '-16px', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
+                    <div style={{ position: 'absolute', top: idx === 0 ? '50%' : '-16px', bottom: '-16px', width: '2px', backgroundColor: 'rgba(128,128,128,0.2)', zIndex: 0 }} />
                     
                     {/* The minute bubble */}
                     <div style={{ 
@@ -184,7 +194,7 @@ const MatchEvents = ({ match }) => {
 
     return (
         <div style={{ marginTop: '0px', padding: '0 12px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {allEvents.map(e => renderTimelineEvent(e))}
+            {allEvents.map((e, i) => renderTimelineEvent(e, i))}
         </div>
     );
 };
