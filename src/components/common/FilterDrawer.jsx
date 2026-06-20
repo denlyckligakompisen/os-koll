@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Drawer } from 'vaul';
 import { X } from 'lucide-react';
 
@@ -75,8 +75,14 @@ const FilterDrawer = ({
                                         backgroundColor: 'rgba(0, 0, 0, 0.05)',
                                         color: 'var(--color-text)',
                                         borderBottom: '1px solid rgba(0,0,0,0.05)',
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        transition: 'background-color 0.15s ease, transform 0.15s ease'
                                     }}
+                                    onPointerDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
+                                    onPointerUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    onPointerLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.08)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)'}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                         {selectedItem.icon}
@@ -101,8 +107,14 @@ const FilterDrawer = ({
                                         padding: '16px',
                                         borderBottom: idx < arr.length - 1 ? '1px solid rgba(0,0,0,0.05)' : 'none',
                                         cursor: 'pointer',
-                                        backgroundColor: 'var(--color-card-bg)'
+                                        backgroundColor: 'var(--color-card-bg)',
+                                        transition: 'background-color 0.15s ease, transform 0.15s ease'
                                     }}
+                                    onPointerDown={(e) => e.currentTarget.style.transform = 'scale(0.98)'}
+                                    onPointerUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    onPointerLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.04)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ''}
                                 >
                                     {item.icon}
                                     <span style={{ fontWeight: '500', fontSize: '1rem' }}>{item.label}</span>

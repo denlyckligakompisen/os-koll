@@ -1035,7 +1035,7 @@ const AllsvenskanKollen = () => {
                                         groupedMatches.map((group, i) => (
                                             <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                                 {matchStatusFilter !== 'played' && (
-                                                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.02em' }}>
+                                                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', paddingLeft: '4px', color: 'var(--color-text-muted)', letterSpacing: '0.06em' }}>
                                                         {getRelativeDateLabel(group.date)}
                                                     </div>
                                                 )}

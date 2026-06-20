@@ -1203,7 +1203,7 @@ const VMKollen = () => {
                                                         textTransform: 'uppercase',
                                                         paddingLeft: '4px',
                                                         color: 'var(--color-text-muted)',
-                                                        letterSpacing: '0.02em',
+                                                        letterSpacing: '0.06em',
                                                         marginTop: '8px'
                                                     }}>{relativeLabel}</div>
                                                 );
@@ -1271,7 +1271,7 @@ const VMKollen = () => {
                                                                 textTransform: 'uppercase',
                                                                 paddingLeft: '4px',
                                                                 color: 'var(--color-text-muted)',
-                                                                letterSpacing: '0.02em',
+                                                                letterSpacing: '0.06em',
                                                                 marginTop: '8px'
                                                             }}>{relativeLabel}</div>
                                                         )}
