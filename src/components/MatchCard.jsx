@@ -309,7 +309,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     justifyContent: 'center',
                                     fontWeight: '600',
                                     fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
-                                    marginTop: '12px',
+                                    marginTop: '0',
                                     color: 'var(--color-text)'
                                 }}>
                                     <span>{computedStatus === 'finished' ? '' :
