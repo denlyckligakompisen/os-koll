@@ -531,7 +531,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{
                         display: computedStatus === 'finished' ? 'none' : 'flex',
                         flexDirection: 'row',
-                        width: '80px',
+                        width: '52px',
                         flexShrink: 0,
                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
                         minHeight: '60px'
@@ -579,52 +579,60 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: computedStatus === 'finished' ? '24px' : '0px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: '0px' }}>
                         {/* Home */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             {computedStatus === 'finished' && (
-                                <span style={{ width: '20px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'center' }}>{homeScore}</span>
+                                <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
+                                    <span style={{ fontWeight: '600', fontSize: '0.85rem' }}>{homeScore}</span>
+                                </div>
                             )}
-                            <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
-                            <span
-                                onClick={(e) => handleTeamClick(e, match.home)}
-                                style={{
-                                    fontWeight: '400',
-                                    fontSize: '1rem',
-                                    color: 'var(--color-text)',
-                                    wordBreak: 'break-word',
-                                    hyphens: 'auto',
-                                    cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
-                                    lineHeight: '1.2'
-                                }}>
-                                {cleanTeamNameForDisplay(match.home)}
-                            </span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
+                                <span
+                                    onClick={(e) => handleTeamClick(e, match.home)}
+                                    style={{
+                                        fontWeight: '400',
+                                        fontSize: '1rem',
+                                        color: 'var(--color-text)',
+                                        wordBreak: 'break-word',
+                                        hyphens: 'auto',
+                                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
+                                        lineHeight: '1.2'
+                                    }}>
+                                    {cleanTeamNameForDisplay(match.home)}
+                                </span>
+                            </div>
                         </div>
 
                         {/* Away */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             {computedStatus === 'finished' && (
-                                <span style={{ width: '20px', fontWeight: 'bold', fontSize: '1.1rem', textAlign: 'center' }}>{awayScore}</span>
+                                <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
+                                    <span style={{ fontWeight: '600', fontSize: '0.85rem' }}>{awayScore}</span>
+                                </div>
                             )}
-                            <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
-                            <span
-                                onClick={(e) => handleTeamClick(e, match.away)}
-                                style={{
-                                    fontWeight: '400',
-                                    fontSize: '1rem',
-                                    color: 'var(--color-text)',
-                                    wordBreak: 'break-word',
-                                    hyphens: 'auto',
-                                    cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
-                                    lineHeight: '1.2'
-                                }}>
-                                {cleanTeamNameForDisplay(match.away)}
-                            </span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
+                                <span
+                                    onClick={(e) => handleTeamClick(e, match.away)}
+                                    style={{
+                                        fontWeight: '400',
+                                        fontSize: '1rem',
+                                        color: 'var(--color-text)',
+                                        wordBreak: 'break-word',
+                                        hyphens: 'auto',
+                                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
+                                        lineHeight: '1.2'
+                                    }}>
+                                    {cleanTeamNameForDisplay(match.away)}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
                     {/* Far Right: Broadcast/Highlights (optional) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '80px', flexShrink: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '52px', flexShrink: 0 }}>
                         {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && !isFiltered && (
                             <div
                                 role="button"
