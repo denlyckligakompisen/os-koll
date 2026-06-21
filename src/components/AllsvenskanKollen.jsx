@@ -1052,7 +1052,7 @@ const AllsvenskanKollen = () => {
                                     style={{
                                         backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
                                         borderRadius: '50%',
-                                        padding: '8px',
+                                        padding: '0',
                                         width: '36px',
                                         height: '36px',
                                         display: 'flex',
@@ -1064,7 +1064,7 @@ const AllsvenskanKollen = () => {
                                         cursor: 'pointer'
                                     }}
                                 >
-                                    <HistoryIcon fontSize="small" />
+                                    <HistoryIcon fontSize="small" style={{ transform: 'translateX(-1px)' }} />
                                 </button>
                             </div>
                             {loading ? (

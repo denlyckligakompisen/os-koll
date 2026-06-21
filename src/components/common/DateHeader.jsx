@@ -13,14 +13,14 @@ const DateHeader = ({ date, monthMap, labelOverride }) => {
             alignItems: 'center', 
             gap: '8px', 
             paddingLeft: '4px',
-            color: isToday ? 'var(--color-primary)' : 'var(--color-text-muted)',
+            color: 'var(--color-text-muted)',
             marginTop: '8px'
         }}>
             <span style={{ 
                 fontSize: '0.8rem', 
                 textTransform: 'uppercase', 
                 letterSpacing: '0.06em',
-                fontWeight: isToday ? '700' : '500'
+                fontWeight: '500'
             }}>
                 {labelText}
             </span>

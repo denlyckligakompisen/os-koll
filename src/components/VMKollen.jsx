@@ -1010,7 +1010,9 @@ const VMKollen = () => {
                     }
                     
                     if (matchHour < 7 || date.includes('_night')) {
-                        if (willBeInatt) {
+                        if (matchStatusFilter === 'played') {
+                            targetDate = date.replace('_night', '');
+                        } else if (willBeInatt) {
                             targetDate = date.replace('_night', '') + '_night';
                         } else {
                             targetDate = date.replace('_night', '');
@@ -1404,16 +1406,19 @@ const VMKollen = () => {
                                         style={{
                                             backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
                                             borderRadius: '50%',
-                                            padding: '8px',
+                                            padding: '0',
                                             width: '36px',
                                             height: '36px',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            transition: 'all 0.2s ease'
+                                            transition: 'all 0.2s ease',
+                                            color: matchStatusFilter === 'played' ? 'white' : 'var(--color-text)',
+                                            border: 'none',
+                                            cursor: 'pointer'
                                         }}
                                     >
-                                        <HistoryIcon fontSize="small" />
+                                        <HistoryIcon fontSize="small" style={{ transform: 'translateX(-1px)' }} />
                                     </button>
                                 );
                             })()
