@@ -587,6 +587,12 @@ const VMKollen = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [filterCountries]);
 
+    const getSortedGroupTeams = React.useCallback((group) => {
+        if (!group || !matchesData?.matches) return group?.teams || [];
+        const groupMatches = matchesData.matches.filter(m => m.group === group.name);
+        return sortGroupTeams(group.teams, groupMatches, rankingData);
+    }, [matchesData, rankingData]);
+
     const filteredCountryStatusList = React.useMemo(() => {
         if (!groupsData?.groups || filterCountries.length === 0) return [];
         return filterCountries.map(fc => {
@@ -596,12 +602,12 @@ const VMKollen = () => {
             if (!group) return null;
 
             const groupChar = group.name.split(' ')[1];
-            const sorted = group.teams;
+            const sorted = getSortedGroupTeams(group);
             const rank = sorted.findIndex(t => (typeof t === 'string' ? t : t.name).includes(fc)) + 1;
 
             return { groupChar, rank, country: fc };
         }).filter(Boolean);
-    }, [groupsData, filterCountries]);
+    }, [groupsData, filterCountries, getSortedGroupTeams]);
 
     const top8ThirdsNames = React.useMemo(() => {
         const top8 = new Set();
@@ -611,14 +617,17 @@ const VMKollen = () => {
                 const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
                 return index !== -1 ? index : 999;
             };
-            const thirds = groupsData.groups.map(g => g.teams[2]).filter(Boolean);
+            const thirds = groupsData.groups.map(g => {
+                const sorted = getSortedGroupTeams(g);
+                return sorted[2];
+            }).filter(Boolean);
             thirds.sort((a, b) => {
                 return (b.pts - a.pts) || (b.gd - a.gd) || (b.gf - a.gf) || (b.fairPlay - a.fairPlay) || (getRank(a.name) - getRank(b.name));
             });
             thirds.slice(0, 8).forEach(t => top8.add(t.name));
         }
         return top8;
-    }, [groupsData, rankingData]);
+    }, [groupsData, rankingData, getSortedGroupTeams]);
 
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
@@ -632,7 +641,7 @@ const VMKollen = () => {
 
             const group = groupsData.groups[groupIdx];
             if (group) {
-                const sorted = group.teams;
+                const sorted = getSortedGroupTeams(group);
                 const team = sorted[rank - 1];
                 if (team) {
                     return {
@@ -672,7 +681,7 @@ const VMKollen = () => {
                 const idx = char.toUpperCase().charCodeAt(0) - 65;
                 const group = groupsData.groups[idx];
                 if (group) {
-                    const sorted = group.teams;
+                    const sorted = getSortedGroupTeams(group);
                     const team = sorted[rank - 1];
                     return team ? getAbbr(team.name) : char;
                 }
@@ -684,7 +693,7 @@ const VMKollen = () => {
                 const idx = char.toUpperCase().charCodeAt(0) - 65;
                 const group = groupsData.groups[idx];
                 if (group) {
-                    const sorted = group.teams;
+                    const sorted = getSortedGroupTeams(group);
                     const team = sorted[rank - 1];
                     if (team && team.name) {
                         return getFlagCode(team.name);
@@ -779,7 +788,7 @@ const VMKollen = () => {
                 const target = `${status.rank}${status.groupChar}`;
                 if (label.includes(target)) return true;
                 if (status.rank === 3 && label.startsWith('3') && label.includes(status.groupChar)) {
-                    return top8ThirdsNames.has(status.country);
+                    return true;
                 }
                 return false;
             };

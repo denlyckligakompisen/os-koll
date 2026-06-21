@@ -558,13 +558,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{
                         display: computedStatus === 'finished' ? 'none' : 'flex',
                         flexDirection: 'row',
-                        width: '72px',
+                        width: (computedStatus === 'live' && (isFiltered || filterTeam)) ? '52px' : '72px',
                         flexShrink: 0,
                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
                         minHeight: '60px'
                     }}>
                         {/* Time side */}
-                        {computedStatus !== 'finished' && (
+                        {computedStatus !== 'finished' && !(computedStatus === 'live' && (isFiltered || filterTeam)) && (
                             <div style={{
                                 flex: 1,
                                 display: 'flex',
@@ -577,7 +577,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 fontSize: computedStatus === 'live' ? '1rem' : '0.85rem',
                                 gap: '3px'
                             }}>
-                                <span>{computedStatus === 'live' && match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) :
+                                <span>{computedStatus === 'live' ? formatLiveTime(match.liveCurrentTime, match.period) :
                                     isOverdue ? '00:00' :
                                         (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
                                 {computedStatus === 'live' && !isFiltered && (
@@ -592,8 +592,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: '32px',
-                                backgroundColor: 'rgba(0,0,0,0.15)',
+                                width: (isFiltered || filterTeam) ? '100%' : '32px',
+                                backgroundColor: (isFiltered || filterTeam) ? 'transparent' : 'rgba(0,0,0,0.15)',
                                 color: '#ffffff',
                                 fontWeight: 'bold',
                                 fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
@@ -606,7 +606,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: '0px', minWidth: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: (computedStatus === 'live' && (isFiltered || filterTeam)) ? '12px' : '0px', minWidth: 0 }}>
                         {/* Home */}
                         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
                             {computedStatus === 'finished' && (
