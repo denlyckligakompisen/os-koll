@@ -579,7 +579,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: computedStatus === 'finished' ? '24px' : '12px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: computedStatus === 'finished' ? '24px' : '0px' }}>
                         {/* Home */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             {computedStatus === 'finished' && (
@@ -624,7 +624,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     {/* Far Right: Broadcast/Highlights (optional) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '80px', flexShrink: 0 }}>
                         {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && !isFiltered && (
                             <div
                                 role="button"
@@ -634,9 +634,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    padding: '0 12px',
+                                    padding: '0',
                                     margin: 0,
-                                    width: '100%',
                                     flex: 1,
                                     backgroundColor: (match.broadcast.toUpperCase().includes('SVT')) ? '#00C800' :
                                         (match.broadcast.toUpperCase().includes('TV4')) ? '#E3000B' :
@@ -654,7 +653,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             </div>
                         )}
                         {computedStatus === 'finished' && !props.hideBroadcast && !isFiltered && (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, minHeight: '44px', padding: '0 12px', backgroundColor: 'transparent' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, minHeight: '44px', padding: '0', backgroundColor: 'transparent' }}>
                                 <a
                                     href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
                                     target="_blank"
