@@ -1,7 +1,7 @@
 import React from 'react';
 import FlagBadge from '../common/FlagBadge';
 import { getFlagCodes } from '../../utils/flags';
-import { getLastName } from './utils.jsx';
+
 
 const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const parseMinute = (minStr) => {
@@ -132,15 +132,77 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     applySpacing(homeEvents);
     applySpacing(awayEvents);
 
-    const homeFlags = match.homeFlags || getFlagCodes(match.home);
-    const awayFlags = match.awayFlags || getFlagCodes(match.away);
+    const lastEventTrackPct = events.length > 0 ? Math.max(...events.map(e => (e.minute / maxMin) * 100)) : 0;
+    const currentTrackPct = progress || 0;
+    const solidEndTrackPct = Math.min(lastEventTrackPct, currentTrackPct);
+    const dashedWidthTrackPct = Math.max(0, currentTrackPct - solidEndTrackPct);
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '44px', margin: '4px 0', display: 'flex', alignItems: 'center' }}>
 
-            <div style={{ position: 'absolute', top: '50%', left: '2%', right: 'calc(50% + 3px)', height: '4px', background: `linear-gradient(to right, #34c759 ${Math.min((progress || 0) * 2, 100)}%, rgba(128,128,128,0.15) ${Math.min((progress || 0) * 2, 100)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+            {/* Track container mapping 0-100% to 2%-98% of parent */}
+            <div style={{ position: 'absolute', top: '50%', left: '2%', right: '2%', height: '4px', transform: 'translateY(-50%)' }}>
+                {/* Gray background */}
+                <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(128,128,128,0.15)', borderRadius: '4px' }} />
+                
+                {/* Solid green from start to last event */}
+                <div style={{ position: 'absolute', left: 0, width: `${solidEndTrackPct}%`, height: '100%', backgroundColor: '#34c759', borderRadius: '4px', transition: 'width 1s linear' }} />
+                
+                {/* Dashed green from last event to current minute */}
+                {dashedWidthTrackPct > 0 && (
+                    <div style={{ 
+                        position: 'absolute', 
+                        left: `${solidEndTrackPct}%`, 
+                        width: `${dashedWidthTrackPct}%`, 
+                        height: '2px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        borderTop: '3px dashed #34c759',
+                        transition: 'width 1s linear, left 1s linear'
+                    }} />
+                )}
 
-            <div style={{ position: 'absolute', top: '50%', left: 'calc(50% + 3px)', right: '2%', height: '4px', background: `linear-gradient(to right, #34c759 ${Math.max(((progress || 0) - 50) * 2, 0)}%, rgba(128,128,128,0.15) ${Math.max(((progress || 0) - 50) * 2, 0)}%)`, transform: 'translateY(-50%)', borderRadius: '4px' }} />
+                {/* Center mask to recreate the gap at 50% */}
+                <div style={{ position: 'absolute', left: 'calc(50% - 3px)', width: '6px', height: '100%', backgroundColor: 'var(--color-card-bg)' }} />
+            </div>
+
+            {/* Current minute pin */}
+            {progress > 0 && progress < 100 && (
+                <div style={{
+                    position: 'absolute',
+                    bottom: '50%',
+                    left: `${2 + currentTrackPct * 0.96}%`,
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    zIndex: 15,
+                    transition: 'left 1s linear'
+                }}>
+                    <div style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        border: '2px solid rgba(128,128,128,0.25)',
+                        backgroundColor: 'var(--color-card-bg)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text)',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                    }}>
+                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' ? match.liveCurrentTime.replace("'", "") : ''}
+                    </div>
+                    <div style={{
+                        width: '2px',
+                        height: '24px', /* Taller stick to sit above event icons */
+                        backgroundColor: 'rgba(128,128,128,0.25)',
+                        marginTop: '-1px'
+                    }} />
+                </div>
+            )}
 
             {events.map((e, i) => {
                 const pct = e.pct;

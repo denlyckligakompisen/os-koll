@@ -309,12 +309,28 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontWeight: '600',
-                                    fontSize: computedStatus === 'live' ? '1.2rem' : '1.1rem',
+                                    fontSize: '1rem', // Match the country text size
                                     marginTop: '0',
                                     color: 'var(--color-text)'
                                 }}>
-                                    <span>{computedStatus === 'finished' ? '' :
-                                        (match.liveCurrentTime ? formatLiveTime(match.liveCurrentTime, match.period) : '')}</span>
+                                    {computedStatus === 'finished' ? (
+                                        <span></span>
+                                    ) : (
+                                        match.liveCurrentTime ? (
+                                            <div key={match.liveCurrentTime} className="live-minute-spinner" style={{
+                                                width: '32px',
+                                                height: '32px',
+                                                marginTop: '6px',
+                                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                color: 'var(--color-text)',
+                                                fontSize: '0.85rem'
+                                            }}>
+                                                <div className="live-minute-spinner-inner">
+                                                    {match.liveCurrentTime.replace("'", "")}
+                                                </div>
+                                            </div>
+                                        ) : <span></span>
+                                    )}
                                     {computedStatus === 'live' && (
                                         <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
                                             {(() => {
@@ -695,10 +711,21 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         padding: '0 12px 12px 12px'
                     }}>
 
+                        {/* Match events timeline */}
+                        <div style={{ marginTop: '0px', paddingTop: '0px' }}>
+                            {computedStatus === 'live' ? (
+                                <EventsTimeline 
+                                    match={match} 
+                                    progress={Math.min((parseInt(String(match.liveCurrentTime).replace('HT', '45').replace('FT', '90').split('+')[0]) || 0) / 90 * 100, 100)} 
+                                />
+                            ) : (
+                                <MatchEvents match={match} />
+                            )}
+                        </div>
+
                         {/* Match info footer */}
                         {(match.startingXI?.home?.length > 0 || match.startingXI?.away?.length > 0) && (
                             <div style={{ marginTop: '0px', paddingTop: '0px' }}>
-                                <MatchEvents match={match} />
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'column',

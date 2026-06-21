@@ -739,3 +739,37 @@ select:focus-visible {
         display: inline;
     }
 }
+
+/* =============================================
+   Spinning Border Animation
+   ============================================= */
+.live-minute-spinner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.live-minute-spinner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(rgba(128,128,128,0.8) var(--angle), transparent 0);
+  animation: rotateAngle 60s linear infinite;
+  z-index: 0;
+}
+
+.live-minute-spinner-inner {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--color-card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+}
