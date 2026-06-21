@@ -531,7 +531,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{
                         display: computedStatus === 'finished' ? 'none' : 'flex',
                         flexDirection: 'row',
-                        width: '52px',
+                        width: '72px',
                         flexShrink: 0,
                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
                         minHeight: '60px'
@@ -632,7 +632,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     </div>
 
                     {/* Far Right: Broadcast/Highlights (optional) */}
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '52px', flexShrink: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', width: '72px', flexShrink: 0 }}>
                         {match.broadcast && !props.hideBroadcast && computedStatus !== 'live' && computedStatus !== 'finished' && !isFiltered && (
                             <div
                                 role="button"
