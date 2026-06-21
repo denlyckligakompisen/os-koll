@@ -82,16 +82,19 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
     const renderEventIcon = (e) => {
         if (e.type === 'halftime') return (
             <div style={{
-                background: 'var(--color-card-bg)',
-                border: '1px solid rgba(128, 128, 128, 0.3)',
-                padding: '2px 8px',
-                borderRadius: '12px',
-                color: 'var(--color-text)',
-                fontSize: '0.65rem',
+                padding: '4px 12px',
+                borderRadius: '16px',
+                border: '2px solid rgba(128, 128, 128, 0.25)',
+                backgroundColor: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '0.75rem',
                 fontWeight: '600',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                color: '#000000',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
             }}>
-                HT
+                Halvtid
             </div>
         );
         if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (

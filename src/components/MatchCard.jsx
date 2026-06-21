@@ -332,29 +332,36 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                                             : match.liveCurrentTime}
                                                     </div>
                                                 </div>
-                                                {/* Vertical line connecting the spinner towards the timeline */}
-                                                <div style={{
-                                                    width: '2px',
-                                                    height: '44px',
-                                                    backgroundColor: 'rgba(128,128,128,0.3)',
-                                                    marginTop: '-4px',
-                                                    marginBottom: '-40px',
-                                                    zIndex: 1
-                                                }} />
                                             </div>
                                         ) : <span></span>
                                     )}
                                     {computedStatus === 'live' && (
-                                        <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '2px' }}>
+                                        <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '4px', marginBottom: '2px', zIndex: 2, position: 'relative' }}>
                                             {(() => {
                                                 const p = String(match.period);
-                                                if (p === '1') return '1:a halvlek';
+                                                if (p === '1' || p === '3') return '1:a halvlek';
+                                                if (p === '4') return 'Halvtid';
                                                 if (p === '2' || p === '5') return '2:a halvlek';
-                                                if (p === '4') return ''; // Halvtid
-                                                if (p === 'Finished') return '';
-                                                return ''; // Hide unknown raw numbers
+                                                if (p === '6') return 'Inför förlängning';
+                                                if (p === '7') return 'Förlängning (1:a)';
+                                                if (p === '8') return 'Paus';
+                                                if (p === '9') return 'Förlängning (2:a)';
+                                                if (p === '10') return 'Inför straffar';
+                                                if (p === '11') return 'Straffläggning';
+                                                if (p === 'Finished' || p === '0') return '';
+                                                return '';
                                             })()}
                                         </div>
+                                    )}
+                                    {/* Vertical line connecting the text towards the timeline */}
+                                    {computedStatus === 'live' && match.liveCurrentTime && (
+                                        <div style={{
+                                            width: '2px',
+                                            height: '36px',
+                                            backgroundColor: 'rgba(128,128,128,0.3)',
+                                            marginBottom: '-36px',
+                                            zIndex: 1
+                                        }} />
                                     )}
                                 </div>
                             )}
@@ -454,7 +461,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         onMouseOver={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.2)'}
                                         onMouseOut={(e) => e.currentTarget.style.background = 'rgba(128, 128, 128, 0.1)'}
                                     >
-                                        {showLineups ? 'Dölj detaljer' : 'Visa detaljer'}
+                                        {showLineups ? 'Dölj laguppställningar' : 'Visa laguppställningar'}
                                         <span style={{ fontSize: '0.7rem' }}>{showLineups ? '▲' : '▼'}</span>
                                     </button>
                                 </div>
