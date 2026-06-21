@@ -245,7 +245,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 onClick={(e) => handleTeamClick(e, match.home)}
                                 style={{
                                     fontWeight: '500',
-                                    fontSize: '1.25rem',
+                                    fontSize: '1rem',
                                     color: 'var(--color-text)',
                                     wordBreak: 'break-word',
                                     hyphens: 'auto',
@@ -253,8 +253,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     textAlign: 'center',
                                     width: '100%'
                                 }}>
-                                <span className="team-name-desktop">{cleanTeamNameForDisplay(match.home)}</span>
-                                <span className="team-name-mobile">{getTeamAbbr(match.home)}</span>
+                                {cleanTeamNameForDisplay(match.home)}
                             </span>
                             {/* Form badges */}
                             {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -366,7 +365,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 onClick={(e) => handleTeamClick(e, match.away)}
                                 style={{
                                     fontWeight: '500',
-                                    fontSize: '1.25rem',
+                                    fontSize: '1rem',
                                     color: 'var(--color-text)',
                                     wordBreak: 'break-word',
                                     hyphens: 'auto',
@@ -374,8 +373,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     textAlign: 'center',
                                     width: '100%'
                                 }}>
-                                <span className="team-name-desktop">{cleanTeamNameForDisplay(match.away)}</span>
-                                <span className="team-name-mobile">{getTeamAbbr(match.away)}</span>
+                                {cleanTeamNameForDisplay(match.away)}
                             </span>
                             {/* Form badges */}
                             {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
