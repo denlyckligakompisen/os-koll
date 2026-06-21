@@ -925,6 +925,7 @@ const VMKollen = () => {
 
         return (
             <SharedMatchTable 
+                key={groupName}
                 title={displayName || groupName} 
                 teams={mappedTeams} 
                 isInline={isInline} 
