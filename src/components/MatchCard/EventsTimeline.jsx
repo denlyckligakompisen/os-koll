@@ -64,11 +64,36 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
         events.push(...Object.values(subsByMin));
     }
 
+    const isPastFirstHalf = String(match.period) === '4' || String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || events.some(e => e.minute > 45);
+    
+    if (isPastFirstHalf) {
+        events.push({ 
+            side: 'center', 
+            minuteStr: 'HT', 
+            minute: 45.5, 
+            type: 'halftime' 
+        });
+    }
+
     events.sort((a, b) => a.minute - b.minute);
 
     if (events.length === 0 && !showEmptyTimeline) return null;
 
     const renderEventIcon = (e) => {
+        if (e.type === 'halftime') return (
+            <div style={{
+                background: 'var(--color-card-bg)',
+                border: '1px solid rgba(128, 128, 128, 0.3)',
+                padding: '2px 8px',
+                borderRadius: '12px',
+                color: 'var(--color-text)',
+                fontSize: '0.65rem',
+                fontWeight: '600',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+            }}>
+                HT
+            </div>
+        );
         if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (
             <span style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>⚽</span>
         );
@@ -208,33 +233,36 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
 
             {events.map((e, i) => {
                 const pct = e.pct;
+                const isCenter = e.side === 'center';
                 const isHome = e.side === 'home';
 
                 return (
                     <div key={i} style={{
                         position: 'absolute',
                         left: `${pct}%`,
-                        bottom: isHome ? '50%' : 'auto',
-                        top: isHome ? 'auto' : '50%',
-                        transform: 'translate(-50%, 0)',
+                        bottom: isCenter ? '50%' : (isHome ? '50%' : 'auto'),
+                        top: isCenter ? 'auto' : (isHome ? 'auto' : '50%'),
+                        transform: isCenter ? 'translate(-50%, 50%)' : 'translate(-50%, 0)',
                         display: 'flex',
-                        flexDirection: isHome ? 'column-reverse' : 'column',
+                        flexDirection: isCenter ? 'row' : (isHome ? 'column-reverse' : 'column'),
                         alignItems: 'center',
                         gap: '1px',
-                        padding: isHome ? '0 0 6px 0' : '6px 0 0 0',
-                        zIndex: e.type === 'goal' ? 10 : 5
+                        padding: isCenter ? '0' : (isHome ? '0 0 6px 0' : '6px 0 0 0'),
+                        zIndex: e.type === 'halftime' ? 8 : (e.type === 'goal' ? 10 : 5)
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             {renderEventIcon(e)}
                         </div>
-                        <div style={{
-                            position: 'relative',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <span className="sr-only">Minut {e.minuteStr}: </span>
-                        </div>
+                        {e.type !== 'halftime' && (
+                            <div style={{
+                                position: 'relative',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <span className="sr-only">Minut {e.minuteStr}: </span>
+                            </div>
+                        )}
                     </div>
                 );
             })}
