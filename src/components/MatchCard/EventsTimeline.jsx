@@ -180,20 +180,22 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                     transition: 'left 1s linear'
                 }}>
                     <div style={{
-                        width: '32px',
-                        height: '32px',
+                        width: '36px',
+                        height: '36px',
                         borderRadius: '50%',
                         border: '2px solid rgba(128,128,128,0.25)',
                         backgroundColor: 'var(--color-card-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '1rem',
+                        fontSize: '0.85rem',
                         fontWeight: '600',
                         color: 'var(--color-text)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}>
-                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' ? match.liveCurrentTime.replace("'", "") : ''}
+                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
+                            ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`) 
+                            : ''}
                     </div>
                     <div style={{
                         width: '2px',

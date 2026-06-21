@@ -317,17 +317,30 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         <span></span>
                                     ) : (
                                         match.liveCurrentTime ? (
-                                            <div key={match.liveCurrentTime} className="live-minute-spinner" style={{
-                                                width: '32px',
-                                                height: '32px',
-                                                marginTop: '6px',
-                                                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-                                                color: 'var(--color-text)',
-                                                fontSize: '0.85rem'
-                                            }}>
-                                                <div className="live-minute-spinner-inner">
-                                                    {match.liveCurrentTime.replace("'", "")}
+                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '6px' }}>
+                                                <div key={match.liveCurrentTime} className="live-minute-spinner" style={{
+                                                    width: '36px',
+                                                    height: '36px',
+                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                    color: 'var(--color-text)',
+                                                    fontSize: '0.85rem',
+                                                    zIndex: 2
+                                                }}>
+                                                    <div className="live-minute-spinner-inner">
+                                                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
+                                                            ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
+                                                            : match.liveCurrentTime}
+                                                    </div>
                                                 </div>
+                                                {/* Vertical line connecting the spinner towards the timeline */}
+                                                <div style={{
+                                                    width: '2px',
+                                                    height: '44px',
+                                                    backgroundColor: 'rgba(128,128,128,0.3)',
+                                                    marginTop: '-4px',
+                                                    marginBottom: '-40px',
+                                                    zIndex: 1
+                                                }} />
                                             </div>
                                         ) : <span></span>
                                     )}

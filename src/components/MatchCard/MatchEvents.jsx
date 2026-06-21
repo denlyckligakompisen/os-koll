@@ -27,12 +27,12 @@ const MatchEvents = ({ match }) => {
     };
 
     let allEvents = [];
-    if (match.scorers?.home) match.scorers.home.forEach(g => allEvents.push({ side: 'home', player: g.player?.name || g.player, minuteStr: g.minute || g.time, minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
-    if (match.scorers?.away) match.scorers.away.forEach(g => allEvents.push({ side: 'away', player: g.player?.name || g.player, minuteStr: g.minute || g.time, minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
+    if (match.scorers?.home) match.scorers.home.forEach(g => allEvents.push({ side: 'home', player: g.player?.name || g.player, minuteStr: formatMinute(g.minute || g.time), minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
+    if (match.scorers?.away) match.scorers.away.forEach(g => allEvents.push({ side: 'away', player: g.player?.name || g.player, minuteStr: formatMinute(g.minute || g.time), minute: parseMinute(g.minute || g.time), type: g.incidentClass || 'goal' }));
     if (match.bookings) {
         match.bookings.forEach(b => {
             if (b.card === 'yellow' || b.card === 'red') {
-                allEvents.push({ side: b.side, player: b.player?.name || b.player, minuteStr: b.minute, minute: parseMinute(b.minute), type: b.card });
+                allEvents.push({ side: b.side, player: b.player?.name || b.player, minuteStr: formatMinute(b.minute), minute: parseMinute(b.minute), type: b.card });
             }
         });
     }
@@ -42,7 +42,7 @@ const MatchEvents = ({ match }) => {
             allEvents.push({
                 side: s.side,
                 player: s.playerOn ? { in: s.playerOn, out: s.playerOff } : 'Byte',
-                minuteStr: s.minute,
+                minuteStr: formatMinute(s.minute),
                 minute: parseMinute(s.minute),
                 type: 'substitution'
             });
