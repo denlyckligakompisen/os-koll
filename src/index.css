@@ -171,6 +171,21 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeInBlur 0.9s cubic-bezier(0.34, 1.75, 0.6, 1) forwards;
 }
 
+@keyframes modalSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-slide-up {
+  animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .premium-card-hover {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, box-shadow;

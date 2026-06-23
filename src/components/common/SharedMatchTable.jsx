@@ -56,9 +56,9 @@ const SharedMatchTable = ({
                         <tr style={{ borderBottom: 'var(--border)' }}>
                             {!hideRank && <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: isInline ? '28px' : '36px' }} aria-label="Position"></th>}
                             <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }} aria-label="Lag"></th>
-                            <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '20px' }}>M</th>
-                            <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '32px' }}>+/-</th>
-                            <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px' }}>P</th>
+                            <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '20px', fontWeight: '600', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>M</th>
+                            <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '32px', fontWeight: '600', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>+/-</th>
+                            <th scope="col" style={{ textAlign: 'right', padding: '4px 2px', color: 'var(--color-text-muted)', width: '24px', fontWeight: '600', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>P</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,22 +66,43 @@ const SharedMatchTable = ({
                             <React.Fragment key={idx}>
                                 {dividerIndex !== undefined && idx === dividerIndex && (
                                     <tr>
-                                        <td colSpan={hideRank ? "4" : "5"} style={{ padding: '0 8px' }}>
-                                            <div style={{ 
-                                                height: '2px', 
-                                                backgroundColor: 'rgba(0,0,0,0.08)', 
-                                                margin: '4px 0',
-                                                borderStyle: 'dashed',
-                                                borderWidth: '1px 0 0 0',
-                                                borderColor: 'rgba(0,0,0,0.2)'
-                                            }} />
+                                        <td colSpan={hideRank ? "4" : "5"} style={{ padding: '8px 12px 16px 12px' }}>
+                                            <div style={{ position: 'relative', textAlign: 'center' }}>
+                                                <div style={{ 
+                                                    position: 'absolute',
+                                                    top: '50%',
+                                                    left: '0',
+                                                    right: '0',
+                                                    height: '1px', 
+                                                    borderTop: '1px dashed rgba(0,0,0,0.2)'
+                                                }} />
+                                                <span style={{
+                                                    position: 'relative',
+                                                    display: 'inline-block',
+                                                    backgroundColor: 'var(--color-bg)',
+                                                    padding: '0 12px',
+                                                    fontSize: '0.65rem',
+                                                    fontWeight: '600',
+                                                    color: 'var(--color-text-muted)',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.05em',
+                                                    zIndex: 1
+                                                }}>
+                                                    Gräns för slutspel
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                 )}
-                            <tr style={{ 
-                                backgroundColor: team.rowBgColor || 'transparent',
-                                transition: 'background-color 0.2s ease'
-                            }}>
+                            <tr 
+                                className={onTeamClick ? "clickable-item" : ""}
+                                onClick={onTeamClick ? () => onTeamClick(team.teamName) : undefined}
+                                style={{ 
+                                    backgroundColor: team.rowBgColor || 'transparent',
+                                    transition: 'background-color 0.2s ease, opacity 0.2s ease',
+                                    cursor: onTeamClick ? 'pointer' : 'default'
+                                }}
+                            >
                                 {!hideRank && (
                                     <td style={{ 
                                         padding: '6px 2px', 
@@ -102,13 +123,10 @@ const SharedMatchTable = ({
                                     borderBottomLeftRadius: hideRank && team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0'
                                 }}>
                                     <div 
-                                        className={onTeamClick ? "clickable-item" : ""}
-                                        onClick={onTeamClick ? () => onTeamClick(team.teamName) : undefined}
                                         style={{ 
                                             display: 'flex', 
                                             alignItems: 'center', 
-                                            gap: '8px',
-                                            cursor: onTeamClick ? 'pointer' : 'default'
+                                            gap: '8px'
                                         }}
                                     >
                                         <TeamLogo logoUrl={team.logoUrl} flags={team.flags} teamName={team.teamName} size={isInline ? 16 : 20} />

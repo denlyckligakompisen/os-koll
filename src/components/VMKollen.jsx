@@ -1504,21 +1504,34 @@ const VMKollen = () => {
                     backgroundColor: 'var(--color-bg)',
                     zIndex: 9999,
                     overflowY: 'auto',
+                    overflowX: 'hidden',
                     padding: '16px',
                     paddingTop: 'calc(env(safe-area-inset-top) + 16px)'
                 }}>
-                    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '16px' }}>
+                    <div className="modal-slide-up" style={{ maxWidth: '600px', margin: '0 auto', position: 'relative' }}>
+                        <div style={{ 
+                            position: 'sticky', 
+                            top: '16px', 
+                            zIndex: 1000, 
+                            display: 'flex', 
+                            justifyContent: 'flex-end', 
+                            alignItems: 'center', 
+                            marginBottom: '16px',
+                            pointerEvents: 'none'
+                        }}>
                             <button
                                 onClick={() => setShowAllTeamsModal(false)}
                                 style={{
-                                    background: 'var(--color-card-bg)',
+                                    pointerEvents: 'auto',
+                                    background: 'var(--color-glass-bg)',
+                                    backdropFilter: 'blur(12px)',
+                                    WebkitBackdropFilter: 'blur(12px)',
                                     border: 'none',
                                     borderRadius: '50%',
                                     width: '36px', height: '36px',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     cursor: 'pointer',
-                                    boxShadow: 'var(--shadow-sm)',
+                                    boxShadow: 'var(--shadow-md)',
                                     color: 'var(--color-text)'
                                 }}
                             >
