@@ -1272,6 +1272,7 @@ const VMKollen = () => {
 
     return (
         <div
+            className="page-transition"
             style={{ minHeight: '100vh', paddingBottom: '100px' }}
         >
 

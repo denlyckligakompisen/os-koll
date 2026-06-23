@@ -650,6 +650,22 @@ select:focus-visible {
   }
 }
 
+@keyframes pageFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageFadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;

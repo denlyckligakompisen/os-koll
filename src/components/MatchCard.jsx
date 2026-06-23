@@ -375,7 +375,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                             {/* Broadcast Channel under time (for upcoming) */}
                             {computedStatus === 'upcoming' && match.broadcast && !props.hideBroadcast && (
-                                <div style={{ marginTop: '12px' }}>
+                                <div style={{ marginTop: '18px', marginBottom: '4px' }}>
                                     <button
                                         onClick={handleBroadcastClick}
                                         disabled={!getBroadcasterUrl(match.broadcast)}

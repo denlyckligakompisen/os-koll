@@ -820,6 +820,7 @@ const AllsvenskanKollen = () => {
 
     return (
         <div 
+            className="page-transition"
             style={{ paddingBottom: '24px' }}
         >
             <button
