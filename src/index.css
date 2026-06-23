@@ -14,9 +14,9 @@
   --color-accent: #ff9500;
   --radius-lg: 20px;
   --radius-md: 16px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.04), 0 16px 32px rgba(0, 0, 0, 0.08);
   --border: 0.5px solid rgba(0, 0, 0, 0.08);
   --color-surface-subtle: rgba(0, 0, 0, 0.05);
   --color-highlight-sverige: rgba(254, 204, 0, 0.05);
@@ -281,6 +281,25 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.nav-container.scrolled::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-container.scrolled::after {
+    background: linear-gradient(to bottom, rgba(20,20,20,0.8), transparent);
+  }
+}
+
 .header-logo {
   display: flex;
   align-items: center;
@@ -314,6 +333,14 @@ h1, h2, h3, h4, h5, h6 {
   gap: var(--spacing-sm);
   align-items: center;
   height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.web-nav-links::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 @media (min-width: 600px) {
@@ -337,6 +364,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   transition: color 0.2s ease;
   min-height: var(--spacing-5xl);
+  scroll-snap-align: center;
+  white-space: nowrap;
 }
 
 .web-nav-item:hover {

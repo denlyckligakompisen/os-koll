@@ -1535,8 +1535,10 @@ const VMKollen = () => {
                                     return { ...team, groupRank: i + 1 };
                                 });
                             });
-                            
-                            allTeams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.fairPlay - a.fairPlay || a.name.localeCompare(b.name, 'sv'));
+                            allTeams.sort((a, b) => {
+                                if (a.groupRank !== b.groupRank) return a.groupRank - b.groupRank;
+                                return b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.fairPlay - a.fairPlay || a.name.localeCompare(b.name, 'sv');
+                            });
                             
                             const mappedTeams = allTeams.map((team, tidx) => {
                                 const rank = tidx + 1;
@@ -1544,10 +1546,6 @@ const VMKollen = () => {
                                 const isQualifiedThird = gRank === 3 && qualifiedThirds.includes(team.name);
                                 
                                 let rowBgColor = 'transparent';
-                                if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
-                                else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
-                                else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
-                                else if (gRank === 3) rowBgColor = 'rgba(255, 204, 0, 0.1)';
 
                                 return { 
                                     ...team, 
@@ -1559,15 +1557,36 @@ const VMKollen = () => {
                                 };
                             });
 
+                            const rankNames = {
+                                1: "Gruppettor",
+                                2: "Grupptvåor",
+                                3: "Grupptreor",
+                                4: "Gruppfyror"
+                            };
+
                             return (
-                                <SharedMatchTable 
-                                    title="Total Tabell" 
-                                    teams={mappedTeams} 
-                                    onTeamClick={(name) => {
-                                        setShowAllTeamsModal(false);
-                                        handleCountryClick(name);
-                                    }} 
-                                />
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                    {[1, 2, 3, 4].map(r => {
+                                        const teamsInRank = mappedTeams.filter(t => t.groupRank === r);
+                                        if (teamsInRank.length === 0) return null;
+                                        
+                                        const displayTeams = teamsInRank.map((t, idx) => ({ ...t, rank: idx + 1 }));
+
+                                        return (
+                                            <SharedMatchTable 
+                                                key={r}
+                                                title={rankNames[r] || `Plats ${r}`} 
+                                                teams={displayTeams} 
+                                                hideRank={true}
+                                                dividerIndex={r === 3 ? 8 : undefined}
+                                                onTeamClick={(name) => {
+                                                    setShowAllTeamsModal(false);
+                                                    handleCountryClick(name);
+                                                }} 
+                                            />
+                                        );
+                                    })}
+                                </div>
                             );
                         })()}
                     </div>

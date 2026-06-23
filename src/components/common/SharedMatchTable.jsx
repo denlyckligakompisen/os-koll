@@ -5,9 +5,11 @@ import BoldSverige from '../BoldSverige';
 
 const SharedMatchTable = ({ 
     title, 
-    teams, 
+    teams,
     isInline = false, 
-    onTeamClick 
+    onTeamClick,
+    hideRank = false,
+    dividerIndex
 }) => {
     if (!teams || teams.length === 0) return null;
 
@@ -52,7 +54,7 @@ const SharedMatchTable = ({
                     )}
                     <thead>
                         <tr style={{ borderBottom: 'var(--border)' }}>
-                            <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: isInline ? '28px' : '36px' }} aria-label="Position"></th>
+                            {!hideRank && <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)', width: isInline ? '28px' : '36px' }} aria-label="Position"></th>}
                             <th scope="col" style={{ textAlign: 'left', padding: '4px 2px', color: 'var(--color-text-muted)' }} aria-label="Lag"></th>
                             <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '20px' }}>M</th>
                             <th scope="col" style={{ textAlign: 'center', padding: '4px 2px', color: 'var(--color-text-muted)', width: '32px' }}>+/-</th>
@@ -62,23 +64,43 @@ const SharedMatchTable = ({
                     <tbody>
                         {teams.map((team, idx) => (
                             <React.Fragment key={idx}>
+                                {dividerIndex !== undefined && idx === dividerIndex && (
+                                    <tr>
+                                        <td colSpan={hideRank ? "4" : "5"} style={{ padding: '0 8px' }}>
+                                            <div style={{ 
+                                                height: '2px', 
+                                                backgroundColor: 'rgba(0,0,0,0.08)', 
+                                                margin: '4px 0',
+                                                borderStyle: 'dashed',
+                                                borderWidth: '1px 0 0 0',
+                                                borderColor: 'rgba(0,0,0,0.2)'
+                                            }} />
+                                        </td>
+                                    </tr>
+                                )}
                             <tr style={{ 
                                 backgroundColor: team.rowBgColor || 'transparent',
                                 transition: 'background-color 0.2s ease'
                             }}>
+                                {!hideRank && (
+                                    <td style={{ 
+                                        padding: '6px 2px', 
+                                        width: isInline ? '28px' : '36px', 
+                                        textAlign: 'center', 
+                                        color: 'var(--color-text-muted)',
+                                        borderTopLeftRadius: team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0',
+                                        borderBottomLeftRadius: team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0'
+                                    }}>
+                                        <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.75rem', backgroundColor: 'transparent', color: 'inherit', margin: '0 auto' }}>
+                                            {team.rank}
+                                        </div>
+                                    </td>
+                                )}
                                 <td style={{ 
-                                    padding: '6px 2px', 
-                                    width: isInline ? '28px' : '36px', 
-                                    textAlign: 'center', 
-                                    color: 'var(--color-text-muted)',
-                                    borderTopLeftRadius: team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0',
-                                    borderBottomLeftRadius: team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0'
+                                    padding: '6px 2px',
+                                    borderTopLeftRadius: hideRank && team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0',
+                                    borderBottomLeftRadius: hideRank && team.rowBgColor && team.rowBgColor !== 'transparent' ? '10px' : '0'
                                 }}>
-                                    <div style={{ width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '0.75rem', backgroundColor: 'transparent', color: 'inherit', margin: '0 auto' }}>
-                                        {team.rank}
-                                    </div>
-                                </td>
-                                <td style={{ padding: '6px 2px' }}>
                                     <div 
                                         className={onTeamClick ? "clickable-item" : ""}
                                         onClick={onTeamClick ? () => onTeamClick(team.teamName) : undefined}
