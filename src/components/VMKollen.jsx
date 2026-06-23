@@ -1508,8 +1508,7 @@ const VMKollen = () => {
                     paddingTop: 'calc(env(safe-area-inset-top) + 16px)'
                 }}>
                     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                            <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold' }}>Alla Lag</h2>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '16px' }}>
                             <button
                                 onClick={() => setShowAllTeamsModal(false)}
                                 style={{
@@ -1566,7 +1565,7 @@ const VMKollen = () => {
 
                             return (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                                    {[1, 2, 3, 4].map(r => {
+                                    {[3].map(r => {
                                         const teamsInRank = mappedTeams.filter(t => t.groupRank === r);
                                         if (teamsInRank.length === 0) return null;
                                         
@@ -1577,7 +1576,6 @@ const VMKollen = () => {
                                                 key={r}
                                                 title={rankNames[r] || `Plats ${r}`} 
                                                 teams={displayTeams} 
-                                                hideRank={true}
                                                 dividerIndex={r === 3 ? 8 : undefined}
                                                 onTeamClick={(name) => {
                                                     setShowAllTeamsModal(false);
