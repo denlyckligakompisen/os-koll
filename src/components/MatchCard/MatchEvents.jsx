@@ -101,7 +101,7 @@ const MatchEvents = ({ match }) => {
                             padding: '4px 14px',
                             borderRadius: '20px',
                             color: 'var(--color-text)',
-                            fontSize: '0.75rem',
+                            fontSize: '0.85rem',
                             fontWeight: '500'
                         }}>
                             Halvtid
@@ -128,8 +128,8 @@ const MatchEvents = ({ match }) => {
                                         <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.out)}</span>
                                     </div>
                                     <div style={{ marginLeft: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '16px', gap: '2px' }}>
-                                        <span style={{ color: '#34c759', fontSize: '0.75rem', lineHeight: 1 }}>▲</span>
-                                        <span style={{ color: '#ff3b30', fontSize: '0.75rem', lineHeight: 1 }}>▼</span>
+                                        <span style={{ color: '#34c759', fontSize: '0.85rem', lineHeight: 1 }}>▲</span>
+                                        <span style={{ color: '#ff3b30', fontSize: '0.85rem', lineHeight: 1 }}>▼</span>
                                     </div>
                                 </>
                             ) : (
@@ -167,8 +167,8 @@ const MatchEvents = ({ match }) => {
                             {event.type === 'substitution' && typeof event.player === 'object' ? (
                                 <>
                                     <div style={{ marginRight: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '16px', gap: '2px' }}>
-                                        <span style={{ color: '#34c759', fontSize: '0.75rem', lineHeight: 1 }}>▲</span>
-                                        <span style={{ color: '#ff3b30', fontSize: '0.75rem', lineHeight: 1 }}>▼</span>
+                                        <span style={{ color: '#34c759', fontSize: '0.85rem', lineHeight: 1 }}>▲</span>
+                                        <span style={{ color: '#ff3b30', fontSize: '0.85rem', lineHeight: 1 }}>▼</span>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px' }}>
                                         <span style={{ fontSize: '0.85rem', color: 'var(--color-text)', whiteSpace: 'nowrap' }}>{getLastName(event.player.in)}</span>

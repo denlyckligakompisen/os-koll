@@ -89,7 +89,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '0.75rem',
+                fontSize: '0.85rem',
                 fontWeight: '600',
                 color: '#000000',
                 boxShadow: '0 2px 4px rgba(0,0,0,0.05)'

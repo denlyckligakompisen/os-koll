@@ -67,7 +67,7 @@ const PitchLineup = ({ match }) => {
                 </div>
 
                 <div style={{
-                    fontSize: '0.75rem', color: 'white', marginTop: '4px',
+                    fontSize: '0.85rem', color: 'white', marginTop: '4px',
                     textAlign: 'center', maxWidth: '90px',
                     whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
                     fontWeight: '600', zIndex: 2, letterSpacing: '-0.02em',

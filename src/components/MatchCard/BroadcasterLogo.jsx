@@ -46,7 +46,7 @@ const BroadcasterLogo = ({ name, size = 'default', customHeight, transparentMode
 
     // Fallback: plain text for unknown broadcasters
     return (
-        <span style={{ fontSize: isLarge ? '0.8rem' : '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>
+        <span style={{ fontSize: isLarge ? '0.9rem' : '0.85rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 500 }}>
             {name}
         </span>
     );

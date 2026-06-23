@@ -525,6 +525,18 @@ a:active,
   }
 }
 
+.clickable-item {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.clickable-item:active {
+  transform: scale(0.95) !important;
+  opacity: 0.7 !important;
+  transition: transform 0.05s cubic-bezier(0, 0, 0.2, 1), opacity 0.05s ease !important;
+}
+
 /* =============================================
    Accessibility Focus States
    ============================================= */

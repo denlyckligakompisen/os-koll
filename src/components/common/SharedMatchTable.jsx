@@ -80,6 +80,7 @@ const SharedMatchTable = ({
                                 </td>
                                 <td style={{ padding: '6px 2px' }}>
                                     <div 
+                                        className={onTeamClick ? "clickable-item" : ""}
                                         onClick={onTeamClick ? () => onTeamClick(team.teamName) : undefined}
                                         style={{ 
                                             display: 'flex', 
