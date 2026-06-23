@@ -80,7 +80,7 @@ async function scrapeAllsvenskan() {
                 }
 
                 const clean = (name) => {
-                    let cleaned = name.replace(/^(M.NDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|L.RDAG|S.NDAG).*?\d+\s+[A-ZÅÄÖ]+\s+/i, '')
+                    let cleaned = name.replace(/^(M.NDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|L.RDAG|S.NDAG).{0,50}?\d+\s+[A-ZÅÄÖ]+\s+/i, '')
                                .replace(/^[A-ZÅÄÖ\s]{5,}\s+(?=[A-ZÅÄÖ][a-zåäö])/g, '')
                                .trim();
                     

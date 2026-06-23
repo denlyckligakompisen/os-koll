@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { sanitizeObject } from './utils/sanitize.js';
 
 const FIFA_URL = 'https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures?country=&wtw-filter=ALL';
 const TV4_LIST_URL = 'https://www.tv4play.se/lista/1EGE533EMNsEsyaAulLPNT';
@@ -291,7 +292,7 @@ async function scrapeMatches() {
                 source: FIFA_URL
             };
 
-            fs.writeFileSync(MATCHES_OUTPUT, JSON.stringify(data, null, 2));
+            fs.writeFileSync(MATCHES_OUTPUT, JSON.stringify(sanitizeObject(data), null, 2));
             console.log(`Updated ${MATCHES_OUTPUT}`);
 
             [GROUPS_OUTPUT, KNOCKOUT_OUTPUT].forEach(filePath => {
@@ -299,7 +300,7 @@ async function scrapeMatches() {
                     const current = JSON.parse(fs.readFileSync(filePath, 'utf8'));
                     current.lastUpdated = new Date().toISOString();
                     current.source = FIFA_URL;
-                    fs.writeFileSync(filePath, JSON.stringify(current, null, 2));
+                    fs.writeFileSync(filePath, JSON.stringify(sanitizeObject(current), null, 2));
                     console.log(`Timestamp updated for ${path.basename(filePath)}`);
                 }
             });

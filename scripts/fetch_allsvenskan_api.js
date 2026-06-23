@@ -16,6 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright-extra';
 import stealth from 'puppeteer-extra-plugin-stealth';
+import { sanitizeObject } from './utils/sanitize.js';
 
 chromium.use(stealth());
 
@@ -379,7 +380,7 @@ async function fetchMatches(isDelta = false) {
     source: 'SofaScore',
   };
 
-  fs.writeFileSync(OUTPUT_FILES.matches, JSON.stringify(output, null, 2));
+  fs.writeFileSync(OUTPUT_FILES.matches, JSON.stringify(sanitizeObject(output), null, 2));
   console.log(`  ✓ Saved ${matches.length} total matches to ${OUTPUT_FILES.matches}`);
 }
 
@@ -415,7 +416,7 @@ async function fetchTable() {
     lastUpdated: new Date().toISOString(),
   };
 
-  fs.writeFileSync(OUTPUT_FILES.table, JSON.stringify(output, null, 2));
+  fs.writeFileSync(OUTPUT_FILES.table, JSON.stringify(sanitizeObject(output), null, 2));
   console.log(`  ✓ Saved ${table.length} teams to ${OUTPUT_FILES.table}`);
 }
 
