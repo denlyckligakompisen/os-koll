@@ -10,7 +10,7 @@ import SharedMatchTable from './common/SharedMatchTable';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, Trophy, Menu, List } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import HistoryIcon from '@mui/icons-material/History';
 import EventIcon from '@mui/icons-material/Event';
@@ -1283,6 +1283,34 @@ const VMKollen = () => {
                 justifyContent: 'center'
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                    <div style={{
+                        position: 'absolute',
+                        left: '0',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}>
+                        <button
+                            type="button"
+                            onClick={() => setShowAllTeamsModal(true)}
+                            style={{
+                                background: 'transparent',
+                                color: 'var(--color-text)',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                            aria-label="Visa alla lag"
+                            title="Visa alla lag"
+                        >
+                            <List size={24} />
+                        </button>
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
                             className="header-logo"
@@ -1461,6 +1489,83 @@ const VMKollen = () => {
             </div>
 
 
+
+            {showAllTeamsModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'var(--color-bg)',
+                    zIndex: 9999,
+                    overflowY: 'auto',
+                    padding: '16px',
+                    paddingTop: 'calc(env(safe-area-inset-top) + 16px)'
+                }}>
+                    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                            <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold' }}>Alla Lag</h2>
+                            <button
+                                onClick={() => setShowAllTeamsModal(false)}
+                                style={{
+                                    background: 'var(--color-card-bg)',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '36px', height: '36px',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    boxShadow: 'var(--shadow-sm)',
+                                    color: 'var(--color-text)'
+                                }}
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+                        {(() => {
+                            if (!groupsData?.groups) return null;
+                            const allTeams = groupsData.groups.flatMap(g => {
+                                const sorted = getSortedGroupTeams(g);
+                                return sorted.map((t, i) => {
+                                    const team = typeof t === 'string' ? { name: t, played: 0, gd: 0, pts: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, fairPlay: 0 } : t;
+                                    return { ...team, groupRank: i + 1 };
+                                });
+                            });
+                            
+                            allTeams.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || b.fairPlay - a.fairPlay || a.name.localeCompare(b.name, 'sv'));
+                            
+                            const mappedTeams = allTeams.map((team, tidx) => {
+                                const rank = tidx + 1;
+                                const gRank = team.groupRank;
+                                const isQualifiedThird = gRank === 3 && qualifiedThirds.includes(team.name);
+                                
+                                let rowBgColor = 'transparent';
+                                if (gRank === 1) rowBgColor = 'rgba(52, 199, 89, 0.3)';
+                                else if (gRank === 2) rowBgColor = 'rgba(52, 199, 89, 0.2)';
+                                else if (isQualifiedThird) rowBgColor = 'rgba(255, 204, 0, 0.2)';
+                                else if (gRank === 3) rowBgColor = 'rgba(255, 204, 0, 0.1)';
+
+                                return { 
+                                    ...team, 
+                                    rank, 
+                                    teamName: team.name, 
+                                    points: team.pts, 
+                                    flags: getFlagCodes(team.name),
+                                    rowBgColor
+                                };
+                            });
+
+                            return (
+                                <SharedMatchTable 
+                                    title="Total Tabell" 
+                                    teams={mappedTeams} 
+                                    onTeamClick={(name) => {
+                                        setShowAllTeamsModal(false);
+                                        handleCountryClick(name);
+                                    }} 
+                                />
+                            );
+                        })()}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
