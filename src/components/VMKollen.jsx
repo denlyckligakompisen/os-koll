@@ -785,9 +785,10 @@ const VMKollen = () => {
 
             const isCountryPlaceholder = (label, status) => {
                 if (!label || !status.groupChar || !status.rank) return false;
+                const placeholderPart = label.split('\n')[0];
                 const target = `${status.rank}${status.groupChar}`;
-                if (label.includes(target)) return true;
-                if (status.rank === 3 && label.startsWith('3') && label.includes(status.groupChar)) {
+                if (placeholderPart.includes(target)) return true;
+                if (status.rank === 3 && placeholderPart.startsWith('3') && placeholderPart.includes(status.groupChar)) {
                     return true;
                 }
                 return false;
