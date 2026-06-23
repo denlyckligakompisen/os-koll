@@ -19,7 +19,7 @@ const LineupsSection = ({ match }) => {
             <div key={p.number || p.name} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', marginBottom: '4px', flexDirection: isHome ? 'row' : 'row-reverse' }}>
                 <span style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', width: '20px', textAlign: 'center', backgroundColor: 'rgba(128,128,128,0.1)', borderRadius: '3px', padding: '1px', flexShrink: 0 }}>{p.number}</span>
                 <span style={{ color: 'var(--color-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {formatName(p.name)}
+                    {formatName(getLastName(p.name))}
                 </span>
                 {events.length > 0 && (
                     <div style={{ display: 'flex', gap: '2px', fontSize: '0.8rem', flexShrink: 0 }}>
