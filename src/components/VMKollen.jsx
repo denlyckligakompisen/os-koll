@@ -785,6 +785,11 @@ const VMKollen = () => {
 
             const isCountryPlaceholder = (label, status) => {
                 if (!label || !status.groupChar || !status.rank) return false;
+                
+                if (status.rank === 3 && !top8ThirdsNames.has(status.country)) {
+                    return false;
+                }
+
                 const placeholderPart = label.split('\n')[0];
                 const target = `${status.rank}${status.groupChar}`;
                 if (placeholderPart.includes(target)) return true;
@@ -833,7 +838,7 @@ const VMKollen = () => {
             acc[groupKey].push(m);
             return acc;
         }, {});
-    }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList, matchStatusFilter]);
+    }, [combinedMatches, filterCountries, nextMatches, filteredCountryStatusList, matchStatusFilter, top8ThirdsNames]);
 
     const getTeamRank = (teamName) => {
         if (!rankingData?.rankings) return 999;
