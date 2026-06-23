@@ -269,102 +269,109 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            borderRadius: '16px',
-                            padding: '16px 24px',
-                            backgroundColor: computedStatus === 'live' ? 'transparent' : (computedStatus === 'finished' ? 'var(--color-surface-subtle)' : 'var(--color-surface-subtle)'),
-                            color: 'var(--color-text)',
                             minWidth: '120px',
                             flexShrink: 0,
-                            boxShadow: computedStatus === 'live' ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+                            color: 'var(--color-text)'
                         }}>
-                            {/* Score or Time */}
-                            {computedStatus !== 'upcoming' ? (
-                                <div style={{
-                                    fontSize: 'clamp(2rem, 5vw, 3rem)',
-                                    fontWeight: 'bold',
-                                    display: 'flex',
-                                    gap: '12px',
-                                    alignItems: 'center',
-                                    lineHeight: 1,
-                                    backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
-                                    color: computedStatus === 'live' ? '#ffffff' : 'inherit',
-                                    padding: computedStatus === 'live' ? '8px 16px' : '0',
-                                    borderRadius: computedStatus === 'live' ? '12px' : '0'
-                                }}>
-                                    <span>{heroHomeScore}</span>
-                                    <span>-</span>
-                                    <span>{heroAwayScore}</span>
-                                </div>
-                            ) : (
-                                <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 'bold', lineHeight: 1 }}>
-                                    {isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
-                                </div>
-                            )}
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '16px',
+                                padding: computedStatus === 'upcoming' ? '12px 24px' : '16px 24px',
+                                backgroundColor: computedStatus === 'live' ? 'transparent' : 'var(--color-surface-subtle)',
+                                boxShadow: computedStatus === 'live' ? 'none' : '0 4px 12px rgba(0,0,0,0.05)'
+                            }}>
+                                {/* Score or Time */}
+                                {computedStatus !== 'upcoming' ? (
+                                    <div style={{
+                                        fontSize: 'clamp(2rem, 5vw, 3rem)',
+                                        fontWeight: 'bold',
+                                        display: 'flex',
+                                        gap: '12px',
+                                        alignItems: 'center',
+                                        lineHeight: 1,
+                                        backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
+                                        color: computedStatus === 'live' ? '#ffffff' : 'inherit',
+                                        padding: computedStatus === 'live' ? '8px 16px' : '0',
+                                        borderRadius: computedStatus === 'live' ? '12px' : '0'
+                                    }}>
+                                        <span>{heroHomeScore}</span>
+                                        <span>-</span>
+                                        <span>{heroAwayScore}</span>
+                                    </div>
+                                ) : (
+                                    <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 'bold', lineHeight: 1 }}>
+                                        {isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                                    </div>
+                                )}
 
-                            {/* Status text (only for finished/live) */}
-                            {computedStatus !== 'upcoming' && (
-                                <div style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontWeight: '600',
-                                    fontSize: '1rem', // Match the country text size
-                                    marginTop: '0',
-                                    color: 'var(--color-text)'
-                                }}>
-                                    {computedStatus === 'finished' ? (
-                                        <span></span>
-                                    ) : (
-                                        match.liveCurrentTime ? (
-                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '6px' }}>
-                                                <div key={match.liveCurrentTime} className="live-minute-spinner" style={{
-                                                    width: '36px',
-                                                    height: '36px',
-                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-                                                    color: 'var(--color-text)',
-                                                    fontSize: '0.85rem',
-                                                    zIndex: 2
-                                                }}>
-                                                    <div className="live-minute-spinner-inner">
-                                                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
-                                                            ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
-                                                            : match.liveCurrentTime}
+                                {/* Status text (only for finished/live) */}
+                                {computedStatus !== 'upcoming' && (
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontWeight: '600',
+                                        fontSize: '1rem', // Match the country text size
+                                        marginTop: '0',
+                                        color: 'var(--color-text)'
+                                    }}>
+                                        {computedStatus === 'finished' ? (
+                                            <span></span>
+                                        ) : (
+                                            match.liveCurrentTime ? (
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '6px' }}>
+                                                    <div key={match.liveCurrentTime} className="live-minute-spinner" style={{
+                                                        width: '36px',
+                                                        height: '36px',
+                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                                                        color: 'var(--color-text)',
+                                                        fontSize: '0.85rem',
+                                                        zIndex: 2
+                                                    }}>
+                                                        <div className="live-minute-spinner-inner">
+                                                            {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
+                                                                ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
+                                                                : match.liveCurrentTime}
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            ) : <span></span>
+                                        )}
+                                        {computedStatus === 'live' && (
+                                            <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '4px', marginBottom: '2px', zIndex: 2, position: 'relative' }}>
+                                                {(() => {
+                                                    const p = String(match.period);
+                                                    if (p === '1' || p === '3') return '1:a halvlek';
+                                                    if (p === '4') return 'Halvtid';
+                                                    if (p === '2' || p === '5') return '2:a halvlek';
+                                                    if (p === '6') return 'Inför förlängning';
+                                                    if (p === '7') return 'Förlängning (1:a)';
+                                                    if (p === '8') return 'Paus';
+                                                    if (p === '9') return 'Förlängning (2:a)';
+                                                    if (p === '10') return 'Inför straffar';
+                                                    if (p === '11') return 'Straffläggning';
+                                                    if (p === 'Finished' || p === '0') return '';
+                                                    return '';
+                                                })()}
                                             </div>
-                                        ) : <span></span>
-                                    )}
-                                    {computedStatus === 'live' && (
-                                        <div style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '4px', marginBottom: '2px', zIndex: 2, position: 'relative' }}>
-                                            {(() => {
-                                                const p = String(match.period);
-                                                if (p === '1' || p === '3') return '1:a halvlek';
-                                                if (p === '4') return 'Halvtid';
-                                                if (p === '2' || p === '5') return '2:a halvlek';
-                                                if (p === '6') return 'Inför förlängning';
-                                                if (p === '7') return 'Förlängning (1:a)';
-                                                if (p === '8') return 'Paus';
-                                                if (p === '9') return 'Förlängning (2:a)';
-                                                if (p === '10') return 'Inför straffar';
-                                                if (p === '11') return 'Straffläggning';
-                                                if (p === 'Finished' || p === '0') return '';
-                                                return '';
-                                            })()}
-                                        </div>
-                                    )}
-                                    {/* Vertical line connecting the text towards the timeline */}
-                                    {computedStatus === 'live' && match.liveCurrentTime && (
-                                        <div style={{
-                                            width: '2px',
-                                            height: '36px',
-                                            backgroundColor: 'rgba(128,128,128,0.3)',
-                                            marginBottom: '-36px',
-                                            zIndex: 1
-                                        }} />
-                                    )}
-                                </div>
-                            )}
+                                        )}
+                                        {/* Vertical line connecting the text towards the timeline */}
+                                        {computedStatus === 'live' && match.liveCurrentTime && (
+                                            <div style={{
+                                                width: '2px',
+                                                height: '36px',
+                                                backgroundColor: 'rgba(128,128,128,0.3)',
+                                                marginBottom: '-36px',
+                                                zIndex: 1
+                                            }} />
+                                        )}
+                                    </div>
+                                )}
+                            </div>
 
                             {/* Broadcast Channel under time (for upcoming) */}
                             {computedStatus === 'upcoming' && match.broadcast && !props.hideBroadcast && (
@@ -388,7 +395,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         onMouseOut={(e) => { if (getBroadcasterUrl(match.broadcast)) e.currentTarget.style.transform = 'scale(1)' }}
                                         title={`Se på ${match.broadcast}`}
                                     >
-                                        <BroadcasterLogo name={match.broadcast} size="small" />
+                                        <BroadcasterLogo name={match.broadcast} size="large" customHeight={22} />
                                     </button>
                                 </div>
                             )}
