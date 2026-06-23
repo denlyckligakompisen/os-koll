@@ -35,8 +35,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const renderFormBadge = (result, key) => {
         let bg = '#8e8e93';
-        if (result === 'V') bg = '#34c759'; // Green
-        else if (result === 'F') bg = '#ff3b30'; // Red
+        if (result === 'V') bg = '#28a745'; // Darker Green for a11y
+        else if (result === 'F') bg = '#e53935'; // Darker Red for a11y
 
         return (
             <span key={key} style={{
@@ -48,6 +48,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '0.85rem',
+                fontWeight: '600',
                 lineHeight: 1
             }}>
                 {result}
