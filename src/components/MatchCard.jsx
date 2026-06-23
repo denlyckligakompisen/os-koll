@@ -116,15 +116,18 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align }}>
-                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 'normal', letterSpacing: '0.06em' }}>{topText}</span>}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align, minWidth: 0, width: '100%' }}>
+                {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 'normal', letterSpacing: '0.06em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>{topText}</span>}
                 <span style={{
-                    fontWeight: 'normal',
-                    hyphens: 'auto',
-                    WebkitHyphens: 'auto',
-                    wordBreak: 'break-word',
-                    textWrap: 'balance',
-                    maxWidth: '100%'
+                    fontWeight: 'inherit',
+                    hyphens: align === 'center' ? 'auto' : 'none',
+                    WebkitHyphens: align === 'center' ? 'auto' : 'none',
+                    wordBreak: align === 'center' ? 'break-word' : 'normal',
+                    textWrap: align === 'center' ? 'balance' : 'nowrap',
+                    maxWidth: '100%',
+                    whiteSpace: align === 'center' ? 'normal' : 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
                 }}>{mainName}</span>
             </div>
         );
@@ -241,20 +244,17 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {/* Home Team */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
                             <TeamLogo logoUrl={homeLogo} teamName={match.home} size={64} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
-                            <span
+                            <div
                                 onClick={(e) => handleTeamClick(e, match.home)}
                                 style={{
                                     fontWeight: '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
-                                    wordBreak: 'break-word',
-                                    hyphens: 'auto',
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
-                                    textAlign: 'center',
                                     width: '100%'
                                 }}>
-                                {cleanTeamNameForDisplay(match.home)}
-                            </span>
+                                {renderTeamName(match.home, 'center')}
+                            </div>
                             {/* Form badges */}
                             {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
                                 <div style={{ display: 'flex', gap: '3px', justifyContent: 'center' }}>
@@ -397,20 +397,17 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         {/* Away Team */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
                             <TeamLogo logoUrl={awayLogo} teamName={match.away} size={64} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
-                            <span
+                            <div
                                 onClick={(e) => handleTeamClick(e, match.away)}
                                 style={{
                                     fontWeight: '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
-                                    wordBreak: 'break-word',
-                                    hyphens: 'auto',
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
-                                    textAlign: 'center',
                                     width: '100%'
                                 }}>
-                                {cleanTeamNameForDisplay(match.away)}
-                            </span>
+                                {renderTeamName(match.away, 'center')}
+                            </div>
                             {/* Form badges */}
                             {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
                                 <div style={{ display: 'flex', gap: '3px', justifyContent: 'center' }}>
@@ -623,21 +620,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
                                 <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
-                                <span
+                                <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
                                     style={{
                                         fontWeight: '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
-                                        whiteSpace: 'nowrap',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
                                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                         lineHeight: '1.2',
-                                        display: 'block'
+                                        minWidth: 0,
+                                        flex: 1
                                     }}>
-                                    {cleanTeamNameForDisplay(match.home)}
-                                </span>
+                                    {renderTeamName(match.home, 'left')}
+                                </div>
                             </div>
                         </div>
 
@@ -650,21 +645,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
                                 <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
-                                <span
+                                <div
                                     onClick={(e) => handleTeamClick(e, match.away)}
                                     style={{
                                         fontWeight: '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
-                                        whiteSpace: 'nowrap',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
                                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                         lineHeight: '1.2',
-                                        display: 'block'
+                                        minWidth: 0,
+                                        flex: 1
                                     }}>
-                                    {cleanTeamNameForDisplay(match.away)}
-                                </span>
+                                    {renderTeamName(match.away, 'left')}
+                                </div>
                             </div>
                         </div>
                     </div>

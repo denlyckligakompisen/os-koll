@@ -993,14 +993,7 @@ const VMKollen = () => {
                 
                 let keep;
                 if (filterCountries.length > 0) {
-                    const cleanTeamName = (name) => name ? name.replace(' U21', '').replace(' U23', '').trim() : '';
-                    keep = filterCountries.some(c => {
-                        const cleanC = cleanTeamName(c);
-                        return cleanTeamName(m.home) === cleanC || 
-                               cleanTeamName(m.away) === cleanC ||
-                               cleanTeamName(m.realHome) === cleanC ||
-                               cleanTeamName(m.realAway) === cleanC;
-                    });
+                    keep = true; // Matches are already filtered by isFilterCountryMatch in groupedMatches
                 } else {
                     keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
                 }
