@@ -1076,30 +1076,47 @@ const AllsvenskanKollen = () => {
                                 </div>
                             ) : (
                                 <>
-
-                                    <MatchGroupList 
-                                        groupedMatches={groupedMatches}
-                                        renderMatch={(match, j) => {
-                                            const isNext = nextMatchDateString && match.date === nextMatchDateString;
-                                            return (
-                                                <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
-                                                    <MatchCard 
-                                                        match={match} 
-                                                        idx={j} 
-                                                        variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
-                                                        homeLogo={getTeamLogo(match.home)}
-                                                        awayLogo={getTeamLogo(match.away)}
-                                                        filterTeam={filterTeam}
-                                                        allMatches={matchesData?.matches}
-                                                        onTeamClick={setFilterTeam}
-                                                        hideBroadcast={true}
-                                                        hideEventsForPlayed={true}
-                                                    />
-                                                    {(isNext && match.status !== 'finished') && renderInlineMatchTable(match.home, match.away)}
-                                                </div>
-                                            );
-                                        }}
-                                    />
+                                    {Object.keys(groupedMatches).length === 0 ? (
+                                        <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--color-text-muted)' }}>
+                                            <div style={{ fontSize: '3rem', opacity: 0.2, marginBottom: '16px' }}>⚽</div>
+                                            <h3 style={{ fontSize: '1.2rem', margin: '0 0 8px 0', color: 'var(--color-text)' }}>Inga matcher hittades</h3>
+                                            <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                                                {filterTeam ? `Kunde inte hitta några ${matchStatusFilter === 'played' ? 'spelade' : 'kommande'} matcher för ${filterTeam}.` : `Inga ${matchStatusFilter === 'played' ? 'spelade' : 'kommande'} matcher för denna säsong.`}
+                                            </p>
+                                            {filterTeam && (
+                                                <button 
+                                                    onClick={() => setFilterTeam(null)}
+                                                    style={{ marginTop: '24px', padding: '10px 20px', borderRadius: '20px', backgroundColor: 'var(--color-primary)', color: 'white', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                                                >
+                                                    Rensa filter
+                                                </button>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <MatchGroupList 
+                                            groupedMatches={groupedMatches}
+                                            renderMatch={(match, j) => {
+                                                const isNext = nextMatchDateString && match.date === nextMatchDateString;
+                                                return (
+                                                    <div key={j} ref={isNext && heroMatches[0] === match ? nextMatchRef : null}>
+                                                        <MatchCard 
+                                                            match={match} 
+                                                            idx={j} 
+                                                            variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
+                                                            homeLogo={getTeamLogo(match.home)}
+                                                            awayLogo={getTeamLogo(match.away)}
+                                                            filterTeam={filterTeam}
+                                                            allMatches={matchesData?.matches}
+                                                            onTeamClick={setFilterTeam}
+                                                            hideBroadcast={true}
+                                                            hideEventsForPlayed={true}
+                                                        />
+                                                        {(isNext && match.status !== 'finished') && renderInlineMatchTable(match.home, match.away)}
+                                                    </div>
+                                                );
+                                            }}
+                                        />
+                                    )}
                                 </>
                             )}
                         </>
