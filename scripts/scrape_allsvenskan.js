@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { sanitizeObject } from './utils/sanitize.js';
 
 const URL = 'https://allsvenskan.se/matcher';
 const OUTPUT_FILE = path.join(process.cwd(), 'public/data/allsvenskan_matches.json');
@@ -274,11 +275,11 @@ async function scrapeAllsvenskan() {
             });
         }
 
-        const data = {
+        const data = sanitizeObject({
             matches: mergedMatches,
             lastUpdated: new Date().toISOString(),
             source: URL
-        };
+        });
 
         fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2));
         console.log(`Successfully scraped ${mergedMatches.length} matches and saved to ${OUTPUT_FILE}`);
