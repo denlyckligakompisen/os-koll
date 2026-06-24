@@ -8030,6 +8030,22 @@
       "detailedStats": null
     },
     {
+      "home": "IFK Göteborg",
+      "away": "IF Brommapojkarna",
+      "time": "19:00",
+      "date": "SÖNDAG 19 JULI",
+      "link": "https://allsvenskan.se/matcher/2026/6529927/ifk-goteborg-mot-if-brommapojkarna",
+      "score": "",
+      "status": "upcoming",
+      "liveCurrentTime": null,
+      "startTimestamp": 1784480400,
+      "scorers": {
+        "home": [],
+        "away": []
+      },
+      "detailedStats": null
+    },
+    {
       "home": "Mjällby AIF",
       "away": "Västerås SK",
       "time": "19:00",
@@ -8055,22 +8071,6 @@
       "status": "upcoming",
       "liveCurrentTime": null,
       "startTimestamp": 1784379600,
-      "scorers": {
-        "home": [],
-        "away": []
-      },
-      "detailedStats": null
-    },
-    {
-      "home": "IFK Göteborg",
-      "away": "IF Brommapojkarna",
-      "time": "14:00",
-      "date": "SÖNDAG 19 JULI",
-      "link": "https://allsvenskan.se/matcher/2026/6529927/ifk-goteborg-mot-if-brommapojkarna",
-      "score": "",
-      "status": "upcoming",
-      "liveCurrentTime": null,
-      "startTimestamp": 1784462400,
       "scorers": {
         "home": [],
         "away": []
@@ -10511,6 +10511,6 @@
       "detailedStats": null
     }
   ],
-  "lastUpdated": "2026-06-23T06:04:03.254Z",
+  "lastUpdated": "2026-06-24T06:03:38.813Z",
   "source": "https://allsvenskan.se/matcher"
 }

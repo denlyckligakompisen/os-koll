@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T06:06:39.156Z",
+  "lastUpdated": "2026-06-24T06:05:44.608Z",
   "source": "transfermarkt.com",
   "season": "2025/26",
   "teams": {
@@ -92,7 +92,7 @@
         "name": "Bleon Kurtulus",
         "position": "Centre-Back",
         "number": "4",
-        "age": "24/06/2007 (18)",
+        "age": "24/06/2007 (19)",
         "value": "€1.20m",
         "joined": "03/02/2026",
         "contract": "31/12/2030",
@@ -4663,7 +4663,464 @@
         "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
       }
     ],
-    "Kalmar FF": [],
+    "Kalmar FF": [
+      {
+        "name": "Samuel Brolin",
+        "position": "Goalkeeper",
+        "number": "1",
+        "age": "29/09/2000 (25)",
+        "value": "€750k",
+        "joined": "01/02/2024",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Jakob Kindberg",
+        "position": "Goalkeeper",
+        "number": "30",
+        "age": "07/02/1994 (32)",
+        "value": "€150k",
+        "joined": "08/01/2022",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Casper Andersson",
+        "position": "Goalkeeper",
+        "number": "32",
+        "age": "24/06/2005 (21)",
+        "value": "-",
+        "joined": "25/02/2022",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Achraf Dari",
+        "position": "Centre-Back",
+        "number": "20",
+        "age": "06/05/1999 (27)",
+        "value": "€1.20m",
+        "joined": "03/03/2026",
+        "contract": "30/06/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/107.png?lm=1520611569",
+            "country": "Morocco"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Victor Larsson",
+        "position": "Centre-Back",
+        "number": "2",
+        "age": "19/04/2000 (26)",
+        "value": "€800k",
+        "joined": "11/02/2026",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Aboubacar Keita",
+        "position": "Centre-Back",
+        "number": "47",
+        "age": "06/04/2000 (26)",
+        "value": "€550k",
+        "joined": "14/02/2025",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/184.png?lm=1520611569",
+            "country": "United States"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/59.png?lm=1520611569",
+            "country": "Guinea"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Lars Sætra",
+        "position": "Centre-Back",
+        "number": "39",
+        "age": "24/07/1991 (34)",
+        "value": "€300k",
+        "joined": "31/03/2021",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/125.png?lm=1520611569",
+            "country": "Norway"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Zakarias Råvik",
+        "position": "Centre-Back",
+        "number": "12",
+        "age": "10/03/2006 (20)",
+        "value": "€100k",
+        "joined": "13/02/2025",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Sivert Øverby",
+        "position": "Left-Back",
+        "number": "3",
+        "age": "10/06/1999 (27)",
+        "value": "€300k",
+        "joined": "29/01/2025",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/125.png?lm=1520611569",
+            "country": "Norway"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Sodiq Lawal",
+        "position": "Left-Back",
+        "number": "18",
+        "age": "14/01/2008 (18)",
+        "value": "-",
+        "joined": "29/01/2026",
+        "contract": "31/12/2029",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/124.png?lm=1520611569",
+            "country": "Nigeria"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Rony Jansson",
+        "position": "Right-Back",
+        "number": "4",
+        "age": "10/01/2004 (22)",
+        "value": "€350k",
+        "joined": "01/02/2023",
+        "contract": "31/08/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/49.png?lm=1520611569",
+            "country": "Finland"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Wilmer Andersson",
+        "position": "Midfielder",
+        "number": null,
+        "age": "28/04/2005 (21)",
+        "value": "-",
+        "joined": "21/09/2023",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Carl Gustafsson",
+        "position": "Central Midfield",
+        "number": "17",
+        "age": "18/03/2000 (26)",
+        "value": "€1.00m",
+        "joined": "05/07/2019",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Melker Hallberg",
+        "position": "Central Midfield",
+        "number": "5",
+        "age": "20/10/1995 (30)",
+        "value": "€700k",
+        "joined": "11/08/2023",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Nassef Chourak",
+        "position": "Central Midfield",
+        "number": "7",
+        "age": "21/07/2004 (21)",
+        "value": "€350k",
+        "joined": "21/01/2026",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/122.png?lm=1520611569",
+            "country": "Netherlands"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/107.png?lm=1520611569",
+            "country": "Morocco"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Robert Gojani",
+        "position": "Central Midfield",
+        "number": "23",
+        "age": "19/10/1992 (33)",
+        "value": "€300k",
+        "joined": "05/02/2023",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/244.png?lm=1520611569",
+            "country": "Kosovo"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "William Andersson",
+        "position": "Central Midfield",
+        "number": "16",
+        "age": "28/02/2006 (20)",
+        "value": "€175k",
+        "joined": "15/05/2024",
+        "contract": "-",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Marius Söderbäck",
+        "position": "Attacking Midfield",
+        "number": "10",
+        "age": "06/02/2004 (22)",
+        "value": "€400k",
+        "joined": "13/02/2026",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/49.png?lm=1520611569",
+            "country": "Finland"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Abdussalam Magashy",
+        "position": "Attacking Midfield",
+        "number": "21",
+        "age": "06/04/1998 (28)",
+        "value": "€200k",
+        "joined": "20/02/2024",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/124.png?lm=1520611569",
+            "country": "Nigeria"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Vilmer Tyrén",
+        "position": "Attacking Midfield",
+        "number": "6",
+        "age": "03/05/2005 (21)",
+        "value": "-",
+        "joined": "27/02/2026",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Elion Imeri",
+        "position": "Attacking Midfield",
+        "number": "14",
+        "age": "21/06/2009 (17)",
+        "value": "-",
+        "joined": "01/01/2026",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Charles Sagoe Jr",
+        "position": "Left Winger",
+        "number": "24",
+        "age": "24/07/2004 (21)",
+        "value": "€300k",
+        "joined": "10/02/2026",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/189.png?lm=1520611569",
+            "country": "England"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/54.png?lm=1520611569",
+            "country": "Ghana"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Abdi Sabriye",
+        "position": "Left Winger",
+        "number": "28",
+        "age": "05/03/2002 (24)",
+        "value": "€100k",
+        "joined": "29/01/2025",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/156.png?lm=1520611569",
+            "country": "Somalia"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Anthony Olusanya",
+        "position": "Centre-Forward",
+        "number": "11",
+        "age": "01/02/2000 (26)",
+        "value": "€400k",
+        "joined": "29/01/2025",
+        "contract": "31/12/2026",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/49.png?lm=1520611569",
+            "country": "Finland"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Malcolm Stolt",
+        "position": "Centre-Forward",
+        "number": "9",
+        "age": "30/12/2000 (25)",
+        "value": "€300k",
+        "joined": "25/03/2025",
+        "contract": "31/12/2027",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Emeka Nnamani",
+        "position": "Centre-Forward",
+        "number": "70",
+        "age": "04/11/2001 (24)",
+        "value": "€275k",
+        "joined": "15/08/2025",
+        "contract": "30/06/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/39.png?lm=1520611569",
+            "country": "Denmark"
+          },
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/124.png?lm=1520611569",
+            "country": "Nigeria"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      },
+      {
+        "name": "Charlie Rosenqvist",
+        "position": "Centre-Forward",
+        "number": "13",
+        "age": "01/05/2007 (19)",
+        "value": "-",
+        "joined": "31/03/2026",
+        "contract": "31/12/2028",
+        "nationalities": [
+          {
+            "url": "https://tmssl.akamaized.net//images/flagge/verysmall/147.png?lm=1520611569",
+            "country": "Sweden"
+          }
+        ],
+        "image": "data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+      }
+    ],
     "Västerås SK": [
       {
         "name": "Anton Fagerström",
