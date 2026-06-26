@@ -288,7 +288,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {computedStatus !== 'upcoming' ? (
                                     <div style={{
                                         fontSize: 'clamp(2rem, 5vw, 3rem)',
-                                        fontWeight: 'bold',
+                                        fontWeight: '700',
+                                        fontVariantNumeric: 'tabular-nums',
+                                        letterSpacing: '-0.03em',
+                                        fontFamily: 'system-ui, -apple-system, sans-serif',
                                         display: 'flex',
                                         gap: '12px',
                                         alignItems: 'center',
@@ -607,10 +610,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 width: (isFiltered || filterTeam) ? '100%' : '32px',
                                 backgroundColor: (isFiltered || filterTeam) ? 'transparent' : 'rgba(0,0,0,0.15)',
                                 color: '#ffffff',
-                                fontWeight: 'bold',
+                                fontWeight: '700',
                                 fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
                                 padding: '12px 0',
-                                gap: '6px'
+                                gap: '6px',
+                                fontVariantNumeric: 'tabular-nums',
+                                letterSpacing: '-0.02em'
                             }}>
                                 <span style={{ display: 'flex', alignItems: 'center', height: '20px' }}>{homeScore}</span>
                                 <span style={{ display: 'flex', alignItems: 'center', height: '20px' }}>{awayScore}</span>
@@ -618,15 +623,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '6px', padding: '12px', paddingLeft: (computedStatus === 'live' && (isFiltered || filterTeam)) ? '12px' : '0px', minWidth: 0 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '12px', padding: '16px', paddingLeft: (computedStatus === 'live' && (isFiltered || filterTeam)) ? '16px' : '0px', minWidth: 0 }}>
                         {/* Home */}
                         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
                             {computedStatus === 'finished' && (
                                 <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
-                                    <span style={{ fontWeight: '600', fontSize: '0.85rem' }}>{homeScore}</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{homeScore}</span>
                                 </div>
                             )}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1 }}>
                                 <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
@@ -648,10 +653,10 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
                             {computedStatus === 'finished' && (
                                 <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
-                                    <span style={{ fontWeight: '600', fontSize: '0.85rem' }}>{awayScore}</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{awayScore}</span>
                                 </div>
                             )}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1 }}>
                                 <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.away)}

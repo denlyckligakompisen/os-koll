@@ -977,7 +977,7 @@ const AllsvenskanKollen = () => {
 
 
             <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div key={activeTab} className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
                     {/* Season Selector */}
                     {/* Season Selector */}
@@ -1504,10 +1504,9 @@ const AllsvenskanKollen = () => {
                                                                         padding: '16px 4px 6px 4px', 
                                                                         fontWeight: '400', 
                                                                         fontSize: '0.85rem', 
-                                                                        color: 'var(--color-text-muted)',
-                                                                        borderBottom: '1px solid rgba(0,0,0,0.05)'
+                                                                        color: 'var(--color-text-muted)'
                                                                     }}>
-                                                                        {group.goals} Mål
+                                                                        <span style={{ fontWeight: '700', fontSize: '1rem', color: 'var(--color-text)' }}>{group.goals}</span> Mål
                                                                     </td>
                                                                 </tr>
                                                                 {group.players.map((scorer, idx) => {

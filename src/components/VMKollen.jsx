@@ -1502,7 +1502,7 @@ const VMKollen = () => {
                 margin: '32px auto 0 auto',
                 padding: '0 10px'
             }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                             {(() => {
                                 if (filterCountries.length === 0 || !groupsData?.groups) return null;
                                 // We can show tables for all filtered countries' groups, uniquely
