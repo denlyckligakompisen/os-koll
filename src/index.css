@@ -296,25 +296,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-.nav-container.scrolled::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-@media (prefers-color-scheme: dark) {
-  .nav-container.scrolled::after {
-    background: linear-gradient(to bottom, rgba(20,20,20,0.8), transparent);
-  }
-}
-
 .header-logo {
   display: flex;
   align-items: center;
@@ -370,7 +351,7 @@ h1, h2, h3, h4, h5, h6 {
   gap: var(--spacing-sm);
   background: none;
   border: none;
-  color: var(--color-text-muted);
+  color: var(--inactive-color, var(--color-text-muted));
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
@@ -384,22 +365,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .web-nav-item:hover {
-  color: var(--color-text);
+  color: inherit;
 }
 
 .web-nav-item.active {
-  color: var(--color-text);
+  color: inherit;
 }
 
 .web-nav-item.active::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: var(--color-primary);
-  border-radius: 3px 3px 0 0;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 4px;
+  background-color: var(--active-color, var(--color-primary));
+  border-radius: 4px;
 }
 
 .tab-icon {
