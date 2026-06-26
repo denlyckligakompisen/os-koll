@@ -33,7 +33,6 @@
     "@mui/material": "^9.0.0",
     "axios": "^1.13.5",
     "cheerio": "^1.2.0",
-    "jsdom": "^28.0.0",
     "lucide-react": "^0.563.0",
     "node-cron": "^4.2.1",
     "playwright": "^1.58.2",
@@ -42,14 +41,12 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.14.2",
-    "user-agent-array": "^2.0.1",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^9.39.1",
     "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
