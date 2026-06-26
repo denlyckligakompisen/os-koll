@@ -602,6 +602,41 @@ const VMKollen = () => {
         return top8;
     }, [groupsData, rankingData, getSortedGroupTeams]);
 
+    const isTeamSecuredAtRank = (group, rank, team) => {
+        // If all matches played, everyone is secured
+        if (group.teams.every(t => t.played === 3)) return true;
+
+        // Calculate max possible points for all teams
+        const teamsWithMax = group.teams.map(t => ({
+            ...t,
+            maxPts: t.pts + ((3 - t.played) * 3),
+            minPts: t.pts
+        }));
+
+        // Sort teams by max possible points (optimistic for others, pessimistic for this team)
+        const teamMinPts = team.pts; // The worst they can do is their current points
+        const teamMaxPts = team.pts + ((3 - team.played) * 3);
+
+        if (rank === 1) {
+            // To be secured as 1st, their current points must be strictly greater than max points of all others
+            const othersMax = Math.max(...teamsWithMax.filter(t => t.name !== team.name).map(t => t.maxPts));
+            return teamMinPts > othersMax;
+        } else if (rank === 2) {
+            // To be secured as 2nd, they must not be able to reach 1st, AND no one else can reach them
+            const currentFirst = getSortedGroupTeams(group)[0];
+            if (!currentFirst) return false;
+            // Can they catch 1st?
+            if (teamMaxPts >= currentFirst.pts) return false; // They might still become 1st, so not secured at 2nd!
+            
+            // Can anyone catch them from below?
+            const othersBelow = teamsWithMax.filter(t => t.name !== team.name && t.name !== currentFirst.name);
+            const othersBelowMax = Math.max(0, ...othersBelow.map(t => t.maxPts));
+            return teamMinPts > othersBelowMax;
+        }
+        
+        return false;
+    };
+
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
 
@@ -617,10 +652,13 @@ const VMKollen = () => {
                 const sorted = getSortedGroupTeams(group);
                 const team = sorted[rank - 1];
                 if (team) {
+                    const isSecured = isTeamSecuredAtRank(group, rank, team);
                     return {
-                        name: team.name,
+                        name: isSecured ? team.name : `${label}\n${team.name}`,
                         realName: team.name,
-                        isPlaceholder: false
+                        isPlaceholder: false,
+                        originalLabel: label,
+                        isSecured: isSecured
                     };
                 }
             }
@@ -688,6 +726,24 @@ const VMKollen = () => {
     const combinedMatches = React.useMemo(() => {
         const groupMatches = matchesData?.matches || [];
         const knockoutMatches = [];
+        const bracketProgression = {
+            74: 77, 77: 74,
+            73: 75, 75: 73,
+            76: 78, 78: 76,
+            79: 80, 80: 79,
+            81: 82, 82: 81,
+            83: 84, 84: 83,
+            85: 86, 86: 85,
+            87: 88, 88: 87,
+            89: 90, 90: 89,
+            91: 92, 92: 91,
+            93: 94, 94: 93,
+            95: 96, 96: 95,
+            97: 98, 98: 97,
+            99: 100, 100: 99,
+            101: 102, 102: 101, // final
+        };
+
         if (knockoutData?.rounds && groupsData) {
             knockoutData.rounds.forEach(round => {
                 round.matches.forEach(m => {
@@ -701,12 +757,29 @@ const VMKollen = () => {
                         awayFlags: awayInfo.flagCodes,
                         realHome: homeInfo.realName || m.home,
                         realAway: awayInfo.realName || m.away,
+                        homeOriginal: homeInfo.originalLabel,
+                        awayOriginal: awayInfo.originalLabel,
+                        homeSecured: homeInfo.isSecured,
+                        awaySecured: awayInfo.isSecured,
                         isKnockout: true,
                         isPreliminary: true, // Always preliminary for knockout matches for now
                         roundName: round.name,
                         group: round.name
                     });
                 });
+            });
+
+            // Second pass for next opponents
+            knockoutMatches.forEach(m => {
+                const otherId = bracketProgression[m.id];
+                if (otherId) {
+                    const otherMatch = knockoutMatches.find(x => x.id === otherId);
+                    if (otherMatch) {
+                        const h = otherMatch.realHome || otherMatch.home;
+                        const a = otherMatch.realAway || otherMatch.away;
+                        m.nextOpponentInfo = `${h} / ${a}`;
+                    }
+                }
             });
         }
         return [...groupMatches, ...knockoutMatches];
@@ -1272,24 +1345,6 @@ const VMKollen = () => {
                         display: 'flex',
                         alignItems: 'center'
                     }}>
-                        <button
-                            type="button"
-                            onClick={() => setShowAllTeamsModal(true)}
-                            style={{
-                                background: 'transparent',
-                                color: 'var(--color-text)',
-                                border: 'none',
-                                cursor: 'pointer',
-                                padding: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                            aria-label="Visa alla lag"
-                            title="Visa alla lag"
-                        >
-                            <List size={24} />
-                        </button>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
@@ -1398,8 +1453,7 @@ const VMKollen = () => {
                             </div>
                         ) : (
                             (() => {
-                                if (!matchesData) return null;
-                                const combinedMatches = Object.values(matchesData).flat();
+                                if (combinedMatches.length === 0) return null;
                                 const playedList = combinedMatches.filter(m => {
                                     if (m.status !== 'finished') return false;
                                     const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();

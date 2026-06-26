@@ -346,7 +346,6 @@ export async function fetchAllFifaData() {
                     });
                 }
                 knockoutRoundsMap.get(stageId).matches.push(matchObj);
-                matchesData.push(matchObj);
             }
         });
 

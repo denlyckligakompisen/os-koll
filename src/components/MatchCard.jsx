@@ -724,7 +724,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 </div>
 
                 {/* Live match events: yellow cards, match info */}
-                {!isFiltered && (computedStatus === 'live' || isSoon || (computedStatus === 'finished' && !props.hideEventsForPlayed && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
+                {!isFiltered && (computedStatus === 'live' || isSoon || match.nextOpponentInfo || (computedStatus === 'finished' && !props.hideEventsForPlayed && (match.scorers?.home?.length > 0 || match.scorers?.away?.length > 0 || match.bookings?.length > 0 || match.tactics || match.stadium || match.referee))) && (
                     <div style={{
                         marginTop: '6px',
                         display: 'flex',
@@ -796,6 +796,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         <LineupsSection match={match} />
                                     </div>
                                 </div>
+                            </div>
+                        )}
+
+                        {match.nextOpponentInfo && computedStatus !== 'finished' && (
+                            <div style={{
+                                marginTop: '12px',
+                                paddingTop: '8px',
+                                borderTop: '1px dashed rgba(128, 128, 128, 0.2)',
+                                fontSize: '0.7rem',
+                                color: 'var(--color-text-muted)',
+                                textAlign: 'center'
+                            }}>
+                                Vinnaren möter: {match.nextOpponentInfo}
                             </div>
                         )}
                     </div>

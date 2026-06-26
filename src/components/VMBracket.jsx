@@ -36,7 +36,12 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
     const renderTeam = (info, isSelected) => {
         const name = info.realName || info.name;
         let display = info.realName ? getAbbr(info.realName) : info.name;
-        if (info.realName && info.name.includes('(')) {
+        let prefix = null;
+        if (info.name && info.name.includes('\n')) {
+            const parts = info.name.split('\n');
+            prefix = parts[0];
+            display = info.realName ? getAbbr(info.realName) : parts[1];
+        } else if (info.realName && info.name.includes('(')) {
             const seed = info.name.split('(')[1].replace(')', '');
             display = `${display} (${seed})`;
         }
@@ -51,13 +56,20 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
                 }}
             >
                 <FlagBadge codes={info.flagCodes || getFlagCodes(name)} name={name} size={20} />
-                <span style={{ 
-                    fontSize: '0.75rem', fontWeight: '400',
-                    color: info.isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
-                    whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
+                <div style={{ 
+                    display: 'flex', flexDirection: 'column',
+                    minWidth: 0, flex: 1
                 }}>
-                    {isSelected ? <BoldSverige text={display} /> : display}
-                </span>
+                    {prefix && <span style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', lineHeight: '1', marginBottom: '2px' }}>{prefix}</span>}
+                    <span style={{ 
+                        fontSize: '0.75rem', fontWeight: '400',
+                        color: info.isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
+                        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                        lineHeight: '1'
+                    }}>
+                        {isSelected ? <BoldSverige text={display} /> : display}
+                    </span>
+                </div>
             </div>
         );
     };
