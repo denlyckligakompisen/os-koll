@@ -15,242 +15,18 @@ import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import HistoryIcon from '@mui/icons-material/History';
 import EventIcon from '@mui/icons-material/Event';
 
-import { hasActiveMatches } from '../utils/fifaLiveApi';
 
-
+import { getVMHeaderStyle, getAbbr, sortTeamsSimple, sortGroupTeams } from '../utils/vmUtils';
+import { useVMData } from '../hooks/useVMData';
 
 const CURRENT_YEAR = 2026;
-const MONTH_MAP = {
-    'jan': 0, 'januari': 0,
-    'feb': 1, 'februari': 1,
-    'mar': 2, 'mars': 2,
-    'apr': 3, 'april': 3,
-    'maj': 4,
-    'jun': 5, 'juni': 5,
-    'jul': 6, 'juli': 6,
-    'aug': 7, 'augusti': 7,
-    'sep': 8, 'september': 8,
-    'okt': 9, 'oktober': 9,
-    'nov': 10, 'november': 10,
-    'dec': 11, 'december': 11
-};
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
 const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
-
-
-const COUNTRY_COLORS = {
-    'Sverige': { bg: '#004B87', text: '#FFCD00', active: '#FFCD00' },
-    'Mexiko': { bg: '#006341', text: '#FFFFFF', active: '#C8102E' },
-    'USA': { bg: '#002868', text: '#FFFFFF', active: '#BF0A30' },
-    'Kanada': { bg: '#D22630', text: '#FFFFFF', active: '#FFFFFF' },
-    'Brasilien': { bg: '#009C3B', text: '#FFDF00', active: '#002776' },
-    'Bosnien och Hercegovina': { bg: '#002F6C', text: '#FFCD00', active: '#FFCD00' },
-    'Turkiet': { bg: '#E30A17', text: '#FFFFFF', active: '#FFFFFF' },
-    'Tjeckien': { bg: '#11457E', text: '#FFFFFF', active: '#D7141A' },
-    'Nederländerna': { bg: '#FF4F00', text: '#FFFFFF', active: '#21468B' },
-    'Tyskland': { bg: '#000000', text: '#FFFFFF', active: '#FFCE00' },
-    'Spanien': { bg: '#AA151B', text: '#F1BF00', active: '#F1BF00' },
-    'Frankrike': { bg: '#002395', text: '#FFFFFF', active: '#ED2939' },
-    'Argentina': { bg: '#43A1D5', text: '#FFFFFF', active: '#FFB81C' },
-    'England': { bg: '#FFFFFF', text: '#CF0820', active: '#CF0820' },
-    'Portugal': { bg: '#046A38', text: '#FFFFFF', active: '#DA291C' },
-    'Belgien': { bg: '#E20613', text: '#FFD200', active: '#000000' },
-    'Italien': { bg: '#0066B2', text: '#FFFFFF', active: '#FFFFFF' },
-    'Japan': { bg: '#000555', text: '#FFFFFF', active: '#EE0000' },
-    'Sydkorea': { bg: '#003478', text: '#FFFFFF', active: '#C60C30' },
-    'Ecuador': { bg: '#FFDD00', text: '#00205B', active: '#ED1C24' },
-    'Uruguay': { bg: '#0038A8', text: '#FFFFFF', active: '#FCD116' },
-    'Senegal': { bg: '#00853F', text: '#FDEF42', active: '#E31B23' },
-    'Marocko': { bg: '#C1272D', text: '#FFFFFF', active: '#006233' },
-    'Schweiz': { bg: '#D52B1E', text: '#FFFFFF', active: '#FFFFFF' },
-    'Österrike': { bg: '#ED2939', text: '#FFFFFF', active: '#FFFFFF' },
-    'Kroatien': { bg: '#ED1C24', text: '#FFFFFF', active: '#0051BA' },
-    'Colombia': { bg: '#FCD116', text: '#003893', active: '#CE1126' },
-    'Norge': { bg: '#BA0C2F', text: '#FFFFFF', active: '#00205B' },
-    'Danmark': { bg: '#C60C30', text: '#FFFFFF', active: '#FFFFFF' },
-    'Saudiarabien': { bg: '#006C35', text: '#FFFFFF', active: '#FFFFFF' },
-    'Egypten': { bg: '#CE1126', text: '#FFFFFF', active: '#000000' },
-    'Tunisien': { bg: '#E70013', text: '#FFFFFF', active: '#FFFFFF' },
-    'Ghana': { bg: '#006B3F', text: '#FCD116', active: '#CE1126' },
-    'Sydafrika': { bg: '#007749', text: '#FFB81C', active: '#001489' },
-    'Australien': { bg: '#008751', text: '#FFCD00', active: '#FFCD00' },
-    'Haiti': { bg: '#00209F', text: '#FFFFFF', active: '#D21034' },
-    'Jamaika': { bg: '#009B3A', text: '#FED100', active: '#000000' },
-    'Bolivia': { bg: '#007A33', text: '#FFFFFF', active: '#EE3A43' },
-    'Panama': { bg: '#DA291C', text: '#FFFFFF', active: '#00205B' },
-    'Curaçao': { bg: '#002B7F', text: '#FED100', active: '#FED100' },
-    'Uzbekistan': { bg: '#0099B5', text: '#FFFFFF', active: '#1EB53A' },
-    'Paraguay': { bg: '#D52B1E', text: '#FFFFFF', active: '#0038A8' },
-    'Jordanien': { bg: '#000000', text: '#FFFFFF', active: '#CE1126' },
-    'Qatar': { bg: '#8A1538', text: '#FFFFFF', active: '#FFFFFF' },
-    'Skottland': { bg: '#005EB8', text: '#FFFFFF', active: '#FFFFFF' }
-};
-
-const getVMHeaderStyle = (countryName) => {
-    if (!countryName) {
-        return {
-            bg: 'var(--color-glass-bg)',
-            text: 'var(--color-text)',
-            inactiveText: 'var(--color-text-muted)',
-            activeLine: 'var(--color-text)'
-        };
-    }
-    const colors = COUNTRY_COLORS[countryName] || { bg: '#1c1c1e', text: '#ffffff', active: '#34c759' };
-    return {
-        bg: colors.bg,
-        text: colors.text,
-        inactiveText: 'rgba(255, 255, 255, 0.6)',
-        activeLine: colors.active
-    };
-};
-
-const TEAM_ABBR = {
-    'Sverige': 'SWE', 'Mexiko': 'MEX', 'USA': 'USA', 'Kanada': 'CAN', 'Brasilien': 'BRA',
-    'Bosnien och Hercegovina': 'BIH', 'Turkiet': 'TUR', 'Tjeckien': 'CZE', 'Nederländerna': 'NED',
-    'Tyskland': 'GER', 'Spanien': 'ESP', 'Frankrike': 'FRA', 'Argentina': 'ARG',
-    'England': 'ENG', 'Portugal': 'POR', 'Belgien': 'BEL', 'Italien': 'ITA',
-    'Japan': 'JPN', 'Sydkorea': 'KOR', 'Ecuador': 'ECU', 'Uruguay': 'URU',
-    'Senegal': 'SEN', 'Marocko': 'MAR', 'Schweiz': 'SUI', 'Österrike': 'AUT',
-    'Kroatien': 'CRO', 'Colombia': 'COL', 'Norge': 'NOR', 'Danmark': 'DEN',
-    'Saudiarabien': 'KSA', 'Egypten': 'EGY', 'Tunisien': 'TUN', 'Ghana': 'GHA',
-    'Sydafrika': 'RSA', 'Australien': 'AUS', 'Haiti': 'HAI', 'Jamaika': 'JAM',
-    'Bolivia': 'BOL', 'Panama': 'PAN', 'Curaçao': 'CUW', 'Uzbekistan': 'UZB',
-    'Paraguay': 'PAR', 'Jordanien': 'JOR', 'Qatar': 'QAT', 'Skottland': 'SCO'
-};
-
-const getAbbr = (name) => TEAM_ABBR[name] || name?.substring(0, 3).toUpperCase();
-
-const sortTeamsSimple = (teams) => {
-    return [...teams].sort((a, b) => {
-        const teamA = typeof a === 'string' ? { name: a, pts: 0, gd: 0, gf: 0, fairPlay: 0 } : a;
-        const teamB = typeof b === 'string' ? { name: b, pts: 0, gd: 0, gf: 0, fairPlay: 0 } : b;
-        return teamB.pts - teamA.pts || teamB.gd - teamA.gd || teamB.gf - teamA.gf || teamB.fairPlay - teamA.fairPlay || teamA.name.localeCompare(teamB.name, 'sv');
-    });
-};
-
-const sortGroupTeams = (teams, groupMatches, rankingData) => {
-    const getRank = (teamName) => {
-        if (!rankingData?.rankings) return 999;
-        const index = rankingData.rankings.findIndex(r => r.team === teamName || r.team.includes(teamName) || teamName.includes(r.team));
-        return index !== -1 ? index : 999;
-    };
-
-    const sortSubset = (subsetTeams, subsetMatches) => {
-        if (subsetTeams.length <= 1) return subsetTeams;
-
-        const miniStats = {};
-        subsetTeams.forEach(t => miniStats[t.name] = { pts: 0, gd: 0, gf: 0 });
-
-        subsetMatches.forEach(m => {
-            if ((m.status === 'finished' || m.status === 'live') && m.score && m.score.includes('-')) {
-                const parts = m.score.split('-');
-                const homeScore = parseInt(parts[0].trim(), 10);
-                const awayScore = parseInt(parts[1].trim(), 10);
-                if (isNaN(homeScore) || isNaN(awayScore)) return;
-
-                if (miniStats[m.home] && miniStats[m.away]) {
-                    miniStats[m.home].gf += homeScore;
-                    miniStats[m.home].ga = (miniStats[m.home].ga || 0) + awayScore;
-                    miniStats[m.home].gd = miniStats[m.home].gf - miniStats[m.home].ga;
-
-                    miniStats[m.away].gf += awayScore;
-                    miniStats[m.away].ga = (miniStats[m.away].ga || 0) + homeScore;
-                    miniStats[m.away].gd = miniStats[m.away].gf - miniStats[m.away].ga;
-
-                    if (homeScore > awayScore) miniStats[m.home].pts += 3;
-                    else if (homeScore === awayScore) {
-                        miniStats[m.home].pts += 1;
-                        miniStats[m.away].pts += 1;
-                    } else miniStats[m.away].pts += 3;
-                }
-            }
-        });
-
-        subsetTeams.sort((a, b) => {
-            const stA = miniStats[a.name];
-            const stB = miniStats[b.name];
-            return stB.pts - stA.pts || stB.gd - stA.gd || stB.gf - stA.gf;
-        });
-
-        const clusters = [];
-        let currentCluster = [];
-        let lastSig = null;
-
-        subsetTeams.forEach(t => {
-            const st = miniStats[t.name];
-            const sig = `${st.pts}_${st.gd}_${st.gf}`;
-            if (sig !== lastSig) {
-                if (currentCluster.length > 0) clusters.push(currentCluster);
-                currentCluster = [t];
-                lastSig = sig;
-            } else {
-                currentCluster.push(t);
-            }
-        });
-        if (currentCluster.length > 0) clusters.push(currentCluster);
-
-        if (clusters.length === 1 && clusters[0].length === subsetTeams.length) {
-            return clusters[0].sort((a, b) => {
-                if (b.gd !== a.gd) return b.gd - a.gd;
-                if (b.gf !== a.gf) return b.gf - a.gf;
-                if (b.fairPlay !== a.fairPlay) return b.fairPlay - a.fairPlay;
-                return getRank(a.name) - getRank(b.name);
-            });
-        }
-
-        const resolved = [];
-        clusters.forEach(cluster => {
-            if (cluster.length === 1) {
-                resolved.push(cluster[0]);
-            } else {
-                const clusterNames = new Set(cluster.map(t => t.name));
-                const subMatches = subsetMatches.filter(m => clusterNames.has(m.home) && clusterNames.has(m.away));
-                resolved.push(...sortSubset(cluster, subMatches));
-            }
-        });
-
-        return resolved;
-    };
-
-    const sortedTeams = [...teams].sort((a, b) => b.pts - a.pts);
-    const pointClusters = [];
-    let currentPtCluster = [];
-    let lastPts = null;
-
-    sortedTeams.forEach(t => {
-        if (t.pts !== lastPts) {
-            if (currentPtCluster.length > 0) pointClusters.push(currentPtCluster);
-            currentPtCluster = [t];
-            lastPts = t.pts;
-        } else {
-            currentPtCluster.push(t);
-        }
-    });
-    if (currentPtCluster.length > 0) pointClusters.push(currentPtCluster);
-
-    const finalRanking = [];
-    pointClusters.forEach(cluster => {
-        if (cluster.length === 1) {
-            finalRanking.push(cluster[0]);
-        } else {
-            const clusterNames = new Set(cluster.map(t => t.name));
-            const clusterMatches = groupMatches.filter(m => clusterNames.has(m.home) && clusterNames.has(m.away));
-            finalRanking.push(...sortSubset(cluster, clusterMatches));
-        }
-    });
-
-    return finalRanking;
-};
-
 const VMKollen = () => {
     const navigate = useNavigate();
-    const [initialGroupsData, setInitialGroupsData] = useState(null);
-    const [matchesData, setMatchesData] = useState(null);
-    const [knockoutData, setKnockoutData] = useState(null);
-    const [rankingData, setRankingData] = useState(null);
+    const { groupsData, matchesData, knockoutData, rankingData, loading, fetchAllData } = useVMData();
     const [matchStatusFilter, setMatchStatusFilter] = useState('upcoming');
-    const [loading, setLoading] = useState(true);
     const [filterCountries, setFilterCountries] = useState([]);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const filterRef = useRef(null);
@@ -263,88 +39,8 @@ const VMKollen = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [showAllTeamsModal, setShowAllTeamsModal] = useState(false);
 
-    const groupsData = useMemo(() => {
-        if (!initialGroupsData || !matchesData?.matches) return initialGroupsData;
-
-        // Deep copy to avoid mutating state
-        const newGroupsData = JSON.parse(JSON.stringify(initialGroupsData));
-
-        // Reset stats
-        newGroupsData.groups.forEach(g => {
-            g.teams.forEach((t, i) => {
-                if (typeof t === 'string') {
-                    g.teams[i] = { name: t, played: 0, gd: 0, pts: 0, gf: 0, ga: 0, fairPlay: 0, won: 0, drawn: 0, lost: 0 };
-                } else {
-                    t.played = 0; t.gd = 0; t.pts = 0; t.gf = 0; t.ga = 0; t.fairPlay = 0; t.won = 0; t.drawn = 0; t.lost = 0;
-                }
-            });
-        });
-
-        const cleanTeam = (name) => name ? name.replace(/\b(IF|FF|BK|AIF)\b/g, '').replace(/\s+/g, ' ').trim() : '';
-
-        const findTeam = (name) => {
-            const cName = cleanTeam(name);
-            for (const g of newGroupsData.groups) {
-                const team = g.teams.find(t => cleanTeam(t.name) === cName);
-                if (team) return team;
-            }
-            return null;
-        };
-
-        matchesData.matches.forEach(m => {
-            if ((m.status === 'finished' || m.status === 'live') && m.score && m.score.includes('-')) {
-                const parts = m.score.split('-');
-                const homeScore = parseInt(parts[0].trim(), 10);
-                const awayScore = parseInt(parts[1].trim(), 10);
-
-                if (isNaN(homeScore) || isNaN(awayScore)) return;
-
-                const homeTeam = findTeam(m.home);
-                const awayTeam = findTeam(m.away);
-
-                if (homeTeam) {
-                    homeTeam.played += 1;
-                    homeTeam.gf = (homeTeam.gf || 0) + homeScore;
-                    homeTeam.ga = (homeTeam.ga || 0) + awayScore;
-                    homeTeam.gd = homeTeam.gf - homeTeam.ga;
-                    if (homeScore > awayScore) { homeTeam.pts += 3; homeTeam.won += 1; }
-                    else if (homeScore === awayScore) { homeTeam.pts += 1; homeTeam.drawn += 1; }
-                    else { homeTeam.lost += 1; }
-                }
-
-                if (awayTeam) {
-                    awayTeam.played += 1;
-                    awayTeam.gf = (awayTeam.gf || 0) + awayScore;
-                    awayTeam.ga = (awayTeam.ga || 0) + homeScore;
-                    awayTeam.gd = awayTeam.gf - awayTeam.ga;
-                    if (awayScore > homeScore) { awayTeam.pts += 3; awayTeam.won += 1; }
-                    else if (awayScore === homeScore) { awayTeam.pts += 1; awayTeam.drawn += 1; }
-                    else { awayTeam.lost += 1; }
-                }
-
-                if (m.bookings) {
-                    m.bookings.forEach(b => {
-                        const team = b.side === 'home' ? homeTeam : awayTeam;
-                        if (team) {
-                            if (b.card === 'red') team.fairPlay -= 4;
-                            else if (b.card === 'yellow') team.fairPlay -= 1;
-                        }
-                    });
-                }
-            }
-        });
-
-        // Finally, sort the teams in each group using the full tie-breaker rules
-        newGroupsData.groups.forEach(g => {
-            const groupMatches = matchesData.matches.filter(m => g.teams.some(t => t.name === m.home) && g.teams.some(t => t.name === m.away));
-            g.teams = sortGroupTeams(g.teams, groupMatches, rankingData);
-        });
-
-        return newGroupsData;
-    }, [initialGroupsData, matchesData, rankingData]);
     const [expandedMatchId, setExpandedMatchId] = useState(null);
     const rankingRefs = React.useRef({});
-
     const tableRefs = React.useRef({});
     const headerStyle = useMemo(() => getVMHeaderStyle(filterCountries.length === 1 ? filterCountries[0] : null), [filterCountries]);
 
@@ -377,8 +73,6 @@ const VMKollen = () => {
         return sorted;
     }, [groupsData]);
 
-
-
     const tournamentTeams = React.useMemo(() => {
         if (!groupsData?.groups) return new Set();
         const teams = new Set();
@@ -392,63 +86,14 @@ const VMKollen = () => {
 
 
 
+
+
     const handleCountryClick = (country) => {
         if (matchStatusFilter === 'played') return;
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
         setFilterCountries([cleanName]);
     };
-
-    const fetchAllData = useCallback(async () => {
-        const fetchFile = async (file) => {
-            try {
-                const res = await fetch(`/data/${file}`);
-                if (!res.ok) throw new Error();
-                return await res.json();
-            } catch (e) {
-                return fetch(`${DATA_BASE_URL}/${file}`).then(res => res.json());
-            }
-        };
-
-        try {
-            const [rData, fifaData] = await Promise.all([
-                fetchFile('fifa_ranking.json').catch(() => null),
-                import('../utils/fifaLiveApi').then(m => m.fetchAllFifaData()).catch(() => null)
-            ]);
-
-            if (!fifaData) {
-                setLoading(false);
-                return;
-            }
-
-            let gData = { groups: fifaData.groupsData };
-            let mData = { matches: fifaData.matchesData };
-            let kData = fifaData.knockoutData;
-
-            if (gData?.groups && rData?.rankings) {
-                gData.groups.forEach(group => {
-                    group.teams.forEach((team, index) => {
-                        const teamName = typeof team === 'object' ? team.name : team;
-                        const rankObj = rData.rankings.find(r => r.team === teamName);
-                        group.teams[index] = {
-                            name: teamName,
-                            ranking: rankObj ? rankObj.rank : null,
-                            played: 0, gd: 0, pts: 0
-                        };
-                    });
-                });
-            }
-
-            setInitialGroupsData(gData);
-            setMatchesData(mData);
-            setKnockoutData(kData);
-            setRankingData(rData);
-            setLoading(false);
-        } catch (err) {
-            console.error(err);
-            setLoading(false);
-        }
-    }, []);
 
     useEffect(() => {
         const saved = localStorage.getItem('os-koll-filter');
@@ -461,74 +106,7 @@ const VMKollen = () => {
                 setFilterCountries([saved]);
             }
         }
-
-        fetchAllData();
-
-        const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                fetchAllData();
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-    }, [fetchAllData]);
-
-    // FIFA Live API polling
-    const liveTimerRef = useRef(null);
-    const matchesDataRef = useRef(matchesData);
-    matchesDataRef.current = matchesData;
-
-    const pollFifaLive = useCallback(async () => {
-        const fifaData = await import('../utils/fifaLiveApi').then(m => m.fetchAllFifaData());
-        if (!fifaData) return;
-
-        setMatchesData({ matches: fifaData.matchesData });
-        // We could also setKnockoutData(fifaData.knockoutData) but knockoutData uses the same objects structurally
-        setKnockoutData(fifaData.knockoutData);
     }, []);
-
-    useEffect(() => {
-        if (!matchesData?.matches) return;
-
-        // Always fetch once on load to catch matches finished since last JSON push
-        pollFifaLive();
-
-        // Re-fetch when user returns to the tab/app
-        const handleVisibility = () => {
-            if (document.visibilityState === 'visible') {
-                fetchAllData();
-                pollFifaLive();
-            }
-        };
-        const handleFocus = () => {
-            fetchAllData();
-            pollFifaLive();
-        };
-        document.addEventListener('visibilitychange', handleVisibility);
-        window.addEventListener('focus', handleFocus);
-
-        const scheduleNextPoll = () => {
-            const isActive = hasActiveMatches(matchesDataRef.current?.matches);
-            const interval = isActive ? 30_000 : 300_000; // 30s or 5min
-
-            liveTimerRef.current = setTimeout(async () => {
-                const currentlyActive = hasActiveMatches(matchesDataRef.current?.matches);
-                if (currentlyActive) {
-                    await pollFifaLive();
-                }
-                scheduleNextPoll();
-            }, interval);
-        };
-
-        scheduleNextPoll();
-
-        return () => {
-            if (liveTimerRef.current) clearTimeout(liveTimerRef.current);
-            document.removeEventListener('visibilitychange', handleVisibility);
-            window.removeEventListener('focus', handleFocus);
-        };
-    }, [matchesData?.matches?.length, pollFifaLive]);
 
     useEffect(() => {
         const handleScroll = () => {

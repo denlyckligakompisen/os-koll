@@ -16,118 +16,10 @@ import HistoryIcon from '@mui/icons-material/History';
 import { getRelativeDateLabel } from '../utils/dateUtils';
 import { useSwipeNavigation } from '../utils/navigation';
 import { useAllsvenskanData } from '../hooks/useAllsvenskanData';
+import { formatTmDate, convertValueToSek, getRawSekValue, getHeaderStyle, TEAM_COLORS } from '../utils/allsvenskanUtils';
+import { parseTournamentDate } from '../utils/dateUtils';
 
-const formatTmDate = (dateStr) => {
-    if (!dateStr || !dateStr.includes('/')) return dateStr;
-    const parts = dateStr.split('/');
-    if (parts.length !== 3) return dateStr;
-    const [d, m, y] = parts;
-    const months = ['jan', 'feb', 'mars', 'apr', 'maj', 'juni', 'juli', 'aug', 'sep', 'okt', 'nov', 'dec'];
-    const monthName = months[parseInt(m, 10) - 1];
-    return `${monthName} ${y}`;
-};
-
-const convertValueToSek = (valueStr) => {
-    if (!valueStr || valueStr === '-') return '-';
-    const match = valueStr.match(/([\d.]+)([km]?)/i);
-    if (!match) return valueStr;
-
-    let num = parseFloat(match[1]);
-    const suffix = match[2].toLowerCase();
-    
-    if (suffix === 'k') num *= 1000;
-    else if (suffix === 'm') num *= 1000000;
-    
-    // Approximate EUR to SEK exchange rate (11.5)
-    const sekValue = num * 11.5;
-    
-    return (sekValue / 1000000).toFixed(1).replace('.', ',') + ' mnkr';
-};
-
-const getRawSekValue = (valueStr) => {
-    if (!valueStr || valueStr === '-') return 0;
-    const match = valueStr.match(/([\d.]+)([km]?)/i);
-    if (!match) return 0;
-    let num = parseFloat(match[1]);
-    const suffix = match[2].toLowerCase();
-    if (suffix === 'k') num *= 1000;
-    else if (suffix === 'm') num *= 1000000;
-    return num * 11.5;
-};
-
-const MONTH_MAP = { 
-    'jan': 0, 'januari': 0,
-    'feb': 1, 'februari': 1,
-    'mar': 2, 'mars': 2,
-    'apr': 3, 'april': 3,
-    'maj': 4,
-    'jun': 5, 'juni': 5,
-    'jul': 6, 'juli': 6,
-    'aug': 7, 'augusti': 7,
-    'sep': 8, 'september': 8,
-    'okt': 9, 'oktober': 9,
-    'nov': 10, 'november': 10,
-    'dec': 11, 'december': 11
-};
-
-const TEAM_COLORS = {
-    "AIK": { bg: "#000000", text: "#ffca28", label: "#ffffff" },
-    "BK Häcken": { bg: "#ffd600", text: "#000000", label: "#000000" },
-    "Djurgårdens IF": { bg: "#002d62", text: "#7bc3e5", label: "#ffffff" },
-    "GAIS": { bg: "#006241", text: "#ffca28", label: "#ffffff" },
-    "Halmstads BK": { bg: "#0054a6", text: "#ffd700", label: "#ffffff" },
-    "Hammarby IF": { bg: "#007e4a", text: "#ffffff", label: "#ffffff" },
-    "IF Brommapojkarna": { bg: "#d32f2f", text: "#000000", label: "#ffffff" },
-    "IF Elfsborg": { bg: "#ffd200", text: "#000000", label: "#000000" },
-    "IFK Göteborg": { bg: "#004b87", text: "#ffffff", label: "#ffffff" },
-    "IK Sirius": { bg: "#004f9f", text: "#ffffff", label: "#ffffff" },
-    "Kalmar FF": { bg: "#c2185b", text: "#ffffff", label: "#ffffff" },
-    "Malmö FF": { bg: "#7bc3e5", text: "#004b87", label: "#1d2a44" },
-    "Mjällby AIF": { bg: "#ff9900", text: "#000000", label: "#000000" },
-    "Västerås SK": { bg: "#006338", text: "#ffffff", label: "#ffffff" },
-    "Degerfors IF": { bg: "#e53935", text: "#ffffff", label: "#ffffff" },
-    "Örgryte IS": { bg: "#aa1111", text: "#2196f3", label: "#ffffff" }
-};
-
-const getHeaderStyle = (teamName) => {
-    if (!teamName || !TEAM_COLORS[teamName]) {
-        return {
-            bg: "var(--color-glass-bg)",
-            text: "var(--color-text)",
-            inactiveText: "var(--color-text-muted)",
-            activeLine: "var(--color-text)"
-        };
-    }
-    const colors = TEAM_COLORS[teamName];
-    const isLightBg = ["BK Häcken", "IF Elfsborg", "Malmö FF", "Mjällby AIF"].includes(teamName);
-    return {
-        bg: colors.bg + "e6", // 90% opacity to enable glassmorphism blur
-        text: colors.label,
-        inactiveText: isLightBg ? "rgba(0, 0, 0, 0.45)" : "rgba(255, 255, 255, 0.6)",
-        activeLine: colors.text
-    };
-};
-
-const parseMatchDate = (dateStr, timeStr) => {
-    if (!dateStr) return new Date();
-    const parts = dateStr.split(' ');
-    if (parts.length < 3) return new Date();
-    
-    const day = parseInt(parts[1]);
-    const monthName = parts[2]?.toLowerCase();
-    const year = parseInt(parts[3]) || 2026;
-
-    let hour = 0, minute = 0;
-    if (timeStr && timeStr.includes(':')) {
-        const [h, m] = timeStr.split(':').map(Number);
-        hour = h;
-        minute = m;
-    }
-
-    return new Date(year, MONTH_MAP[monthName] ?? 0, day, hour, minute);
-};
-
-
+// Constants and utils are imported from allsvenskanUtils and dateUtils
 
 const AllsvenskanKollen = () => {
     const navigate = useNavigate();
@@ -250,7 +142,7 @@ const AllsvenskanKollen = () => {
             now.setHours(0,0,0,0);
             result = result.filter(m => {
                 if (m.status !== 'finished') return true;
-                const md = parseMatchDate(m.date, m.time);
+                const md = parseTournamentDate(m.date, m.time);
                 md.setHours(0,0,0,0);
                 return md.getTime() === now.getTime(); // Keep today's finished matches
             });
@@ -260,7 +152,7 @@ const AllsvenskanKollen = () => {
         
         // Sort matches chronologically
         return [...result].sort((a, b) => {
-            return parseMatchDate(a.date, a.time) - parseMatchDate(b.date, b.time);
+            return parseTournamentDate(a.date, a.time) - parseTournamentDate(b.date, b.time);
         });
     }, [matchesData, filterTeam, matchStatusFilter]);
 
@@ -271,7 +163,7 @@ const AllsvenskanKollen = () => {
         const firstActiveMatch = filteredMatches.find(m => {
             if (m.status === 'live') return true;
             if (m.status === 'upcoming') {
-                const md = parseMatchDate(m.date, m.time);
+                const md = parseTournamentDate(m.date, m.time);
                 md.setHours(0,0,0,0);
                 if (md.getTime() < now.getTime()) return false;
                 return true;
@@ -298,7 +190,7 @@ const AllsvenskanKollen = () => {
         list.sort((a, b) => {
             if (a.matches.length === 0) return 1;
             if (b.matches.length === 0) return -1;
-            return parseMatchDate(a.matches[0].date, a.matches[0].time) - parseMatchDate(b.matches[0].date, b.matches[0].time);
+            return parseTournamentDate(a.matches[0].date, a.matches[0].time) - parseTournamentDate(b.matches[0].date, b.matches[0].time);
         });
 
         if (matchStatusFilter === 'played') {
@@ -643,8 +535,8 @@ const AllsvenskanKollen = () => {
 
                 if (teamMatches.length > 0) {
                     const sortedMatches = [...teamMatches].sort((a, b) => {
-                        const dateA = parseMatchDate(a.date, a.time);
-                        const dateB = parseMatchDate(b.date, b.time);
+                        const dateA = parseTournamentDate(a.date, a.time);
+                        const dateB = parseTournamentDate(b.date, b.time);
                         return dateB - dateA;
                     });
 
@@ -832,12 +724,13 @@ const AllsvenskanKollen = () => {
             </button>
 
             <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
-                backgroundColor: isScrolled ? headerStyle.bg : (filterTeam ? headerStyle.bg : 'var(--color-bg)'),
-                color: headerStyle.text,
-                '--active-color': headerStyle.activeLine,
-                '--inactive-color': headerStyle.inactiveText,
+                backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : '#ffffff',
+                color: 'var(--color-text)',
+                '--active-color': 'var(--color-text)',
+                '--inactive-color': 'var(--color-text-muted)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
                 boxShadow: 'none',
+                borderBottom: 'none',
                 backdropFilter: isScrolled ? 'blur(20px)' : 'none',
                 WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
             }}>
@@ -912,10 +805,10 @@ const AllsvenskanKollen = () => {
                     >
                         {filterTeam && getTeamLogo(filterTeam) ? (
                             <div style={{ position: 'relative' }}>
-                                <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '24px', width: '24px', objectFit: 'contain' }} />
+                                <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '34px', width: '34px', objectFit: 'contain' }} />
                             </div>
                         ) : (
-                            <Filter size={24} color={headerStyle.inactiveText} strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
+                            <Filter size={24} color="var(--color-text-muted)" strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
                         )}
                     </button>
                 </div>
