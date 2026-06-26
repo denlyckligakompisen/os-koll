@@ -645,7 +645,7 @@ const VMKollen = () => {
                 const team = sorted[rank - 1];
                 if (team) {
                     return {
-                        name: `${label}\n${team.name}`,
+                        name: team.name,
                         realName: team.name,
                         isPlaceholder: false
                     };

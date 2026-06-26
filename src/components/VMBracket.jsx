@@ -118,7 +118,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
             if (group) {
                 const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
                 const team = sorted[rank - 1];
-                if (team) return { name: `${team.name} (${label})`, realName: team.name, isPlaceholder: false };
+                if (team) return { name: team.name, realName: team.name, isPlaceholder: false };
             }
         }
 
