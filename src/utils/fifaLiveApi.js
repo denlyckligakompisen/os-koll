@@ -2,7 +2,7 @@
  * FIFA Live API utility for World Cup 2026
  * 
  * Fetches live match data from FIFA's official API and maps it
- * to the Swedish team names used in the app.
+ * to the Swedish team names and internal data structures used in the app.
  */
 
 const FIFA_API_BASE = 'https://api.fifa.com/api/v3';
@@ -10,7 +10,6 @@ const ID_COMPETITION = '17';       // FIFA World Cup
 const ID_SEASON = '285023';        // FIFA World Cup 2026
 
 // FIFA abbreviation → Swedish name mapping
-// Built from the local match data + TEAM_ABBR in VMKollen
 const ABBR_TO_SWEDISH = {
     'MEX': 'Mexiko',
     'RSA': 'Sydafrika',
@@ -66,15 +65,47 @@ const ABBR_TO_SWEDISH = {
     'JAM': 'Jamaika',
 };
 
+const MONTH_MAP_REVERSE = [
+    'januari', 'februari', 'mars', 'april', 'maj', 'juni',
+    'juli', 'augusti', 'september', 'oktober', 'november', 'december'
+];
+
+/**
+ * Get Swedish team name from FIFA abbreviation or placeholder
+ */
+export function getSwedishName(abbreviation) {
+    if (!abbreviation) return '';
+    // Format placeholder if it looks like "1A" or "3ABCDF"
+    if (abbreviation.match(/^[1-3][A-Z]+$/)) {
+        if (abbreviation.length > 2) {
+            // Transform "3ABCDF" to "3A/B/C/D/F"
+            return abbreviation[0] + abbreviation.slice(1).split('').join('/');
+        }
+        return abbreviation; // e.g. "1F"
+    }
+    return ABBR_TO_SWEDISH[abbreviation] || abbreviation;
+}
+
+/**
+ * Formats a Date object to "D MMMM" (e.g. "11 juni")
+ */
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const d = new Date(dateString);
+    return `${d.getDate()} ${MONTH_MAP_REVERSE[d.getMonth()]}`;
+}
+
+/**
+ * Formats a Date object to "HH:MM"
+ */
+function formatTime(dateString) {
+    if (!dateString) return '';
+    const d = new Date(dateString);
+    return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+}
+
 /**
  * Maps FIFA MatchStatus to our local status string.
- * FIFA statuses:
- *   0 = Finished
- *   1 = Not started / Scheduled
- *   3 = In progress (Live)
- *   4 = Postponed
- *   10 = Cancelled
- *   12 = Abandoned
  */
 function mapMatchStatus(fifaStatus) {
     switch (fifaStatus) {
@@ -84,13 +115,6 @@ function mapMatchStatus(fifaStatus) {
         case 4: return 'postponed';
         default: return 'upcoming';
     }
-}
-
-/**
- * Get Swedish team name from FIFA abbreviation
- */
-function getSwedishName(abbreviation) {
-    return ABBR_TO_SWEDISH[abbreviation] || abbreviation;
 }
 
 /**
@@ -110,46 +134,29 @@ function buildPlayerMap(team) {
 
 /**
  * Fetches enriched live data from /live/football/now for currently active WC matches.
- * Returns a Map<string, enrichedData> keyed by "homeName|awayName".
- * Only contains matches that are currently in progress (MatchStatus === 3).
  */
 async function fetchFifaLiveNow() {
     try {
-        // Using /now instead of /recent to fix API errors
         const url = `${FIFA_API_BASE}/live/football/now`;
         const response = await fetch(url);
-
-        if (!response.ok) {
-            console.warn('[FIFA Live Now] Response not OK:', response.status);
-            return null;
-        }
+        if (!response.ok) return null;
 
         const data = await response.json();
         if (!data?.Results || !Array.isArray(data.Results)) return null;
 
-        // Filter to only World Cup matches
         const wcMatches = data.Results.filter(m => m.IdCompetition === ID_COMPETITION);
         if (wcMatches.length === 0) return null;
 
         const enrichedMap = new Map();
 
         wcMatches.forEach(match => {
-            const homeAbbr = match.HomeTeam?.Abbreviation;
-            const awayAbbr = match.AwayTeam?.Abbreviation;
-            if (!homeAbbr || !awayAbbr) return;
+            const matchId = match.IdMatch;
+            if (!matchId) return;
 
-            const homeName = getSwedishName(homeAbbr);
-            const awayName = getSwedishName(awayAbbr);
-            const key = `${homeName}|${awayName}`;
-
-            // Build player maps for ID → name lookups
             const homePlayers = buildPlayerMap(match.HomeTeam);
             const awayPlayers = buildPlayerMap(match.AwayTeam);
             const allPlayers = new Map([...homePlayers, ...awayPlayers]);
 
-            const homeTeamId = match.HomeTeam?.IdTeam;
-
-            // --- Goals → scorers format matching MatchCard ---
             const homeGoals = (match.HomeTeam?.Goals || []).map(g => ({
                 player: { name: allPlayers.get(g.IdPlayer) || 'Okänd' },
                 minute: g.Minute?.replace("'", '') || '',
@@ -163,7 +170,6 @@ async function fetchFifaLiveNow() {
                 incidentClass: g.Type === 3 ? 'penalty-goal' : 'goal',
             }));
 
-            // --- Bookings ---
             const allBookings = [
                 ...(match.HomeTeam?.Bookings || []).map(b => ({ ...b, _side: 'home' })),
                 ...(match.AwayTeam?.Bookings || []).map(b => ({ ...b, _side: 'away' })),
@@ -174,7 +180,6 @@ async function fetchFifaLiveNow() {
                 side: b._side,
             }));
 
-            // --- Substitutions ---
             const allSubstitutions = [
                 ...(match.HomeTeam?.Substitutions || []).map(s => ({ ...s, _side: 'home' })),
                 ...(match.AwayTeam?.Substitutions || []).map(s => ({ ...s, _side: 'away' })),
@@ -185,29 +190,13 @@ async function fetchFifaLiveNow() {
                 side: s._side,
             }));
 
-            // --- Red cards as scorer-like entries (for MatchCard display) ---
-            const homeRedCards = allBookings
-                .filter(b => b.card === 'red' && b.side === 'home')
-                .map(b => ({
-                    player: b.player,
-                    minute: b.minute,
-                    time: b.minute,
-                    incidentClass: 'red-card',
-                }));
-            const awayRedCards = allBookings
-                .filter(b => b.card === 'red' && b.side === 'away')
-                .map(b => ({
-                    player: b.player,
-                    minute: b.minute,
-                    time: b.minute,
-                    incidentClass: 'red-card',
-                }));
+            const homeRedCards = allBookings.filter(b => b.card === 'red' && b.side === 'home').map(b => ({ player: b.player, minute: b.minute, time: b.minute, incidentClass: 'red-card' }));
+            const awayRedCards = allBookings.filter(b => b.card === 'red' && b.side === 'away').map(b => ({ player: b.player, minute: b.minute, time: b.minute, incidentClass: 'red-card' }));
 
-            // --- Lineups ---
             const extractPlayer = (p) => ({
                 name: p.PlayerName?.[0]?.Description || p.ShortName?.[0]?.Description || 'Okänd',
                 number: p.ShirtNumber,
-                position: p.Position, // 0=GK, 1=DEF, 2=MID, 3=FWD
+                position: p.Position,
                 captain: p.Captain,
                 photo: p.PlayerPicture?.PictureUrl
             });
@@ -217,7 +206,7 @@ async function fetchFifaLiveNow() {
             const homeSubs = match.HomeTeam?.Players?.filter(p => p.Status === 2)?.map(extractPlayer) || [];
             const awaySubs = match.AwayTeam?.Players?.filter(p => p.Status === 2)?.map(extractPlayer) || [];
 
-            enrichedMap.set(key, {
+            enrichedMap.set(matchId, {
                 period: match.Period,
                 scorers: {
                     home: [...homeGoals, ...homeRedCards],
@@ -225,31 +214,17 @@ async function fetchFifaLiveNow() {
                 },
                 bookings: allBookings,
                 substitutions: allSubstitutions,
-                tactics: {
-                    home: match.HomeTeam?.Tactics || '',
-                    away: match.AwayTeam?.Tactics || '',
-                },
+                tactics: { home: match.HomeTeam?.Tactics || '', away: match.AwayTeam?.Tactics || '' },
                 stadium: match.Stadium?.Name?.[0]?.Description || '',
                 city: match.Stadium?.CityName?.[0]?.Description || '',
                 referee: match.Officials?.find(o => o.OfficialType === 1)?.Name?.[0]?.Description || '',
-                coaches: {
-                    home: match.HomeTeam?.Coaches?.[0]?.Name?.[0]?.Description || '',
-                    away: match.AwayTeam?.Coaches?.[0]?.Name?.[0]?.Description || '',
-                },
-                startingXI: {
-                    home: homeStartingXI,
-                    away: awayStartingXI
-                },
-                subs: {
-                    home: homeSubs,
-                    away: awaySubs
-                }
+                coaches: { home: match.HomeTeam?.Coaches?.[0]?.Name?.[0]?.Description || '', away: match.AwayTeam?.Coaches?.[0]?.Name?.[0]?.Description || '' },
+                startingXI: { home: homeStartingXI, away: awayStartingXI },
+                subs: { home: homeSubs, away: awaySubs }
             });
         });
 
-        console.log(`[FIFA Live Now] Enriched ${enrichedMap.size} WC matches`);
         return enrichedMap;
-
     } catch (err) {
         console.warn('[FIFA Live Now] Error:', err.message);
         return null;
@@ -257,14 +232,32 @@ async function fetchFifaLiveNow() {
 }
 
 /**
- * Fetches all World Cup 2026 matches from FIFA API.
- * Uses /calendar/matches as the primary source for scores and status.
- * If any matches are live (MatchStatus === 3), also fetches from
- * /live/football/now to enrich with goal scorers, cards, substitutions etc.
- *
- * Returns a Map<string, LiveMatchData> keyed by "homeName|awayName".
+ * Stage mapping to internal IDs
  */
-export async function fetchFifaLiveMatches() {
+const STAGE_MAP = {
+    'First Stage': 'group',
+    'Round of 32': 'r32',
+    'Round of 16': 'r16',
+    'Quarter-final': 'qf',
+    'Semi-final': 'sf',
+    'Play-off for third place': 'third',
+    'Final': 'final'
+};
+
+const STAGE_NAMES = {
+    'r32': '1/16-final',
+    'r16': 'Åttondelsfinal',
+    'qf': 'Kvartsfinal',
+    'sf': 'Semifinal',
+    'third': 'Bronsmatch',
+    'final': 'Final'
+};
+
+/**
+ * Fetches all World Cup 2026 matches from FIFA API and transforms them into
+ * the complete dataset needed for the app (matchesData, knockoutData, groupsData).
+ */
+export async function fetchAllFifaData() {
     try {
         const url = `${FIFA_API_BASE}/calendar/matches?idCompetition=${ID_COMPETITION}&idSeason=${ID_SEASON}&count=200&language=en`;
         const response = await fetch(url);
@@ -275,154 +268,123 @@ export async function fetchFifaLiveMatches() {
         }
         
         const data = await response.json();
-        
         if (!data?.Results || !Array.isArray(data.Results)) {
-            console.warn('[FIFA API] No results in response');
             return null;
         }
-        
-        // Fetch enriched data in parallel (now uses /recent to include finished matches)
+
         const enrichedData = await fetchFifaLiveNow();
         
-        // Build a map for easy lookup
-        const liveData = new Map();
+        const matchesData = [];
+        const knockoutData = { rounds: [] };
+        const groupsData = [];
+        const groupsMap = new Map();
         
+        const knockoutRoundsMap = new Map();
+
         data.Results.forEach(match => {
-            const homeAbbr = match.Home?.Abbreviation;
-            const awayAbbr = match.Away?.Abbreviation;
+            const homeAbbr = match.Home?.Abbreviation || match.PlaceHolderA;
+            const awayAbbr = match.Away?.Abbreviation || match.PlaceHolderB;
             
             if (!homeAbbr || !awayAbbr) return;
             
             const homeName = getSwedishName(homeAbbr);
             const awayName = getSwedishName(awayAbbr);
             
-            // Convert FIFA date to unix timestamp for matching
             const fifaTimestamp = match.Date ? Math.floor(new Date(match.Date).getTime() / 1000) : null;
-            
             const status = mapMatchStatus(match.MatchStatus);
-            const homeScore = match.HomeTeamScore;
-            const awayScore = match.AwayTeamScore;
-            const matchTime = match.MatchTime;
             
-            // Create score string in "X - Y" format if scores available
             let score = '';
-            if (homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined) {
-                score = `${homeScore} - ${awayScore}`;
+            if (match.HomeTeamScore !== null && match.AwayTeamScore !== null) {
+                score = `${match.HomeTeamScore} - ${match.AwayTeamScore}`;
             }
+
+            const enriched = enrichedData?.get(match.IdMatch) || {};
             
-            const key = `${homeName}|${awayName}`;
-            
-            // Merge enriched data from /live/football/now if available
-            const enriched = enrichedData?.get(key);
-            
-            const liveMatch = {
-                homeName,
-                awayName,
+            const matchObj = {
+                id: match.MatchNumber, // Use FIFA's match number (1-104)
+                home: homeName,
+                away: awayName,
                 homeAbbr,
                 awayAbbr,
+                date: formatDate(match.Date),
+                time: formatTime(match.Date),
+                venue: match.Stadium?.CityName?.[0]?.Description || '',
                 status,
                 score,
-                homeScore,
-                awayScore,
-                matchTime: matchTime || '',
+                homeScore: match.HomeTeamScore,
+                awayScore: match.AwayTeamScore,
+                liveCurrentTime: match.MatchTime || '',
                 period: match.Period,
-                fifaTimestamp,
-                fifaMatchId: match.IdMatch,
-                // Enriched data from /live/football/now
-                ...(enriched || {}),
+                startTimestamp: fifaTimestamp,
+                _fifaMatchId: match.IdMatch,
+                ...enriched
             };
-            
-            liveData.set(key, liveMatch);
+
+            const stageDesc = match.StageName?.[0]?.Description;
+            const stageId = STAGE_MAP[stageDesc];
+
+            if (stageId === 'group') {
+                const groupName = match.GroupName?.[0]?.Description;
+                if (groupName) {
+                    matchObj.group = groupName;
+                    
+                    // Track unique teams for groupsData
+                    if (!groupsMap.has(groupName)) {
+                        groupsMap.set(groupName, new Set());
+                    }
+                    if (match.Home?.Abbreviation) groupsMap.get(groupName).add(match.Home.Abbreviation);
+                    if (match.Away?.Abbreviation) groupsMap.get(groupName).add(match.Away.Abbreviation);
+                }
+                matchesData.push(matchObj);
+            } else if (stageId) {
+                if (!knockoutRoundsMap.has(stageId)) {
+                    knockoutRoundsMap.set(stageId, {
+                        name: STAGE_NAMES[stageId],
+                        id: stageId,
+                        date: formatDate(match.Date), // Will just use first match's date
+                        matches: []
+                    });
+                }
+                knockoutRoundsMap.get(stageId).matches.push(matchObj);
+                matchesData.push(matchObj);
+            }
         });
+
+        // Compile Knockout Rounds
+        const roundOrder = ['r32', 'r16', 'qf', 'sf', 'third', 'final'];
+        roundOrder.forEach(rId => {
+            if (knockoutRoundsMap.has(rId)) {
+                // Sort matches by MatchNumber within the round
+                const round = knockoutRoundsMap.get(rId);
+                round.matches.sort((a, b) => a.id - b.id);
+                knockoutData.rounds.push(round);
+            }
+        });
+
+        // Compile Groups Data
+        Array.from(groupsMap.keys()).sort().forEach(groupName => {
+            const teams = Array.from(groupsMap.get(groupName)).map(abbr => ({
+                name: getSwedishName(abbr),
+                abbr: abbr
+            }));
+            groupsData.push({
+                name: groupName,
+                teams: teams
+            });
+        });
+
+        console.log(`[FIFA API] Processed ${matchesData.length} matches, ${groupsData.length} groups, ${knockoutData.rounds.length} knockout rounds.`);
         
-        console.log(`[FIFA API] Fetched ${liveData.size} matches${enrichedData ? ` (${enrichedData.size} enriched)` : ''}`);
-        return liveData;
+        return {
+            matchesData,
+            knockoutData,
+            groupsData
+        };
         
     } catch (err) {
         console.warn('[FIFA API] Error fetching live data:', err.message);
         return null;
     }
-}
-
-/**
- * Merges FIFA live data into the local matches array.
- * Returns a new array with updated scores, statuses, goal scorers,
- * bookings, substitutions, tactics, and venue info.
- * Does NOT mutate the original array.
- */
-export function mergeLiveData(localMatches, liveData) {
-    if (!liveData || !localMatches) return localMatches;
-    
-    let updatedCount = 0;
-    
-    const merged = localMatches.map(match => {
-        const key = `${match.home}|${match.away}`;
-        const live = liveData.get(key);
-        
-        if (!live) return match;
-        
-        // Ignore upcoming matches
-        if (live.status === 'upcoming') {
-            return match;
-        }
-
-        // If the match is finished, only update it if our local data isn't already up to date
-        // This prevents the app from constantly "updating" matches that have already ended.
-        if (live.status === 'finished' && match.status === 'finished' && match.score === live.score) {
-            return match;
-        }
-        
-        updatedCount++;
-        
-        const updated = {
-            ...match,
-            status: live.status,
-            score: live.score || match.score,
-            liveCurrentTime: live.matchTime || undefined,
-            period: live.period,
-            _fifaMatchId: live.fifaMatchId,
-        };
-        
-        // Enriched data from /live/football/now
-        if (live.scorers) {
-            updated.scorers = live.scorers;
-        }
-        if (live.bookings) {
-            updated.bookings = live.bookings;
-        }
-        if (live.substitutions) {
-            updated.substitutions = live.substitutions;
-        }
-        if (live.tactics) {
-            updated.tactics = live.tactics;
-        }
-        if (live.stadium) {
-            updated.stadium = live.stadium;
-        }
-        if (live.city) {
-            updated.city = live.city;
-        }
-        if (live.referee) {
-            updated.referee = live.referee;
-        }
-        if (live.coaches) {
-            updated.coaches = live.coaches;
-        }
-        if (live.startingXI) {
-            updated.startingXI = live.startingXI;
-        }
-        if (live.subs) {
-            updated.subs = live.subs;
-        }
-        
-        return updated;
-    });
-    
-    if (updatedCount > 0) {
-        console.log(`[FIFA API] Updated ${updatedCount} matches with live data`);
-    }
-    
-    return merged;
 }
 
 /**
@@ -432,15 +394,13 @@ export function mergeLiveData(localMatches, liveData) {
 export function hasActiveMatches(matches) {
     if (!matches) return false;
     const now = Date.now();
-    const FIFTEEN_MIN = 15 * 60 * 1000;
     
     return matches.some(m => {
         if (m.status === 'live') return true;
-        if (m.status === 'finished') return false; // Do not poll frequently if match is already finished
+        if (m.status === 'finished') return false; 
         if (m.startTimestamp) {
             const startMs = m.startTimestamp * 1000;
             const diff = startMs - now;
-            // Match has started (diff <= 0) but not older than 3 hours (-180 minutes)
             if (diff >= -180 * 60 * 1000 && diff <= 0) return true;
         }
         return false;

@@ -15,9 +15,7 @@ import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import HistoryIcon from '@mui/icons-material/History';
 import EventIcon from '@mui/icons-material/Event';
 
-import { fetchFifaLiveMatches, mergeLiveData, hasActiveMatches } from '../utils/fifaLiveApi';
-
-
+import { hasActiveMatches } from '../utils/fifaLiveApi';
 
 
 
@@ -404,45 +402,41 @@ const VMKollen = () => {
     const fetchAllData = useCallback(async () => {
         const fetchFile = async (file) => {
             try {
-                // Try relative path first (for local dev)
                 const res = await fetch(`/data/${file}`);
                 if (!res.ok) throw new Error();
                 return await res.json();
             } catch (e) {
-                // Fallback to GitHub URL
                 return fetch(`${DATA_BASE_URL}/${file}`).then(res => res.json());
             }
         };
 
         try {
-            const [gData, mData, kData, rData, liveData] = await Promise.all([
-                fetchFile('worldcup_2026_groups.json'),
-                fetchFile('worldcup_2026_matches.json'),
-                fetchFile('worldcup_2026_knockout.json').catch(() => null),
+            const [rData, fifaData] = await Promise.all([
                 fetchFile('fifa_ranking.json').catch(() => null),
-                fetchFifaLiveMatches().catch(() => null)
+                import('../utils/fifaLiveApi').then(m => m.fetchAllFifaData()).catch(() => null)
             ]);
+
+            if (!fifaData) {
+                setLoading(false);
+                return;
+            }
+
+            let gData = { groups: fifaData.groupsData };
+            let mData = { matches: fifaData.matchesData };
+            let kData = fifaData.knockoutData;
 
             if (gData?.groups && rData?.rankings) {
                 gData.groups.forEach(group => {
                     group.teams.forEach((team, index) => {
-                        if (typeof team === 'object') {
-                            const rankObj = rData.rankings.find(r => r.team === team.name);
-                            team.ranking = rankObj ? rankObj.rank : null;
-                        } else {
-                            const rankObj = rData.rankings.find(r => r.team === team);
-                            group.teams[index] = {
-                                name: team,
-                                ranking: rankObj ? rankObj.rank : null,
-                                played: 0, gd: 0, pts: 0
-                            };
-                        }
+                        const teamName = typeof team === 'object' ? team.name : team;
+                        const rankObj = rData.rankings.find(r => r.team === teamName);
+                        group.teams[index] = {
+                            name: teamName,
+                            ranking: rankObj ? rankObj.rank : null,
+                            played: 0, gd: 0, pts: 0
+                        };
                     });
                 });
-            }
-
-            if (mData?.matches && liveData) {
-                mData.matches = mergeLiveData(mData.matches, liveData);
             }
 
             setInitialGroupsData(gData);
@@ -486,33 +480,12 @@ const VMKollen = () => {
     matchesDataRef.current = matchesData;
 
     const pollFifaLive = useCallback(async () => {
-        const currentMatches = matchesDataRef.current;
-        if (!currentMatches?.matches) return;
+        const fifaData = await import('../utils/fifaLiveApi').then(m => m.fetchAllFifaData());
+        if (!fifaData) return;
 
-        const liveData = await fetchFifaLiveMatches();
-        if (!liveData) return;
-
-        const updatedMatches = mergeLiveData(currentMatches.matches, liveData);
-
-        // Only update state if something actually changed
-        const hasChanges = updatedMatches.some((m, i) => {
-            const orig = currentMatches.matches[i];
-            return m.status !== orig.status ||
-                m.score !== orig.score ||
-                m.liveCurrentTime !== orig.liveCurrentTime ||
-                (m.scorers?.home?.length || 0) !== (orig.scorers?.home?.length || 0) ||
-                (m.scorers?.away?.length || 0) !== (orig.scorers?.away?.length || 0) ||
-                (m.bookings?.length || 0) !== (orig.bookings?.length || 0) ||
-                (m.substitutions?.length || 0) !== (orig.substitutions?.length || 0) ||
-                (m.startingXI?.home?.length || 0) !== (orig.startingXI?.home?.length || 0);
-        });
-
-        if (hasChanges) {
-            setMatchesData(prev => ({
-                ...prev,
-                matches: updatedMatches
-            }));
-        }
+        setMatchesData({ matches: fifaData.matchesData });
+        // We could also setKnockoutData(fifaData.knockoutData) but knockoutData uses the same objects structurally
+        setKnockoutData(fifaData.knockoutData);
     }, []);
 
     useEffect(() => {

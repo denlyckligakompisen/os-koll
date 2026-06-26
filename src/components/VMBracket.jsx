@@ -83,18 +83,14 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
     const groupsData = liveGroupsData || fetchedGroupsData;
     const matchRefs = useRef({});
     const scrollContainerRef = useRef(null);
-    const DATA_BASE_URL = 'https://raw.githubusercontent.com/denlyckligakompisen/os-koll/main/public/data';
 
     useEffect(() => {
-        Promise.all([
-            fetch(`${DATA_BASE_URL}/worldcup_2026_knockout.json`).then(res => res.json()),
-            fetch(`${DATA_BASE_URL}/worldcup_2026_groups.json`).then(res => res.json())
-        ])
-        .then(([bData, gData]) => {
-            setBracketData(bData);
-            setFetchedGroupsData(gData);
-        })
-        .catch(console.error);
+        import('../utils/fifaLiveApi').then(m => m.fetchAllFifaData()).then(data => {
+            if (data) {
+                setBracketData(data.knockoutData);
+                setFetchedGroupsData({ groups: data.groupsData });
+            }
+        }).catch(console.error);
     }, []);
 
     useEffect(() => {
