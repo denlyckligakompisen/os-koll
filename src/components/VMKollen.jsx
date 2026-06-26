@@ -1330,7 +1330,7 @@ const VMKollen = () => {
                 color: 'var(--color-text)',
                 '--active-color': 'var(--color-primary)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: isScrolled ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                boxShadow: 'none',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 justifyContent: 'center'

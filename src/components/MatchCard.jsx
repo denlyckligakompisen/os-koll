@@ -15,7 +15,7 @@ import { formatLiveTime, getTeamAbbr } from './MatchCard/utils.jsx';
 import { useMatchStatus } from '../hooks/useMatchStatus';
 import { useTeamForm } from '../hooks/useTeamForm';
 
-const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, ...props }) => {
+const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, isAllsvenskan, ...props }) => {
     const homeFlags = match.homeFlags || getFlagCodes(match.home);
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
@@ -31,7 +31,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
     const computedScore = getComputedScore();
 
-    const displayTime = match.time || 'TBA';
+    const displayTime = (isAllsvenskan && match.time === '00:00') ? 'TBA' : (match.time || 'TBA');
 
     const renderFormBadge = (result, key) => {
         let bg = '#8e8e93';
@@ -304,7 +304,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     </div>
                                 ) : (
                                     <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 'bold', lineHeight: 1 }}>
-                                        {isOverdue ? '00:00' : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
+                                        {isOverdue ? (displayTime === 'TBA' ? 'TBA' : '00:00') : (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}
                                     </div>
                                 )}
 
@@ -590,7 +590,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 gap: '3px'
                             }}>
                                 <span>{computedStatus === 'live' ? formatLiveTime(match.liveCurrentTime, match.period) :
-                                    isOverdue ? '00:00' :
+                                    isOverdue ? (displayTime === 'TBA' ? 'TBA' : '00:00') :
                                         (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
                                 {computedStatus === 'live' && !isFiltered && (
                                     <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />

@@ -857,7 +857,6 @@ const AllsvenskanKollen = () => {
                         }}
                     >
                         <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan" style={{ height: '34px', objectFit: 'contain' }} />
-                        <ArrowLeftRight size={18} color="#aeafb4" aria-hidden="true" />
                     </button>
                 </div>
                 
@@ -1103,6 +1102,7 @@ const AllsvenskanKollen = () => {
                                                             match={match} 
                                                             idx={j} 
                                                             variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
+                                                            isAllsvenskan={true}
                                                             homeLogo={getTeamLogo(match.home)}
                                                             awayLogo={getTeamLogo(match.away)}
                                                             filterTeam={filterTeam}
