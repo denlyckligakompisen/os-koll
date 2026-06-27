@@ -976,7 +976,7 @@ const VMKollen = () => {
     return (
         <div
             className="page-transition"
-            style={{ minHeight: '100vh', paddingBottom: '100px' }}
+            style={{ minHeight: '100vh', paddingBottom: '24px' }}
         >
 
 
@@ -1252,8 +1252,15 @@ const VMKollen = () => {
             ) : (
                 <>
                     {showBracketModal && (
-                        <div className="tab-content-enter" style={{ width: '100%', overflowX: 'auto', padding: '16px 0', borderBottom: '1px solid var(--border)', marginBottom: '16px', background: 'var(--color-card-bg)' }}>
-                            <div style={{ width: 'fit-content', margin: '0 auto', padding: '0 16px' }}>
+                        <div style={{ maxWidth: '900px', margin: '32px auto 0 auto', padding: '0 10px' }}>
+                            <div className="tab-content-enter" style={{ 
+                                width: '100%', 
+                                background: 'var(--color-card-bg)', 
+                                borderRadius: '16px', 
+                                border: '1px solid var(--border)', 
+                                boxShadow: 'var(--shadow-sm)',
+                                overflow: 'hidden'
+                            }}>
                                 <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} liveGroupsData={groupsData} />
                             </div>
                         </div>

@@ -366,7 +366,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 width: '100%', 
                 overflowX: 'auto', 
                 overflowY: 'hidden',
-                padding: '40px 0 80px 0', 
+                padding: '40px 0 24px 0', 
                 WebkitOverflowScrolling: 'touch',
                 scrollbarWidth: 'auto',
                 msOverflowStyle: 'auto'
