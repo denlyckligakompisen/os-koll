@@ -65,13 +65,13 @@ const MatchDetailView = ({ match, onBack, variant }) => {
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        color: 'var(--color-primary)',
+                        color: 'var(--color-text)',
                         padding: '8px',
                         margin: '-8px'
                     }}
                     aria-label="Tillbaka"
                 >
-                    <ChevronLeftIcon fontSize="large" />
+                    <ChevronLeftIcon style={{ fontSize: '1.4rem' }} />
                 </button>
             </div>
 

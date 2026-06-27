@@ -728,7 +728,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         )}
                         {computedStatus === 'live' && (
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, minHeight: '44px', padding: '0' }}>
-                                <ChevronRightIcon style={{ color: 'var(--color-text-muted)', opacity: 0.4, fontSize: '1.4rem' }} />
+                                <ChevronRightIcon style={{ color: 'var(--color-text)', fontSize: '1.4rem' }} />
                             </div>
                         )}
                     </div>

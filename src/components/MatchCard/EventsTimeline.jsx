@@ -199,7 +199,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '0.85rem',
+                        fontSize: '0.75rem',
                         fontWeight: '600',
                         fontVariantNumeric: 'tabular-nums',
                         color: 'var(--color-text)',
