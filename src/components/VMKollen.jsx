@@ -34,7 +34,15 @@ const VMKollen = () => {
     const filterRef = useRef(null);
 
     useEffect(() => {
-        // Dropdown removed, no outside click listener needed.
+        const handleClickOutside = (event) => {
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setIsFilterOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
     }, []);
 
     const [showScrollTop, setShowScrollTop] = useState(false);
@@ -91,11 +99,7 @@ const VMKollen = () => {
 
 
 
-    const handleCountryClick = (country) => {
-        const cleanName = country.includes('Sverige') ? 'Sverige' : country;
-        if (!tournamentTeams.has(cleanName)) return;
-        setFilterCountries([cleanName]);
-    };
+    // handleCountryClick removed as filtering should only be done via the dropdown
 
     useEffect(() => {
         const saved = localStorage.getItem('os-koll-filter');
@@ -137,8 +141,8 @@ const VMKollen = () => {
     }, [filterCountries]);
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [filterCountries]);
+        window.scrollTo(0, 0);
+    }, [filterCountries, matchStatusFilter, showBracketModal]);
 
     const getSortedGroupTeams = React.useCallback((group) => {
         if (!group || !matchesData?.matches) return group?.teams || [];
@@ -234,9 +238,9 @@ const VMKollen = () => {
                 if (team) {
                     const isSecured = isTeamSecuredAtRank(group, rank, team);
                     return {
-                        name: isSecured ? team.name : `${label}\n${team.name}`,
+                        name: isSecured ? team.name : label,
                         realName: team.name,
-                        isPlaceholder: false,
+                        isPlaceholder: !isSecured,
                         originalLabel: label,
                         isSecured: isSecured
                     };
@@ -294,9 +298,8 @@ const VMKollen = () => {
             }).filter(Boolean);
 
             return {
-                name: `${label}\n${abbrs.join('/')}`,
-                isPlaceholder: true,
-                flagCodes: flagCodes.length > 0 ? flagCodes : undefined
+                name: label,
+                isPlaceholder: true
             };
         }
 
@@ -570,7 +573,6 @@ const VMKollen = () => {
                 title={displayName || groupName} 
                 teams={mappedTeams} 
                 isInline={isInline} 
-                onTeamClick={handleCountryClick} 
             />
         );
     };
@@ -654,7 +656,6 @@ const VMKollen = () => {
                                                     idx={idx} 
                                                     filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} 
                                                     isFiltered={filterCountries.length > 0} 
-                                                    onCountryClick={handleCountryClick} 
                                                     homeRank={getTeamRank(m.realHome || m.home)} 
                                                     awayRank={getTeamRank(m.realAway || m.away)} 
                                                     onGroupClick={() => handleCardClick(matchKey)}
@@ -929,7 +930,7 @@ const VMKollen = () => {
                                                                     {badgeText}
                                                                 </div>
                                                             )}
-                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} onCountryClick={handleCountryClick} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
+                                                            <MatchCard match={m} variant={isHero ? "hero" : undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(matchKey)} onCardClick={() => handleCardClick(matchKey)} />
                                                         </div>
                                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m, isHero))}
                                                     </React.Fragment>
@@ -1119,69 +1120,85 @@ const VMKollen = () => {
                         })()}
                     </div>
 
-                    <div style={{
-                        position: 'absolute',
-                        right: '0',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        zIndex: 10,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                    }}>
+                    <div style={{ position: 'relative' }} ref={filterRef}>
                         {filterCountries.length === 0 ? (
-                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px' }}>
+                            <div 
+                                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', cursor: 'pointer' }}
+                            >
                                 <PublicIcon />
-                                <select
-                                    value=""
-                                    onChange={(e) => {
-                                        if (e.target.value !== '') setFilterCountries([e.target.value]);
-                                    }}
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        opacity: 0,
-                                        cursor: 'pointer',
-                                        appearance: 'none'
-                                    }}
-                                >
-                                    <option value="" disabled>Välj lag</option>
-                                    {Array.from(tournamentTeams).sort().map(team => (
-                                        <option key={team} value={team}>{team}</option>
-                                    ))}
-                                </select>
                             </div>
                         ) : (
-                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px' }}>
+                            <div 
+                                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', cursor: 'pointer' }}
+                            >
                                 <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={24} />
-                                <select
-                                    value={filterCountries[0]}
-                                    onChange={(e) => {
-                                        if (e.target.value === '') {
-                                            setFilterCountries([]);
-                                        } else {
-                                            setFilterCountries([e.target.value]);
-                                        }
+                            </div>
+                        )}
+
+                        {isFilterOpen && (
+                            <div style={{
+                                position: 'absolute',
+                                top: '50px',
+                                right: 0,
+                                width: '220px',
+                                maxHeight: '300px',
+                                overflowY: 'auto',
+                                backgroundColor: 'var(--color-bg)',
+                                border: '1px solid var(--color-border)',
+                                borderRadius: '12px',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                zIndex: 1000,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: '8px 0'
+                            }}>
+                                <div 
+                                    onClick={() => {
+                                        setFilterCountries([]);
+                                        setIsFilterOpen(false);
                                     }}
                                     style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        opacity: 0,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '12px',
+                                        padding: '10px 16px',
                                         cursor: 'pointer',
-                                        appearance: 'none'
+                                        backgroundColor: filterCountries.length === 0 ? 'var(--color-surface-hover)' : 'transparent',
+                                        transition: 'background-color 0.2s',
+                                        fontWeight: filterCountries.length === 0 ? 'bold' : 'normal'
                                     }}
+                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = filterCountries.length === 0 ? 'var(--color-surface-hover)' : 'transparent'}
                                 >
-                                    <option value="">Alla lag</option>
-                                    {Array.from(tournamentTeams).sort().map(team => (
-                                        <option key={team} value={team}>{team}</option>
-                                    ))}
-                                </select>
+                                    <PublicIcon fontSize="small" />
+                                    <span style={{ fontSize: '0.9rem' }}>Alla lag</span>
+                                </div>
+                                {Array.from(tournamentTeams).sort().map(team => (
+                                    <div 
+                                        key={team}
+                                        onClick={() => {
+                                            setFilterCountries([team]);
+                                            setIsFilterOpen(false);
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            padding: '10px 16px',
+                                            cursor: 'pointer',
+                                            backgroundColor: filterCountries.includes(team) ? 'var(--color-surface-hover)' : 'transparent',
+                                            transition: 'background-color 0.2s',
+                                            fontWeight: filterCountries.includes(team) ? 'bold' : 'normal'
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = filterCountries.includes(team) ? 'var(--color-surface-hover)' : 'transparent'}
+                                    >
+                                        <FlagBadge codes={getFlagCodes(team)} name={team} size={20} />
+                                        <span style={{ fontSize: '0.9rem' }}>{team}</span>
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>
@@ -1194,10 +1211,7 @@ const VMKollen = () => {
             {showBracketModal && (
                 <div className="tab-content-enter" style={{ width: '100%', overflowX: 'auto', padding: '16px 0', borderBottom: '1px solid var(--border)', marginBottom: '16px', background: 'var(--color-card-bg)' }}>
                     <div style={{ width: 'fit-content', margin: '0 auto', padding: '0 16px' }}>
-                        <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={(country) => {
-                            setShowBracketModal(false);
-                            handleCountryClick(country);
-                        }} liveGroupsData={groupsData} />
+                        <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} liveGroupsData={groupsData} />
                     </div>
                 </div>
             )}
@@ -1210,21 +1224,7 @@ const VMKollen = () => {
                     padding: '0 10px'
                 }}>
                     <div className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                                {(() => {
-                                    if (matchStatusFilter === 'played' || filterCountries.length === 0 || !groupsData?.groups) return null;
-                                    // We can show tables for all filtered countries' groups, uniquely
-                                    const renderedGroupNames = new Set();
-                                    const renderedTables = filterCountries.map(fc => {
-                                        const group = groupsData.groups.find(g =>
-                                            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
-                                        );
-                                        if (!group || renderedGroupNames.has(group.name)) return null;
-                                        renderedGroupNames.add(group.name);
-                                        return renderTable(group.name, group.teams, null, 0, filterCountries);
-                                    }).filter(Boolean);
-                                    
-                                    return renderedTables;
-                                })()}
+
                                 {renderAllMatches()}
                     </div>
                 </div>
@@ -1325,10 +1325,6 @@ const VMKollen = () => {
                                                 title={rankNames[r] || `Plats ${r}`} 
                                                 teams={displayTeams} 
                                                 dividerIndex={r === 3 ? 8 : undefined}
-                                                onTeamClick={(name) => {
-                                                    setShowAllTeamsModal(false);
-                                                    handleCountryClick(name);
-                                                }} 
                                             />
                                         );
                                     })}
@@ -1342,7 +1338,7 @@ const VMKollen = () => {
 
             
             <div className="bracket-landscape-wrapper">
-                <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={handleCountryClick} liveGroupsData={groupsData} />
+                <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} liveGroupsData={groupsData} />
             </div>
         </div>
     );

@@ -59,22 +59,22 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     let outcomeBg = null;
     let outcomeTextColor = null;
 
+    const clean = (n) => n ? n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim() : '';
+    const cleanFilter = filterTeam ? clean(filterTeam) : '';
+    const isFilteredHome = filterTeam && clean(match.home).includes(cleanFilter);
+    const isFilteredAway = filterTeam && clean(match.away).includes(cleanFilter);
+
     if (filterTeam && match.status === 'finished' && match.score && match.score.includes('-')) {
         const parts = match.score.split('-').map(s => parseInt(s.trim()));
         if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
             const homeScore = parts[0];
             const awayScore = parts[1];
 
-            const clean = (n) => n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
-            const cleanFilter = clean(filterTeam);
-            const isHome = clean(match.home).includes(cleanFilter);
-            const isAway = clean(match.away).includes(cleanFilter);
-
-            if (isHome || isAway) {
+            if (isFilteredHome || isFilteredAway) {
                 if (homeScore === awayScore) {
                     outcomeBg = '#8e8e93'; // Grey
                     outcomeTextColor = '#ffffff';
-                } else if ((isHome && homeScore > awayScore) || (isAway && awayScore > homeScore)) {
+                } else if ((isFilteredHome && homeScore > awayScore) || (isFilteredAway && awayScore > homeScore)) {
                     outcomeBg = '#34c759'; // Green
                     outcomeTextColor = '#ffffff';
                 } else {
@@ -228,7 +228,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         ...props.style
                     }}
                 >
-                    {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && (
+                    {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && ((match.group.toLowerCase().includes('final') || match.group.toLowerCase().includes('brons')) || (!filterTeam && !props.isFiltered)) && (
                         <div style={{
                             fontSize: '0.75rem',
                             fontWeight: '600',
@@ -248,7 +248,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             <div
                                 onClick={(e) => handleTeamClick(e, match.home)}
                                 style={{
-                                    fontWeight: '500',
+                                    fontWeight: isFilteredHome ? 'bold' : '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
@@ -411,7 +411,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                             <div
                                 onClick={(e) => handleTeamClick(e, match.away)}
                                 style={{
-                                    fontWeight: '500',
+                                    fontWeight: isFilteredAway ? 'bold' : '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
@@ -555,7 +555,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <span className="sr-only">Se höjdpunkter på SVT Play</span>
                     </a>
                 )}
-                {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && (
+                {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && ((match.group.toLowerCase().includes('final') || match.group.toLowerCase().includes('brons')) || (!filterTeam && !props.isFiltered)) && (
                     <div style={{
                         fontSize: '0.65rem',
                         fontWeight: '600',
@@ -636,7 +636,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
                                     style={{
-                                        fontWeight: '400',
+                                        fontWeight: isFilteredHome ? 'bold' : '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
                                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
@@ -661,7 +661,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.away)}
                                     style={{
-                                        fontWeight: '400',
+                                        fontWeight: isFilteredAway ? 'bold' : '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
                                         cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
