@@ -338,7 +338,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                                         zIndex: 2
                                                     }}>
                                                         <div className="live-minute-spinner-inner">
-                                                            {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
+                                                            {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT'
                                                                 ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
                                                                 : match.liveCurrentTime}
                                                         </div>

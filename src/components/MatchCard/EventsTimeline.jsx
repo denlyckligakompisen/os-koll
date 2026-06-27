@@ -201,6 +201,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
                         justifyContent: 'center',
                         fontSize: '0.85rem',
                         fontWeight: '600',
+                        fontVariantNumeric: 'tabular-nums',
                         color: 'var(--color-text)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}>
@@ -210,7 +211,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
                     </div>
                     <div style={{
                         width: '2px',
-                        height: '24px', /* Taller stick to sit above event icons */
+                        height: '10px', /* Kortare streck */
                         backgroundColor: 'rgba(128,128,128,0.25)',
                         marginTop: '-1px'
                     }} />
