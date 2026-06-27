@@ -849,3 +849,24 @@ select:focus-visible {
   width: calc(100% - 4px);
   height: calc(100% - 4px);
 }
+
+/* Bracket Landscape Wrapper */
+.bracket-landscape-wrapper {
+  display: none;
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .bracket-landscape-wrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-bg);
+    z-index: 9999;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+

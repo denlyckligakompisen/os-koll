@@ -10,7 +10,7 @@ import SharedMatchTable from './common/SharedMatchTable';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List } from 'lucide-react';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List, Trophy } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import HistoryIcon from '@mui/icons-material/History';
 import EventIcon from '@mui/icons-material/Event';
@@ -18,6 +18,7 @@ import EventIcon from '@mui/icons-material/Event';
 
 import { getVMHeaderStyle, getAbbr, sortTeamsSimple, sortGroupTeams } from '../utils/vmUtils';
 import { useVMData } from '../hooks/useVMData';
+import VMBracket from './VMBracket';
 
 const CURRENT_YEAR = 2026;
 const GROUP_MONTH_MAP = { 'juni': 5, 'juli': 6 };
@@ -38,6 +39,7 @@ const VMKollen = () => {
     const [showScrollTop, setShowScrollTop] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [showAllTeamsModal, setShowAllTeamsModal] = useState(false);
+    const [showBracketModal, setShowBracketModal] = useState(false);
 
     const [expandedMatchId, setExpandedMatchId] = useState(null);
     const rankingRefs = React.useRef({});
@@ -923,6 +925,28 @@ const VMKollen = () => {
                         display: 'flex',
                         alignItems: 'center'
                     }}>
+                        <button
+                            type="button"
+                            onClick={() => setShowBracketModal(true)}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                background: 'transparent',
+                                color: 'var(--color-primary)',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '44px',
+                                height: '44px',
+                                padding: 0,
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease',
+                            }}
+                            aria-label="Visa slutspelsträd"
+                            title="Slutspelsträd"
+                        >
+                            <Trophy size={22} />
+                        </button>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
                         <button
@@ -1208,6 +1232,59 @@ const VMKollen = () => {
                     </div>
                 </div>
             )}
+            
+            {showBracketModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'var(--color-bg)',
+                    zIndex: 9999,
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}>
+                    <div style={{ 
+                        position: 'sticky', 
+                        top: 0, 
+                        zIndex: 1000, 
+                        display: 'flex', 
+                        justifyContent: 'flex-end', 
+                        padding: '16px',
+                        paddingTop: 'calc(env(safe-area-inset-top) + 16px)',
+                        pointerEvents: 'none'
+                    }}>
+                        <button
+                            onClick={() => setShowBracketModal(false)}
+                            style={{
+                                pointerEvents: 'auto',
+                                background: 'var(--color-glass-bg)',
+                                backdropFilter: 'blur(12px)',
+                                WebkitBackdropFilter: 'blur(12px)',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '36px', height: '36px',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                cursor: 'pointer',
+                                boxShadow: 'var(--shadow-md)',
+                                color: 'var(--color-text)'
+                            }}
+                        >
+                            <X size={20} />
+                        </button>
+                    </div>
+                    <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
+                        <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={(country) => {
+                            setShowBracketModal(false);
+                            handleCountryClick(country);
+                        }} liveGroupsData={groupsData} />
+                    </div>
+                </div>
+            )}
+            
+            <div className="bracket-landscape-wrapper">
+                <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={handleCountryClick} liveGroupsData={groupsData} />
+            </div>
         </div>
     );
 };

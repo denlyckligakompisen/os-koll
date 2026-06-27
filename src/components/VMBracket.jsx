@@ -35,56 +35,38 @@ const BracketMatch = ({ match, resolveTeamInfo, filterCountry, onCountryClick })
 
     const renderTeam = (info, isSelected) => {
         const name = info.realName || info.name;
-        let display = info.realName ? getAbbr(info.realName) : info.name;
         let prefix = null;
         if (info.name && info.name.includes('\n')) {
             const parts = info.name.split('\n');
             prefix = parts[0];
-            display = info.realName ? getAbbr(info.realName) : parts[1];
-        } else if (info.realName && info.name.includes('(')) {
-            const seed = info.name.split('(')[1].replace(')', '');
-            display = `${display} (${seed})`;
         }
+
+        const hasFlag = !!info.flagCodes || (name && !info.isPlaceholder);
+
         return (
             <div 
                 onClick={(e) => !info.isPlaceholder && handleTeamClick(e, info.realName)}
                 style={{ 
-                    display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 8px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                     backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
-                    borderRadius: '6px', cursor: (!info.isPlaceholder && onCountryClick) ? 'pointer' : 'default',
-                    transition: 'all 0.2s ease', minWidth: 0, flex: 1
+                    borderRadius: '50%', cursor: (!info.isPlaceholder && onCountryClick) ? 'pointer' : 'default',
+                    transition: 'all 0.2s ease', margin: '0 auto'
                 }}
+                title={name}
             >
-                <FlagBadge codes={info.flagCodes || getFlagCodes(name)} name={name} size={20} />
-                <div style={{ 
-                    display: 'flex', flexDirection: 'column',
-                    minWidth: 0, flex: 1
-                }}>
-                    {prefix && <span style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', lineHeight: '1', marginBottom: '2px' }}>{prefix}</span>}
-                    <span style={{ 
-                        fontSize: '0.75rem', fontWeight: '400',
-                        color: info.isPlaceholder ? 'var(--color-text-muted)' : 'var(--color-text)',
-                        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                        lineHeight: '1'
-                    }}>
-                        {isSelected ? <BoldSverige text={display} /> : display}
-                    </span>
-                </div>
+                {hasFlag ? (
+                    <FlagBadge codes={info.flagCodes || getFlagCodes(name)} name={name} size={28} />
+                ) : (
+                    <FlagBadge size={28} />
+                )}
             </div>
         );
     };
 
     return (
-        <div style={{ position: 'relative', width: '140px', zIndex: 2 }}>
-            <Card padding="4px" style={{ 
-                border: 'var(--border)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                background: 'var(--color-card-bg)', borderRadius: '10px',
-                display: 'flex', flexDirection: 'column', gap: '2px'
-            }}>
-                {renderTeam(homeInfo, isHomeSelected)}
-                <div style={{ height: '1px', background: 'var(--border)', margin: '0 4px' }} />
-                {renderTeam(awayInfo, isAwaySelected)}
-            </Card>
+        <div style={{ position: 'relative', width: '50px', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {renderTeam(homeInfo, isHomeSelected)}
+            {renderTeam(awayInfo, isAwaySelected)}
         </div>
     );
 };
@@ -117,6 +99,13 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
 
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
+        
+        // If it's a known country name, it's not a placeholder
+        const flagCode = getFlagCode(label);
+        if (flagCode) {
+            return { name: label, realName: label, isPlaceholder: false, flagCodes: [flagCode] };
+        }
+
         const rankMatch = label.match(/^([12])([A-L])$/i);
         if (rankMatch) {
             const rank = parseInt(rankMatch[1]);
@@ -242,7 +231,50 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
     const finalId = 104;
 
     const ROW_HEIGHT = 110; 
-    const COLUMN_SPACING = 40; // Horizontal space between column contents
+    const CONNECTOR_WIDTH = 30;
+
+    const renderConnector = (largeCount, direction) => {
+        const svgHeight = 8 * ROW_HEIGHT;
+        const slotsPerMatch = 8 / largeCount;
+        const pairs = largeCount / 2;
+        
+        const lines = [];
+        for (let i = 0; i < pairs; i++) {
+            const y1 = ( (i * 2) * slotsPerMatch + slotsPerMatch / 2 ) * ROW_HEIGHT;
+            const y2 = ( (i * 2 + 1) * slotsPerMatch + slotsPerMatch / 2 ) * ROW_HEIGHT;
+            const yMid = (y1 + y2) / 2;
+            
+            if (direction === 'right') {
+                lines.push(
+                    <path key={i} d={`M 0 ${y1} L ${CONNECTOR_WIDTH/2} ${y1} L ${CONNECTOR_WIDTH/2} ${y2} L 0 ${y2} M ${CONNECTOR_WIDTH/2} ${yMid} L ${CONNECTOR_WIDTH} ${yMid}`} stroke="rgba(128,128,128,0.4)" strokeWidth="2" fill="none" />
+                );
+            } else {
+                lines.push(
+                    <path key={i} d={`M ${CONNECTOR_WIDTH} ${y1} L ${CONNECTOR_WIDTH/2} ${y1} L ${CONNECTOR_WIDTH/2} ${y2} L ${CONNECTOR_WIDTH} ${y2} M ${CONNECTOR_WIDTH/2} ${yMid} L 0 ${yMid}`} stroke="rgba(128,128,128,0.4)" strokeWidth="2" fill="none" />
+                );
+            }
+        }
+        
+        return (
+            <div style={{ width: `${CONNECTOR_WIDTH}px`, height: `${svgHeight}px`, flexShrink: 0 }}>
+                <svg width={CONNECTOR_WIDTH} height={svgHeight}>
+                    {lines}
+                </svg>
+            </div>
+        );
+    };
+
+    const renderStraightConnector = () => {
+        const svgHeight = 8 * ROW_HEIGHT;
+        const yMid = 4 * ROW_HEIGHT;
+        return (
+            <div style={{ width: `${CONNECTOR_WIDTH}px`, height: `${svgHeight}px`, flexShrink: 0 }}>
+                <svg width={CONNECTOR_WIDTH} height={svgHeight}>
+                    <line x1="0" y1={yMid} x2={CONNECTOR_WIDTH} y2={yMid} stroke="rgba(128,128,128,0.4)" strokeWidth="2" />
+                </svg>
+            </div>
+        );
+    };
 
     const renderColumn = (ids, title) => {
         const numMatches = ids.length;
@@ -252,15 +284,22 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         
         return (
             <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '140px' }}>
+                <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '50px' }}>
                     <div style={{ 
                         position: 'absolute',
-                        top: `${firstCardTop - 40}px`,
-                        left: '0',
-                        width: '100%',
+                        top: `0px`,
+                        left: '50%',
+                        transform: 'translate(-50%, -100%)',
                         fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
                         textTransform: 'uppercase', letterSpacing: '0.1em',
-                        transform: 'translateY(-100%)'
+                        background: 'var(--color-card-bg)',
+                        padding: '4px 8px',
+                        borderRadius: '8px',
+                        whiteSpace: 'pre-line',
+                        lineHeight: '1.2',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                        border: 'var(--border)',
+                        zIndex: 10
                     }}>{title}</div>
                     {ids.map((id, idx) => {
                         const match = getMatchById(id);
@@ -277,7 +316,7 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                                     transform: 'translateY(-50%)'
                                 }}
                             >
-                                {match ? <BracketMatch match={match} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} /> : <div style={{ width: '140px' }} />}
+                                {match ? <BracketMatch match={match} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} /> : <div style={{ width: '50px' }} />}
                             </div>
                         );
                     })}
@@ -315,47 +354,78 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 }
             `}</style>
             <div style={{ 
-                display: 'flex', alignItems: 'flex-start', gap: `${COLUMN_SPACING}px`, width: 'max-content',
+                display: 'flex', alignItems: 'flex-start', width: 'max-content',
                 margin: '0 auto', padding: '0 40px'
             }}>
-                {renderColumn(leftR32, "1/16-final")}
-                {renderColumn(leftR16, "1/8-final")}
-                {renderColumn(leftQF, "Kvartsfinal")}
-                {renderColumn(leftSF, "Semifinal")}
+                {renderColumn(leftR32, "1/16-\nfinal")}
+                {renderConnector(8, 'right')}
+                {renderColumn(leftR16, "1/8-\nfinal")}
+                {renderConnector(4, 'right')}
+                {renderColumn(leftQF, "Kvarts-\nfinal")}
+                {renderConnector(2, 'right')}
+                {renderColumn(leftSF, "Semi-\nfinal")}
+
+                {renderStraightConnector()}
 
                 <div ref={el => matchRefs.current[finalId] = el} style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                    <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '180px' }}>
+                    <div style={{ position: 'relative', height: `${8 * ROW_HEIGHT}px`, width: '50px' }}>
+
+                        <div style={{ 
+                            position: 'absolute',
+                            top: `0px`,
+                            left: '50%',
+                            transform: 'translate(-50%, -100%)',
+                            fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
+                            textTransform: 'uppercase', letterSpacing: '0.1em',
+                            background: 'var(--color-card-bg)',
+                            padding: '4px 8px',
+                            borderRadius: '8px',
+                            whiteSpace: 'nowrap',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                            border: 'var(--border)',
+                            zIndex: 10
+                        }}>Final</div>
                         
                         <div style={{ 
-                            position: 'absolute', top: '50%', left: '20px', transform: 'translateY(-50%)', 
-                            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px', width: '100%' 
+                            position: 'absolute', top: `${4 * ROW_HEIGHT}px`, left: '0', 
+                            transform: 'translateY(-50%)', width: '100%',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center'
                         }}>
-                            
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%' }}>
-                                <div style={{ 
-                                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
-                                    textTransform: 'uppercase', letterSpacing: '0.1em'
-                                }}>FINAL</div>
-                                <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
-                            </div>
+                            <BracketMatch match={getMatchById(finalId)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
+                        </div>
 
-                            <div ref={el => matchRefs.current[103] = el} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%' }}>
-                                <div style={{ 
-                                    fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)', 
-                                    textTransform: 'uppercase', letterSpacing: '0.1em' 
-                                }}>Bronsmatch</div>
-                                <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
-                            </div>
-
+                        <div ref={el => matchRefs.current[103] = el} style={{ 
+                            position: 'absolute', top: `${6.5 * ROW_HEIGHT}px`, left: '0', 
+                            transform: 'translateY(-50%)', width: '100%',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center'
+                        }}>
+                            <div style={{ 
+                                fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)', 
+                                textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px',
+                                background: 'var(--color-card-bg)',
+                                padding: '4px 8px',
+                                borderRadius: '8px',
+                                whiteSpace: 'pre-line',
+                                lineHeight: '1.2',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                                border: 'var(--border)',
+                                zIndex: 10
+                            }}>Brons-{"\n"}match</div>
+                            <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
                         </div>
                         
                     </div>
                 </div>
 
-                {renderColumn(rightSF, "Semifinal")}
-                {renderColumn(rightQF, "Kvartsfinal")}
-                {renderColumn(rightR16, "1/8-final")}
-                {renderColumn(rightR32, "1/16-final")}
+                {renderStraightConnector()}
+
+                {renderColumn(rightSF, "Semi-\nfinal")}
+                {renderConnector(2, 'left')}
+                {renderColumn(rightQF, "Kvarts-\nfinal")}
+                {renderConnector(4, 'left')}
+                {renderColumn(rightR16, "1/8-\nfinal")}
+                {renderConnector(8, 'left')}
+                {renderColumn(rightR32, "1/16-\nfinal")}
             </div>
         </div>
     );
