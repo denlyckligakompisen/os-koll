@@ -4,9 +4,9 @@
    Design Tokens
    ============================================= */
 :root {
-  --color-bg: #f2f2f7;
-  --color-card-bg: rgba(255, 255, 255, 0.75);
-  --color-card-bg-elevated: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%);
+  --color-bg: #f2f2f6; /* Adjust slightly for that Avanza gray */
+  --color-card-bg: #ffffff;
+  --color-card-bg-elevated: #ffffff;
   --color-text: #000000;
   --color-text-muted: #4a4a4a;
   --color-primary: #00529C;
@@ -14,11 +14,11 @@
   --color-accent: #ff9500;
   --radius-lg: 20px;
   --radius-md: 16px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 16px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.04), 0 16px 32px rgba(0, 0, 0, 0.08);
-  --border: 0.5px solid rgba(0, 0, 0, 0.08);
-  --color-surface-subtle: rgba(0, 0, 0, 0.05);
+  --shadow-sm: none; /* Removed shadow for flatter look like the screenshot */
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05); /* Softened */
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --border: none; /* Removed border */
+  --color-surface-subtle: rgba(0, 0, 0, 0.04);
   --color-highlight-sverige: rgba(254, 204, 0, 0.05);
   --font-family-display: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-family-text: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

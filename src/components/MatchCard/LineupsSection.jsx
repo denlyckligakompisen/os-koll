@@ -31,33 +31,59 @@ const LineupsSection = ({ match }) => {
     };
 
     return (
-        <div style={{ marginTop: '12px' }}>
-
+        <div style={{ marginTop: '12px', width: '100%' }}>
+            <div style={{
+                fontSize: '0.8rem',
+                fontWeight: '600',
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                textAlign: 'center',
+                marginBottom: '12px'
+            }}>
+                Laguppställningar
+            </div>
+            
             <PitchLineup match={match} />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', marginTop: '16px' }}>
-                {/* Home Subs */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                    {match.subs?.home?.length > 0 && (
-                        <div>
+            {(match.subs?.home?.length > 0 || match.subs?.away?.length > 0) && (
+                <>
+                    <div style={{
+                        fontSize: '0.8rem',
+                        fontWeight: '600',
+                        color: 'var(--color-text-muted)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        textAlign: 'center',
+                        marginTop: '24px',
+                        marginBottom: '12px'
+                    }}>
+                        Avbytare
+                    </div>
 
-                            {match.subs.home.map(p => renderSub(p, true))}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+                        {/* Home Subs */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            {match.subs?.home?.length > 0 && (
+                                <div>
+                                    {match.subs.home.map(p => renderSub(p, true))}
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
 
-                <div style={{ width: '1px', backgroundColor: 'rgba(128,128,128,0.1)' }} />
+                        <div style={{ width: '1px', backgroundColor: 'rgba(128,128,128,0.1)' }} />
 
-                {/* Away Subs */}
-                <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
-                    {match.subs?.away?.length > 0 && (
-                        <div>
-
-                            {match.subs.away.map(p => renderSub(p, false))}
+                        {/* Away Subs */}
+                        <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
+                            {match.subs?.away?.length > 0 && (
+                                <div>
+                                    {match.subs.away.map(p => renderSub(p, false))}
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
-            </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
+import MatchDetailView from './MatchDetailView';
 import MatchGroupList from './common/MatchGroupList';
 import SharedMatchTable from './common/SharedMatchTable';
 import TeamLogo from './MatchCard/TeamLogo';
@@ -39,6 +40,7 @@ const AllsvenskanKollen = () => {
     const [selectedSeason, setSelectedSeason] = useState(2026);
     const [selectedStatTable, setSelectedStatTable] = useState('2026');
     const [currentRoundSliderVal, setCurrentRoundSliderVal] = useState(30);
+    const [selectedMatch, setSelectedMatch] = useState(null);
 
     const { matchesData, logosData, tableData, maratonData, squadsData, loading, liveError, isPlaying, setIsPlaying } = useAllsvenskanData(selectedSeason);
 
@@ -138,14 +140,7 @@ const AllsvenskanKollen = () => {
         }
         
         if (matchStatusFilter === 'upcoming') {
-            const now = new Date();
-            now.setHours(0,0,0,0);
-            result = result.filter(m => {
-                if (m.status !== 'finished') return true;
-                const md = parseTournamentDate(m.date, m.time);
-                md.setHours(0,0,0,0);
-                return md.getTime() === now.getTime(); // Keep today's finished matches
-            });
+            result = result.filter(m => m.status !== 'finished');
         } else if (matchStatusFilter === 'played') {
             result = result.filter(m => m.status === 'finished');
         }
@@ -710,6 +705,8 @@ const AllsvenskanKollen = () => {
 
     useSwipeNavigation(activeTab, setActiveTab, SUBTABS);
 
+
+
     return (
         <div 
             className="page-transition"
@@ -761,6 +758,9 @@ const AllsvenskanKollen = () => {
                             className={`web-nav-item ${activeTab === tab.id ? 'active' : ''}`}
                             aria-current={activeTab === tab.id ? 'page' : undefined}
                             onClick={() => {
+                                if (selectedMatch) {
+                                    setSelectedMatch(null);
+                                }
                                 if (tab.id === 'matcher' && activeTab === 'matcher') {
                                     if (nextMatchRef.current) {
                                         nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -869,7 +869,16 @@ const AllsvenskanKollen = () => {
 
 
 
-            <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
+            {selectedMatch ? (
+                <div style={{ maxWidth: '600px', margin: '0 auto', width: '100%' }}>
+                    <MatchDetailView 
+                        match={selectedMatch} 
+                        onBack={() => setSelectedMatch(null)} 
+                        variant="allsvenskan" 
+                    />
+                </div>
+            ) : (
+                <div style={{ maxWidth: '600px', margin: '32px auto 0 auto', padding: '0 10px' }}>
                 <div key={activeTab} className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
                     {/* Season Selector */}
@@ -979,13 +988,14 @@ const AllsvenskanKollen = () => {
                                                         <MatchCard 
                                                             match={match} 
                                                             idx={j} 
-                                                            variant={isNext && match.status !== 'finished' ? 'hero' : undefined}
+                                                            variant={undefined}
                                                             isAllsvenskan={true}
                                                             homeLogo={getTeamLogo(match.home)}
                                                             awayLogo={getTeamLogo(match.away)}
                                                             filterTeam={filterTeam}
                                                             allMatches={matchesData?.matches}
                                                             onTeamClick={setFilterTeam}
+                                                            onCardClick={match.status === 'live' ? () => setSelectedMatch(match) : undefined}
                                                             hideBroadcast={true}
                                                             hideEventsForPlayed={true}
                                                         />
@@ -1594,7 +1604,8 @@ const AllsvenskanKollen = () => {
                         </div>
                     )}
                 </div>
-            </div>
+                </div>
+            )}
         </div>
     );
 };

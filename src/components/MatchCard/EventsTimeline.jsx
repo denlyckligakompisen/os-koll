@@ -3,7 +3,7 @@ import FlagBadge from '../common/FlagBadge';
 import { getFlagCodes } from '../../utils/flags';
 
 
-const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
+const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
     const parseMinute = (minStr) => {
         if (!minStr) return 0;
         const base = parseInt(String(minStr).split('+')[0]);
@@ -45,7 +45,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
         });
     }
     
-    if (match.substitutions) {
+    if (match.substitutions && !compact) {
         const subsByMin = {};
         match.substitutions.forEach(s => {
             const min = parseMinute(s.minute);
@@ -66,7 +66,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline }) => {
 
     const isPastFirstHalf = String(match.period) === '4' || String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || events.some(e => e.minute > 45);
     
-    if (isPastFirstHalf) {
+    if (isPastFirstHalf && !compact) {
         events.push({ 
             side: 'center', 
             minuteStr: 'HT', 
