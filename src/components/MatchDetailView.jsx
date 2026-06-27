@@ -121,13 +121,13 @@ const MatchDetailView = ({ match, onBack, variant }) => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    backgroundColor: computedStatus === 'live' ? '#28a745' : '#34c759', // Green like in screenshot
-                                    color: '#ffffff',
-                                    borderRadius: '12px',
-                                    padding: '8px 24px',
-                                    fontSize: '2rem',
-                                    fontWeight: '700',
-                                    letterSpacing: '2px'
+                                    backgroundColor: computedStatus === 'live' ? '#28a745' : 'transparent',
+                                    color: computedStatus === 'live' ? '#ffffff' : 'var(--color-text-muted)',
+                                    borderRadius: computedStatus === 'live' ? '12px' : '0',
+                                    padding: computedStatus === 'live' ? '8px 24px' : '0',
+                                    fontSize: computedStatus === 'live' ? '2rem' : '1.25rem',
+                                    fontWeight: computedStatus === 'live' ? '700' : '600',
+                                    letterSpacing: computedStatus === 'live' ? '2px' : 'normal'
                                 }}>
                                     <span>{homeScore}</span>
                                     <span style={{ margin: '0 8px' }}>-</span>
@@ -211,6 +211,29 @@ const MatchDetailView = ({ match, onBack, variant }) => {
                         <div style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <div className="animate-fade-in" style={{ width: '100%', overflow: 'hidden' }}>
                                 <LineupsSection match={match} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Empty State for Missing Data */}
+                    {computedStatus === 'finished' && 
+                     (!match.scorers?.home?.length && !match.scorers?.away?.length && !match.bookings?.length && !match.substitutions?.length) && 
+                     (!match.startingXI?.home?.length && !match.startingXI?.away?.length) && (
+                        <div style={{ 
+                            marginTop: '32px', 
+                            display: 'flex', 
+                            flexDirection: 'column', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            padding: '32px 16px', 
+                            color: 'var(--color-text-muted)',
+                            backgroundColor: 'rgba(128, 128, 128, 0.05)',
+                            borderRadius: '16px',
+                            margin: '32px 16px 16px 16px'
+                        }}>
+                            <div style={{ fontSize: '1rem', fontWeight: '500', marginBottom: '8px', color: 'var(--color-text)' }}>Ingen detaljdata tillgänglig</div>
+                            <div style={{ fontSize: '0.85rem', textAlign: 'center', maxWidth: '280px', lineHeight: 1.5 }}>
+                                Matchhändelser, laguppställningar och statistik saknas tyvärr från dataleverantören för just den här matchen.
                             </div>
                         </div>
                     )}

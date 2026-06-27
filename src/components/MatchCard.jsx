@@ -288,8 +288,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 {/* Score or Time */}
                                 {computedStatus !== 'upcoming' ? (
                                     <div style={{
-                                        fontSize: 'clamp(2rem, 5vw, 3rem)',
-                                        fontWeight: '700',
+                                        fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+                                        fontWeight: 'bold',
                                         fontVariantNumeric: 'tabular-nums',
                                         letterSpacing: '-0.03em',
                                         fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -299,8 +299,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         lineHeight: 1,
                                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
                                         color: computedStatus === 'live' ? '#ffffff' : 'inherit',
-                                        padding: computedStatus === 'live' ? '8px 16px' : '0',
-                                        borderRadius: computedStatus === 'live' ? '12px' : '0'
+                                        padding: computedStatus === 'live' ? '4px 12px' : '0',
+                                        borderRadius: computedStatus === 'live' ? '8px' : '0'
                                     }}>
                                         <span>{heroHomeScore}</span>
                                         <span>-</span>
@@ -541,7 +541,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     ...props.style
                 }}
             >
-                {computedStatus === 'finished' && !props.hideBroadcast && (
+                {computedStatus === 'finished' && !props.hideBroadcast && !onCardClick && (
                     <a
                         href={`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + match.home + ' ' + match.away)}`}
                         target="_blank"
@@ -588,15 +588,15 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 padding: '4px',
-                                color: computedStatus === 'live' ? '#ffffff' : 'var(--color-text)',
+                                color: (computedStatus === 'live' && !props.isTableView) ? '#ffffff' : 'var(--color-text)',
                                 fontWeight: '600',
-                                fontSize: computedStatus === 'live' ? '1rem' : '0.85rem',
+                                fontSize: (computedStatus === 'live' && !props.isTableView) ? '1rem' : '0.85rem',
                                 gap: '3px'
                             }}>
-                                <span>{computedStatus === 'live' ? formatLiveTime(match.liveCurrentTime, match.period) :
+                                <span>{props.isTableView ? displayTime : (computedStatus === 'live' ? formatLiveTime(match.liveCurrentTime, match.period) :
                                     isOverdue ? (displayTime === 'TBA' ? 'TBA' : '00:00') :
-                                        (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime))}</span>
-                                {computedStatus === 'live' && !isFiltered && (
+                                        (isFiltered || filterTeam ? displayTime : (timeLeftStr || displayTime)))}</span>
+                                {computedStatus === 'live' && !isFiltered && !props.isTableView && (
                                     <div className="live-timer-line" style={{ width: '80%', height: '2px', borderRadius: '1px' }} />
                                 )}
                             </div>
@@ -629,7 +629,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
                             {(computedStatus === 'finished' || computedStatus === 'live') && (
                                 <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{homeScore}</span>
+                                    <span style={{ fontWeight: '600', fontSize: '0.85rem', fontVariantNumeric: 'tabular-nums' }}>{homeScore}</span>
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
@@ -654,7 +654,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <div style={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
                             {(computedStatus === 'finished' || computedStatus === 'live') && (
                                 <div style={{ width: '52px', flexShrink: 0, display: 'flex', justifyContent: 'center' }}>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{awayScore}</span>
+                                    <span style={{ fontWeight: '600', fontSize: '0.85rem', fontVariantNumeric: 'tabular-nums' }}>{awayScore}</span>
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>

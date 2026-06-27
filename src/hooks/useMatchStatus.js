@@ -26,7 +26,7 @@ export const useMatchStatus = (match, variant) => {
         if (computedStatus !== 'upcoming') return false;
         const startMs = match.startTimestamp ? match.startTimestamp * 1000 : parseMatchDateLocal(match.date, match.time).getTime();
         const timeUntilStart = startMs - Date.now();
-        return timeUntilStart > 0 && timeUntilStart <= 30 * 60 * 1000;
+        return timeUntilStart > 0 && timeUntilStart <= 60 * 60 * 1000;
     };
     const isSoon = getIsSoon();
 
@@ -53,7 +53,7 @@ export const useMatchStatus = (match, variant) => {
     const liveProgressPercent = getLiveProgress();
 
     useEffect(() => {
-        if (variant !== 'hero' || computedStatus !== 'upcoming') {
+        if (computedStatus !== 'upcoming') {
             setTimeLeftStr(null);
             return;
         }

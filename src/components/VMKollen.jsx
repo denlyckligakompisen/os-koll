@@ -656,9 +656,16 @@ const VMKollen = () => {
                                                     isFiltered={filterCountries.length > 0} 
                                                     homeRank={getTeamRank(m.realHome || m.home)} 
                                                     awayRank={getTeamRank(m.realAway || m.away)} 
-                                                    onGroupClick={() => handleCardClick(m)}
-                                                    onCardClick={() => handleCardClick(m)} 
+                                                    onGroupClick={m.status === 'live' ? () => handleCardClick(m) : undefined}
+                                                    onCardClick={() => {
+                                                        if (m.status === 'live') {
+                                                            handleCardClick(m);
+                                                        } else if (m.status === 'finished') {
+                                                            window.open(`https://www.svtplay.se/sok?q=${encodeURIComponent('VM fotboll höjdpunkter ' + (m.realHome || m.home) + ' ' + (m.realAway || m.away))}`, '_blank', 'noopener,noreferrer');
+                                                        }
+                                                    }} 
                                                     hideGroup={true}
+                                                    isTableView={true}
                                                 />
                                             );
                                         })}
@@ -682,7 +689,7 @@ const VMKollen = () => {
                 const timeUntilStart = startMs - Date.now();
                 if (timeUntilStart > 0) {
                     if (isHeroMatch && timeUntilStart <= 60 * 60 * 1000) return true;
-                    if (!isHeroMatch && timeUntilStart <= 30 * 60 * 1000) return true;
+                    if (!isHeroMatch && timeUntilStart <= 60 * 60 * 1000) return true;
                 }
             }
             return false;
@@ -696,12 +703,7 @@ const VMKollen = () => {
                 const hideAfterMs = startMs + (140 * 60 * 1000);
                 const isPlayed = m.status === 'finished' && Date.now() > hideAfterMs;
                 
-                let keep;
-                if (filterCountries.length > 0) {
-                    keep = true; // Matches are already filtered by isFilterCountryMatch in groupedMatches
-                } else {
-                    keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
-                }
+                const keep = matchStatusFilter === 'played' ? isPlayed : !isPlayed;
 
                 if (keep) {
                     const matchHour = new Date(startMs).getHours();
@@ -928,7 +930,7 @@ const VMKollen = () => {
                                                                     {badgeText}
                                                                 </div>
                                                             )}
-                                                            <MatchCard match={m} variant={undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={() => handleCardClick(m)} onCardClick={m.status === 'live' ? () => handleCardClick(m) : undefined} />
+                                                            <MatchCard match={m} variant={undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={m.status === 'live' ? () => handleCardClick(m) : undefined} onCardClick={m.status === 'live' ? () => handleCardClick(m) : undefined} />
                                                         </div>
                                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m, isHero))}
                                                     </React.Fragment>
