@@ -1382,9 +1382,6 @@ const VMKollen = () => {
             
 
             
-            <div className="bracket-landscape-wrapper">
-                <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} liveGroupsData={groupsData} />
-            </div>
         </div>
     );
 };
