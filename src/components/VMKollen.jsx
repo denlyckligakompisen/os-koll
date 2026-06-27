@@ -12,8 +12,9 @@ import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
 import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List, Trophy } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
-import HistoryIcon from '@mui/icons-material/History';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import EventIcon from '@mui/icons-material/Event';
+import PublicIcon from '@mui/icons-material/Public';
 
 
 import { getVMHeaderStyle, getAbbr, sortTeamsSimple, sortGroupTeams } from '../utils/vmUtils';
@@ -91,7 +92,6 @@ const VMKollen = () => {
 
 
     const handleCountryClick = (country) => {
-        if (matchStatusFilter === 'played') return;
         const cleanName = country.includes('Sverige') ? 'Sverige' : country;
         if (!tournamentTeams.has(cleanName)) return;
         setFilterCountries([cleanName]);
@@ -600,6 +600,80 @@ const VMKollen = () => {
     const renderAllMatches = () => {
         if (!matchesData) return null;
 
+        if (matchStatusFilter === 'played') {
+            const playedMatches = combinedMatches;
+
+            let matchesToRender = playedMatches;
+            let groupsToRender = groupsData.groups;
+
+            if (filterCountries.length > 0) {
+                const country = filterCountries[0];
+                matchesToRender = playedMatches.filter(m => {
+                    return m.home.includes(country) || m.away.includes(country) || 
+                           (m.realHome && m.realHome.includes(country)) || 
+                           (m.realAway && m.realAway.includes(country));
+                });
+                groupsToRender = groupsData.groups.filter(g => 
+                    g.teams.some(t => {
+                        const teamName = typeof t === 'string' ? t : t.name;
+                        return teamName.includes(country);
+                    })
+                );
+            }
+
+            if (matchesToRender.length === 0 && filterCountries.length > 0 && groupsToRender.length === 0) {
+                return <EmptyState />;
+            }
+
+            const playoffMatches = matchesToRender.filter(m => !m.group || m.group.toLowerCase().includes('slutspel') || m.isKnockout);
+
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                    {groupsToRender.map(group => {
+                        const groupMatches = matchesToRender.filter(m => m.group === group.name && !m.isKnockout);
+                        
+                        // If no played matches in this group yet and we are not filtering, 
+                        // maybe we still show the table? The prompt says "ändra spelade matcher till en vy där alla grupper visas, grupp a, tabell, matcher" 
+                        // So we should show the table for all groups even if no matches are played yet.
+
+                        return (
+                            <div key={group.name} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                {renderTable(group.name, group.teams, group.name, 0, filterCountries, false)}
+                                {groupMatches.length > 0 && (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        {groupMatches.sort((a, b) => {
+                                            const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                            const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                            return timeA - timeB;
+                                        }).map((m, idx) => {
+                                            const matchKey = `${m.home}-${m.away}-${m.date}`;
+                                            return (
+                                                <MatchCard 
+                                                    key={matchKey} 
+                                                    match={m} 
+                                                    idx={idx} 
+                                                    filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} 
+                                                    isFiltered={filterCountries.length > 0} 
+                                                    onCountryClick={handleCountryClick} 
+                                                    homeRank={getTeamRank(m.realHome || m.home)} 
+                                                    awayRank={getTeamRank(m.realAway || m.away)} 
+                                                    onGroupClick={() => handleCardClick(matchKey)}
+                                                    onCardClick={() => handleCardClick(matchKey)} 
+                                                    hideGroup={true}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+
+
+                </div>
+            );
+        }
+
         const isMatchLiveOrRecentlyFinishedOrSoon = (m, isHeroMatch = false) => {
             if (isHeroMatch) return true;
             if (m.status === 'live') return true;
@@ -926,30 +1000,6 @@ const VMKollen = () => {
                         alignItems: 'center'
                     }}>
                         <button
-                            type="button"
-                            onClick={() => setShowBracketModal(true)}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                background: 'transparent',
-                                color: 'var(--color-primary)',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '44px',
-                                height: '44px',
-                                padding: 0,
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                            }}
-                            aria-label="Visa slutspelsträd"
-                            title="Slutspelsträd"
-                        >
-                            <Trophy size={22} />
-                        </button>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto' }}>
-                        <button
                             className="header-logo"
                             style={{
                                 background: 'none',
@@ -972,18 +1022,103 @@ const VMKollen = () => {
                                     transition: 'height 0.3s ease'
                                 }}
                             />
-                            <span style={{
-                                fontWeight: 'bold',
-                                fontSize: 'clamp(0.9rem, 4vw, 1.2rem)',
-                                color: 'var(--color-text)',
-                                letterSpacing: '0.02em',
-                                fontFamily: 'inherit',
-                                whiteSpace: 'nowrap'
-                            }}>
-                                2026 FIFA World Cup
-                            </span>
                         </button>
                     </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '12px' }}>
+                        <button
+                            type="button"
+                            className={`segmented-button ${(!showBracketModal && matchStatusFilter === 'upcoming') ? 'active' : ''}`}
+                            onClick={() => {
+                                setShowBracketModal(false);
+                                setMatchStatusFilter('upcoming');
+                            }}
+                            style={{
+                                backgroundColor: (!showBracketModal && matchStatusFilter === 'upcoming') ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                borderRadius: '50%',
+                                padding: '0',
+                                width: '36px',
+                                height: '36px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s ease',
+                                color: (!showBracketModal && matchStatusFilter === 'upcoming') ? 'white' : 'var(--color-text)',
+                                border: 'none',
+                                cursor: 'pointer'
+                            }}
+                            aria-label="Visa kommande matcher"
+                            title="Kommande matcher"
+                        >
+                            <EventIcon fontSize="small" />
+                        </button>
+
+                        <button
+                            type="button"
+                            className={`segmented-button ${showBracketModal ? 'active' : ''}`}
+                            onClick={() => {
+                                setShowBracketModal(true);
+                            }}
+                            style={{
+                                backgroundColor: showBracketModal ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                borderRadius: '50%',
+                                padding: '0',
+                                width: '36px',
+                                height: '36px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s ease',
+                                color: showBracketModal ? 'white' : 'var(--color-text)',
+                                border: 'none',
+                                cursor: 'pointer'
+                            }}
+                            aria-label="Visa slutspelsträd"
+                            title="Slutspelsträd"
+                        >
+                            <Trophy size={18} style={{ transform: 'translateX(-0.5px)' }} />
+                        </button>
+
+                        {(() => {
+                            if (combinedMatches.length === 0) return null;
+                            const playedList = combinedMatches.filter(m => {
+                                if (m.status !== 'finished') return false;
+                                const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
+                                const hideAfterMs = startMs + (140 * 60 * 1000);
+                                return Date.now() > hideAfterMs;
+                            });
+                            
+                            if (playedList.length === 0 && matchStatusFilter !== 'played') return null;
+
+                            return (
+                                <button 
+                                    className={`segmented-button ${(!showBracketModal && matchStatusFilter === 'played') ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setShowBracketModal(false);
+                                        setMatchStatusFilter('played');
+                                    }}
+                                    title="Visa spelade matcher"
+                                    style={{
+                                        backgroundColor: (!showBracketModal && matchStatusFilter === 'played') ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                                        borderRadius: '50%',
+                                        padding: '0',
+                                        width: '36px',
+                                        height: '36px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'all 0.2s ease',
+                                        color: (!showBracketModal && matchStatusFilter === 'played') ? 'white' : 'var(--color-text)',
+                                        border: 'none',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <FormatListBulletedIcon fontSize="small" />
+                                </button>
+                            );
+                        })()}
+                    </div>
+
                     <div style={{
                         position: 'absolute',
                         right: '0',
@@ -994,101 +1129,60 @@ const VMKollen = () => {
                         alignItems: 'center',
                         gap: '8px'
                     }}>
-
-                        {filterCountries.length > 0 ? (
-                            <div ref={filterRef} style={{ display: 'flex' }}>
-                                <button
-                                    type="button"
+                        {filterCountries.length === 0 ? (
+                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px' }}>
+                                <PublicIcon />
+                                <select
+                                    value=""
+                                    onChange={(e) => {
+                                        if (e.target.value !== '') setFilterCountries([e.target.value]);
+                                    }}
                                     style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        opacity: 0,
                                         cursor: 'pointer',
-                                        background: 'transparent',
-                                        color: 'inherit',
-                                        border: 'none',
-                                        borderRadius: '50%',
-                                        width: '44px',
-                                        height: '44px',
-                                        padding: 0,
-                                        transition: 'all 0.3s ease',
-                                        WebkitTapHighlightColor: 'transparent'
+                                        appearance: 'none'
                                     }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        setFilterCountries([]);
-                                    }}
-                                    aria-label="Rensa filter"
-                                    title="Rensa filter"
                                 >
-                                    {filterCountries.length === 1 ? (
-                                        <div style={{ pointerEvents: 'none', display: 'flex' }}>
-                                            <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={24} />
-                                        </div>
-                                    ) : filterCountries.length > 1 ? (
-                                        <div style={{ position: 'relative', display: 'flex' }}>
-                                            <Filter size={24} />
-                                            <span style={{
-                                                position: 'absolute',
-                                                top: '-4px',
-                                                right: '-8px',
-                                                backgroundColor: 'var(--color-primary)',
-                                                color: '#fff',
-                                                fontSize: '0.65rem',
-                                                fontWeight: 'bold',
-                                                width: '16px',
-                                                height: '16px',
-                                                borderRadius: '50%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                boxShadow: '0 0 0 2px var(--color-bg)'
-                                            }}>
-                                                {filterCountries.length}
-                                            </span>
-                                        </div>
-                                    ) : (
-                                        <Filter size={24} />
-                                    )}
-                                </button>
+                                    <option value="" disabled>Välj lag</option>
+                                    {Array.from(tournamentTeams).sort().map(team => (
+                                        <option key={team} value={team}>{team}</option>
+                                    ))}
+                                </select>
                             </div>
                         ) : (
-                            (() => {
-                                if (combinedMatches.length === 0) return null;
-                                const playedList = combinedMatches.filter(m => {
-                                    if (m.status !== 'finished') return false;
-                                    const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
-                                    const hideAfterMs = startMs + (140 * 60 * 1000);
-                                    return Date.now() > hideAfterMs;
-                                });
-                                
-                                if (playedList.length === 0 && matchStatusFilter !== 'played') return null;
-
-                                return (
-                                    <button 
-                                        className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
-                                        onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
-                                        title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
-                                        style={{
-                                            backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                            borderRadius: '50%',
-                                            padding: '0',
-                                            width: '36px',
-                                            height: '36px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            transition: 'all 0.2s ease',
-                                            color: matchStatusFilter === 'played' ? 'white' : 'var(--color-text)',
-                                            border: 'none',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        <HistoryIcon fontSize="small" style={{ transform: 'translateX(-1px)' }} />
-                                    </button>
-                                );
-                            })()
+                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px' }}>
+                                <FlagBadge codes={getFlagCodes(filterCountries[0])} name={filterCountries[0]} size={24} />
+                                <select
+                                    value={filterCountries[0]}
+                                    onChange={(e) => {
+                                        if (e.target.value === '') {
+                                            setFilterCountries([]);
+                                        } else {
+                                            setFilterCountries([e.target.value]);
+                                        }
+                                    }}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        opacity: 0,
+                                        cursor: 'pointer',
+                                        appearance: 'none'
+                                    }}
+                                >
+                                    <option value="">Alla lag</option>
+                                    {Array.from(tournamentTeams).sort().map(team => (
+                                        <option key={team} value={team}>{team}</option>
+                                    ))}
+                                </select>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -1097,32 +1191,44 @@ const VMKollen = () => {
                 {/* Filter removed as per user request */}
             </div>
 
+            {showBracketModal && (
+                <div className="tab-content-enter" style={{ width: '100%', overflowX: 'auto', padding: '16px 0', borderBottom: '1px solid var(--border)', marginBottom: '16px', background: 'var(--color-card-bg)' }}>
+                    <div style={{ width: 'fit-content', margin: '0 auto', padding: '0 16px' }}>
+                        <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={(country) => {
+                            setShowBracketModal(false);
+                            handleCountryClick(country);
+                        }} liveGroupsData={groupsData} />
+                    </div>
+                </div>
+            )}
 
             {/* Centered Content Container */}
-            <div style={{
-                maxWidth: '600px',
-                margin: '32px auto 0 auto',
-                padding: '0 10px'
-            }}>
-                <div className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                            {(() => {
-                                if (filterCountries.length === 0 || !groupsData?.groups) return null;
-                                // We can show tables for all filtered countries' groups, uniquely
-                                const renderedGroupNames = new Set();
-                                const renderedTables = filterCountries.map(fc => {
-                                    const group = groupsData.groups.find(g =>
-                                        g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
-                                    );
-                                    if (!group || renderedGroupNames.has(group.name)) return null;
-                                    renderedGroupNames.add(group.name);
-                                    return renderTable(group.name, group.teams, null, 0, filterCountries);
-                                }).filter(Boolean);
-                                
-                                return renderedTables;
-                            })()}
-                            {renderAllMatches()}
+            {!showBracketModal && (
+                <div style={{
+                    maxWidth: '600px',
+                    margin: '32px auto 0 auto',
+                    padding: '0 10px'
+                }}>
+                    <div className="tab-content-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                {(() => {
+                                    if (matchStatusFilter === 'played' || filterCountries.length === 0 || !groupsData?.groups) return null;
+                                    // We can show tables for all filtered countries' groups, uniquely
+                                    const renderedGroupNames = new Set();
+                                    const renderedTables = filterCountries.map(fc => {
+                                        const group = groupsData.groups.find(g =>
+                                            g.teams.some(t => (typeof t === 'string' ? t : t.name).includes(fc))
+                                        );
+                                        if (!group || renderedGroupNames.has(group.name)) return null;
+                                        renderedGroupNames.add(group.name);
+                                        return renderTable(group.name, group.teams, null, 0, filterCountries);
+                                    }).filter(Boolean);
+                                    
+                                    return renderedTables;
+                                })()}
+                                {renderAllMatches()}
+                    </div>
                 </div>
-            </div>
+            )}
 
 
 
@@ -1233,54 +1339,7 @@ const VMKollen = () => {
                 </div>
             )}
             
-            {showBracketModal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'var(--color-bg)',
-                    zIndex: 9999,
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}>
-                    <div style={{ 
-                        position: 'sticky', 
-                        top: 0, 
-                        zIndex: 1000, 
-                        display: 'flex', 
-                        justifyContent: 'flex-end', 
-                        padding: '16px',
-                        paddingTop: 'calc(env(safe-area-inset-top) + 16px)',
-                        pointerEvents: 'none'
-                    }}>
-                        <button
-                            onClick={() => setShowBracketModal(false)}
-                            style={{
-                                pointerEvents: 'auto',
-                                background: 'var(--color-glass-bg)',
-                                backdropFilter: 'blur(12px)',
-                                WebkitBackdropFilter: 'blur(12px)',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '36px', height: '36px',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                cursor: 'pointer',
-                                boxShadow: 'var(--shadow-md)',
-                                color: 'var(--color-text)'
-                            }}
-                        >
-                            <X size={20} />
-                        </button>
-                    </div>
-                    <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
-                        <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={(country) => {
-                            setShowBracketModal(false);
-                            handleCountryClick(country);
-                        }} liveGroupsData={groupsData} />
-                    </div>
-                </div>
-            )}
+
             
             <div className="bracket-landscape-wrapper">
                 <VMBracket filterCountry={filterCountries.length === 1 ? filterCountries[0] : null} onCountryClick={handleCountryClick} liveGroupsData={groupsData} />

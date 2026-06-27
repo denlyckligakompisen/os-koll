@@ -90,8 +90,6 @@ export const useVMData = () => {
     useEffect(() => {
         if (!matchesData?.matches) return;
 
-        pollFifaLive();
-
         const handleVisibility = () => {
             if (document.visibilityState === 'visible') {
                 fetchAllData();

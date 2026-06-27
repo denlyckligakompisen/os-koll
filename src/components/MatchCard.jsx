@@ -228,7 +228,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         ...props.style
                     }}
                 >
-                    {match.group && !match.group.toLowerCase().includes('grupp') && (
+                    {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && (
                         <div style={{
                             fontSize: '0.75rem',
                             fontWeight: '600',
@@ -243,7 +243,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', gap: '8px', position: 'relative' }}>
 
                         {/* Home Team */}
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0, position: 'relative', zIndex: 3 }}>
                             <TeamLogo logoUrl={homeLogo} teamName={match.home} size={64} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                             <div
                                 onClick={(e) => handleTeamClick(e, match.home)}
@@ -406,7 +406,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         </div>
 
                         {/* Away Team */}
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0, position: 'relative', zIndex: 3 }}>
                             <TeamLogo logoUrl={awayLogo} teamName={match.away} size={64} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                             <div
                                 onClick={(e) => handleTeamClick(e, match.away)}
@@ -555,7 +555,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <span className="sr-only">Se höjdpunkter på SVT Play</span>
                     </a>
                 )}
-                {match.group && !match.group.toLowerCase().includes('grupp') && (
+                {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && (
                     <div style={{
                         fontSize: '0.65rem',
                         fontWeight: '600',
@@ -631,7 +631,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{homeScore}</span>
                                 </div>
                             )}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
                                 <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
@@ -656,7 +656,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     <span style={{ fontWeight: '700', fontSize: '1rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{awayScore}</span>
                                 </div>
                             )}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
                                 <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.away)}

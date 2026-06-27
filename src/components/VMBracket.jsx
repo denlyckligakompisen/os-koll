@@ -97,6 +97,30 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         }
     }, [bracketData]);
 
+    const isTeamSecuredAtRank = (group, rank, team) => {
+        if (!group || !group.teams) return false;
+        if (group.teams.every(t => t.played === 3)) return true;
+        const teamsWithMax = group.teams.map(t => ({
+            ...t, maxPts: t.pts + ((3 - t.played) * 3)
+        }));
+        const teamMinPts = team.pts;
+        const teamMaxPts = team.pts + ((3 - team.played) * 3);
+        const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
+
+        if (rank === 1) {
+            const othersMax = Math.max(...teamsWithMax.filter(t => t.name !== team.name).map(t => t.maxPts));
+            return teamMinPts > othersMax;
+        } else if (rank === 2) {
+            const currentFirst = sorted[0];
+            if (!currentFirst) return false;
+            if (teamMaxPts >= currentFirst.pts) return false; 
+            const othersBelow = teamsWithMax.filter(t => t.name !== team.name && t.name !== currentFirst.name);
+            const othersBelowMax = Math.max(0, ...othersBelow.map(t => t.maxPts));
+            return teamMinPts > othersBelowMax;
+        }
+        return false;
+    };
+
     const resolveTeamInfo = (label) => {
         if (!label || !groupsData?.groups) return { name: label || 'TBA', isPlaceholder: true };
         
@@ -115,7 +139,14 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
             if (group) {
                 const sorted = [...group.teams].sort((a, b) => b.pts - a.pts || b.gd - a.gd || a.name.localeCompare(b.name, 'sv'));
                 const team = sorted[rank - 1];
-                if (team) return { name: team.name, realName: team.name, isPlaceholder: false };
+                if (team) {
+                    const isSecured = isTeamSecuredAtRank(group, rank, team);
+                    return { 
+                        name: isSecured ? team.name : `${label}\n${getAbbr(team.name)}`, 
+                        realName: team.name, 
+                        isPlaceholder: !isSecured 
+                    };
+                }
             }
         }
 
@@ -175,10 +206,12 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                 return null;
             }).filter(Boolean);
 
+            const isAllGroupsFinished = groupsData?.groups ? groupsData.groups.every(g => g.teams.every(t => t.played === 3)) : false;
+
             return {
                 name: `${label}\n${abbrs.join('/')}`,
                 isPlaceholder: true,
-                flagCodes: flagCodes.length > 0 ? flagCodes : undefined
+                flagCodes: (isAllGroupsFinished && flagCodes.length > 0) ? flagCodes : undefined
             };
         }
 
