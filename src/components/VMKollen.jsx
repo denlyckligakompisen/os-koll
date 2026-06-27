@@ -16,6 +16,7 @@ import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import EventIcon from '@mui/icons-material/Event';
 import PublicIcon from '@mui/icons-material/Public';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 import { getVMHeaderStyle, getAbbr, sortTeamsSimple, sortGroupTeams } from '../utils/vmUtils';
@@ -240,7 +241,7 @@ const VMKollen = () => {
                 if (team) {
                     const isSecured = isTeamSecuredAtRank(group, rank, team);
                     return {
-                        name: isSecured ? team.name : label,
+                        name: `(${team.name})`,
                         realName: team.name,
                         isPlaceholder: !isSecured,
                         originalLabel: label,
@@ -1139,22 +1140,41 @@ const VMKollen = () => {
                         )}
 
                         {isFilterOpen && (
-                            <div style={{
+                            <div className="filter-dropdown-menu" style={{
                                 position: 'absolute',
                                 top: '50px',
                                 right: 0,
-                                width: '220px',
-                                maxHeight: '300px',
+                                width: '240px',
+                                maxHeight: '350px',
                                 overflowY: 'auto',
-                                backgroundColor: 'var(--color-bg)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                                backdropFilter: 'blur(12px)',
+                                WebkitBackdropFilter: 'blur(12px)',
                                 border: '1px solid var(--color-border)',
-                                borderRadius: '12px',
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                                borderRadius: '14px',
+                                boxShadow: '0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
                                 zIndex: 1000,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                padding: '8px 0'
+                                padding: '8px'
                             }}>
+                                <style dangerouslySetInnerHTML={{__html: `
+                                    .filter-dropdown-menu {
+                                        scrollbar-width: thin;
+                                        scrollbar-color: rgba(0,0,0,0.2) transparent;
+                                    }
+                                    .filter-dropdown-menu::-webkit-scrollbar {
+                                        width: 6px;
+                                    }
+                                    .filter-dropdown-menu::-webkit-scrollbar-track {
+                                        background: transparent;
+                                        margin: 8px 0;
+                                    }
+                                    .filter-dropdown-menu::-webkit-scrollbar-thumb {
+                                        background-color: rgba(0,0,0,0.2);
+                                        border-radius: 10px;
+                                    }
+                                `}} />
                                 <div 
                                     onClick={() => {
                                         setFilterCountries([]);
@@ -1164,17 +1184,22 @@ const VMKollen = () => {
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: '12px',
-                                        padding: '10px 16px',
+                                        padding: '12px 16px',
                                         cursor: 'pointer',
                                         backgroundColor: filterCountries.length === 0 ? 'var(--color-surface-hover)' : 'transparent',
-                                        transition: 'background-color 0.2s',
-                                        fontWeight: filterCountries.length === 0 ? 'bold' : 'normal'
+                                        transition: 'all 0.2s ease',
+                                        fontWeight: filterCountries.length === 0 ? '600' : '400',
+                                        borderRadius: '8px',
+                                        color: 'var(--color-text)'
                                     }}
                                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
                                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = filterCountries.length === 0 ? 'var(--color-surface-hover)' : 'transparent'}
                                 >
-                                    <PublicIcon fontSize="small" />
-                                    <span style={{ fontSize: '0.9rem' }}>Alla lag</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', color: 'var(--color-text-muted)' }}>
+                                        <PublicIcon fontSize="small" />
+                                    </div>
+                                    <span style={{ fontSize: '0.95rem', flex: 1 }}>Alla lag</span>
+                                    {filterCountries.length === 0 && <CheckIcon fontSize="small" style={{ color: 'var(--color-text)' }} />}
                                 </div>
                                 {Array.from(tournamentTeams).sort().map(team => (
                                     <div 
@@ -1187,17 +1212,23 @@ const VMKollen = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '12px',
-                                            padding: '10px 16px',
+                                            padding: '12px 16px',
                                             cursor: 'pointer',
                                             backgroundColor: filterCountries.includes(team) ? 'var(--color-surface-hover)' : 'transparent',
-                                            transition: 'background-color 0.2s',
-                                            fontWeight: filterCountries.includes(team) ? 'bold' : 'normal'
+                                            transition: 'all 0.2s ease',
+                                            fontWeight: filterCountries.includes(team) ? '600' : '400',
+                                            borderRadius: '8px',
+                                            color: 'var(--color-text)',
+                                            marginTop: '2px'
                                         }}
                                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
                                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = filterCountries.includes(team) ? 'var(--color-surface-hover)' : 'transparent'}
                                     >
-                                        <FlagBadge codes={getFlagCodes(team)} name={team} size={20} />
-                                        <span style={{ fontSize: '0.9rem' }}>{team}</span>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }}>
+                                            <FlagBadge codes={getFlagCodes(team)} name={team} size={24} />
+                                        </div>
+                                        <span style={{ fontSize: '0.95rem', flex: 1 }}>{team}</span>
+                                        {filterCountries.includes(team) && <CheckIcon fontSize="small" style={{ color: 'var(--color-text)' }} />}
                                     </div>
                                 ))}
                             </div>

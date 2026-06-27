@@ -44,7 +44,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             }
         });
     }
-    
+
     if (match.substitutions && !compact) {
         const subsByMin = {};
         match.substitutions.forEach(s => {
@@ -65,13 +65,13 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
     }
 
     const isPastFirstHalf = String(match.period) === '4' || String(match.period) === '2' || match.status?.type === 'finished' || match.period === 'Finished' || events.some(e => e.minute > 45);
-    
+
     if (isPastFirstHalf && !compact) {
-        events.push({ 
-            side: 'center', 
-            minuteStr: 'HT', 
-            minute: 45.5, 
-            type: 'halftime' 
+        events.push({
+            side: 'center',
+            minuteStr: 'HT',
+            minute: 45.5,
+            type: 'halftime'
         });
     }
 
@@ -160,10 +160,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
     applySpacing(homeEvents);
     applySpacing(awayEvents);
 
-    const lastEventTrackPct = events.length > 0 ? Math.max(...events.map(e => (e.minute / maxMin) * 100)) : 0;
     const currentTrackPct = progress || 0;
-    const solidEndTrackPct = Math.min(lastEventTrackPct, currentTrackPct);
-    const dashedWidthTrackPct = Math.max(0, currentTrackPct - solidEndTrackPct);
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '44px', margin: '4px 0', display: 'flex', alignItems: 'center' }}>
@@ -172,23 +169,9 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             <div style={{ position: 'absolute', top: '50%', left: '2%', right: '2%', height: '4px', transform: 'translateY(-50%)' }}>
                 {/* Gray background */}
                 <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(128,128,128,0.15)', borderRadius: '4px' }} />
-                
-                {/* Solid green from start to last event */}
-                <div style={{ position: 'absolute', left: 0, width: `${solidEndTrackPct}%`, height: '100%', backgroundColor: '#34c759', borderRadius: '4px', transition: 'width 1s linear' }} />
-                
-                {/* Dashed green from last event to current minute */}
-                {dashedWidthTrackPct > 0 && (
-                    <div style={{ 
-                        position: 'absolute', 
-                        left: `${solidEndTrackPct}%`, 
-                        width: `${dashedWidthTrackPct}%`, 
-                        height: '2px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        borderTop: '3px dashed #34c759',
-                        transition: 'width 1s linear, left 1s linear'
-                    }} />
-                )}
+
+                {/* Solid green from start to current minute */}
+                <div style={{ position: 'absolute', left: 0, width: `${currentTrackPct}%`, height: '100%', backgroundColor: '#34c759', borderRadius: '4px', transition: 'width 1s linear' }} />
 
                 {/* Center mask to recreate the gap at 50% */}
                 <div style={{ position: 'absolute', left: 'calc(50% - 3px)', width: '6px', height: '100%', backgroundColor: 'var(--color-card-bg)' }} />
@@ -221,8 +204,8 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
                         color: 'var(--color-text)',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}>
-                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT' 
-                            ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`) 
+                        {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT'
+                            ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
                             : ''}
                     </div>
                     <div style={{

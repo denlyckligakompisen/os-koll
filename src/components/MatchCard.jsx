@@ -735,14 +735,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                 </div>
 
                 {/* Horizontal events timeline for live matches in list view */}
-                {computedStatus === 'live' && (match.bookings?.length > 0 || match.substitutions?.length > 0 || match.scorers?.home || match.scorers?.away) && (
+                {computedStatus === 'live' && (
                     <div style={{
-                        borderTop: '1px solid rgba(128,128,128,0.08)',
                         padding: '8px 16px 12px 16px',
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
-                        <EventsTimeline match={match} progress={liveProgressPercent} compact />
+                        <EventsTimeline match={match} progress={liveProgressPercent} compact showEmptyTimeline={true} />
                     </div>
                 )}
             </Card>
