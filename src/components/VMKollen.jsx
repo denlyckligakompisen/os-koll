@@ -1120,7 +1120,14 @@ const VMKollen = () => {
                         })()}
                     </div>
 
-                    <div style={{ position: 'relative' }} ref={filterRef}>
+                    <div style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10
+                    }}>
+                        <div style={{ position: 'relative' }} ref={filterRef}>
                         {filterCountries.length === 0 ? (
                             <div 
                                 onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -1202,6 +1209,7 @@ const VMKollen = () => {
                             </div>
                         )}
                     </div>
+                </div>
                 </div>
 
 
