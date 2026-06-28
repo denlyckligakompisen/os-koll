@@ -845,12 +845,26 @@ const VMKollen = () => {
                                                 const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
                                                 const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
                                                 return timeB - timeA;
-                                            }) : matches).map((m, i) => {
+                                            }) : [...matches].sort((a, b) => {
+                                                const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                return timeA - timeB;
+                                            })).map((m, i) => {
                                                 const matchKey = `${m.home}-${m.away}-${m.date}`;
                                                 const isHero = filterCountries.length === 0 && nextMatches.some(nm => nm.home === m.home && nm.away === m.away && nm.date === m.date && nm.time === m.time);
 
                                                 const hasHero = filterCountries.length === 0 && matches.some(mx => nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
-                                                const isFirstNonHero = hasHero && !isHero && i === matches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
+                                                // Calculate isFirstNonHero from the sorted matches array:
+                                                const sortedMatches = matchStatusFilter === 'played' ? [...matches].sort((a, b) => {
+                                                    const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                    const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                    return timeB - timeA;
+                                                }) : [...matches].sort((a, b) => {
+                                                    const timeA = a.startTimestamp ? a.startTimestamp * 1000 : parseTournamentDate(a.date, a.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                    const timeB = b.startTimestamp ? b.startTimestamp * 1000 : parseTournamentDate(b.date, b.time || '00:00', GROUP_MONTH_MAP).getTime();
+                                                    return timeA - timeB;
+                                                });
+                                                const isFirstNonHero = hasHero && !isHero && i === sortedMatches.findIndex(mx => !nextMatches.some(nm => nm.home === mx.home && nm.away === mx.away && nm.date === mx.date && nm.time === mx.time));
                                                 let relativeLabel = getRelativeDateLabel(date.replace('_night', ''), GROUP_MONTH_MAP);
                                                 if (matchStatusFilter === 'played') {
                                                     const rlLower = relativeLabel.toLowerCase();

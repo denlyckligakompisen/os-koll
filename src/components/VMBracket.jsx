@@ -309,11 +309,43 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
         );
     };
 
+    const getNextMatchId = () => {
+        if (!bracketData) return null;
+        let nextId = null;
+        for (const round of bracketData.rounds) {
+            for (const match of round.matches) {
+                if (match.status !== 'finished') {
+                    if (nextId === null || match.id < nextId) {
+                        nextId = match.id;
+                    }
+                }
+            }
+        }
+        return nextId;
+    };
+
+    const nextMatchId = getNextMatchId();
+
+    const isRoundActive = (ids) => {
+        if (nextMatchId === null) return false;
+        const allR32 = [...leftR32, ...rightR32];
+        const allR16 = [...leftR16, ...rightR16];
+        const allQF = [...leftQF, ...rightQF];
+        const allSF = [...leftSF, ...rightSF];
+        
+        if (allR32.includes(nextMatchId) && allR32.some(id => ids.includes(id))) return true;
+        if (allR16.includes(nextMatchId) && allR16.some(id => ids.includes(id))) return true;
+        if (allQF.includes(nextMatchId) && allQF.some(id => ids.includes(id))) return true;
+        if (allSF.includes(nextMatchId) && allSF.some(id => ids.includes(id))) return true;
+        return ids.includes(nextMatchId);
+    };
+
     const renderColumn = (ids, title) => {
         const numMatches = ids.length;
         const slotsPerMatch = 8 / numMatches;
         
         const firstCardTop = (slotsPerMatch / 2) * ROW_HEIGHT;
+        const isActive = isRoundActive(ids);
         
         return (
             <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
@@ -323,15 +355,17 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                         top: `0px`,
                         left: '50%',
                         transform: 'translate(-50%, -100%)',
-                        fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
+                        fontSize: '0.65rem', textAlign: 'center', 
+                        color: isActive ? '#fff' : 'var(--color-text-muted)',
                         textTransform: 'uppercase', letterSpacing: '0.1em',
-                        background: 'var(--color-card-bg)',
+                        background: isActive ? 'var(--color-primary)' : 'var(--color-card-bg)',
                         padding: '4px 8px',
                         borderRadius: '8px',
                         whiteSpace: 'pre-line',
                         lineHeight: '1.2',
                         boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                        border: 'var(--border)',
+                        border: isActive ? '1px solid var(--color-primary)' : 'var(--border)',
+                        fontWeight: isActive ? 'bold' : 'normal',
                         zIndex: 10
                     }}>{title}</div>
                     {ids.map((id, idx) => {
@@ -357,6 +391,9 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
             </div>
         );
     };
+
+    const finalIsActive = nextMatchId === finalId;
+    const bronzeIsActive = nextMatchId === 103;
 
     return (
         <div 
@@ -408,14 +445,16 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                             top: `0px`,
                             left: '50%',
                             transform: 'translate(-50%, -100%)',
-                            fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)',
+                            fontSize: '0.65rem', textAlign: 'center', 
+                            color: finalIsActive ? '#fff' : 'var(--color-text-muted)',
                             textTransform: 'uppercase', letterSpacing: '0.1em',
-                            background: 'var(--color-card-bg)',
+                            background: finalIsActive ? 'var(--color-primary)' : 'var(--color-card-bg)',
                             padding: '4px 8px',
                             borderRadius: '8px',
                             whiteSpace: 'nowrap',
                             boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                            border: 'var(--border)',
+                            border: finalIsActive ? '1px solid var(--color-primary)' : 'var(--border)',
+                            fontWeight: finalIsActive ? 'bold' : 'normal',
                             zIndex: 10
                         }}>Final</div>
                         
@@ -433,15 +472,17 @@ const VMBracket = ({ filterCountry, onCountryClick, liveGroupsData }) => {
                             display: 'flex', flexDirection: 'column', alignItems: 'center'
                         }}>
                             <div style={{ 
-                                fontSize: '0.65rem', textAlign: 'center', color: 'var(--color-text-muted)', 
+                                fontSize: '0.65rem', textAlign: 'center', 
+                                color: bronzeIsActive ? '#fff' : 'var(--color-text-muted)', 
                                 textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px',
-                                background: 'var(--color-card-bg)',
+                                background: bronzeIsActive ? 'var(--color-primary)' : 'var(--color-card-bg)',
                                 padding: '4px 8px',
                                 borderRadius: '8px',
                                 whiteSpace: 'pre-line',
                                 lineHeight: '1.2',
                                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                                border: 'var(--border)',
+                                border: bronzeIsActive ? '1px solid var(--color-primary)' : 'var(--border)',
+                                fontWeight: bronzeIsActive ? 'bold' : 'normal',
                                 zIndex: 10
                             }}>Brons-{"\n"}match</div>
                             <BracketMatch match={getMatchById(103)} resolveTeamInfo={resolveTeamInfo} filterCountry={filterCountry} onCountryClick={onCountryClick} />
