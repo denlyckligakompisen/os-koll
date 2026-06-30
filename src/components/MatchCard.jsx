@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from './common/Card';
-import { getFlagCodes } from '../utils/flags';
+import { getFlagCode, getFlagCodes } from '../utils/flags';
+import { COUNTRY_COLORS } from '../utils/vmUtils';
 import FlagBadge from './common/FlagBadge';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import { Play } from 'lucide-react';
@@ -132,7 +133,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         overflow: 'hidden',
                         textOverflow: 'ellipsis'
                     }}>{mainName}</span>
-                    {rank && <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 'normal', opacity: 0.8 }}>#{rank}</span>}
+                    {rank && <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '400', opacity: 0.6 }}>#{rank}</span>}
                 </div>
             </div>
         );
@@ -203,6 +204,9 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
     const heroIsHomeWinner = heroHomeScore !== '' && heroAwayScore !== '' && parseInt(heroHomeScore) > parseInt(heroAwayScore);
     const heroIsAwayWinner = heroHomeScore !== '' && heroAwayScore !== '' && parseInt(heroAwayScore) > parseInt(heroHomeScore);
 
+    const homeColor = match.home && COUNTRY_COLORS[match.home] ? COUNTRY_COLORS[match.home].bg : null;
+    const awayColor = match.away && COUNTRY_COLORS[match.away] ? COUNTRY_COLORS[match.away].bg : null;
+
     if (variant === 'hero') {
         return (
             <div
@@ -229,6 +233,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         position: 'relative',
                         zIndex: 2,
                         gap: '16px',
+                        overflow: 'hidden',
                         ...props.style
                     }}
                 >
@@ -237,6 +242,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                         {/* Home Team */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0, position: 'relative', zIndex: 3 }}>
+                            {homeColor && (
+                                <div style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    top: '32px',
+                                    width: '180px',
+                                    height: '180px',
+                                    background: `radial-gradient(circle, ${homeColor}22 0%, transparent 70%)`,
+                                    transform: 'translate(-50%, -50%)',
+                                    zIndex: -1,
+                                    pointerEvents: 'none'
+                                }} />
+                            )}
                             <TeamLogo logoUrl={homeLogo} teamName={match.home} size={64} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                             <div
                                 onClick={(e) => handleTeamClick(e, match.home)}
@@ -400,6 +418,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
                         {/* Away Team */}
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0, position: 'relative', zIndex: 3 }}>
+                            {awayColor && (
+                                <div style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    top: '32px',
+                                    width: '180px',
+                                    height: '180px',
+                                    background: `radial-gradient(circle, ${awayColor}22 0%, transparent 70%)`,
+                                    transform: 'translate(-50%, -50%)',
+                                    zIndex: -1,
+                                    pointerEvents: 'none'
+                                }} />
+                            )}
                             <TeamLogo logoUrl={awayLogo} teamName={match.away} size={64} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                             <div
                                 onClick={(e) => handleTeamClick(e, match.away)}
@@ -614,6 +645,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
+                                {homeColor && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        left: '10px',
+                                        top: '50%',
+                                        width: '140px',
+                                        height: '100px',
+                                        background: `radial-gradient(circle, ${homeColor}26 0%, transparent 70%)`,
+                                        transform: 'translate(-50%, -50%)',
+                                        zIndex: -1,
+                                        pointerEvents: 'none'
+                                    }} />
+                                )}
                                 <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
@@ -639,6 +683,19 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
+                                {awayColor && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        left: '10px',
+                                        top: '50%',
+                                        width: '140px',
+                                        height: '100px',
+                                        background: `radial-gradient(circle, ${awayColor}26 0%, transparent 70%)`,
+                                        transform: 'translate(-50%, -50%)',
+                                        zIndex: -1,
+                                        pointerEvents: 'none'
+                                    }} />
+                                )}
                                 <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.away)}
