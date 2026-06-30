@@ -82,30 +82,25 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
     const renderEventIcon = (e) => {
         if (e.type === 'halftime') return (
             <div style={{
-                padding: '4px 12px',
-                borderRadius: '16px',
-                border: '2px solid rgba(128, 128, 128, 0.25)',
-                backgroundColor: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.85rem',
+                fontSize: '0.75rem',
                 fontWeight: '600',
-                color: '#000000',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                color: 'var(--color-text-muted, #888)',
+                padding: '2px 0',
+                letterSpacing: '0.02em',
+                textTransform: 'uppercase'
             }}>
-                Halvtid
+                HT
             </div>
         );
         if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (
             <span style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>⚽</span>
         );
-        if (e.type === 'red-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#e53935', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
-        if (e.type === 'yellow-card') return <div style={{ width: '10px', height: '14px', backgroundColor: '#ffd600', borderRadius: '2px', display: 'inline-block', border: '1px solid rgba(0,0,0,0.2)', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
+        if (e.type === 'red-card') return <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '1px', display: 'inline-block' }} title="Rött kort" />;
+        if (e.type === 'yellow-card') return <div style={{ width: '8px', height: '12px', backgroundColor: '#ffd600', borderRadius: '1px', display: 'inline-block' }} title="Gult kort" />;
         if (e.type === 'substitution') return (
-            <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '-1px' }}>
-                <span style={{ color: '#34c759', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>▲</span>
-                <span style={{ color: '#ff3b30', filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>▼</span>
+            <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '-1.5px', opacity: 0.8 }}>
+                <span style={{ color: '#34c759' }}>▲</span>
+                <span style={{ color: '#ff3b30' }}>▼</span>
                 {e.count > 1 && (
                     <div style={{
                         position: 'absolute',
@@ -168,7 +163,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             {/* Track container mapping 0-100% to 2%-98% of parent */}
             <div style={{ position: 'absolute', top: '50%', left: '2%', right: '2%', height: '4px', transform: 'translateY(-50%)' }}>
                 {/* Gray background */}
-                <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(128,128,128,0.15)', borderRadius: '4px' }} />
+                <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(128,128,128,0.25)', borderRadius: '4px' }} />
 
                 {/* Solid green from start to current minute */}
                 <div style={{ position: 'absolute', left: 0, width: `${currentTrackPct}%`, height: '100%', backgroundColor: '#34c759', borderRadius: '4px', transition: 'width 1s linear' }} />
