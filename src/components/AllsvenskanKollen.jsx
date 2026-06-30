@@ -751,12 +751,14 @@ const AllsvenskanKollen = () => {
                     </button>
                 </div>
                 
-                <nav className="web-nav-links" aria-label="Huvudmeny">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '12px' }}>
                     {SUBTABS.map(tab => (
                         <button 
                             key={tab.id}
-                            className={`web-nav-item ${activeTab === tab.id ? 'active' : ''}`}
+                            type="button"
+                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
                             aria-current={activeTab === tab.id ? 'page' : undefined}
+                            aria-label={tab.label}
                             onClick={() => {
                                 if (selectedMatch) {
                                     setSelectedMatch(null);
@@ -779,11 +781,10 @@ const AllsvenskanKollen = () => {
                                 }
                             }}
                         >
-                            <tab.icon size={20} className="tab-icon" />
-                            <span className="tab-label">{tab.label}</span>
+                            <tab.icon size={20} />
                         </button>
                     ))}
-                </nav>
+                </div>
 
                 <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
                     <button

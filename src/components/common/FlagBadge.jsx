@@ -1,7 +1,18 @@
 import React from 'react';
 import { flagUrl } from '../../utils/flags';
+import { COUNTRY_COLORS } from '../../utils/vmUtils';
 
 const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
+    const getGlowShadow = () => {
+        if (!shadow) return 'none';
+        if (name && COUNTRY_COLORS[name] && codes && codes.length === 1) {
+            return `drop-shadow(0px 8px 16px ${COUNTRY_COLORS[name].bg}66)`;
+        }
+        return 'var(--drop-shadow-flag)';
+    };
+
+    const glowShadow = getGlowShadow();
+
     if (!codes || codes.length === 0) {
         return (
             <div 
@@ -70,7 +81,7 @@ const FlagBadge = ({ codes, name, size = 22, shadow = true, onClick }) => {
                             width: `${imgSize}px`, 
                             height: `${imgSize}px`, 
                             flexShrink: 0,
-                            filter: shadow ? 'var(--drop-shadow-flag)' : 'none'
+                            filter: glowShadow
                         }}>
                             <img 
                                 src={flagUrl(code)} 

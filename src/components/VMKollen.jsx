@@ -5,6 +5,7 @@ import Card from './common/Card';
 import BoldSverige from './BoldSverige';
 import MatchCard from './MatchCard';
 import MatchDetailView from './MatchDetailView';
+import MiniBracketVisualization from './MiniBracketVisualization';
 import DateHeader from './common/DateHeader';
 import EmptyState from './common/EmptyState';
 import SharedMatchTable from './common/SharedMatchTable';
@@ -974,6 +975,11 @@ const VMKollen = () => {
                                                             )}
                                                             <MatchCard match={m} variant={undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={m.status === 'live' ? () => handleCardClick(m) : undefined} onCardClick={m.status === 'live' ? () => handleCardClick(m) : undefined} />
                                                         </div>
+                                                        {m.id >= 73 && m.id <= 104 && (
+                                                            <div style={{ backgroundColor: 'var(--color-card-bg)', borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px', marginTop: '-12px', padding: '16px', paddingTop: '24px', position: 'relative', zIndex: 1, border: 'var(--border)', borderTop: 'none', boxShadow: 'var(--shadow-sm)' }}>
+                                                                <MiniBracketVisualization match={m} combinedMatches={combinedMatches} />
+                                                            </div>
+                                                        )}
                                                         {m.group && renderInlineGroupTable(matchKey, m.group, m.realHome || m.home, m.realAway || m.away, isMatchLiveOrRecentlyFinishedOrSoon(m, isHero))}
                                                     </React.Fragment>
                                                 );
