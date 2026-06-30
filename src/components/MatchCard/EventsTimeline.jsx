@@ -178,7 +178,7 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             </div>
 
             {/* Current minute pin */}
-            {progress > 0 && progress < 100 && (
+            {progress > 0 && progress < 100 && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'Halvtid' && String(match.period) !== '4' && match.status !== 'HALF_TIME' && match.status !== 'HALFTIME' && (
                 <div style={{
                     position: 'absolute',
                     bottom: '50%',
