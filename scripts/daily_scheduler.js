@@ -114,12 +114,6 @@ async function runLiveScrape() {
 // Schedule daily complete scrape at 06:00
 cron.schedule('0 6 * * *', () => {
   runScraper();
-  
-  // Also run the channel scraper
-  log('📺 Running TV channels scraper...');
-  const channelScraper = spawn('node', ['scripts/fetch_channels.js'], { cwd: process.cwd() });
-  channelScraper.stdout.on('data', d => log(`  Channel Scraper: ${d.toString().trim()}`));
-  channelScraper.stderr.on('data', d => log(`  Channel Scraper ERROR: ${d.toString().trim()}`));
 });
 
 log('📅 Daily scheduler started successfully!');
