@@ -218,10 +218,21 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
                 const isCenter = e.side === 'center';
                 const isHome = e.side === 'home';
 
+                let leftStyle = `${pct}%`;
+                if (e.type === 'halftime') {
+                    leftStyle = '50%';
+                } else if (e.minuteStr && (e.minute <= 45 || String(e.minuteStr).startsWith('45+'))) {
+                    // Tvinga första halvlek-händelser att stanna på vänster sida om gapet
+                    leftStyle = `min(${pct}%, calc(50% - 9px))`;
+                } else if (e.minute > 45 && e.type !== 'halftime') {
+                    // Tvinga andra halvlek-händelser att stanna på höger sida om gapet
+                    leftStyle = `max(${pct}%, calc(50% + 9px))`;
+                }
+
                 return (
                     <div key={i} style={{
                         position: 'absolute',
-                        left: `${pct}%`,
+                        left: leftStyle,
                         bottom: isCenter ? '50%' : (isHome ? '50%' : 'auto'),
                         top: isCenter ? 'auto' : (isHome ? 'auto' : '50%'),
                         transform: isCenter ? 'translate(-50%, 50%)' : 'translate(-50%, 0)',

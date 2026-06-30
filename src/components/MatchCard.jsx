@@ -586,13 +586,13 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                     <div style={{
                         display: (computedStatus === 'finished' || computedStatus === 'live') ? 'none' : 'flex',
                         flexDirection: 'row',
-                        width: (computedStatus === 'live' && (isFiltered || filterTeam)) ? '52px' : '72px',
+                        width: '72px',
                         flexShrink: 0,
                         backgroundColor: computedStatus === 'live' ? '#34c759' : 'transparent',
                         minHeight: '60px'
                     }}>
                         {/* Time side */}
-                        {computedStatus !== 'finished' && !(computedStatus === 'live' && (isFiltered || filterTeam)) && (
+                        {computedStatus !== 'finished' && (
                             <div style={{
                                 flex: 1,
                                 display: 'flex',
@@ -620,8 +620,8 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: (isFiltered || filterTeam) ? '100%' : '32px',
-                                backgroundColor: (isFiltered || filterTeam) ? 'transparent' : 'rgba(0,0,0,0.15)',
+                                width: '32px',
+                                backgroundColor: 'rgba(0,0,0,0.15)',
                                 color: '#ffffff',
                                 fontWeight: '700',
                                 fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
@@ -645,19 +645,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
-                                {homeColor && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        left: '10px',
-                                        top: '50%',
-                                        width: '140px',
-                                        height: '100px',
-                                        background: `radial-gradient(circle, ${homeColor}26 0%, transparent 70%)`,
-                                        transform: 'translate(-50%, -50%)',
-                                        zIndex: -1,
-                                        pointerEvents: 'none'
-                                    }} />
-                                )}
                                 <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.home)}
@@ -683,19 +670,6 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
-                                {awayColor && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        left: '10px',
-                                        top: '50%',
-                                        width: '140px',
-                                        height: '100px',
-                                        background: `radial-gradient(circle, ${awayColor}26 0%, transparent 70%)`,
-                                        transform: 'translate(-50%, -50%)',
-                                        zIndex: -1,
-                                        pointerEvents: 'none'
-                                    }} />
-                                )}
                                 <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
                                 <div
                                     onClick={(e) => handleTeamClick(e, match.away)}

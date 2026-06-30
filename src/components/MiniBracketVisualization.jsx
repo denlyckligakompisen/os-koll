@@ -48,44 +48,25 @@ const MiniBracketVisualization = ({ match, combinedMatches }) => {
     if (!opponentMatch) return null;
     
     const isTop = pair.matches[0] === match.id;
-    const topMatch = isTop ? match : opponentMatch;
-    const bottomMatch = isTop ? opponentMatch : match;
-    
+    const getTeamDisplay = (matchObj, side) => {
+        if (!matchObj) return 'TBA';
+        const realName = matchObj[side === 'home' ? 'realHome' : 'realAway'];
+        if (realName) return realName;
+        
+        const name = matchObj[side];
+        if (!name) return 'TBA';
+        if (name.includes('\n')) return name.split('\n')[0];
+        return name;
+    };
+
+    const oppHome = getTeamDisplay(opponentMatch, 'home');
+    const oppAway = getTeamDisplay(opponentMatch, 'away');
+
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '16px', marginBottom: '8px', gap: '8px' }}>
-            {/* Left Column: The two matches */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', opacity: isTop ? 1 : 0.6, transform: isTop ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.3s' }}>
-                    {renderTeamBadge(topMatch.home)}
-                    {renderTeamBadge(topMatch.away)}
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', opacity: !isTop ? 1 : 0.6, transform: !isTop ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.3s' }}>
-                    {renderTeamBadge(bottomMatch.home)}
-                    {renderTeamBadge(bottomMatch.away)}
-                </div>
-            </div>
-            
-            {/* Middle Column: SVG Connector */}
-            <div style={{ width: '40px', height: '96px', flexShrink: 0 }}>
-                <svg width="40" height="96" viewBox="0 0 40 96">
-                    <path d="M 0 20 L 20 20 L 20 76 L 0 76 M 20 48 L 40 48" stroke="rgba(128,128,128,0.4)" strokeWidth="2" fill="none" />
-                </svg>
-            </div>
-            
-            {/* Right Column: Next match placeholder */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                {nextMatch ? (
-                    <>
-                        {renderTeamBadge(nextMatch.home)}
-                        {renderTeamBadge(nextMatch.away)}
-                    </>
-                ) : (
-                    <>
-                        <FlagBadge size={32} shadow={true} />
-                        <FlagBadge size={32} shadow={true} />
-                    </>
-                )}
-            </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '4px', marginBottom: '16px' }}>
+            <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', textAlign: 'center', lineHeight: '1.4' }}>
+                Möter vinnaren mellan <strong>{oppHome}</strong> och <strong>{oppAway}</strong>
+            </span>
         </div>
     );
 };

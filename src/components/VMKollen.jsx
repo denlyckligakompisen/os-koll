@@ -976,7 +976,7 @@ const VMKollen = () => {
                                                             <MatchCard match={m} variant={undefined} idx={i} filterTeam={filterCountries.length === 1 ? filterCountries[0] : null} isFiltered={filterCountries.length > 0} homeRank={getTeamRank(m.realHome || m.home)} awayRank={getTeamRank(m.realAway || m.away)} onGroupClick={m.status === 'live' ? () => handleCardClick(m) : undefined} onCardClick={m.status === 'live' ? () => handleCardClick(m) : undefined} />
                                                         </div>
                                                         {m.id >= 73 && m.id <= 104 && (
-                                                            <div style={{ backgroundColor: 'var(--color-card-bg)', borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px', marginTop: '-12px', padding: '16px', paddingTop: '24px', position: 'relative', zIndex: 1, border: 'var(--border)', borderTop: 'none', boxShadow: 'var(--shadow-sm)' }}>
+                                                            <div style={{ marginTop: '4px', position: 'relative', zIndex: 1 }}>
                                                                 <MiniBracketVisualization match={m} combinedMatches={combinedMatches} />
                                                             </div>
                                                         )}
