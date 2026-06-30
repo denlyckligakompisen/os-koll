@@ -696,8 +696,26 @@ const VMKollen = () => {
             return false;
         };
 
+        const ROUND_NAMES = {
+            "Sextondelsfinal": "Sextondelsfinal",
+            "Åttondelsfinal": "Åttondelsfinal",
+            "Kvartsfinal": "Kvartsfinal",
+            "Semifinal": "Semifinal",
+            "Bronsmatch": "Bronsmatch",
+            "Final": "Final"
+        };
 
-        let localGroupedMatches = {};
+        const ROUND_ORDER = [
+            "Gruppspel",
+            "Sextondelsfinal",
+            "Åttondelsfinal",
+            "Kvartsfinal",
+            "Semifinal",
+            "Bronsmatch",
+            "Final"
+        ];
+        
+        let roundsMap = new Map();
         Object.keys(groupedMatches).forEach(date => {
             groupedMatches[date].forEach(m => {
                 const startMs = m.startTimestamp ? m.startTimestamp * 1000 : parseTournamentDate(m.date, m.time, GROUP_MONTH_MAP).getTime();
@@ -729,64 +747,60 @@ const VMKollen = () => {
                             targetDate = date.replace('_night', '');
                         }
                     }
-                    if (!localGroupedMatches[targetDate]) {
-                        localGroupedMatches[targetDate] = [];
+                    
+                    const roundKey = m.isKnockout && m.roundName ? m.roundName : "Gruppspel";
+
+                    if (!roundsMap.has(roundKey)) {
+                        roundsMap.set(roundKey, new Map());
                     }
-                    localGroupedMatches[targetDate].push(m);
+                    const roundDates = roundsMap.get(roundKey);
+                    if (!roundDates.has(targetDate)) {
+                        roundDates.set(targetDate, []);
+                    }
+                    roundDates.get(targetDate).push(m);
                 }
             });
         });
 
-        let sortedDates = Object.keys(localGroupedMatches).sort((a, b) => {
-            const dateA = a.replace('_night', '');
-            const dateB = b.replace('_night', '');
-            const diff = parseTournamentDate(dateA, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(dateB, '00:00', GROUP_MONTH_MAP);
-            if (diff !== 0) return diff;
-            if (a.includes('_night') && !b.includes('_night')) return -1;
-            if (!a.includes('_night') && b.includes('_night')) return 1;
-            return 0;
-        });
-
-        if (matchStatusFilter === 'played') {
-            sortedDates.reverse();
-        }
-
-        const ROUND_NAMES = {
-            "Sextondelsfinal": "Sextondelsfinal",
-            "Åttondelsfinal": "Åttondelsfinal",
-            "Kvartsfinal": "Kvartsfinal",
-            "Semifinal": "Semifinal",
-            "Bronsmatch": "Bronsmatch",
-            "Final": "Final"
-        };
-
         const roundsData = [];
-        let currentRound = null;
-        let currentRoundDates = [];
-
-        sortedDates.forEach((date) => {
-            const matches = localGroupedMatches[date];
-            const firstMatch = matches[0];
-            let roundKey = "Gruppspel";
-
-            if (firstMatch.isKnockout && firstMatch.roundName) {
-                roundKey = firstMatch.roundName;
-            }
-
-            if (roundKey !== currentRound) {
-                if (currentRound !== null) {
-                    roundsData.push({ roundKey: currentRound, dates: currentRoundDates });
+        const allRounds = new Set(roundsMap.keys());
+        
+        ROUND_ORDER.forEach(r => {
+            if (roundsMap.has(r)) {
+                allRounds.delete(r);
+                const datesMap = roundsMap.get(r);
+                let sortedDates = Array.from(datesMap.keys()).sort((a, b) => {
+                    const dateA = a.replace('_night', '');
+                    const dateB = b.replace('_night', '');
+                    const diff = parseTournamentDate(dateA, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(dateB, '00:00', GROUP_MONTH_MAP);
+                    if (diff !== 0) return diff;
+                    if (a.includes('_night') && !b.includes('_night')) return -1;
+                    if (!a.includes('_night') && b.includes('_night')) return 1;
+                    return 0;
+                });
+                if (matchStatusFilter === 'played') {
+                    sortedDates.reverse();
                 }
-                currentRound = roundKey;
-                currentRoundDates = [date];
-            } else {
-                currentRoundDates.push(date);
+                roundsData.push({ roundKey: r, dates: sortedDates, matchesByDate: datesMap });
             }
         });
-
-        if (currentRound !== null) {
-            roundsData.push({ roundKey: currentRound, dates: currentRoundDates });
-        }
+        
+        allRounds.forEach(r => {
+            const datesMap = roundsMap.get(r);
+            let sortedDates = Array.from(datesMap.keys()).sort((a, b) => {
+                const dateA = a.replace('_night', '');
+                const dateB = b.replace('_night', '');
+                const diff = parseTournamentDate(dateA, '00:00', GROUP_MONTH_MAP) - parseTournamentDate(dateB, '00:00', GROUP_MONTH_MAP);
+                if (diff !== 0) return diff;
+                if (a.includes('_night') && !b.includes('_night')) return -1;
+                if (!a.includes('_night') && b.includes('_night')) return 1;
+                return 0;
+            });
+            if (matchStatusFilter === 'played') {
+                sortedDates.reverse();
+            }
+            roundsData.push({ roundKey: r, dates: sortedDates, matchesByDate: datesMap });
+        });
 
         const firstPlayoffIndex = roundsData.findIndex(r => r.roundKey !== "Gruppspel");
 
@@ -815,7 +829,7 @@ const VMKollen = () => {
                                 </div>
                             )}
                             {roundObj.dates.map((date) => {
-                                const matches = localGroupedMatches[date];
+                                const matches = roundObj.matchesByDate.get(date);
                                 return (
                                     <React.Fragment key={date}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

@@ -105,7 +105,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         }
     };
 
-    const renderTeamName = (name, align = 'center') => {
+    const renderTeamName = (name, align = 'center', rank = null) => {
         if (!name) return null;
         let topText = null;
         let mainName = cleanTeamNameForDisplay(name);
@@ -120,17 +120,20 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align, minWidth: 0, width: '100%' }}>
                 {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 'normal', letterSpacing: '0.06em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>{topText}</span>}
-                <span style={{
-                    fontWeight: 'inherit',
-                    hyphens: align === 'center' ? 'auto' : 'none',
-                    WebkitHyphens: align === 'center' ? 'auto' : 'none',
-                    wordBreak: align === 'center' ? 'break-word' : 'normal',
-                    textWrap: align === 'center' ? 'balance' : 'nowrap',
-                    maxWidth: '100%',
-                    whiteSpace: align === 'center' ? 'normal' : 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                }}>{mainName}</span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', justifyContent: align === 'center' ? 'center' : (align === 'right' ? 'flex-end' : 'flex-start'), maxWidth: '100%' }}>
+                    <span style={{
+                        fontWeight: 'inherit',
+                        hyphens: align === 'center' ? 'auto' : 'none',
+                        WebkitHyphens: align === 'center' ? 'auto' : 'none',
+                        wordBreak: align === 'center' ? 'break-word' : 'normal',
+                        textWrap: align === 'center' ? 'balance' : 'nowrap',
+                        maxWidth: '100%',
+                        whiteSpace: align === 'center' ? 'normal' : 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                    }}>{mainName}</span>
+                    {rank && <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 'normal', opacity: 0.8 }}>#{rank}</span>}
+                </div>
             </div>
         );
     };
@@ -244,7 +247,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                     width: '100%'
                                 }}>
-                                {renderTeamName(match.home, 'center')}
+                                {renderTeamName(match.home, 'center', homeRank)}
                             </div>
                             {/* Form badges */}
                             {allMatches && homeForm.length > 0 && computedStatus !== 'live' && (
@@ -407,7 +410,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                     width: '100%'
                                 }}>
-                                {renderTeamName(match.away, 'center')}
+                                {renderTeamName(match.away, 'center', awayRank)}
                             </div>
                             {/* Form badges */}
                             {allMatches && awayForm.length > 0 && computedStatus !== 'live' && (
@@ -623,7 +626,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         minWidth: 0,
                                         flex: 1
                                     }}>
-                                    {renderTeamName(match.home, 'left')}
+                                    {renderTeamName(match.home, 'left', homeRank)}
                                 </div>
                             </div>
                         </div>
@@ -648,7 +651,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                         minWidth: 0,
                                         flex: 1
                                     }}>
-                                    {renderTeamName(match.away, 'left')}
+                                    {renderTeamName(match.away, 'left', awayRank)}
                                 </div>
                             </div>
                         </div>
