@@ -229,18 +229,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         ...props.style
                     }}
                 >
-                    {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && ((match.group.toLowerCase().includes('final') || match.group.toLowerCase().includes('brons')) || (!filterTeam && !props.isFiltered)) && (
-                        <div style={{
-                            fontSize: '0.75rem',
-                            fontWeight: '600',
-                            color: 'var(--color-text-muted)',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.05em',
-                            marginBottom: '4px'
-                        }}>
-                            {match.group}
-                        </div>
-                    )}
+
                     <div style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between', gap: '8px', position: 'relative' }}>
 
                         {/* Home Team */}
@@ -556,18 +545,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         <span className="sr-only">Se höjdpunkter på SVT Play</span>
                     </a>
                 )}
-                {match.group && !match.group.toLowerCase().includes('grupp') && !props.hideGroup && ((match.group.toLowerCase().includes('final') || match.group.toLowerCase().includes('brons')) || (!filterTeam && !props.isFiltered)) && (
-                    <div style={{
-                        fontSize: '0.65rem',
-                        fontWeight: '600',
-                        color: 'var(--color-text-muted)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                        padding: '12px 12px 0 12px'
-                    }}>
-                        {match.group}
-                    </div>
-                )}
+
                 <div style={{ display: 'flex', width: '100%', alignItems: 'stretch' }}>
 
                     {/* Left Block: Time and Score */}

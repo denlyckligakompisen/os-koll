@@ -245,7 +245,7 @@ const STAGE_MAP = {
 };
 
 const STAGE_NAMES = {
-    'r32': '1/16-final',
+    'r32': 'Sextondelsfinal',
     'r16': 'Åttondelsfinal',
     'qf': 'Kvartsfinal',
     'sf': 'Semifinal',

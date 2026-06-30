@@ -752,10 +752,10 @@ const VMKollen = () => {
         }
 
         const ROUND_NAMES = {
-            "1/16-final": "Sextondelsfinaler",
-            "1/8-final": "Åttondelsfinaler",
-            "Kvartsfinal": "Kvartsfinaler",
-            "Semifinal": "Semifinaler",
+            "Sextondelsfinal": "Sextondelsfinal",
+            "Åttondelsfinal": "Åttondelsfinal",
+            "Kvartsfinal": "Kvartsfinal",
+            "Semifinal": "Semifinal",
             "Bronsmatch": "Bronsmatch",
             "Final": "Final"
         };
@@ -800,7 +800,20 @@ const VMKollen = () => {
                     const roundHeader = roundObj.roundKey === "Gruppspel" ? "Gruppspel" : (ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey);
                     return (
                         <div key={roundObj.roundKey} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-
+                            {roundObj.roundKey !== "Gruppspel" && (
+                                <div style={{
+                                    fontSize: '0.85rem',
+                                    fontWeight: '600',
+                                    color: 'var(--color-text-muted)',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em',
+                                    marginTop: '8px',
+                                    marginBottom: '-16px',
+                                    paddingLeft: '4px'
+                                }}>
+                                    {ROUND_NAMES[roundObj.roundKey] || roundObj.roundKey}
+                                </div>
+                            )}
                             {roundObj.dates.map((date) => {
                                 const matches = localGroupedMatches[date];
                                 return (
