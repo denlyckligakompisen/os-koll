@@ -133,7 +133,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         overflow: 'hidden',
                         textOverflow: 'ellipsis'
                     }}>{mainName}</span>
-                    {rank && <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '400', opacity: 0.6 }}>#{rank}</span>}
+                    {rank && <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '400', opacity: 0.6, whiteSpace: 'nowrap' }}>#{rank}</span>}
                 </div>
             </div>
         );
@@ -603,6 +603,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 color: (computedStatus === 'live' && !props.isTableView) ? '#ffffff' : 'var(--color-text)',
                                 fontWeight: '600',
                                 fontSize: (computedStatus === 'live' && !props.isTableView) ? '1rem' : '0.85rem',
+                                fontVariantNumeric: 'tabular-nums',
                                 gap: '3px'
                             }}>
                                 <span>{props.isTableView ? displayTime : (computedStatus === 'live' ? formatLiveTime(match.liveCurrentTime, match.period) :

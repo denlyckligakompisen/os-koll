@@ -1,6 +1,5 @@
 import React from 'react';
-import FlagBadge from './common/FlagBadge';
-import { getFlagCode } from '../utils/flags';
+
 
 const BRACKET_PAIRS = [
     { matches: [74, 77], next: 89 },
@@ -65,7 +64,7 @@ const MiniBracketVisualization = ({ match, combinedMatches }) => {
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '4px', marginBottom: '16px' }}>
             <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', textAlign: 'center', lineHeight: '1.4' }}>
-                Möter vinnaren mellan <strong>{oppHome}</strong> och <strong>{oppAway}</strong>
+                Möter vinnaren mellan <strong style={{ color: 'var(--color-text)' }}>{oppHome}</strong> och <strong style={{ color: 'var(--color-text)' }}>{oppAway}</strong>
             </span>
         </div>
     );
