@@ -24,23 +24,25 @@ const MatchCardSkeleton = ({ highlight = false }) => {
     }
 
     return (
-        <Card padding="12px 14px" style={{ marginBottom: '8px', display: 'flex', minHeight: '80px', alignItems: 'center' }}>
-            <div style={{ display: 'flex', width: '100%', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
-                {/* Home Team */}
-                <div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: '8px', justifyContent: 'flex-end' }}>
-                    <div className="skeleton" style={{ width: '60px', height: '14px', borderRadius: '4px' }} />
-                    <div className="skeleton" style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0 }} />
+        <Card padding="0px" style={{ marginBottom: '8px', minHeight: '80px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', width: '100%', alignItems: 'stretch' }}>
+                {/* Left Block: Time */}
+                <div style={{ width: '72px', flexShrink: 0, padding: '16px 4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="skeleton" style={{ width: '40px', height: '14px', borderRadius: '4px' }} />
                 </div>
-                
-                {/* Center Score Block */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '120px', flexShrink: 0 }}>
-                    <div className="skeleton" style={{ width: '80px', height: '44px', borderRadius: '16px' }} />
-                </div>
-                
-                {/* Away Team */}
-                <div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: '8px', justifyContent: 'flex-start' }}>
-                    <div className="skeleton" style={{ width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0 }} />
-                    <div className="skeleton" style={{ width: '60px', height: '14px', borderRadius: '4px' }} />
+
+                {/* Right Block: Teams */}
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: '12px', padding: '16px 16px 16px 0' }}>
+                    {/* Home Team */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div className="skeleton" style={{ width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0 }} />
+                        <div className="skeleton" style={{ width: '120px', height: '14px', borderRadius: '4px' }} />
+                    </div>
+                    {/* Away Team */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div className="skeleton" style={{ width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0 }} />
+                        <div className="skeleton" style={{ width: '100px', height: '14px', borderRadius: '4px' }} />
+                    </div>
                 </div>
             </div>
         </Card>

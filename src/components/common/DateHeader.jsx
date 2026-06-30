@@ -12,9 +12,17 @@ const DateHeader = ({ date, monthMap, labelOverride }) => {
             display: 'flex', 
             alignItems: 'center', 
             gap: '8px', 
-            paddingLeft: '4px',
+            padding: '12px 16px',
             color: 'var(--color-text-muted)',
-            marginTop: '8px'
+            marginTop: '8px',
+            position: 'sticky',
+            top: 0,
+            zIndex: 10,
+            margin: '8px -16px 0 -16px',
+            background: 'rgba(242, 242, 246, 0.85)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            borderBottom: '1px solid rgba(0,0,0,0.05)'
         }}>
             <span style={{ 
                 fontSize: '0.8rem', 

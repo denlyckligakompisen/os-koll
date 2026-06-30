@@ -119,7 +119,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
 
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align, minWidth: 0, width: '100%' }}>
+            <div title={mainName} style={{ display: 'flex', flexDirection: 'column', alignItems: align === 'right' ? 'flex-end' : align === 'left' ? 'flex-start' : 'center', textAlign: align, minWidth: 0, width: '100%' }}>
                 {topText && <span style={{ fontSize: (variant === 'hero' || highlight) ? '0.75rem' : '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 'normal', letterSpacing: '0.06em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>{topText}</span>}
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', justifyContent: align === 'center' ? 'center' : (align === 'right' ? 'flex-end' : 'flex-start'), maxWidth: '100%' }}>
                     <span style={{
@@ -600,7 +600,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 padding: '4px',
-                                color: (computedStatus === 'live' && !props.isTableView) ? '#ffffff' : 'var(--color-text)',
+                                color: (computedStatus === 'live' && !props.isTableView) ? '#000000' : 'var(--color-text)',
                                 fontWeight: '600',
                                 fontSize: (computedStatus === 'live' && !props.isTableView) ? '1rem' : '0.85rem',
                                 fontVariantNumeric: 'tabular-nums',

@@ -93,10 +93,10 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             </div>
         );
         if (e.type === 'goal' || e.type === 'penalty-goal' || e.type === 'own-goal') return (
-            <span style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>⚽</span>
+            <span role="img" aria-label={e.type === 'own-goal' ? 'Självmål' : (e.type === 'penalty-goal' ? 'Straffmål' : 'Mål')} style={{ fontSize: '0.8rem', filter: 'grayscale(100%) drop-shadow(0 1px 1px rgba(0,0,0,0.2))' }}>⚽</span>
         );
-        if (e.type === 'red-card') return <div style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '1px', display: 'inline-block' }} title="Rött kort" />;
-        if (e.type === 'yellow-card') return <div style={{ width: '8px', height: '12px', backgroundColor: '#ffd600', borderRadius: '1px', display: 'inline-block' }} title="Gult kort" />;
+        if (e.type === 'red-card') return <div role="img" aria-label="Rött kort" style={{ width: '8px', height: '12px', backgroundColor: '#e53935', borderRadius: '1px', display: 'inline-block', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Rött kort" />;
+        if (e.type === 'yellow-card') return <div role="img" aria-label="Gult kort" style={{ width: '8px', height: '12px', backgroundColor: '#ffd600', borderRadius: '1px', display: 'inline-block', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }} title="Gult kort" />;
         if (e.type === 'substitution') return (
             <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', fontSize: '0.65rem', letterSpacing: '-1.5px', opacity: 0.8 }}>
                 <span style={{ color: '#34c759' }}>▲</span>

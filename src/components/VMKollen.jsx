@@ -33,6 +33,7 @@ const VMKollen = () => {
     const { groupsData, matchesData, knockoutData, rankingData, loading, fetchAllData } = useVMData();
     const [matchStatusFilter, setMatchStatusFilter] = useState('upcoming');
     const [filterCountries, setFilterCountries] = useState([]);
+    const [selectedGroupFilter, setSelectedGroupFilter] = useState('Alla');
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const filterRef = useRef(null);
 
@@ -627,10 +628,50 @@ const VMKollen = () => {
                 return <EmptyState />;
             }
 
+            if (selectedGroupFilter !== 'Alla') {
+                groupsToRender = groupsToRender.filter(g => g.name === selectedGroupFilter);
+            }
+
             const playoffMatches = matchesToRender.filter(m => !m.group || m.group.toLowerCase().includes('slutspel') || m.isKnockout);
 
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                    {filterCountries.length === 0 && (
+                        <div className="hide-scrollbar" style={{
+                            display: 'flex',
+                            gap: '8px',
+                            overflowX: 'auto',
+                            padding: '4px 16px 16px 16px',
+                            margin: '0 -16px -24px -16px',
+                            scrollSnapType: 'x mandatory',
+                            WebkitOverflowScrolling: 'touch',
+                            maxWidth: 'calc(100% + 32px)'
+                        }}>
+                            {['Alla', ...groupsData.groups.map(g => g.name)].map(groupName => (
+                                <button
+                                    key={groupName}
+                                    onClick={() => setSelectedGroupFilter(groupName)}
+                                    style={{
+                                        scrollSnapAlign: 'start',
+                                        padding: '8px 16px',
+                                        borderRadius: '20px',
+                                        border: '1px solid rgba(0,0,0,0.05)',
+                                        background: selectedGroupFilter === groupName ? 'var(--color-primary)' : 'var(--color-card-bg)',
+                                        color: selectedGroupFilter === groupName ? '#ffffff' : 'var(--color-text)',
+                                        fontWeight: selectedGroupFilter === groupName ? '600' : '500',
+                                        fontSize: '0.85rem',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        cursor: 'pointer',
+                                        boxShadow: selectedGroupFilter === groupName ? '0 2px 8px rgba(0,0,0,0.15)' : '0 1px 2px rgba(0,0,0,0.02)'
+                                    }}
+                                >
+                                    {groupName.replace('Grupp ', 'Grupp ')}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    
                     {groupsToRender.map(group => {
                         const groupMatches = matchesToRender.filter(m => m.group === group.name && !m.isKnockout);
                         
