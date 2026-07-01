@@ -176,40 +176,32 @@ const EventsTimeline = ({ match, progress, showEmptyTimeline, compact }) => {
             {progress > 0 && progress < 100 && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'Halvtid' && String(match.period) !== '4' && match.status !== 'HALF_TIME' && match.status !== 'HALFTIME' && (
                 <div style={{
                     position: 'absolute',
-                    bottom: '50%',
+                    top: '50%',
                     left: `${2 + currentTrackPct * 0.96}%`,
-                    transform: 'translateX(-50%)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    transform: 'translate(-50%, -50%)',
                     zIndex: 15,
                     transition: 'left 1s linear'
                 }}>
                     <div style={{
-                        width: '36px',
-                        height: '36px',
-                        borderRadius: '50%',
-                        border: '2px solid rgba(128,128,128,0.25)',
-                        backgroundColor: 'var(--color-card-bg)',
+                        height: '16px',
+                        padding: '0 5px',
+                        borderRadius: '8px',
+                        border: '2px solid var(--color-card-bg)',
+                        backgroundColor: '#34c759',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '0.75rem',
-                        fontWeight: '600',
+                        fontSize: '0.65rem',
+                        fontWeight: '700',
                         fontVariantNumeric: 'tabular-nums',
-                        color: 'var(--color-text)',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                        color: 'white',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                        whiteSpace: 'nowrap'
                     }}>
                         {match.liveCurrentTime && match.liveCurrentTime !== 'HT' && match.liveCurrentTime !== 'FT'
                             ? (String(match.liveCurrentTime).includes("'") ? match.liveCurrentTime : `${match.liveCurrentTime}'`)
                             : ''}
                     </div>
-                    <div style={{
-                        width: '2px',
-                        height: '10px', /* Kortare streck */
-                        backgroundColor: 'rgba(128,128,128,0.25)',
-                        marginTop: '-1px'
-                    }} />
                 </div>
             )}
 

@@ -48,6 +48,10 @@ const PitchLineup = ({ match }) => {
                                     objectPosition: 'top',
                                     transform: 'scale(4.0) translateY(30%)'
                                 }}
+                                width={32}
+                                height={32}
+                                loading="lazy"
+                                decoding="async"
                                 onError={(e) => {
                                     e.target.style.display = 'none';
                                     if (e.target.nextElementSibling) {
