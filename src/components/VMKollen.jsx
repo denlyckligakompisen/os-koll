@@ -12,11 +12,9 @@ import SharedMatchTable from './common/SharedMatchTable';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import NavIconButton from './common/NavIconButton';
-import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List, Trophy } from 'lucide-react';
+import BottomTabBar from './common/BottomTabBar';
+import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List, Trophy, Calendar } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import EventIcon from '@mui/icons-material/Event';
 import PublicIcon from '@mui/icons-material/Public';
 import CheckIcon from '@mui/icons-material/Check';
 
@@ -1063,6 +1061,7 @@ const VMKollen = () => {
 
 
     return (
+        <>
         <div
             className="page-transition"
             style={{ minHeight: '100vh', paddingBottom: '24px' }}
@@ -1115,47 +1114,6 @@ const VMKollen = () => {
                                 }}
                             />
                         </button>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '6px' }}>
-                        <NavIconButton
-                            active={!showBracketModal && matchStatusFilter === 'upcoming'}
-                            onClick={() => {
-                                if (selectedMatch) setSelectedMatch(null);
-                                setShowBracketModal(false);
-                                setMatchStatusFilter('upcoming');
-                            }}
-                            label="Visa kommande matcher"
-                            title="Kommande matcher"
-                        >
-                            <EventIcon fontSize="small" />
-                        </NavIconButton>
-
-                        <NavIconButton
-                            active={showBracketModal}
-                            onClick={() => {
-                                if (selectedMatch) setSelectedMatch(null);
-                                setShowBracketModal(true);
-                            }}
-                            label="Visa slutspelsträd"
-                            title="Slutspelsträd"
-                        >
-                            <Trophy size={18} style={{ transform: 'translateX(-0.5px)' }} />
-                        </NavIconButton>
-
-                        {combinedMatches.length > 0 && (
-                            <NavIconButton
-                                active={!showBracketModal && matchStatusFilter === 'played'}
-                                onClick={() => {
-                                    if (selectedMatch) setSelectedMatch(null);
-                                    setShowBracketModal(false);
-                                    setMatchStatusFilter('played');
-                                }}
-                                title="Visa grupper och tabeller"
-                            >
-                                <FormatListBulletedIcon fontSize="small" />
-                            </NavIconButton>
-                        )}
                     </div>
 
                     <div style={{
@@ -1429,10 +1387,26 @@ const VMKollen = () => {
                     </div>
                 </div>
             )}
-            
-
-            
         </div>
+
+            <BottomTabBar
+                tabs={[
+                    { id: 'upcoming', label: 'Matcher', icon: Calendar },
+                    { id: 'bracket', label: 'Slutspel', icon: Trophy },
+                    ...(combinedMatches.length > 0 ? [{ id: 'played', label: 'Grupper', icon: List }] : [])
+                ]}
+                activeId={showBracketModal ? 'bracket' : matchStatusFilter}
+                onSelect={(tabId) => {
+                    if (selectedMatch) setSelectedMatch(null);
+                    if (tabId === 'bracket') {
+                        setShowBracketModal(true);
+                    } else {
+                        setShowBracketModal(false);
+                        setMatchStatusFilter(tabId);
+                    }
+                }}
+            />
+        </>
     );
 };
 

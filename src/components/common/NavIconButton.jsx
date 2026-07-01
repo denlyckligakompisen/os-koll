@@ -1,11 +1,11 @@
 import React from 'react';
 
-const NavIconButton = ({ active, onClick, label, title, style, children, activeColor }) => {
-    return (
+const NavIconButton = ({ active, onClick, label, title, style, children, activeColor, showLabel }) => {
+    const button = (
         <button
             type="button"
             onClick={onClick}
-            aria-label={label}
+            aria-label={showLabel ? undefined : label}
             aria-current={active ? 'page' : undefined}
             title={title}
             style={{
@@ -26,6 +26,24 @@ const NavIconButton = ({ active, onClick, label, title, style, children, activeC
         >
             {children}
         </button>
+    );
+
+    if (!showLabel) return button;
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+            {button}
+            <span style={{
+                fontSize: '0.6rem',
+                fontWeight: active ? '600' : '500',
+                color: active ? (activeColor || 'var(--color-primary)') : 'var(--color-text-muted)',
+                lineHeight: 1,
+                transition: 'color 0.2s ease',
+                whiteSpace: 'nowrap'
+            }}>
+                {label}
+            </span>
+        </div>
     );
 };
 

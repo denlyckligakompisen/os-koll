@@ -9,7 +9,7 @@ import TeamLogo from './MatchCard/TeamLogo';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import BoldSverige from './BoldSverige';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
-import NavIconButton from './common/NavIconButton';
+import BottomTabBar from './common/BottomTabBar';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
@@ -693,7 +693,8 @@ const AllsvenskanKollen = () => {
 
 
     return (
-        <div 
+        <>
+        <div
             className="page-transition"
             style={{ paddingBottom: '24px' }}
         >
@@ -736,40 +737,6 @@ const AllsvenskanKollen = () => {
                         >
                             <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan" style={{ height: '34px', objectFit: 'contain' }} />
                         </button>
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '6px' }}>
-                        {SUBTABS.map(tab => (
-                            <NavIconButton
-                                key={tab.id}
-                                active={activeTab === tab.id}
-                                activeColor={filterTeam ? headerStyle.bg : undefined}
-                                label={tab.label}
-                                onClick={() => {
-                                    if (selectedMatch) {
-                                        setSelectedMatch(null);
-                                    }
-                                    if (tab.id === 'matcher' && activeTab === 'matcher') {
-                                        if (nextMatchRef.current) {
-                                            nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                        } else {
-                                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        }
-                                    } else {
-                                        setActiveTab(tab.id);
-                                        if (tab.id === 'gruppspel') {
-                                            setSelectedSeason(2026);
-                                            if (selectedSeason === 2026 && matchesData) {
-                                                setCurrentRoundSliderVal(maxPlayedRound);
-                                            }
-                                        }
-                                        window.scrollTo({ top: 0 });
-                                    }
-                                }}
-                            >
-                                <tab.icon size={18} />
-                            </NavIconButton>
-                        ))}
                     </div>
 
                     <div style={{
@@ -1591,6 +1558,34 @@ const AllsvenskanKollen = () => {
                 </div>
             )}
         </div>
+
+            <BottomTabBar
+                tabs={SUBTABS}
+                activeId={activeTab}
+                activeColor={filterTeam ? headerStyle.bg : undefined}
+                onSelect={(tabId) => {
+                    if (selectedMatch) {
+                        setSelectedMatch(null);
+                    }
+                    if (tabId === 'matcher' && activeTab === 'matcher') {
+                        if (nextMatchRef.current) {
+                            nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    } else {
+                        setActiveTab(tabId);
+                        if (tabId === 'gruppspel') {
+                            setSelectedSeason(2026);
+                            if (selectedSeason === 2026 && matchesData) {
+                                setCurrentRoundSliderVal(maxPlayedRound);
+                            }
+                        }
+                        window.scrollTo({ top: 0 });
+                    }
+                }}
+            />
+        </>
     );
 };
 

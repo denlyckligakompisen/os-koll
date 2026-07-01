@@ -127,9 +127,26 @@ h1, h2, h3, h4, h5, h6 {
 #root {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   padding-bottom: calc(100px + env(safe-area-inset-bottom));
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+.bottom-tab-bar-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@supports (height: 100dvh) {
+  .bottom-tab-bar-wrapper {
+    top: calc(100dvh - env(safe-area-inset-bottom, 0px));
+    bottom: auto;
+    transform: translateY(-100%);
+  }
 }
 
 /* =============================================
