@@ -51,7 +51,7 @@ const MiniBracketVisualization = ({ match, combinedMatches }) => {
         if (!matchObj) return 'TBA';
         const realName = matchObj[side === 'home' ? 'realHome' : 'realAway'];
         if (realName) return realName;
-        
+
         const name = matchObj[side];
         if (!name) return 'TBA';
         if (name.includes('\n')) return name.split('\n')[0];
@@ -61,10 +61,24 @@ const MiniBracketVisualization = ({ match, combinedMatches }) => {
     const oppHome = getTeamDisplay(opponentMatch, 'home');
     const oppAway = getTeamDisplay(opponentMatch, 'away');
 
+    const getWinner = (matchObj, homeName, awayName) => {
+        if (!matchObj || matchObj.status !== 'finished') return null;
+        if (matchObj.homeScore == null || matchObj.awayScore == null) return null;
+        if (matchObj.homeScore > matchObj.awayScore) return homeName;
+        if (matchObj.awayScore > matchObj.homeScore) return awayName;
+        return null; // penalties/unknown tiebreak not modeled here
+    };
+
+    const winner = getWinner(opponentMatch, oppHome, oppAway);
+
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '4px', marginBottom: '16px' }}>
             <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', textAlign: 'center', lineHeight: '1.4' }}>
-                Möter vinnaren mellan <strong style={{ color: 'var(--color-text)' }}>{oppHome}</strong> och <strong style={{ color: 'var(--color-text)' }}>{oppAway}</strong>
+                {winner ? (
+                    <>Möter <strong style={{ color: 'var(--color-text)' }}>{winner}</strong></>
+                ) : (
+                    <>Möter vinnaren mellan <strong style={{ color: 'var(--color-text)' }}>{oppHome}</strong> och <strong style={{ color: 'var(--color-text)' }}>{oppAway}</strong></>
+                )}
             </span>
         </div>
     );
