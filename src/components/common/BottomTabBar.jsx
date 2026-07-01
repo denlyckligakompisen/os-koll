@@ -71,23 +71,29 @@ const BottomTabBar = ({ tabs, activeId, onSelect, activeColor }) => {
                             }}
                         >
                             <tab.icon size={22} strokeWidth={active ? 2.2 : 1.8} />
-                            {!active && (
-                                <span style={{
-                                    fontSize: '0.65rem',
-                                    fontWeight: '500',
-                                    lineHeight: 1,
-                                    whiteSpace: 'nowrap'
-                                }}>
-                                    {tab.label}
-                                </span>
-                            )}
-                            <div style={{
-                                width: '4px',
-                                height: '4px',
-                                borderRadius: '50%',
-                                backgroundColor: active ? color : 'transparent',
-                                marginTop: '1px'
-                            }} />
+                            <span style={{
+                                position: 'relative',
+                                fontSize: '0.65rem',
+                                fontWeight: '500',
+                                lineHeight: 1,
+                                whiteSpace: 'nowrap',
+                                visibility: active ? 'hidden' : 'visible'
+                            }}>
+                                {tab.label}
+                                {active && (
+                                    <span style={{
+                                        position: 'absolute',
+                                        left: '50%',
+                                        top: '50%',
+                                        transform: 'translate(-50%, -50%)',
+                                        width: '4px',
+                                        height: '4px',
+                                        borderRadius: '50%',
+                                        backgroundColor: color,
+                                        visibility: 'visible'
+                                    }} />
+                                )}
+                            </span>
                         </button>
                     );
                 })}
