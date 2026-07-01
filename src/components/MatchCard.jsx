@@ -17,7 +17,7 @@ import { formatLiveTime, getTeamAbbr } from './MatchCard/utils.jsx';
 import { useMatchStatus } from '../hooks/useMatchStatus';
 import { useTeamForm } from '../hooks/useTeamForm';
 
-const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, isAllsvenskan, ...props }) => {
+const MatchCard = ({ match, idx, homeLogo, awayLogo, highlight, variant, filterTeam, isFiltered, allMatches, homeRank, awayRank, onCardClick, isAllsvenskan, ...props }) => {
     const homeFlags = match.homeFlags || getFlagCodes(match.home);
     const awayFlags = match.awayFlags || getFlagCodes(match.away);
 
@@ -93,20 +93,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
         border: 'none'
     };
 
-    const handleTeamClick = (e, name) => {
-        if (!onTeamClick && !onCountryClick) return;
-        e.preventDefault();
-        e.stopPropagation();
-
-        const cleanName = name.includes('\n') ? name.split('\n')[1] : name;
-        if (onTeamClick) {
-            onTeamClick(cleanName);
-        } else if (onCountryClick) {
-            onCountryClick(cleanName);
-        }
-    };
-
-    const renderTeamName = (name, align = 'center', rank = null) => {
+const renderTeamName = (name, align = 'center', rank = null) => {
         if (!name) return null;
         let topText = null;
         let mainName = cleanTeamNameForDisplay(name);
@@ -255,14 +242,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     pointerEvents: 'none'
                                 }} />
                             )}
-                            <TeamLogo logoUrl={homeLogo} teamName={match.home} size={64} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
+                            <TeamLogo logoUrl={homeLogo} teamName={match.home} size={64} flags={homeFlags} />
                             <div
-                                onClick={(e) => handleTeamClick(e, match.home)}
                                 style={{
                                     fontWeight: isFilteredHome ? 'bold' : '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
-                                    cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                     width: '100%'
                                 }}>
                                 {renderTeamName(match.home, 'center', homeRank)}
@@ -431,14 +416,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                     pointerEvents: 'none'
                                 }} />
                             )}
-                            <TeamLogo logoUrl={awayLogo} teamName={match.away} size={64} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
+                            <TeamLogo logoUrl={awayLogo} teamName={match.away} size={64} flags={awayFlags} />
                             <div
-                                onClick={(e) => handleTeamClick(e, match.away)}
                                 style={{
                                     fontWeight: isFilteredAway ? 'bold' : '500',
                                     fontSize: '1rem',
                                     color: 'var(--color-text)',
-                                    cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                     width: '100%'
                                 }}>
                                 {renderTeamName(match.away, 'center', awayRank)}
@@ -646,14 +629,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
-                                <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} onClick={(e) => handleTeamClick(e, match.home)} />
+                                <TeamLogo logoUrl={homeLogo} teamName={match.home} size={20} flags={homeFlags} />
                                 <div
-                                    onClick={(e) => handleTeamClick(e, match.home)}
                                     style={{
                                         fontWeight: isFilteredHome ? 'bold' : '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
-                                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                         lineHeight: '1.2',
                                         minWidth: 0,
                                         flex: 1
@@ -671,14 +652,12 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                                 </div>
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', minWidth: 0, flex: 1, position: 'relative', zIndex: 3 }}>
-                                <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} onClick={(e) => handleTeamClick(e, match.away)} />
+                                <TeamLogo logoUrl={awayLogo} teamName={match.away} size={20} flags={awayFlags} />
                                 <div
-                                    onClick={(e) => handleTeamClick(e, match.away)}
                                     style={{
                                         fontWeight: isFilteredAway ? 'bold' : '400',
                                         fontSize: '1rem',
                                         color: 'var(--color-text)',
-                                        cursor: (onTeamClick || onCountryClick) ? 'pointer' : 'default',
                                         lineHeight: '1.2',
                                         minWidth: 0,
                                         flex: 1

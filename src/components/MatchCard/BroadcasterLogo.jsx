@@ -24,7 +24,7 @@ const BroadcasterLogo = ({ name, size = 'default', customHeight, transparentMode
         return (
             <svg viewBox="0 0 120 40" height={height} aria-label="SVT" style={{ display: 'block' }}>
                 <rect width="120" height="40" rx="6" fill="#00C800" />
-                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="'Inter', Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">SVT</text>
+                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="-apple-system, Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">SVT</text>
             </svg>
         );
     }
@@ -33,7 +33,7 @@ const BroadcasterLogo = ({ name, size = 'default', customHeight, transparentMode
         return (
             <svg viewBox="0 0 120 40" height={height} aria-label="TV4" style={{ display: 'block' }}>
                 <rect width="120" height="40" rx="6" fill="#E3000B" />
-                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="'Inter', Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">TV4</text>
+                <text x="60" y="29" textAnchor="middle" fill="#ffffff" fontFamily="-apple-system, Arial, sans-serif" fontSize="24" fontWeight="700" letterSpacing="2">TV4</text>
             </svg>
         );
     }

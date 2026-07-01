@@ -997,7 +997,6 @@ const AllsvenskanKollen = () => {
                                                             awayLogo={getTeamLogo(match.away)}
                                                             filterTeam={filterTeam}
                                                             allMatches={matchesData?.matches}
-                                                            onTeamClick={setFilterTeam}
                                                             onCardClick={match.status === 'live' ? () => setSelectedMatch(match) : undefined}
                                                             hideBroadcast={true}
                                                             hideEventsForPlayed={true}
