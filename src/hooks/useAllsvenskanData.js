@@ -1,4 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+const hasActiveMatches = (matches) => {
+    if (!matches) return false;
+    const now = Date.now();
+
+    return matches.some(m => {
+        if (m.status === 'live') return true;
+        if (m.status === 'finished') return false;
+        if (m.startTimestamp) {
+            const startMs = m.startTimestamp * 1000;
+            const diff = startMs - now;
+            if (diff >= -180 * 60 * 1000 && diff <= 0) return true;
+        }
+        return false;
+    });
+};
 
 export const useAllsvenskanData = (selectedSeason) => {
     const [matchesData, setMatchesData] = useState(null);
@@ -10,8 +26,12 @@ export const useAllsvenskanData = (selectedSeason) => {
     const [liveError, setLiveError] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const matchesDataRef = useRef(matchesData);
     useEffect(() => {
-        const fetchData = async (isBackground = false) => {
+        matchesDataRef.current = matchesData;
+    }, [matchesData]);
+
+    const fetchData = useCallback(async (isBackground = false) => {
             try {
                 if (!isBackground) {
                     setIsPlaying(false);
@@ -79,15 +99,7 @@ export const useAllsvenskanData = (selectedSeason) => {
                 // GraphQL Live Updates Integration
                 let cacheUpdated = false;
                 try {
-                    const now = Date.now();
-                    
-                    const isMatchWindowActive = matches?.matches?.some(m => {
-                        if (!m.startTimestamp) return false;
-                        const startMs = m.startTimestamp * 1000;
-                        return now >= startMs - (15 * 60 * 1000) && now <= startMs + (135 * 60 * 1000);
-                    });
-
-                    if (selectedSeason === 2026 && isMatchWindowActive) {
+                    if (selectedSeason === 2026 && hasActiveMatches(matches?.matches)) {
                         const liveQuery = `
                         query {
                           matchesForLeague(configLeagueName: "allsvenskan", configSeasonStartYear: 2026) {
@@ -168,10 +180,13 @@ export const useAllsvenskanData = (selectedSeason) => {
                                             }
                                         });
                                         
+                                        const isHalfTime = liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME';
+                                        const isOngoing = liveMatch.status === 'ONGOING';
                                         const updateData = {
                                             score: `${liveMatch.homeTeamScore} - ${liveMatch.visitingTeamScore}`,
-                                            status: (liveMatch.status === 'ONGOING' || liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME') ? 'live' : 'finished',
-                                            liveCurrentTime: (liveMatch.status === 'HALF_TIME' || liveMatch.status === 'HALFTIME') ? 'HT' : (liveMatch.status === 'ONGOING' ? String(liveMatch.matchMinute) : 'FT'),
+                                            status: (isOngoing || isHalfTime) ? 'live' : 'finished',
+                                            liveCurrentTime: isHalfTime ? 'HT' : (isOngoing ? String(liveMatch.matchMinute) : 'FT'),
+                                            period: isHalfTime ? 4 : (isOngoing ? (liveMatch.matchMinute > 45 ? 2 : 1) : undefined),
                                             scorers: {
                                                 home: homeScorers,
                                                 away: awayScorers
@@ -215,29 +230,47 @@ export const useAllsvenskanData = (selectedSeason) => {
                 console.error(`Error fetching Allsvenskan data for season ${selectedSeason}:`, error);
                 if (!isBackground) setLoading(false);
             }
-        };
+    }, [selectedSeason]);
 
-        fetchData();
+    useEffect(() => {
+        queueMicrotask(() => fetchData());
 
-        let intervalId;
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible' && selectedSeason === 2026) {
                 fetchData(true);
             }
         };
+        const handleFocus = () => {
+            if (selectedSeason === 2026) fetchData(true);
+        };
 
         if (selectedSeason === 2026) {
-            intervalId = setInterval(() => {
-                fetchData(true);
-            }, 60000);
             document.addEventListener('visibilitychange', handleVisibilityChange);
+            window.addEventListener('focus', handleFocus);
+        }
+
+        const pollTimerRef = { current: null };
+        const scheduleNextPoll = () => {
+            if (selectedSeason !== 2026) return;
+            const isActive = hasActiveMatches(matchesDataRef.current?.matches);
+            const interval = isActive ? 30_000 : 300_000; // 30s or 5min
+
+            pollTimerRef.current = setTimeout(async () => {
+                await fetchData(true);
+                scheduleNextPoll();
+            }, interval);
+        };
+
+        if (selectedSeason === 2026) {
+            scheduleNextPoll();
         }
 
         return () => {
-            if (intervalId) clearInterval(intervalId);
+            if (pollTimerRef.current) clearTimeout(pollTimerRef.current);
             document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('focus', handleFocus);
         };
-    }, [selectedSeason]);
+    }, [selectedSeason, fetchData]);
 
     return {
         matchesData,

@@ -21,8 +21,7 @@ const DateHeader = ({ date, monthMap, labelOverride }) => {
             margin: '8px -16px 0 -16px',
             background: 'rgba(242, 242, 246, 0.85)',
             backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            borderBottom: '1px solid rgba(0,0,0,0.05)'
+            WebkitBackdropFilter: 'blur(12px)'
         }}>
             <span style={{ 
                 fontSize: '0.8rem', 

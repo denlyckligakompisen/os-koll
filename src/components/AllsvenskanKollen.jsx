@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from './common/Card';
 import MatchCard from './MatchCard';
@@ -13,8 +13,7 @@ import NavIconButton from './common/NavIconButton';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
-import FilterDrawer from './common/FilterDrawer';
-import HistoryIcon from '@mui/icons-material/History';
+import CheckIcon from '@mui/icons-material/Check';
 import { getRelativeDateLabel } from '../utils/dateUtils';
 import { useSwipeNavigation } from '../utils/navigation';
 import { useAllsvenskanData } from '../hooks/useAllsvenskanData';
@@ -26,16 +25,29 @@ import { parseTournamentDate } from '../utils/dateUtils';
 const AllsvenskanKollen = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('matcher');
-    const [matchStatusFilter, setMatchStatusFilter] = useState('upcoming');
+    const [matchStatusFilter] = useState('upcoming');
     const [statFilter, setStatFilter] = useState('lag');
     const [playerFilter, setPlayerFilter] = useState('maraton');
     const [filterTeam, setFilterTeam] = useState(null);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const filterRef = useRef(null);
     const [navAnchorEl, setNavAnchorEl] = useState(null);
     const [isScrolled, setIsScrolled] = useState(false);
     const tableRefs = React.useRef({});
     const maratonRefs = React.useRef({});
     const nextMatchRef = React.useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setIsFilterOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
     const [error, setError] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(2026);
     const [selectedStatTable, setSelectedStatTable] = useState('2026');
@@ -82,30 +94,8 @@ const AllsvenskanKollen = () => {
         else localStorage.removeItem('allsvenskan-koll-filter');
     }, [filterTeam]);
 
-    const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
-    const handleMenuClose = () => setAnchorEl(null);
     const handleNavMenuClick = (event) => setNavAnchorEl(event.currentTarget);
     const handleNavMenuClose = () => setNavAnchorEl(null);
-
-    const handleTeamClick = (teamName) => {
-        if (filterTeam) return;
-        if (!teamName) return;
-        
-        // Find exact match first
-        let matchedTeam = teams.find(t => t === teamName);
-        
-        // If no exact match, try fuzzy match
-        if (!matchedTeam) {
-            const clean = (n) => n.replace(' IF', '').replace(' FF', '').replace(' BK', '').trim();
-            const cleanedInput = clean(teamName);
-            matchedTeam = teams.find(t => clean(t) === cleanedInput || t.includes(cleanedInput));
-        }
-
-        if (matchedTeam) {
-            setFilterTeam(matchedTeam);
-        }
-        handleMenuClose();
-    };
 
     const getTeamLogo = (name) => {
         if (!name) return null;
@@ -788,31 +778,101 @@ const AllsvenskanKollen = () => {
                         transform: 'translateY(-50%)',
                         zIndex: 10
                     }}>
-                        <button
-                            onClick={(e) => {
-                                e.currentTarget.blur();
-                                if (filterTeam) {
-                                    setFilterTeam(null);
-                                } else {
-                                    handleMenuClick(e);
-                                }
-                            }}
-                            className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
-                            aria-label={filterTeam ? 'Rensa filter' : 'Välj lag att filtrera'}
-                            style={{
-                                height: '100%',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            {filterTeam && getTeamLogo(filterTeam) ? (
-                                <div style={{ position: 'relative' }}>
-                                    <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '34px', width: '34px', objectFit: 'contain' }} />
+                        <div style={{ position: 'relative' }} ref={filterRef}>
+                            {!filterTeam ? (
+                                <div
+                                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                    style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', cursor: 'pointer' }}
+                                >
+                                    <Filter size={24} color="var(--color-text-muted)" strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
                                 </div>
                             ) : (
-                                <Filter size={24} color="var(--color-text-muted)" strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
+                                <div
+                                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                    style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '44px', height: '44px', cursor: 'pointer' }}
+                                >
+                                    <TeamLogo logoUrl={getTeamLogo(filterTeam)} teamName={filterTeam} size={24} />
+                                </div>
                             )}
-                        </button>
+
+                            {isFilterOpen && (
+                                <div className="filter-dropdown-menu" style={{
+                                    position: 'absolute',
+                                    top: '50px',
+                                    right: 0,
+                                    width: '240px',
+                                    maxHeight: '350px',
+                                    overflowY: 'auto',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                                    backdropFilter: 'blur(12px)',
+                                    WebkitBackdropFilter: 'blur(12px)',
+                                    border: '1px solid var(--color-border)',
+                                    borderRadius: '14px',
+                                    boxShadow: '0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+                                    zIndex: 1000,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    padding: '8px'
+                                }}>
+                                    <div
+                                        onClick={() => {
+                                            setFilterTeam(null);
+                                            setIsFilterOpen(false);
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '12px',
+                                            padding: '12px 16px',
+                                            cursor: 'pointer',
+                                            backgroundColor: !filterTeam ? 'var(--color-surface-hover)' : 'transparent',
+                                            transition: 'all 0.2s ease',
+                                            fontWeight: !filterTeam ? '600' : '400',
+                                            borderRadius: '8px',
+                                            color: 'var(--color-text)'
+                                        }}
+                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = !filterTeam ? 'var(--color-surface-hover)' : 'transparent'}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', color: 'var(--color-text-muted)' }}>
+                                            <Filter size={18} strokeWidth={1.5} />
+                                        </div>
+                                        <span style={{ fontSize: '0.95rem', flex: 1 }}>Alla lag</span>
+                                        {!filterTeam && <CheckIcon fontSize="small" style={{ color: 'var(--color-text)' }} />}
+                                    </div>
+                                    {teams.map(team => (
+                                        <div
+                                            key={team}
+                                            onClick={() => {
+                                                setFilterTeam(team);
+                                                setIsFilterOpen(false);
+                                            }}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '12px',
+                                                padding: '12px 16px',
+                                                cursor: 'pointer',
+                                                backgroundColor: filterTeam === team ? 'var(--color-surface-hover)' : 'transparent',
+                                                transition: 'all 0.2s ease',
+                                                fontWeight: filterTeam === team ? '600' : '400',
+                                                borderRadius: '8px',
+                                                color: 'var(--color-text)',
+                                                marginTop: '2px'
+                                            }}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--color-surface-hover)'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = filterTeam === team ? 'var(--color-surface-hover)' : 'transparent'}
+                                        >
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }}>
+                                                <TeamLogo logoUrl={getTeamLogo(team)} teamName={team} size={24} />
+                                            </div>
+                                            <span style={{ fontSize: '0.95rem', flex: 1 }}>{cleanTeamNameForDisplay(team)}</span>
+                                            {filterTeam === team && <CheckIcon fontSize="small" style={{ color: 'var(--color-text)' }} />}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -850,26 +910,6 @@ const AllsvenskanKollen = () => {
             )}
 
 
-            <FilterDrawer 
-                isOpen={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                items={teams.map(team => ({
-                    id: team,
-                    label: cleanTeamNameForDisplay(team),
-                    icon: <TeamLogo logoUrl={getTeamLogo(team)} teamName={team} size={28} />
-                }))}
-                selectedItem={filterTeam ? {
-                    id: filterTeam,
-                    label: cleanTeamNameForDisplay(filterTeam),
-                    icon: <TeamLogo logoUrl={getTeamLogo(filterTeam)} teamName={filterTeam} size={28} />
-                } : null}
-                onSelect={handleTeamClick}
-                onClear={() => {
-                    setFilterTeam(null);
-                    handleMenuClose();
-                }}
-            />
-
 
 
             {selectedMatch ? (
@@ -891,58 +931,6 @@ const AllsvenskanKollen = () => {
                     
                     {activeTab === 'matcher' && (
                         <>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '4px', paddingRight: '8px', marginBottom: '16px' }}>
-                                <div style={{ position: 'relative', width: '100px', flexShrink: 0 }}>
-                                    <select
-                                        value={selectedSeason}
-                                        onChange={(e) => {
-                                            const val = parseInt(e.target.value);
-                                            setSelectedSeason(val);
-                                            if (navigator.vibrate) navigator.vibrate(5);
-                                        }}
-                                        style={{
-                                            width: '100%',
-                                            padding: '8px 32px 8px 12px',
-                                            fontSize: '0.85rem',
-                                            fontWeight: '400',
-                                            color: 'var(--color-text)',
-                                            backgroundColor: 'rgba(0,0,0,0.05)',
-                                            border: '1px solid rgba(0,0,0,0.08)',
-                                            borderRadius: '20px',
-                                            outline: 'none',
-                                            cursor: 'pointer',
-                                            WebkitAppearance: 'none',
-                                            appearance: 'none',
-                                            transition: 'all 0.2s ease',
-                                            boxShadow: 'var(--shadow-sm)'
-                                        }}
-                                    >
-                                        {[2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008].map(yr => (
-                                            <option key={yr} value={yr} style={{ color: '#000', }}>{yr}</option>
-                                        ))}
-                                    </select>
-                                    <div style={{
-                                        position: 'absolute',
-                                        right: '12px',
-                                        top: '50%',
-                                        transform: 'translateY(-50%)',
-                                        pointerEvents: 'none',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        color: 'var(--color-text-muted)'
-                                    }}>
-                                        <ChevronDown size={14} strokeWidth={2.5} />
-                                    </div>
-                                </div>
-
-                                <NavIconButton
-                                    active={matchStatusFilter === 'played'}
-                                    onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
-                                    title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
-                                >
-                                    <HistoryIcon fontSize="small" style={{ transform: 'translateX(-1px)' }} />
-                                </NavIconButton>
-                            </div>
                             {loading ? (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                     <MatchCardSkeleton />
@@ -983,7 +971,7 @@ const AllsvenskanKollen = () => {
                                                             awayLogo={getTeamLogo(match.away)}
                                                             filterTeam={filterTeam}
                                                             allMatches={matchesData?.matches}
-                                                            onCardClick={match.status === 'live' ? () => setSelectedMatch(match) : undefined}
+                                                            onCardClick={(match.status === 'live' || match.status === 'finished') ? () => setSelectedMatch(match) : undefined}
                                                             hideBroadcast={true}
                                                             hideEventsForPlayed={true}
                                                         />

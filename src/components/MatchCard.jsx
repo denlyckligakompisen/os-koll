@@ -35,21 +35,21 @@ const MatchCard = ({ match, idx, homeLogo, awayLogo, highlight, variant, filterT
 
     const displayTime = (isAllsvenskan && match.time === '00:00') ? 'TBA' : (match.time || 'TBA');
 
-    const renderFormBadge = (result, key) => {
+    const renderFormBadge = (result, key, size = 20) => {
         let bg = '#8e8e93';
         if (result === 'V') bg = '#28a745'; // Darker Green for a11y
         else if (result === 'F') bg = '#e53935'; // Darker Red for a11y
 
         return (
             <span key={key} style={{
-                width: '20px', height: '20px',
+                width: `${size}px`, height: `${size}px`,
                 borderRadius: '50%',
                 backgroundColor: bg,
                 color: 'white',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '0.85rem',
+                fontSize: size < 20 ? '0.65rem' : '0.85rem',
                 fontWeight: '600',
                 lineHeight: 1
             }}>
