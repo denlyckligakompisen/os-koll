@@ -136,26 +136,11 @@ h1, h2, h3, h4, h5, h6 {
    Scrollbar Styling
    ============================================= */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.35);
+  display: none;
 }
 
 /* =============================================
@@ -492,50 +477,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =============================================
-   Scroll to Top Button
-   ============================================= */
-.scroll-to-top-btn {
-  position: fixed;
-  bottom: calc(24px + env(safe-area-inset-bottom));
-  right: 24px;
-  z-index: 1100;
-  width: 52px;
-  height: 52px;
-  border-radius: 26px;
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  color: var(--color-text);
-  padding: 0;
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
-}
-
-.scroll-to-top-btn.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.scroll-to-top-btn:hover {
-  transform: scale(1.1);
-  background: #ffffff;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-}
-
-.scroll-to-top-btn:active {
-  transform: scale(0.95);
-}
-
-/* =============================================
    Interactive Micro-animations
    ============================================= */
 button,
@@ -543,7 +484,6 @@ a,
 .segmented-button,
 .sverige-toggle,
 .floating-filter-btn,
-.scroll-to-top-btn,
 .clickable-card {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
   will-change: transform, opacity;
@@ -554,8 +494,7 @@ button:active,
 a:active,
 .web-nav-item:active,
 .sverige-toggle:active,
-.floating-filter-btn:active,
-.scroll-to-top-btn:active {
+.floating-filter-btn:active {
   transform: scale(0.96) !important;
   opacity: 0.85 !important;
   transition: transform 0.05s cubic-bezier(0, 0, 0.2, 1), opacity 0.05s ease !important;
@@ -603,7 +542,6 @@ a:active,
 .web-nav-item:focus-visible,
 .sverige-toggle:focus-visible,
 .floating-filter-btn:focus-visible,
-.scroll-to-top-btn:focus-visible,
 .clickable-card:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;

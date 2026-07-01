@@ -12,7 +12,7 @@ import MatchCardSkeleton from './common/MatchCardSkeleton';
 import NavIconButton from './common/NavIconButton';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
-import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
+import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
 import FilterDrawer from './common/FilterDrawer';
 import HistoryIcon from '@mui/icons-material/History';
 import { getRelativeDateLabel } from '../utils/dateUtils';
@@ -36,7 +36,6 @@ const AllsvenskanKollen = () => {
     const tableRefs = React.useRef({});
     const maratonRefs = React.useRef({});
     const nextMatchRef = React.useRef(null);
-    const [showScrollTop, setShowScrollTop] = useState(false);
     const [error, setError] = useState(null);
     const [selectedSeason, setSelectedSeason] = useState(2026);
     const [selectedStatTable, setSelectedStatTable] = useState('2026');
@@ -67,16 +66,11 @@ const AllsvenskanKollen = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setShowScrollTop(window.scrollY > 400);
             setIsScrolled(window.scrollY > 10);
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
 
     useEffect(() => {
         const saved = localStorage.getItem('allsvenskan-koll-filter');
@@ -713,14 +707,6 @@ const AllsvenskanKollen = () => {
             className="page-transition"
             style={{ paddingBottom: '24px' }}
         >
-            <button
-                className={`scroll-to-top-btn ${showScrollTop ? 'visible' : ''}`}
-                onClick={scrollToTop}
-                aria-label="Scrolla till toppen"
-            >
-                <ArrowUp size={28} />
-            </button>
-
             <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{
                 backgroundColor: 'var(--color-glass-bg)',
                 color: 'var(--color-text)',
