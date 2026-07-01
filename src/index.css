@@ -138,14 +138,13 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@supports (height: 100dvh) {
-  .bottom-tab-bar-wrapper {
-    top: calc(100dvh - env(safe-area-inset-bottom, 0px));
-    bottom: auto;
-    transform: translateY(-100%);
+@supports (bottom: env(safe-area-inset-bottom)) {
+  @media (max-width: 900px) {
+    .bottom-tab-bar-wrapper {
+      bottom: max(0px, 100vh - 100dvh);
+    }
   }
 }
 
