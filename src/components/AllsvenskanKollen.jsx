@@ -9,6 +9,7 @@ import TeamLogo from './MatchCard/TeamLogo';
 import { cleanTeamNameForDisplay } from '../utils/teamUtils';
 import BoldSverige from './BoldSverige';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
+import NavIconButton from './common/NavIconButton';
 import FlagBadge from './common/FlagBadge';
 import { getFlagCode } from '../utils/flags';
 import { Calendar, List, BarChart3, Trophy, ChevronRight, ArrowLeftRight, Globe, X, ArrowUp, ArrowDown, ChevronDown, Filter, Play, Pause, Repeat, Users } from 'lucide-react';
@@ -720,98 +721,113 @@ const AllsvenskanKollen = () => {
                 <ArrowUp size={28} />
             </button>
 
-            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{ 
-                backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : '#ffffff',
+            <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{
+                backgroundColor: 'var(--color-glass-bg)',
                 color: 'var(--color-text)',
                 '--active-color': 'var(--color-text)',
                 '--inactive-color': 'var(--color-text-muted)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
                 boxShadow: 'none',
                 borderBottom: 'none',
-                backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-                WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none'
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                justifyContent: 'center'
             }}>
-                <div style={{ justifySelf: 'start', display: 'flex', alignItems: 'center' }}>
-                    <button
-                        onClick={() => navigate('/vm')}
-                        aria-label="Växla till VM 2026"
-                        style={{ 
-                            background: 'none', 
-                            border: 'none', 
-                            cursor: 'pointer',
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            gap: '10px',
-                            padding: '6px 8px',
-                            borderRadius: '12px',
-                            transition: 'background-color 0.2s',
-                        }}
-                    >
-                        <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan" style={{ height: '34px', objectFit: 'contain' }} />
-                    </button>
-                </div>
-                
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '12px' }}>
-                    {SUBTABS.map(tab => (
-                        <button 
-                            key={tab.id}
-                            type="button"
-                            className={`segmented-button ${activeTab === tab.id ? 'active' : ''}`}
-                            aria-current={activeTab === tab.id ? 'page' : undefined}
-                            aria-label={tab.label}
-                            onClick={() => {
-                                if (selectedMatch) {
-                                    setSelectedMatch(null);
-                                }
-                                if (tab.id === 'matcher' && activeTab === 'matcher') {
-                                    if (nextMatchRef.current) {
-                                        nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    } else {
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                    }
-                                } else {
-                                    setActiveTab(tab.id);
-                                    if (tab.id === 'gruppspel') {
-                                        setSelectedSeason(2026);
-                                        if (selectedSeason === 2026 && matchesData) {
-                                            setCurrentRoundSliderVal(maxPlayedRound);
-                                        }
-                                    }
-                                    window.scrollTo({ top: 0 });
-                                }
+                <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                    <div style={{
+                        position: 'absolute',
+                        left: '0',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10,
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}>
+                        <button
+                            onClick={() => navigate('/vm')}
+                            aria-label="Växla till VM 2026"
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                padding: '6px 8px',
+                                borderRadius: '12px',
+                                transition: 'background-color 0.2s',
                             }}
                         >
-                            <tab.icon size={20} />
+                            <img src={logosData['ALLSVENSKAN_LOGO'] || "https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Allsvenskan_logo.svg/800px-Allsvenskan_logo.svg.png"} alt="Allsvenskan" style={{ height: '34px', objectFit: 'contain' }} />
                         </button>
-                    ))}
-                </div>
+                    </div>
 
-                <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center' }}>
-                    <button
-                        onClick={(e) => {
-                            e.currentTarget.blur();
-                            if (filterTeam) {
-                                setFilterTeam(null);
-                            } else {
-                                handleMenuClick(e);
-                            }
-                        }}
-                        className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
-                        aria-label={filterTeam ? 'Rensa filter' : 'Välj lag att filtrera'}
-                        style={{ 
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        {filterTeam && getTeamLogo(filterTeam) ? (
-                            <div style={{ position: 'relative' }}>
-                                <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '34px', width: '34px', objectFit: 'contain' }} />
-                            </div>
-                        ) : (
-                            <Filter size={24} color="var(--color-text-muted)" strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
-                        )}
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '6px' }}>
+                        {SUBTABS.map(tab => (
+                            <NavIconButton
+                                key={tab.id}
+                                active={activeTab === tab.id}
+                                label={tab.label}
+                                onClick={() => {
+                                    if (selectedMatch) {
+                                        setSelectedMatch(null);
+                                    }
+                                    if (tab.id === 'matcher' && activeTab === 'matcher') {
+                                        if (nextMatchRef.current) {
+                                            nextMatchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        } else {
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }
+                                    } else {
+                                        setActiveTab(tab.id);
+                                        if (tab.id === 'gruppspel') {
+                                            setSelectedSeason(2026);
+                                            if (selectedSeason === 2026 && matchesData) {
+                                                setCurrentRoundSliderVal(maxPlayedRound);
+                                            }
+                                        }
+                                        window.scrollTo({ top: 0 });
+                                    }
+                                }}
+                            >
+                                <tab.icon size={18} />
+                            </NavIconButton>
+                        ))}
+                    </div>
+
+                    <div style={{
+                        position: 'absolute',
+                        right: '0',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        zIndex: 10
+                    }}>
+                        <button
+                            onClick={(e) => {
+                                e.currentTarget.blur();
+                                if (filterTeam) {
+                                    setFilterTeam(null);
+                                } else {
+                                    handleMenuClick(e);
+                                }
+                            }}
+                            className={`sverige-toggle ${filterTeam ? 'active' : ''}`}
+                            aria-label={filterTeam ? 'Rensa filter' : 'Välj lag att filtrera'}
+                            style={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
+                            {filterTeam && getTeamLogo(filterTeam) ? (
+                                <div style={{ position: 'relative' }}>
+                                    <img src={getTeamLogo(filterTeam)} alt="" style={{ height: '34px', width: '34px', objectFit: 'contain' }} />
+                                </div>
+                            ) : (
+                                <Filter size={24} color="var(--color-text-muted)" strokeWidth={1.5} style={{ transition: 'color 0.3s ease' }} aria-hidden="true" />
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -933,27 +949,13 @@ const AllsvenskanKollen = () => {
                                     </div>
                                 </div>
 
-                                <button 
-                                    className={`segmented-button ${matchStatusFilter === 'played' ? 'active' : ''}`}
+                                <NavIconButton
+                                    active={matchStatusFilter === 'played'}
                                     onClick={() => setMatchStatusFilter(prev => prev === 'upcoming' ? 'played' : 'upcoming')}
                                     title={matchStatusFilter === 'played' ? "Visa kommande matcher" : "Visa spelade matcher"}
-                                    style={{
-                                        backgroundColor: matchStatusFilter === 'played' ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                        borderRadius: '50%',
-                                        padding: '0',
-                                        width: '36px',
-                                        height: '36px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        transition: 'all 0.2s ease',
-                                        color: matchStatusFilter === 'played' ? 'white' : 'var(--color-text)',
-                                        border: 'none',
-                                        cursor: 'pointer'
-                                    }}
                                 >
                                     <HistoryIcon fontSize="small" style={{ transform: 'translateX(-1px)' }} />
-                                </button>
+                                </NavIconButton>
                             </div>
                             {loading ? (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

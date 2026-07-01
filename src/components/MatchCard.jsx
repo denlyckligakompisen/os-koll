@@ -133,7 +133,7 @@ const MatchCard = ({ match, idx, onCountryClick, onTeamClick, homeLogo, awayLogo
                         overflow: 'hidden',
                         textOverflow: 'ellipsis'
                     }}>{mainName}</span>
-                    {rank && <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '400', opacity: 0.6, whiteSpace: 'nowrap' }}>#{rank}</span>}
+                    {rank && rank !== 999 && <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: '400', opacity: 0.6, whiteSpace: 'nowrap' }}>#{rank}</span>}
                 </div>
             </div>
         );

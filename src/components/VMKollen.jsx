@@ -12,6 +12,7 @@ import SharedMatchTable from './common/SharedMatchTable';
 import { getFlagCodes, getFlagCode } from '../utils/flags';
 import FlagBadge from './common/FlagBadge';
 import MatchCardSkeleton from './common/MatchCardSkeleton';
+import NavIconButton from './common/NavIconButton';
 import { ChevronUp, ChevronDown, ArrowUp, Filter, X, Play, History, ListOrdered, Menu, List, Trophy } from 'lucide-react';
 import { getRelativeDateLabel, parseTournamentDate } from '../utils/dateUtils';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -1116,91 +1117,45 @@ const VMKollen = () => {
                         </button>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '12px' }}>
-                        <button
-                            type="button"
-                            className={`segmented-button ${(!showBracketModal && matchStatusFilter === 'upcoming') ? 'active' : ''}`}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', gap: '6px' }}>
+                        <NavIconButton
+                            active={!showBracketModal && matchStatusFilter === 'upcoming'}
                             onClick={() => {
                                 if (selectedMatch) setSelectedMatch(null);
                                 setShowBracketModal(false);
                                 setMatchStatusFilter('upcoming');
                             }}
-                            style={{
-                                backgroundColor: (!showBracketModal && matchStatusFilter === 'upcoming') ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                borderRadius: '50%',
-                                padding: '0',
-                                width: '36px',
-                                height: '36px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                transition: 'all 0.2s ease',
-                                color: (!showBracketModal && matchStatusFilter === 'upcoming') ? 'white' : 'var(--color-text)',
-                                border: 'none',
-                                cursor: 'pointer'
-                            }}
-                            aria-label="Visa kommande matcher"
+                            label="Visa kommande matcher"
                             title="Kommande matcher"
                         >
                             <EventIcon fontSize="small" />
-                        </button>
+                        </NavIconButton>
 
-                        <button
-                            type="button"
-                            className={`segmented-button ${showBracketModal ? 'active' : ''}`}
+                        <NavIconButton
+                            active={showBracketModal}
                             onClick={() => {
                                 if (selectedMatch) setSelectedMatch(null);
                                 setShowBracketModal(true);
                             }}
-                            style={{
-                                backgroundColor: showBracketModal ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                borderRadius: '50%',
-                                padding: '0',
-                                width: '36px',
-                                height: '36px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                transition: 'all 0.2s ease',
-                                color: showBracketModal ? 'white' : 'var(--color-text)',
-                                border: 'none',
-                                cursor: 'pointer'
-                            }}
-                            aria-label="Visa slutspelsträd"
+                            label="Visa slutspelsträd"
                             title="Slutspelsträd"
                         >
                             <Trophy size={18} style={{ transform: 'translateX(-0.5px)' }} />
-                        </button>
+                        </NavIconButton>
 
                         {combinedMatches.length > 0 && (
-                            <button 
-                                className={`segmented-button ${(!showBracketModal && matchStatusFilter === 'played') ? 'active' : ''}`}
+                            <NavIconButton
+                                active={!showBracketModal && matchStatusFilter === 'played'}
                                 onClick={() => {
                                     if (selectedMatch) setSelectedMatch(null);
                                     setShowBracketModal(false);
                                     setMatchStatusFilter('played');
                                 }}
                                 title="Visa grupper och tabeller"
-                                style={{
-                                    backgroundColor: (!showBracketModal && matchStatusFilter === 'played') ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
-                                    borderRadius: '50%',
-                                    padding: '0',
-                                    width: '36px',
-                                    height: '36px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    transition: 'all 0.2s ease',
-                                    color: (!showBracketModal && matchStatusFilter === 'played') ? 'white' : 'var(--color-text)',
-                                    border: 'none',
-                                    cursor: 'pointer'
-                                }}
                             >
                                 <FormatListBulletedIcon fontSize="small" />
-                            </button>
+                            </NavIconButton>
                         )}
-
-
                     </div>
 
                     <div style={{
