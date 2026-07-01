@@ -8,24 +8,26 @@ export const formatTmDate = (dateStr) => {
     return `${monthName} ${y}`;
 };
 
-export const convertValueToSek = (valueStr) => {
+// Fallback used if the live rate (public/data/exchange_rate.json) hasn't loaded yet
+export const DEFAULT_EUR_TO_SEK_RATE = 11.5;
+
+export const convertValueToSek = (valueStr, eurToSekRate = DEFAULT_EUR_TO_SEK_RATE) => {
     if (!valueStr || valueStr === '-') return '-';
     const match = valueStr.match(/([\d.]+)([km]?)/i);
     if (!match) return valueStr;
 
     let num = parseFloat(match[1]);
     const suffix = match[2].toLowerCase();
-    
+
     if (suffix === 'k') num *= 1000;
     else if (suffix === 'm') num *= 1000000;
-    
-    // Approximate EUR to SEK exchange rate (11.5)
-    const sekValue = num * 11.5;
-    
-    return (sekValue / 1000000).toFixed(1).replace('.', ',') + ' mnkr';
+
+    const sekValue = num * eurToSekRate;
+
+    return Math.round(sekValue / 1000000) + ' mnkr';
 };
 
-export const getRawSekValue = (valueStr) => {
+export const getRawSekValue = (valueStr, eurToSekRate = DEFAULT_EUR_TO_SEK_RATE) => {
     if (!valueStr || valueStr === '-') return 0;
     const match = valueStr.match(/([\d.]+)([km]?)/i);
     if (!match) return 0;
@@ -33,7 +35,7 @@ export const getRawSekValue = (valueStr) => {
     const suffix = match[2].toLowerCase();
     if (suffix === 'k') num *= 1000;
     else if (suffix === 'm') num *= 1000000;
-    return num * 11.5;
+    return num * eurToSekRate;
 };
 
 export const TEAM_COLORS = {

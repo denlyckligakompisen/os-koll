@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NavIconButton = ({ active, onClick, label, title, style, children }) => {
+const NavIconButton = ({ active, onClick, label, title, style, children, activeColor }) => {
     return (
         <button
             type="button"
@@ -9,7 +9,7 @@ const NavIconButton = ({ active, onClick, label, title, style, children }) => {
             aria-current={active ? 'page' : undefined}
             title={title}
             style={{
-                backgroundColor: active ? 'var(--color-primary)' : 'rgba(118, 118, 128, 0.12)',
+                backgroundColor: active ? (activeColor || 'var(--color-primary)') : 'rgba(118, 118, 128, 0.12)',
                 borderRadius: '50%',
                 padding: 0,
                 width: '40px',

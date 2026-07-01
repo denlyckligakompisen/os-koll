@@ -54,7 +54,7 @@ const AllsvenskanKollen = () => {
     const [currentRoundSliderVal, setCurrentRoundSliderVal] = useState(30);
     const [selectedMatch, setSelectedMatch] = useState(null);
 
-    const { matchesData, logosData, tableData, maratonData, squadsData, loading, liveError, isPlaying, setIsPlaying } = useAllsvenskanData(selectedSeason);
+    const { matchesData, logosData, tableData, maratonData, squadsData, exchangeRate, loading, liveError, isPlaying, setIsPlaying } = useAllsvenskanData(selectedSeason);
 
     const teams = useMemo(() => {
         if (!matchesData?.matches) return [];
@@ -743,6 +743,7 @@ const AllsvenskanKollen = () => {
                             <NavIconButton
                                 key={tab.id}
                                 active={activeTab === tab.id}
+                                activeColor={filterTeam ? headerStyle.bg : undefined}
                                 label={tab.label}
                                 onClick={() => {
                                     if (selectedMatch) {
@@ -1316,7 +1317,7 @@ const AllsvenskanKollen = () => {
                                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                                             <thead>
                                                 <tr style={{ borderBottom: 'var(--border)' }}>
-                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}>#</th>
+                                                    <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', width: '36px' }}></th>
                                                     <th scope="col" style={{ textAlign: 'left', padding: '8px 4px', color: 'var(--color-text-muted)', }}>LAG</th>
                                                     <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '35px' }}>SÄS</th>
                                                     <th scope="col" style={{ textAlign: 'center', padding: '8px 4px', color: 'var(--color-text-muted)', width: '45px' }}>M</th>
@@ -1475,7 +1476,7 @@ const AllsvenskanKollen = () => {
                                             let ageCount = 0;
                                             let totalSek = 0;
                                             players.forEach(p => {
-                                                totalSek += getRawSekValue(p.value);
+                                                totalSek += getRawSekValue(p.value, exchangeRate);
                                                 if (p.age) {
                                                     const match = p.age.match(/\((\d+)\)/);
                                                     let ageNum = match ? parseInt(match[1]) : parseInt(p.age);
@@ -1486,11 +1487,11 @@ const AllsvenskanKollen = () => {
                                                 }
                                             });
                                             const avgAge = ageCount > 0 ? (totalAge / ageCount).toFixed(1).replace('.', ',') : '-';
-                                            const totalValueFormatted = totalSek > 0 ? (totalSek / 1000000).toFixed(1).replace('.', ',') + ' mnkr' : '-';
+                                            const totalValueFormatted = totalSek > 0 ? Math.round(totalSek / 1000000) + ' mnkr' : '-';
 
                                             return (
                                                 <Card key={teamName} padding="0" style={{ overflow: 'hidden', border: 'var(--border)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-                                                    <div style={{ padding: '16px', background: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                                                    <div style={{ padding: '16px', background: 'var(--color-card-bg)', display: 'flex', alignItems: 'center', gap: '12px' }}>
                                                         <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(0,0,0,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,0,0,0.05)', flexShrink: 0 }}>
                                                             {logosData && logosData[teamName] ? (
                                                                 <img src={logosData[teamName]} alt="" style={{ width: '22px', height: '22px', objectFit: 'contain' }} />
@@ -1525,13 +1526,20 @@ const AllsvenskanKollen = () => {
                                                             });
 
                                                             return (
-                                                                <div key={groupName} style={{ padding: '12px 16px', borderTop: '1px solid rgba(0,0,0,0.04)' }}>
+                                                                <div key={groupName} style={{ padding: '12px 16px' }}>
                                                                     <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--color-text-muted)', letterSpacing: '0.05em', marginBottom: '10px' }}>
                                                                         {groupName} ({sortedPlayers.length})
                                                                     </div>
                                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                                                         {sortedPlayers.map((p, idx) => (
-                                                                            <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 10px', borderRadius: '8px', backgroundColor: 'rgba(0,0,0,0.02)' }}>
+                                                                            <div
+                                                                                key={idx}
+                                                                                onClick={p.profileUrl ? () => window.open(p.profileUrl, '_blank', 'noopener,noreferrer') : undefined}
+                                                                                role={p.profileUrl ? 'link' : undefined}
+                                                                                tabIndex={p.profileUrl ? 0 : undefined}
+                                                                                onKeyDown={p.profileUrl ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.open(p.profileUrl, '_blank', 'noopener,noreferrer'); } } : undefined}
+                                                                                style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '8px 10px', borderRadius: '8px', backgroundColor: 'rgba(0,0,0,0.02)', cursor: p.profileUrl ? 'pointer' : 'default' }}
+                                                                            >
                                                                                 <div style={{ width: '24px', fontSize: '0.8rem', color: p.number ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'center' }}>
                                                                                     {p.number || '-'}
                                                                                 </div>
@@ -1563,7 +1571,7 @@ const AllsvenskanKollen = () => {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div style={{ fontSize: '0.75rem', color: p.value && p.value !== '-' ? 'var(--color-text)' : 'var(--color-text-muted)', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                                                                                    {convertValueToSek(p.value)}
+                                                                                    {convertValueToSek(p.value, exchangeRate)}
                                                                                 </div>
                                                                             </div>
                                                                         ))}

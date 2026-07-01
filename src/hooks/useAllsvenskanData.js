@@ -22,6 +22,7 @@ export const useAllsvenskanData = (selectedSeason) => {
     const [tableData, setTableData] = useState(null);
     const [maratonData, setMaratonData] = useState(null);
     const [squadsData, setSquadsData] = useState(null);
+    const [exchangeRate, setExchangeRate] = useState(11.5);
     const [loading, setLoading] = useState(true);
     const [liveError, setLiveError] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -65,6 +66,19 @@ export const useAllsvenskanData = (selectedSeason) => {
                     }
                 } catch (e) {
                     // Squads data not available yet - ignore
+                }
+
+                // Exchange rate loaded separately, falls back to hardcoded default if missing
+                let fetchedExchangeRate = null;
+                try {
+                    const rateRes = await fetch('/data/exchange_rate.json');
+                    const contentType = rateRes.headers.get('content-type') || '';
+                    if (rateRes.ok && contentType.includes('application/json')) {
+                        const rateData = await rateRes.json();
+                        if (typeof rateData?.rate === 'number') fetchedExchangeRate = rateData.rate;
+                    }
+                } catch (e) {
+                    // Exchange rate data not available yet - ignore
                 }
 
                 // ---- LOCALSTORAGE CACHE ----
@@ -225,6 +239,7 @@ export const useAllsvenskanData = (selectedSeason) => {
                 setTableData(table);
                 setMaratonData(maraton);
                 if (squads) setSquadsData(squads);
+                if (fetchedExchangeRate) setExchangeRate(fetchedExchangeRate);
                 if (!isBackground) setLoading(false);
             } catch (error) {
                 console.error(`Error fetching Allsvenskan data for season ${selectedSeason}:`, error);
@@ -278,6 +293,7 @@ export const useAllsvenskanData = (selectedSeason) => {
         tableData,
         maratonData,
         squadsData,
+        exchangeRate,
         loading,
         liveError,
         isPlaying,

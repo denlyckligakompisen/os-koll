@@ -11,6 +11,7 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { fetchAndSaveExchangeRate } from './lib/fetchExchangeRate.js';
 
 const SEASON_ID = '2025'; // 2025/26 season
 const LEAGUE_URL = `https://www.transfermarkt.com/allsvenskan/transfers/wettbewerb/SE1/plus/0?saison_id=${SEASON_ID}&s_w=&leihe=1&intern=0`;
@@ -43,6 +44,8 @@ function sleep(ms) {
 
 async function main() {
     console.log('🔄 Scraping Allsvenskan transfers from Transfermarkt...\n');
+
+    await fetchAndSaveExchangeRate();
 
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({

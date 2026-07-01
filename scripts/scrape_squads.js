@@ -11,6 +11,7 @@
 import fs from 'fs';
 import path from 'path';
 import { chromium } from 'playwright';
+import { fetchAndSaveExchangeRate } from './lib/fetchExchangeRate.js';
 
 const SEASON_ID = '2025'; // 2025/26 season
 const LEAGUE_URL = `https://www.transfermarkt.com/allsvenskan/startseite/wettbewerb/SE1`;
@@ -55,6 +56,8 @@ function sleep(ms) {
 
 async function main() {
     console.log('🤖 Scraping Allsvenskan player squads from Transfermarkt...\n');
+
+    await fetchAndSaveExchangeRate();
 
     const browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
@@ -136,6 +139,7 @@ async function main() {
 
                 squad.push({
                     name: nameEl.textContent.trim(),
+                    profileUrl: nameEl.href || null,
                     position: positionEl ? positionEl.textContent.trim() : 'Unknown',
                     number: numEl && numEl.textContent.trim() !== '-' ? numEl.textContent.trim() : null,
                     age: ageEl ? ageEl.textContent.trim() : '',
