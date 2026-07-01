@@ -138,12 +138,15 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 @supports (bottom: env(safe-area-inset-bottom)) {
   @media (max-width: 900px) {
     .bottom-tab-bar-wrapper {
       bottom: max(0px, 100vh - 100dvh);
+      transition: bottom 0.15s ease-out;
     }
   }
 }
@@ -303,6 +306,8 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid var(--border-color, rgba(0,0,0,0.05));
   margin: 0;
   width: 100%;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .header-logo {
@@ -516,11 +521,6 @@ a:active,
   transition: transform 0.05s cubic-bezier(0, 0, 0.2, 1), opacity 0.05s ease !important;
 }
 
-.clickable-card:active {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-  transform: scale(0.98) !important;
-  transition: background-color 0.05s ease, transform 0.05s cubic-bezier(0, 0, 0.2, 1) !important;
-}
 
 @media (hover: hover) and (pointer: fine) {
   .clickable-card:hover {
@@ -561,6 +561,12 @@ a:active,
 .clickable-card:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
+}
+
+.bottom-tab-bar-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 12px;
 }
 
 select:focus-visible {

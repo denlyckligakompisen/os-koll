@@ -699,16 +699,18 @@ const AllsvenskanKollen = () => {
             style={{ paddingBottom: '24px' }}
         >
             <div className={`nav-container ${isScrolled ? 'scrolled' : ''}`} style={{
-                backgroundColor: 'var(--color-glass-bg)',
-                color: 'var(--color-text)',
-                '--active-color': 'var(--color-text)',
-                '--inactive-color': 'var(--color-text-muted)',
+                backgroundColor: filterTeam ? headerStyle.bg : 'var(--color-glass-bg)',
+                color: filterTeam ? headerStyle.text : 'var(--color-text)',
+                '--active-color': filterTeam ? headerStyle.activeLine : 'var(--color-text)',
+                '--inactive-color': filterTeam ? headerStyle.inactiveText : 'var(--color-text-muted)',
                 transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
                 boxShadow: 'none',
                 borderBottom: 'none',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                position: 'sticky',
+                top: 0
             }}>
                 <div style={{ maxWidth: '600px', width: '100%', display: 'flex', justifyContent: 'center', position: 'relative' }}>
                     <div style={{

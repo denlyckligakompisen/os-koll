@@ -111,6 +111,7 @@ const renderTeamName = (name, align = 'center', rank = null) => {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', justifyContent: align === 'center' ? 'center' : (align === 'right' ? 'flex-end' : 'flex-start'), maxWidth: '100%' }}>
                     <span style={{
                         fontWeight: 'inherit',
+                        lineHeight: 1.3,
                         hyphens: align === 'center' ? 'auto' : 'none',
                         WebkitHyphens: align === 'center' ? 'auto' : 'none',
                         wordBreak: align === 'center' ? 'break-word' : 'normal',

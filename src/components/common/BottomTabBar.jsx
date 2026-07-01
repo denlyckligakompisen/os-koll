@@ -1,33 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const BottomTabBar = ({ tabs, activeId, onSelect, activeColor }) => {
-    // Some mobile browsers (notably iOS Safari) only recompute dvh-based layout
-    // on an actual scroll event, so a page that grows from a short skeleton to
-    // long real content can leave this bar mispositioned until the user scrolls.
-    // Nudge the viewport programmatically whenever the page's height actually
-    // changes (data finishes loading, tab switches, etc.) to force that recalc.
-    useEffect(() => {
-        if (typeof window === 'undefined' || typeof ResizeObserver === 'undefined') return;
-        const nudge = () => {
-            const y = window.scrollY;
-            window.scrollTo(0, y + 1);
-            window.scrollTo(0, y);
-        };
-        const timers = [];
-        const observer = new ResizeObserver(() => {
-            // The browser doesn't always settle its dvh value in the same frame
-            // the page becomes scrollable, so retry the nudge a few times.
-            [0, 50, 150, 350].forEach(delay => {
-                timers.push(setTimeout(nudge, delay));
-            });
-        });
-        observer.observe(document.body);
-        return () => {
-            observer.disconnect();
-            timers.forEach(clearTimeout);
-        };
-    }, []);
-
     return (
         <div className="bottom-tab-bar-wrapper" style={{
             display: 'flex',
@@ -53,6 +26,7 @@ const BottomTabBar = ({ tabs, activeId, onSelect, activeColor }) => {
                         <button
                             key={tab.id}
                             type="button"
+                            className="bottom-tab-bar-btn"
                             onClick={() => onSelect(tab.id)}
                             aria-label={tab.label}
                             aria-current={active ? 'page' : undefined}
@@ -65,7 +39,11 @@ const BottomTabBar = ({ tabs, activeId, onSelect, activeColor }) => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
+                                justifyContent: 'center',
                                 gap: '4px',
+                                minWidth: '44px',
+                                minHeight: '44px',
+                                borderRadius: '12px',
                                 color,
                                 transition: 'color 0.2s ease'
                             }}

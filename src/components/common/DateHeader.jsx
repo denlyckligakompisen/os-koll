@@ -16,7 +16,7 @@ const DateHeader = ({ date, monthMap, labelOverride }) => {
             color: 'var(--color-text-muted)',
             marginTop: '8px',
             position: 'sticky',
-            top: 0,
+            top: 'var(--spacing-5xl)',
             zIndex: 10,
             margin: '8px -16px 0 -16px',
             background: 'rgba(242, 242, 246, 0.85)',
